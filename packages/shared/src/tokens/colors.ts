@@ -1,6 +1,9 @@
 /**
- * Color primitives. They carry no semantics on their own: that is the job of
- * the component tokens (see `button.tokens.ts`).
+ * Color primitives.
+ *
+ * These carry no semantics on their own — they are raw values named after the
+ * hue and its lightness step. Meaning is assigned by the component tokens (see
+ * `button.tokens.ts`), so a component never references a primitive directly.
  */
 export const colors = {
   white: '#ffffff',
@@ -14,4 +17,5 @@ export const colors = {
   slate900: '#0f172a',
 } as const;
 
+/** Every valid key of {@link colors}. */
 export type TColorName = keyof typeof colors;
