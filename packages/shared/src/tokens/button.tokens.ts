@@ -32,6 +32,10 @@ export interface IButtonVariantTokens {
  *
  * All values are unitless: mobile passes them straight to `StyleSheet`, web
  * mirrors them as `px` custom properties.
+ *
+ * Note that the web Button opts out of `borderRadius`: it renders as a pill at
+ * every size. The field is still the source of truth for platforms that follow
+ * the scale.
  */
 export interface IButtonSizeTokens {
   /** Vertical padding, unitless. */
@@ -40,7 +44,7 @@ export interface IButtonSizeTokens {
   paddingHorizontal: number;
   /** Label font size, unitless. */
   fontSize: number;
-  /** Corner radius, unitless. */
+  /** Corner radius, unitless. Not used by the web Button, which is a pill. */
   borderRadius: number;
 }
 

@@ -101,7 +101,10 @@ Steps:
 - Component files and folders use `PascalCase`; everything else uses `camelCase`.
 - Boolean props are prefixed with `is` (`isDisabled`).
 - CSS classes are prefixed with `dsm-` and use BEM modifiers (`dsm-button--primary`).
-- Web and mobile do not share styles: they share **types and tokens**.
+- Web and mobile do not share styles: they share **types and token values**. Each platform
+  owns its own presentation and is expected to diverge where the platform calls for it — the
+  web Button is a pill with an uppercase label and a hover lift, the native one is a rounded
+  rectangle.
 
 ## Monorepo notes
 

@@ -1,11 +1,18 @@
 /*
- * CSS mirror of the `@dsm/shared` tokens.
+ * Design tokens for the web package, in two clearly separated groups.
  *
- * Kept by hand on purpose at this stage: CSS cannot import values from
- * TypeScript. Later on this file can be generated from
- * `packages/shared/src/tokens`.
+ * 1. MIRRORED FROM @dsm/shared — kept by hand because CSS cannot import values
+ *    from TypeScript. If one of these changes in `packages/shared/src/tokens`,
+ *    it has to change here too. Later on this group could be generated.
+ *
+ * 2. WEB ONLY — decisions with no equivalent in shared, because they only make
+ *    sense in a browser. The web Button is a pill with an uppercase label and a
+ *    hover lift; the React Native one is not. Both still honour the same
+ *    contract and the same colour and spacing scales.
  */
 :root {
+  /* ── 1. mirrored from @dsm/shared ─────────────────────────────────────── */
+
   /* color primitives */
   --dsm-color-white: #ffffff;
   --dsm-color-blue-600: #2563eb;
@@ -28,7 +35,8 @@
   --dsm-spacing-lg: 16px;
   --dsm-spacing-xl: 24px;
 
-  /* radii */
+  /* radii — used by consumers of the package; the Button itself opts out in
+     favour of the pill radius below */
   --dsm-radius-sm: 4px;
   --dsm-radius-md: 8px;
   --dsm-radius-lg: 12px;
@@ -50,4 +58,14 @@
   --dsm-button-secondary-border-disabled: var(--dsm-color-slate-200);
   --dsm-button-secondary-label: var(--dsm-color-slate-900);
   --dsm-button-secondary-label-disabled: var(--dsm-color-slate-400);
+
+  /* ── 2. web only ──────────────────────────────────────────────────────── */
+
+  /* Large enough to stay a pill at every size, capped by the button height. */
+  --dsm-button-web-radius: 999px;
+  --dsm-button-web-letter-spacing: 0.06em;
+  /* Shadows are slate-900 at low alpha, so they read as depth and not as grey. */
+  --dsm-button-web-shadow: 0 1px 2px rgb(15 23 42 / 8%);
+  --dsm-button-web-shadow-hover: 0 4px 10px rgb(15 23 42 / 14%);
+  --dsm-button-web-lift: -1px;
 }

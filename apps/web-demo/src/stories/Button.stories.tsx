@@ -31,8 +31,10 @@ const meta = {
       description: {
         component:
           'Use the **Platform** dropdown in the toolbar to switch between the React ' +
-          'implementation (`@dsm/web`) and the React Native one (`@dsm/mobile`). Both ' +
-          'are driven by the same props and the same design tokens.',
+          'implementation (`@dsm/web`) and the React Native one (`@dsm/mobile`). They ' +
+          'take the same props and share the same colour and spacing scales, but each ' +
+          'owns its own look: the web one is a pill with an uppercase label and a hover ' +
+          'lift, the native one is a rounded rectangle.',
       },
     },
   },

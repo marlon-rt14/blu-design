@@ -15,14 +15,25 @@ Components live in `packages/` and are consumed by the demo apps in `apps/`.
 Every story renders **both** implementations. Use the **Platform** dropdown in the
 toolbar above to choose which one you are looking at:
 
-| Option | Package | How it renders here |
-| --- | --- | --- |
-| React | `@dsm/web` | Natively in the browser |
-| React Native | `@dsm/mobile` | Through react-native-web |
+| Option | Package | How it renders here | Look |
+| --- | --- | --- | --- |
+| React | `@dsm/web` | Natively in the browser | Pill, uppercase label, hover lift |
+| React Native | `@dsm/mobile` | Through react-native-web | Rounded rectangle |
 
 A story is written once, against the shared contract, and the dropdown decides
-which component receives the props. If the two implementations ever drift apart,
-flipping the dropdown makes it obvious.
+which component receives the props.
+
+## Same contract, different look
+
+The two implementations are **not** meant to look identical. They share:
+
+- the props contract (`IButtonBaseProps` from `@dsm/shared`)
+- the colour palette and the padding / font-size scales
+
+and each one owns its own presentation. The web Button leans on browser
+affordances — a pill shape, an uppercase label, a resting shadow and a lift on
+hover — none of which mean anything on a touch surface. Flip the dropdown to see
+it: the difference is deliberate, not drift.
 
 ## Adding a component
 

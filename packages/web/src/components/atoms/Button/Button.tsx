@@ -8,8 +8,13 @@ import { useButton } from './useButton';
  * Web Button — the primary way to trigger an action.
  *
  * Renders a real `<button>` element, so keyboard activation, focus rings and
- * form semantics come for free. Styling is driven entirely by the design tokens
- * exposed as CSS custom properties.
+ * form semantics come for free.
+ *
+ * Visually it diverges from the React Native Button on purpose — pill shape,
+ * uppercase label, resting shadow and a lift on hover — because those are
+ * browser affordances that mean nothing on a touch surface. The props contract
+ * and the colour and spacing scales are the same on both platforms. See
+ * `Button.css` for the reasoning.
  *
  * @example
  * ```tsx

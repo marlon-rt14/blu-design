@@ -1,25 +1,65 @@
+/*
+ * The web Button deliberately diverges from the React Native one: it is a pill
+ * with an uppercase label, a resting shadow and a lift on hover. Those are
+ * browser-idiomatic affordances — a hover state means nothing on a touch
+ * surface — so the shape and typography decisions live here, in the web
+ * package, instead of in the shared tokens.
+ *
+ * What is still shared with mobile: the colours and the padding / font-size
+ * scales, which come from @dsm/shared through styles/tokens.css. The contract
+ * (variants, sizes, disabled) is identical on both platforms; only the look
+ * differs.
+ */
 .dsm-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border: 1px solid transparent;
-  border-radius: var(--dsm-radius-md);
+  /* A pill on every size: web ignores buttonSizeTokens.borderRadius on purpose. */
+  border-radius: var(--dsm-button-web-radius);
   font-family: inherit;
   font-weight: var(--dsm-font-weight-semibold);
   line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: var(--dsm-button-web-letter-spacing);
   cursor: pointer;
+  box-shadow: var(--dsm-button-web-shadow);
   transition:
     background-color 120ms ease,
-    border-color 120ms ease;
+    border-color 120ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.dsm-button:hover:not(:disabled) {
+  box-shadow: var(--dsm-button-web-shadow-hover);
+  transform: translateY(var(--dsm-button-web-lift));
+}
+
+.dsm-button:active:not(:disabled) {
+  box-shadow: var(--dsm-button-web-shadow);
+  transform: translateY(0);
 }
 
 .dsm-button:disabled {
   cursor: not-allowed;
+  box-shadow: none;
 }
 
 .dsm-button:focus-visible {
   outline: 2px solid var(--dsm-color-blue-600);
   outline-offset: 2px;
+}
+
+/* The lift is decoration, not information: drop it when motion is unwelcome. */
+@media (prefers-reduced-motion: reduce) {
+  .dsm-button {
+    transition: none;
+  }
+
+  .dsm-button:hover:not(:disabled) {
+    transform: none;
+  }
 }
 
 /* variants */
@@ -57,21 +97,18 @@
   color: var(--dsm-button-secondary-label-disabled);
 }
 
-/* sizes */
+/* sizes — no border-radius here, the pill radius is set once above */
 .dsm-button--small {
   padding: var(--dsm-spacing-sm) var(--dsm-spacing-md);
-  border-radius: var(--dsm-radius-sm);
   font-size: var(--dsm-font-size-sm);
 }
 
 .dsm-button--medium {
   padding: var(--dsm-spacing-md) var(--dsm-spacing-lg);
-  border-radius: var(--dsm-radius-md);
   font-size: var(--dsm-font-size-md);
 }
 
 .dsm-button--large {
   padding: var(--dsm-spacing-lg) var(--dsm-spacing-xl);
-  border-radius: var(--dsm-radius-lg);
   font-size: var(--dsm-font-size-lg);
 }
