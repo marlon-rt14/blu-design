@@ -43,12 +43,33 @@ cd apps/react-native-demo/ios && pod install && cd -
 | `pnpm android`       | Builds and launches the demo on an emulator/device       |
 | `pnpm typecheck`     | `tsc` across all 5 projects                              |
 | `pnpm build`         | Production build of the web demo                         |
+| `pnpm storybook`     | Storybook for the design system, on port 6006             |
+| `pnpm build-storybook` | Static Storybook build into `storybook-static/`        |
 | `pnpm test`          | Tests (jest in the React Native app)                     |
 | `pnpm lint`          | oxlint in the web demo, eslint in the React Native one   |
 
 The `packages/` are consumed as **TypeScript source** (`main` points at `src/index.ts`): they have no
 build step, and Vite and Metro transpile them directly. Editing a design system component hot-reloads
 in the web demo.
+
+## Storybook
+
+`pnpm storybook` serves a single Storybook that documents **both** implementations.
+The **Platform** dropdown in the toolbar decides which one renders:
+
+| Option | Package | How it renders |
+| --- | --- | --- |
+| React | `@dsm/web` | Natively in the browser |
+| React Native | `@dsm/mobile` | Through react-native-web |
+
+Stories are written once, against the shared `@dsm/shared` contract, and
+`apps/web-demo/src/stories/PlatformButton.tsx` maps the neutral `onAction` prop to
+whichever handler each platform expects (`onClick` vs `onPress`). Copy that helper's
+shape when adding the next component.
+
+Autodocs are enabled globally in `.storybook/preview.tsx`, so every component gets a
+Docs page with its props table. The tables declare `argTypes` explicitly because
+react-docgen cannot resolve props inherited from another package.
 
 ## Adding a component
 
@@ -88,6 +109,12 @@ Steps:
   the logs and exit code of a previous run, and that green checkmark can look like something works
   when it was never re-executed. Turbo is kept here only for topological ordering and parallelism. To
   re-enable it, remove `"cache": false` from the specific task.
+- **One React for the whole workspace**, forced with `overrides` in `pnpm-workspace.yaml`.
+  React Native 0.87 pins react 19.2.3 because its bundled renderer is built against
+  that version, while the web app asks for a newer one. With a flat `node_modules`
+  only one can win the root and the other gets nested copies — two React instances,
+  which surface as "Invalid hook call". Aligning on React Native's version is the safe
+  direction; the web app is happy on it.
 - `nodeLinker: hoisted` in `pnpm-workspace.yaml` gives a flat `node_modules`, because React Native
   autolinking (CocoaPods/Gradle) does not cope well with the symlinks of pnpm's isolated layout.
 - `apps/react-native-demo/metro.config.js` adds `watchFolders` for the monorepo root and pins

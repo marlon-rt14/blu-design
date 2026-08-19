@@ -1,0 +1,13 @@
+/*
+ * Base typography for the story canvas, so both implementations render in the
+ * same font as the demo apps.
+ */
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  color: var(--dsm-color-slate-900);
+}

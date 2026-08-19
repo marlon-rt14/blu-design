@@ -7,3 +7,23 @@ packages:
 # with the symlinks of pnpm's isolated layout.
 # Since pnpm 10 this option belongs here, not in .npmrc.
 nodeLinker: hoisted
+
+# One React for the whole workspace.
+#
+# React Native 0.87 pins react 19.2.3 exactly, because its bundled renderer is
+# built against that version. The web app asks for ^19.2.8, and with a flat
+# node_modules only one of them can win the root: the other gets nested copies.
+# That means two React instances in the same process, which shows up as
+# "Invalid hook call" — it broke the React Native app's jest suite as soon as
+# Storybook pulled a newer react into the root.
+#
+# Aligning on the version React Native chose is the safe direction: the web app
+# works fine on 19.2.3, whereas React Native is strict about matching its renderer.
+overrides:
+  react: 19.2.3
+  react-dom: 19.2.3
+
+# esbuild's install script links the platform-specific native binary; without it
+# esbuild fails at runtime with an "installed for another platform" error.
+allowBuilds:
+  esbuild: true

@@ -8,20 +8,27 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "typecheck": "tsc -b"
+    "typecheck": "tsc -b",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@dsm/mobile": "workspace:*",
     "@dsm/shared": "workspace:*",
     "@dsm/web": "workspace:*",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
+    "@storybook/addon-docs": "^10.5.9",
+    "@storybook/react-vite": "^10.5.9",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.4",
     "oxlint": "^1.75.0",
+    "react-native-web": "^0.21.2",
+    "storybook": "^10.5.9",
     "typescript": "~6.0.2",
     "vite": "^8.2.0"
   }

@@ -1,0 +1,41 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+# Design system
+
+Components live in `packages/` and are consumed by the demo apps in `apps/`.
+
+- **`@dsm/shared`** — the platform-agnostic contract: base types and design tokens.
+- **`@dsm/web`** — the React implementation, styled with plain CSS.
+- **`@dsm/mobile`** — the React Native implementation, styled with `StyleSheet`.
+
+## Switching platform
+
+Every story renders **both** implementations. Use the **Platform** dropdown in the
+toolbar above to choose which one you are looking at:
+
+| Option | Package | How it renders here |
+| --- | --- | --- |
+| React | `@dsm/web` | Natively in the browser |
+| React Native | `@dsm/mobile` | Through react-native-web |
+
+A story is written once, against the shared contract, and the dropdown decides
+which component receives the props. If the two implementations ever drift apart,
+flipping the dropdown makes it obvious.
+
+## Adding a component
+
+Each component is a folder of five files — see `Button` as the reference:
+
+```
+Button/
+├── index.ts           # public barrel
+├── Button.tsx         # presentation, no styling logic
+├── Button.types.ts    # props, extending the shared base contract
+├── useButton.ts       # hook that resolves styles from the props
+└── Button.css         # styles (on mobile: Button.styles.ts)
+```
+
+The shared contract goes in `@dsm/shared` first, without event handlers — each
+platform adds its own (`onClick` vs `onPress`).
