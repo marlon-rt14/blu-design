@@ -1,0 +1,33 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  // Caching is intentionally disabled on every task: a cache hit replays the
+  // logs and exit code of a previous run, and that green checkmark can look
+  // like something works when it was never re-executed. Turbo is kept here
+  // only for topological ordering and parallelism.
+  // To re-enable it, remove "cache": false from the specific task.
+  "tasks": {
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "start": {
+      "cache": false,
+      "persistent": true
+    },
+    "build": {
+      "cache": false,
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "typecheck": {
+      "cache": false,
+      "dependsOn": ["^typecheck"]
+    },
+    "lint": {
+      "cache": false
+    },
+    "test": {
+      "cache": false
+    }
+  }
+}

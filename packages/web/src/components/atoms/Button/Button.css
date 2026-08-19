@@ -1,0 +1,77 @@
+.dsm-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: var(--dsm-radius-md);
+  font-family: inherit;
+  font-weight: var(--dsm-font-weight-semibold);
+  line-height: 1.2;
+  cursor: pointer;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease;
+}
+
+.dsm-button:disabled {
+  cursor: not-allowed;
+}
+
+.dsm-button:focus-visible {
+  outline: 2px solid var(--dsm-color-blue-600);
+  outline-offset: 2px;
+}
+
+/* variants */
+.dsm-button--primary {
+  background-color: var(--dsm-button-primary-background);
+  border-color: var(--dsm-button-primary-border);
+  color: var(--dsm-button-primary-label);
+}
+
+.dsm-button--primary:hover:not(:disabled),
+.dsm-button--primary:active:not(:disabled) {
+  background-color: var(--dsm-button-primary-background-pressed);
+}
+
+.dsm-button--primary:disabled {
+  background-color: var(--dsm-button-primary-background-disabled);
+  border-color: var(--dsm-button-primary-border-disabled);
+  color: var(--dsm-button-primary-label-disabled);
+}
+
+.dsm-button--secondary {
+  background-color: var(--dsm-button-secondary-background);
+  border-color: var(--dsm-button-secondary-border);
+  color: var(--dsm-button-secondary-label);
+}
+
+.dsm-button--secondary:hover:not(:disabled),
+.dsm-button--secondary:active:not(:disabled) {
+  background-color: var(--dsm-button-secondary-background-pressed);
+}
+
+.dsm-button--secondary:disabled {
+  background-color: var(--dsm-button-secondary-background-disabled);
+  border-color: var(--dsm-button-secondary-border-disabled);
+  color: var(--dsm-button-secondary-label-disabled);
+}
+
+/* sizes */
+.dsm-button--small {
+  padding: var(--dsm-spacing-sm) var(--dsm-spacing-md);
+  border-radius: var(--dsm-radius-sm);
+  font-size: var(--dsm-font-size-sm);
+}
+
+.dsm-button--medium {
+  padding: var(--dsm-spacing-md) var(--dsm-spacing-lg);
+  border-radius: var(--dsm-radius-md);
+  font-size: var(--dsm-font-size-md);
+}
+
+.dsm-button--large {
+  padding: var(--dsm-spacing-lg) var(--dsm-spacing-xl);
+  border-radius: var(--dsm-radius-lg);
+  font-size: var(--dsm-font-size-lg);
+}

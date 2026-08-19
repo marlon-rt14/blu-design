@@ -1,0 +1,53 @@
+/*
+ * CSS mirror of the `@dsm/shared` tokens.
+ *
+ * Kept by hand on purpose at this stage: CSS cannot import values from
+ * TypeScript. Later on this file can be generated from
+ * `packages/shared/src/tokens`.
+ */
+:root {
+  /* color primitives */
+  --dsm-color-white: #ffffff;
+  --dsm-color-blue-600: #2563eb;
+  --dsm-color-blue-700: #1d4ed8;
+  --dsm-color-slate-100: #f1f5f9;
+  --dsm-color-slate-200: #e2e8f0;
+  --dsm-color-slate-300: #cbd5e1;
+  --dsm-color-slate-400: #94a3b8;
+  --dsm-color-slate-900: #0f172a;
+
+  /* typography */
+  --dsm-font-size-sm: 14px;
+  --dsm-font-size-md: 16px;
+  --dsm-font-size-lg: 18px;
+  --dsm-font-weight-semibold: 600;
+
+  /* spacing */
+  --dsm-spacing-sm: 8px;
+  --dsm-spacing-md: 12px;
+  --dsm-spacing-lg: 16px;
+  --dsm-spacing-xl: 24px;
+
+  /* radii */
+  --dsm-radius-sm: 4px;
+  --dsm-radius-md: 8px;
+  --dsm-radius-lg: 12px;
+
+  /* button · primary variant */
+  --dsm-button-primary-background: var(--dsm-color-blue-600);
+  --dsm-button-primary-background-pressed: var(--dsm-color-blue-700);
+  --dsm-button-primary-background-disabled: var(--dsm-color-slate-200);
+  --dsm-button-primary-border: transparent;
+  --dsm-button-primary-border-disabled: transparent;
+  --dsm-button-primary-label: var(--dsm-color-white);
+  --dsm-button-primary-label-disabled: var(--dsm-color-slate-400);
+
+  /* button · secondary variant */
+  --dsm-button-secondary-background: var(--dsm-color-white);
+  --dsm-button-secondary-background-pressed: var(--dsm-color-slate-100);
+  --dsm-button-secondary-background-disabled: var(--dsm-color-slate-100);
+  --dsm-button-secondary-border: var(--dsm-color-slate-300);
+  --dsm-button-secondary-border-disabled: var(--dsm-color-slate-200);
+  --dsm-button-secondary-label: var(--dsm-color-slate-900);
+  --dsm-button-secondary-label-disabled: var(--dsm-color-slate-400);
+}

@@ -1,0 +1,9 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+
+# Flat node_modules, like npm/yarn classic.
+# React Native (Metro plus CocoaPods/Gradle autolinking) does not cope well
+# with the symlinks of pnpm's isolated layout.
+# Since pnpm 10 this option belongs here, not in .npmrc.
+nodeLinker: hoisted

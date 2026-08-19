@@ -1,0 +1,19 @@
+{
+  "name": "new-design-system",
+  "private": true,
+  "packageManager": "pnpm@11.22.0",
+  "scripts": {
+    "dev:web": "turbo run dev --filter=web-demo",
+    "start:mobile": "turbo run start --filter=ReactNativeDemo",
+    "ios": "pnpm --filter ReactNativeDemo run ios",
+    "android": "pnpm --filter ReactNativeDemo run android",
+    "typecheck": "turbo run typecheck",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test"
+  },
+  "devDependencies": {
+    "turbo": "^2.10.11",
+    "typescript": "^6.0.3"
+  }
+}
