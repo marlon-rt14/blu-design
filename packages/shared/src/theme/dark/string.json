@@ -24,11 +24,11 @@
           "description": "Familia tipografica del sistema de Android. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — quien lo consume es 5. Platform/platform/font/family en modo android. Roboto mide y renderiza bien del lado agente. Sus pesos se escriben 'SemiBold' con B mayuscula — SF Pro usa 'Semibold' junto."
         },
         "text": {
-          "value": "{string.font.family.mulish}",
+          "value": "Mulish",
           "type": "string"
         },
         "mono_1": {
-          "value": "{string.font.family.mono}",
+          "value": "IBM Plex Mono",
           "type": "string"
         }
       }
@@ -56,22 +56,22 @@
           "description": "Curva de aceleracion cubic-bezier(0.3, 0, 0, 1). standard para cambios dentro de la pantalla, enter para lo que aparece, exit para lo que se va, emphasized para lo que quiere atencion. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
         },
         "standard_1": {
-          "value": "{string.motion.easing.standard}",
+          "value": "cubic-bezier(0.2, 0, 0, 1)",
           "type": "string",
           "description": "Movimiento general dentro de la pantalla. El exporter lo traduce a Easing de RN o a CSS."
         },
         "enter_1": {
-          "value": "{string.motion.easing.enter}",
+          "value": "cubic-bezier(0, 0, 0, 1)",
           "type": "string",
           "description": "Algo que aparece: desacelera al llegar. El exporter lo traduce a Easing de RN o a CSS."
         },
         "exit_1": {
-          "value": "{string.motion.easing.exit}",
+          "value": "cubic-bezier(0.3, 0, 1, 1)",
           "type": "string",
           "description": "Algo que desaparece: acelera al salir. El exporter lo traduce a Easing de RN o a CSS."
         },
         "emphasized_1": {
-          "value": "{string.motion.easing.emphasized}",
+          "value": "cubic-bezier(0.3, 0, 0, 1)",
           "type": "string",
           "description": "Transiciones de pantalla y momentos destacados. El exporter lo traduce a Easing de RN o a CSS."
         }
@@ -104,7 +104,7 @@
           }
         },
         "family": {
-          "value": "{string.font.family.mulish}",
+          "value": "Mulish",
           "type": "string",
           "description": "Web hace alias a font/family/mulish (marca). iOS y Android son constantes del sistema operativo. OJO: SF Pro solo mide bien en maquinas con la fuente instalada; el render de Figma no la mide."
         }
