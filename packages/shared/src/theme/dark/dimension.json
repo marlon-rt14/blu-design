@@ -56,23 +56,23 @@
           "description": "Peso tipografico 800. Mulish tiene los cinco pesos; IBM Plex Mono solo regular y medium. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
         },
         "regular_1": {
-          "value": "{dimension.font.weight.regular}",
+          "value": "400px",
           "type": "dimension"
         },
         "medium_1": {
-          "value": "{dimension.font.weight.medium}",
+          "value": "500px",
           "type": "dimension"
         },
         "semibold_1": {
-          "value": "{dimension.font.weight.semibold}",
+          "value": "600px",
           "type": "dimension"
         },
         "bold_1": {
-          "value": "{dimension.font.weight.bold}",
+          "value": "700px",
           "type": "dimension"
         },
         "extrabold_1": {
-          "value": "{dimension.font.weight.extrabold}",
+          "value": "800px",
           "type": "dimension",
           "description": "Peso 800 — el más alto del sistema. Reservado para display/* y heading/lg; no usar por debajo de 20 px."
         }
@@ -165,159 +165,159 @@
         },
         "display": {
           "lg": {
-            "value": "{dimension.font.size.800}",
+            "value": "30px",
             "type": "dimension",
             "description": "Titular expresivo mayor: onboarding, pantallas de exito, marketing. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
           },
           "md": {
-            "value": "{dimension.font.size.700}",
+            "value": "24px",
             "type": "dimension",
             "description": "Titular expresivo medio. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
           },
           "sm": {
-            "value": "{dimension.font.size.600}",
+            "value": "20px",
             "type": "dimension",
             "description": "Titular expresivo menor. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
           }
         },
         "heading": {
           "lg": {
-            "value": "{dimension.font.size.700}",
+            "value": "24px",
             "type": "dimension",
             "description": "Titulo de pantalla. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
           },
           "md": {
-            "value": "{dimension.font.size.600}",
+            "value": "20px",
             "type": "dimension",
             "description": "Titulo de seccion. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
           },
           "sm": {
-            "value": "{dimension.font.size.500}",
+            "value": "18px",
             "type": "dimension",
             "description": "Subtitulo de seccion. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
           }
         },
         "title": {
           "lg": {
-            "value": "{dimension.font.size.500}",
+            "value": "18px",
             "type": "dimension",
             "description": "Titulo de card. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
           },
           "md": {
-            "value": "{dimension.font.size.400}",
+            "value": "16px",
             "type": "dimension",
             "description": "Titulo de fila o de bloque. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
           },
           "sm": {
-            "value": "{dimension.font.size.300}",
+            "value": "14px",
             "type": "dimension",
             "description": "Titulo compacto. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
           }
         },
         "body": {
           "lg": {
-            "value": "{dimension.font.size.500}",
+            "value": "18px",
             "type": "dimension",
             "description": "Texto corrido destacado. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
           },
           "md": {
-            "value": "{dimension.font.size.400}",
+            "value": "16px",
             "type": "dimension",
             "description": "TEXTO CORRIDO BASE. 16px. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
           },
           "sm": {
-            "value": "{dimension.font.size.300}",
+            "value": "14px",
             "type": "dimension",
             "description": "Texto corrido secundario y tablas densas. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
           }
         },
         "label": {
           "lg": {
-            "value": "{dimension.font.size.400}",
+            "value": "16px",
             "type": "dimension",
             "description": "Etiqueta de boton grande. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
           },
           "md": {
-            "value": "{dimension.font.size.300}",
+            "value": "14px",
             "type": "dimension",
             "description": "Etiqueta de formulario y de boton. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
           },
           "sm": {
-            "value": "{dimension.font.size.200}",
+            "value": "12px",
             "type": "dimension",
             "description": "Etiqueta compacta. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
           }
         },
         "caption": {
           "md": {
-            "value": "{dimension.font.size.200}",
+            "value": "12px",
             "type": "dimension",
             "description": "Ayudas, timestamps, texto legal. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
           },
           "sm": {
-            "value": "{dimension.font.size.50}",
+            "value": "10px",
             "type": "dimension",
             "description": "Ayudas, timestamps, texto legal. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
           }
         },
         "overline": {
-          "value": "{dimension.font.size.100}",
+          "value": "11px",
           "type": "dimension",
           "description": "Micro-etiqueta en mayusculas. 11px: solo decorativa o de agrupacion, NUNCA el unico indicador de un estado. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
         },
         "amount": {
           "hero": {
-            "value": "{dimension.font.size.800}",
+            "value": "30px",
             "type": "dimension",
             "description": "Saldo principal de la pantalla de inicio. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea). TABULAR: Mulish tiene los diez digitos con ancho identico (0.60 em) en los cuatro pesos, medido, asi que las columnas alinean sin activar ninguna feature OpenType. REGLA DURA: los importes negativos usan el signo menos U+2212 (menos), NUNCA el guion U+002D: el guion mide 44 frente a 60 del mas y desalinea 17 unidades por fila. Para rellenar cifras de largo distinto usar FIGURE SPACE U+2007, que mide 60. El signo nunca se comunica solo con color (WCAG 1.4.1)."
           },
           "lg": {
-            "value": "{dimension.font.size.700}",
+            "value": "24px",
             "type": "dimension",
             "description": "Saldo de tarjeta o de producto. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea). TABULAR: Mulish tiene los diez digitos con ancho identico (0.60 em) en los cuatro pesos, medido, asi que las columnas alinean sin activar ninguna feature OpenType. REGLA DURA: los importes negativos usan el signo menos U+2212 (menos), NUNCA el guion U+002D: el guion mide 44 frente a 60 del mas y desalinea 17 unidades por fila. Para rellenar cifras de largo distinto usar FIGURE SPACE U+2007, que mide 60. El signo nunca se comunica solo con color (WCAG 1.4.1)."
           },
           "md": {
-            "value": "{dimension.font.size.400}",
+            "value": "16px",
             "type": "dimension",
             "description": "Importe en fila de movimiento. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea). TABULAR: Mulish tiene los diez digitos con ancho identico (0.60 em) en los cuatro pesos, medido, asi que las columnas alinean sin activar ninguna feature OpenType. REGLA DURA: los importes negativos usan el signo menos U+2212 (menos), NUNCA el guion U+002D: el guion mide 44 frente a 60 del mas y desalinea 17 unidades por fila. Para rellenar cifras de largo distinto usar FIGURE SPACE U+2007, que mide 60. El signo nunca se comunica solo con color (WCAG 1.4.1)."
           },
           "sm": {
-            "value": "{dimension.font.size.300}",
+            "value": "14px",
             "type": "dimension",
             "description": "Importe secundario: comision, subtotal. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea). TABULAR: Mulish tiene los diez digitos con ancho identico (0.60 em) en los cuatro pesos, medido, asi que las columnas alinean sin activar ninguna feature OpenType. REGLA DURA: los importes negativos usan el signo menos U+2212 (menos), NUNCA el guion U+002D: el guion mide 44 frente a 60 del mas y desalinea 17 unidades por fila. Para rellenar cifras de largo distinto usar FIGURE SPACE U+2007, que mide 60. El signo nunca se comunica solo con color (WCAG 1.4.1)."
           }
         },
         "unit": {
           "md": {
-            "value": "{dimension.font.size.300}",
+            "value": "14px",
             "type": "dimension",
             "description": "Unidad que acompana a un numero: %, pts, millas, dias. Un paso menor y peso menor que la cifra. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
           },
           "sm": {
-            "value": "{dimension.font.size.200}",
+            "value": "12px",
             "type": "dimension",
             "description": "Unidad compacta. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
           }
         },
         "code": {
           "md": {
-            "value": "{dimension.font.size.400}",
+            "value": "16px",
             "type": "dimension",
             "description": "IBAN, numero de cuenta, referencia. Requiere tracking wider. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea). Usa cifras tabulares y tracking abierto; nunca tabular en texto corrido."
           },
           "sm": {
-            "value": "{dimension.font.size.300}",
+            "value": "14px",
             "type": "dimension",
             "description": "Codigo compacto. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea). Usa cifras tabulares y tracking abierto; nunca tabular en texto corrido."
           },
           "xs": {
-            "value": "{dimension.font.size.200}",
+            "value": "12px",
             "type": "dimension",
             "description": "Tamano del rol text/code/xs. Alias del mismo primitivo que label/sm (12): la etiqueta de token va SIEMPRE un escalon por debajo del nombre humano, para que el nombre lea primero y el token sea la referencia tecnica."
           }
         },
         "otp": {
-          "value": "{dimension.font.size.700}",
+          "value": "24px",
           "type": "dimension",
           "description": "Codigo de un solo uso. Tracking muy abierto y cifras separadas. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea). Usa cifras tabulares y tracking abierto; nunca tabular en texto corrido."
         }
@@ -344,19 +344,19 @@
           "description": "Interlineado del 170%. Va en PORCENTAJE, adimensional, para sobrevivir al 200% de font scale del sistema. OJO: bindear esto a un nodo de texto en Figma lo aplica como PIXELES; por eso los estilos de texto lo llevan como literal y esta variable es la fuente de verdad para el exporter. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
         },
         "tight_1": {
-          "value": "{dimension.font.line-height.tight}",
+          "value": "120px",
           "type": "dimension"
         },
         "snug_1": {
-          "value": "{dimension.font.line-height.snug}",
+          "value": "135px",
           "type": "dimension"
         },
         "normal_1": {
-          "value": "{dimension.font.line-height.normal}",
+          "value": "150px",
           "type": "dimension"
         },
         "relaxed_1": {
-          "value": "{dimension.font.line-height.relaxed}",
+          "value": "170px",
           "type": "dimension"
         }
       },
@@ -387,23 +387,23 @@
           "description": "Interletrado de 8. Unidad relativa al cuerpo, no pixeles. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
         },
         "tighter_1": {
-          "value": "{dimension.font.letter-spacing.tighter}",
+          "value": "-2px",
           "type": "dimension"
         },
         "tight_1": {
-          "value": "{dimension.font.letter-spacing.tight}",
+          "value": "-1px",
           "type": "dimension"
         },
         "normal_1": {
-          "value": "{dimension.font.letter-spacing.normal}",
+          "value": "0px",
           "type": "dimension"
         },
         "wide_1": {
-          "value": "{dimension.font.letter-spacing.wide}",
+          "value": "2px",
           "type": "dimension"
         },
         "wider_1": {
-          "value": "{dimension.font.letter-spacing.wider}",
+          "value": "8px",
           "type": "dimension"
         }
       }
@@ -481,108 +481,108 @@
       },
       "inset": {
         "xs": {
-          "value": "{dimension.space.4}",
+          "value": "4px",
           "type": "dimension",
           "description": "Padding interno minimo: chips, badges. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "sm": {
-          "value": "{dimension.space.8}",
+          "value": "8px",
           "type": "dimension",
           "description": "Padding interno compacto: botones pequenos, celdas densas. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "md": {
-          "value": "{dimension.space.12}",
+          "value": "12px",
           "type": "dimension",
           "description": "PADDING INTERNO BASE: cards, inputs, botones. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "lg": {
-          "value": "{dimension.space.16}",
+          "value": "16px",
           "type": "dimension",
           "description": "Padding de contenedores amplios y hojas. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "xl": {
-          "value": "{dimension.space.24}",
+          "value": "24px",
           "type": "dimension",
           "description": "Padding de pantalla. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "2xl": {
-          "value": "{dimension.space.32}",
+          "value": "32px",
           "type": "dimension",
           "description": "Padding de secciones destacadas. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         }
       },
       "stack": {
         "xs": {
-          "value": "{dimension.space.4}",
+          "value": "4px",
           "type": "dimension",
           "description": "Separacion vertical minima: label sobre input. Mismo valor en los tres modos a proposito: no depende de la densidad. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "sm": {
-          "value": "{dimension.space.8}",
+          "value": "8px",
           "type": "dimension",
           "description": "Separacion vertical entre elementos relacionados. Mismo valor en los tres modos a proposito: no depende de la densidad. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "md": {
-          "value": "{dimension.space.12}",
+          "value": "12px",
           "type": "dimension",
           "description": "SEPARACION VERTICAL BASE entre bloques. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "lg": {
-          "value": "{dimension.space.16}",
+          "value": "16px",
           "type": "dimension",
           "description": "Separacion entre grupos. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "xl": {
-          "value": "{dimension.space.24}",
+          "value": "24px",
           "type": "dimension",
           "description": "Separacion entre secciones. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "2xl": {
-          "value": "{dimension.space.32}",
+          "value": "32px",
           "type": "dimension",
           "description": "Separacion mayor de pantalla. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         }
       },
       "inline": {
         "xs": {
-          "value": "{dimension.space.4}",
+          "value": "4px",
           "type": "dimension",
           "description": "Separacion horizontal minima: icono y texto. Mismo valor en los tres modos a proposito: no depende de la densidad. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "sm": {
-          "value": "{dimension.space.8}",
+          "value": "8px",
           "type": "dimension",
           "description": "Separacion horizontal entre elementos en fila. Mismo valor en los tres modos a proposito: no depende de la densidad. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "md": {
-          "value": "{dimension.space.12}",
+          "value": "12px",
           "type": "dimension",
           "description": "SEPARACION HORIZONTAL BASE. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "lg": {
-          "value": "{dimension.space.16}",
+          "value": "16px",
           "type": "dimension",
           "description": "Separacion horizontal amplia. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "xl": {
-          "value": "{dimension.space.24}",
+          "value": "24px",
           "type": "dimension",
           "description": "Separacion horizontal mayor. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         }
       },
       "gutter": {
         "sm": {
-          "value": "{dimension.space.8}",
+          "value": "8px",
           "type": "dimension",
           "description": "Canaleta entre columnas, retícula densa. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "md": {
-          "value": "{dimension.space.16}",
+          "value": "16px",
           "type": "dimension",
           "description": "CANALETA BASE entre columnas. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "lg": {
-          "value": "{dimension.space.24}",
+          "value": "24px",
           "type": "dimension",
           "description": "Canaleta amplia. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         }
@@ -724,37 +724,37 @@
         "description": "Nivel de apilado 1200. La escala deja 100 de hueco entre niveles para poder meter capas intermedias sin renumerar todo. Orden: sticky 1000 < dropdown 1100 < popover 1200 < overlay 1300 < modal 1400 < toast 1500 < tooltip 1600. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
       },
       "dropdown_1": {
-        "value": "{dimension.z.dropdown}",
+        "value": "1100px",
         "type": "dimension",
         "description": "Select, menu, autocomplete. Mismo valor en los tres modos a proposito: no depende de la densidad. El ORDEN es lo que importa, no el numero. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
       },
       "sticky_1": {
-        "value": "{dimension.z.sticky}",
+        "value": "1000px",
         "type": "dimension",
         "description": "Cabeceras y barras fijas. Es la capa más baja del stack: todo lo anclado (dropdown, popover) y todo lo modal pasa por encima. Mismo valor en los tres modos a propósito: no depende de la densidad."
       },
       "overlay_1": {
-        "value": "{dimension.z.overlay}",
+        "value": "1300px",
         "type": "dimension",
         "description": "Scrim de modal y de hoja. Mismo valor en los tres modos a proposito: no depende de la densidad. El ORDEN es lo que importa, no el numero. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
       },
       "modal_1": {
-        "value": "{dimension.z.modal}",
+        "value": "1400px",
         "type": "dimension",
         "description": "Dialogo y bottom sheet. Mismo valor en los tres modos a proposito: no depende de la densidad. El ORDEN es lo que importa, no el numero. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
       },
       "toast_1": {
-        "value": "{dimension.z.toast}",
+        "value": "1500px",
         "type": "dimension",
         "description": "Notificaciones efimeras: SIEMPRE sobre el modal. Mismo valor en los tres modos a proposito: no depende de la densidad. El ORDEN es lo que importa, no el numero. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
       },
       "tooltip_1": {
-        "value": "{dimension.z.tooltip}",
+        "value": "1600px",
         "type": "dimension",
         "description": "Lo mas alto del sistema. Mismo valor en los tres modos a proposito: no depende de la densidad. El ORDEN es lo que importa, no el numero. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
       },
       "popover_1": {
-        "value": "{dimension.z.popover}",
+        "value": "1200px",
         "type": "dimension",
         "description": "Menu de Select y Combobox, Coachmark y cualquier superficie anclada a un control. Por encima de z/sticky y z/dropdown: un menú abierto desde una cabecera fija se dibuja delante de ella. Mismo valor en los tres modos a propósito."
       }
@@ -787,22 +787,22 @@
           "description": "Duracion de 400ms. Escala de movimiento: instant 0 para cambios sin transicion, fast 100 para microinteracciones, normal 200 por defecto, moderate 300 para entradas, slow 400 para transiciones de pantalla. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
         },
         "micro": {
-          "value": "{dimension.motion.duration.fast}",
+          "value": "100px",
           "type": "dimension",
           "description": "Feedback tactil inmediato: pressed, hover. Mismo valor en los tres modos a proposito: no depende de la densidad. Con Reduce Motion del sistema activo pasa a 0 en runtime (WCAG 2.3.3). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "short": {
-          "value": "{dimension.motion.duration.normal}",
+          "value": "200px",
           "type": "dimension",
           "description": "DURACION BASE: toggles, cambios de estado. Mismo valor en los tres modos a proposito: no depende de la densidad. Con Reduce Motion del sistema activo pasa a 0 en runtime (WCAG 2.3.3). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "medium": {
-          "value": "{dimension.motion.duration.moderate}",
+          "value": "300px",
           "type": "dimension",
           "description": "Hojas, expansion, acordeon. Mismo valor en los tres modos a proposito: no depende de la densidad. Con Reduce Motion del sistema activo pasa a 0 en runtime (WCAG 2.3.3). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "long": {
-          "value": "{dimension.motion.duration.slow}",
+          "value": "400px",
           "type": "dimension",
           "description": "Transiciones de pantalla. Mismo valor en los tres modos a proposito: no depende de la densidad. Con Reduce Motion del sistema activo pasa a 0 en runtime (WCAG 2.3.3). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         }
@@ -917,28 +917,28 @@
       "control": {
         "height": {
           "sm": {
-            "value": "{dimension.space.32}",
+            "value": "32px",
             "type": "dimension",
             "description": "Altura del control compacto: 32. La usan tanto el boton sm como el campo compacto de una sola linea, porque las dos escalas comparten numero desde el 14-ago. El campo compacto NO tiene etiqueta flotante: la etiqueta vive como placeholder dentro del valor. A partir de md (44) el campo si la lleva."
           },
           "lg": {
-            "value": "{dimension.size.56}",
+            "value": "56px",
             "type": "dimension",
             "description": "Control destacado: CTA principal. Mismo valor en los tres modos a proposito: no depende de la densidad. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
           },
           "md": {
-            "value": "{dimension.size.44}",
+            "value": "44px",
             "type": "dimension",
             "description": "ALTURA DE CONTROL BASE. 44 en compact (minimo tocable de iOS) y 48 en expanded (minimo de Android y comodo con mouse). Varia con la densidad. Nunca usar el primitivo crudo."
           },
           "xs": {
-            "value": "{dimension.size.24}",
+            "value": "24px",
             "type": "dimension",
             "description": "Altura del control mas compacto: 24. Para acciones densas dentro de una fila o una tabla, no para acciones principales. AVISO: queda muy por debajo de size/target/min (48), asi que en tactil necesita hitSlop si o si. La escala de altura de control es xs 24 / sm 32 / md 44 / lg 56, y coincide numero a numero con size/field/height a partir de md."
           }
         },
         "min-width": {
-          "value": "{dimension.space.64}",
+          "value": "64px",
           "type": "dimension",
           "description": "Ancho minimo de un boton: 64px. Evita que un boton con etiqueta corta (Ok, Si) se colapse a un cuadrado y pierda su lectura de accion."
         }
@@ -946,12 +946,12 @@
       "field": {
         "height": {
           "md": {
-            "value": "{dimension.size.44}",
+            "value": "44px",
             "type": "dimension",
             "description": "Altura del campo mediano: 44. Mismo numero que size/control/height/md. Es el campo de una sola linea, sin etiqueta flotante: la etiqueta vive como placeholder."
           },
           "lg": {
-            "value": "{dimension.size.56}",
+            "value": "56px",
             "type": "dimension",
             "description": "Altura del campo grande: 56. Mismo numero que size/control/height/lg, para que un boton lg y un campo lg midan igual cuando van en la misma fila."
           }
@@ -959,39 +959,39 @@
       },
       "icon": {
         "xs": {
-          "value": "{dimension.size.12}",
+          "value": "12px",
           "type": "dimension",
           "description": "Icono 12px: decoracion unicamente. 12px es MUY CHICO para comunicar: reservado a decoracion, NUNCA como unico indicador de un estado. EL AREA TOCABLE NO SE DERIVA DE ESTE TOKEN: un icon-button de 24 sigue necesitando size/target/min (48). Si se derivara del icono, todos los icon-buttons del sistema quedarian bajo el minimo de accesibilidad. Mismo valor en los tres modos: el tamano de icono no se comprime por densidad."
         },
         "sm": {
-          "value": "{dimension.size.16}",
+          "value": "16px",
           "type": "dimension",
           "description": "Icono 16px: icono acompanando texto en linea. EL AREA TOCABLE NO SE DERIVA DE ESTE TOKEN: un icon-button de 24 sigue necesitando size/target/min (48). Si se derivara del icono, todos los icon-buttons del sistema quedarian bajo el minimo de accesibilidad. Mismo valor en los tres modos: el tamano de icono no se comprime por densidad."
         },
         "md": {
-          "value": "{dimension.size.24}",
+          "value": "24px",
           "type": "dimension",
           "description": "Icono 24px: ICONO BASE: botones, listas, barras. Se fija en 24 (el doc original decia '20/24', que no es un token: un token no puede tener dos valores). EL AREA TOCABLE NO SE DERIVA DE ESTE TOKEN: un icon-button de 24 sigue necesitando size/target/min (48). Si se derivara del icono, todos los icon-buttons del sistema quedarian bajo el minimo de accesibilidad. Mismo valor en los tres modos: el tamano de icono no se comprime por densidad."
         },
         "lg": {
-          "value": "{dimension.size.32}",
+          "value": "32px",
           "type": "dimension",
           "description": "Icono 32px: icono destacado. EL AREA TOCABLE NO SE DERIVA DE ESTE TOKEN: un icon-button de 24 sigue necesitando size/target/min (48). Si se derivara del icono, todos los icon-buttons del sistema quedarian bajo el minimo de accesibilidad. Mismo valor en los tres modos: el tamano de icono no se comprime por densidad."
         },
         "xl": {
-          "value": "{dimension.size.40}",
+          "value": "40px",
           "type": "dimension",
           "description": "Icono 40px: icono de ilustracion o estado vacio. EL AREA TOCABLE NO SE DERIVA DE ESTE TOKEN: un icon-button de 24 sigue necesitando size/target/min (48). Si se derivara del icono, todos los icon-buttons del sistema quedarian bajo el minimo de accesibilidad. Mismo valor en los tres modos: el tamano de icono no se comprime por densidad."
         },
         "2xs": {
-          "value": "{dimension.size.8}",
+          "value": "8px",
           "type": "dimension",
           "description": "El escalon mas chico de la escala de iconos: 8. Existe porque la escala arrancaba en 12 y el punto del Radio en size=sm mide la mitad de su caja (caja 16 -> punto 8). El punto del Radio en md ya estaba ligado a size/icon/xs, asi que la escala de iconos es la que el sistema ya usa para esto. Constante en los tres breakpoints, igual que el resto de la escala."
         }
       },
       "target": {
         "min": {
-          "value": "{dimension.size.48}",
+          "value": "48px",
           "type": "dimension",
           "description": "AREA TOCABLE MINIMA: 48px. Cumple iOS (44) y Android (48) a la vez. NO se deriva del tamano del icono ni de la altura visual del control: un boton de icono de 24px dibuja 24 pero debe ocupar 48 de area tocable. Vive en '4. Layout' porque es geometria: no cambia con el tema. Mismo valor en los tres modos: el minimo de accesibilidad no se comprime por densidad."
         }
@@ -999,17 +999,17 @@
       "bar": {
         "height": {
           "lg": {
-            "value": "{dimension.size.12}",
+            "value": "12px",
             "type": "dimension",
             "description": "[Component: ProgressBar] Alto de la pista y del relleno. No cambia con la densidad: el grosor de la barra es una decision de lectura, no de espacio."
           },
           "md": {
-            "value": "{dimension.size.8}",
+            "value": "8px",
             "type": "dimension",
             "description": "[Component: ProgressBar] Alto de la pista y del relleno. No cambia con la densidad: el grosor de la barra es una decision de lectura, no de espacio."
           },
           "sm": {
-            "value": "{dimension.size.4}",
+            "value": "4px",
             "type": "dimension",
             "description": "[Component: ProgressBar] Alto de la pista y del relleno. No cambia con la densidad: el grosor de la barra es una decision de lectura, no de espacio."
           }
@@ -1106,87 +1106,87 @@
             }
           },
           "xs": {
-            "value": "{dimension.size.24}",
+            "value": "24px",
             "type": "dimension",
             "description": "Co-token de avatar. Capa de indirección: aliasea size/24 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "sm": {
-            "value": "{dimension.size.32}",
+            "value": "32px",
             "type": "dimension",
             "description": "Co-token de avatar. Capa de indirección: aliasea size/32 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "md": {
-            "value": "{dimension.size.40}",
+            "value": "40px",
             "type": "dimension",
             "description": "Co-token de avatar. Capa de indirección: aliasea size/40 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "lg": {
-            "value": "{dimension.size.56}",
+            "value": "56px",
             "type": "dimension",
             "description": "Co-token de avatar. Capa de indirección: aliasea size/56 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "glyph": {
             "xs": {
-              "value": "{dimension.size.12}",
+              "value": "12px",
               "type": "dimension",
               "description": "Co-token de avatar. Capa de indirección: aliasea size/12 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
             },
             "sm": {
-              "value": "{dimension.size.16}",
+              "value": "16px",
               "type": "dimension",
               "description": "Co-token de avatar. Capa de indirección: aliasea size/16 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
             },
             "md": {
-              "value": "{dimension.size.20}",
+              "value": "20px",
               "type": "dimension",
               "description": "Co-token de avatar. Capa de indirección: aliasea size/20 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
             },
             "lg": {
-              "value": "{dimension.size.28}",
+              "value": "28px",
               "type": "dimension",
               "description": "Co-token de avatar. Capa de indirección: aliasea size/28 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
             }
           },
           "indicator": {
             "xs": {
-              "value": "{dimension.size.8}",
+              "value": "8px",
               "type": "dimension",
               "description": "Co-token de avatar. Capa de indirección: aliasea size/8 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
             },
             "sm": {
-              "value": "{dimension.size.10}",
+              "value": "10px",
               "type": "dimension",
               "description": "Co-token de avatar. Capa de indirección: aliasea size/10 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
             },
             "md": {
-              "value": "{dimension.size.12}",
+              "value": "12px",
               "type": "dimension",
               "description": "Co-token de avatar. Capa de indirección: aliasea size/12 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
             },
             "lg": {
-              "value": "{dimension.size.16}",
+              "value": "16px",
               "type": "dimension",
               "description": "Co-token de avatar. Capa de indirección: aliasea size/16 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
             }
           },
           "logo": {
             "xs": {
-              "value": "{dimension.size.16}",
+              "value": "16px",
               "type": "dimension",
               "description": "Co-token de avatar. Capa de indirección: aliasea size/16 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
             },
             "sm": {
-              "value": "{dimension.size.20}",
+              "value": "20px",
               "type": "dimension",
               "description": "Co-token de avatar. Capa de indirección: aliasea size/20 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
             },
             "md": {
-              "value": "{dimension.size.28}",
+              "value": "28px",
               "type": "dimension",
               "description": "Co-token de avatar. Capa de indirección: aliasea size/28 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
             },
             "lg": {
-              "value": "{dimension.size.40}",
+              "value": "40px",
               "type": "dimension",
               "description": "Co-token de avatar. Capa de indirección: aliasea size/40 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
             }
@@ -1195,7 +1195,7 @@
       },
       "scrollbar": {
         "width": {
-          "value": "{dimension.size.12}",
+          "value": "12px",
           "type": "dimension",
           "description": "Co-token de scrollbar. Capa de indirección: aliasea size/12 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
         }
@@ -1203,22 +1203,22 @@
       "merchantavatar": {
         "radius": {
           "xs": {
-            "value": "{dimension.border-radius.md}",
+            "value": "8px",
             "type": "dimension",
             "description": "Co-token de merchantavatar. Capa de indirección: aliasea border-radius/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "sm": {
-            "value": "{dimension.border-radius.md}",
+            "value": "8px",
             "type": "dimension",
             "description": "Co-token de merchantavatar. Capa de indirección: aliasea border-radius/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "md": {
-            "value": "{dimension.border-radius.lg}",
+            "value": "12px",
             "type": "dimension",
             "description": "Co-token de merchantavatar. Capa de indirección: aliasea border-radius/lg sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "lg": {
-            "value": "{dimension.border-radius.xl}",
+            "value": "16px",
             "type": "dimension",
             "description": "Co-token de merchantavatar. Capa de indirección: aliasea border-radius/xl sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
@@ -1279,123 +1279,123 @@
       "type": {
         "display": {
           "size": {
-            "value": "{dimension.font.size.900}",
+            "value": "36px",
             "type": "dimension",
             "description": "iOS Large Title · M3 displaySmall"
           },
           "line-height": {
-            "value": "{dimension.size.44}",
+            "value": "44px",
             "type": "dimension",
             "description": "iOS Large Title · M3 displaySmall"
           }
         },
         "headline": {
           "size": {
-            "value": "{dimension.font.size.800}",
+            "value": "30px",
             "type": "dimension",
             "description": "iOS Title 1 · M3 headlineMedium"
           },
           "line-height": {
-            "value": "{dimension.size.38}",
+            "value": "38px",
             "type": "dimension",
             "description": "iOS Title 1 · M3 headlineMedium"
           }
         },
         "title": {
           "size": {
-            "value": "{dimension.font.size.700}",
+            "value": "24px",
             "type": "dimension",
             "description": "iOS Title 2 · M3 headlineSmall"
           },
           "line-height": {
-            "value": "{dimension.size.32}",
+            "value": "32px",
             "type": "dimension",
             "description": "iOS Title 2 · M3 headlineSmall"
           }
         },
         "subtitle": {
           "size": {
-            "value": "{dimension.font.size.600}",
+            "value": "20px",
             "type": "dimension",
             "description": "iOS Title 3 · M3 titleLarge"
           },
           "line-height": {
-            "value": "{dimension.size.28}",
+            "value": "28px",
             "type": "dimension",
             "description": "iOS Title 3 · M3 titleLarge"
           }
         },
         "body-strong": {
           "size": {
-            "value": "{dimension.font.size.400}",
+            "value": "16px",
             "type": "dimension",
             "description": "iOS Headline · M3 titleMedium — mismo tamano que body, cambia el peso"
           },
           "line-height": {
-            "value": "{dimension.size.24}",
+            "value": "24px",
             "type": "dimension",
             "description": "iOS Headline · M3 titleMedium — mismo tamano que body, cambia el peso"
           },
           "weight": {
-            "value": "{dimension.font.weight.medium}",
+            "value": "500px",
             "type": "dimension",
             "description": "Peso del rol body-strong, NUMERICO. Mismo tamano que body: la diferencia entre los dos ES el peso. iOS Headline 17 Semibold, Material titleMedium 16 Medium, ambos medidos de sus kits."
           }
         },
         "body": {
           "size": {
-            "value": "{dimension.font.size.400}",
+            "value": "16px",
             "type": "dimension",
             "description": "iOS Body · M3 bodyLarge"
           },
           "line-height": {
-            "value": "{dimension.size.24}",
+            "value": "24px",
             "type": "dimension",
             "description": "iOS Body · M3 bodyLarge"
           },
           "weight": {
-            "value": "{dimension.font.weight.regular}",
+            "value": "400px",
             "type": "dimension",
             "description": "Peso del rol body, NUMERICO. Regular en las tres."
           }
         },
         "body-sm": {
           "size": {
-            "value": "{dimension.font.size.300}",
+            "value": "14px",
             "type": "dimension",
             "description": "iOS Subhead · M3 bodyMedium"
           },
           "line-height": {
-            "value": "{dimension.size.20}",
+            "value": "20px",
             "type": "dimension",
             "description": "iOS Subhead · M3 bodyMedium"
           }
         },
         "label": {
           "size": {
-            "value": "{dimension.font.size.300}",
+            "value": "14px",
             "type": "dimension",
             "description": "iOS Footnote · M3 labelLarge — texto de botones y tabs"
           },
           "line-height": {
-            "value": "{dimension.size.20}",
+            "value": "20px",
             "type": "dimension",
             "description": "iOS Footnote · M3 labelLarge — texto de botones y tabs"
           },
           "weight": {
-            "value": "{dimension.font.weight.medium}",
+            "value": "500px",
             "type": "dimension",
             "description": "Peso del rol label, NUMERICO. Core enlaza fontWeight (FLOAT), no fontStyle, y ~3000 bindings vivos ya usan ese patron. El numero no tiene el problema de grafias: 500 es 500 en SF Pro, Roboto y Mulish. iOS Semibold es convencion de LABEL DE CONTROL, no el peso del estilo Footnote (Regular). Para escribir fontName en un script usar platform/font/style/*, que es otro mecanismo."
           }
         },
         "caption": {
           "size": {
-            "value": "{dimension.font.size.200}",
+            "value": "12px",
             "type": "dimension",
             "description": "iOS Caption 1 · M3 bodySmall. OJO: NO mapea a labelMedium aunque ambos midan 12/16. caption es texto corrido (leyenda, nota al pie) y va Regular; labelMedium es label de CONTROL y va Medium. Si algo rotula un control, consume el rol label, no caption."
           },
           "line-height": {
-            "value": "{dimension.size.16}",
+            "value": "16px",
             "type": "dimension",
             "description": "iOS Caption 1 · M3 bodySmall. OJO: NO mapea a labelMedium aunque ambos midan 12/16. caption es texto corrido (leyenda, nota al pie) y va Regular; labelMedium es label de CONTROL y va Medium. Si algo rotula un control, consume el rol label, no caption."
           }
@@ -1403,22 +1403,22 @@
       },
       "spacing": {
         "screen-margin": {
-          "value": "{dimension.space.24}",
+          "value": "24px",
           "type": "dimension",
           "description": "Margen lateral de pantalla que exige el OS."
         },
         "section-gap": {
-          "value": "{dimension.space.32}",
+          "value": "32px",
           "type": "dimension"
         },
         "item-gap": {
-          "value": "{dimension.space.16}",
+          "value": "16px",
           "type": "dimension"
         }
       },
       "target": {
         "min": {
-          "value": "{dimension.size.40}",
+          "value": "40px",
           "type": "dimension",
           "description": "Area tactil minima. iOS 44pt · Android 48dp · web 40px. Nunca bajar de aqui aunque el glifo sea mas chico."
         }
@@ -1427,27 +1427,27 @@
     "border": {
       "width": {
         "default": {
-          "value": "{dimension.border-width.sm}",
+          "value": "1px",
           "type": "dimension",
           "description": "Grosor de borde de control. En alto contraste pasa de 1px a 2px: cuando no podes depender de sombras ni de diferencias sutiles de fondo, el BORDE es el mecanismo principal para separar superficies. Sin esto, el tema HC queda como 'el tema normal con colores mas fuertes'. Valor definido en los 4 modos."
         },
         "focus": {
-          "value": "{dimension.border-width.md}",
+          "value": "2px",
           "type": "dimension",
           "description": "Grosor del anillo de foco. 2px normal, 3px en alto contraste. Es un requisito de WCAG 2.4.13 (Focus Appearance): el indicador de foco tiene que ser perceptible, no insinuado. Va junto a color/border/focus, que es solido a proposito para poder garantizar 3:1. Valor definido en los 4 modos."
         },
         "divider": {
-          "value": "{dimension.border-width.sm}",
+          "value": "1px",
           "type": "dimension",
           "description": "Grosor de divisor decorativo. Engorda en alto contraste por la misma razon que el borde de control: en HC la separacion no puede depender del tinte. Valor definido en los 4 modos."
         },
         "indicator": {
-          "value": "{dimension.border-width.md}",
+          "value": "2px",
           "type": "dimension",
           "description": "Grosor de la barra que marca lo elegido: el indicador activo de Tab y el indicador de seleccion de las filas. 2px normal, 3px en alto contraste, igual que el resto de la familia border/width. No usar border/width/focus para esto: foco y seleccion son dos señales distintas y tienen que poder cambiar de grosor por separado. Valor definido en los 4 modos."
         },
         "control-strong": {
-          "value": "{dimension.border-width.md}",
+          "value": "2px",
           "type": "dimension",
           "description": "Grosor de borde de control que necesita mas presencia que el filete de 1px: la caja de Checkbox y Radio. 2px normal, 3px en alto contraste, misma escalada que border/width/default. No usar border/width/indicator para esto: ese token nombra la barra que marca lo elegido (Tab activo, fila seleccionada), no el borde de un control."
         }
@@ -1456,47 +1456,47 @@
     "radius": {
       "control": {
         "sm": {
-          "value": "{dimension.border-radius.sm}",
+          "value": "4px",
           "type": "dimension",
           "description": "Radio de control pequeno: checkbox, chip, tag, badge cuadrado. 4px. Para CAMPOS usar radius/field/*, para BOTONES radius/action."
         }
       },
       "surface": {
         "sm": {
-          "value": "{dimension.border-radius.lg}",
+          "value": "12px",
           "type": "dimension",
           "description": "Radio de card. 12 en compact y 16 en pantallas grandes. Varia con la densidad ('4. Layout'). El radio de una SUPERFICIE es independiente del de un CONTROL: una card muy redondeada con inputs cuadrados adentro se ve descoordinada, pero igualarlos tampoco es automatico -- el radio se percibe en relacion a la ALTURA del elemento, y un input mide una fraccion de lo que mide una hoja. Nunca usar el primitivo crudo en un componente."
         },
         "md": {
-          "value": "{dimension.border-radius.xl}",
+          "value": "16px",
           "type": "dimension",
           "description": "Radio de superficie flotante: menu, popover, dropdown. Varia con la densidad ('4. Layout'). El radio de una SUPERFICIE es independiente del de un CONTROL: una card muy redondeada con inputs cuadrados adentro se ve descoordinada, pero igualarlos tampoco es automatico -- el radio se percibe en relacion a la ALTURA del elemento, y un input mide una fraccion de lo que mide una hoja. Nunca usar el primitivo crudo en un componente."
         },
         "lg": {
-          "value": "{dimension.border-radius.2xl}",
+          "value": "24px",
           "type": "dimension",
           "description": "Radio de hoja y modal. 24 en los tres modos: es el radio mas expresivo del sistema y define el caracter de las superficies grandes. Varia con la densidad ('4. Layout'). El radio de una SUPERFICIE es independiente del de un CONTROL: una card muy redondeada con inputs cuadrados adentro se ve descoordinada, pero igualarlos tampoco es automatico -- el radio se percibe en relacion a la ALTURA del elemento, y un input mide una fraccion de lo que mide una hoja. Nunca usar el primitivo crudo en un componente."
         }
       },
       "pill": {
-        "value": "{dimension.border-radius.full}",
+        "value": "9999px",
         "type": "dimension",
         "description": "Pildora y circulo: avatar, badge numerico, boton de pildora. Mismo valor en los tres modos a proposito: no depende de la densidad. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
       },
       "field": {
         "sm": {
-          "value": "{dimension.border-radius.xl}",
+          "value": "16px",
           "type": "dimension",
           "description": "Radio de campo compacto: 16 sobre 44 de alto."
         },
         "md": {
-          "value": "{dimension.border-radius.2xl}",
+          "value": "24px",
           "type": "dimension",
           "description": "RADIO DE CAMPO BASE: 24 sobre 56 de alto. NO es pildora: a 56 la pildora seria 28, asi que queda un tramo recto en el medio y la forma se lee como decision y no como accidente. PADDING MINIMO: space/inset/lg. Con padding menor que el radio el texto se ve apretado contra la curva. En campos multilinea la curva se nota mas: revisar el textarea antes de darlo por bueno."
         }
       },
       "action": {
-        "value": "{dimension.border-radius.full}",
+        "value": "9999px",
         "type": "dimension",
         "description": "RADIO DE BOTON: pildora. Se usa el centinela de pildora y NO un valor fijo, para que se adapte solo si cambia la altura del control (hoy 44/44/48, o sea pildora 22/22/24). PADDING MINIMO: space/inset/lg, y mas en botones anchos. NO usar en campos de texto: complica el texto largo, los grupos de controles y los textarea."
       }
