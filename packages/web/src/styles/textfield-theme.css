@@ -1,0 +1,90 @@
+/*
+ * GENERATED FILE — do not edit by hand.
+ *
+ * Produced by packages/shared/scripts/generate-web-theme.mjs from the
+ * Supernova token export in packages/shared/src/theme/{base,dark}. Re-run
+ * `pnpm --filter @dsm/shared build:theme-css` after Supernova syncs new
+ * values.
+ */
+:root {
+  --dsm-textfield-color-container-bg-default: #ffffff;
+  --dsm-textfield-color-container-bg-disabled: #e5e8f1;
+  --dsm-textfield-color-container-bg-readonly: #f3f4f9;
+  --dsm-textfield-color-container-border-default: #7c8396;
+  --dsm-textfield-color-container-border-hover: #5f6677;
+  --dsm-textfield-color-container-border-focus: #2760aa;
+  --dsm-textfield-color-container-border-error: #b22c42;
+  --dsm-textfield-color-container-border-disabled: #98a0b5;
+  --dsm-textfield-color-container-border-readonly: #b3bacf;
+  --dsm-textfield-color-container-overlay-hover: #001e600f;
+  --dsm-textfield-color-label-default: #434959;
+  --dsm-textfield-color-label-disabled: #5f6677;
+  --dsm-textfield-color-value-placeholder: #5f6677;
+  --dsm-textfield-color-value-filled: #232b3d;
+  --dsm-textfield-color-value-disabled: #5f6677;
+  --dsm-textfield-color-value-readonly: #323949;
+  --dsm-textfield-color-helper-default: #434959;
+  --dsm-textfield-color-helper-error: #88122c;
+  --dsm-textfield-color-helper-disabled: #5f6677;
+  --dsm-textfield-color-counter-default: #434959;
+  --dsm-textfield-color-counter-error: #88122c;
+  --dsm-textfield-color-counter-disabled: #5f6677;
+  --dsm-textfield-color-icon-default: #5f6677;
+  --dsm-textfield-color-icon-disabled: #5f6677;
+  --dsm-page-background: #f3f4f9;
+  --dsm-page-text: #232b3d;
+}
+
+[data-dsm-theme='dark'] {
+  --dsm-textfield-color-container-bg-default: #333b4d;
+  --dsm-textfield-color-container-bg-disabled: #040c28;
+  --dsm-textfield-color-container-bg-readonly: #232c41;
+  --dsm-textfield-color-container-border-default: #9aa2b7;
+  --dsm-textfield-color-container-border-hover: #b4bcd1;
+  --dsm-textfield-color-container-border-focus: #9abaf2;
+  --dsm-textfield-color-container-border-error: #ff9c9f;
+  --dsm-textfield-color-container-border-disabled: #7d8497;
+  --dsm-textfield-color-container-border-readonly: #464d5e;
+  --dsm-textfield-color-container-overlay-hover: #ffffff14;
+  --dsm-textfield-color-label-default: #dbdee6;
+  --dsm-textfield-color-label-disabled: #9aa2b7;
+  --dsm-textfield-color-value-placeholder: #b4bcd1;
+  --dsm-textfield-color-value-filled: #e6e8ec;
+  --dsm-textfield-color-value-disabled: #9aa2b7;
+  --dsm-textfield-color-value-readonly: #dbdee6;
+  --dsm-textfield-color-helper-default: #dbdee6;
+  --dsm-textfield-color-helper-error: #fed2d1;
+  --dsm-textfield-color-helper-disabled: #9aa2b7;
+  --dsm-textfield-color-counter-default: #dbdee6;
+  --dsm-textfield-color-counter-error: #fed2d1;
+  --dsm-textfield-color-counter-disabled: #9aa2b7;
+  --dsm-textfield-color-icon-default: #b4bcd1;
+  --dsm-textfield-color-icon-disabled: #9aa2b7;
+  --dsm-page-background: #131d35;
+  --dsm-page-text: #e6e8ec;
+}
+
+:root {
+  --dsm-font-family-base: Mulish, sans-serif;
+}
+
+:root {
+  --dsm-textfield-size-medium-height: 44px;
+  --dsm-textfield-size-medium-radius: 16px;
+  --dsm-textfield-size-medium-padding-x: 16px;
+  --dsm-textfield-size-large-height: 56px;
+  --dsm-textfield-size-large-radius: 24px;
+  --dsm-textfield-size-large-padding-x: 16px;
+  --dsm-textfield-size-border-width-default: 1px;
+  --dsm-textfield-size-border-width-focus: 2px;
+  --dsm-textfield-size-stack-gap: 4px;
+  --dsm-textfield-size-inline-gap: 8px;
+  --dsm-textfield-size-icon-size: 16px;
+}
+
+:root {
+  --dsm-textfield-typography-label: 400 13px/16px Mulish, sans-serif;
+  --dsm-textfield-typography-content: 400 14px/17px Mulish, sans-serif;
+  --dsm-textfield-typography-helper: 400 13px/16px Mulish, sans-serif;
+  --dsm-textfield-typography-counter: 400 11px/14px Mulish, sans-serif;
+}

@@ -7,3 +7,5 @@
  * Storybook shows them).
  */
 export * from './components';
+export * from './theme';
+export * from './BluProvider';

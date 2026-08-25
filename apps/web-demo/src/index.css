@@ -6,12 +6,9 @@
 
 body {
   margin: 0;
-  font-family:
-    system-ui,
-    -apple-system,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
+  /* Mulish — the design system's brand typeface, loaded by @dsm/web via
+     @fontsource-variable/mulish — with a system fallback. */
+  font-family: var(--dsm-font-family-base);
   color: var(--dsm-color-slate-900);
   background-color: var(--dsm-color-slate-100);
 }

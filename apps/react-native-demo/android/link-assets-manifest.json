@@ -1,0 +1,29 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "../../packages/mobile/assets/fonts/Mulish-Bold.ttf",
+      "sha1": "0f2ec9287ee8246e70c6c4a9774bddb23223494a"
+    },
+    {
+      "path": "../../packages/mobile/assets/fonts/Mulish-ExtraBold.ttf",
+      "sha1": "7861d7ab26ec26414ac80bb3c966b24be16fa7cf"
+    },
+    {
+      "path": "../../packages/mobile/assets/fonts/Mulish-Medium.ttf",
+      "sha1": "3a9a2836de82734f9b5fb0c083b616f565fb30ca"
+    },
+    {
+      "path": "../../packages/mobile/assets/fonts/Mulish-Regular.ttf",
+      "sha1": "dc41c1c964f164da2812973dff208ff136d1e441"
+    },
+    {
+      "path": "../../packages/mobile/assets/fonts/Mulish-SemiBold.ttf",
+      "sha1": "29a153a32db3b42b744da60adef6aa990fc7fedc"
+    },
+    {
+      "path": "../../packages/mobile/assets/fonts/OFL.txt",
+      "sha1": "39a6bfba3ed425138ba450e7da8d28be4c01a1c7"
+    }
+  ]
+}
