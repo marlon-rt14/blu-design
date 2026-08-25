@@ -1,4 +1,4 @@
-import { BluProvider, Button } from '@dsm/mobile';
+import { BluProvider, Button, useFontFamily } from '@dsm/mobile';
 import { colors, spacing, typography } from '@dsm/shared';
 import type { TButtonSize, TButtonVariant } from '@dsm/shared';
 import { useState } from 'react';
@@ -11,25 +11,33 @@ const SIZES: TButtonSize[] = ['small', 'medium', 'large'];
 const App = () => {
   const [presses, setPresses] = useState(0);
   const handlePress = () => setPresses(current => current + 1);
+  // fontWeight isn't set alongside fontFamily below — each Mulish-*.ttf is
+  // already a single static weight, same constraint as @dsm/mobile's own
+  // components (see TextField's useTextField).
+  const regularFont = useFontFamily(typography.fontWeights.regular);
+  const mediumFont = useFontFamily(typography.fontWeights.medium);
+  const semiboldFont = useFontFamily(typography.fontWeights.semibold);
 
   return (
     <BluProvider>
       <SafeAreaProvider>
         <SafeAreaView style={styles.safeArea}>
           <ScrollView contentContainerStyle={styles.content}>
-            <Text style={styles.title}>@dsm/mobile · demo</Text>
-            <Text style={styles.subtitle}>
+            <Text style={[styles.title, { fontFamily: semiboldFont }]}>@dsm/mobile · demo</Text>
+            <Text style={[styles.subtitle, { fontFamily: regularFont }]}>
               El mismo Button del design system, consumido desde una app React
               Native.
             </Text>
 
-            <Text style={styles.counter} testID="press-counter">
+            <Text style={[styles.counter, { fontFamily: mediumFont }]} testID="press-counter">
               Presses: {presses}
             </Text>
 
             {VARIANTS.map(variant => (
               <View key={variant} style={styles.section}>
-                <Text style={styles.sectionTitle}>{variant.toUpperCase()}</Text>
+                <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+                  {variant.toUpperCase()}
+                </Text>
                 <View style={styles.row}>
                   {SIZES.map(size => (
                     <Button
@@ -69,7 +77,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: typography.fontWeights.semibold,
     color: colors.slate900,
   },
   subtitle: {
@@ -78,7 +85,6 @@ const styles = StyleSheet.create({
   },
   counter: {
     fontSize: typography.fontSizes.md,
-    fontWeight: typography.fontWeights.medium,
     color: colors.slate900,
   },
   section: {
