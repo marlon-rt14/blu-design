@@ -8,5 +8,6 @@
 
 // Tokens are loaded once, when the package is imported.
 import './styles/tokens.css';
+import './styles/textfield-theme.css';
 
 export * from './components';

@@ -9,6 +9,7 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build:theme-css": "node scripts/generate-web-theme.mjs"
   }
 }
