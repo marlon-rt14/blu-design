@@ -1,4 +1,4 @@
-import { Button } from '@dsm/web'
+import { BluProvider, Button } from '@dsm/web'
 import type { TButtonSize, TButtonVariant } from '@dsm/shared'
 import { useState } from 'react'
 
@@ -12,41 +12,45 @@ const App = () => {
   const handleClick = () => setClicks((current) => current + 1)
 
   return (
-    <main className="demo">
-      <h1 className="demo__title">@dsm/web · demo</h1>
-      <p className="demo__subtitle">
-        El mismo Button del design system, consumido desde una app Vite.
-      </p>
+    // BluProvider is what actually loads Mulish (see @dsm/web's theme/font.ts) —
+    // importing the package alone no longer pulls fonts in, on purpose.
+    <BluProvider style={{ minHeight: '100vh' }}>
+      <main className="demo">
+        <h1 className="demo__title">@dsm/web · demo</h1>
+        <p className="demo__subtitle">
+          El mismo Button del design system, consumido desde una app Vite.
+        </p>
 
-      <p className="demo__counter">
-        Clicks: <strong data-testid="click-counter">{clicks}</strong>
-      </p>
+        <p className="demo__counter">
+          Clicks: <strong data-testid="click-counter">{clicks}</strong>
+        </p>
 
-      {VARIANTS.map((variant) => (
-        <section className="demo__section" key={variant}>
-          <h2 className="demo__section-title">{variant}</h2>
-          <div className="demo__row">
-            {SIZES.map((size) => (
+        {VARIANTS.map((variant) => (
+          <section className="demo__section" key={variant}>
+            <h2 className="demo__section-title">{variant}</h2>
+            <div className="demo__row">
+              {SIZES.map((size) => (
+                <Button
+                  key={size}
+                  label={size}
+                  onClick={handleClick}
+                  size={size}
+                  testID={`button-${variant}-${size}`}
+                  variant={variant}
+                />
+              ))}
               <Button
-                key={size}
-                label={size}
+                isDisabled
+                label="disabled"
                 onClick={handleClick}
-                size={size}
-                testID={`button-${variant}-${size}`}
+                testID={`button-${variant}-disabled`}
                 variant={variant}
               />
-            ))}
-            <Button
-              isDisabled
-              label="disabled"
-              onClick={handleClick}
-              testID={`button-${variant}-disabled`}
-              variant={variant}
-            />
-          </div>
-        </section>
-      ))}
-    </main>
+            </div>
+          </section>
+        ))}
+      </main>
+    </BluProvider>
   )
 }
 

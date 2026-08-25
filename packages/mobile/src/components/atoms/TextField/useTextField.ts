@@ -1,9 +1,4 @@
-import {
-  textFieldBorderWidthTokens,
-  textFieldColorTokens,
-  textFieldSizeTokens,
-  textFieldTypographyTokens,
-} from '@dsm/shared';
+import { textFieldTokens } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
@@ -40,10 +35,9 @@ interface IUseTextFieldResult {
  * Resolves every color and metric the native TextField needs, from the active
  * theme, its size and its current state.
  *
- * Unlike the web version, colors cannot be left to CSS: React Native has no
- * cascade or pseudo-classes, so `isFocused` is tracked by the component (see
- * `TextField.tsx`) and fed in here, and the active theme comes from
- * `useThemeMode()` instead of a `data-dsm-theme` attribute.
+ * React Native has no cascade or pseudo-classes, so `isFocused` is tracked
+ * by the component (see `TextField.tsx`) and fed in here — the same shape
+ * `@dsm/web`'s own `useTextField` now uses for hover and focus.
  *
  * @param params - The TextField props plus the current focus state.
  * @returns The resolved styles, normalized flags, and the text to render below the field.
@@ -60,8 +54,9 @@ export const useTextField = ({
   isFocused,
 }: IUseTextFieldParams): IUseTextFieldResult => {
   const mode = useThemeMode();
-  const colors = textFieldColorTokens[mode];
-  const sizeTokens = textFieldSizeTokens[size];
+  const tokens = textFieldTokens[mode];
+  const colors = tokens.colors;
+  const sizeTokens = tokens.sizes[size];
   const hasError = isInvalid || Boolean(errorMessage);
 
   const borderColor = isDisabled
@@ -90,10 +85,7 @@ export const useTextField = ({
     height: sizeTokens.height,
     paddingHorizontal: sizeTokens.paddingHorizontal,
     borderRadius: sizeTokens.borderRadius,
-    borderWidth:
-      isFocused && !isDisabled && !isReadOnly
-        ? textFieldBorderWidthTokens.focus
-        : textFieldBorderWidthTokens.default,
+    borderWidth: isFocused && !isDisabled && !isReadOnly ? tokens.borderWidth.focus : tokens.borderWidth.default,
     borderColor,
     backgroundColor,
     justifyContent: 'center',
@@ -106,16 +98,16 @@ export const useTextField = ({
   // "Mulish-SemiBold_bold.ttf" that doesn't exist and silently fall back to
   // the system font. The weight is already baked into which file we picked.
   const inputStyle: StyleProp<TextStyle> = {
-    fontFamily: resolveMulishFontFamily(textFieldTypographyTokens.content.fontWeight),
-    fontSize: textFieldTypographyTokens.content.fontSize,
-    lineHeight: textFieldTypographyTokens.content.lineHeight,
+    fontFamily: resolveMulishFontFamily(tokens.typography.content.fontWeight),
+    fontSize: tokens.typography.content.fontSize,
+    lineHeight: tokens.typography.content.lineHeight,
     color: valueColor,
   };
 
   const labelStyle: StyleProp<TextStyle> = {
-    fontFamily: resolveMulishFontFamily(textFieldTypographyTokens.label.fontWeight),
-    fontSize: textFieldTypographyTokens.label.fontSize,
-    lineHeight: textFieldTypographyTokens.label.lineHeight,
+    fontFamily: resolveMulishFontFamily(tokens.typography.label.fontWeight),
+    fontSize: tokens.typography.label.fontSize,
+    lineHeight: tokens.typography.label.lineHeight,
     color: isDisabled ? colors.label.disabled : colors.label.default,
   };
 
@@ -125,9 +117,9 @@ export const useTextField = ({
       ? colors.helper.error
       : colors.helper.default;
   const helperStyle: StyleProp<TextStyle> = {
-    fontFamily: resolveMulishFontFamily(textFieldTypographyTokens.helper.fontWeight),
-    fontSize: textFieldTypographyTokens.helper.fontSize,
-    lineHeight: textFieldTypographyTokens.helper.lineHeight,
+    fontFamily: resolveMulishFontFamily(tokens.typography.helper.fontWeight),
+    fontSize: tokens.typography.helper.fontSize,
+    lineHeight: tokens.typography.helper.lineHeight,
     color: helperColor,
   };
 
@@ -137,9 +129,9 @@ export const useTextField = ({
       ? colors.counter.error
       : colors.counter.default;
   const counterStyle: StyleProp<TextStyle> = {
-    fontFamily: resolveMulishFontFamily(textFieldTypographyTokens.counter.fontWeight),
-    fontSize: textFieldTypographyTokens.counter.fontSize,
-    lineHeight: textFieldTypographyTokens.counter.lineHeight,
+    fontFamily: resolveMulishFontFamily(tokens.typography.counter.fontWeight),
+    fontSize: tokens.typography.counter.fontSize,
+    lineHeight: tokens.typography.counter.lineHeight,
     color: counterColor,
   };
 

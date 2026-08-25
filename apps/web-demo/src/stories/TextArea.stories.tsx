@@ -1,0 +1,170 @@
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ReactElement } from 'react';
+import { useState } from 'react';
+
+import { PlatformTextArea } from './PlatformTextArea';
+import type { IPlatformTextAreaProps, TPlatform } from './PlatformTextArea';
+
+/**
+ * `PlatformTextArea` is controlled, so the story needs to hold its own state
+ * to make typing possible in the canvas. `value` is intentionally left out of
+ * the controls panel (see `argTypes` below) — it is owned by this wrapper,
+ * not by Storybook's args. Fixed to a readable width, since a growing
+ * textarea with no width constraint looks odd in the canvas.
+ */
+const ControlledPlatformTextArea = (props: IPlatformTextAreaProps): ReactElement => {
+  const [value, setValue] = useState(props.value);
+  return (
+    <div style={{ width: 320 }}>
+      <PlatformTextArea {...props} value={value} onValueChange={setValue} />
+    </div>
+  );
+};
+
+/**
+ * The props table below describes the shared contract from `@dsm/shared`,
+ * which both implementations honour. `argTypes` are declared explicitly
+ * rather than inferred, because react-docgen cannot resolve props inherited
+ * from another package.
+ *
+ * Unlike `TextField`, there is no `size` control and no `placeholder` control
+ * — Figma's `TextArea` component set has a single `state` variant axis, and
+ * `label` doubles as the placeholder (see `ITextAreaBaseProps` in `@dsm/shared`).
+ */
+const meta = {
+  title: 'Atoms/TextArea',
+  component: PlatformTextArea,
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component:
+          'Use the **Platform** dropdown to switch between the React implementation ' +
+          '(`@dsm/web`) and the React Native one (`@dsm/mobile`), and the **Theme** ' +
+          'dropdown to preview light and dark. `label` acts as the placeholder while ' +
+          'the field is empty and floats above it as soon as there is a value — there ' +
+          'is no separate `placeholder` prop. The field has no fixed height: it grows ' +
+          'with content, never shrinking below its token floor.',
+      },
+    },
+  },
+  argTypes: {
+    label: {
+      control: 'text',
+      description: 'Shown inside the field while empty (acting as a placeholder); floats above once there is a value.',
+    },
+    helperText: {
+      control: 'text',
+      description: 'Rendered in the footer\u2019s left slot. Hidden while `errorMessage` is set.',
+    },
+    errorMessage: {
+      control: 'text',
+      description: 'Rendered in the footer\u2019s left slot instead of `helperText`, styled as an error.',
+    },
+    isInvalid: {
+      control: 'boolean',
+      description: 'Applies the invalid styling. Pair with `errorMessage` — a border alone fails WCAG 1.4.1.',
+      table: { defaultValue: { summary: 'false' } },
+    },
+    isDisabled: {
+      control: 'boolean',
+      description: 'Blocks interaction and applies the disabled styling.',
+      table: { defaultValue: { summary: 'false' } },
+    },
+    isReadOnly: {
+      control: 'boolean',
+      description: 'Shows the value but blocks editing.',
+      table: { defaultValue: { summary: 'false' } },
+    },
+    maxLength: {
+      control: 'number',
+      description: 'When set, renders a `"n/max"` counter in the footer\u2019s right slot.',
+    },
+    testID: {
+      control: 'text',
+      description: 'Maps to `data-testid` on web and to the native `testID` on mobile.',
+    },
+    onValueChange: {
+      description: 'Mapped to `onChange` on web and to `onChangeText` on mobile.',
+    },
+    // Owned by ControlledPlatformTextArea, not by the controls panel — see above.
+    value: { table: { disable: true } },
+    // Driven by the toolbar, not by the controls panel.
+    platform: { table: { disable: true } },
+  },
+  args: {
+    label: 'Comentario',
+    value: '',
+  },
+  render: (args, { globals }) => (
+    <ControlledPlatformTextArea {...args} platform={globals['platform'] as TPlatform} />
+  ),
+} satisfies Meta<IPlatformTextAreaProps>;
+
+export default meta;
+
+type TStory = StoryObj<typeof meta>;
+
+/** Every prop editable from the controls panel. */
+export const Playground: TStory = {};
+
+/**
+ * Empty field: the label acts as the placeholder and does not float — Figma's
+ * `default` state. Focusing an empty field (`focus` in Figma) looks the same
+ * on this axis: it does not float either, only when a value is set.
+ */
+export const Empty: TStory = {
+  args: { value: '' },
+};
+
+/** With a value: the label has floated above the field — Figma's `filled` state. */
+export const Filled: TStory = {
+  args: {
+    value:
+      'Texto largo que ocupa varias lineas para mostrar como crece el campo hacia abajo sin recortar nada.',
+  },
+};
+
+/** With helper text guiding the user before any validation has run. */
+export const WithHelperText: TStory = {
+  args: { value: 'Notas del pedido', helperText: 'Máximo 200 caracteres.' },
+};
+
+/** Invalid state with a message — the border alone would fail WCAG 1.4.1. */
+export const ErrorState: TStory = {
+  args: { value: '', errorMessage: 'Este campo es obligatorio.' },
+};
+
+/** Blocks interaction entirely — the handler must not fire in this state. */
+export const Disabled: TStory = {
+  args: { value: 'Texto bloqueado', isDisabled: true },
+};
+
+/** Shows a value the user cannot edit through this control — a different look from disabled. */
+export const ReadOnly: TStory = {
+  args: { value: 'Este contenido no se puede editar.', isReadOnly: true },
+};
+
+/**
+ * With a `maxLength`, rendering the `"n/max"` counter in the footer's right
+ * slot — no spaces, unlike `TextField`'s `"n / max"`. The counter shares the
+ * helper's color, so it turns red together with the border in `ErrorState`.
+ */
+export const WithCounter: TStory = {
+  args: { value: 'Cuéntanos qué salió mal.', maxLength: 200 },
+};
+
+/** Both footer slots at once — independent, so either can be toggled off without leaving a gap. */
+export const WithHelperAndCounter: TStory = {
+  args: { value: 'Describe el problema.', helperText: 'Sé lo más específico posible.', maxLength: 500 },
+};
+
+/** Grows past its three-row starting height as the content wraps onto more lines. */
+export const GrowsWithContent: TStory = {
+  args: {
+    value:
+      'Este campo empieza con tres líneas visibles, pero no tiene un alto fijo: ' +
+      'a medida que el contenido crece hacia abajo, el campo crece con él, ' +
+      'línea por línea, sin recortar ni mostrar una barra de scroll interna.',
+  },
+};

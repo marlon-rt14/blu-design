@@ -21,8 +21,10 @@ export interface IThemeProviderProps extends PropsWithChildren {
  * Without a `mode` override, it tracks `Appearance.getColorScheme()` live —
  * flipping the OS setting updates every themed component without a restart.
  * There is no CSS cascade on React Native, so this context is the equivalent
- * of the web `data-dsm-theme` attribute (see `textfield-theme.css` in
- * `@dsm/web`).
+ * of `@dsm/web`'s own `ThemeContext` — both platforms resolve the same
+ * `Record<TThemeMode, ...>` token objects from `@dsm/shared` at render time,
+ * web through `useThemeMode()` feeding inline styles, mobile through this
+ * context feeding `StyleSheet` values.
  *
  * @example
  * ```tsx

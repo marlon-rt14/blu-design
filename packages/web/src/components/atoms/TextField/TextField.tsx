@@ -1,7 +1,6 @@
-import { useId } from 'react';
-import type { ReactElement } from 'react';
+import { useId, useState } from 'react';
+import type { FocusEvent, ReactElement } from 'react';
 
-import './TextField.css';
 import type { ITextFieldProps } from './TextField.types';
 import { useTextField } from './useTextField';
 
@@ -10,9 +9,11 @@ import { useTextField } from './useTextField';
  * and an optional character counter.
  *
  * Renders a real `<input>`, so native keyboard, autofill and form semantics
- * come for free. Interaction states (hover, focus) are driven by CSS
- * pseudo-classes — see `TextField.css` — the same approach the web Button
- * uses, so there is no local state to keep in sync with the DOM.
+ * come for free. Every style comes from `useTextField`, resolved from the
+ * active theme's tokens — hover and focus are tracked here as local state
+ * and fed into it, since there are no CSS pseudo-classes to lean on anymore.
+ * The one exception is `::placeholder`, which cannot be an inline style — see
+ * `styles/pseudo.css` and the `dsm-input` class below.
  *
  * @example
  * ```tsx
@@ -25,46 +26,73 @@ import { useTextField } from './useTextField';
 export const TextField = (props: ITextFieldProps): ReactElement => {
   const { value, label, placeholder, onChange, onFocus, onBlur, type = 'text', name, maxLength, testID } =
     props;
-  const { containerClassName, isDisabled, isReadOnly, isInvalid, displayedHelperText, counterText } =
-    useTextField(props);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const {
+    containerStyle,
+    labelStyle,
+    inputStyle,
+    footerStyle,
+    helperStyle,
+    counterStyle,
+    isDisabled,
+    isReadOnly,
+    isInvalid,
+    displayedHelperText,
+    counterText,
+  } = useTextField({ ...props, isHovered, isFocused });
   const inputId = useId();
   const footerId = `${inputId}-footer`;
   const hasFooter = Boolean(displayedHelperText) || Boolean(counterText);
 
+  const handleMouseEnter = (): void => setIsHovered(true);
+  const handleMouseLeave = (): void => setIsHovered(false);
+  const handleFocus = (event: FocusEvent<HTMLInputElement>): void => {
+    setIsFocused(true);
+    onFocus?.(event);
+  };
+  const handleBlur = (event: FocusEvent<HTMLInputElement>): void => {
+    setIsFocused(false);
+    onBlur?.(event);
+  };
+
   return (
-    <div className={containerClassName}>
+    <div style={containerStyle}>
       {label ? (
-        <label className="dsm-textfield__label" htmlFor={inputId}>
+        <label htmlFor={inputId} style={labelStyle}>
           {label}
         </label>
       ) : null}
       <input
         aria-describedby={hasFooter ? footerId : undefined}
         aria-invalid={isInvalid}
-        className="dsm-textfield__input"
+        className="dsm-input"
         data-testid={testID}
         disabled={isDisabled}
         id={inputId}
         maxLength={maxLength}
         name={name}
-        onBlur={onBlur}
+        onBlur={handleBlur}
         onChange={onChange}
-        onFocus={onFocus}
+        onFocus={handleFocus}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         placeholder={placeholder}
         readOnly={isReadOnly}
+        style={inputStyle}
         type={type}
         value={value}
       />
       {hasFooter ? (
-        <div className="dsm-textfield__footer" id={footerId}>
+        <div id={footerId} style={footerStyle}>
           {displayedHelperText ? (
             // role="alert" only for actual errors — plain helper text
             // shouldn't interrupt the screen reader.
-            <span className="dsm-textfield__helper" role={isInvalid ? 'alert' : undefined}>
+            <span role={isInvalid ? 'alert' : undefined} style={helperStyle}>
               {displayedHelperText}
             </span>
           ) : null}
-          {counterText ? <span className="dsm-textfield__counter">{counterText}</span> : null}
+          {counterText ? <span style={counterStyle}>{counterText}</span> : null}
         </div>
       ) : null}
     </div>

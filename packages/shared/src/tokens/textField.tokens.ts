@@ -48,71 +48,6 @@ export interface ITextFieldColorTokens {
   icon: ITextFieldSupportColorTokens;
 }
 
-const readTextFieldColors = (mode: TThemeMode): ITextFieldColorTokens => {
-  const { color } = themeSources[mode];
-  const at = (path: string): string => readThemeToken(color, `color.component.textfield.${path}`);
-
-  return {
-    container: {
-      background: at('container.bg-default'),
-      backgroundDisabled: at('container.bg-disabled'),
-      backgroundReadOnly: at('container.bg-readonly'),
-      border: at('container.border-default'),
-      borderHover: at('container.border-hover'),
-      borderFocus: at('container.border-focus'),
-      borderError: at('container.border-error'),
-      borderDisabled: at('container.border-disabled'),
-      borderReadOnly: at('container.border-readonly'),
-      overlayHover: at('container.overlay-hover'),
-    },
-    label: {
-      default: at('label.text-default'),
-      disabled: at('label.text-disabled'),
-    },
-    value: {
-      placeholder: at('value.text-placeholder'),
-      filled: at('value.text-filled'),
-      disabled: at('value.text-disabled'),
-      readOnly: at('value.text-readonly'),
-    },
-    helper: {
-      default: at('helper.text-default'),
-      error: at('helper.text-error'),
-      disabled: at('helper.text-disabled'),
-    },
-    counter: {
-      default: at('counter.text-default'),
-      error: at('counter.text-error'),
-      disabled: at('counter.text-disabled'),
-    },
-    icon: {
-      default: at('icon.icon-default'),
-      disabled: at('icon.icon-disabled'),
-    },
-  };
-};
-
-/**
- * TextField colors, keyed by theme mode.
- *
- * Source: `color.component.textfield.*` in `theme/base` (light) and
- * `theme/dark`. Both platforms pick the right entry at render time based on
- * the active theme — web through the `data-dsm-theme` attribute (see
- * `textfield-theme.css` in `@dsm/web`), mobile through `useThemeMode()`.
- */
-export const textFieldColorTokens: Record<TThemeMode, ITextFieldColorTokens> = {
-  light: readTextFieldColors('light'),
-  dark: readTextFieldColors('dark'),
-};
-
-// Dimension and typography tokens carry no theme variance today —
-// `theme/dark/dimension.json` and `.../typography.json` are byte-identical to
-// their `theme/base` counterparts: layout doesn't change with color mode.
-// Reading from `light` is a deliberate choice, not an oversight — if a mode
-// ever needs its own metrics, this is the one place that would change.
-const dimensionSource = themeSources.light.dimension;
-const typographySource = themeSources.light.typography;
-
 /** Metrics that scale with `TTextFieldSize`. */
 export interface ITextFieldSizeTokens {
   /** Container height, unitless. */
@@ -123,50 +58,17 @@ export interface ITextFieldSizeTokens {
   paddingHorizontal: number;
 }
 
-/**
- * TextField metrics, keyed by size.
- *
- * `dimension.size.field.height.md` (44) and `.lg` (56) pair with
- * `dimension.radius.field.sm` (16) and `.md` (24) respectively — Supernova
- * named the two scales independently, so the pairing is re-established here.
- */
-export const textFieldSizeTokens: Record<TTextFieldSize, ITextFieldSizeTokens> = {
-  medium: {
-    height: readThemeDimension(dimensionSource, 'dimension.size.field.height.md'),
-    borderRadius: readThemeDimension(dimensionSource, 'dimension.radius.field.sm'),
-    paddingHorizontal: readThemeDimension(dimensionSource, 'dimension.space.inset.lg'),
-  },
-  large: {
-    height: readThemeDimension(dimensionSource, 'dimension.size.field.height.lg'),
-    borderRadius: readThemeDimension(dimensionSource, 'dimension.radius.field.md'),
-    paddingHorizontal: readThemeDimension(dimensionSource, 'dimension.space.inset.lg'),
-  },
-};
-
 /** Border widths, unitless. Same value at rest, on hover and when read-only; focus gets a thicker ring. */
 export interface ITextFieldBorderWidthTokens {
   default: number;
   focus: number;
 }
 
-export const textFieldBorderWidthTokens: ITextFieldBorderWidthTokens = {
-  default: readThemeDimension(dimensionSource, 'dimension.border.width.default'),
-  focus: readThemeDimension(dimensionSource, 'dimension.border.width.focus'),
-};
-
 /** Vertical gap between label/field/footer, and the horizontal gap inside the footer. Unitless. */
 export interface ITextFieldLayoutTokens {
   stackGap: number;
   inlineGap: number;
 }
-
-export const textFieldLayoutTokens: ITextFieldLayoutTokens = {
-  stackGap: readThemeDimension(dimensionSource, 'dimension.space.inset.xs'),
-  inlineGap: readThemeDimension(dimensionSource, 'dimension.space.inset.sm'),
-};
-
-/** Inline icon size, unitless — the "icon next to text" step of the icon scale. Reserved for a future icon slot. */
-export const textFieldIconSize: number = readThemeDimension(dimensionSource, 'dimension.size.icon.sm');
 
 /** One resolved typography role: font weight, size, line height and family. */
 export type ITextFieldTypographyRole = IThemeTypographyValue;
@@ -187,12 +89,109 @@ export interface ITextFieldTypographyTokens {
   counter: ITextFieldTypographyRole;
 }
 
-const typographyAt = (path: string): ITextFieldTypographyRole =>
-  readThemeTypography(typographySource, `typography.component.inputs.input-text.typography.${path}`);
+/** Every token a TextField needs, resolved for a single theme. */
+export interface ITextFieldTokens {
+  colors: ITextFieldColorTokens;
+  sizes: Record<TTextFieldSize, ITextFieldSizeTokens>;
+  borderWidth: ITextFieldBorderWidthTokens;
+  layout: ITextFieldLayoutTokens;
+  typography: ITextFieldTypographyTokens;
+  /** Inline icon size, unitless — the "icon next to text" step of the icon scale. Reserved for a future icon slot. */
+  iconSize: number;
+}
 
-export const textFieldTypographyTokens: ITextFieldTypographyTokens = {
-  label: typographyAt('text-holder'),
-  content: typographyAt('content'),
-  helper: typographyAt('helper'),
-  counter: typographyAt('character-count'),
+const readTextFieldTokens = (mode: TThemeMode): ITextFieldTokens => {
+  const { color, dimension, typography } = themeSources[mode];
+  const colorAt = (path: string): string => readThemeToken(color, `color.component.textfield.${path}`);
+  const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
+  const typographyAt = (path: string): ITextFieldTypographyRole =>
+    readThemeTypography(typography, `typography.component.inputs.input-text.typography.${path}`);
+
+  return {
+    colors: {
+      container: {
+        background: colorAt('container.bg-default'),
+        backgroundDisabled: colorAt('container.bg-disabled'),
+        backgroundReadOnly: colorAt('container.bg-readonly'),
+        border: colorAt('container.border-default'),
+        borderHover: colorAt('container.border-hover'),
+        borderFocus: colorAt('container.border-focus'),
+        borderError: colorAt('container.border-error'),
+        borderDisabled: colorAt('container.border-disabled'),
+        borderReadOnly: colorAt('container.border-readonly'),
+        overlayHover: colorAt('container.overlay-hover'),
+      },
+      label: {
+        default: colorAt('label.text-default'),
+        disabled: colorAt('label.text-disabled'),
+      },
+      value: {
+        placeholder: colorAt('value.text-placeholder'),
+        filled: colorAt('value.text-filled'),
+        disabled: colorAt('value.text-disabled'),
+        readOnly: colorAt('value.text-readonly'),
+      },
+      helper: {
+        default: colorAt('helper.text-default'),
+        error: colorAt('helper.text-error'),
+        disabled: colorAt('helper.text-disabled'),
+      },
+      counter: {
+        default: colorAt('counter.text-default'),
+        error: colorAt('counter.text-error'),
+        disabled: colorAt('counter.text-disabled'),
+      },
+      icon: {
+        default: colorAt('icon.icon-default'),
+        disabled: colorAt('icon.icon-disabled'),
+      },
+    },
+    // `dimension.size.field.height.md` (44) and `.lg` (56) pair with
+    // `dimension.radius.field.sm` (16) and `.md` (24) respectively —
+    // Supernova named the two scales independently, so the pairing is
+    // re-established here.
+    sizes: {
+      medium: {
+        height: dimensionAt('size.field.height.md'),
+        borderRadius: dimensionAt('radius.field.sm'),
+        paddingHorizontal: dimensionAt('space.inset.lg'),
+      },
+      large: {
+        height: dimensionAt('size.field.height.lg'),
+        borderRadius: dimensionAt('radius.field.md'),
+        paddingHorizontal: dimensionAt('space.inset.lg'),
+      },
+    },
+    borderWidth: {
+      default: dimensionAt('border.width.default'),
+      focus: dimensionAt('border.width.focus'),
+    },
+    layout: {
+      stackGap: dimensionAt('space.inset.xs'),
+      inlineGap: dimensionAt('space.inset.sm'),
+    },
+    typography: {
+      label: typographyAt('text-holder'),
+      content: typographyAt('content'),
+      helper: typographyAt('helper'),
+      counter: typographyAt('character-count'),
+    },
+    iconSize: dimensionAt('size.icon.sm'),
+  };
+};
+
+/**
+ * TextField tokens, keyed by theme mode.
+ *
+ * Source: `color.component.textfield.*`, `dimension.*` and
+ * `typography.component.inputs.input-text.*` in `theme/base` (light) and
+ * `theme/dark`. Read every field per mode, not just color — `dimension.json`
+ * is not fully theme-invariant (`dimension.elevation.*.shadow.*` differs),
+ * so nothing here assumes `light` is a safe stand-in for `dark`, even where
+ * today's values happen to match. Both platforms pick the right entry at
+ * render time via `useThemeMode()`.
+ */
+export const textFieldTokens: Record<TThemeMode, ITextFieldTokens> = {
+  light: readTextFieldTokens('light'),
+  dark: readTextFieldTokens('dark'),
 };

@@ -24,6 +24,7 @@
   --dsm-color-slate-900: #0f172a;
 
   /* typography */
+  --dsm-font-family-base: 'Mulish', sans-serif;
   --dsm-font-size-sm: 14px;
   --dsm-font-size-md: 16px;
   --dsm-font-size-lg: 18px;

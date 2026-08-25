@@ -29,6 +29,11 @@ const MULISH_FONT_FAMILY_BY_WEIGHT: Record<string, string> = {
  * font file that renders it. Throws on an unknown weight instead of silently
  * falling back — a weight with no matching file means a new one needs
  * instancing into `assets/fonts/`, not a silently wrong render.
+ *
+ * Re-exported as `useFontFamily` from `theme/index.ts` for API symmetry with
+ * `@dsm/web`'s hook of the same name — that one actually does need the
+ * `use` prefix (it reads a value out of `@dsm/shared`'s tokens), this one is
+ * a pure function, kept under its original name here.
  */
 export const resolveMulishFontFamily = (fontWeight: string): string => {
   const family = MULISH_FONT_FAMILY_BY_WEIGHT[fontWeight];

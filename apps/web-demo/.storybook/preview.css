@@ -1,16 +1,10 @@
 /*
- * Base typography for the story canvas, so both implementations render in the
- * same font as the demo apps. --dsm-font-family-base is Mulish (the design
- * system's brand typeface, loaded by @dsm/web via @fontsource-variable/mulish)
- * with a system fallback. Background and text color follow the "Theme"
- * toolbar global through --dsm-page-* (see textfield-theme.css), so the
- * canvas itself goes dark, not just the component being demoed.
+ * The story canvas's background, text color and font now come from the web
+ * `BluProvider` wrapper in `preview.tsx` (see `ThemedStory`), not from CSS
+ * custom properties scoped by a `data-dsm-theme` attribute. This file only
+ * resets the canvas's own margin, so that wrapper can fill the frame
+ * edge-to-edge.
  */
 body {
-  font-family: var(--dsm-font-family-base);
-  background-color: var(--dsm-page-background);
-  color: var(--dsm-page-text);
-  transition:
-    background-color 160ms ease,
-    color 160ms ease;
+  margin: 0;
 }

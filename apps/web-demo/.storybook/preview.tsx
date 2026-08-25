@@ -1,35 +1,29 @@
-import { BluProvider } from '@dsm/mobile';
+import { BluProvider as MobileBluProvider } from '@dsm/mobile';
 import type { TThemeMode } from '@dsm/shared';
+import { BluProvider as WebBluProvider } from '@dsm/web';
 import type { Decorator, Preview } from '@storybook/react-vite';
 import type { PropsWithChildren, ReactElement } from 'react';
-import { useEffect } from 'react';
-
-// Side-effect import: loads the design system token custom properties.
-import '@dsm/web';
 
 import './preview.css';
 
 /**
- * Applies `theme` to the story canvas and to every `@dsm/mobile` component
- * rendered inside it.
+ * Applies `theme` to the story canvas and to every component rendered inside
+ * it, on both platforms.
  *
- * Web components read the theme through CSS custom properties scoped by the
- * `data-dsm-theme` attribute (see `textfield-theme.css` in `@dsm/web`), set
- * here as a side effect. Mobile components have no CSS cascade, so they get
- * the same value through `@dsm/mobile`'s `BluProvider` instead — wrapping
- * every story with it is harmless for web-rendered components, which simply
- * never read the context.
+ * Neither platform has a CSS cascade to lean on for this anymore — `@dsm/web`
+ * dropped its `data-dsm-theme` attribute in favour of resolving tokens from
+ * `theme[mode]` at render time (see `useTextField`), the same approach
+ * mobile always used. So both platforms get their own `BluProvider` here:
+ * the web one feeds `useThemeMode()` to `@dsm/web` components AND paints the
+ * actual canvas background/text/font (see its own doc comment); the mobile
+ * one feeds the same mode to `@dsm/mobile` components. Nesting them is
+ * harmless — each provider is only read by its own platform's components.
  */
-const ThemedStory = ({
-  theme,
-  children,
-}: PropsWithChildren<{ theme: TThemeMode }>): ReactElement => {
-  useEffect(() => {
-    document.documentElement.dataset['dsmTheme'] = theme;
-  }, [theme]);
-
-  return <BluProvider mode={theme}>{children}</BluProvider>;
-};
+const ThemedStory = ({ theme, children }: PropsWithChildren<{ theme: TThemeMode }>): ReactElement => (
+  <WebBluProvider mode={theme} style={{ minHeight: '100vh', padding: 24 }}>
+    <MobileBluProvider mode={theme}>{children}</MobileBluProvider>
+  </WebBluProvider>
+);
 
 /** Applies the `theme` toolbar global to every story via {@link ThemedStory}. */
 const withTheme: Decorator = (Story, context) => (

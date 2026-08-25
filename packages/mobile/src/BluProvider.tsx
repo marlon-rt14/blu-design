@@ -18,8 +18,11 @@ export interface IBluProviderProps extends PropsWithChildren {
  * Sets up the active theme mode (see {@link useThemeMode}) for every themed
  * component below it. It does **not** load the Mulish typeface: bare React
  * Native has no runtime API to inject a font file the way a JS provider
- * could — fonts are a native build concern, linked once ahead of time.
- *
+ * could — fonts are a native build concern, linked once ahead of time (see
+ * `theme/font.ts`'s `resolveMulishFontFamily` / `useFontFamily`, and
+ * `react-native.config.js` in the consuming app). `@dsm/web`'s `BluProvider`
+ * does not have this limitation — it loads Mulish itself, from its own
+ * `theme/font.ts`.
  *
  * @example
  * ```tsx

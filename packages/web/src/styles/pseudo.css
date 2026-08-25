@@ -1,0 +1,14 @@
+/*
+ * The one thing a JS style object cannot express: `::placeholder` is a
+ * pseudo-element, not a state class or attribute, so it has no inline-style
+ * equivalent. Every other property of `.dsm-input` — border, background,
+ * padding, transition — is set inline from the active theme's tokens; only
+ * the placeholder color needs this rule, driven by the same token through a
+ * custom property the component sets inline (`--dsm-input-placeholder-color`).
+ *
+ * Keep this file to exactly that: nothing else belongs here.
+ */
+.dsm-input::placeholder {
+  color: var(--dsm-input-placeholder-color);
+  opacity: 1;
+}
