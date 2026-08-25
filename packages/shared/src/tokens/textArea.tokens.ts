@@ -66,12 +66,9 @@ export interface ITextAreaDimensionTokens {
   borderRadius: number;
   paddingHorizontal: number;
   /**
-   * Not confirmed against a dedicated Figma node (TextArea isn't reachable
-   * as a page in the "BDS3 - Core components" file's top-level canvas list —
-   * only its Supernova-imported record and theme tokens are). Borrows
-   * `dimension.space.inset.md` as a reasonable vertical inset for a
-   * multi-line field; revisit if `get_design_context` on the real node ever
-   * becomes reachable and disagrees.
+   * Not confirmed against a Figma node — TextArea's page wasn't reachable in
+   * the file's canvas list. Borrows `space.inset.md` as a reasonable
+   * vertical inset; revisit if the real node ever becomes reachable.
    */
   paddingVertical: number;
   borderWidth: {
