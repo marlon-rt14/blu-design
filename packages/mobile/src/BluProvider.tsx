@@ -20,17 +20,6 @@ export interface IBluProviderProps extends PropsWithChildren {
  * Native has no runtime API to inject a font file the way a JS provider
  * could — fonts are a native build concern, linked once ahead of time.
  *
- * Required one-time setup per consuming app (already done for
- * `apps/react-native-demo`, redo only if `@dsm/mobile`'s font set changes):
- *
- * ```bash
- * pnpm --filter <app> add -D react-native-asset
- * # react-native.config.js: assets: ['<path-to>/@dsm/mobile/assets/fonts']
- * npx react-native-asset
- * ```
- *
- * See README "Theming & tokens" for the full explanation, including why
- * mobile uses Mulish at all despite the token's own "web-only" description.
  *
  * @example
  * ```tsx
