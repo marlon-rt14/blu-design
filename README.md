@@ -78,13 +78,17 @@ Supernova's own pipeline — not Style Dictionary — is the source of resolved 
 theme; `dark` is dark. Both ship fully resolved (no `{alias}` refs left), keyed by a dot path that
 mirrors Supernova's own token tree (e.g. `color.component.textfield.container.border-focus`).
 
-- `packages/shared/src/theme/tokenPath.ts` — `readThemeToken` / `readThemeDimension` /
+**`theme/` holds nothing but that JSON.** The sync pipeline replaces the whole folder on every run, so
+no hand-written file lives inside it — the utilities that read it live one level up, in
+`packages/shared/src/themeSource/`:
+
+- `packages/shared/src/themeSource/tokenPath.ts` — `readThemeToken` / `readThemeDimension` /
   `readThemeTypography` walk that JSON by path and throw if a token is missing, instead of silently
   rendering a blank style.
-- `packages/shared/src/theme/themes.ts` — `themeSources` maps `'light' | 'dark'` to the parsed JSON.
-  Dimension and typography currently carry no theme variance (`dark/dimension.json` ==
-  `base/dimension.json`), so per-component token files read those from `themeSources.light` only —
-  color is the only theme-variant axis today.
+- `packages/shared/src/themeSource/themes.ts` — `themeSources` maps `'light' | 'dark'` to the parsed
+  JSON (imported from `../theme/{base,dark}/*.json`). Dimension and typography currently carry no
+  theme variance (`dark/dimension.json` == `base/dimension.json`), so per-component token files read
+  those from `themeSources.light` only — color is the only theme-variant axis today.
 - `packages/shared/src/tokens/<name>.tokens.ts` — one file per component, reading the paths it needs
   via `tokenPath` and re-exporting them as typed, `Record<TThemeMode, ...>` / `Record<TSize, ...>`
   objects. See `textField.tokens.ts` as the reference.

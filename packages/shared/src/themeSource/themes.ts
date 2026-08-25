@@ -1,11 +1,11 @@
-import baseColor from './base/color.json';
-import baseDimension from './base/dimension.json';
-import baseString from './base/string.json';
-import baseTypography from './base/typography.json';
-import darkColor from './dark/color.json';
-import darkDimension from './dark/dimension.json';
-import darkString from './dark/string.json';
-import darkTypography from './dark/typography.json';
+import baseColor from '../theme/base/color.json';
+import baseDimension from '../theme/base/dimension.json';
+import baseString from '../theme/base/string.json';
+import baseTypography from '../theme/base/typography.json';
+import darkColor from '../theme/dark/color.json';
+import darkDimension from '../theme/dark/dimension.json';
+import darkString from '../theme/dark/string.json';
+import darkTypography from '../theme/dark/typography.json';
 
 /**
  * A theme mode available in the design system.
