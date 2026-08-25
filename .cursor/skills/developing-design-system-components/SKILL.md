@@ -21,7 +21,7 @@ Copy this checklist and work through it in order:
 
 ```
 - [ ] 1. Contract: src/types/atoms/<name>.types.ts in @dsm/shared (I<Name>BaseProps, no event handlers)
-- [ ] 2. Tokens: src/tokens/<name>.tokens.ts in @dsm/shared, reading theme/{base,dark} via tokenPath
+- [ ] 2. Tokens: src/tokens/<name>.tokens.ts in @dsm/shared, reading theme/{base,dark} via themeSource
 - [ ] 3. Web: five-file component folder + add paths to generate-web-theme.mjs + regenerate CSS
 - [ ] 4. Mobile: five-file component folder, reading the token file directly
 - [ ] 5. Barrels: atoms/index.ts (or the right level) in both @dsm/web and @dsm/mobile
@@ -36,9 +36,11 @@ implementation for all of this — copy its shape for the next component, not `B
 ## Tokens — read from `theme/`, never hand-roll
 
 - Source of truth is `packages/shared/src/theme/{base,dark}/*.json` (Supernova's own export,
-  already resolved). Read it with `readThemeToken` / `readThemeDimension` / `readThemeTypography`
-  from `packages/shared/src/theme/tokenPath.ts` — never copy a literal color/px value into a
-  `.tokens.ts` file or a component.
+  already resolved). **`theme/` holds only that JSON** — the sync pipeline replaces the whole folder
+  on every run, so nothing hand-written lives inside it. Read it with `readThemeToken` /
+  `readThemeDimension` / `readThemeTypography` from `packages/shared/src/themeSource/tokenPath.ts`
+  (a sibling folder, safe from the sync) — never copy a literal color/px value into a `.tokens.ts`
+  file or a component.
 - Dimension and typography have no theme variance today — read those from `themeSources.light`
   only. Color is the only axis that differs between `light` and `dark`.
 - Web-only: `packages/shared/scripts/generate-web-theme.mjs` turns the same JSON into CSS custom

@@ -1,7 +1,7 @@
-import { readThemeDimension, readThemeToken, readThemeTypography } from '../theme/tokenPath';
-import type { IThemeTypographyValue } from '../theme/tokenPath';
-import { themeSources } from '../theme/themes';
-import type { TThemeMode } from '../theme/themes';
+import { readThemeDimension, readThemeToken, readThemeTypography } from '../themeSource/tokenPath';
+import type { IThemeTypographyValue } from '../themeSource/tokenPath';
+import { themeSources } from '../themeSource/themes';
+import type { TThemeMode } from '../themeSource/themes';
 import type { TTextFieldSize } from '../types/atoms/textField.types';
 
 /** Container colors, keyed by the state that drives them. */
