@@ -100,6 +100,12 @@ const STATIC_TYPOGRAPHY_PATHS = {
   counter: 'typography.component.inputs.input-text.typography.character-count',
 };
 
+// The token value is just "Mulish" — Supernova defines the intended family,
+// not a web fallback stack. `@dsm/web` loads the real Mulish files via
+// @fontsource-variable/mulish (see index.ts); this generic fallback only
+// covers the brief load window or a font-loading failure.
+const WEB_FONT_FALLBACK = 'sans-serif';
+
 const renderBlock = (selector, entries) => `${selector} {\n${entries.join('\n')}\n}`;
 
 const colorBlocks = THEMES.map(({ folder, selector }) => {
@@ -113,6 +119,12 @@ const colorBlocks = THEMES.map(({ folder, selector }) => {
   return renderBlock(selector, [...componentEntries, ...pageEntries]);
 });
 
+const stringTokens = readJson(join(themeDir, 'base', 'string.json'));
+const baseFontFamily = readTokenValue(stringTokens, 'string.platform.font.family');
+const fontFamilyBlock = renderBlock(':root', [
+  `  --dsm-font-family-base: ${baseFontFamily}, ${WEB_FONT_FALLBACK};`,
+]);
+
 const dimension = readJson(join(themeDir, 'base', 'dimension.json'));
 const sizeEntries = Object.entries(STATIC_DIMENSION_PATHS).map(
   ([name, path]) => `  --dsm-textfield-size-${name}: ${readTokenValue(dimension, path)};`,
@@ -120,7 +132,8 @@ const sizeEntries = Object.entries(STATIC_DIMENSION_PATHS).map(
 
 const typography = readJson(join(themeDir, 'base', 'typography.json'));
 const typographyEntries = Object.entries(STATIC_TYPOGRAPHY_PATHS).map(
-  ([name, path]) => `  --dsm-textfield-typography-${name}: ${readTokenValue(typography, path)};`,
+  ([name, path]) =>
+    `  --dsm-textfield-typography-${name}: ${readTokenValue(typography, path)}, ${WEB_FONT_FALLBACK};`,
 );
 
 const css = `/*
@@ -132,6 +145,8 @@ const css = `/*
  * values.
  */
 ${colorBlocks.join('\n\n')}
+
+${fontFamilyBlock}
 
 ${renderBlock(':root', sizeEntries)}
 

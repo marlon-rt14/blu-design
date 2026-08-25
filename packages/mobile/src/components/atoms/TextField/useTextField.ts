@@ -28,6 +28,8 @@ interface IUseTextFieldResult {
   isDisabled: boolean;
   /** Normalized read-only flag, safe to hand straight to `TextInput`'s `editable`. */
   isReadOnly: boolean;
+  /** `true` when `isInvalid` or `errorMessage` is set. Drives the error-state footer announcement. */
+  isInvalid: boolean;
   /** `errorMessage` when set, otherwise `helperText`. `undefined` when neither is set. */
   displayedHelperText: string | undefined;
   /** `"n / max"` when `maxLength` is set, otherwise `undefined`. */
@@ -99,6 +101,10 @@ export const useTextField = ({
     justifyContent: 'center',
   };
 
+  // `fontFamily` is deliberately not set: per `string.platform.font.family`
+  // in the token export, "Mulish" is the WEB alias only — iOS and Android
+  // are meant to render in their own system font (San Francisco / Roboto),
+  // so `fontWeight` alone is applied and RN falls back to the OS default.
   const inputStyle: StyleProp<TextStyle> = {
     fontSize: textFieldTypographyTokens.content.fontSize,
     lineHeight: textFieldTypographyTokens.content.lineHeight,
@@ -146,6 +152,7 @@ export const useTextField = ({
     placeholderTextColor: isDisabled ? colors.value.disabled : colors.value.placeholder,
     isDisabled,
     isReadOnly,
+    isInvalid: hasError,
     displayedHelperText: errorMessage ?? helperText,
     counterText: maxLength !== undefined ? `${value.length} / ${maxLength}` : undefined,
   };

@@ -71,28 +71,66 @@ Autodocs are enabled globally in `.storybook/preview.tsx`, so every component ge
 Docs page with its props table. The tables declare `argTypes` explicitly because
 react-docgen cannot resolve props inherited from another package.
 
+## Theming & tokens
+
+Supernova's own pipeline — not Style Dictionary — is the source of resolved token JSON, synced into
+`packages/shared/src/theme/{base,dark}/{color,dimension,typography,string}.json`. `base` is the light
+theme; `dark` is dark. Both ship fully resolved (no `{alias}` refs left), keyed by a dot path that
+mirrors Supernova's own token tree (e.g. `color.component.textfield.container.border-focus`).
+
+- `packages/shared/src/theme/tokenPath.ts` — `readThemeToken` / `readThemeDimension` /
+  `readThemeTypography` walk that JSON by path and throw if a token is missing, instead of silently
+  rendering a blank style.
+- `packages/shared/src/theme/themes.ts` — `themeSources` maps `'light' | 'dark'` to the parsed JSON.
+  Dimension and typography currently carry no theme variance (`dark/dimension.json` ==
+  `base/dimension.json`), so per-component token files read those from `themeSources.light` only —
+  color is the only theme-variant axis today.
+- `packages/shared/src/tokens/<name>.tokens.ts` — one file per component, reading the paths it needs
+  via `tokenPath` and re-exporting them as typed, `Record<TThemeMode, ...>` / `Record<TSize, ...>`
+  objects. See `textField.tokens.ts` as the reference.
+- `packages/shared/scripts/generate-web-theme.mjs` — for web only: turns the same JSON into CSS custom
+  properties in `packages/web/src/styles/textfield-theme.css` (`:root` for light,
+  `[data-dsm-theme='dark']` for dark). Re-run with `pnpm --filter @dsm/shared build:theme-css` after
+  Supernova syncs new values, and add a component's paths to its `*_PATHS` maps when it needs one.
+  Mobile has no such step — `useTextField` reads the tokens straight from `@dsm/shared`, since React
+  Native has no CSS cascade to theme through.
+- The legacy hand-rolled tokens (`colors.ts`, `spacing.ts`, etc.) are frozen — kept only for `Button`,
+  which predates this pipeline. Do not add new tokens there; new components read from `theme/`.
+
+**Font**: `string.platform.font.family` is `"Mulish"` — but per its own description, that's a **web
+alias only**; iOS and Android are meant to render in their OS system font. `@dsm/web` self-hosts Mulish
+via `@fontsource-variable/mulish` (imported as a side effect in `packages/web/src/index.ts`, no
+external font request), and every typography CSS variable appends a `sans-serif` fallback. Mobile's
+`useTextField` deliberately omits `fontFamily` from its `TextStyle`s so React Native falls back to the
+platform default — do not "fix" that by hardcoding `Mulish` there.
+
 ## Adding a component
 
 Atomic design: `atoms/` → `molecules/` → `organisms/`. Every component is a folder following the same
-file pattern (see `Button` as the reference):
+file pattern (see `TextField` as the reference — it is the first component built on the `theme/`
+pipeline above; `Button` still uses the frozen legacy tokens):
 
 ```
-packages/web/src/components/atoms/Button/
-├── index.ts           # public barrel for the component
-├── Button.tsx         # presentation, no styling logic
-├── Button.types.ts    # IButtonProps extends IButtonBaseProps (from @dsm/shared)
-├── useButton.ts       # hook that resolves styles from the props
-└── Button.css         # styles (on mobile: Button.styles.ts with StyleSheet)
+packages/web/src/components/atoms/TextField/
+├── index.ts             # public barrel for the component
+├── TextField.tsx         # presentation, no styling logic
+├── TextField.types.ts    # ITextFieldProps extends ITextFieldBaseProps (from @dsm/shared)
+├── useTextField.ts       # hook that resolves styles from the props
+└── TextField.css         # styles (on mobile: TextField.styles.ts with StyleSheet)
 ```
 
 Steps:
 
 1. **Contract in `@dsm/shared`** — `src/types/atoms/<name>.types.ts` with `I<Name>BaseProps` and its
    `T<Name>Variant` / `T<Name>Size`. No event handlers: each platform adds its own.
-2. **Tokens in `@dsm/shared`** — `src/tokens/<name>.tokens.ts`, derived from the primitives
-   (`colors`, `spacing`, `radii`, `typography`).
-3. **Web and mobile implementations** — the five-file folder in each package.
+2. **Tokens in `@dsm/shared`** — `src/tokens/<name>.tokens.ts`, reading from `theme/{base,dark}` via
+   `tokenPath` (see "Theming & tokens" above). Never hand-roll a value that already exists in that JSON.
+3. **Web and mobile implementations** — the five-file folder in each package. Web adds the component's
+   color/dimension/typography paths to `generate-web-theme.mjs` and regenerates the CSS; mobile reads
+   the token file directly.
 4. **Barrels** — add it to the `index.ts` of its level (`atoms/index.ts`, and so on).
+5. **Storybook** — a `Platform<Name>.tsx` wrapper in `apps/web-demo/src/stories/` (mapping the neutral
+   story prop to each platform's event handler) plus `<Name>.stories.tsx`. See "Storybook" above.
 
 ## Conventions
 

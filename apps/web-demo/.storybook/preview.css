@@ -1,16 +1,13 @@
 /*
  * Base typography for the story canvas, so both implementations render in the
- * same font as the demo apps. Background and text color follow the "Theme"
+ * same font as the demo apps. --dsm-font-family-base is Mulish (the design
+ * system's brand typeface, loaded by @dsm/web via @fontsource-variable/mulish)
+ * with a system fallback. Background and text color follow the "Theme"
  * toolbar global through --dsm-page-* (see textfield-theme.css), so the
  * canvas itself goes dark, not just the component being demoed.
  */
 body {
-  font-family:
-    system-ui,
-    -apple-system,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
+  font-family: var(--dsm-font-family-base);
   background-color: var(--dsm-page-background);
   color: var(--dsm-page-text);
   transition:

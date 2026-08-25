@@ -65,6 +65,10 @@
 }
 
 :root {
+  --dsm-font-family-base: Mulish, sans-serif;
+}
+
+:root {
   --dsm-textfield-size-medium-height: 44px;
   --dsm-textfield-size-medium-radius: 16px;
   --dsm-textfield-size-medium-padding-x: 16px;
@@ -79,8 +83,8 @@
 }
 
 :root {
-  --dsm-textfield-typography-label: 400 13px/16px Mulish;
-  --dsm-textfield-typography-content: 400 14px/17px Mulish;
-  --dsm-textfield-typography-helper: 400 13px/16px Mulish;
-  --dsm-textfield-typography-counter: 400 11px/14px Mulish;
+  --dsm-textfield-typography-label: 400 13px/16px Mulish, sans-serif;
+  --dsm-textfield-typography-content: 400 14px/17px Mulish, sans-serif;
+  --dsm-textfield-typography-helper: 400 13px/16px Mulish, sans-serif;
+  --dsm-textfield-typography-counter: 400 11px/14px Mulish, sans-serif;
 }

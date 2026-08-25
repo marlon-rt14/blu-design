@@ -42,6 +42,7 @@ export const TextField = ({
     placeholderTextColor,
     isDisabled,
     isReadOnly,
+    isInvalid,
     displayedHelperText,
     counterText,
   } = useTextField({ ...props, isFocused });
@@ -52,8 +53,11 @@ export const TextField = ({
       {props.label ? <Text style={labelStyle}>{props.label}</Text> : null}
       <View style={containerStyle}>
         <TextInput
+          accessibilityLabel={props.label}
+          accessibilityState={{ disabled: isDisabled }}
           editable={!isDisabled && !isReadOnly}
           keyboardType={keyboardType}
+          maxLength={props.maxLength}
           onBlur={() => {
             setIsFocused(false);
             onBlur?.();
@@ -73,7 +77,13 @@ export const TextField = ({
       </View>
       {hasFooter ? (
         <View style={textFieldStyles.footer}>
-          {displayedHelperText ? <Text style={helperStyle}>{displayedHelperText}</Text> : null}
+          {displayedHelperText ? (
+            // Error text interrupts VoiceOver/TalkBack immediately; plain
+            // helper text is announced only when the screen reader reaches it.
+            <Text accessibilityLiveRegion={isInvalid ? 'assertive' : 'none'} style={helperStyle}>
+              {displayedHelperText}
+            </Text>
+          ) : null}
           {counterText ? <Text style={counterStyle}>{counterText}</Text> : null}
         </View>
       ) : null}

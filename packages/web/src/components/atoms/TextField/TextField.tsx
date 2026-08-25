@@ -23,7 +23,8 @@ import { useTextField } from './useTextField';
  * ```
  */
 export const TextField = (props: ITextFieldProps): ReactElement => {
-  const { value, label, placeholder, onChange, onFocus, onBlur, type = 'text', name, testID } = props;
+  const { value, label, placeholder, onChange, onFocus, onBlur, type = 'text', name, maxLength, testID } =
+    props;
   const { containerClassName, isDisabled, isReadOnly, isInvalid, displayedHelperText, counterText } =
     useTextField(props);
   const inputId = useId();
@@ -44,6 +45,7 @@ export const TextField = (props: ITextFieldProps): ReactElement => {
         data-testid={testID}
         disabled={isDisabled}
         id={inputId}
+        maxLength={maxLength}
         name={name}
         onBlur={onBlur}
         onChange={onChange}
@@ -56,7 +58,11 @@ export const TextField = (props: ITextFieldProps): ReactElement => {
       {hasFooter ? (
         <div className="dsm-textfield__footer" id={footerId}>
           {displayedHelperText ? (
-            <span className="dsm-textfield__helper">{displayedHelperText}</span>
+            // role="alert" only for actual errors — plain helper text
+            // shouldn't interrupt the screen reader.
+            <span className="dsm-textfield__helper" role={isInvalid ? 'alert' : undefined}>
+              {displayedHelperText}
+            </span>
           ) : null}
           {counterText ? <span className="dsm-textfield__counter">{counterText}</span> : null}
         </div>
