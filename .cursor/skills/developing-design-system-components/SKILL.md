@@ -52,12 +52,16 @@ implementation for all of this — copy its shape for the next component, not `B
   (`"n / max"`), it must ALSO be passed to the real `<input maxLength>` / RN `<TextInput
   maxLength>` — otherwise the counter can go negative/over while the token contract implies a hard
   limit.
-- **Font is platform-specific, not a bug to "fix".** `string.platform.font.family` ("Mulish") is a
-  **web-only** alias — iOS/Android are meant to use the OS system font. `@dsm/web` self-hosts
-  Mulish via `@fontsource-variable/mulish` (side-effect import in `packages/web/src/index.ts`);
-  every generated typography CSS var gets a `sans-serif` fallback appended. Mobile's `use<Name>`
-  hook must NOT set `fontFamily` in its `TextStyle`s — leave it unset so RN falls back to the
-  platform default.
+- **Mulish is loaded on both platforms — via completely different mechanisms.** Web: `@dsm/web`
+  self-hosts it with `@fontsource/mulish` (per-weight CSS imports in `packages/web/src/index.ts`) —
+  use the plain package, NOT `@fontsource-variable/mulish`, whose `@font-face` registers as
+  `"Mulish Variable"` and silently won't match the `"Mulish"` family every token specifies. Mobile:
+  bare RN needs a linked native font file per weight (`packages/mobile/assets/fonts/Mulish-*.ttf`) —
+  resolve the right one with `resolveMulishFontFamily(fontWeight)` from `@dsm/mobile`'s `theme/font.ts`,
+  and do NOT also set a numeric `fontWeight` alongside it (Android's font resolver will hunt for a
+  nonexistent suffixed file like `Mulish-SemiBold_bold.ttf` and silently fall back to the system font).
+  A new weight needs a new instanced `.ttf` — see README "Theming & tokens" for how the existing ones
+  were generated with `fonttools varLib.instancer`.
 - **Accessibility parity with `Button`:** on mobile, set `accessibilityState={{ disabled: ... }}`
   and `accessibilityLabel` on the interactive element (RN has no DOM `label[for]`, so proximity to
   a `<Text>` label does not create a programmatic association). On web, error/alert text gets

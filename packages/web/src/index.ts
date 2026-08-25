@@ -7,9 +7,17 @@
  * import.
  */
 
-// Self-hosted Mulish (variable weight, no external font request) — brand
-// typeface per `string.platform.font.family` in the Supernova token export.
-import '@fontsource-variable/mulish';
+// Self-hosted Mulish, one file per weight the design system actually uses
+// (must match packages/mobile/assets/fonts/, so the same type ramp renders
+// consistently on both platforms). Registers as font-family "Mulish", not
+// "Mulish Variable" — deliberately NOT @fontsource-variable/mulish, whose
+// @font-face declares "Mulish Variable" and would silently not match the
+// "Mulish" family every typography token specifies.
+import '@fontsource/mulish/400.css';
+import '@fontsource/mulish/500.css';
+import '@fontsource/mulish/600.css';
+import '@fontsource/mulish/700.css';
+import '@fontsource/mulish/800.css';
 // Tokens are loaded once, when the package is imported.
 import './styles/tokens.css';
 import './styles/textfield-theme.css';

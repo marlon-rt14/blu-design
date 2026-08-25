@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@dsm/mobile';
+import { BluProvider } from '@dsm/mobile';
 import type { TThemeMode } from '@dsm/shared';
 import type { Decorator, Preview } from '@storybook/react-vite';
 import type { PropsWithChildren, ReactElement } from 'react';
@@ -16,7 +16,7 @@ import './preview.css';
  * Web components read the theme through CSS custom properties scoped by the
  * `data-dsm-theme` attribute (see `textfield-theme.css` in `@dsm/web`), set
  * here as a side effect. Mobile components have no CSS cascade, so they get
- * the same value through `@dsm/mobile`'s `ThemeProvider` instead — wrapping
+ * the same value through `@dsm/mobile`'s `BluProvider` instead — wrapping
  * every story with it is harmless for web-rendered components, which simply
  * never read the context.
  */
@@ -28,7 +28,7 @@ const ThemedStory = ({
     document.documentElement.dataset['dsmTheme'] = theme;
   }, [theme]);
 
-  return <ThemeProvider mode={theme}>{children}</ThemeProvider>;
+  return <BluProvider mode={theme}>{children}</BluProvider>;
 };
 
 /** Applies the `theme` toolbar global to every story via {@link ThemedStory}. */

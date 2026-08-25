@@ -6,7 +6,7 @@ import {
 } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { useThemeMode } from '../../../theme';
+import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
 import type { ITextFieldProps } from './TextField.types';
 
 /** Params of {@link useTextField}: the TextField props plus the live focus state. */
@@ -35,8 +35,6 @@ interface IUseTextFieldResult {
   /** `"n / max"` when `maxLength` is set, otherwise `undefined`. */
   counterText: string | undefined;
 }
-
-const asFontWeight = (weight: string): TextStyle['fontWeight'] => weight as TextStyle['fontWeight'];
 
 /**
  * Resolves every color and metric the native TextField needs, from the active
@@ -101,21 +99,23 @@ export const useTextField = ({
     justifyContent: 'center',
   };
 
-  // `fontFamily` is deliberately not set: per `string.platform.font.family`
-  // in the token export, "Mulish" is the WEB alias only — iOS and Android
-  // are meant to render in their own system font (San Francisco / Roboto),
-  // so `fontWeight` alone is applied and RN falls back to the OS default.
+  // No numeric `fontWeight` alongside `fontFamily`: each Mulish-*.ttf is
+  // already a single static weight (see theme/font.ts), and Android's font
+  // resolver tries to append a "_bold"/"_italic" suffix onto the filename
+  // when `fontWeight`/`fontStyle` is set, which would look for a file like
+  // "Mulish-SemiBold_bold.ttf" that doesn't exist and silently fall back to
+  // the system font. The weight is already baked into which file we picked.
   const inputStyle: StyleProp<TextStyle> = {
+    fontFamily: resolveMulishFontFamily(textFieldTypographyTokens.content.fontWeight),
     fontSize: textFieldTypographyTokens.content.fontSize,
     lineHeight: textFieldTypographyTokens.content.lineHeight,
-    fontWeight: asFontWeight(textFieldTypographyTokens.content.fontWeight),
     color: valueColor,
   };
 
   const labelStyle: StyleProp<TextStyle> = {
+    fontFamily: resolveMulishFontFamily(textFieldTypographyTokens.label.fontWeight),
     fontSize: textFieldTypographyTokens.label.fontSize,
     lineHeight: textFieldTypographyTokens.label.lineHeight,
-    fontWeight: asFontWeight(textFieldTypographyTokens.label.fontWeight),
     color: isDisabled ? colors.label.disabled : colors.label.default,
   };
 
@@ -125,9 +125,9 @@ export const useTextField = ({
       ? colors.helper.error
       : colors.helper.default;
   const helperStyle: StyleProp<TextStyle> = {
+    fontFamily: resolveMulishFontFamily(textFieldTypographyTokens.helper.fontWeight),
     fontSize: textFieldTypographyTokens.helper.fontSize,
     lineHeight: textFieldTypographyTokens.helper.lineHeight,
-    fontWeight: asFontWeight(textFieldTypographyTokens.helper.fontWeight),
     color: helperColor,
   };
 
@@ -137,9 +137,9 @@ export const useTextField = ({
       ? colors.counter.error
       : colors.counter.default;
   const counterStyle: StyleProp<TextStyle> = {
+    fontFamily: resolveMulishFontFamily(textFieldTypographyTokens.counter.fontWeight),
     fontSize: textFieldTypographyTokens.counter.fontSize,
     lineHeight: textFieldTypographyTokens.counter.lineHeight,
-    fontWeight: asFontWeight(textFieldTypographyTokens.counter.fontWeight),
     color: counterColor,
   };
 

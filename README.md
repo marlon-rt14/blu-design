@@ -97,12 +97,45 @@ mirrors Supernova's own token tree (e.g. `color.component.textfield.container.bo
 - The legacy hand-rolled tokens (`colors.ts`, `spacing.ts`, etc.) are frozen — kept only for `Button`,
   which predates this pipeline. Do not add new tokens there; new components read from `theme/`.
 
-**Font**: `string.platform.font.family` is `"Mulish"` — but per its own description, that's a **web
-alias only**; iOS and Android are meant to render in their OS system font. `@dsm/web` self-hosts Mulish
-via `@fontsource-variable/mulish` (imported as a side effect in `packages/web/src/index.ts`, no
-external font request), and every typography CSS variable appends a `sans-serif` fallback. Mobile's
-`useTextField` deliberately omits `fontFamily` from its `TextStyle`s so React Native falls back to the
-platform default — do not "fix" that by hardcoding `Mulish` there.
+**Font**: `string.platform.font.family` (`"Mulish"`) is documented in Supernova as a **web-only**
+alias — iOS/Android are "meant" to use their OS system font — but the product decision is to brand
+both platforms with Mulish, so both actually load it:
+
+- **Web**: `@dsm/web` self-hosts Mulish via `@fontsource/mulish` (imported per-weight — `400.css`
+  through `800.css` — as a side effect in `packages/web/src/index.ts`). Use the plain
+  `@fontsource/mulish` package, not `@fontsource-variable/mulish`: the variable package's `@font-face`
+  registers as `"Mulish Variable"`, which silently does not match the `"Mulish"` family every
+  typography token specifies — a real bug that shipped once. Every generated typography CSS variable
+  also appends a `sans-serif` fallback.
+- **Mobile**: bare React Native has no CSS cascade and no runtime font-loading API — a font must be a
+  linked native asset, one static file per weight (RN cannot pick a weight out of a single variable
+  font file the way CSS can). `packages/mobile/assets/fonts/Mulish-{Regular,Medium,SemiBold,Bold,ExtraBold}.ttf`
+  are Google's official variable `Mulish[wght].ttf` (OFL-licensed) instanced per weight with
+  `fonttools varLib.instancer`, then renamed so filename, family name **and** PostScript name are all
+  the same string (`Mulish-<Weight>`) — iOS resolves fonts by PostScript name, Android by filename, so
+  every field has to agree for one `fontFamily` string to work on both. `theme/font.ts`'s
+  `resolveMulishFontFamily(fontWeight)` maps a typography token's numeric weight to the right file;
+  `useTextField` (and every future component's hook) uses it instead of setting a numeric
+  `fontWeight` — pairing a resolved `fontFamily` with a numeric `fontWeight` makes Android's font
+  resolver hunt for a nonexistent suffixed variant (e.g. `Mulish-SemiBold_bold.ttf`) and silently fall
+  back to the system font.
+
+  Each consuming app links these fonts into its native projects once — `apps/react-native-demo` is
+  already linked; redo this if `@dsm/mobile`'s font set changes:
+
+  ```bash
+  pnpm --filter <app> add -D react-native-asset   # already a devDependency of ReactNativeDemo
+  # react-native.config.js: assets: ['<relative-path-to>/packages/mobile/assets/fonts']
+  npx react-native-asset
+  ```
+
+  This is a one-time native build step, same spirit as `pod install` — `BluProvider` (see below) is
+  JS-only and cannot inject a font file into the native project for you.
+
+**`BluProvider`** (`@dsm/mobile`) is the root wrapper every consuming app renders once, at the top:
+`<BluProvider><App /></BluProvider>`. It sets up the active theme mode (`useThemeMode`) for every
+themed component below it — the mobile equivalent of the web `data-dsm-theme` attribute. It does not
+and cannot load fonts (see above); font linking is a native build step, done once per app.
 
 ## Adding a component
 

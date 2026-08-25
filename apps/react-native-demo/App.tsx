@@ -1,4 +1,4 @@
-import { Button } from '@dsm/mobile';
+import { BluProvider, Button } from '@dsm/mobile';
 import { colors, spacing, typography } from '@dsm/shared';
 import type { TButtonSize, TButtonVariant } from '@dsm/shared';
 import { useState } from 'react';
@@ -13,46 +13,48 @@ const App = () => {
   const handlePress = () => setPresses(current => current + 1);
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.safeArea}>
-        <ScrollView contentContainerStyle={styles.content}>
-          <Text style={styles.title}>@dsm/mobile · demo</Text>
-          <Text style={styles.subtitle}>
-            El mismo Button del design system, consumido desde una app React
-            Native.
-          </Text>
+    <BluProvider>
+      <SafeAreaProvider>
+        <SafeAreaView style={styles.safeArea}>
+          <ScrollView contentContainerStyle={styles.content}>
+            <Text style={styles.title}>@dsm/mobile · demo</Text>
+            <Text style={styles.subtitle}>
+              El mismo Button del design system, consumido desde una app React
+              Native.
+            </Text>
 
-          <Text style={styles.counter} testID="press-counter">
-            Presses: {presses}
-          </Text>
+            <Text style={styles.counter} testID="press-counter">
+              Presses: {presses}
+            </Text>
 
-          {VARIANTS.map(variant => (
-            <View key={variant} style={styles.section}>
-              <Text style={styles.sectionTitle}>{variant.toUpperCase()}</Text>
-              <View style={styles.row}>
-                {SIZES.map(size => (
+            {VARIANTS.map(variant => (
+              <View key={variant} style={styles.section}>
+                <Text style={styles.sectionTitle}>{variant.toUpperCase()}</Text>
+                <View style={styles.row}>
+                  {SIZES.map(size => (
+                    <Button
+                      key={size}
+                      label={size}
+                      onPress={handlePress}
+                      size={size}
+                      testID={`button-${variant}-${size}`}
+                      variant={variant}
+                    />
+                  ))}
                   <Button
-                    key={size}
-                    label={size}
+                    isDisabled
+                    label="disabled"
                     onPress={handlePress}
-                    size={size}
-                    testID={`button-${variant}-${size}`}
+                    testID={`button-${variant}-disabled`}
                     variant={variant}
                   />
-                ))}
-                <Button
-                  isDisabled
-                  label="disabled"
-                  onPress={handlePress}
-                  testID={`button-${variant}-disabled`}
-                  variant={variant}
-                />
+                </View>
               </View>
-            </View>
-          ))}
-        </ScrollView>
-      </SafeAreaView>
-    </SafeAreaProvider>
+            ))}
+          </ScrollView>
+        </SafeAreaView>
+      </SafeAreaProvider>
+    </BluProvider>
   );
 };
 
