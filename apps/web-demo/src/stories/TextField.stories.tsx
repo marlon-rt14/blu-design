@@ -34,7 +34,9 @@ const meta = {
   title: 'Atoms/TextField',
   component: PlatformTextField,
   parameters: {
-    layout: 'centered',
+    // 'fullscreen', not 'centered' — lets ThemedStory's own centering (see
+    // .storybook/preview.tsx) paint its background full-bleed.
+    layout: 'fullscreen',
     docs: {
       description: {
         component:

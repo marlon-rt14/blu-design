@@ -26,7 +26,9 @@ const meta = {
   title: 'Atoms/Button',
   component: PlatformButton,
   parameters: {
-    layout: 'centered',
+    // 'fullscreen', not 'centered' — lets ThemedStory's own centering (see
+    // .storybook/preview.tsx) paint its background full-bleed.
+    layout: 'fullscreen',
     docs: {
       description: {
         component:

@@ -19,9 +19,26 @@ import './native-fonts.css';
  * actual canvas background/text/font (see its own doc comment); the mobile
  * one feeds the same mode to `@dsm/mobile` components. Nesting them is
  * harmless — each provider is only read by its own platform's components.
+ *
+ * Centers its children itself, in place of Storybook's `layout: 'centered'`
+ * parameter — that parameter centers via a flex container with
+ * `align-items: center`, which shrinks this `<div>` down to its content's
+ * width instead of letting it paint full-bleed. Every story below sets
+ * `layout: 'fullscreen'` for that reason.
  */
 const ThemedStory = ({ theme, children }: PropsWithChildren<{ theme: TThemeMode }>): ReactElement => (
-  <WebBluProvider mode={theme} style={{ minHeight: '100vh', padding: 24 }}>
+  <WebBluProvider
+    mode={theme}
+    style={{
+      boxSizing: 'border-box',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: '100vh',
+      width: '100%',
+      padding: 24,
+    }}
+  >
     <MobileBluProvider mode={theme}>{children}</MobileBluProvider>
   </WebBluProvider>
 );
