@@ -48,6 +48,25 @@ per-component CSS file). Between the two, notice how little they actually share:
 label instead of showing a persistent one — always verify the new component's own spec instead of
 assuming either one generalizes.
 
+## Kickoff prompt — fill in the blanks, the rest is this skill
+
+When asked to build a new component, expect a request shaped like this (or ask for these specifics
+if they're missing before starting):
+
+```
+Implementa <NOMBRE_COMPONENTE> para @dsm/shared, @dsm/web y @dsm/mobile.
+Figma: <URL(s) — una por estado/variante si el nodo default no las cubre todas>
+Notas: <opcional — ej. "usa el mismo patrón de focus ring que TextField">
+```
+
+Everything else — pixel-perfect fidelity to the live Figma node, full 1:1 property/variant parity
+with Figma+Supernova (including independent `show*` booleans, never inferred from content), zero
+hardcoded values, no invented placeholder icons, both platforms, stories per state, and the
+`pnpm typecheck && pnpm lint && pnpm build-storybook` gate — is this skill's job, not the prompt's.
+If Figma and Supernova disagree, Figma wins (see "Design reference" below) — surface the
+discrepancy before writing code instead of silently picking one. Add any new non-obvious gotcha to
+"Known gotchas" below once the component ships.
+
 ## Design reference — Figma MCP first, Supernova for properties
 
 Two different MCP servers cover design, and they now have distinct jobs — don't reach for the wrong
