@@ -8,6 +8,11 @@ import { useTextField } from './useTextField';
  * Web TextField — a single-line text input with a label, helper/error text
  * and an optional character counter.
  *
+ * `label` lives inside the same bordered box as the value — it acts as the
+ * `<input>`'s `placeholder` while empty, and floats above the value once
+ * there is one (never at `size='small'`; see `useTextField`'s
+ * `showFloatingLabel`). There is no separate `placeholder` prop.
+ *
  * Renders a real `<input>`, so native keyboard, autofill and form semantics
  * come for free. Every style comes from `useTextField`, resolved from the
  * active theme's tokens — hover and focus are tracked here as local state
@@ -24,20 +29,42 @@ import { useTextField } from './useTextField';
  * ```
  */
 export const TextField = (props: ITextFieldProps): ReactElement => {
-  const { value, label, placeholder, onChange, onFocus, onBlur, type = 'text', name, maxLength, testID } =
-    props;
+  const {
+    value,
+    label,
+    onChange,
+    onFocus,
+    onBlur,
+    type = 'text',
+    name,
+    maxLength,
+    testID,
+    prefix,
+    suffix,
+    prefixIcon,
+    suffixIcon,
+    showPrefixText = false,
+    showSuffixText = false,
+    showPrefixIcon = false,
+    showSuffixIcon = false,
+  } = props;
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const {
-    containerStyle,
+    wrapperStyle,
+    fieldStyle,
+    contentStyle,
     labelStyle,
     inputStyle,
+    affixStyle,
+    iconStyle,
     footerStyle,
     helperStyle,
     counterStyle,
     isDisabled,
     isReadOnly,
     isInvalid,
+    showFloatingLabel,
     displayedHelperText,
     counterText,
   } = useTextField({ ...props, isHovered, isFocused });
@@ -57,32 +84,38 @@ export const TextField = (props: ITextFieldProps): ReactElement => {
   };
 
   return (
-    <div style={containerStyle}>
-      {label ? (
-        <label htmlFor={inputId} style={labelStyle}>
-          {label}
-        </label>
-      ) : null}
-      <input
-        aria-describedby={hasFooter ? footerId : undefined}
-        aria-invalid={isInvalid}
-        className="dsm-input"
-        data-testid={testID}
-        disabled={isDisabled}
-        id={inputId}
-        maxLength={maxLength}
-        name={name}
-        onBlur={handleBlur}
-        onChange={onChange}
-        onFocus={handleFocus}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        placeholder={placeholder}
-        readOnly={isReadOnly}
-        style={inputStyle}
-        type={type}
-        value={value}
-      />
+    <div style={wrapperStyle}>
+      <div style={fieldStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        {showPrefixIcon ? <span style={iconStyle}>{prefixIcon}</span> : null}
+        {showPrefixText && prefix ? <span style={affixStyle}>{prefix}</span> : null}
+        <div style={contentStyle}>
+          {showFloatingLabel && label ? (
+            <label htmlFor={inputId} style={labelStyle}>
+              {label}
+            </label>
+          ) : null}
+          <input
+            aria-describedby={hasFooter ? footerId : undefined}
+            aria-invalid={isInvalid}
+            className="dsm-input"
+            data-testid={testID}
+            disabled={isDisabled}
+            id={inputId}
+            maxLength={maxLength}
+            name={name}
+            onBlur={handleBlur}
+            onChange={onChange}
+            onFocus={handleFocus}
+            placeholder={showFloatingLabel ? undefined : label}
+            readOnly={isReadOnly}
+            style={inputStyle}
+            type={type}
+            value={value}
+          />
+        </div>
+        {showSuffixText && suffix ? <span style={affixStyle}>{suffix}</span> : null}
+        {showSuffixIcon ? <span style={iconStyle}>{suffixIcon}</span> : null}
+      </div>
       {hasFooter ? (
         <div id={footerId} style={footerStyle}>
           {displayedHelperText ? (

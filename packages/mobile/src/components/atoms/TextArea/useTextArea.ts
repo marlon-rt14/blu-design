@@ -14,7 +14,11 @@ interface IUseTextAreaParams extends ITextAreaProps {
 
 /** Styles and derived values the TextArea needs to render. */
 interface IUseTextAreaResult {
-  fieldStyle: StyleProp<TextStyle & ViewStyle>;
+  /** The ring layer: always reserves `focusRingSpread` of border, transparent unless focused — no layout shift on focus. */
+  ringStyle: StyleProp<ViewStyle>;
+  /** The bordered box: border, background, radius, padding. */
+  fieldStyle: StyleProp<ViewStyle>;
+  inputStyle: StyleProp<TextStyle>;
   labelStyle: StyleProp<TextStyle>;
   helperStyle: StyleProp<TextStyle>;
   counterStyle: StyleProp<TextStyle>;
@@ -28,16 +32,15 @@ interface IUseTextAreaResult {
   isInvalid: boolean;
   /** Whether the label should float above the field instead of acting as its placeholder. */
   hasValue: boolean;
-  /** `errorMessage` when set, otherwise `helperText`. `undefined` when neither is set. */
+  /** `errorMessage` or `helperText` when `showHelper` is `true` and either is set; `undefined` otherwise. */
   displayedHelperText: string | undefined;
-  /** `"n/max"` when `maxLength` is set, otherwise `undefined`. */
+  /** `"n/max"` when `showCounter` is `true` and `maxLength` is set; `undefined` otherwise. */
   counterText: string | undefined;
-  /** The field's height floor — see `ITextAreaDimensionTokens.minHeight` in `@dsm/shared`. */
-  minHeight: number;
   /**
-   * The field's height before `onContentSizeChange` reports a real
-   * measurement — `numberOfLines` worth of the content type role's line
-   * height, plus vertical padding, clamped to `minHeight`.
+   * The `TextInput`'s own starting height — `numberOfLines` worth of the
+   * content type role's line height, with no padding of its own (that lives
+   * on the bordered box now, see `fieldStyle`). The box's `minHeight` is the
+   * real floor, enforced by layout regardless of this value.
    */
   startingHeight: number;
 }
@@ -59,6 +62,8 @@ export const useTextArea = ({
   isInvalid = false,
   errorMessage,
   helperText,
+  showHelper = false,
+  showCounter = false,
   value,
   maxLength,
   isFocused,
@@ -69,15 +74,16 @@ export const useTextArea = ({
   const hasError = isInvalid || Boolean(errorMessage);
   const hasValue = value.length > 0;
 
+  // Focus never recolors the container's own border — Figma's "focus" variant
+  // keeps `border-default` and draws a separate ring outside the box instead
+  // (see `ringStyle`). Error still changes it in place.
   const borderColor = isDisabled
     ? tokens.colors.container.borderDisabled
     : isReadOnly
       ? tokens.colors.container.borderReadOnly
       : hasError
         ? tokens.colors.container.borderError
-        : isFocused
-          ? tokens.colors.container.borderFocus
-          : tokens.colors.container.border;
+        : tokens.colors.container.border;
 
   const backgroundColor = isDisabled
     ? tokens.colors.container.backgroundDisabled
@@ -91,29 +97,45 @@ export const useTextArea = ({
       ? tokens.colors.value.readOnly
       : tokens.colors.value.filled;
 
-  const fieldStyle: StyleProp<TextStyle & ViewStyle> = {
+  // The ring's own border always reserves `focusRingSpread` of space —
+  // transparent unless focused — so toggling focus never shifts layout. Its
+  // radius is the field's own radius plus the ring width, for a concentric
+  // look (RN has no `box-shadow` to fake this in one layer, unlike web).
+  const ringStyle: StyleProp<ViewStyle> = {
+    borderRadius: tokens.dimension.borderRadius + tokens.dimension.focusRingSpread,
+    borderWidth: tokens.dimension.focusRingSpread,
+    borderColor: isFocused && !isDisabled && !isReadOnly ? tokens.colors.container.borderFocus : 'transparent',
+  };
+
+  const fieldStyle: StyleProp<ViewStyle> = {
     minHeight: tokens.dimension.minHeight,
     paddingVertical: tokens.dimension.paddingVertical,
     paddingHorizontal: tokens.dimension.paddingHorizontal,
     borderRadius: tokens.dimension.borderRadius,
-    borderWidth:
-      isFocused && !isDisabled && !isReadOnly
-        ? tokens.dimension.borderWidth.focus
-        : tokens.dimension.borderWidth.default,
+    borderWidth: tokens.dimension.borderWidth,
     borderColor,
     backgroundColor,
-    // See @dsm/mobile's TextField useTextField for why fontWeight never
-    // accompanies fontFamily here — same Android font-resolver constraint.
+  };
+
+  // See @dsm/mobile's TextField useTextField for why fontWeight never
+  // accompanies fontFamily here — same Android font-resolver constraint.
+  const inputStyle: StyleProp<TextStyle> = {
+    padding: 0,
+    margin: 0,
     fontFamily: resolveMulishFontFamily(tokens.typography.content.fontWeight),
     fontSize: tokens.typography.content.fontSize,
     lineHeight: tokens.typography.content.lineHeight,
     color: valueColor,
+    textAlignVertical: 'top',
   };
 
   const labelStyle: StyleProp<TextStyle> = {
     fontFamily: resolveMulishFontFamily(tokens.typography.label.fontWeight),
     fontSize: tokens.typography.label.fontSize,
     lineHeight: tokens.typography.label.lineHeight,
+    // Figma's label/sm/strong text style tracks 0.24px — see the same
+    // constant in @dsm/web's TextField useTextField.
+    letterSpacing: 0.24,
     color: isDisabled ? tokens.colors.label.disabled : tokens.colors.label.default,
   };
 
@@ -123,6 +145,8 @@ export const useTextArea = ({
       ? tokens.colors.helper.error
       : tokens.colors.helper.default;
   const helperStyle: StyleProp<TextStyle> = {
+    flex: 1,
+    paddingTop: tokens.dimension.footerSlotGap,
     fontFamily: resolveMulishFontFamily(tokens.typography.helper.fontWeight),
     fontSize: tokens.typography.helper.fontSize,
     lineHeight: tokens.typography.helper.lineHeight,
@@ -132,19 +156,19 @@ export const useTextArea = ({
   // Counter inherits the helper's color rather than having its own scale —
   // see @dsm/web's TextArea useTextArea for the token evidence.
   const counterStyle: StyleProp<TextStyle> = {
+    paddingTop: tokens.dimension.footerSlotGap,
+    paddingLeft: tokens.dimension.footerInlineGap,
     fontFamily: resolveMulishFontFamily(tokens.typography.counter.fontWeight),
     fontSize: tokens.typography.counter.fontSize,
     lineHeight: tokens.typography.counter.lineHeight,
     color: helperColor,
+    textAlign: 'right',
   };
 
-  const startingHeight = Math.max(
-    tokens.dimension.minHeight,
-    tokens.dimension.paddingVertical * 2 + tokens.typography.content.lineHeight * numberOfLines,
-  );
-
   return {
+    ringStyle,
     fieldStyle,
+    inputStyle,
     labelStyle,
     helperStyle,
     counterStyle,
@@ -153,9 +177,8 @@ export const useTextArea = ({
     isReadOnly,
     isInvalid: hasError,
     hasValue,
-    displayedHelperText: errorMessage ?? helperText,
-    counterText: maxLength !== undefined ? `${value.length}/${maxLength}` : undefined,
-    minHeight: tokens.dimension.minHeight,
-    startingHeight,
+    displayedHelperText: showHelper ? errorMessage ?? helperText : undefined,
+    counterText: showCounter && maxLength !== undefined ? `${value.length}/${maxLength}` : undefined,
+    startingHeight: tokens.typography.content.lineHeight * numberOfLines,
   };
 };

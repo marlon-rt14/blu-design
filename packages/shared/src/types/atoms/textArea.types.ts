@@ -27,18 +27,36 @@ export interface ITextAreaBaseProps {
    */
   label?: string;
   /**
-   * Rendered in the footer's left slot. Independent of `counterText` — either
-   * can be shown without the other, and with both absent the footer occupies
-   * zero extra height.
+   * Rendered in the footer's left slot when `showHelper` is `true`. Ignored
+   * while `errorMessage` is set.
    */
   helperText?: string;
   /**
-   * Rendered in the footer's left slot instead of `helperText`, styled as an
-   * error. Setting it also applies the invalid border colour, same as
-   * `isInvalid`. Figma requires a message whenever `isInvalid` is set — a red
-   * border alone fails WCAG 1.4.1.
+   * Rendered in the footer's left slot instead of `helperText` when
+   * `showHelper` is `true`, styled as an error. Setting it also applies the
+   * invalid border colour, same as `isInvalid`. Figma requires a message
+   * whenever `isInvalid` is set — a red border alone fails WCAG 1.4.1 — so
+   * pair this with `showHelper: true`.
    */
   errorMessage?: string;
+  /**
+   * Whether `helperText` / `errorMessage` renders in the footer at all —
+   * independent of whether either is set, matching Figma's own `showHelper`
+   * boolean. Toggling this off and on again preserves whatever text was set,
+   * instead of clearing it.
+   *
+   * @defaultValue `false`
+   */
+  showHelper?: boolean;
+  /**
+   * Whether the `"n/max"` counter renders in the footer at all — independent
+   * of `maxLength` being set, matching Figma's own `showCounter` boolean.
+   * `showHelper` and `showCounter` toggle independently; with both `false`
+   * the footer occupies zero extra height.
+   *
+   * @defaultValue `false`
+   */
+  showCounter?: boolean;
   /**
    * Applies the invalid styling. `errorMessage` implies this even when it is
    * left `false`, but pairing it with a message is required, not optional —
@@ -63,9 +81,9 @@ export interface ITextAreaBaseProps {
    */
   isReadOnly?: boolean;
   /**
-   * Maximum character count. When set, renders a `"n/max"` counter in the
-   * footer's right slot — note the format has no surrounding spaces, unlike
-   * `TextField`'s `"n / max"`.
+   * Maximum character count. Used to compute the `"n/max"` counter text —
+   * note the format has no surrounding spaces, unlike `TextField`'s
+   * `"n / max"`. See `showCounter` for whether it actually renders.
    */
   maxLength?: number;
   /**

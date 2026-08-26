@@ -51,43 +51,65 @@ const meta = {
     },
   },
   argTypes: {
+    // --- Content: what the field is showing --------------------------------
     label: {
       control: 'text',
       description: 'Shown inside the field while empty (acting as a placeholder); floats above once there is a value.',
+      table: { category: 'Content' },
     },
+    // --- Feedback: helper text, error state and the character counter ------
     helperText: {
       control: 'text',
-      description: 'Rendered in the footer\u2019s left slot. Hidden while `errorMessage` is set.',
+      description:
+        'Rendered in the footer\u2019s left slot when `showHelper` is `true`. Ignored while `errorMessage` is set.',
+      table: { category: 'Feedback' },
+    },
+    showHelper: {
+      control: 'boolean',
+      description: 'Whether `helperText` / `errorMessage` renders at all — independent of either being set.',
+      table: { category: 'Feedback', defaultValue: { summary: 'false' } },
     },
     errorMessage: {
       control: 'text',
-      description: 'Rendered in the footer\u2019s left slot instead of `helperText`, styled as an error.',
+      description:
+        'Rendered in the footer\u2019s left slot instead of `helperText` (when `showHelper` is `true`), styled as an error.',
+      table: { category: 'Feedback' },
     },
     isInvalid: {
       control: 'boolean',
       description: 'Applies the invalid styling. Pair with `errorMessage` — a border alone fails WCAG 1.4.1.',
-      table: { defaultValue: { summary: 'false' } },
+      table: { category: 'Feedback', defaultValue: { summary: 'false' } },
     },
+    maxLength: {
+      control: 'number',
+      description: 'Used to compute the `"n/max"` counter text — see `showCounter` for whether it renders.',
+      table: { category: 'Feedback' },
+    },
+    showCounter: {
+      control: 'boolean',
+      description: 'Whether the `"n/max"` counter renders at all — independent of `maxLength` being set.',
+      table: { category: 'Feedback', defaultValue: { summary: 'false' } },
+    },
+    // --- State: interaction-blocking flags ----------------------------------
     isDisabled: {
       control: 'boolean',
       description: 'Blocks interaction and applies the disabled styling.',
-      table: { defaultValue: { summary: 'false' } },
+      table: { category: 'State', defaultValue: { summary: 'false' } },
     },
     isReadOnly: {
       control: 'boolean',
       description: 'Shows the value but blocks editing.',
-      table: { defaultValue: { summary: 'false' } },
+      table: { category: 'State', defaultValue: { summary: 'false' } },
     },
-    maxLength: {
-      control: 'number',
-      description: 'When set, renders a `"n/max"` counter in the footer\u2019s right slot.',
-    },
+    // --- Testing & events ----------------------------------------------------
     testID: {
       control: 'text',
       description: 'Maps to `data-testid` on web and to the native `testID` on mobile.',
+      table: { category: 'Testing & events' },
     },
     onValueChange: {
       description: 'Mapped to `onChange` on web and to `onChangeText` on mobile.',
+      table: { category: 'Testing & events' },
     },
     // Owned by ControlledPlatformTextArea, not by the controls panel — see above.
     value: { table: { disable: true } },
@@ -97,6 +119,11 @@ const meta = {
   args: {
     label: 'Comentario',
     value: '',
+    // Not `showCounter`/`showHelper` themselves (those default to Figma's own
+    // `false`) — just enough content ready so flipping either on in the
+    // Playground immediately shows something, instead of an empty footer.
+    maxLength: 200,
+    helperText: 'Cuéntanos qué salió mal.',
   },
   render: (args, { globals }) => (
     <ControlledPlatformTextArea {...args} platform={globals['platform'] as TPlatform} />
@@ -129,12 +156,16 @@ export const Filled: TStory = {
 
 /** With helper text guiding the user before any validation has run. */
 export const WithHelperText: TStory = {
-  args: { value: 'Notas del pedido', helperText: 'Máximo 200 caracteres.' },
+  args: { value: 'Notas del pedido', helperText: 'Máximo 200 caracteres.', showHelper: true },
 };
 
-/** Invalid state with a message — the border alone would fail WCAG 1.4.1. */
+/**
+ * Invalid state with a message — the border alone would fail WCAG 1.4.1.
+ * `showHelper: true` is required here: it isn't switched on automatically
+ * by `errorMessage` or `isInvalid`, on either component.
+ */
 export const ErrorState: TStory = {
-  args: { value: '', errorMessage: 'Este campo es obligatorio.' },
+  args: { value: '', errorMessage: 'Este campo es obligatorio.', showHelper: true },
 };
 
 /** Blocks interaction entirely — the handler must not fire in this state. */
@@ -148,17 +179,24 @@ export const ReadOnly: TStory = {
 };
 
 /**
- * With a `maxLength`, rendering the `"n/max"` counter in the footer's right
- * slot — no spaces, unlike `TextField`'s `"n / max"`. The counter shares the
- * helper's color, so it turns red together with the border in `ErrorState`.
+ * With `maxLength` and `showCounter: true`, rendering the `"n/max"` counter
+ * in the footer's right slot — no spaces, unlike `TextField`'s `"n / max"`.
+ * The counter shares the helper's color, so it turns red together with the
+ * border in `ErrorState`.
  */
 export const WithCounter: TStory = {
-  args: { value: 'Cuéntanos qué salió mal.', maxLength: 200 },
+  args: { value: 'Cuéntanos qué salió mal.', maxLength: 200, showCounter: true },
 };
 
-/** Both footer slots at once — independent, so either can be toggled off without leaving a gap. */
+/** Both footer slots at once — `showHelper` and `showCounter` toggle independently, so either can be off without leaving a gap. */
 export const WithHelperAndCounter: TStory = {
-  args: { value: 'Describe el problema.', helperText: 'Sé lo más específico posible.', maxLength: 500 },
+  args: {
+    value: 'Describe el problema.',
+    helperText: 'Sé lo más específico posible.',
+    maxLength: 500,
+    showHelper: true,
+    showCounter: true,
+  },
 };
 
 /** Grows past its three-row starting height as the content wraps onto more lines. */

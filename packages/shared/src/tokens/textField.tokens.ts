@@ -46,28 +46,45 @@ export interface ITextFieldColorTokens {
   helper: ITextFieldFeedbackColorTokens;
   counter: ITextFieldFeedbackColorTokens;
   icon: ITextFieldSupportColorTokens;
+  /** The `prefix` / `suffix` affix text — a distinct color role from `value`, per Figma's own `affix/*` token group. */
+  affix: ITextFieldSupportColorTokens;
 }
 
-/** Metrics that scale with `TTextFieldSize`. */
+/**
+ * The metrics that actually vary by `TTextFieldSize` — height and vertical
+ * padding. Border radius, horizontal padding and border width are the same
+ * at every size (see `ITextFieldDimensionTokens`), confirmed against the
+ * Figma node: all three sizes share one `rounded-[radius/field/md]` and one
+ * `px-[space/inset/md]` on the container class.
+ */
 export interface ITextFieldSizeTokens {
-  /** Container height, unitless. */
-  height: number;
-  /** Container corner radius, unitless. */
-  borderRadius: number;
-  /** Container horizontal padding, unitless. */
+  /** Floor of the container's height — see `ITextFieldDimensionTokens.paddingHorizontal` for why this isn't a fixed height. */
+  minHeight: number;
+  /**
+   * Top/bottom padding. Zero at `small` and `medium` — those sizes center
+   * their single line of content on `minHeight` alone; only `large` (which
+   * fits a floating label above the value) adds any.
+   */
+  paddingVertical: number;
+}
+
+/** Metrics shared by every size — see `ITextFieldSizeTokens` for the ones that vary. */
+export interface ITextFieldDimensionTokens {
   paddingHorizontal: number;
-}
-
-/** Border widths, unitless. Same value at rest, on hover and when read-only; focus gets a thicker ring. */
-export interface ITextFieldBorderWidthTokens {
-  default: number;
-  focus: number;
-}
-
-/** Vertical gap between label/field/footer, and the horizontal gap inside the footer. Unitless. */
-export interface ITextFieldLayoutTokens {
-  stackGap: number;
-  inlineGap: number;
+  borderRadius: number;
+  borderWidth: number;
+  /**
+   * Spread of the outer focus ring — a separate absolutely-positioned layer
+   * outside the container, not a change to the container's own border (see
+   * `useTextField`'s doc comment on why focus never recolors `border`).
+   */
+  focusRingSpread: number;
+  /** Padding-top of each footer slot (helper, counter) — see `ITextAreaDimensionTokens.footerSlotGap` for the shared reasoning. */
+  footerSlotGap: number;
+  /** Padding-left of the counter slot, pushing it away from the helper slot. */
+  footerInlineGap: number;
+  /** Gap between the affix icons/text and the label+value column inside the bordered box. */
+  contentGap: number;
 }
 
 /** One resolved typography role: font weight, size, line height and family. */
@@ -79,9 +96,9 @@ export type ITextFieldTypographyRole = IThemeTypographyValue;
  * for the field regardless of height.
  */
 export interface ITextFieldTypographyTokens {
-  /** The label above the value. */
+  /** The floating label — only ever shown at `medium` and `large` once there is a value. */
   label: ITextFieldTypographyRole;
-  /** The value the user types or sees. */
+  /** The value the user types or sees, and the placeholder role `label` plays while empty. */
   content: ITextFieldTypographyRole;
   /** Helper text / error message below the field. */
   helper: ITextFieldTypographyRole;
@@ -93,11 +110,14 @@ export interface ITextFieldTypographyTokens {
 export interface ITextFieldTokens {
   colors: ITextFieldColorTokens;
   sizes: Record<TTextFieldSize, ITextFieldSizeTokens>;
-  borderWidth: ITextFieldBorderWidthTokens;
-  layout: ITextFieldLayoutTokens;
+  dimension: ITextFieldDimensionTokens;
   typography: ITextFieldTypographyTokens;
-  /** Inline icon size, unitless — the "icon next to text" step of the icon scale. Reserved for a future icon slot. */
-  iconSize: number;
+  /**
+   * Inline icon size (prefix/suffix slots), unitless. `large` steps up to
+   * `size.icon.md` (24) while `small`/`medium` share `size.icon.sm` (16) —
+   * confirmed against Figma's own instance-swap binding per size.
+   */
+  iconSize: Record<TTextFieldSize, number>;
 }
 
 const readTextFieldTokens = (mode: TThemeMode): ITextFieldTokens => {
@@ -145,30 +165,36 @@ const readTextFieldTokens = (mode: TThemeMode): ITextFieldTokens => {
         default: colorAt('icon.icon-default'),
         disabled: colorAt('icon.icon-disabled'),
       },
+      affix: {
+        default: colorAt('affix.text-default'),
+        disabled: colorAt('affix.text-disabled'),
+      },
     },
-    // `dimension.size.field.height.md` (44) and `.lg` (56) pair with
-    // `dimension.radius.field.sm` (16) and `.md` (24) respectively —
-    // Supernova named the two scales independently, so the pairing is
-    // re-established here.
+    // `small` has no dedicated `size.field.height.*` entry — it shares
+    // `size.control.height.sm` (32) with the small button, a pairing
+    // Supernova's own token description calls out explicitly.
     sizes: {
+      small: {
+        minHeight: dimensionAt('size.control.height.sm'),
+        paddingVertical: 0,
+      },
       medium: {
-        height: dimensionAt('size.field.height.md'),
-        borderRadius: dimensionAt('radius.field.sm'),
-        paddingHorizontal: dimensionAt('space.inset.lg'),
+        minHeight: dimensionAt('size.field.height.md'),
+        paddingVertical: 0,
       },
       large: {
-        height: dimensionAt('size.field.height.lg'),
-        borderRadius: dimensionAt('radius.field.md'),
-        paddingHorizontal: dimensionAt('space.inset.lg'),
+        minHeight: dimensionAt('size.field.height.lg'),
+        paddingVertical: dimensionAt('space.inset.xs'),
       },
     },
-    borderWidth: {
-      default: dimensionAt('border.width.default'),
-      focus: dimensionAt('border.width.focus'),
-    },
-    layout: {
-      stackGap: dimensionAt('space.inset.xs'),
-      inlineGap: dimensionAt('space.inset.sm'),
+    dimension: {
+      paddingHorizontal: dimensionAt('space.inset.md'),
+      borderRadius: dimensionAt('radius.field.md'),
+      borderWidth: dimensionAt('border.width.default'),
+      focusRingSpread: dimensionAt('focus.ring.spread'),
+      footerSlotGap: dimensionAt('space.stack.xs'),
+      footerInlineGap: dimensionAt('space.inline.sm'),
+      contentGap: dimensionAt('space.inline.sm'),
     },
     typography: {
       label: typographyAt('text-holder'),
@@ -176,7 +202,11 @@ const readTextFieldTokens = (mode: TThemeMode): ITextFieldTokens => {
       helper: typographyAt('helper'),
       counter: typographyAt('character-count'),
     },
-    iconSize: dimensionAt('size.icon.sm'),
+    iconSize: {
+      small: dimensionAt('size.icon.sm'),
+      medium: dimensionAt('size.icon.sm'),
+      large: dimensionAt('size.icon.md'),
+    },
   };
 };
 

@@ -69,11 +69,19 @@ one:
   of variants/props/states a component exposes — that enumeration is what Supernova is good at, and
   it's tedious to derive by eye from a Figma canvas.
 - **Always compare the two when they disagree — Figma wins.** Supernova's canonical component record
-  is an imported snapshot and can lag or omit things the live Figma component actually does (real
-  example: `TextField`'s own Supernova record didn't surface that Figma has a third `sm` size, or that
-  the floating label only applies at `lg` — see the `TextField` gaps called out elsewhere in this
-  skill). Don't build off Supernova's description alone without checking the Figma component's own
-  description text and variant list.
+  is an imported snapshot and can lag or omit things the live Figma component actually does. Real
+  example: `TextField`'s own Supernova record didn't surface that Figma has a third `sm` size at all —
+  that only turned up from calling `get_design_context` directly on the live `TextField`/`TextArea`
+  nodes (fileKey `DOUsaQf0fK7hybeS0n74gb`, node-id `3-1169` / `19-3421`) and reading the returned
+  Tailwind fallback values (`var(--token/path,<literal>)`) and the component's own description text —
+  not from Supernova alone. Don't build off Supernova's description without cross-checking the live
+  node when a metric or a variant axis actually matters.
+- **A component's Figma node can exist without being on a top-level canvas page.** `TextArea`'s real
+  component set (`19:3454`) isn't reachable from the file's top-level page list (`get_metadata` with no
+  `nodeId` only lists pages like `TextField`, `Select`, etc.) — it's still fetchable directly by
+  `nodeId`, it's just nested somewhere `get_metadata`'s page listing doesn't surface. Don't conclude a
+  component isn't specced in Figma just because it's missing from the page list; try the node-id from
+  the design URL directly first.
 
 ## Tokens — read from `theme/`, never hand-roll
 
@@ -100,15 +108,57 @@ one:
 
 ## Known gotchas (each of these was a real bug once — don't reintroduce them)
 
-- **`TextField`'s own Figma spec has more than the code implements — known, not yet fixed.** Figma
-  has three sizes (`sm` 32 / `md` 44 / `lg` 56 — only `medium`/`large` are built, mapping to Figma's
-  `md`/`lg`; `sm` is missing), and Figma's floating label only actually applies at `lg` (`sm`/`md` use
-  the label purely as a placeholder, no persistent caption once filled) — the shipped component
-  instead renders one static `<label>` regardless of size. This came from comparing the code against
-  `sn_get_figma_component_detail` directly, not from reading the code alone — a reminder that
-  Supernova's/the code's own idea of a component can silently diverge from Figma's. Don't copy
-  `TextField`'s label structure into a new component assuming it's correct — check the new
-  component's own spec (see "Design reference" above).
+- **`label` doubles as the placeholder — there is no separate `placeholder` prop, on either
+  `TextField` or `TextArea`.** Figma's own node has one text element whose bound property switches
+  between `label` (while empty — it renders in place of a value) and `value` (once there is one);
+  there's no second text layer to keep in sync. A `placeholder` prop that's independent from `label`
+  is a divergence from the real component — this shipped once on `TextField` and had to be removed.
+  Model new text-entry components the same way: one `label` prop, no `placeholder`.
+- **The floating label lives INSIDE the same bordered box as the value — never as a caption above
+  it.** On both `TextField` and `TextArea`, Figma's `container` frame is the one node with the
+  border/background/radius/padding, and the label + value are both plain text children inside it,
+  stacked in a column. A version that renders `<label>` as a sibling *before* a separately-bordered
+  input (gap between them, label outside the box) is visually wrong even if every color and size
+  token is correct — this shipped once on both components and had to be restructured. Structure:
+  outer wrapper (no border, no gap) → bordered `field` box (border/bg/radius/padding, `flex-col`) →
+  optional floating `<label>` + the actual `<input>`/`<textarea>` (no border/bg/padding of its own) →
+  sibling footer.
+- **The floating label only shows once there's a value, and never at `TextField`'s `size='small'`.**
+  Figma's rule, verbatim from the component description: "la etiqueta sube solo cuando hay un valor"
+  — a focused, *empty* field is `focus`, not `filled`, and does not float (this changed in the design
+  file on 20-ago; don't wire the float to `isFocused` by analogy with a typical Material text field).
+  `size='small'` (32px) never floats even when filled — confirmed by `dimension.json`'s own
+  `size.control.height.sm` description: "El campo compacto NO tiene etiqueta flotante: la etiqueta
+  vive como placeholder dentro del valor. A partir de md (44) el campo si la lleva." `medium` (44px)
+  DOES float once filled, despite `dimension.json`'s older, unrevised `size.field.height.md`
+  description implying otherwise — when two token descriptions in the same file disagree, trust the
+  live component node (`get_design_context`) over either doc, and prefer the more recently-dated one
+  if you can't check the node.
+- **Border radius and horizontal padding are the same at every `TextField` size — they don't scale
+  with `sm`/`md`/`lg`.** All three sizes share one `radius/field/md` (24px) and one `space/inset/md`
+  (12px) horizontal padding on the container; only height and *vertical* padding vary per size (`sm`/
+  `md`: 0, `lg`: `space/inset/xs` = 4px). `TextArea` uses the same uniform `radius/field/md` (24px),
+  `space/inset/md` (12px) horizontal, but a flat `space/inset/sm` (8px) vertical, at its one size.
+  Don't assume Supernova's independently-scaled `radius.field.sm`/`.md` tokens pair 1:1 with a
+  component's own `sm`/`md`/`lg` size axis — the two scales are named independently and Figma's actual
+  applied value (visible in `get_design_context`'s `var(--token,<literal>)` fallback) is the one that
+  matters, not which same-named step looks like it should match.
+- **Focus renders as a separate outer ring, never a change to the container's own border.** Figma's
+  `focus` variant keeps the exact same `border-default` color and 1px `border/width/default` width the
+  `default` state has — the visible blue ring is a *second*, absolutely-positioned layer outside the
+  container (`focus/ring/spread` = 3px, `border-focus` color, hugging the container's outer edge with
+  no gap). A version that thickens the border and recolors it to `border-focus` in place is visibly
+  different from Figma and had to be fixed. Reproduce the outer-ring look without an extra element on
+  web via `boxShadow: '0 0 0 <spread>px <border-focus>'` (follows `borderRadius` for free); on mobile,
+  wrap the field in an outer `View` whose own `borderWidth` is always `focusRingSpread` and whose
+  `borderColor` toggles between `'transparent'` and `border-focus` — reserving the space up front is
+  what keeps focus from shifting layout, since RN has no `box-shadow`.
+- **Hover is a translucent wash layered over the background, in addition to the border color
+  change.** Figma's `hover` variant both recolors the border to `border-hover` AND paints an
+  `overlay-hover` (a low-alpha navy, e.g. `rgba(0,30,96,0.06)`) on top of the existing background — two
+  effects, not one. On web, reproduce the wash with a second `backgroundImage: 'linear-gradient(<overlay-hover>, <overlay-hover>)'`
+  layered over `backgroundColor`, rather than skipping it because "the border already changes." There
+  is no hover state on mobile (no pointer) — don't invent one.
 - **Wire native constraints, not just derived text.** If a prop like `maxLength` drives a counter,
   it must ALSO be passed to the real `<input maxLength>` / `<textarea maxLength>` / RN `<TextInput
   maxLength>` — otherwise the counter can go negative/over while the token contract implies a hard
@@ -116,21 +166,40 @@ one:
 - **Counter string formats differ per component — don't unify them without checking Figma.**
   `TextField` renders `"n / max"` (spaces around the slash); `TextArea` renders `"n/max"` (no
   spaces). Copy the exact format from the component's own Figma spec, not from a sibling component.
+- **`showHelper` / `showCounter` are real, independent boolean props — not derived from whether
+  `helperText`/`errorMessage`/`maxLength` happen to be set.** Both `TextField` and `TextArea` shipped
+  once inferring footer visibility from content presence alone (`helperText ? show : hide`); Figma's
+  own component (confirmed via `get_design_context` — `showHelper`, `showCounter` show up as their own
+  boolean props, both defaulting to `false` even when `helperText`/`counter` have non-empty default
+  text) toggles each independently of content, so a consumer can hold `helperText` ready and flip
+  visibility without clearing it. Neither is switched on automatically by `errorMessage`/`isInvalid`/
+  `maxLength` either — pairing `errorMessage` with `showHelper: true` for WCAG 1.4.1 is on the
+  consumer, exactly like Figma itself; see the `ErrorState` stories on both components.
+- **`TextField`'s prefix/suffix affixes are two independent pairs of slots, each with its own
+  `show*` flag.** Figma's props: `prefix`/`suffix` (plain text) gated by `showPrefixText`/
+  `showSuffixText`, and separate `prefixIcon`/`suffixIcon` slots gated by `showPrefixIcon`/
+  `showSuffixIcon` — text and icon on the same side can be on, off, or mixed independently. The affix
+  text color is its own token group (`color.component.textfield.affix.*`), distinct from `value`'s.
+  Icon nodes are platform-specific (`ReactNode` on web, same on mobile) and live only on each
+  platform's own `*.types.ts`, not the shared base — this library ships no bundled icon set, so the
+  slot renders whatever the consumer passes; don't invent a placeholder icon. Adding an affix turns
+  the bordered box's own layout into a row (`icon, text, [label+value column], text, icon`) with the
+  label+value column isolated in its own `flex: 1` wrapper so the floating label still only measures
+  against its own text, not the icons beside it. `TextArea` has no such slots — don't add them there.
 - **Every component's own variant axes are its own — don't generalize.** `TextField` has a `size`
-  axis (`medium`/`large`, plus an unbuilt Figma `sm`) and an `icon` color group; `TextArea` has
-  neither — a single `state` axis, no size, no icon slot. Confirm the axes with
-  `sn_get_figma_component_detail` before writing the shared types file, every time.
+  axis (`small`/`medium`/`large`, matching Figma's `sm`/`md`/`lg`) and an `icon` color group;
+  `TextArea` has neither — a single `state` axis, no size, no icon slot. Confirm the axes with
+  `get_design_context` on the live node before writing the shared types file, every time — see
+  "Design reference" above for why Supernova's own record isn't always enough on its own.
 - **Hover and focus are React state now, not CSS pseudo-classes, on web.** `useTextField` /
   `useTextArea` take `isHovered` / `isFocused` as params; the component owns the state
-  (`onMouseEnter`/`onMouseLeave`, `onFocus`/`onBlur`) and feeds it in. Precedence for border/background
-  color across states: `disabled > readOnly > error > focus > hover > default`. Mobile has no hover —
-  only `isFocused`, same precedence minus that one step.
+  (`onMouseEnter`/`onMouseLeave` on the bordered box, `onFocus`/`onBlur` on the input) and feeds it in.
+  Precedence for the container's **border color**: `disabled > readOnly > error > hover > default` —
+  focus is deliberately absent from this list; see the focus-ring gotcha above for why. Mobile has no
+  hover — only `isFocused`, and it drives the separate ring, not the border, same as web.
 - **`usePrefersReducedMotion()` replaces a `@media` query.** With inline `transition` strings built in
   JS, there's no `@media (prefers-reduced-motion: reduce)` rule to hide behind — call this hook (from
   `@dsm/web`'s `theme/`) and set `transition: 'none'` when it's `true`.
-- **`TextArea`'s floating label follows `value`, not `focus`.** A focused, empty `TextArea` is Figma's
-  `focus` state, not `filled` — the label stays as the placeholder. It only floats once there is a
-  value. Don't wire it to `isFocused` by analogy with a typical Material-style floating label.
 - **Mulish is loaded on both platforms — via completely different mechanisms, both behind
   `BluProvider`.** Web: `@dsm/web`'s `theme/font.ts` self-hosts it with `@fontsource/mulish`
   (per-weight CSS imports, pulled in by importing `BluProvider`) — use the plain package, NOT

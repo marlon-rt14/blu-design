@@ -6,7 +6,7 @@ import type { ITextAreaProps } from './TextArea.types';
 
 /** Params of {@link useTextArea}: the TextArea props plus the live hover/focus state. */
 interface IUseTextAreaParams extends ITextAreaProps {
-  /** Whether the pointer currently sits over the `<textarea>`. */
+  /** Whether the pointer currently sits over the field's bordered box. */
   isHovered: boolean;
   /** Whether the `<textarea>` currently has focus. */
   isFocused: boolean;
@@ -22,7 +22,10 @@ interface ITextAreaFieldStyle extends CSSProperties {
 
 /** Styles and derived values the TextArea needs to render. */
 interface IUseTextAreaResult {
-  containerStyle: CSSProperties;
+  /** The outer column: bordered box + footer, no gap of its own — see `ITextAreaDimensionTokens.footerSlotGap`. */
+  wrapperStyle: CSSProperties;
+  /** The bordered box: border, background, radius, padding and the hover/focus treatments. */
+  fieldStyle: CSSProperties;
   labelStyle: CSSProperties;
   textareaStyle: ITextAreaFieldStyle;
   footerStyle: CSSProperties;
@@ -40,13 +43,15 @@ interface IUseTextAreaResult {
    * empty field is `focus`, not `filled`; it does not float).
    */
   hasValue: boolean;
-  /** `errorMessage` when set, otherwise `helperText`. `undefined` when neither is set. */
+  /** `errorMessage` or `helperText` when `showHelper` is `true` and either is set; `undefined` otherwise. */
   displayedHelperText: string | undefined;
-  /** `"n/max"` when `maxLength` is set, otherwise `undefined` — note: no spaces, unlike TextField's `"n / max"`. */
+  /** `"n/max"` when `showCounter` is `true` and `maxLength` is set; `undefined` otherwise — note: no spaces, unlike TextField's `"n / max"`. */
   counterText: string | undefined;
-  /** The container's height floor — see `ITextAreaDimensionTokens.minHeight` in `@dsm/shared`. */
-  minHeight: number;
 }
+
+// Figma's label/sm/strong text style tracks 0.24px — see the same constant in
+// `@dsm/web`'s `TextField`'s `useTextField`.
+const FLOATING_LABEL_LETTER_SPACING = '0.24px';
 
 /**
  * Resolves every style and derived value the TextArea needs, from the active
@@ -65,6 +70,8 @@ export const useTextArea = ({
   isInvalid = false,
   errorMessage,
   helperText,
+  showHelper = false,
+  showCounter = false,
   value,
   maxLength,
   isHovered,
@@ -77,20 +84,18 @@ export const useTextArea = ({
   const hasError = isInvalid || Boolean(errorMessage);
   const hasValue = value.length > 0;
 
+  // Focus never recolors the container's own border — Figma's "focus" variant
+  // keeps `border-default` and draws a separate ring outside the box instead
+  // (see `boxShadow` below). Hover and error still change it in place.
   const borderColor = isDisabled
     ? tokens.colors.container.borderDisabled
     : isReadOnly
       ? tokens.colors.container.borderReadOnly
       : hasError
         ? tokens.colors.container.borderError
-        : isFocused
-          ? tokens.colors.container.borderFocus
-          : isHovered
-            ? tokens.colors.container.borderHover
-            : tokens.colors.container.border;
-
-  const borderWidth =
-    isFocused && !isDisabled && !isReadOnly ? tokens.dimension.borderWidth.focus : tokens.dimension.borderWidth.default;
+        : isHovered
+          ? tokens.colors.container.borderHover
+          : tokens.colors.container.border;
 
   const backgroundColor = isDisabled
     ? tokens.colors.container.backgroundDisabled
@@ -106,15 +111,44 @@ export const useTextArea = ({
 
   const placeholderColor = isDisabled ? tokens.colors.value.disabled : tokens.colors.value.placeholder;
 
-  const transition = prefersReducedMotion
-    ? 'none'
-    : 'border-color 120ms ease, background-color 120ms ease, height 120ms ease';
+  const transition = prefersReducedMotion ? 'none' : 'border-color 120ms ease, background-color 120ms ease, box-shadow 120ms ease';
 
-  const containerStyle: CSSProperties = {
+  // A solid `box-shadow` reproduces Figma's outer focusRing layer (a bordered
+  // box inset by its own width, hugging the container with no gap) without an
+  // extra DOM node — same technique as `@dsm/web`'s `TextField`.
+  const boxShadow =
+    isFocused && !isDisabled && !isReadOnly
+      ? `0 0 0 ${tokens.dimension.focusRingSpread}px ${tokens.colors.container.borderFocus}`
+      : undefined;
+
+  // Hover's translucent wash (`overlayHover`), layered as a second background
+  // image over `backgroundColor` — see the same technique in `TextField`.
+  const backgroundImage =
+    isHovered && !isFocused && !isDisabled && !isReadOnly && !hasError
+      ? `linear-gradient(${tokens.colors.container.overlayHover}, ${tokens.colors.container.overlayHover})`
+      : undefined;
+
+  const wrapperStyle: CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
-    gap: tokens.dimension.stackGap,
+    width: '100%',
     fontFamily,
+  };
+
+  const fieldStyle: CSSProperties = {
+    boxSizing: 'border-box',
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    minHeight: tokens.dimension.minHeight,
+    padding: `${tokens.dimension.paddingVertical}px ${tokens.dimension.paddingHorizontal}px`,
+    borderRadius: tokens.dimension.borderRadius,
+    border: `${tokens.dimension.borderWidth}px solid ${borderColor}`,
+    backgroundColor,
+    backgroundImage,
+    boxShadow,
+    transition,
+    cursor: isDisabled ? 'not-allowed' : undefined,
   };
 
   const labelStyle: CSSProperties = {
@@ -122,17 +156,18 @@ export const useTextArea = ({
     fontWeight: tokens.typography.label.fontWeight,
     fontSize: tokens.typography.label.fontSize,
     lineHeight: `${tokens.typography.label.lineHeight}px`,
+    letterSpacing: FLOATING_LABEL_LETTER_SPACING,
     color: isDisabled ? tokens.colors.label.disabled : tokens.colors.label.default,
   };
 
   const textareaStyle: ITextAreaFieldStyle = {
     boxSizing: 'border-box',
+    display: 'block',
     width: '100%',
-    minHeight: tokens.dimension.minHeight,
-    padding: `${tokens.dimension.paddingVertical}px ${tokens.dimension.paddingHorizontal}px`,
-    borderRadius: tokens.dimension.borderRadius,
-    border: `${borderWidth}px solid ${borderColor}`,
-    backgroundColor,
+    border: 'none',
+    padding: 0,
+    margin: 0,
+    backgroundColor: 'transparent',
     fontFamily,
     fontWeight: tokens.typography.content.fontWeight,
     fontSize: tokens.typography.content.fontSize,
@@ -140,7 +175,6 @@ export const useTextArea = ({
     color: valueColor,
     outline: 'none',
     resize: 'none',
-    transition,
     cursor: isDisabled ? 'not-allowed' : undefined,
     '--dsm-input-placeholder-color': placeholderColor,
   };
@@ -148,7 +182,6 @@ export const useTextArea = ({
   const footerStyle: CSSProperties = {
     display: 'flex',
     justifyContent: 'space-between',
-    gap: tokens.dimension.footerInlineGap,
   };
 
   const helperColor = isDisabled
@@ -157,6 +190,8 @@ export const useTextArea = ({
       ? tokens.colors.helper.error
       : tokens.colors.helper.default;
   const helperStyle: CSSProperties = {
+    flex: 1,
+    paddingTop: tokens.dimension.footerSlotGap,
     fontFamily,
     fontWeight: tokens.typography.helper.fontWeight,
     fontSize: tokens.typography.helper.fontSize,
@@ -171,15 +206,19 @@ export const useTextArea = ({
   // pone rojo."
   const counterStyle: CSSProperties = {
     flexShrink: 0,
+    paddingTop: tokens.dimension.footerSlotGap,
+    paddingLeft: tokens.dimension.footerInlineGap,
     fontFamily,
     fontWeight: tokens.typography.counter.fontWeight,
     fontSize: tokens.typography.counter.fontSize,
     lineHeight: `${tokens.typography.counter.lineHeight}px`,
     color: helperColor,
+    textAlign: 'right',
   };
 
   return {
-    containerStyle,
+    wrapperStyle,
+    fieldStyle,
     labelStyle,
     textareaStyle,
     footerStyle,
@@ -189,8 +228,7 @@ export const useTextArea = ({
     isReadOnly,
     isInvalid: hasError,
     hasValue,
-    displayedHelperText: errorMessage ?? helperText,
-    counterText: maxLength !== undefined ? `${value.length}/${maxLength}` : undefined,
-    minHeight: tokens.dimension.minHeight,
+    displayedHelperText: showHelper ? errorMessage ?? helperText : undefined,
+    counterText: showCounter && maxLength !== undefined ? `${value.length}/${maxLength}` : undefined,
   };
 };

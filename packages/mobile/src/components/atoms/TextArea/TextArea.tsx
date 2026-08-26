@@ -14,16 +14,18 @@ const DEFAULT_NUMBER_OF_LINES = 3;
  * content, with a floating label, helper/error text and an optional
  * character counter.
  *
- * Unlike `TextField`, there is no separate `placeholder` prop: `label` is
- * used as `TextInput`'s `placeholder` while `value` is empty, and a separate
- * `<Text>` label is rendered above the field as soon as there is a value —
- * mirrors `@dsm/web`'s `TextArea`, and Figma's own description of one node
- * swapping which property it points to.
+ * `label` lives inside the same bordered box as the value — it fills
+ * `TextInput`'s `placeholder` while `value` is empty, and a separate
+ * `<Text>` label is rendered above the field, inside the same box, as soon
+ * as there is a value. There is no separate `placeholder` prop: mirrors
+ * `@dsm/web`'s `TextArea`, and Figma's own description of one node swapping
+ * which property it points to.
  *
- * Height: `numberOfLines` sets the starting height (see `useTextArea`);
- * `onContentSizeChange` then reports the real content height on every
- * keystroke, and the field grows to fit, never below the token's `minHeight`
- * floor.
+ * Height: `numberOfLines` sets the `TextInput`'s starting height (see
+ * `useTextArea`); `onContentSizeChange` then reports the real content
+ * height on every keystroke, and the field grows to fit. The bordered box's
+ * own `minHeight` is the floor, enforced by layout regardless of the
+ * `TextInput`'s own height.
  *
  * @example
  * ```tsx
@@ -42,7 +44,9 @@ export const TextArea = ({
   const [isFocused, setIsFocused] = useState(false);
   const [measuredHeight, setMeasuredHeight] = useState<number | undefined>(undefined);
   const {
+    ringStyle,
     fieldStyle,
+    inputStyle,
     labelStyle,
     helperStyle,
     counterStyle,
@@ -53,40 +57,43 @@ export const TextArea = ({
     hasValue,
     displayedHelperText,
     counterText,
-    minHeight,
     startingHeight,
   } = useTextArea({ ...props, isFocused, numberOfLines });
   const hasFooter = Boolean(displayedHelperText) || Boolean(counterText);
 
   const handleContentSizeChange = (event: TextInputContentSizeChangeEvent): void => {
-    setMeasuredHeight(Math.max(event.nativeEvent.contentSize.height, minHeight));
+    setMeasuredHeight(event.nativeEvent.contentSize.height);
   };
 
   return (
     <View style={textAreaStyles.wrapper}>
-      {hasValue && props.label ? <Text style={labelStyle}>{props.label}</Text> : null}
-      <TextInput
-        accessibilityLabel={props.label}
-        accessibilityState={{ disabled: isDisabled }}
-        editable={!isDisabled && !isReadOnly}
-        maxLength={props.maxLength}
-        multiline
-        onBlur={() => {
-          setIsFocused(false);
-          onBlur?.();
-        }}
-        onChangeText={onChangeText}
-        onContentSizeChange={handleContentSizeChange}
-        onFocus={() => {
-          setIsFocused(true);
-          onFocus?.();
-        }}
-        placeholder={hasValue ? undefined : props.label}
-        placeholderTextColor={placeholderTextColor}
-        style={[textAreaStyles.input, fieldStyle, { height: measuredHeight ?? startingHeight }]}
-        testID={props.testID}
-        value={props.value}
-      />
+      <View style={ringStyle}>
+        <View style={fieldStyle}>
+          {hasValue && props.label ? <Text style={labelStyle}>{props.label}</Text> : null}
+          <TextInput
+            accessibilityLabel={props.label}
+            accessibilityState={{ disabled: isDisabled }}
+            editable={!isDisabled && !isReadOnly}
+            maxLength={props.maxLength}
+            multiline
+            onBlur={() => {
+              setIsFocused(false);
+              onBlur?.();
+            }}
+            onChangeText={onChangeText}
+            onContentSizeChange={handleContentSizeChange}
+            onFocus={() => {
+              setIsFocused(true);
+              onFocus?.();
+            }}
+            placeholder={hasValue ? undefined : props.label}
+            placeholderTextColor={placeholderTextColor}
+            style={[inputStyle, { height: measuredHeight ?? startingHeight }]}
+            testID={props.testID}
+            value={props.value}
+          />
+        </View>
+      </View>
       {hasFooter ? (
         <View style={textAreaStyles.footer}>
           {displayedHelperText ? (

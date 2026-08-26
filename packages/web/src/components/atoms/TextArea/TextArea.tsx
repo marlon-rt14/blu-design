@@ -10,17 +10,18 @@ const DEFAULT_ROWS = 3;
  * Web TextArea — a multi-line text input that grows with its content, with a
  * floating label, helper/error text and an optional character counter.
  *
- * Renders a real `<textarea>`. Unlike `TextField`, there is no separate
- * `placeholder` prop: `label` renders as the native placeholder while `value`
- * is empty, and floats above the field as soon as there is a value — Figma's
- * own description puts it as one node swapping which property it points to
- * ("a label cuando hace de placeholder, a value cuando muestra un valor"),
- * which this mirrors by conditionally rendering the floating `<label>`
- * instead of animating a single absolutely-positioned node.
+ * `label` lives inside the same bordered box as the value — it acts as the
+ * `<textarea>`'s placeholder while `value` is empty, and floats above the
+ * value as soon as there is one. There is no separate `placeholder` prop:
+ * Figma's own description puts it as one node swapping which property it
+ * points to ("a label cuando hace de placeholder, a value cuando muestra un
+ * valor"), which this mirrors by conditionally rendering the floating
+ * `<label>` instead of animating a single absolutely-positioned node.
  *
  * Height: `rows` sets the starting height; a `useLayoutEffect` measures
- * `scrollHeight` on every keystroke and grows the field to fit, never below
- * the token's `minHeight` floor (see `useTextArea`).
+ * `scrollHeight` on every keystroke and grows the `<textarea>` to fit. The
+ * bordered box's own `minHeight` (see `useTextArea`) is a floor on the whole
+ * box, enforced by CSS regardless of how tall the `<textarea>` itself is.
  *
  * @example
  * ```tsx
@@ -37,7 +38,8 @@ export const TextArea = (props: ITextAreaProps): ReactElement => {
   const [measuredHeight, setMeasuredHeight] = useState<number | undefined>(undefined);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const {
-    containerStyle,
+    wrapperStyle,
+    fieldStyle,
     labelStyle,
     textareaStyle,
     footerStyle,
@@ -49,24 +51,23 @@ export const TextArea = (props: ITextAreaProps): ReactElement => {
     hasValue,
     displayedHelperText,
     counterText,
-    minHeight,
   } = useTextArea({ ...props, isHovered, isFocused });
   const textareaId = useId();
   const footerId = `${textareaId}-footer`;
   const hasFooter = Boolean(displayedHelperText) || Boolean(counterText);
 
-  // Auto-grow: collapse to the content's natural height, then clamp to the
-  // token floor. Reading `scrollHeight` after resetting to 'auto' is the only
-  // way to ask the browser "how tall would this be with no scrollbar" — there
-  // is no CSS-only equivalent for a controlled, unbounded-growth textarea.
+  // Auto-grow: collapse to the content's natural height, then read
+  // `scrollHeight` — the only way to ask the browser "how tall would this be
+  // with no scrollbar" for a controlled, unbounded-growth textarea. The
+  // bordered box's own `minHeight` (in `fieldStyle`) is the floor, not this.
   useLayoutEffect(() => {
     const node = textareaRef.current;
     if (!node) {
       return;
     }
     node.style.height = 'auto';
-    setMeasuredHeight(Math.max(node.scrollHeight, minHeight));
-  }, [value, minHeight]);
+    setMeasuredHeight(node.scrollHeight);
+  }, [value]);
 
   const handleMouseEnter = (): void => setIsHovered(true);
   const handleMouseLeave = (): void => setIsHovered(false);
@@ -80,33 +81,33 @@ export const TextArea = (props: ITextAreaProps): ReactElement => {
   };
 
   return (
-    <div style={containerStyle}>
-      {hasValue && label ? (
-        <label htmlFor={textareaId} style={labelStyle}>
-          {label}
-        </label>
-      ) : null}
-      <textarea
-        aria-describedby={hasFooter ? footerId : undefined}
-        aria-invalid={isInvalid}
-        className="dsm-input"
-        data-testid={testID}
-        disabled={isDisabled}
-        id={textareaId}
-        maxLength={maxLength}
-        name={name}
-        onBlur={handleBlur}
-        onChange={onChange}
-        onFocus={handleFocus}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        placeholder={hasValue ? undefined : label}
-        readOnly={isReadOnly}
-        ref={textareaRef}
-        rows={rows}
-        style={{ ...textareaStyle, height: measuredHeight ?? textareaStyle.minHeight }}
-        value={value}
-      />
+    <div style={wrapperStyle}>
+      <div style={fieldStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        {hasValue && label ? (
+          <label htmlFor={textareaId} style={labelStyle}>
+            {label}
+          </label>
+        ) : null}
+        <textarea
+          aria-describedby={hasFooter ? footerId : undefined}
+          aria-invalid={isInvalid}
+          className="dsm-input"
+          data-testid={testID}
+          disabled={isDisabled}
+          id={textareaId}
+          maxLength={maxLength}
+          name={name}
+          onBlur={handleBlur}
+          onChange={onChange}
+          onFocus={handleFocus}
+          placeholder={hasValue ? undefined : label}
+          readOnly={isReadOnly}
+          ref={textareaRef}
+          rows={rows}
+          style={{ ...textareaStyle, height: measuredHeight }}
+          value={value}
+        />
+      </div>
       {hasFooter ? (
         <div id={footerId} style={footerStyle}>
           {displayedHelperText ? (

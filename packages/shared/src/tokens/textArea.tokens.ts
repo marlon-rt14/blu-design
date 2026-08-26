@@ -65,26 +65,20 @@ export interface ITextAreaDimensionTokens {
   minHeight: number;
   borderRadius: number;
   paddingHorizontal: number;
-  /**
-   * Not confirmed against a Figma node — TextArea's page wasn't reachable in
-   * the file's canvas list. Borrows `space.inset.md` as a reasonable
-   * vertical inset; revisit if the real node ever becomes reachable.
-   */
   paddingVertical: number;
-  borderWidth: {
-    default: number;
-    focus: number;
-  };
-  /** Vertical gap between label/field/footer. */
-  stackGap: number;
+  borderWidth: number;
   /**
-   * Padding-top of each footer slot (helper, counter) — the 4px separator
+   * Spread of the outer focus ring — a separate absolutely-positioned layer
+   * outside the container, not a change to the container's own border (see
+   * `useTextArea`'s doc comment on why focus never recolors `border`).
+   */
+  focusRingSpread: number;
+  /** Padding-top of each footer slot (helper, counter) — the 4px separator
    * from the field lives here, not in a root gap, specifically so either
    * slot can be hidden independently without leaving a hole. See
-   * `ITextAreaBaseProps.helperText` / `.maxLength`.
-   */
+   * `ITextAreaBaseProps.helperText` / `.maxLength`. */
   footerSlotGap: number;
-  /** Horizontal gap between the helper slot and the counter slot. */
+  /** Padding-left of the counter slot, pushing it away from the helper slot. */
   footerInlineGap: number;
 }
 
@@ -157,20 +151,15 @@ const readTextAreaTokens = (mode: TThemeMode): ITextAreaTokens => {
         disabled: colorAt('counter.text-disabled'),
       },
     },
-    // No dedicated `dimension.*.textarea.*` group exists — every metric here
-    // borrows from the same field/inset/border scale TextField reads from.
     dimension: {
       minHeight: dimensionAt('size.field.height.md'),
-      borderRadius: dimensionAt('radius.field.sm'),
-      paddingHorizontal: dimensionAt('space.inset.lg'),
-      paddingVertical: dimensionAt('space.inset.md'),
-      borderWidth: {
-        default: dimensionAt('border.width.default'),
-        focus: dimensionAt('border.width.focus'),
-      },
-      stackGap: dimensionAt('space.inset.xs'),
-      footerSlotGap: dimensionAt('space.inset.xs'),
-      footerInlineGap: dimensionAt('space.inset.sm'),
+      borderRadius: dimensionAt('radius.field.md'),
+      paddingHorizontal: dimensionAt('space.inset.md'),
+      paddingVertical: dimensionAt('space.inset.sm'),
+      borderWidth: dimensionAt('border.width.default'),
+      focusRingSpread: dimensionAt('focus.ring.spread'),
+      footerSlotGap: dimensionAt('space.stack.xs'),
+      footerInlineGap: dimensionAt('space.inline.sm'),
     },
     typography: {
       label: typographyAt('text-holder'),

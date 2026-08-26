@@ -1,5 +1,5 @@
 import type { ITextFieldBaseProps } from '@dsm/shared';
-import type { ChangeEventHandler, FocusEventHandler } from 'react';
+import type { ChangeEventHandler, FocusEventHandler, ReactNode } from 'react';
 
 /**
  * Props of the web TextField.
@@ -22,4 +22,8 @@ export interface ITextFieldProps extends ITextFieldBaseProps {
   type?: 'text' | 'email' | 'tel' | 'password';
   /** Maps to the native `name` attribute, for uncontrolled form submission. */
   name?: string;
+  /** Icon rendered before the value when `showPrefixIcon` is `true`. Any element — this library ships no bundled icon set. */
+  prefixIcon?: ReactNode;
+  /** Icon rendered after the value when `showSuffixIcon` is `true`. Any element — this library ships no bundled icon set. */
+  suffixIcon?: ReactNode;
 }
