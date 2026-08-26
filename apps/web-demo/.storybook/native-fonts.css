@@ -1,0 +1,30 @@
+/*
+ * @dsm/mobile's font.ts resolves each weight to a filename-as-family-name
+ * (e.g. "Mulish-SemiBold") — through react-native-web that string becomes
+ * the DOM's font-family as-is. It only renders correctly on a native build,
+ * where react-native-asset links the matching .ttf under that exact name;
+ * Storybook's "React Native" platform never does that linking, so without
+ * these @font-face rules every one of those names falls back to the
+ * browser's default sans-serif. Source files live in @dsm/mobile, not
+ * copied here, so there is one place to update them.
+ */
+@font-face {
+  font-family: 'Mulish-Regular';
+  src: url('../../../packages/mobile/assets/fonts/Mulish-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Mulish-Medium';
+  src: url('../../../packages/mobile/assets/fonts/Mulish-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Mulish-SemiBold';
+  src: url('../../../packages/mobile/assets/fonts/Mulish-SemiBold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Mulish-Bold';
+  src: url('../../../packages/mobile/assets/fonts/Mulish-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Mulish-ExtraBold';
+  src: url('../../../packages/mobile/assets/fonts/Mulish-ExtraBold.ttf') format('truetype');
+}

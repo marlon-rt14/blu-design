@@ -5,6 +5,7 @@ import type { Decorator, Preview } from '@storybook/react-vite';
 import type { PropsWithChildren, ReactElement } from 'react';
 
 import './preview.css';
+import './native-fonts.css';
 
 /**
  * Applies `theme` to the story canvas and to every component rendered inside
