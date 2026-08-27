@@ -1,12 +1,14 @@
 import { BluProvider, Button, useFontFamily } from '@dsm/mobile';
 import { colors, spacing, typography } from '@dsm/shared';
-import type { TButtonSize, TButtonVariant } from '@dsm/shared';
+import type { TButtonAppearance, TButtonSize, TButtonVariant } from '@dsm/shared';
 import { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
-const VARIANTS: TButtonVariant[] = ['primary', 'secondary'];
-const SIZES: TButtonSize[] = ['small', 'medium', 'large'];
+const VARIANTS: TButtonVariant[] = ['primary', 'danger'];
+// `on-inverse` is left out: it only exists for `primary` and needs an inverted surface.
+const APPEARANCES: Exclude<TButtonAppearance, 'on-inverse'>[] = ['fill', 'soft', 'outline', 'ghost'];
+const SIZES: TButtonSize[] = ['xs', 'sm', 'md', 'lg'];
 
 const App = () => {
   const [presses, setPresses] = useState(0);
@@ -26,7 +28,7 @@ const App = () => {
             <Text style={[styles.title, { fontFamily: semiboldFont }]}>@dsm/mobile · demo</Text>
             <Text style={[styles.subtitle, { fontFamily: regularFont }]}>
               El mismo Button del design system, consumido desde una app React
-              Native.
+              Native. Resuelve tokens de bDS para el tema activo.
             </Text>
 
             <Text style={[styles.counter, { fontFamily: mediumFont }]} testID="press-counter">
@@ -38,6 +40,18 @@ const App = () => {
                 <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
                   {variant.toUpperCase()}
                 </Text>
+                <View style={styles.row}>
+                  {APPEARANCES.map(appearance => (
+                    <Button
+                      appearance={appearance}
+                      key={appearance}
+                      label={appearance}
+                      onPress={handlePress}
+                      testID={`button-${variant}-${appearance}`}
+                      variant={variant}
+                    />
+                  ))}
+                </View>
                 <View style={styles.row}>
                   {SIZES.map(size => (
                     <Button

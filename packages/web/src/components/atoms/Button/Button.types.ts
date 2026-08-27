@@ -6,6 +6,10 @@ import type { MouseEvent } from 'react';
  *
  * Extends the shared {@link IButtonBaseProps} contract with the web-specific
  * bits: a mouse event handler and the native `type` attribute.
+ *
+ * Hover, press and focus are deliberately not props — the component tracks them
+ * itself and feeds them to `useButton`, the same way `TextArea` does. See
+ * `TButtonState` in `@dsm/shared` for why `isDisabled` is the exception.
  */
 export interface IButtonProps extends IButtonBaseProps {
   /**

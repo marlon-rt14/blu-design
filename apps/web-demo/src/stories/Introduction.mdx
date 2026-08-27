@@ -15,38 +15,51 @@ Components live in `packages/` and are consumed by the demo apps in `apps/`.
 Every story renders **both** implementations. Use the **Platform** dropdown in the
 toolbar above to choose which one you are looking at:
 
-| Option | Package | How it renders here | Look |
-| --- | --- | --- | --- |
-| React | `@dsm/web` | Natively in the browser | Pill, uppercase label, hover lift |
-| React Native | `@dsm/mobile` | Through react-native-web | Rounded rectangle |
+{/* Written as JSX rather than a markdown table on purpose: MDX does not parse
+    GFM tables unless remark-gfm is configured, and it is not. A pipe table here
+    renders as a line of literal text. */}
+<table>
+  <thead>
+    <tr><th>Option</th><th>Package</th><th>How it renders here</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>React</td><td><code>@dsm/web</code></td><td>Natively in the browser</td></tr>
+    <tr><td>React Native</td><td><code>@dsm/mobile</code></td><td>Through react-native-web</td></tr>
+  </tbody>
+</table>
 
 A story is written once, against the shared contract, and the dropdown decides
 which component receives the props.
 
-## Same contract, different look
+## Same contract, same tokens
 
-The two implementations are **not** meant to look identical. They share:
+The two implementations share the props contract (`IButtonBaseProps` from
+`@dsm/shared`) **and the resolved token values**, so today they look the same.
+Divergence is allowed where a platform genuinely calls for it, but neither
+implementation invents a value: both read the same bDS tokens for the active
+theme and apply them inline.
 
-- the props contract (`IButtonBaseProps` from `@dsm/shared`)
-- the colour palette and the padding / font-size scales
-
-and each one owns its own presentation. The web Button leans on browser
-affordances — a pill shape, an uppercase label, a resting shadow and a lift on
-hover — none of which mean anything on a touch surface. Flip the dropdown to see
-it: the difference is deliberate, not drift.
+That is why the **Theme** dropdown works on both at once — there is no
+stylesheet or CSS cascade involved on either side. It also means the differences
+that remain are behavioural rather than visual: web tracks `hover` (a touch
+screen has none) and mobile adds `hitSlop` for the sizes that fall below the
+minimum touch target.
 
 ## Adding a component
 
-Each component is a folder of five files — see `Button` as the reference:
+Each component is a folder of four files — see `Button`, `TextField` or
+`TextArea`:
 
 ```
 Button/
 ├── index.ts           # public barrel
-├── Button.tsx         # presentation, no styling logic
+├── Button.tsx         # presentation; owns the interaction state
 ├── Button.types.ts    # props, extending the shared base contract
-├── useButton.ts       # hook that resolves styles from the props
-└── Button.css         # styles (on mobile: Button.styles.ts)
+└── useButton.ts       # resolves tokens for the active theme + that state
 ```
+
+Mobile adds a `Button.styles.ts` for the layout that never changes with theme or
+state. Neither platform ships a stylesheet for the component itself.
 
 The shared contract goes in `@dsm/shared` first, without event handlers — each
 platform adds its own (`onClick` vs `onPress`).

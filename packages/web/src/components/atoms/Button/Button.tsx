@@ -1,38 +1,70 @@
-import type { ReactElement } from 'react';
+import { useState } from 'react';
+import type { FocusEvent, ReactElement } from 'react';
 
-import './Button.css';
 import type { IButtonProps } from './Button.types';
 import { useButton } from './useButton';
 
 /**
  * Web Button — the primary way to trigger an action.
  *
- * Renders a real `<button>` element, so keyboard activation, focus rings and
- * form semantics come for free.
+ * Renders a real `<button>`, so keyboard activation, form semantics and the
+ * accessibility tree come from the platform rather than being reimplemented.
  *
- * Visually it diverges from the React Native Button on purpose — pill shape,
- * uppercase label, resting shadow and a lift on hover — because those are
- * browser affordances that mean nothing on a touch surface. The props contract
- * and the colour and spacing scales are the same on both platforms. See
- * `Button.css` for the reasoning.
+ * Two independent axes drive the look: `variant` says what the action *means*
+ * (`primary`, `danger`) and `appearance` says how much weight it carries
+ * (`fill` › `soft` › `outline` › `ghost`, plus `on-inverse` for inverted
+ * surfaces). Lower the hierarchy with `appearance`, never by changing `variant`.
+ *
+ * Styling is resolved inline from `buttonTokens[mode]` at render time — wrap the
+ * app in `BluProvider`. Hover, press and focus are tracked here and handed to
+ * `useButton`, the same way `TextArea` does it: with tokens resolved in
+ * JavaScript there is no stylesheet to hang `:hover` off.
  *
  * @example
  * ```tsx
- * <Button label="Save" onClick={handleSave} />
- * <Button label="Cancel" variant="secondary" size="small" onClick={close} />
- * <Button label="Save" isDisabled />
+ * <Button label="Publicar" onClick={publish} />
+ * <Button label="Guardar borrador" appearance="outline" onClick={saveDraft} />
+ * <Button label="Eliminar" variant="danger" size="sm" onClick={remove} />
  * ```
  */
 export const Button = (props: IButtonProps): ReactElement => {
   const { label, onClick, testID, type = 'button' } = props;
-  const { className, isDisabled } = useButton(props);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
+  const [isFocusVisible, setIsFocusVisible] = useState(false);
+  const { buttonStyle, isDisabled } = useButton({
+    ...props,
+    isHovered,
+    isPressed,
+    isFocusVisible,
+  });
+
+  const handleMouseEnter = (): void => setIsHovered(true);
+  // Also clears the press: releasing the pointer outside the button never fires
+  // pointerup on it, which would otherwise leave it stuck in `pressed`.
+  const handleMouseLeave = (): void => {
+    setIsHovered(false);
+    setIsPressed(false);
+  };
+  const handlePointerDown = (): void => setIsPressed(true);
+  const handlePointerUp = (): void => setIsPressed(false);
+  // `:focus-visible` rather than plain focus, so clicking does not light the ring.
+  const handleFocus = (event: FocusEvent<HTMLButtonElement>): void =>
+    setIsFocusVisible(event.currentTarget.matches(':focus-visible'));
+  const handleBlur = (): void => setIsFocusVisible(false);
 
   return (
     <button
-      className={className}
       data-testid={testID}
       disabled={isDisabled}
+      onBlur={handleBlur}
       onClick={onClick}
+      onFocus={handleFocus}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      style={buttonStyle}
       type={type}
     >
       {label}
