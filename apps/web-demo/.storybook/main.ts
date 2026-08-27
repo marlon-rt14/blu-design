@@ -16,6 +16,17 @@ const config: StorybookConfig = {
   stories: ['../src/stories/**/*.mdx', '../src/stories/**/*.stories.@(ts|tsx)'],
   addons: [getAbsolutePath('@storybook/addon-docs')],
   framework: getAbsolutePath('@storybook/react-vite'),
+  features: {
+    // Left on (this is the default), and stated explicitly so the behaviour is
+    // discoverable: this is what puts a `+` badge next to a component in the
+    // sidebar. It is a *change status* — that component's story file is new or
+    // modified relative to git — not anything about the component itself, and it
+    // clears once the file is committed. Set it to `false` to remove the badge;
+    // that also disables `experimentalReview`, which builds on it.
+    //
+    // Note this file has no hot reload: changing it needs a Storybook restart.
+    changeDetection: true,
+  },
   viteFinal: async (viteConfig) =>
     mergeConfig(viteConfig, {
       resolve: {
