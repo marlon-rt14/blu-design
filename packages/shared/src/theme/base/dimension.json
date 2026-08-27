@@ -632,59 +632,64 @@
     },
     "opacity": {
       "10": {
-        "value": "0.1px",
+        "value": "10px",
         "type": "dimension",
-        "description": "Opacidad 10%. Para atenuar un elemento entero. Si lo que necesitas es un velo de color encima, no es esto: son los tokens color/*/alpha/*. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
       },
       "20": {
-        "value": "0.2px",
+        "value": "20px",
         "type": "dimension",
-        "description": "Opacidad 20%. Para atenuar un elemento entero. Si lo que necesitas es un velo de color encima, no es esto: son los tokens color/*/alpha/*. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
       },
       "30": {
-        "value": "0.3px",
+        "value": "30px",
         "type": "dimension",
-        "description": "Opacidad 30%. Para atenuar un elemento entero. Si lo que necesitas es un velo de color encima, no es esto: son los tokens color/*/alpha/*. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
       },
       "40": {
-        "value": "0.4px",
+        "value": "40px",
         "type": "dimension",
-        "description": "Opacidad 40%. Para atenuar un elemento entero. Si lo que necesitas es un velo de color encima, no es esto: son los tokens color/*/alpha/*. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
       },
       "50": {
-        "value": "0.5px",
+        "value": "50px",
         "type": "dimension",
-        "description": "Opacidad 50%. Para atenuar un elemento entero. Si lo que necesitas es un velo de color encima, no es esto: son los tokens color/*/alpha/*. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
       },
       "60": {
-        "value": "0.6px",
+        "value": "60px",
         "type": "dimension",
-        "description": "Opacidad 60%. Para atenuar un elemento entero. Si lo que necesitas es un velo de color encima, no es esto: son los tokens color/*/alpha/*. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
       },
       "70": {
-        "value": "0.7px",
+        "value": "70px",
         "type": "dimension",
-        "description": "Opacidad 70%. Para atenuar un elemento entero. Si lo que necesitas es un velo de color encima, no es esto: son los tokens color/*/alpha/*. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
       },
       "80": {
-        "value": "0.8px",
+        "value": "80px",
         "type": "dimension",
-        "description": "Opacidad 80%. Para atenuar un elemento entero. Si lo que necesitas es un velo de color encima, no es esto: son los tokens color/*/alpha/*. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
       },
       "90": {
-        "value": "0.9px",
+        "value": "90px",
         "type": "dimension",
-        "description": "Opacidad 90%. Para atenuar un elemento entero. Si lo que necesitas es un velo de color encima, no es esto: son los tokens color/*/alpha/*. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
       },
       "100": {
-        "value": "1px",
+        "value": "100px",
         "type": "dimension",
-        "description": "Opacidad 100%. Para atenuar un elemento entero. Si lo que necesitas es un velo de color encima, no es esto: son los tokens color/*/alpha/*. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
       },
       "none": {
         "value": "0px",
         "type": "dimension",
-        "description": "Opacidad 0%. Para atenuar un elemento entero. Si lo que necesitas es un velo de color encima, no es esto: son los tokens color/*/alpha/*. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "disabled": {
+        "value": "60px",
+        "type": "dimension",
+        "description": "Opacidad de elementos decorativos que no se pueden apagar con un token de color en estado disabled — logos de franquicia, imágenes, ilustraciones. Texto e iconografía monocroma usan color/*/disabled. Mismo valor en los seis modos. Escala 0–100: Figma bindea opacity en porcentaje; el export a CSS divide por 100."
       }
     },
     "z": {
@@ -1485,19 +1490,24 @@
       },
       "field": {
         "sm": {
-          "value": "16px",
+          "value": "12px",
           "type": "dimension",
           "description": "Radio de campo compacto: 16 sobre 44 de alto."
         },
         "md": {
-          "value": "24px",
+          "value": "12px",
           "type": "dimension",
           "description": "RADIO DE CAMPO BASE: 24 sobre 56 de alto. NO es pildora: a 56 la pildora seria 28, asi que queda un tramo recto en el medio y la forma se lee como decision y no como accidente. PADDING MINIMO: space/inset/lg. Con padding menor que el radio el texto se ve apretado contra la curva. En campos multilinea la curva se nota mas: revisar el textarea antes de darlo por bueno."
         }
       },
       "action": {
-        "value": "9999px",
+        "value": "12px",
         "type": "dimension",
+        "icon": {
+          "value": "9999px",
+          "type": "dimension",
+          "description": "Radio de acciones circulares (IconButton, FAB). Independiente de radius/action para permitir que los botones con label usen 12px sin afectar las acciones de icono."
+        },
         "description": "RADIO DE BOTON: pildora. Se usa el centinela de pildora y NO un valor fijo, para que se adapte solo si cambia la altura del control (hoy 44/44/48, o sea pildora 22/22/24). PADDING MINIMO: space/inset/lg, y mas en botones anchos. NO usar en campos de texto: complica el texto largo, los grupos de controles y los textarea."
       }
     }
