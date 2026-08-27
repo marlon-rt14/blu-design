@@ -7636,6 +7636,16 @@
             "value": "#001e600f",
             "type": "color",
             "description": "Co-token de cardfield. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "bg-readonly": {
+            "value": "#f3f4f9",
+            "type": "color",
+            "description": "Fondo del contenedor de CardField en readonly. Espeja component/textfield/container/bg-readonly."
+          },
+          "border-readonly": {
+            "value": "#b3bacf",
+            "type": "color",
+            "description": "Borde del contenedor de CardField en readonly."
           }
         },
         "label": {
@@ -7665,6 +7675,11 @@
             "value": "#5f6677",
             "type": "color",
             "description": "Co-token de cardfield. Capa de indirección: aliasea color/text/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-readonly": {
+            "value": "#323949",
+            "type": "color",
+            "description": "Color del valor de CardField en readonly."
           }
         },
         "helper": {
