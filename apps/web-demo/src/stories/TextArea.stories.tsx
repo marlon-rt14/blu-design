@@ -198,13 +198,3 @@ export const WithHelperAndCounter: TStory = {
     showCounter: true,
   },
 };
-
-/** Grows past its three-row starting height as the content wraps onto more lines. */
-export const GrowsWithContent: TStory = {
-  args: {
-    value:
-      'Este campo empieza con tres líneas visibles, pero no tiene un alto fijo: ' +
-      'a medida que el contenido crece hacia abajo, el campo crece con él, ' +
-      'línea por línea, sin recortar ni mostrar una barra de scroll interna.',
-  },
-};

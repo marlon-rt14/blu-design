@@ -60,13 +60,30 @@ export const TextArea = (props: ITextAreaProps): ReactElement => {
   // `scrollHeight` — the only way to ask the browser "how tall would this be
   // with no scrollbar" for a controlled, unbounded-growth textarea. The
   // bordered box's own `minHeight` (in `fieldStyle`) is the floor, not this.
+  //
+  // The final `node.style.height` write below is NOT redundant with the
+  // `height: measuredHeight` in the style prop further down — it has to
+  // happen here too. React diffs the new style object against its OWN last
+  // rendered one, not against the live DOM; when `scrollHeight` comes back
+  // unchanged from the previous measurement (most keystrokes don't cross a
+  // line-wrap boundary), React sees no numeric change and skips writing
+  // `style.height` on the next commit, leaving the DOM stuck at the `'auto'`
+  // this same effect just set two lines above. A plain `<textarea>`'s
+  // `height: auto` does NOT size to content the way `height: auto` on a
+  // block element does — it falls back to the `rows`-based intrinsic
+  // height, so the field visibly collapses and grows an internal scrollbar.
+  // Writing the number to the node directly, instead of only handing it to
+  // React via `setMeasuredHeight`, makes the DOM correct before paint no
+  // matter what React's diff decides to do on the next render.
   useLayoutEffect(() => {
     const node = textareaRef.current;
     if (!node) {
       return;
     }
     node.style.height = 'auto';
-    setMeasuredHeight(node.scrollHeight);
+    const nextHeight = node.scrollHeight;
+    node.style.height = `${nextHeight}px`;
+    setMeasuredHeight(nextHeight);
   }, [value]);
 
   const handleMouseEnter = (): void => setIsHovered(true);

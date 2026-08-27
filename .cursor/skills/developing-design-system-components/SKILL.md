@@ -178,6 +178,25 @@ one:
   effects, not one. On web, reproduce the wash with a second `backgroundImage: 'linear-gradient(<overlay-hover>, <overlay-hover>)'`
   layered over `backgroundColor`, rather than skipping it because "the border already changes." There
   is no hover state on mobile (no pointer) — don't invent one.
+- **Auto-grow on web: writing the measured height to the DOM node directly is not optional, even
+  though the style prop also carries it.** `TextArea`'s `useLayoutEffect` collapses `style.height` to
+  `'auto'`, reads `scrollHeight`, then must write that number straight back to `node.style.height`
+  in the SAME effect — not just hand it to React via `setState` and trust the next render's
+  `style={{ height: measuredHeight }}` to apply it. React diffs the new style object against its OWN
+  last-rendered one, not the live DOM; when `scrollHeight` comes back unchanged from the previous
+  measurement (most keystrokes don't cross a line-wrap boundary), React sees no numeric change and
+  skips the DOM write, leaving `style.height` stuck at the `'auto'` this same effect just set — and a
+  plain `<textarea>`'s `auto` does NOT size to content (unlike a block element), it falls back to the
+  `rows`-based intrinsic height. Symptom: the field visibly compresses back down and grows an
+  internal scrollbar on some keystrokes but not others. This shipped once without the direct write
+  and looked fine in the story that happened to trigger a height change every keystroke.
+- **Not every default behavior needs its own Storybook story.** `TextArea`'s auto-grow is real
+  (confirmed in Supernova's own component description — see the token comment on
+  `ITextAreaDimensionTokens.minHeight`), but it isn't gated by a prop — it's just what typing into
+  ANY story already does. A dedicated "GrowsWithContent" story shipped once and got removed: it
+  didn't demonstrate anything the `Playground` story (or any other, if you type into it) doesn't
+  already show. Reserve dedicated stories for prop-driven states/combinations, not for passive
+  behavior visible everywhere.
 - **Wire native constraints, not just derived text.** If a prop like `maxLength` drives a counter,
   it must ALSO be passed to the real `<input maxLength>` / `<textarea maxLength>` / RN `<TextInput
   maxLength>` — otherwise the counter can go negative/over while the token contract implies a hard
