@@ -4,7 +4,13 @@ import type { FocusEvent, ReactElement } from 'react';
 import type { ITextAreaProps } from './TextArea.types';
 import { useTextArea } from './useTextArea';
 
-const DEFAULT_ROWS = 3;
+// Confirmed against Figma's own node heights (`get_metadata` on the
+// `TextArea` component set): `default`/`hover`/`focus` (label-as-placeholder,
+// no value) are 44.01px tall — exactly `minHeight` (`size/field/height/md`),
+// one line, no extra room reserved up front. Only `filled`/`error`/
+// `disabled`/`readonly` (bound to a multi-line default value) are 106.01px.
+// Raise `rows` for a field that should start pre-expanded.
+const DEFAULT_ROWS = 1;
 
 /**
  * Web TextArea — a multi-line text input that grows with its content, with a

@@ -1,7 +1,8 @@
-import { readThemeDimension, readThemeToken, readThemeTypography } from '../themeSource/tokenPath';
+import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
 import type { IThemeTypographyValue } from '../themeSource/tokenPath';
 import { themeSources } from '../themeSource/themes';
 import type { TThemeMode } from '../themeSource/themes';
+import { baseFontFamily } from './theme.tokens';
 
 /** Container colors, keyed by the state that drives them. */
 export interface ITextAreaContainerColorTokens {
@@ -86,10 +87,14 @@ export interface ITextAreaDimensionTokens {
 export type ITextAreaTypographyRole = IThemeTypographyValue;
 
 /**
- * TextArea typography, one role per text element. Reuses
- * `typography.component.inputs.input-text.*` — the theme export has no
- * dedicated `input-textarea` group, and Figma's own type ramp for TextArea
- * matches TextField's single-line field.
+ * TextArea typography, one role per text element. Composed from primitives
+ * (`dimension.font.*`), not read from `typography.component.inputs.input-text.*`
+ * — that composite group resolves to unrelated values (confirmed against
+ * Figma's `get_design_context`: it renders the label Regular/13px instead of
+ * ExtraBold/12px). The node's own bound text styles — `text/label/sm/strong`
+ * for the label, `text/body/md/default` for the value, `text/caption/md/default`
+ * for helper/counter — never landed as a `type: "typography"` composite in
+ * the Style Dictionary export, only as the primitives they're built from.
  */
 export interface ITextAreaTypographyTokens {
   /** The floating label. */
@@ -110,11 +115,25 @@ export interface ITextAreaTokens {
 }
 
 const readTextAreaTokens = (mode: TThemeMode): ITextAreaTokens => {
-  const { color, dimension, typography } = themeSources[mode];
+  const { color, dimension } = themeSources[mode];
   const colorAt = (path: string): string => readThemeToken(color, `color.component.textarea.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
-  const typographyAt = (path: string): ITextAreaTypographyRole =>
-    readThemeTypography(typography, `typography.component.inputs.input-text.typography.${path}`);
+  // `font.line-height.*` primitives are literal percentages mis-typed as
+  // `px` upstream (e.g. `"135px"` means 135%, i.e. a 1.35 multiplier) — see
+  // that token's own description in `dimension.json`.
+  const composedTypographyAt = (
+    sizePath: string,
+    weightPath: string,
+    lineHeightRatioPath: string,
+  ): ITextAreaTypographyRole => {
+    const fontSize = dimensionAt(sizePath);
+    return {
+      fontWeight: String(dimensionAt(weightPath)),
+      fontSize,
+      lineHeight: fontSize * (dimensionAt(lineHeightRatioPath) / 100),
+      fontFamily: baseFontFamily,
+    };
+  };
 
   return {
     colors: {
@@ -162,10 +181,10 @@ const readTextAreaTokens = (mode: TThemeMode): ITextAreaTokens => {
       footerInlineGap: dimensionAt('space.inline.sm'),
     },
     typography: {
-      label: typographyAt('text-holder'),
-      content: typographyAt('content'),
-      helper: typographyAt('helper'),
-      counter: typographyAt('character-count'),
+      label: composedTypographyAt('font.size.label.sm', 'font.weight.extrabold', 'font.line-height.snug'),
+      content: composedTypographyAt('font.size.body.md', 'font.weight.regular', 'font.line-height.normal'),
+      helper: composedTypographyAt('font.size.caption.md', 'font.weight.regular', 'font.line-height.normal'),
+      counter: composedTypographyAt('font.size.caption.md', 'font.weight.regular', 'font.line-height.normal'),
     },
   };
 };

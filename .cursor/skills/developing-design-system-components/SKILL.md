@@ -154,24 +154,45 @@ one:
   live component node (`get_design_context`) over either doc, and prefer the more recently-dated one
   if you can't check the node.
 - **Border radius and horizontal padding are the same at every `TextField` size — they don't scale
-  with `sm`/`md`/`lg`.** All three sizes share one `radius/field/md` (24px) and one `space/inset/md`
-  (12px) horizontal padding on the container; only height and *vertical* padding vary per size (`sm`/
-  `md`: 0, `lg`: `space/inset/xs` = 4px). `TextArea` uses the same uniform `radius/field/md` (24px),
-  `space/inset/md` (12px) horizontal, but a flat `space/inset/sm` (8px) vertical, at its one size.
-  Don't assume Supernova's independently-scaled `radius.field.sm`/`.md` tokens pair 1:1 with a
-  component's own `sm`/`md`/`lg` size axis — the two scales are named independently and Figma's actual
-  applied value (visible in `get_design_context`'s `var(--token,<literal>)` fallback) is the one that
-  matters, not which same-named step looks like it should match.
-- **Focus renders as a separate outer ring, never a change to the container's own border.** Figma's
-  `focus` variant keeps the exact same `border-default` color and 1px `border/width/default` width the
-  `default` state has — the visible blue ring is a *second*, absolutely-positioned layer outside the
-  container (`focus/ring/spread` = 3px, `border-focus` color, hugging the container's outer edge with
-  no gap). A version that thickens the border and recolors it to `border-focus` in place is visibly
-  different from Figma and had to be fixed. Reproduce the outer-ring look without an extra element on
-  web via `boxShadow: '0 0 0 <spread>px <border-focus>'` (follows `borderRadius` for free); on mobile,
-  wrap the field in an outer `View` whose own `borderWidth` is always `focusRingSpread` and whose
-  `borderColor` toggles between `'transparent'` and `border-focus` — reserving the space up front is
-  what keeps focus from shifting layout, since RN has no `box-shadow`.
+  with `sm`/`md`/`lg`.** All three sizes share one `radius/field/md` and one `space/inset/md` (12px)
+  horizontal padding on the container; only height and *vertical* padding vary per size (`sm`/`md`: 0,
+  `lg`: `space/inset/xs` = 4px). `TextArea` uses the same uniform `radius/field/md`, `space/inset/md`
+  (12px) horizontal, but a flat `space/inset/sm` (8px) vertical, at its one size. Don't assume
+  Supernova's independently-scaled `radius.field.sm`/`.md` tokens pair 1:1 with a component's own
+  `sm`/`md`/`lg` size axis — the two scales are named independently and Figma's actual applied value
+  (visible in `get_design_context`'s `var(--token,<literal>)` fallback) is the one that matters, not
+  which same-named step looks like it should match.
+- **Trust a token's `.value`, never its `.description`, when the two disagree.** `dimension.radius.field.md`'s
+  `.value` is `"12px"`, but its own `.description` opens with "RADIO DE CAMPO BASE: 24 sobre 56 de
+  alto" — a leftover from before the scale was redefined. `get_design_context` on six different live
+  `TextField`/`TextArea` nodes all rendered `rounded-[var(--radius/field/md,12px)]`, confirming the
+  `.value` (what the code actually reads) is the one Figma ships, not the stale prose. Not a one-off:
+  `size.field.height.md`'s description also implied `medium` never floats its label (wrong — see the
+  floating-label gotcha above), and `focus.ring.offset`/`.spread`'s descriptions document an *intended*
+  1px gap in the focus ring that the live component was never rebuilt to match (see the focus-ring
+  gotcha below — the node's actual layer wins there too). When a description and a live node disagree,
+  the node wins; treat the description as a hint to verify, not a spec.
+- **Focus renders as a separate outer ring, never a change to the container's own border — and that
+  ring is FLUSH against the border, with no gap, despite what the offset token's description implies.**
+  Figma's `focus` variant keeps the exact same `border-default` color and 1px `border/width/default`
+  width the `default` state has; the visible blue ring is the component's own `focusRing` layer — a
+  sibling `<div>` (node `53:6908` on `TextArea`'s `focus` variant, same pattern on `TextField`) with
+  `absolute`, `inset-[-3px]` (i.e. `-focus/ring/spread`), `border-[length:var(--focus/ring/spread,3px)]`,
+  `border-[var(--container/border-focus)]`, same `radius/field/md` as the container. That's a *single*
+  solid `spread`-wide band with its inner edge touching the container's outer edge — confirmed by
+  `get_design_context`'s screenshot on the live node. `focus/ring/offset`'s own description ("Separacion
+  entre el borde del control y el anillo de foco... la franja intermedia... se pinta con
+  canvas/surface/primary") documents an *intended* 1px gap that would make this a two-tone ring — but
+  the actual `focusRing` node was never built that way, so implementing the gap (e.g. two stacked
+  `box-shadow`s, one for a surface-colored offset and one for the ring) renders a visibly different,
+  *thinner* ring than Figma's screenshot and shipped once by mistake before being reverted. Reproduce
+  the flush look without an extra element on web via `boxShadow: '0 0 0 <spread>px <border-focus>'`
+  (follows `borderRadius` for free, no offset term); on mobile, wrap the field in an outer `View` whose
+  own `borderWidth` is always `focusRingSpread` and whose `borderColor` toggles between `'transparent'`
+  and `border-focus` — reserving the space up front is what keeps focus from shifting layout, since RN
+  has no `box-shadow`. If a future Figma update actually rebuilds `focusRing` with the gap, re-verify
+  via `get_design_context` before touching this again — don't re-derive it from the offset token's
+  prose alone.
 - **Hover is a translucent wash layered over the background, in addition to the border color
   change.** Figma's `hover` variant both recolors the border to `border-hover` AND paints an
   `overlay-hover` (a low-alpha navy, e.g. `rgba(0,30,96,0.06)`) on top of the existing background — two
@@ -190,6 +211,26 @@ one:
   `rows`-based intrinsic height. Symptom: the field visibly compresses back down and grows an
   internal scrollbar on some keystrokes but not others. This shipped once without the direct write
   and looked fine in the story that happened to trigger a height change every keystroke.
+- **`TextArea`'s starting height (`rows` / `numberOfLines`) defaults to 1 line, not the 3 a typical
+  textarea might use.** Confirmed with `get_metadata` on the `TextArea` component set: `default`/
+  `hover`/`focus` (label-as-placeholder, no value) are 44.01px tall — exactly `minHeight`
+  (`size/field/height/md`), one line, no extra room reserved up front. Only `filled`/`error`/
+  `disabled`/`readonly` (bound to the component's own multi-line default `value`) are 106.01px. Ship
+  the compact default and let callers opt into a pre-expanded box via `rows`/`numberOfLines` when they
+  know the content will be long.
+- **`TextField`/`TextArea` label, value/affix, and helper/counter typography are NOT
+  `typography.component.inputs.input-text.typography.*` — that composite group resolves to unrelated
+  values.** It gives the label 400-weight/13px, content 14px, helper 13px, counter 11px; `get_design_context`
+  on six live nodes across both components shows the label is actually `Mulish:ExtraBold`/12px/`leading-[1.35]`
+  (Figma's own `text/label/sm/strong` style), and value/affix/helper/counter are all `Mulish:Regular`,
+  value/affix at `font/size/body/md` (16px)/`leading-[1.5]` (`text/body/md/default`), helper/counter at
+  `font/size/caption/md` (12px)/`leading-[1.5]` (`text/caption/md/default`). None of these three Figma
+  text styles ever landed as a `type: "typography"` composite in the Style Dictionary export — only the
+  primitives they're built from did (`dimension.font.size.*`, `.weight.*`, `.line-height.*`). Compose
+  them by hand instead of reading a shorthand: see `composedTypographyAt` in `textField.tokens.ts` /
+  `textArea.tokens.ts`. One trap inside the primitives themselves: `font.line-height.*` values
+  (`tight`/`snug`/`normal`/`relaxed`) are literal percentages mis-typed as `px` upstream — `"135px"`
+  means 135%, i.e. multiply `fontSize` by `1.35`, not add 135 pixels of line height.
 - **Not every default behavior needs its own Storybook story.** `TextArea`'s auto-grow is real
   (confirmed in Supernova's own component description — see the token comment on
   `ITextAreaDimensionTokens.minHeight`), but it isn't gated by a prop — it's just what typing into

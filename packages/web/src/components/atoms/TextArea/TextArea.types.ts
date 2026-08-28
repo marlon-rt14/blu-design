@@ -17,9 +17,11 @@ export interface ITextAreaProps extends ITextAreaBaseProps {
   onBlur?: FocusEventHandler<HTMLTextAreaElement>;
   /**
    * Visible row count before the field grows with content. Maps to the
-   * native `rows` attribute.
+   * native `rows` attribute. Defaults to one — Figma's own empty/`focus`
+   * frame is exactly one line tall, matching `minHeight`; raise it for a
+   * field that should start pre-expanded (e.g. a long-form comment box).
    *
-   * @defaultValue `3`
+   * @defaultValue `1`
    */
   rows?: number;
   /** Maps to the native `name` attribute, for uncontrolled form submission. */

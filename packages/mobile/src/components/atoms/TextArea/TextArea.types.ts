@@ -15,9 +15,12 @@ export interface ITextAreaProps extends ITextAreaBaseProps {
   onFocus?: () => void;
   onBlur?: () => void;
   /**
-   * Visible line count before the field grows with content.
+   * Visible line count before the field grows with content. Defaults to
+   * one — Figma's own empty/`focus` frame is exactly one line tall,
+   * matching `minHeight`; raise it for a field that should start
+   * pre-expanded (e.g. a long-form comment box).
    *
-   * @defaultValue `3`
+   * @defaultValue `1`
    */
   numberOfLines?: number;
 }

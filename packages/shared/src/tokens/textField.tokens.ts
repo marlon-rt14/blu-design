@@ -1,7 +1,8 @@
-import { readThemeDimension, readThemeToken, readThemeTypography } from '../themeSource/tokenPath';
+import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
 import type { IThemeTypographyValue } from '../themeSource/tokenPath';
 import { themeSources } from '../themeSource/themes';
 import type { TThemeMode } from '../themeSource/themes';
+import { baseFontFamily } from './theme.tokens';
 import type { TTextFieldSize } from '../types/atoms/textField.types';
 
 /** Container colors, keyed by the state that drives them. */
@@ -92,8 +93,15 @@ export type ITextFieldTypographyRole = IThemeTypographyValue;
 
 /**
  * TextField typography, one role per text element. Unlike the metrics, these
- * do not scale with `TTextFieldSize` — Supernova defines a single type ramp
- * for the field regardless of height.
+ * do not scale with `TTextFieldSize` — Figma defines a single type ramp for
+ * the field regardless of height. Composed from primitives (`dimension.font.*`),
+ * not read from `typography.component.inputs.input-text.*` — that composite
+ * group resolves to unrelated values (confirmed against Figma's
+ * `get_design_context`: it renders the label Regular/13px instead of
+ * ExtraBold/12px). The node's own bound text styles — `text/label/sm/strong`
+ * for the label, `text/body/md/default` for the value/affix, `text/caption/md/default`
+ * for helper/counter — never landed as a `type: "typography"` composite in
+ * the Style Dictionary export, only as the primitives they're built from.
  */
 export interface ITextFieldTypographyTokens {
   /** The floating label — only ever shown at `medium` and `large` once there is a value. */
@@ -121,11 +129,25 @@ export interface ITextFieldTokens {
 }
 
 const readTextFieldTokens = (mode: TThemeMode): ITextFieldTokens => {
-  const { color, dimension, typography } = themeSources[mode];
+  const { color, dimension } = themeSources[mode];
   const colorAt = (path: string): string => readThemeToken(color, `color.component.textfield.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
-  const typographyAt = (path: string): ITextFieldTypographyRole =>
-    readThemeTypography(typography, `typography.component.inputs.input-text.typography.${path}`);
+  // `font.line-height.*` primitives are literal percentages mis-typed as
+  // `px` upstream (e.g. `"135px"` means 135%, i.e. a 1.35 multiplier) — see
+  // that token's own description in `dimension.json`.
+  const composedTypographyAt = (
+    sizePath: string,
+    weightPath: string,
+    lineHeightRatioPath: string,
+  ): ITextFieldTypographyRole => {
+    const fontSize = dimensionAt(sizePath);
+    return {
+      fontWeight: String(dimensionAt(weightPath)),
+      fontSize,
+      lineHeight: fontSize * (dimensionAt(lineHeightRatioPath) / 100),
+      fontFamily: baseFontFamily,
+    };
+  };
 
   return {
     colors: {
@@ -197,10 +219,10 @@ const readTextFieldTokens = (mode: TThemeMode): ITextFieldTokens => {
       contentGap: dimensionAt('space.inline.sm'),
     },
     typography: {
-      label: typographyAt('text-holder'),
-      content: typographyAt('content'),
-      helper: typographyAt('helper'),
-      counter: typographyAt('character-count'),
+      label: composedTypographyAt('font.size.label.sm', 'font.weight.extrabold', 'font.line-height.snug'),
+      content: composedTypographyAt('font.size.body.md', 'font.weight.regular', 'font.line-height.normal'),
+      helper: composedTypographyAt('font.size.caption.md', 'font.weight.regular', 'font.line-height.normal'),
+      counter: composedTypographyAt('font.size.caption.md', 'font.weight.regular', 'font.line-height.normal'),
     },
     iconSize: {
       small: dimensionAt('size.icon.sm'),
@@ -213,13 +235,14 @@ const readTextFieldTokens = (mode: TThemeMode): ITextFieldTokens => {
 /**
  * TextField tokens, keyed by theme mode.
  *
- * Source: `color.component.textfield.*`, `dimension.*` and
- * `typography.component.inputs.input-text.*` in `theme/base` (light) and
- * `theme/dark`. Read every field per mode, not just color — `dimension.json`
- * is not fully theme-invariant (`dimension.elevation.*.shadow.*` differs),
- * so nothing here assumes `light` is a safe stand-in for `dark`, even where
- * today's values happen to match. Both platforms pick the right entry at
- * render time via `useThemeMode()`.
+ * Source: `color.component.textfield.*` and `dimension.*` in `theme/base`
+ * (light) and `theme/dark` — typography is composed from `dimension.font.*`
+ * primitives, see `ITextFieldTypographyTokens`. Read every field per mode,
+ * not just color — `dimension.json` is not fully theme-invariant
+ * (`dimension.elevation.*.shadow.*` differs), so nothing here assumes
+ * `light` is a safe stand-in for `dark`, even where today's values happen to
+ * match. Both platforms pick the right entry at render time via
+ * `useThemeMode()`.
  */
 export const textFieldTokens: Record<TThemeMode, ITextFieldTokens> = {
   light: readTextFieldTokens('light'),

@@ -7,7 +7,10 @@ import { textAreaStyles } from './TextArea.styles';
 import type { ITextAreaProps } from './TextArea.types';
 import { useTextArea } from './useTextArea';
 
-const DEFAULT_NUMBER_OF_LINES = 3;
+// See the same constant in `@dsm/web`'s `TextArea` for why this is 1, not a
+// typical textarea's 3: confirmed against Figma's own node heights that the
+// empty/`default`/`hover`/`focus` frame is exactly one line tall.
+const DEFAULT_NUMBER_OF_LINES = 1;
 
 /**
  * React Native TextArea — a multi-line text input that grows with its
