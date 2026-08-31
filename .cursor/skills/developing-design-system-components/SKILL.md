@@ -260,23 +260,21 @@ one:
   `showSuffixIcon` — text and icon on the same side can be on, off, or mixed independently. The affix
   text color is its own token group (`color.component.textfield.affix.*`), distinct from `value`'s.
   Icon slots are a Figma InstanceSwap, not opaque `ReactNode`: `prefixIcon` / `suffixIcon` live on
-  `ITextFieldBaseProps` as `TIconName` (default `'icon'`), and each platform renders `<Icon name={…}
-  size={fieldSize → icon size} color={textfield.icon.*} />`. The Icon stub only ships `name="icon"`
-  (Figma `icon/placeholder`); the real Icon set will expand `TIconName` without changing this API.
-  Live Figma size map (token `.value` + node, not the stale "16 sm / 24 md" copy): `small`/`medium` →
-  Icon `sm` (16); `large` → Icon `md` (24). Anatomy (live `3:1124` lg filled, `3:1058` md filled):
-  the bordered `container` holds a `content` *column* — floating `label` full-width on top, then
-  `inputRow` underneath as a horizontal flex of `[prefixIcon, prefix, value, suffix, suffixIcon]`.
-  Affixes are NOT siblings of the label; they sit on the value line. Empty/placeholder (no float)
-  is just `inputRow` (icon + label-as-placeholder). Don't put icons beside the floating label —
-  that shipped once and looked nothing like Figma. `TextArea` has no such slots — don't add them
-  there.
-- **Icon is a temporary stub (`name="icon"` only) until the real set lands.** Keep the `name` + `size`
-  contract (`TIconSize` = `2xs|xs|sm|md|lg|xl`, matching live Figma and `dimension.size.icon.*`). The
-  glyph is Figma's exported `icon/placeholder` even-odd path, filled with `color.color.icon.primary`
-  unless a consumer passes `color` (TextField does). Don't invent extra glyphs. Don't add
-  `react-native-svg` just for the stub — web uses `<svg>`; native falls back to a View frame, and
-  Storybook's rn-web branch paints the real path.
+  `ITextFieldBaseProps` as `TIconName` (default `'search'` — Figma's own default prefix), and each
+  platform renders the published glyph (`IconSearch`, `IconImage`, …) from `@dsm/{web,mobile}/icons`
+  via a local map in `FieldIcon.tsx`. Do **not** put that registry in the icons entry point — it
+  exists to stay tree-shakeable; TextField has to reference the set because it is the swap host.
+  Size: `small`/`medium` → Icon `sm` (16); `large` → Icon `md` (24). **Never `lg` (32) inside a
+  field** — bDS: *"Si lo estás usando dentro de un control, el tamaño está mal."* Colour role
+  `secondary` (aliases `textfield.icon.icon-default`) / `disabled`. Anatomy (live `3:1124` lg filled,
+  `3:1058` md filled): the bordered `container` holds a `content` *column* — floating `label`
+  full-width on top, then `inputRow` underneath as a horizontal flex of
+  `[prefixIcon, prefix, value, suffix, suffixIcon]`. Affixes are NOT siblings of the label; they sit
+  on the value line. Empty/placeholder (no float) is just `inputRow`. Don't put icons beside the
+  floating label. **`TextArea` has no icon slots — don't add them there.**
+- **Icon glyphs are `IconTrash` / `IconImage` / `IconSearch`, not `<Icon name="…">`.** `Icon` is the
+  wrapper (box + colour); the drawing is a child. Import from `@dsm/web/icons` or `@dsm/mobile/icons`.
+  Default size is `sm`. `react-native-svg` is a peer of `@dsm/mobile`.
 - **Switch has no label of its own. SwitchItem is the list row.** Figma: "Switch suelto no existe
   como pieza de pantalla." Apple HIG iOS: use switch style only in a list row; the row content is the
   accessible name; outside a list, use a toggle *button*, not a labelled switch. Do not add a `label`

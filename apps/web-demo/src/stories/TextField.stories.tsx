@@ -3,10 +3,12 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement, ReactNode } from 'react';
 import { useState } from 'react';
 
+import { ICON_NAMES, toFigmaName } from './iconNames';
 import { PlatformTextField } from './PlatformTextField';
 import type { IPlatformTextFieldProps, TPlatform } from './PlatformTextField';
 
 const SIZES: TTextFieldSize[] = ['small', 'medium', 'large'];
+const GLYPHS = ICON_NAMES.map((name) => toFigmaName(name).replace(/^icon\//, ''));
 
 /** Lays several fields out in a column, so labels and helper text stay readable. */
 const Column = ({ children }: { children: ReactNode }): ReactElement => (
@@ -77,10 +79,10 @@ const meta = {
     },
     prefixIcon: {
       control: 'select',
-      options: ['icon'],
+      options: GLYPHS,
       description:
-        'InstanceSwap glyph for the prefix slot (`TIconName`). The Icon stub only ships `icon`.',
-      table: { category: 'Affixes', defaultValue: { summary: 'icon' } },
+        'InstanceSwap glyph (`TIconName`). Renders `IconSearch`, `IconImage`, … from `@dsm/{web,mobile}/icons`. Default `search`.',
+      table: { category: 'Affixes', defaultValue: { summary: 'search' } },
     },
     suffix: {
       control: 'text',
@@ -99,9 +101,9 @@ const meta = {
     },
     suffixIcon: {
       control: 'select',
-      options: ['icon'],
+      options: GLYPHS,
       description: 'InstanceSwap glyph for the suffix slot — same contract as `prefixIcon`.',
-      table: { category: 'Affixes', defaultValue: { summary: 'icon' } },
+      table: { category: 'Affixes', defaultValue: { summary: 'search' } },
     },
     // --- Feedback: helper text, error state and the character counter ------
     helperText: {
@@ -279,14 +281,9 @@ export const WithHelperAndCounter: TStory = {
 };
 
 /**
- * `prefix` / `suffix` render as plain text on either side of the value, each
- * gated by its own `showPrefixText` / `showSuffixText` flag — independent of
- * the icon slots (`prefixIcon` / `suffixIcon`, a Figma InstanceSwap of
- * `TIconName`; the stub only ships `'icon'`).
- */
-/**
  * `prefix` / `suffix` / icons live in `inputRow` *under* the floating label
- * (Figma `content` → `label` + `inputRow`), not beside it.
+ * (Figma `content` → `label` + `inputRow`), not beside it. Glyphs are the
+ * published set (`IconSearch`, `IconImage`, …), default `search`.
  */
 export const WithAffixes: TStory = {
   args: {
@@ -298,9 +295,9 @@ export const WithAffixes: TStory = {
     suffix: 'USD',
     showSuffixText: true,
     showPrefixIcon: true,
-    prefixIcon: 'icon',
+    prefixIcon: 'search',
     showSuffixIcon: true,
-    suffixIcon: 'icon',
+    suffixIcon: 'search',
   },
 };
 
@@ -310,8 +307,8 @@ export const WithIcons: TStory = {
     label: 'Search',
     value: '',
     showPrefixIcon: true,
-    prefixIcon: 'icon',
+    prefixIcon: 'search',
     showSuffixIcon: true,
-    suffixIcon: 'icon',
+    suffixIcon: 'x',
   },
 };

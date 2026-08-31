@@ -4,7 +4,7 @@ import { Text, TextInput, View } from 'react-native';
 
 import type { TIconSize, TTextFieldSize } from '@dsm/shared';
 
-import { Icon } from '../Icon';
+import { FieldIcon } from './FieldIcon';
 import { textFieldStyles } from './TextField.styles';
 import type { ITextFieldProps } from './TextField.types';
 import { useTextField } from './useTextField';
@@ -56,8 +56,8 @@ export const TextField = ({
   onBlur,
   keyboardType = 'default',
   isSecure = false,
-  prefixIcon = 'icon',
-  suffixIcon = 'icon',
+  prefixIcon = 'search',
+  suffixIcon = 'search',
   showPrefixText = false,
   showSuffixText = false,
   showPrefixIcon = false,
@@ -74,7 +74,6 @@ export const TextField = ({
     labelStyle,
     affixStyle,
     iconStyle,
-    iconColor,
     helperStyle,
     counterStyle,
     placeholderTextColor,
@@ -97,7 +96,11 @@ export const TextField = ({
             <View style={inputRowStyle}>
               {showPrefixIcon ? (
                 <View style={iconStyle}>
-                  <Icon color={iconColor} name={prefixIcon} size={iconSize} />
+                  <FieldIcon
+                    color={isDisabled ? 'disabled' : 'secondary'}
+                    name={prefixIcon}
+                    size={iconSize}
+                  />
                 </View>
               ) : null}
               {showPrefixText && props.prefix ? <Text style={affixStyle}>{props.prefix}</Text> : null}
@@ -126,7 +129,11 @@ export const TextField = ({
               {showSuffixText && props.suffix ? <Text style={affixStyle}>{props.suffix}</Text> : null}
               {showSuffixIcon ? (
                 <View style={iconStyle}>
-                  <Icon color={iconColor} name={suffixIcon} size={iconSize} />
+                  <FieldIcon
+                    color={isDisabled ? 'disabled' : 'secondary'}
+                    name={suffixIcon}
+                    size={iconSize}
+                  />
                 </View>
               ) : null}
             </View>

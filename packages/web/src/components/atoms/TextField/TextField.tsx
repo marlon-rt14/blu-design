@@ -3,7 +3,7 @@ import type { FocusEvent, ReactElement } from 'react';
 
 import type { TIconSize, TTextFieldSize } from '@dsm/shared';
 
-import { Icon } from '../Icon';
+import { FieldIcon } from './FieldIcon';
 import type { ITextFieldProps } from './TextField.types';
 import { useTextField } from './useTextField';
 
@@ -63,8 +63,8 @@ export const TextField = (props: ITextFieldProps): ReactElement => {
     testID,
     prefix,
     suffix,
-    prefixIcon = 'icon',
-    suffixIcon = 'icon',
+    prefixIcon = 'search',
+    suffixIcon = 'search',
     showPrefixText = false,
     showSuffixText = false,
     showPrefixIcon = false,
@@ -81,7 +81,6 @@ export const TextField = (props: ITextFieldProps): ReactElement => {
     inputStyle,
     affixStyle,
     iconStyle,
-    iconColor,
     footerStyle,
     helperStyle,
     counterStyle,
@@ -120,7 +119,11 @@ export const TextField = (props: ITextFieldProps): ReactElement => {
           <div style={inputRowStyle}>
             {showPrefixIcon ? (
               <span style={iconStyle}>
-                <Icon color={iconColor} name={prefixIcon} size={iconSize} />
+                <FieldIcon
+                  color={isDisabled ? 'disabled' : 'secondary'}
+                  name={prefixIcon}
+                  size={iconSize}
+                />
               </span>
             ) : null}
             {showPrefixText && prefix ? <span style={affixStyle}>{prefix}</span> : null}
@@ -145,7 +148,11 @@ export const TextField = (props: ITextFieldProps): ReactElement => {
             {showSuffixText && suffix ? <span style={affixStyle}>{suffix}</span> : null}
             {showSuffixIcon ? (
               <span style={iconStyle}>
-                <Icon color={iconColor} name={suffixIcon} size={iconSize} />
+                <FieldIcon
+                  color={isDisabled ? 'disabled' : 'secondary'}
+                  name={suffixIcon}
+                  size={iconSize}
+                />
               </span>
             ) : null}
           </div>

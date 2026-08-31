@@ -105,10 +105,10 @@ export interface ITextFieldBaseProps {
   showPrefixText?: boolean;
   /**
    * Glyph rendered before the value when `showPrefixIcon` is `true`. Figma
-   * InstanceSwap → `TIconName`. The Icon stub only ships `'icon'`; the
-   * real Icon set will expand the union without changing this prop.
+   * InstanceSwap → `TIconName` (the published set: `search`, `image`, …).
+   * Default is `search` — Figma's own default prefix for TextField.
    *
-   * @defaultValue `'icon'`
+   * @defaultValue `'search'`
    */
   prefixIcon?: TIconName;
   /** Whether the icon slot before the value renders. @defaultValue `false` */
@@ -125,7 +125,7 @@ export interface ITextFieldBaseProps {
    * Glyph rendered after the value when `showSuffixIcon` is `true`. Same
    * InstanceSwap contract as `prefixIcon`.
    *
-   * @defaultValue `'icon'`
+   * @defaultValue `'search'`
    */
   suffixIcon?: TIconName;
   /** Whether the icon slot after the value renders. @defaultValue `false` */
