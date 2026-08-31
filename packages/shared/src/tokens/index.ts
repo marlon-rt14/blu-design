@@ -2,6 +2,7 @@ export * from './button.tokens';
 export * from './colors';
 export * from './radii';
 export * from './spacing';
+export * from './icon.tokens';
 export * from './linkButton.tokens';
 export * from './passwordField.tokens';
 export * from './textArea.tokens';

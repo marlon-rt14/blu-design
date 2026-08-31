@@ -11,7 +11,8 @@ export default defineConfig({
   },
   optimizeDeps: {
     // Workspace packages are served as source (never pre-bundled), so HMR
-    // also works when editing the design system.
-    exclude: ['@dsm/shared', '@dsm/web'],
+    // also works when editing the design system. The `/icons` subpaths are
+    // separate specifiers and need listing on their own.
+    exclude: ['@dsm/shared', '@dsm/web', '@dsm/web/icons'],
   },
 })

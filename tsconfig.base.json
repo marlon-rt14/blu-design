@@ -24,7 +24,9 @@
     "paths": {
       "@dsm/shared": ["./packages/shared/src/index.ts"],
       "@dsm/web": ["./packages/web/src/index.ts"],
-      "@dsm/mobile": ["./packages/mobile/src/index.ts"]
+      "@dsm/web/icons": ["./packages/web/src/icons/index.tsx"],
+      "@dsm/mobile": ["./packages/mobile/src/index.ts"],
+      "@dsm/mobile/icons": ["./packages/mobile/src/icons/index.tsx"]
     }
   }
 }
