@@ -3609,6 +3609,18 @@
             "type": "color",
             "description": "Primitivo alpha-black al 0%. Uso exclusivo: color de sombra. Negro puro con alpha, no un gris opaco: una sombra tiene que oscurecer lo que hay debajo, sea cual sea. Sin TEXT_FILL ni FRAME_FILL a proposito. No consumir en componentes: usar el token elevation/*/shadow/* correspondiente."
           }
+        },
+        "card-network": {
+          "visa": {
+            "value": "#1434cb",
+            "type": "color",
+            "description": "Azul oficial de la red Visa (#1434CB). Valor de marca de un tercero: NO se tematiza, NO se invierte por modo y NO participa de las rampas del sistema. Vive en static porque un logotipo ajeno no puede cambiar de color con el tema del producto."
+          },
+          "amex": {
+            "value": "#006fcf",
+            "type": "color",
+            "description": "Azul oficial de la red American Express (#006FCF). Valor de marca de un tercero: NO se tematiza, NO se invierte por modo y NO participa de las rampas del sistema. Reemplaza la dependencia de color-general/surface/brand-partner-amex-primary, que vivia en una libreria externa al sistema."
+          }
         }
       },
       "canvas": {
@@ -3722,6 +3734,33 @@
             "value": "#464d5e",
             "type": "color",
             "description": "Tercer nivel de anidamiento. El escalon mas profundo antes de que la jerarquia deje de leerse.\n\nUSO: Solo cuando ya hay un secondary y hace falta un nivel mas. Si necesitas un cuarto, el problema es la jerarquia, no el token.\n\nSI: Usar con moderacion, para contenido anidado dentro de un surface.secondary.\nNO: No usar como alternativa decorativa de secondary ni para crear variedad visual.\n\nEJEMPLOS: Item dentro de un grupo dentro de una card\n\nREGLA ARQUITECTONICA — background = entorno · surface = contenedor · componente = consumidor. Un componente NUNCA define su propio fondo: elige el rol semantico que corresponde a su intencion. No existen ni deben crearse tokens por componente (background.card, surface.modal, surface.sidebar).\n\nNOTA DE TEMA: en modo claro la rampa neutra tiene solo cuatro escalones utiles por debajo del blanco, y hay siete roles. Por eso algunos coinciden en valor (section = sunken = tertiary, secondary = page, elevated = primary). NO es una duplicacion de nombres: son roles distintos que en modo oscuro SI toman valores propios. La diferencia visual en claro la aportan sombra y borde."
+          },
+          "card-network": {
+            "diners": {
+              "value": "#ffffff",
+              "type": "color",
+              "description": "Superficie del tile de una red de pago. Valor ANCLADO: identico en los 6 modos, no invierte ni se re-tematiza. Un logotipo de un tercero no puede cambiar de color con el tema del producto: si el tile se aclara en dark, la marca deja de ser esa marca.\n\nSI: fondo del tile de red en CardField, listas de metodos de pago, resumenes de tarjeta.\nNO: como acento, como fondo de una vista, ni como color de texto o de icono del producto.\n\nCOMO SE SEPARA DEL FONDO: el tile no depende del contraste de su fill contra la superficie. Lleva siempre borde component/cardfield/brandicon/border-default (1px inside), que es lo que lo delimita cuando el fill y la superficie coinciden, como Diners en light o los tiles ink en dark.\n\nREGLA: background = entorno, surface = contenedor, componente = consumidor. Este es un contenedor de contenido de marca ajena, por eso vive en surface y apunta a static, no a una rampa tematizable.\n\nESTE TOKEN: Blanco fijo (static/base/white). El isotipo Diners Club es azul sobre blanco; en light coincide con surface/primary y por eso el borde no es opcional."
+            },
+            "discover": {
+              "value": "#232b3d",
+              "type": "color",
+              "description": "Superficie del tile de una red de pago. Valor ANCLADO: identico en los 6 modos, no invierte ni se re-tematiza. Un logotipo de un tercero no puede cambiar de color con el tema del producto: si el tile se aclara en dark, la marca deja de ser esa marca.\n\nSI: fondo del tile de red en CardField, listas de metodos de pago, resumenes de tarjeta.\nNO: como acento, como fondo de una vista, ni como color de texto o de icono del producto.\n\nCOMO SE SEPARA DEL FONDO: el tile no depende del contraste de su fill contra la superficie. Lleva siempre borde component/cardfield/brandicon/border-default (1px inside), que es lo que lo delimita cuando el fill y la superficie coinciden, como Diners en light o los tiles ink en dark.\n\nREGLA: background = entorno, surface = contenedor, componente = consumidor. Este es un contenedor de contenido de marca ajena, por eso vive en surface y apunta a static, no a una rampa tematizable.\n\nESTE TOKEN: Ink fijo (static/base/ink, #232B3D). Antes tomaba canvas/surface/inverse, que en dark se volvia #E6E8EC y daba vuelta la marca."
+            },
+            "mastercard": {
+              "value": "#232b3d",
+              "type": "color",
+              "description": "Superficie del tile de una red de pago. Valor ANCLADO: identico en los 6 modos, no invierte ni se re-tematiza. Un logotipo de un tercero no puede cambiar de color con el tema del producto: si el tile se aclara en dark, la marca deja de ser esa marca.\n\nSI: fondo del tile de red en CardField, listas de metodos de pago, resumenes de tarjeta.\nNO: como acento, como fondo de una vista, ni como color de texto o de icono del producto.\n\nCOMO SE SEPARA DEL FONDO: el tile no depende del contraste de su fill contra la superficie. Lleva siempre borde component/cardfield/brandicon/border-default (1px inside), que es lo que lo delimita cuando el fill y la superficie coinciden, como Diners en light o los tiles ink en dark.\n\nREGLA: background = entorno, surface = contenedor, componente = consumidor. Este es un contenedor de contenido de marca ajena, por eso vive en surface y apunta a static, no a una rampa tematizable.\n\nESTE TOKEN: Ink fijo (static/base/ink, #232B3D). Antes tomaba canvas/surface/inverse, que en dark se volvia #E6E8EC y daba vuelta la marca."
+            },
+            "visa": {
+              "value": "#1434cb",
+              "type": "color",
+              "description": "Superficie del tile de una red de pago. Valor ANCLADO: identico en los 6 modos, no invierte ni se re-tematiza. Un logotipo de un tercero no puede cambiar de color con el tema del producto: si el tile se aclara en dark, la marca deja de ser esa marca.\n\nSI: fondo del tile de red en CardField, listas de metodos de pago, resumenes de tarjeta.\nNO: como acento, como fondo de una vista, ni como color de texto o de icono del producto.\n\nCOMO SE SEPARA DEL FONDO: el tile no depende del contraste de su fill contra la superficie. Lleva siempre borde component/cardfield/brandicon/border-default (1px inside), que es lo que lo delimita cuando el fill y la superficie coinciden, como Diners en light o los tiles ink en dark.\n\nREGLA: background = entorno, surface = contenedor, componente = consumidor. Este es un contenedor de contenido de marca ajena, por eso vive en surface y apunta a static, no a una rampa tematizable.\n\nESTE TOKEN: Azul Visa oficial. Antes era un hex suelto en el asset, sin token."
+            },
+            "amex": {
+              "value": "#006fcf",
+              "type": "color",
+              "description": "Superficie del tile de una red de pago. Valor ANCLADO: identico en los 6 modos, no invierte ni se re-tematiza. Un logotipo de un tercero no puede cambiar de color con el tema del producto: si el tile se aclara en dark, la marca deja de ser esa marca.\n\nSI: fondo del tile de red en CardField, listas de metodos de pago, resumenes de tarjeta.\nNO: como acento, como fondo de una vista, ni como color de texto o de icono del producto.\n\nCOMO SE SEPARA DEL FONDO: el tile no depende del contraste de su fill contra la superficie. Lleva siempre borde component/cardfield/brandicon/border-default (1px inside), que es lo que lo delimita cuando el fill y la superficie coinciden, como Diners en light o los tiles ink en dark.\n\nREGLA: background = entorno, surface = contenedor, componente = consumidor. Este es un contenedor de contenido de marca ajena, por eso vive en surface y apunta a static, no a una rampa tematizable.\n\nESTE TOKEN: Azul American Express oficial. Antes dependia de color-general/surface/brand-partner-amex-primary, de una libreria externa al sistema."
+            }
           }
         }
       },
@@ -7697,6 +7736,13 @@
             "value": "#9aa2b7",
             "type": "color",
             "description": "Co-token de cardfield. Capa de indirección: aliasea color/text/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "brandicon": {
+          "border-default": {
+            "value": "#232c41",
+            "type": "color",
+            "description": "Co-token de cardfield. Capa de indireccion: aliasea color/border/divider/subtle sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convencion de nombre, no un lugar: este token vive en la coleccion que posee su eje.\n\nDELIMITA el tile de red de pago contra la superficie del campo. Es necesario porque el fill del tile esta anclado a la marca y puede coincidir con la superficie: Diners es blanco sobre surface/primary blanco en light, y los tiles ink quedan casi al ras del fondo en dark. Sin borde el tile desaparece y solo flota el logotipo.\n\nGEMELO de component/phonefield/flag/border-default: misma funcion, mismo rol de origen, otro componente."
           }
         }
       },
