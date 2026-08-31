@@ -3,6 +3,7 @@
   "compilerOptions": {
     "paths": {
       "@dsm/mobile": ["../../packages/mobile/src/index.ts"],
+      "@dsm/mobile/icons": ["../../packages/mobile/src/icons/index.tsx"],
       "@dsm/shared": ["../../packages/shared/src/index.ts"]
     }
   },

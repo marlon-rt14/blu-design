@@ -1,47 +1,120 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
 import { themeSources } from '../themeSource/themes';
 import type { TThemeMode } from '../themeSource/themes';
-import type { TIconSize } from '../types/atoms/icon.types';
+import type { TIconColor, TIconSize } from '../types/atoms/icon.types';
 
 /**
- * Even-odd path of Figma's `icon/placeholder` glyph, viewBox `0 0 24 24`.
- * Fill was `#323949` (`color/icon/primary`) on the export; renderers paint
- * `currentColor` / the `color` prop instead so TextField can override.
+ * Every semantic icon colour, for one theme.
  *
- * Temporary: replaced when the real Icon set lands.
+ * The full `color/icon/*` group — 33 roles. Unlike every other component in the
+ * library this does **not** come from `color.component.*`: there is no
+ * `color/component/icon` group at all, because colour is not part of the Icon's
+ * design API. The component consumes the semantic layer directly, which is also
+ * why the whole group is exposed rather than a hand-picked subset — there is no
+ * component layer to tell us which roles are "the Icon's".
+ *
+ * 30 of the 33 shift between light and dark. The three that hold are
+ * `action.on-scene.default`, `fixed.white` and `on-media.disabled` — all three
+ * sit on a surface the design system does not control, so they cannot follow the
+ * mode.
  */
-export const ICON_PLACEHOLDER_PATH =
-  'M0 0H24V24H0V0ZM2.4 2.4V21.6H21.6V2.4H2.4ZM3.84 18.48L18.48 3.84L20.16 5.52L5.52 20.16L3.84 18.48Z';
+export type TIconColorTokens = Record<TIconColor, string>;
 
-/** Colors a standalone Icon needs, resolved for a single theme. */
-export interface IIconColorTokens {
-  primary: string;
-  disabled: string;
+/** Edge length per size step. */
+export interface IIconDimensionTokens {
+  /**
+   * `size/icon/*` — 8 · 12 · 16 · 24 · 32 · 40.
+   *
+   * Identical in both themes: `dimension.size.icon.*` is one of the groups that
+   * does not vary by mode. Kept inside the per-theme record anyway, so the
+   * shape matches every other component's tokens and so a future divergence
+   * needs no restructuring.
+   */
+  size: Record<TIconSize, number>;
 }
 
 /** Every token an Icon needs, resolved for a single theme. */
 export interface IIconTokens {
-  colors: IIconColorTokens;
-  /** Pixel size per `TIconSize`, from `dimension.size.icon.*`. */
-  size: Record<TIconSize, number>;
+  colors: TIconColorTokens;
+  dimension: IIconDimensionTokens;
 }
+
+/**
+ * The grid every bDS glyph is drawn on, as an SVG `viewBox`.
+ *
+ * A constant rather than a token: it is a property of the artwork, not of the
+ * theme, and it never varies. 24 is verified — not 40, despite a 40x40 export
+ * looking canonical. Those coordinates divide back to round numbers at 24 (a
+ * `40` export of `image` has `4.16669`, which is `2.5` scaled by 40/24), so 24
+ * is the grid and `size/icon/*` scales it. Nothing is redrawn per size, which is
+ * also why `2xs` (8) is documented as a mark rather than an icon.
+ */
+export const ICON_VIEW_BOX = '0 0 24 24';
+
+const SIZES: readonly TIconSize[] = ['2xs', 'xs', 'sm', 'md', 'lg', 'xl'];
+
+/**
+ * The 33 roles of `color/icon/*`, in token order.
+ *
+ * Listed explicitly rather than walked out of the JSON: the union in
+ * `icon.types.ts` and this array have to agree, and enumerating both means the
+ * compiler catches a drift the moment Supernova adds or removes a role.
+ */
+const COLORS: readonly TIconColor[] = [
+  'primary',
+  'secondary',
+  'tertiary',
+  'disabled',
+  'brand',
+  'danger',
+  'success',
+  'info',
+  'warning',
+  'inverse',
+  'on-brand',
+  'on-selected',
+  'partner-deuna',
+  'fixed.white',
+  'on-inverse.danger',
+  'on-inverse.disabled',
+  'on-inverse.info',
+  'on-inverse.success',
+  'on-inverse.warning',
+  'on-scene.default',
+  'on-scene.secondary',
+  'on-media.disabled',
+  'complementary.aqua',
+  'complementary.indigo',
+  'complementary.tangerine',
+  'action.primary.default',
+  'action.primary.quiet.default',
+  'action.primary.soft.default',
+  'action.danger.default',
+  'action.danger.quiet.default',
+  'action.danger.soft.default',
+  'action.neutral.default',
+  'action.on-scene.default',
+];
 
 const readIconTokens = (mode: TThemeMode): IIconTokens => {
   const { color, dimension } = themeSources[mode];
-  const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
+
+  // The doubled `color.` is not a typo. The first segment is the export's file
+  // wrapper, the second is the semantic role group *also* named `color` — so
+  // Figma's `color/icon/primary` lands at `color.color.icon.primary`, while a
+  // component token like the Button's lands at `color.component.button.*`.
+  const colorAt = (role: TIconColor): string =>
+    readThemeToken(color, `color.color.icon.${role}`);
+  const sizeAt = (step: TIconSize): number =>
+    readThemeDimension(dimension, `dimension.size.icon.${step}`);
 
   return {
-    colors: {
-      primary: readThemeToken(color, 'color.color.icon.primary'),
-      disabled: readThemeToken(color, 'color.color.icon.disabled'),
-    },
-    size: {
-      '2xs': dimensionAt('size.icon.2xs'),
-      xs: dimensionAt('size.icon.xs'),
-      sm: dimensionAt('size.icon.sm'),
-      md: dimensionAt('size.icon.md'),
-      lg: dimensionAt('size.icon.lg'),
-      xl: dimensionAt('size.icon.xl'),
+    colors: Object.fromEntries(COLORS.map((role) => [role, colorAt(role)])) as TIconColorTokens,
+    dimension: {
+      size: Object.fromEntries(SIZES.map((step) => [step, sizeAt(step)])) as Record<
+        TIconSize,
+        number
+      >,
     },
   };
 };
@@ -49,9 +122,15 @@ const readIconTokens = (mode: TThemeMode): IIconTokens => {
 /**
  * Icon tokens, keyed by theme mode.
  *
- * Source: `color.color.icon.{primary,disabled}` and `dimension.size.icon.*`
- * in `theme/base` (light) and `theme/dark`. Both platforms pick the right
- * entry at render time via `useThemeMode()`.
+ * Source: `color.color.icon.*` and `dimension.size.icon.*` in `theme/base`
+ * (light) and `theme/dark`. Both platforms pick the right entry at render time
+ * via `useThemeMode()`.
+ *
+ * Verified against Figma on 2026-08-31, component set `576:23427`: each of the
+ * six variants binds its own `size/icon/*` and the values match the export
+ * exactly (8 · 12 · 16 · 24 · 32 · 40). All six also render
+ * `color/icon/primary`, which is the glyph's default fill rather than a design
+ * axis — the component has no colour property.
  */
 export const iconTokens: Record<TThemeMode, IIconTokens> = {
   light: readIconTokens('light'),
