@@ -1,12 +1,13 @@
 import type { ITextFieldBaseProps } from '@dsm/shared';
-import type { ChangeEventHandler, FocusEventHandler, ReactNode } from 'react';
+import type { ChangeEventHandler, FocusEventHandler } from 'react';
 
 /**
  * Props of the web TextField.
  *
  * Extends the shared {@link ITextFieldBaseProps} contract with the
  * web-specific bits: DOM event handlers and the native `type` / `name`
- * attributes.
+ * attributes. Affix icons are `TIconName` on the shared base — not
+ * opaque `ReactNode` slots.
  */
 export interface ITextFieldProps extends ITextFieldBaseProps {
   /** Called on every keystroke, like any controlled `<input>`. */
@@ -22,8 +23,4 @@ export interface ITextFieldProps extends ITextFieldBaseProps {
   type?: 'text' | 'email' | 'tel' | 'password';
   /** Maps to the native `name` attribute, for uncontrolled form submission. */
   name?: string;
-  /** Icon rendered before the value when `showPrefixIcon` is `true`. Any element — this library ships no bundled icon set. */
-  prefixIcon?: ReactNode;
-  /** Icon rendered after the value when `showSuffixIcon` is `true`. Any element — this library ships no bundled icon set. */
-  suffixIcon?: ReactNode;
 }

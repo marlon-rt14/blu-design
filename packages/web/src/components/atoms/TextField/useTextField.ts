@@ -25,14 +25,21 @@ interface IInputStyle extends CSSProperties {
 interface IUseTextFieldResult {
   /** The outer column: bordered box + footer, no gap of its own — see `ITextFieldDimensionTokens.footerSlotGap`. */
   wrapperStyle: CSSProperties;
-  /** The bordered box: a row of [prefix icon, prefix text, content column, suffix text, suffix icon]. */
+  /** The bordered box: a column of [floating label, inputRow]. */
   fieldStyle: CSSProperties;
-  /** The label+value column, `flex: 1` so it fills the space affixes leave. */
+  /** The label + inputRow column, `flex: 1`. */
   contentStyle: CSSProperties;
+  /**
+   * The value row inside `content`: `[prefix icon, prefix text, input, suffix text, suffix icon]`.
+   * Lives *under* the floating label — not beside it.
+   */
+  inputRowStyle: CSSProperties;
   labelStyle: CSSProperties;
   inputStyle: IInputStyle;
   affixStyle: CSSProperties;
   iconStyle: CSSProperties;
+  /** Fill handed to `<Icon color>`. Disabled uses `icon-disabled`, else `icon-default`. */
+  iconColor: string;
   footerStyle: CSSProperties;
   helperStyle: CSSProperties;
   counterStyle: CSSProperties;
@@ -153,9 +160,8 @@ export const useTextField = ({
   const fieldStyle: CSSProperties = {
     boxSizing: 'border-box',
     display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: tokens.dimension.contentGap,
+    flexDirection: 'column',
+    justifyContent: 'center',
     width: '100%',
     minHeight: sizeTokens.minHeight,
     padding: `${sizeTokens.paddingVertical}px ${tokens.dimension.paddingHorizontal}px`,
@@ -168,15 +174,26 @@ export const useTextField = ({
     cursor: isDisabled ? 'not-allowed' : undefined,
   };
 
-  // The label+value stack, isolated from the affix row above so the
-  // floating label only ever measures against its own column, not the
-  // icons/text on either side.
+  // Column: floating label (full width) stacked above the value row. Affixes
+  // live in `inputRow`, not as siblings of this column — live Figma
+  // `size=lg, state=filled` (`3:1124`): `content` → `label` + `inputRow`.
   const contentStyle: CSSProperties = {
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     flex: 1,
+    minWidth: 0,
+    width: '100%',
+  };
+
+  const inputRowStyle: CSSProperties = {
+    boxSizing: 'border-box',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: tokens.dimension.contentGap,
+    width: '100%',
     minWidth: 0,
   };
 
@@ -209,11 +226,14 @@ export const useTextField = ({
     lineHeight: `${tokens.typography.label.lineHeight}px`,
     letterSpacing: FLOATING_LABEL_LETTER_SPACING,
     color: isDisabled ? tokens.colors.label.disabled : tokens.colors.label.default,
+    width: '100%',
   };
 
   const inputStyle: IInputStyle = {
     boxSizing: 'border-box',
     display: 'block',
+    flex: 1,
+    minWidth: 0,
     width: '100%',
     border: 'none',
     padding: 0,
@@ -270,10 +290,12 @@ export const useTextField = ({
     wrapperStyle,
     fieldStyle,
     contentStyle,
+    inputRowStyle,
     labelStyle,
     inputStyle,
     affixStyle,
     iconStyle,
+    iconColor,
     footerStyle,
     helperStyle,
     counterStyle,

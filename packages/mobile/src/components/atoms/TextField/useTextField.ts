@@ -14,14 +14,21 @@ interface IUseTextFieldParams extends ITextFieldProps {
 interface IUseTextFieldResult {
   /** The ring layer: always reserves `focusRingSpread` of border, transparent unless focused — no layout shift on focus. */
   ringStyle: StyleProp<ViewStyle>;
-  /** The bordered box: a row of [prefix icon, prefix text, content column, suffix text, suffix icon]. */
+  /** The bordered box: a column of [floating label, inputRow]. */
   fieldStyle: StyleProp<ViewStyle>;
-  /** The label+value column, `flex: 1` so it fills the space affixes leave. */
+  /** The label + inputRow column, `flex: 1`. */
   contentStyle: StyleProp<ViewStyle>;
+  /**
+   * The value row inside `content`: `[prefix icon, prefix text, input, suffix text, suffix icon]`.
+   * Lives *under* the floating label — not beside it.
+   */
+  inputRowStyle: StyleProp<ViewStyle>;
   inputStyle: StyleProp<TextStyle>;
   labelStyle: StyleProp<TextStyle>;
   affixStyle: StyleProp<TextStyle>;
   iconStyle: StyleProp<ViewStyle>;
+  /** Fill handed to `<Icon color>`. Disabled uses `icon-disabled`, else `icon-default`. */
+  iconColor: string;
   helperStyle: StyleProp<TextStyle>;
   counterStyle: StyleProp<TextStyle>;
   /** Color for `TextInput`'s `placeholderTextColor` — not expressible through `style`. */
@@ -116,9 +123,7 @@ export const useTextField = ({
   };
 
   const fieldStyle: StyleProp<ViewStyle> = {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: tokens.dimension.contentGap,
+    justifyContent: 'center',
     minHeight: sizeTokens.minHeight,
     paddingHorizontal: tokens.dimension.paddingHorizontal,
     paddingVertical: sizeTokens.paddingVertical,
@@ -128,11 +133,21 @@ export const useTextField = ({
     backgroundColor,
   };
 
-  // Isolated from the affix row above so the floating label only ever
-  // measures against its own column, not the icons/text on either side.
+  // Column: floating label (full width) stacked above the value row. Affixes
+  // live in `inputRow`, not as siblings of this column — live Figma
+  // `size=lg, state=filled` (`3:1124`): `content` → `label` + `inputRow`.
   const contentStyle: StyleProp<ViewStyle> = {
     flex: 1,
+    flexDirection: 'column',
     justifyContent: 'center',
+  };
+
+  const inputRowStyle: StyleProp<ViewStyle> = {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: tokens.dimension.contentGap,
+    width: '100%',
+    minWidth: 0,
   };
 
   const affixColor = isDisabled ? colors.affix.disabled : colors.affix.default;
@@ -143,9 +158,7 @@ export const useTextField = ({
     color: affixColor,
   };
 
-  // Only sizes/centers the slot — unlike web's `currentColor` trick, RN has
-  // no way to tint an arbitrary child through a wrapping View's style; the
-  // consumer's icon component takes its own `color` prop for that.
+  const iconColor = isDisabled ? colors.icon.disabled : colors.icon.default;
   const iconStyle: StyleProp<ViewStyle> = {
     width: tokens.iconSize[size],
     height: tokens.iconSize[size],
@@ -160,6 +173,8 @@ export const useTextField = ({
   // "Mulish-SemiBold_bold.ttf" that doesn't exist and silently fall back to
   // the system font. The weight is already baked into which file we picked.
   const inputStyle: StyleProp<TextStyle> = {
+    flex: 1,
+    minWidth: 0,
     fontFamily: resolveMulishFontFamily(tokens.typography.content.fontWeight),
     fontSize: tokens.typography.content.fontSize,
     lineHeight: tokens.typography.content.lineHeight,
@@ -207,10 +222,12 @@ export const useTextField = ({
     ringStyle,
     fieldStyle,
     contentStyle,
+    inputRowStyle,
     inputStyle,
     labelStyle,
     affixStyle,
     iconStyle,
+    iconColor,
     helperStyle,
     counterStyle,
     placeholderTextColor: isDisabled ? colors.value.disabled : colors.value.placeholder,

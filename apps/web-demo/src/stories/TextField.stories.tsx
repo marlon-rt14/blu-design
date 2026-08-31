@@ -72,11 +72,15 @@ const meta = {
     },
     showPrefixIcon: {
       control: 'boolean',
-      description:
-        'Whether the icon slot before the value renders. No visual effect in this shared story — ' +
-        '`prefixIcon` itself is a platform-specific `ReactNode` prop, passed directly to `@dsm/web` / ' +
-        '`@dsm/mobile`\u2019s own `TextField`, not through this cross-platform wrapper.',
+      description: 'Whether the prefix Icon renders. Gated independently of `prefix` / `showPrefixText`.',
       table: { category: 'Affixes', defaultValue: { summary: 'false' } },
+    },
+    prefixIcon: {
+      control: 'select',
+      options: ['icon'],
+      description:
+        'InstanceSwap glyph for the prefix slot (`TIconName`). The Icon stub only ships `icon`.',
+      table: { category: 'Affixes', defaultValue: { summary: 'icon' } },
     },
     suffix: {
       control: 'text',
@@ -90,8 +94,14 @@ const meta = {
     },
     showSuffixIcon: {
       control: 'boolean',
-      description: 'Whether the icon slot after the value renders — see `showPrefixIcon`.',
+      description: 'Whether the suffix Icon renders — independent of `suffix` / `showSuffixText`.',
       table: { category: 'Affixes', defaultValue: { summary: 'false' } },
+    },
+    suffixIcon: {
+      control: 'select',
+      options: ['icon'],
+      description: 'InstanceSwap glyph for the suffix slot — same contract as `prefixIcon`.',
+      table: { category: 'Affixes', defaultValue: { summary: 'icon' } },
     },
     // --- Feedback: helper text, error state and the character counter ------
     helperText: {
@@ -271,9 +281,37 @@ export const WithHelperAndCounter: TStory = {
 /**
  * `prefix` / `suffix` render as plain text on either side of the value, each
  * gated by its own `showPrefixText` / `showSuffixText` flag — independent of
- * the icon slots (`prefixIcon` / `suffixIcon`, platform-specific props not
- * exposed through this shared story wrapper).
+ * the icon slots (`prefixIcon` / `suffixIcon`, a Figma InstanceSwap of
+ * `TIconName`; the stub only ships `'icon'`).
+ */
+/**
+ * `prefix` / `suffix` / icons live in `inputRow` *under* the floating label
+ * (Figma `content` → `label` + `inputRow`), not beside it.
  */
 export const WithAffixes: TStory = {
-  args: { label: 'Amount', value: '250', prefix: '$', showPrefixText: true, suffix: 'USD', showSuffixText: true },
+  args: {
+    label: 'Amount',
+    value: '250',
+    size: 'large',
+    prefix: '$',
+    showPrefixText: true,
+    suffix: 'USD',
+    showSuffixText: true,
+    showPrefixIcon: true,
+    prefixIcon: 'icon',
+    showSuffixIcon: true,
+    suffixIcon: 'icon',
+  },
+};
+
+/** Empty field: no float, so the prefix icon sits on the placeholder line. */
+export const WithIcons: TStory = {
+  args: {
+    label: 'Search',
+    value: '',
+    showPrefixIcon: true,
+    prefixIcon: 'icon',
+    showSuffixIcon: true,
+    suffixIcon: 'icon',
+  },
 };

@@ -1,5 +1,4 @@
 import type { ITextFieldBaseProps } from '@dsm/shared';
-import type { ReactNode } from 'react';
 import type { KeyboardTypeOptions } from 'react-native';
 
 /**
@@ -7,6 +6,8 @@ import type { KeyboardTypeOptions } from 'react-native';
  *
  * Extends the shared {@link ITextFieldBaseProps} contract with the
  * mobile-specific bits: `TextInput` handlers and keyboard configuration.
+ * Affix icons are `TIconName` on the shared base — not opaque `ReactNode`
+ * slots.
  */
 export interface ITextFieldProps extends ITextFieldBaseProps {
   /** Called on every keystroke, with the new text — `TextInput`'s convention. */
@@ -21,8 +22,4 @@ export interface ITextFieldProps extends ITextFieldBaseProps {
   keyboardType?: KeyboardTypeOptions;
   /** Maps to `TextInput`'s `secureTextEntry`, for password fields. */
   isSecure?: boolean;
-  /** Icon rendered before the value when `showPrefixIcon` is `true`. Any element — this library ships no bundled icon set. */
-  prefixIcon?: ReactNode;
-  /** Icon rendered after the value when `showSuffixIcon` is `true`. Any element — this library ships no bundled icon set. */
-  suffixIcon?: ReactNode;
 }
