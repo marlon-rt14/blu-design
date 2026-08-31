@@ -259,12 +259,40 @@ one:
   `showSuffixText`, and separate `prefixIcon`/`suffixIcon` slots gated by `showPrefixIcon`/
   `showSuffixIcon` — text and icon on the same side can be on, off, or mixed independently. The affix
   text color is its own token group (`color.component.textfield.affix.*`), distinct from `value`'s.
-  Icon nodes are platform-specific (`ReactNode` on web, same on mobile) and live only on each
-  platform's own `*.types.ts`, not the shared base — this library ships no bundled icon set, so the
-  slot renders whatever the consumer passes; don't invent a placeholder icon. Adding an affix turns
-  the bordered box's own layout into a row (`icon, text, [label+value column], text, icon`) with the
-  label+value column isolated in its own `flex: 1` wrapper so the floating label still only measures
-  against its own text, not the icons beside it. `TextArea` has no such slots — don't add them there.
+  Icon slots are a Figma InstanceSwap, not opaque `ReactNode`: `prefixIcon` / `suffixIcon` live on
+  `ITextFieldBaseProps` as `TIconName` (default `'search'` — Figma's own default prefix), and each
+  platform renders the published glyph (`IconSearch`, `IconImage`, …) from `@dsm/{web,mobile}/icons`
+  via a local map in `FieldIcon.tsx`. Do **not** put that registry in the icons entry point — it
+  exists to stay tree-shakeable; TextField has to reference the set because it is the swap host.
+  Size: `small`/`medium` → Icon `sm` (16); `large` → Icon `md` (24). **Never `lg` (32) inside a
+  field** — bDS: *"Si lo estás usando dentro de un control, el tamaño está mal."* Colour role
+  `secondary` (aliases `textfield.icon.icon-default`) / `disabled`. Anatomy (live `3:1124` lg filled,
+  `3:1058` md filled): the bordered `container` holds a `content` *column* — floating `label`
+  full-width on top, then `inputRow` underneath as a horizontal flex of
+  `[prefixIcon, prefix, value, suffix, suffixIcon]`. Affixes are NOT siblings of the label; they sit
+  on the value line. Empty/placeholder (no float) is just `inputRow`. Don't put icons beside the
+  floating label. **`TextArea` has no icon slots — don't add them there.**
+- **Icon glyphs are `IconTrash` / `IconImage` / `IconSearch`, not `<Icon name="…">`.** `Icon` is the
+  wrapper (box + colour); the drawing is a child. Import from `@dsm/web/icons` or `@dsm/mobile/icons`.
+  Default size is `sm`. `react-native-svg` is a peer of `@dsm/mobile`.
+- **Switch has no label of its own. SwitchItem is the list row.** Figma: "Switch suelto no existe
+  como pieza de pantalla." Apple HIG iOS: use switch style only in a list row; the row content is the
+  accessible name; outside a list, use a toggle *button*, not a labelled switch. Do not add a `label`
+  prop to Switch. `showStateLabel` (default `false`) is the overline ON/OFF word inside the track —
+  visual only, not the accessible name. Immediate: `onChange` / `onValueChange` fires on press, no
+  pending state. **Do not use RN `Switch` / `UISwitch`** (Apple green, 51×31, wrong tokens) — custom
+  `Pressable` track+thumb painted from `color.component.switch.*`. On-fill is Figma `track.bg-on`
+  (`#2760aa`), not system green. Web: visually hidden `input type="checkbox" role="switch"`. Mobile:
+  `accessibilityRole="switch"`. Standalone tap area expands to `dimension.size.target.min` (48)
+  without changing the painted track (`2 × size.icon.{sm|md} + 2 × space.inset.xs`). `isContained`
+  is the composition seam: SwitchItem owns the row hit target and the row focus ring (Figma: ring on
+  the row, not the thumb). State must not be color-only — thumb position + a11y `checked`, optional
+  `showStateLabel`.
+- **SwitchItem is the first molecule and the iOS-canonical Switch usage.** Entire row is the control
+  (web: `<label>` wrapping the Switch input; mobile: `Pressable` row, inner Switch `isContained` so
+  the a11y tree has one switch). Sizes sm 48 / md 56. `showDivider` defaults true. Description
+  default color is `color.color.text.secondary` — the component group only ships
+  `description.text-disabled`, no `text-default` co-token; don't invent one.
 - **Every component's own variant axes are its own — don't generalize.** `TextField` has a `size`
   axis (`small`/`medium`/`large`, matching Figma's `sm`/`md`/`lg`) and an `icon` color group;
   `TextArea` has neither — a single `state` axis, no size, no icon slot. Confirm the axes with

@@ -3,10 +3,12 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement, ReactNode } from 'react';
 import { useState } from 'react';
 
+import { ICON_NAMES, toFigmaName } from './iconNames';
 import { PlatformTextField } from './PlatformTextField';
 import type { IPlatformTextFieldProps, TPlatform } from './PlatformTextField';
 
 const SIZES: TTextFieldSize[] = ['small', 'medium', 'large'];
+const GLYPHS = ICON_NAMES.map((name) => toFigmaName(name).replace(/^icon\//, ''));
 
 /** Lays several fields out in a column, so labels and helper text stay readable. */
 const Column = ({ children }: { children: ReactNode }): ReactElement => (
@@ -72,11 +74,15 @@ const meta = {
     },
     showPrefixIcon: {
       control: 'boolean',
-      description:
-        'Whether the icon slot before the value renders. No visual effect in this shared story — ' +
-        '`prefixIcon` itself is a platform-specific `ReactNode` prop, passed directly to `@dsm/web` / ' +
-        '`@dsm/mobile`\u2019s own `TextField`, not through this cross-platform wrapper.',
+      description: 'Whether the prefix Icon renders. Gated independently of `prefix` / `showPrefixText`.',
       table: { category: 'Affixes', defaultValue: { summary: 'false' } },
+    },
+    prefixIcon: {
+      control: 'select',
+      options: GLYPHS,
+      description:
+        'InstanceSwap glyph (`TIconName`). Renders `IconSearch`, `IconImage`, … from `@dsm/{web,mobile}/icons`. Default `search`.',
+      table: { category: 'Affixes', defaultValue: { summary: 'search' } },
     },
     suffix: {
       control: 'text',
@@ -90,8 +96,14 @@ const meta = {
     },
     showSuffixIcon: {
       control: 'boolean',
-      description: 'Whether the icon slot after the value renders — see `showPrefixIcon`.',
+      description: 'Whether the suffix Icon renders — independent of `suffix` / `showSuffixText`.',
       table: { category: 'Affixes', defaultValue: { summary: 'false' } },
+    },
+    suffixIcon: {
+      control: 'select',
+      options: GLYPHS,
+      description: 'InstanceSwap glyph for the suffix slot — same contract as `prefixIcon`.',
+      table: { category: 'Affixes', defaultValue: { summary: 'search' } },
     },
     // --- Feedback: helper text, error state and the character counter ------
     helperText: {
@@ -269,11 +281,34 @@ export const WithHelperAndCounter: TStory = {
 };
 
 /**
- * `prefix` / `suffix` render as plain text on either side of the value, each
- * gated by its own `showPrefixText` / `showSuffixText` flag — independent of
- * the icon slots (`prefixIcon` / `suffixIcon`, platform-specific props not
- * exposed through this shared story wrapper).
+ * `prefix` / `suffix` / icons live in `inputRow` *under* the floating label
+ * (Figma `content` → `label` + `inputRow`), not beside it. Glyphs are the
+ * published set (`IconSearch`, `IconImage`, …), default `search`.
  */
 export const WithAffixes: TStory = {
-  args: { label: 'Amount', value: '250', prefix: '$', showPrefixText: true, suffix: 'USD', showSuffixText: true },
+  args: {
+    label: 'Amount',
+    value: '250',
+    size: 'large',
+    prefix: '$',
+    showPrefixText: true,
+    suffix: 'USD',
+    showSuffixText: true,
+    showPrefixIcon: true,
+    prefixIcon: 'search',
+    showSuffixIcon: true,
+    suffixIcon: 'search',
+  },
+};
+
+/** Empty field: no float, so the prefix icon sits on the placeholder line. */
+export const WithIcons: TStory = {
+  args: {
+    label: 'Search',
+    value: '',
+    showPrefixIcon: true,
+    prefixIcon: 'search',
+    showSuffixIcon: true,
+    suffixIcon: 'x',
+  },
 };

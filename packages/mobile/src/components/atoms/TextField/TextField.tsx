@@ -2,9 +2,31 @@ import { useState } from 'react';
 import type { ReactElement } from 'react';
 import { Text, TextInput, View } from 'react-native';
 
+import type { TIconSize, TTextFieldSize } from '@dsm/shared';
+
+import { FieldIcon } from './FieldIcon';
 import { textFieldStyles } from './TextField.styles';
 import type { ITextFieldProps } from './TextField.types';
 import { useTextField } from './useTextField';
+
+/**
+ * Maps TextField `size` onto Icon `size`. Live Figma: sm+md fields bind
+ * `size.icon.sm` (16); lg binds `size.icon.md` (24). Exhaustive so a new
+ * `TTextFieldSize` fails the build until mapped.
+ */
+const iconSizeForField = (size: TTextFieldSize): TIconSize => {
+  switch (size) {
+    case 'small':
+    case 'medium':
+      return 'sm';
+    case 'large':
+      return 'md';
+    default: {
+      const _exhaustive: never = size;
+      return _exhaustive;
+    }
+  }
+};
 
 /**
  * React Native TextField — a single-line text input with a label, helper/error
@@ -34,8 +56,8 @@ export const TextField = ({
   onBlur,
   keyboardType = 'default',
   isSecure = false,
-  prefixIcon,
-  suffixIcon,
+  prefixIcon = 'search',
+  suffixIcon = 'search',
   showPrefixText = false,
   showSuffixText = false,
   showPrefixIcon = false,
@@ -47,6 +69,7 @@ export const TextField = ({
     ringStyle,
     fieldStyle,
     contentStyle,
+    inputRowStyle,
     inputStyle,
     labelStyle,
     affixStyle,
@@ -62,40 +85,59 @@ export const TextField = ({
     counterText,
   } = useTextField({ ...props, isFocused });
   const hasFooter = Boolean(displayedHelperText) || Boolean(counterText);
+  const iconSize = iconSizeForField(props.size ?? 'medium');
 
   return (
     <View style={textFieldStyles.wrapper}>
       <View style={ringStyle}>
         <View style={fieldStyle}>
-          {showPrefixIcon ? <View style={iconStyle}>{prefixIcon}</View> : null}
-          {showPrefixText && props.prefix ? <Text style={affixStyle}>{props.prefix}</Text> : null}
           <View style={contentStyle}>
             {showFloatingLabel && props.label ? <Text style={labelStyle}>{props.label}</Text> : null}
-            <TextInput
-              accessibilityLabel={props.label}
-              accessibilityState={{ disabled: isDisabled }}
-              editable={!isDisabled && !isReadOnly}
-              keyboardType={keyboardType}
-              maxLength={props.maxLength}
-              onBlur={() => {
-                setIsFocused(false);
-                onBlur?.();
-              }}
-              onChangeText={onChangeText}
-              onFocus={() => {
-                setIsFocused(true);
-                onFocus?.();
-              }}
-              placeholder={showFloatingLabel ? undefined : props.label}
-              placeholderTextColor={placeholderTextColor}
-              secureTextEntry={isSecure}
-              style={[textFieldStyles.input, inputStyle]}
-              testID={props.testID}
-              value={props.value}
-            />
+            <View style={inputRowStyle}>
+              {showPrefixIcon ? (
+                <View style={iconStyle}>
+                  <FieldIcon
+                    color={isDisabled ? 'disabled' : 'secondary'}
+                    name={prefixIcon}
+                    size={iconSize}
+                  />
+                </View>
+              ) : null}
+              {showPrefixText && props.prefix ? <Text style={affixStyle}>{props.prefix}</Text> : null}
+              <TextInput
+                accessibilityLabel={props.label}
+                accessibilityState={{ disabled: isDisabled }}
+                editable={!isDisabled && !isReadOnly}
+                keyboardType={keyboardType}
+                maxLength={props.maxLength}
+                onBlur={() => {
+                  setIsFocused(false);
+                  onBlur?.();
+                }}
+                onChangeText={onChangeText}
+                onFocus={() => {
+                  setIsFocused(true);
+                  onFocus?.();
+                }}
+                placeholder={showFloatingLabel ? undefined : props.label}
+                placeholderTextColor={placeholderTextColor}
+                secureTextEntry={isSecure}
+                style={[textFieldStyles.input, inputStyle]}
+                testID={props.testID}
+                value={props.value}
+              />
+              {showSuffixText && props.suffix ? <Text style={affixStyle}>{props.suffix}</Text> : null}
+              {showSuffixIcon ? (
+                <View style={iconStyle}>
+                  <FieldIcon
+                    color={isDisabled ? 'disabled' : 'secondary'}
+                    name={suffixIcon}
+                    size={iconSize}
+                  />
+                </View>
+              ) : null}
+            </View>
           </View>
-          {showSuffixText && props.suffix ? <Text style={affixStyle}>{props.suffix}</Text> : null}
-          {showSuffixIcon ? <View style={iconStyle}>{suffixIcon}</View> : null}
         </View>
       </View>
       {hasFooter ? (

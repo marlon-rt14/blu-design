@@ -8,9 +8,9 @@ export const textFieldStyles = StyleSheet.create({
   },
   input: {
     flex: 1,
+    minWidth: 0,
     padding: 0,
     margin: 0,
-    width: '100%',
   },
   footer: {
     flexDirection: 'row',

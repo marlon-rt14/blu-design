@@ -1,3 +1,5 @@
+import type { TIconName } from './icon.types';
+
 /**
  * Physical size of a TextField.
  *
@@ -101,7 +103,15 @@ export interface ITextFieldBaseProps {
   prefix?: string;
   /** Whether `prefix` renders. @defaultValue `false` */
   showPrefixText?: boolean;
-  /** Whether the icon slot before the value renders — see the platform's own `prefixIcon` prop for its content. @defaultValue `false` */
+  /**
+   * Glyph rendered before the value when `showPrefixIcon` is `true`. Figma
+   * InstanceSwap → `TIconName` (the published set: `search`, `image`, …).
+   * Default is `search` — Figma's own default prefix for TextField.
+   *
+   * @defaultValue `'search'`
+   */
+  prefixIcon?: TIconName;
+  /** Whether the icon slot before the value renders. @defaultValue `false` */
   showPrefixIcon?: boolean;
   /**
    * Text rendered after the value — e.g. `"USD"` on an amount field. Shown
@@ -111,7 +121,14 @@ export interface ITextFieldBaseProps {
   suffix?: string;
   /** Whether `suffix` renders. @defaultValue `false` */
   showSuffixText?: boolean;
-  /** Whether the icon slot after the value renders — see the platform's own `suffixIcon` prop for its content. @defaultValue `false` */
+  /**
+   * Glyph rendered after the value when `showSuffixIcon` is `true`. Same
+   * InstanceSwap contract as `prefixIcon`.
+   *
+   * @defaultValue `'search'`
+   */
+  suffixIcon?: TIconName;
+  /** Whether the icon slot after the value renders. @defaultValue `false` */
   showSuffixIcon?: boolean;
   /**
    * Stable identifier for tests. Maps to `data-testid` on web and to the
