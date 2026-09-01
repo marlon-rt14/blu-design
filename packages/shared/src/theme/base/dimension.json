@@ -1228,6 +1228,15 @@
             "description": "Co-token de merchantavatar. Capa de indirección: aliasea border-radius/xl sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         }
+      },
+      "phonefield": {
+        "divider": {
+          "height": {
+            "value": "16px",
+            "type": "dimension",
+            "description": "Co-token de phonefield. Alto del separador vertical entre el prefijo y el valor: 16, la misma altura que la bandera y el chevron que tiene al lado, no los 24 de la fila. Aliasea size/16. Mismo valor en los tres modos: el separador no se comprime por densidad porque los glifos que acompaña tampoco. NO usar size/icon/sm para esto: coinciden hoy, pero uno es tamaño de icono y el otro alto de separador, y si la escala de iconos cambia el separador no tiene por qué seguirla."
+          }
+        }
       }
     },
     "platform": {
