@@ -3711,7 +3711,7 @@
           "inverse": {
             "value": "#e6e8ec",
             "type": "color",
-            "description": "Contenedor con contraste invertido respecto del tema activo. Se usa para objetos que deben destacarse rompiendo el contraste.\n\nUSO: El contenido encima debe pintarse con los roles on-inverse, nunca con text.primary.\n\nSI: Usar para contenedores que se despegan por contraste: tooltip, snackbar, toast, coachmark.\nNO: No usar para una region estructural completa: eso es background.inverse.\n\nEJEMPLOS: Tooltip · Snackbar · Toast · Coachmark\n\nREGLA ARQUITECTONICA — background = entorno · surface = contenedor · componente = consumidor. Un componente NUNCA define su propio fondo: elige el rol semantico que corresponde a su intencion. No existen ni deben crearse tokens por componente (background.card, surface.modal, surface.sidebar).\n\nNOTA DE TEMA: en modo claro la rampa neutra tiene solo cuatro escalones utiles por debajo del blanco, y hay siete roles. Por eso algunos coinciden en valor (section = sunken = tertiary, secondary = page, elevated = primary). NO es una duplicacion de nombres: son roles distintos que en modo oscuro SI toman valores propios. La diferencia visual en claro la aportan sombra y borde.\n\nPAREJA DE TEXTO: usar los roles on-inverse, nunca text/primary. Esta superficie invierte el contraste respecto del tema activo."
+            "description": "Contenedor con contraste invertido respecto del tema activo. Se usa para objetos que deben destacarse rompiendo el contraste.\n\nUSO: El contenido encima debe pintarse con los roles on-inverse, nunca con text.primary.\n\nSI: Usar para contenedores que se despegan por contraste: tooltip, snackbar, toast, coachmark.\nNO: No usar para una region estructural completa: eso es background.inverse.\n\nEJEMPLOS: Tooltip · Snackbar · Toast · Coachmark\n\nREGLA ARQUITECTONICA — background = entorno · surface = contenedor · componente = consumidor. Un componente NUNCA define su propio fondo: elige el rol semantico que corresponde a su intencion. No existen ni deben crearse tokens por componente (background.card, surface.modal, surface.sidebar).\n\nNOTA DE TEMA: en modo claro la rampa neutra tiene solo cuatro escalones utiles por debajo del blanco, y hay siete roles. Por eso algunos coinciden en valor (section = sunken = tertiary, secondary = page, elevated = primary). NO es una duplicacion de nombres: son roles distintos que en modo oscuro SI toman valores propios. La diferencia visual en claro la aportan sombra y borde.\n\nPAREJA DE TEXTO: usar los roles on-inverse, nunca text/primary. Esta superficie invierte el contraste respecto del tema activo. Consumido por component/badge/surface/bg-neutral."
           },
           "brand": {
             "value": "#001e60",
@@ -8891,6 +8891,72 @@
             "value": "#cdb3ef",
             "type": "color",
             "description": "Co-token de tag. Capa de indirección: aliasea color/icon/complementary/indigo sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        }
+      },
+      "badge": {
+        "surface": {
+          "bg-neutral": {
+            "value": "#e6e8ec",
+            "type": "color",
+            "description": "Co-token de badge. Capa de indirección: aliasea color/canvas/surface/inverse sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "bg-brand": {
+            "value": "#9abaf2",
+            "type": "color",
+            "description": "Co-token de badge. Capa de indirección: aliasea color/fill/brand/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "bg-success": {
+            "value": "#5ed798",
+            "type": "color",
+            "description": "Co-token de badge. Capa de indirección: aliasea color/fill/success/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "bg-warning": {
+            "value": "#f0ae44",
+            "type": "color",
+            "description": "Co-token de badge. Capa de indirección: aliasea color/fill/warning/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "bg-danger": {
+            "value": "#ff9c9f",
+            "type": "color",
+            "description": "Co-token de badge. Capa de indirección: aliasea color/fill/danger/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "bg-info": {
+            "value": "#66c8fd",
+            "type": "color",
+            "description": "Co-token de badge. Capa de indirección: aliasea color/fill/info/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "count": {
+          "text-neutral": {
+            "value": "#040c28",
+            "type": "color",
+            "description": "Co-token de badge. Capa de indirección: aliasea color/text/inverse sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-brand": {
+            "value": "#040c28",
+            "type": "color",
+            "description": "Co-token de badge. Capa de indirección: aliasea color/text/on-brand sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-success": {
+            "value": "#040c28",
+            "type": "color",
+            "description": "Co-token de badge. Capa de indirección: aliasea color/text/on-success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje. CAMBIO DE ROL: el nodo apuntaba a color/text/inverse. on-success es el token que existe para texto sobre el relleno saturado de este tono, y mide un poco mejor: 4,67 contra 4,52 en el peor par."
+          },
+          "text-warning": {
+            "value": "#040c28",
+            "type": "color",
+            "description": "Co-token de badge. Capa de indirección: aliasea color/text/on-warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje. CAMBIO DE ROL: el nodo apuntaba a color/text/inverse. on-warning es el token que existe para texto sobre el relleno saturado de este tono, y mide un poco mejor: 4,67 contra 4,52 en el peor par."
+          },
+          "text-danger": {
+            "value": "#040c28",
+            "type": "color",
+            "description": "Co-token de badge. Capa de indirección: aliasea color/text/on-danger sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje. CAMBIO DE ROL: el nodo apuntaba a color/text/inverse. on-danger es el token que existe para texto sobre el relleno saturado de este tono, y mide un poco mejor: 4,67 contra 4,52 en el peor par."
+          },
+          "text-info": {
+            "value": "#040c28",
+            "type": "color",
+            "description": "Co-token de badge. Capa de indirección: aliasea color/text/on-info sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje. CAMBIO DE ROL: el nodo apuntaba a color/text/inverse. on-info es el token que existe para texto sobre el relleno saturado de este tono, y mide un poco mejor: 4,67 contra 4,52 en el peor par."
           }
         }
       }
