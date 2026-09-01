@@ -99,7 +99,19 @@ export interface IButtonDimensionTokens {
    * onto two icon sizes.
    */
   iconSize: Record<TButtonSize, TIconSize>;
-  /** `radius/action` — fully rounded, so the Button is a pill at every size. */
+  /**
+   * `radius/action` — **12 at every size**, not a pill.
+   *
+   * It used to be one: the token moved from `9999px` to `12px` in the sync of
+   * 2026-08-25. Verified on 2026-09-01 that Figma binds `radius/action` = 12 on
+   * the Button component set, so the value and the design agree and nothing here
+   * had to change — it is read at render time.
+   *
+   * The token's own **description still says pill** (*"RADIO DE BOTON: pildora.
+   * Se usa el centinela de pildora y NO un valor fijo"*), which contradicts its
+   * value. Stale prose in the export, reported upstream; `radius/pill` (9999)
+   * still exists for whatever genuinely needs it.
+   */
   borderRadius: number;
   /** Only applied when the resolved state actually has a border colour. */
   borderWidth: number;
