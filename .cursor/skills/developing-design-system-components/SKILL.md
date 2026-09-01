@@ -293,6 +293,21 @@ one:
   the a11y tree has one switch). Sizes sm 48 / md 56. `showDivider` defaults true. Description
   default color is `color.color.text.secondary` — the component group only ships
   `description.text-disabled`, no `text-default` co-token; don't invent one.
+- **There is no CheckboxList.** Figma page `3:42` is only Checkbox. Closest list
+  row is ChoiceItem (`control=checkbox`) — don't invent a group component. Stack
+  `Checkbox` or wait for ChoiceItem. `isIndeterminate` is `isChecked={false}` +
+  the input's DOM `indeterminate` property, not a third enum. Live size map
+  (node, not the description's blanket "minHeight 48"): `sm` 16 box / 12 mark /
+  32 row (`size.control.height.sm`); `md` 24 / 16 / 48 (`size.target.min`). **Property
+  default is `sm`** (Figma/Supernova properties table) — not `md`. Marks
+  are `IconCheck` / `IconMinus` with `color="fixed.white"` (Figma: not on-brand —
+  selected fill is the same azure in all 4 modes) or `disabled`. **Never `lg`
+  inside the box.** Focus is an **offset** ring (`focus/ring/offset` 1px gap +
+  `spread` 3px blue, live `inset-[-4px]`). That is the opposite of TextField's
+  flush ring — don't copy that gotcha here, and never drop the ring on a checked
+  box (fill and ring are the same azure; shape is what distinguishes them). Don't
+  read `typography.component.checkbox.labeled` (`400 16px/20px`); live type is
+  `text/body/{sm,md}/default`, composed from `font.size.body.*`.
 - **Every component's own variant axes are its own — don't generalize.** `TextField` has a `size`
   axis (`small`/`medium`/`large`, matching Figma's `sm`/`md`/`lg`) and an `icon` color group;
   `TextArea` has neither — a single `state` axis, no size, no icon slot. Confirm the axes with

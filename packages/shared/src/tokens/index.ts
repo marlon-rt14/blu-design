@@ -1,4 +1,5 @@
 export * from './button.tokens';
+export * from './checkbox.tokens';
 export * from './colors';
 export * from './radii';
 export * from './spacing';
