@@ -124,7 +124,28 @@ export interface IButtonDimensionTokens {
 
 /** The focus ring: a layer outside the container, not a change to its border. */
 export interface IButtonFocusTokens {
+  /**
+   * Thickness of the blue ring. Measured against Figma's own render of
+   * `variant=primary, appearance=fill, size=md, state=focus` at 4x on
+   * 2026-09-01: exactly 3px of `color/border/focus`, matching this token.
+   */
   spread: number;
+  /**
+   * Transparent gap between the control and the ring.
+   *
+   * **Discrepancy, unresolved.** The token says 1; Figma renders 2. Its own
+   * description says *"1 desde el 14-ago (antes 2)"*, so either Figma was never
+   * updated after that change or the token got ahead of it. Reported; the value
+   * is read rather than hardcoded, so whichever way design settles it arrives
+   * through the sync.
+   *
+   * The gap is *not painted*. Both platforms draw the ring with `outline`, whose
+   * offset leaves whatever is behind showing through — a painted band would have
+   * to guess the surface, and would show as a halo the moment the control sits
+   * on a card, on `bg/inverse` or on a photo. That guessing is the flaw the
+   * token's own description admits to.
+   */
+  offset: number;
   color: string;
   /** The blue ring does not read on an inverted surface, so that one is white. */
   colorOnInverse: string;
@@ -266,6 +287,7 @@ const readButtonTokens = (mode: TThemeMode): IButtonTokens => {
     },
     focus: {
       spread: dimensionAt('focus.ring.spread'),
+      offset: dimensionAt('focus.ring.offset'),
       color: readThemeToken(color, 'color.color.border.focus'),
       colorOnInverse: readThemeToken(color, 'color.color.border.focus.on-inverse'),
     },

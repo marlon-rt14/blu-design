@@ -122,14 +122,19 @@ export const useButton = ({
 
   const transition = prefersReducedMotion
     ? 'none'
-    : 'background-color 120ms ease, border-color 120ms ease, box-shadow 120ms ease';
+    : 'background-color 120ms ease, border-color 120ms ease, outline-color 120ms ease';
 
-  // A solid spread shadow reproduces Figma's focus ring layer without an extra
-  // DOM node, and unlike `outline` it never affects layout. On an inverted
-  // surface the blue ring does not read, hence the second token.
-  const boxShadow = isFocusVisible
-    ? `0 0 0 ${tokens.focus.spread}px ${appearance === 'on-inverse' ? tokens.focus.colorOnInverse : tokens.focus.color}`
-    : undefined;
+  // `outline`, not `box-shadow`. Both draw outside the box without affecting
+  // layout, but only `outline-offset` leaves the gap *transparent*: a box-shadow
+  // gap has to be painted, and painting it means guessing the surface behind —
+  // which shows as a halo the moment the button sits on a card, on bg/inverse or
+  // on a photo. React Native supports the same four properties, so this is the
+  // rare case of one mechanism covering both platforms.
+  //
+  // On an inverted surface the blue does not read, hence the second colour.
+  const outline = isFocusVisible
+    ? `${tokens.focus.spread}px solid ${appearance === 'on-inverse' ? tokens.focus.colorOnInverse : tokens.focus.color}`
+    : 'none';
 
   const buttonStyle: CSSProperties = {
     boxSizing: 'border-box',
@@ -159,9 +164,8 @@ export const useButton = ({
     fontSize: tokens.typography.fontSize[size],
     whiteSpace: 'nowrap',
 
-    // The native outline is suppressed because the ring above would double up.
-    outline: 'none',
-    boxShadow,
+    outline,
+    outlineOffset: tokens.focus.offset,
     transition,
     cursor: isDisabled ? 'not-allowed' : 'pointer',
   };
