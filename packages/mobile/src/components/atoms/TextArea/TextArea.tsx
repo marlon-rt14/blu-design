@@ -48,6 +48,7 @@ export const TextArea = ({
   const [measuredHeight, setMeasuredHeight] = useState<number | undefined>(undefined);
   const {
     ringStyle,
+    gapStyle,
     fieldStyle,
     inputStyle,
     labelStyle,
@@ -71,30 +72,32 @@ export const TextArea = ({
   return (
     <View style={textAreaStyles.wrapper}>
       <View style={ringStyle}>
-        <View style={fieldStyle}>
-          {hasValue && props.label ? <Text style={labelStyle}>{props.label}</Text> : null}
-          <TextInput
-            accessibilityLabel={props.label}
-            accessibilityState={{ disabled: isDisabled }}
-            editable={!isDisabled && !isReadOnly}
-            maxLength={props.maxLength}
-            multiline
-            onBlur={() => {
-              setIsFocused(false);
-              onBlur?.();
-            }}
-            onChangeText={onChangeText}
-            onContentSizeChange={handleContentSizeChange}
-            onFocus={() => {
-              setIsFocused(true);
-              onFocus?.();
-            }}
-            placeholder={hasValue ? undefined : props.label}
-            placeholderTextColor={placeholderTextColor}
-            style={[inputStyle, { height: measuredHeight ?? startingHeight }]}
-            testID={props.testID}
-            value={props.value}
-          />
+        <View style={gapStyle}>
+          <View style={fieldStyle}>
+            {hasValue && props.label ? <Text style={labelStyle}>{props.label}</Text> : null}
+            <TextInput
+              accessibilityLabel={props.label}
+              accessibilityState={{ disabled: isDisabled }}
+              editable={!isDisabled && !isReadOnly}
+              maxLength={props.maxLength}
+              multiline
+              onBlur={() => {
+                setIsFocused(false);
+                onBlur?.();
+              }}
+              onChangeText={onChangeText}
+              onContentSizeChange={handleContentSizeChange}
+              onFocus={() => {
+                setIsFocused(true);
+                onFocus?.();
+              }}
+              placeholder={hasValue ? undefined : props.label}
+              placeholderTextColor={placeholderTextColor}
+              style={[inputStyle, { height: measuredHeight ?? startingHeight }]}
+              testID={props.testID}
+              value={props.value}
+            />
+          </View>
         </View>
       </View>
       {hasFooter ? (

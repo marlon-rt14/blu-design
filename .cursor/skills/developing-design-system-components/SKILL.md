@@ -172,27 +172,18 @@ one:
   1px gap in the focus ring that the live component was never rebuilt to match (see the focus-ring
   gotcha below — the node's actual layer wins there too). When a description and a live node disagree,
   the node wins; treat the description as a hint to verify, not a spec.
-- **Focus renders as a separate outer ring, never a change to the container's own border — and that
-  ring is FLUSH against the border, with no gap, despite what the offset token's description implies.**
-  Figma's `focus` variant keeps the exact same `border-default` color and 1px `border/width/default`
-  width the `default` state has; the visible blue ring is the component's own `focusRing` layer — a
-  sibling `<div>` (node `53:6908` on `TextArea`'s `focus` variant, same pattern on `TextField`) with
-  `absolute`, `inset-[-3px]` (i.e. `-focus/ring/spread`), `border-[length:var(--focus/ring/spread,3px)]`,
-  `border-[var(--container/border-focus)]`, same `radius/field/md` as the container. That's a *single*
-  solid `spread`-wide band with its inner edge touching the container's outer edge — confirmed by
-  `get_design_context`'s screenshot on the live node. `focus/ring/offset`'s own description ("Separacion
-  entre el borde del control y el anillo de foco... la franja intermedia... se pinta con
-  canvas/surface/primary") documents an *intended* 1px gap that would make this a two-tone ring — but
-  the actual `focusRing` node was never built that way, so implementing the gap (e.g. two stacked
-  `box-shadow`s, one for a surface-colored offset and one for the ring) renders a visibly different,
-  *thinner* ring than Figma's screenshot and shipped once by mistake before being reverted. Reproduce
-  the flush look without an extra element on web via `boxShadow: '0 0 0 <spread>px <border-focus>'`
-  (follows `borderRadius` for free, no offset term); on mobile, wrap the field in an outer `View` whose
-  own `borderWidth` is always `focusRingSpread` and whose `borderColor` toggles between `'transparent'`
-  and `border-focus` — reserving the space up front is what keeps focus from shifting layout, since RN
-  has no `box-shadow`. If a future Figma update actually rebuilds `focusRing` with the gap, re-verify
-  via `get_design_context` before touching this again — don't re-derive it from the offset token's
-  prose alone.
+- **Focus on TextField / TextArea is an offset two-tone ring, not a flush
+  blue band and never a recolor of the container border.** Figma's `focus`
+  variant keeps `border-default` on the field and paints a separate ring:
+  1px `focus/ring/offset` gap in `canvas/surface/primary`, then blue out to
+  `focus/ring/spread` (3 = offset + `border/width/focus`). Visible blue is
+  spread − offset (2px). Web: two `box-shadow`s
+  (`0 0 0 <offset>px <surface>, 0 0 0 <spread>px <border-focus>`). Mobile:
+  nested Views — outer `borderWidth: spread - offset` (blue), inner
+  `borderWidth: offset` (surface), both reserved transparent when unfocused
+  so focus doesn't shift layout. An older flush `0 0 0 <spread>px` shadow
+  shipped when the live node still hugged the border; Figma rebuilt the
+  gap — don't revert to flush. Don't copy Switch's flush ring here.
 - **Hover is a translucent wash layered over the background, in addition to the border color
   change.** Figma's `hover` variant both recolors the border to `border-hover` AND paints an
   `overlay-hover` (a low-alpha navy, e.g. `rgba(0,30,96,0.06)`) on top of the existing background — two
@@ -303,9 +294,10 @@ one:
   are `IconCheck` / `IconMinus` with `color="fixed.white"` (Figma: not on-brand —
   selected fill is the same azure in all 4 modes) or `disabled`. **Never `lg`
   inside the box.** Focus is an **offset** ring (`focus/ring/offset` 1px gap +
-  `spread` 3px blue, live `inset-[-4px]`). That is the opposite of TextField's
-  flush ring — don't copy that gotcha here, and never drop the ring on a checked
-  box (fill and ring are the same azure; shape is what distinguishes them). Don't
+  `spread` 3px blue, live `inset-[-4px]` — Checkbox's blue layer is
+  `offset + spread`; TextField/TextArea use `spread` as the outer edge).
+  Never drop the ring on a checked box (fill and ring are the same azure;
+  shape is what distinguishes them). Don't
   read `typography.component.checkbox.labeled` (`400 16px/20px`); live type is
   `text/body/{sm,md}/default`, composed from `font.size.body.*`.
 - **Every component's own variant axes are its own — don't generalize.** `TextField` has a `size`

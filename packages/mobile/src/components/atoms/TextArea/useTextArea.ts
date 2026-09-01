@@ -14,8 +14,10 @@ interface IUseTextAreaParams extends ITextAreaProps {
 
 /** Styles and derived values the TextArea needs to render. */
 interface IUseTextAreaResult {
-  /** The ring layer: always reserves `focusRingSpread` of border, transparent unless focused — no layout shift on focus. */
+  /** Blue band of the offset ring. Always reserved, transparent unless focused. */
   ringStyle: StyleProp<ViewStyle>;
+  /** 1px `canvas/surface` gap inside the blue band. Same reservation rule. */
+  gapStyle: StyleProp<ViewStyle>;
   /** The bordered box: border, background, radius, padding. */
   fieldStyle: StyleProp<ViewStyle>;
   inputStyle: StyleProp<TextStyle>;
@@ -97,14 +99,18 @@ export const useTextArea = ({
       ? tokens.colors.value.readOnly
       : tokens.colors.value.filled;
 
-  // The ring's own border always reserves `focusRingSpread` of space —
-  // transparent unless focused — so toggling focus never shifts layout. Its
-  // radius is the field's own radius plus the ring width, for a concentric
-  // look (RN has no `box-shadow` to fake this in one layer, unlike web).
+  const { borderRadius, focusRingOffset, focusRingSpread } = tokens.dimension;
+  const showFocusRing = isFocused && !isDisabled && !isReadOnly;
   const ringStyle: StyleProp<ViewStyle> = {
-    borderRadius: tokens.dimension.borderRadius + tokens.dimension.focusRingSpread,
-    borderWidth: tokens.dimension.focusRingSpread,
-    borderColor: isFocused && !isDisabled && !isReadOnly ? tokens.colors.container.borderFocus : 'transparent',
+    borderRadius: borderRadius + focusRingSpread,
+    borderWidth: focusRingSpread - focusRingOffset,
+    borderColor: showFocusRing ? tokens.colors.container.borderFocus : 'transparent',
+  };
+
+  const gapStyle: StyleProp<ViewStyle> = {
+    borderRadius: borderRadius + focusRingOffset,
+    borderWidth: focusRingOffset,
+    borderColor: showFocusRing ? tokens.colors.focusRingGap : 'transparent',
   };
 
   const fieldStyle: StyleProp<ViewStyle> = {
@@ -167,6 +173,7 @@ export const useTextArea = ({
 
   return {
     ringStyle,
+    gapStyle,
     fieldStyle,
     inputStyle,
     labelStyle,

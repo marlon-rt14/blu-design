@@ -133,12 +133,12 @@ export const useTextField = ({
     ? 'none'
     : 'border-color 120ms ease, background-color 120ms ease, box-shadow 120ms ease';
 
-  // A solid `box-shadow` reproduces Figma's outer focusRing layer (a bordered
-  // box inset by its own width, hugging the container with no gap) without an
-  // extra DOM node — it follows `borderRadius` the same way that layer does.
+  // Offset ring: 1px `canvas/surface` gap, then blue out to `spread`.
+  // Visible blue = spread − offset (token math). Not flush — Figma rebuilt the gap.
+  const { focusRingOffset, focusRingSpread } = tokens.dimension;
   const boxShadow =
     isFocused && !isDisabled && !isReadOnly
-      ? `0 0 0 ${tokens.dimension.focusRingSpread}px ${tokens.colors.container.borderFocus}`
+      ? `0 0 0 ${focusRingOffset}px ${tokens.colors.focusRingGap}, 0 0 0 ${focusRingSpread}px ${tokens.colors.container.borderFocus}`
       : undefined;
 
   // Hover's translucent wash (`overlayHover`) is layered as a second

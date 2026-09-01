@@ -67,6 +67,7 @@ export const TextField = ({
   const [isFocused, setIsFocused] = useState(false);
   const {
     ringStyle,
+    gapStyle,
     fieldStyle,
     contentStyle,
     inputRowStyle,
@@ -90,52 +91,54 @@ export const TextField = ({
   return (
     <View style={textFieldStyles.wrapper}>
       <View style={ringStyle}>
-        <View style={fieldStyle}>
-          <View style={contentStyle}>
-            {showFloatingLabel && props.label ? <Text style={labelStyle}>{props.label}</Text> : null}
-            <View style={inputRowStyle}>
-              {showPrefixIcon ? (
-                <View style={iconStyle}>
-                  <FieldIcon
-                    color={isDisabled ? 'disabled' : 'secondary'}
-                    name={prefixIcon}
-                    size={iconSize}
-                  />
-                </View>
-              ) : null}
-              {showPrefixText && props.prefix ? <Text style={affixStyle}>{props.prefix}</Text> : null}
-              <TextInput
-                accessibilityLabel={props.label}
-                accessibilityState={{ disabled: isDisabled }}
-                editable={!isDisabled && !isReadOnly}
-                keyboardType={keyboardType}
-                maxLength={props.maxLength}
-                onBlur={() => {
-                  setIsFocused(false);
-                  onBlur?.();
-                }}
-                onChangeText={onChangeText}
-                onFocus={() => {
-                  setIsFocused(true);
-                  onFocus?.();
-                }}
-                placeholder={showFloatingLabel ? undefined : props.label}
-                placeholderTextColor={placeholderTextColor}
-                secureTextEntry={isSecure}
-                style={[textFieldStyles.input, inputStyle]}
-                testID={props.testID}
-                value={props.value}
-              />
-              {showSuffixText && props.suffix ? <Text style={affixStyle}>{props.suffix}</Text> : null}
-              {showSuffixIcon ? (
-                <View style={iconStyle}>
-                  <FieldIcon
-                    color={isDisabled ? 'disabled' : 'secondary'}
-                    name={suffixIcon}
-                    size={iconSize}
-                  />
-                </View>
-              ) : null}
+        <View style={gapStyle}>
+          <View style={fieldStyle}>
+            <View style={contentStyle}>
+              {showFloatingLabel && props.label ? <Text style={labelStyle}>{props.label}</Text> : null}
+              <View style={inputRowStyle}>
+                {showPrefixIcon ? (
+                  <View style={iconStyle}>
+                    <FieldIcon
+                      color={isDisabled ? 'disabled' : 'secondary'}
+                      name={prefixIcon}
+                      size={iconSize}
+                    />
+                  </View>
+                ) : null}
+                {showPrefixText && props.prefix ? <Text style={affixStyle}>{props.prefix}</Text> : null}
+                <TextInput
+                  accessibilityLabel={props.label}
+                  accessibilityState={{ disabled: isDisabled }}
+                  editable={!isDisabled && !isReadOnly}
+                  keyboardType={keyboardType}
+                  maxLength={props.maxLength}
+                  onBlur={() => {
+                    setIsFocused(false);
+                    onBlur?.();
+                  }}
+                  onChangeText={onChangeText}
+                  onFocus={() => {
+                    setIsFocused(true);
+                    onFocus?.();
+                  }}
+                  placeholder={showFloatingLabel ? undefined : props.label}
+                  placeholderTextColor={placeholderTextColor}
+                  secureTextEntry={isSecure}
+                  style={[textFieldStyles.input, inputStyle]}
+                  testID={props.testID}
+                  value={props.value}
+                />
+                {showSuffixText && props.suffix ? <Text style={affixStyle}>{props.suffix}</Text> : null}
+                {showSuffixIcon ? (
+                  <View style={iconStyle}>
+                    <FieldIcon
+                      color={isDisabled ? 'disabled' : 'secondary'}
+                      name={suffixIcon}
+                      size={iconSize}
+                    />
+                  </View>
+                ) : null}
+              </View>
             </View>
           </View>
         </View>

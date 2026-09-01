@@ -12,8 +12,10 @@ interface IUseTextFieldParams extends ITextFieldProps {
 
 /** Styles and derived values the TextField needs to render. */
 interface IUseTextFieldResult {
-  /** The ring layer: always reserves `focusRingSpread` of border, transparent unless focused — no layout shift on focus. */
+  /** Blue band of the offset ring. Always reserved, transparent unless focused. */
   ringStyle: StyleProp<ViewStyle>;
+  /** 1px `canvas/surface` gap inside the blue band. Same reservation rule. */
+  gapStyle: StyleProp<ViewStyle>;
   /** The bordered box: a column of [floating label, inputRow]. */
   fieldStyle: StyleProp<ViewStyle>;
   /** The label + inputRow column, `flex: 1`. */
@@ -112,14 +114,19 @@ export const useTextField = ({
       ? colors.value.readOnly
       : colors.value.filled;
 
-  // The ring's own border always reserves `focusRingSpread` of space —
-  // transparent unless focused — so toggling focus never shifts layout. Its
-  // radius is the field's own radius plus the ring width, for a concentric
-  // look (RN has no `box-shadow` to fake this in one layer, unlike web).
+  const { borderRadius, focusRingOffset, focusRingSpread } = tokens.dimension;
+  const showFocusRing = isFocused && !isDisabled && !isReadOnly;
+  // Visible blue = spread − offset. Total reserved stays `spread` (no layout jump).
   const ringStyle: StyleProp<ViewStyle> = {
-    borderRadius: tokens.dimension.borderRadius + tokens.dimension.focusRingSpread,
-    borderWidth: tokens.dimension.focusRingSpread,
-    borderColor: isFocused && !isDisabled && !isReadOnly ? colors.container.borderFocus : 'transparent',
+    borderRadius: borderRadius + focusRingSpread,
+    borderWidth: focusRingSpread - focusRingOffset,
+    borderColor: showFocusRing ? colors.container.borderFocus : 'transparent',
+  };
+
+  const gapStyle: StyleProp<ViewStyle> = {
+    borderRadius: borderRadius + focusRingOffset,
+    borderWidth: focusRingOffset,
+    borderColor: showFocusRing ? colors.focusRingGap : 'transparent',
   };
 
   const fieldStyle: StyleProp<ViewStyle> = {
@@ -220,6 +227,7 @@ export const useTextField = ({
 
   return {
     ringStyle,
+    gapStyle,
     fieldStyle,
     contentStyle,
     inputRowStyle,

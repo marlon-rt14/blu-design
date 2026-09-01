@@ -49,6 +49,8 @@ export interface ITextFieldColorTokens {
   icon: ITextFieldSupportColorTokens;
   /** The `prefix` / `suffix` affix text — a distinct color role from `value`, per Figma's own `affix/*` token group. */
   affix: ITextFieldSupportColorTokens;
+  /** 1px franja of the offset focus ring — `canvas/surface/primary`. */
+  focusRingGap: string;
 }
 
 /**
@@ -74,10 +76,11 @@ export interface ITextFieldDimensionTokens {
   paddingHorizontal: number;
   borderRadius: number;
   borderWidth: number;
+  /** Gap between the field border and the blue ring (`focus/ring/offset`). */
+  focusRingOffset: number;
   /**
-   * Spread of the outer focus ring — a separate absolutely-positioned layer
-   * outside the container, not a change to the container's own border (see
-   * `useTextField`'s doc comment on why focus never recolors `border`).
+   * Outer edge of the blue ring (`focus/ring/spread` = offset + border/width/focus).
+   * Visible blue is spread − offset.
    */
   focusRingSpread: number;
   /** Padding-top of each footer slot (helper, counter) — see `ITextAreaDimensionTokens.footerSlotGap` for the shared reasoning. */
@@ -191,6 +194,7 @@ const readTextFieldTokens = (mode: TThemeMode): ITextFieldTokens => {
         default: colorAt('affix.text-default'),
         disabled: colorAt('affix.text-disabled'),
       },
+      focusRingGap: readThemeToken(color, 'color.color.canvas.surface.primary'),
     },
     // `small` has no dedicated `size.field.height.*` entry — it shares
     // `size.control.height.sm` (32) with the small button, a pairing
@@ -213,6 +217,7 @@ const readTextFieldTokens = (mode: TThemeMode): ITextFieldTokens => {
       paddingHorizontal: dimensionAt('space.inset.md'),
       borderRadius: dimensionAt('radius.field.md'),
       borderWidth: dimensionAt('border.width.default'),
+      focusRingOffset: dimensionAt('focus.ring.offset'),
       focusRingSpread: dimensionAt('focus.ring.spread'),
       footerSlotGap: dimensionAt('space.stack.xs'),
       footerInlineGap: dimensionAt('space.inline.sm'),

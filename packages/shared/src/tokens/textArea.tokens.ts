@@ -50,6 +50,8 @@ export interface ITextAreaColorTokens {
   value: ITextAreaValueColorTokens;
   helper: ITextAreaFeedbackColorTokens;
   counter: ITextAreaFeedbackColorTokens;
+  /** 1px franja of the offset focus ring — `canvas/surface/primary`. */
+  focusRingGap: string;
 }
 
 /**
@@ -68,10 +70,11 @@ export interface ITextAreaDimensionTokens {
   paddingHorizontal: number;
   paddingVertical: number;
   borderWidth: number;
+  /** Gap between the field border and the blue ring (`focus/ring/offset`). */
+  focusRingOffset: number;
   /**
-   * Spread of the outer focus ring — a separate absolutely-positioned layer
-   * outside the container, not a change to the container's own border (see
-   * `useTextArea`'s doc comment on why focus never recolors `border`).
+   * Outer edge of the blue ring (`focus/ring/spread` = offset + border/width/focus).
+   * Visible blue is spread − offset.
    */
   focusRingSpread: number;
   /** Padding-top of each footer slot (helper, counter) — the 4px separator
@@ -169,6 +172,7 @@ const readTextAreaTokens = (mode: TThemeMode): ITextAreaTokens => {
         error: colorAt('counter.text-error'),
         disabled: colorAt('counter.text-disabled'),
       },
+      focusRingGap: readThemeToken(color, 'color.color.canvas.surface.primary'),
     },
     dimension: {
       minHeight: dimensionAt('size.field.height.md'),
@@ -176,6 +180,7 @@ const readTextAreaTokens = (mode: TThemeMode): ITextAreaTokens => {
       paddingHorizontal: dimensionAt('space.inset.md'),
       paddingVertical: dimensionAt('space.inset.sm'),
       borderWidth: dimensionAt('border.width.default'),
+      focusRingOffset: dimensionAt('focus.ring.offset'),
       focusRingSpread: dimensionAt('focus.ring.spread'),
       footerSlotGap: dimensionAt('space.stack.xs'),
       footerInlineGap: dimensionAt('space.inline.sm'),
