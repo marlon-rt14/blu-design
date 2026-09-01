@@ -2,6 +2,7 @@ import type { TSwitchSize } from '@dsm/shared';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement, ReactNode } from 'react';
 import { useState } from 'react';
+import { useArgs } from 'storybook/preview-api';
 
 import { PlatformSwitch } from './PlatformSwitch';
 import type { IPlatformSwitchProps, TPlatform } from './PlatformSwitch';
@@ -13,10 +14,9 @@ const Row = ({ children }: { children: ReactNode }): ReactElement => (
 );
 
 /**
- * Controlled wrapper so toggling in the canvas sticks. `isChecked` is owned
- * here, not by Storybook's args — same pattern as TextField's value.
+ * Multi-instance stories cannot share the panel's single args object.
  */
-const ControlledPlatformSwitch = (props: IPlatformSwitchProps): ReactElement => {
+const IsolatedPlatformSwitch = (props: IPlatformSwitchProps): ReactElement => {
   const [isChecked, setIsChecked] = useState(props.isChecked ?? false);
   return <PlatformSwitch {...props} isChecked={isChecked} onValueChange={setIsChecked} />;
 };
@@ -48,7 +48,7 @@ const meta = {
       control: 'inline-radio',
       options: SIZES,
       description: 'Track + thumb size. sm 40×24 (thumb 16); md 56×32 (thumb 24).',
-      table: { category: 'Appearance', defaultValue: { summary: 'md' } },
+      table: { category: 'Appearance', defaultValue: { summary: 'sm' } },
     },
     isDisabled: {
       control: 'boolean',
@@ -77,11 +77,21 @@ const meta = {
   },
   args: {
     isChecked: false,
-    size: 'md',
+    size: 'sm',
+    isDisabled: false,
   },
-  render: (args, { globals }) => (
-    <ControlledPlatformSwitch {...args} platform={globals['platform'] as TPlatform} />
-  ),
+  render: (args, { globals }) => {
+    const [, updateArgs] = useArgs();
+    return (
+      <PlatformSwitch
+        {...args}
+        platform={globals['platform'] as TPlatform}
+        onValueChange={(isChecked) => {
+          updateArgs({ isChecked });
+        }}
+      />
+    );
+  },
 } satisfies Meta<IPlatformSwitchProps>;
 
 export default meta;
@@ -97,10 +107,10 @@ export const Sizes: TStory = {
     return (
       <Row>
         {SIZES.map((size) => (
-          <ControlledPlatformSwitch key={`${size}-off`} platform={platform} size={size} />
+          <IsolatedPlatformSwitch key={`${size}-off`} platform={platform} size={size} />
         ))}
         {SIZES.map((size) => (
-          <ControlledPlatformSwitch isChecked key={`${size}-on`} platform={platform} size={size} />
+          <IsolatedPlatformSwitch isChecked key={`${size}-on`} platform={platform} size={size} />
         ))}
       </Row>
     );

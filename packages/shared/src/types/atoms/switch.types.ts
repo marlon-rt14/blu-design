@@ -25,7 +25,7 @@ export interface ISwitchBaseProps {
   /**
    * Physical size of the track + thumb.
    *
-   * @defaultValue `'md'`
+   * @defaultValue `'sm'`
    */
   size?: TSwitchSize;
   /**

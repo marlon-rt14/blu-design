@@ -26,7 +26,7 @@ export interface ISwitchItemBaseProps {
   /**
    * Row height and embedded Switch size.
    *
-   * @defaultValue `'md'`
+   * @defaultValue `'sm'`
    */
   size?: TSwitchItemSize;
   /** Accessible name of the row, rendered as the leading label. */

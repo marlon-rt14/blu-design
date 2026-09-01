@@ -9,7 +9,7 @@ import { useSwitch } from './useSwitch';
  *
  * Renders a visually hidden `<input type="checkbox" role="switch">` over a
  * token-painted track + thumb. Hover overlay, pressed `bg-on-pressed` and
- * a flush focus ring (`focus/ring/spread`) come from `useSwitch`.
+ * a 2px outer focus ring (`spread` − `offset`, no gap) come from `useSwitch`.
  *
  * Apple HIG iOS: a bare switch is not a screen piece — put it in
  * `SwitchItem` (list row). Outside a list, use a toggle button, not a

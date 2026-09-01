@@ -25,7 +25,7 @@ interface IUseSwitchItemResult {
  * the row; the embedded Switch is visual-only (`isContained`).
  */
 export const useSwitchItem = ({
-  size = 'md',
+  size = 'sm',
   isDisabled = false,
   isPressed,
 }: IUseSwitchItemParams): IUseSwitchItemResult => {

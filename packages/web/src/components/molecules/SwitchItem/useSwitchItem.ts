@@ -27,7 +27,7 @@ interface IUseSwitchItemResult {
  * embedded Switch (Figma). Hover/pressed overlays sit on the row surface.
  */
 export const useSwitchItem = ({
-  size = 'md',
+  size = 'sm',
   isDisabled = false,
   isHovered,
   isPressed,

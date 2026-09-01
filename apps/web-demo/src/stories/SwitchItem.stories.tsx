@@ -2,6 +2,7 @@ import type { TSwitchItemSize } from '@dsm/shared';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement, ReactNode } from 'react';
 import { useState } from 'react';
+import { useArgs } from 'storybook/preview-api';
 
 import { PlatformSwitchItem } from './PlatformSwitchItem';
 import type { IPlatformSwitchItemProps, TPlatform } from './PlatformSwitchItem';
@@ -13,9 +14,9 @@ const List = ({ children }: { children: ReactNode }): ReactElement => (
 );
 
 /**
- * Controlled wrapper so toggling in the canvas sticks.
+ * Multi-instance stories cannot share the panel's single args object.
  */
-const ControlledPlatformSwitchItem = (props: IPlatformSwitchItemProps): ReactElement => {
+const IsolatedPlatformSwitchItem = (props: IPlatformSwitchItemProps): ReactElement => {
   const [isChecked, setIsChecked] = useState(props.isChecked ?? false);
   return <PlatformSwitchItem {...props} isChecked={isChecked} onValueChange={setIsChecked} />;
 };
@@ -65,7 +66,7 @@ const meta = {
       control: 'inline-radio',
       options: SIZES,
       description: 'Row height and embedded Switch size. sm 48 / md 56.',
-      table: { category: 'Appearance', defaultValue: { summary: 'md' } },
+      table: { category: 'Appearance', defaultValue: { summary: 'sm' } },
     },
     isDisabled: {
       control: 'boolean',
@@ -86,13 +87,22 @@ const meta = {
   args: {
     label: 'Notifications',
     isChecked: true,
-    size: 'md',
+    size: 'sm',
   },
-  render: (args, { globals }) => (
-    <div style={{ width: 360 }}>
-      <ControlledPlatformSwitchItem {...args} platform={globals['platform'] as TPlatform} />
-    </div>
-  ),
+  render: (args, { globals }) => {
+    const [, updateArgs] = useArgs();
+    return (
+      <div style={{ width: 360 }}>
+        <PlatformSwitchItem
+          {...args}
+          platform={globals['platform'] as TPlatform}
+          onValueChange={(isChecked) => {
+            updateArgs({ isChecked });
+          }}
+        />
+      </div>
+    );
+  },
 } satisfies Meta<IPlatformSwitchItemProps>;
 
 export default meta;
@@ -107,16 +117,16 @@ export const InAList: TStory = {
     const platform = globals['platform'] as TPlatform;
     return (
       <List>
-        <ControlledPlatformSwitchItem isChecked label="Wi-Fi" platform={platform} />
-        <ControlledPlatformSwitchItem isChecked={false} label="Bluetooth" platform={platform} />
-        <ControlledPlatformSwitchItem
+        <IsolatedPlatformSwitchItem isChecked label="Wi-Fi" platform={platform} />
+        <IsolatedPlatformSwitchItem isChecked={false} label="Bluetooth" platform={platform} />
+        <IsolatedPlatformSwitchItem
           description="Play sounds for new messages"
           isChecked
           label="Notifications"
           platform={platform}
           showDescription
         />
-        <ControlledPlatformSwitchItem isChecked={false} isDisabled label="Airplane Mode" platform={platform} />
+        <IsolatedPlatformSwitchItem isChecked={false} isDisabled label="Airplane Mode" platform={platform} />
       </List>
     );
   },
@@ -137,7 +147,7 @@ export const Sizes: TStory = {
     return (
       <List>
         {SIZES.map((size) => (
-          <ControlledPlatformSwitchItem isChecked key={size} label={size} platform={platform} size={size} />
+          <IsolatedPlatformSwitchItem isChecked key={size} label={size} platform={platform} size={size} />
         ))}
       </List>
     );

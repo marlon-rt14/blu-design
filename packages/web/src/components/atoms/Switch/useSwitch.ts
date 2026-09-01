@@ -28,13 +28,12 @@ interface IUseSwitchResult {
  * Resolves every color and metric the web Switch needs from the active
  * theme, its size and its current state.
  *
- * Hover overlay, pressed `bg-on-pressed`, and the flush focus ring
- * (`0 0 0 <spread>px`) all live here — the component only tracks the
- * booleans. `isContained` suppresses the own ring and the 48pt hit box
- * so SwitchItem can own both.
+ * Hover overlay, pressed `bg-on-pressed`, and the focus ring
+ * (`inset -2px` + `spread` 3px → 2px visible outside, no gap).
+ * `isContained` suppresses the own ring so SwitchItem can own it.
  */
 export const useSwitch = ({
-  size = 'md',
+  size = 'sm',
   isChecked = false,
   isDisabled = false,
   isContained = false,
@@ -48,8 +47,8 @@ export const useSwitch = ({
   const fontFamily = useFontFamily(tokens.typography.fontWeight);
   const prefersReducedMotion = usePrefersReducedMotion();
   const sizeTokens = tokens.sizes[size];
-  const { thumbSize } = sizeTokens;
-  const { inset, borderRadius, borderWidth, focusRingSpread, targetMin } = tokens.dimension;
+  const { thumbSize, minHeight } = sizeTokens;
+  const { inset, borderRadius, borderWidth, focusRingOffset, focusRingSpread } = tokens.dimension;
 
   const trackHeight = thumbSize + 2 * inset;
   const trackWidth = 2 * thumbSize + 2 * inset;
@@ -66,20 +65,21 @@ export const useSwitch = ({
     ? undefined
     : isChecked && isPressed
       ? undefined
-      : !isChecked && isPressed
-        ? tokens.colors.track.overlayPressed
-        : isChecked && isHovered
-          ? tokens.colors.track.overlayHoverOn
-          : !isChecked && isHovered
-            ? tokens.colors.track.overlayHover
-            : undefined;
+      : isChecked && isHovered
+        ? tokens.colors.track.overlayHoverOn
+        : !isChecked && isHovered
+          ? tokens.colors.track.overlayHover
+          : undefined;
 
   const showOwnFocusRing = isFocusVisible && !isDisabled && !isContained;
   const trackBorderColor = isDisabled ? tokens.colors.track.borderDisabled : 'transparent';
-  const boxShadow = showOwnFocusRing ? `0 0 0 ${focusRingSpread}px ${tokens.colors.track.borderFocus}` : undefined;
+  // Live focusRing: `inset-[-2px]` + `spread` 3px → 2px outside the track.
+  const boxShadow = showOwnFocusRing
+    ? `0 0 0 ${focusRingSpread - focusRingOffset}px ${tokens.colors.track.borderFocus}`
+    : undefined;
 
-  const hitWidth = isContained ? trackWidth : Math.max(trackWidth, targetMin);
-  const hitHeight = isContained ? trackHeight : Math.max(trackHeight, targetMin);
+  const hitWidth = trackWidth;
+  const hitHeight = isContained ? trackHeight : minHeight;
 
   const hitTargetStyle: CSSProperties = {
     position: 'relative',

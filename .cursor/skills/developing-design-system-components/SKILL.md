@@ -274,14 +274,19 @@ one:
   pending state. **Do not use RN `Switch` / `UISwitch`** (Apple green, 51×31, wrong tokens) — custom
   `Pressable` track+thumb painted from `color.component.switch.*`. On-fill is Figma `track.bg-on`
   (`#2760aa`), not system green. Web: visually hidden `input type="checkbox" role="switch"`. Mobile:
-  `accessibilityRole="switch"`. Standalone tap area expands to `dimension.size.target.min` (48)
-  without changing the painted track (`2 × size.icon.{sm|md} + 2 × space.inset.xs`). `isContained`
-  is the composition seam: SwitchItem owns the row hit target and the row focus ring (Figma: ring on
-  the row, not the thumb). State must not be color-only — thumb position + a11y `checked`, optional
-  `showStateLabel`.
+  `accessibilityRole="switch"`. **Property default is `sm`.** Standalone row
+  floor is live-node, not the 48pt HIG copy: sm `control.height.sm` (32) ×
+  track width 40; md `target.min` (48) × 56. Do not expand sm to 48×48.
+  Focus ring is live `inset-[-2px]` + `spread` 3px → **2px outside**, no
+  gap (unlike Checkbox's offset). Pressed-off has no overlay; pressed-on
+  uses `track.bg-on-pressed`. `isContained` is the composition seam:
+  SwitchItem owns the row hit target and the row focus ring. State must not
+  be color-only — thumb position + a11y `checked`, optional `showStateLabel`.
 - **SwitchItem is the first molecule and the iOS-canonical Switch usage.** Entire row is the control
   (web: `<label>` wrapping the Switch input; mobile: `Pressable` row, inner Switch `isContained` so
-  the a11y tree has one switch). Sizes sm 48 / md 56. `showDivider` defaults true. Description
+  the a11y tree has one switch). Sizes sm 48 / md 56. **Property default is
+  `sm`.** `showDivider` Figma property still defaults true (01-sep prose says
+  false — property wins until the boolean flips). Description
   default color is `color.color.text.secondary` — the component group only ships
   `description.text-disabled`, no `text-default` co-token; don't invent one.
 - **There is no CheckboxList.** Figma page `3:42` is only Checkbox. Closest list

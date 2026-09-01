@@ -22,12 +22,11 @@ interface IUseSwitchResult {
 }
 
 /**
- * Resolves every color and metric the native Switch needs. No hover —
- * mobile has no hover concept. Pressed on-track uses `bg-on-pressed`;
- * pressed off uses `color.color.overlay.state.pressed`.
+ * Resolves every color and metric the native Switch needs. No hover.
+ * Pressed-on uses `bg-on-pressed`. Pressed-off has no overlay (live Figma).
  */
 export const useSwitch = ({
-  size = 'md',
+  size = 'sm',
   isChecked = false,
   isDisabled = false,
   isContained = false,
@@ -37,8 +36,8 @@ export const useSwitch = ({
   const mode = useThemeMode();
   const tokens = switchTokens[mode];
   const sizeTokens = tokens.sizes[size];
-  const { thumbSize } = sizeTokens;
-  const { inset, borderRadius, borderWidth, targetMin } = tokens.dimension;
+  const { thumbSize, minHeight } = sizeTokens;
+  const { inset, borderRadius, borderWidth } = tokens.dimension;
 
   const trackHeight = thumbSize + 2 * inset;
   const trackWidth = 2 * thumbSize + 2 * inset;
@@ -51,18 +50,10 @@ export const useSwitch = ({
         ? tokens.colors.track.backgroundOn
         : tokens.colors.track.backgroundOff;
 
-  const overlayColor = isDisabled
-    ? undefined
-    : isChecked && isPressed
-      ? undefined
-      : !isChecked && isPressed
-        ? tokens.colors.track.overlayPressed
-        : undefined;
-
   const trackBorderColor = isDisabled ? tokens.colors.track.borderDisabled : 'transparent';
 
-  const hitWidth = isContained ? trackWidth : Math.max(trackWidth, targetMin);
-  const hitHeight = isContained ? trackHeight : Math.max(trackHeight, targetMin);
+  const hitWidth = trackWidth;
+  const hitHeight = isContained ? trackHeight : minHeight;
 
   const hitTargetStyle: StyleProp<ViewStyle> = {
     alignItems: 'center',
@@ -87,17 +78,7 @@ export const useSwitch = ({
     overflow: 'hidden',
   };
 
-  const overlayStyle: StyleProp<ViewStyle> | undefined = overlayColor
-    ? {
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        bottom: 0,
-        left: 0,
-        borderRadius,
-        backgroundColor: overlayColor,
-      }
-    : undefined;
+  const overlayStyle: StyleProp<ViewStyle> | undefined = undefined;
 
   const thumbStyle: StyleProp<ViewStyle> = {
     width: thumbSize,

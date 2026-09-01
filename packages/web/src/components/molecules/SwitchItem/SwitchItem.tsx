@@ -23,7 +23,7 @@ import { useSwitchItem } from './useSwitchItem';
 export const SwitchItem = (props: ISwitchItemProps): ReactElement => {
   const {
     isChecked = false,
-    size = 'md',
+    size = 'sm',
     label,
     showDescription = false,
     description,

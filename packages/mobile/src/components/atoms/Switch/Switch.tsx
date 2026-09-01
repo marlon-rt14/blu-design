@@ -10,8 +10,8 @@ import { useSwitch } from './useSwitch';
  * use RN `Switch` / `UISwitch` (Apple green, 51×31, wrong tokens).
  *
  * `accessibilityRole="switch"` with `accessibilityState={{ checked, disabled }}`.
- * No hover. Standalone tap area expands to `dimension.size.target.min` (48)
- * without changing the painted control. `isContained` drops the Pressable
+ * No hover. Standalone row floor is live-node (sm 32 × track 40; md 48 ×
+ * 56) — do not expand sm to 48×48. `isContained` drops the Pressable
  * so SwitchItem can own the row hit target.
  *
  * @example

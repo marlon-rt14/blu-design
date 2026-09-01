@@ -45,6 +45,11 @@ export interface ISwitchColorTokens {
 export interface ISwitchSizeTokens {
   /** Thumb diameter = `dimension.size.icon.{sm|md}`. */
   thumbSize: number;
+  /**
+   * Standalone row floor. Live Figma, not the 48pt HIG copy: sm is
+   * `control.height.sm` (32); md is `target.min` (48). Width is the track.
+   */
+  minHeight: number;
 }
 
 /** Metrics shared by every size. */
@@ -53,9 +58,8 @@ export interface ISwitchDimensionTokens {
   inset: number;
   borderRadius: number;
   borderWidth: number;
+  focusRingOffset: number;
   focusRingSpread: number;
-  /** Standalone tap-area floor (`dimension.size.target.min` = 48). */
-  targetMin: number;
 }
 
 /** Every token a Switch needs, resolved for a single theme. */
@@ -106,17 +110,19 @@ const readSwitchTokens = (mode: TThemeMode): ISwitchTokens => {
     sizes: {
       sm: {
         thumbSize: dimensionAt('size.icon.sm'),
+        minHeight: dimensionAt('size.control.height.sm'),
       },
       md: {
         thumbSize: dimensionAt('size.icon.md'),
+        minHeight: dimensionAt('size.target.min'),
       },
     },
     dimension: {
       inset: dimensionAt('space.inset.xs'),
       borderRadius: dimensionAt('radius.pill'),
       borderWidth: dimensionAt('border.width.default'),
+      focusRingOffset: dimensionAt('focus.ring.offset'),
       focusRingSpread: dimensionAt('focus.ring.spread'),
-      targetMin: dimensionAt('size.target.min'),
     },
     typography: {
       fontWeight: String(dimensionAt('font.weight.extrabold')),
