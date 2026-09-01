@@ -13,9 +13,10 @@ interface IUsePasswordFieldParams extends IPasswordFieldProps {
 
 /** Styles and derived values the PasswordField needs to render. */
 interface IUsePasswordFieldResult {
-  /** The ring layer: always reserves `focusRingSpread` of border, transparent unless focused. */
-  ringStyle: StyleProp<ViewStyle>;
-  /** The bordered box: a row of [content column, reveal action]. */
+  /**
+   * The bordered box: a row of [content column, reveal action]. Also carries the
+   * focus `outline`, which replaced the wrapper View that used to reserve it.
+   */
   fieldStyle: StyleProp<ViewStyle>;
   labelStyle: StyleProp<TextStyle>;
   inputStyle: StyleProp<TextStyle>;
@@ -105,16 +106,11 @@ export const usePasswordField = ({
   const { label, value: valueType } = tokens.typography;
 
   return {
-    // Same technique as TextArea's ring: the border is always reserved and only
-    // its colour changes, so focusing never shifts layout.
-    ringStyle: {
-      borderRadius: tokens.dimension.borderRadius + tokens.dimension.focusRingSpread,
-      borderWidth: tokens.dimension.focusRingSpread,
-      borderColor:
-        isFocused && !isDisabled && !isReadOnly
-          ? tokens.colors.container.borderFocus
-          : 'transparent',
-    },
+    // The focus ring is an `outline` on this very box, not a wrapper View with a
+    // reserved border. It is ignored by layout, so nothing has to be reserved to
+    // keep focusing from resizing the field, and `outlineOffset` leaves the gap
+    // transparent — a field almost always sits on a card or a form surface, so a
+    // painted gap would be the wrong colour most of the time.
     fieldStyle: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -125,6 +121,14 @@ export const usePasswordField = ({
       borderWidth: tokens.dimension.borderWidth,
       borderColor,
       backgroundColor,
+      ...(isFocused && !isDisabled && !isReadOnly
+        ? {
+            outlineWidth: tokens.dimension.focusRingSpread,
+            outlineOffset: tokens.dimension.focusRingOffset,
+            outlineColor: tokens.colors.container.borderFocus,
+            outlineStyle: 'solid' as const,
+          }
+        : {}),
     },
     // See @dsm/mobile's TextField useTextField for why fontWeight never
     // accompanies fontFamily here — same Android font-resolver constraint.
