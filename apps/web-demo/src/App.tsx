@@ -2,7 +2,7 @@ import { BluProvider, Button, PasswordField } from "@dsm/web";
 import type { TButtonAppearance, TButtonSize, TButtonVariant, TIconColor, TIconSize, TPasswordFieldSize, TPasswordFieldVisibility } from "@dsm/shared";
 import { useState } from "react";
 
-import { IconAlertTriangle, IconCheckCircle, IconImage, IconPlus, IconSearch, IconTrash } from "@dsm/web/icons";
+import { IconAlertTriangle, IconArrowUpRight, IconCheckCircle, IconChevronRight, IconImage, IconPlus, IconSearch, IconTrash } from "@dsm/web/icons";
 import "./App.css";
 
 const VARIANTS: TButtonVariant[] = ["primary", "danger"];
@@ -60,6 +60,16 @@ const App = () => {
                 <Button key={size} label={size} onClick={handleClick} size={size} testID={`button-${variant}-${size}`} variant={variant} />
               ))}
               <Button isDisabled label="disabled" onClick={handleClick} testID={`button-${variant}-disabled`} variant={variant} />
+            </div>
+            {/* Los slots de icono. El tamaño del icono no es el del control: xs y sm
+                usan 16, md y lg usan 24. El color no se configura — el <button> ya
+                pone `color` para su etiqueta y el icono resuelve a currentColor. */}
+            <div className="demo__row">
+              {SIZES.map((size) => (
+                <Button key={size} label={size} leadingIcon={IconPlus} onClick={handleClick} size={size} testID={`button-${variant}-icon-${size}`} trailingIcon={IconChevronRight} variant={variant} />
+              ))}
+              <Button label="Salir" onClick={handleClick} testID={`button-${variant}-trailing`} trailingIcon={IconArrowUpRight} variant={variant} />
+              <Button isDisabled label="disabled" leadingIcon={IconTrash} onClick={handleClick} testID={`button-${variant}-icon-disabled`} variant={variant} />
             </div>
           </section>
         ))}

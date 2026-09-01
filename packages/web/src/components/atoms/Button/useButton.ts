@@ -1,5 +1,5 @@
 import { buttonTokens } from '@dsm/shared';
-import type { IButtonSurfaceColorTokens, TButtonState } from '@dsm/shared';
+import type { IButtonSurfaceColorTokens, TButtonState, TIconSize } from '@dsm/shared';
 import type { CSSProperties } from 'react';
 
 import { useFontFamily, usePrefersReducedMotion, useThemeMode } from '../../../theme';
@@ -27,6 +27,11 @@ interface IUseButtonResult {
    * second style object for the label — the type properties cascade to the text.
    */
   buttonStyle: CSSProperties;
+  /**
+   * Which Icon size step to give the slots. Not the control's own size: `xs` and
+   * `sm` both take 16, `md` and `lg` both take 24.
+   */
+  iconSize: TIconSize;
   /** Normalized disabled flag, safe to hand straight to the DOM element. */
   isDisabled: boolean;
   /** Resolved interaction state, exposed so stories and tests can assert on it. */
@@ -161,5 +166,5 @@ export const useButton = ({
     cursor: isDisabled ? 'not-allowed' : 'pointer',
   };
 
-  return { buttonStyle, isDisabled, state };
+  return { buttonStyle, iconSize: tokens.dimension.iconSize[size], isDisabled, state };
 };

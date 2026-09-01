@@ -32,16 +32,19 @@ import { useButton } from './useButton';
  * <Button label="Publicar" onPress={publish} />
  * <Button label="Guardar borrador" appearance="outline" onPress={saveDraft} />
  * <Button label="Eliminar" variant="danger" size="sm" onPress={remove} />
+ * <Button label="Agregar" leadingIcon={IconPlus} onPress={add} />
  * ```
  */
-export const Button = ({ onPress, ...props }: IButtonProps): ReactElement => {
+export const Button = ({
+  onPress,
+  leadingIcon: LeadingIcon,
+  trailingIcon: TrailingIcon,
+  ...props
+}: IButtonProps): ReactElement => {
   const [isPressed, setIsPressed] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-  const { ringStyle, containerStyle, labelStyle, hitSlop, isDisabled } = useButton({
-    ...props,
-    isPressed,
-    isFocused,
-  });
+  const { ringStyle, containerStyle, labelStyle, iconSize, iconColor, hitSlop, isDisabled } =
+    useButton({ ...props, isPressed, isFocused });
 
   return (
     <View style={ringStyle}>
@@ -58,7 +61,12 @@ export const Button = ({ onPress, ...props }: IButtonProps): ReactElement => {
         style={[buttonStyles.container, containerStyle]}
         testID={props.testID}
       >
+        {/* `tintColor`, not `color`: the value is a hex the Button already
+            resolved, and a role would not carry the appearance's own label
+            colour. Web needs none of this — there the icons inherit. */}
+        {LeadingIcon ? <LeadingIcon size={iconSize} tintColor={iconColor} /> : null}
         <Text style={labelStyle}>{props.label}</Text>
+        {TrailingIcon ? <TrailingIcon size={iconSize} tintColor={iconColor} /> : null}
       </Pressable>
     </View>
   );

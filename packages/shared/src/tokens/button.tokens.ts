@@ -2,6 +2,7 @@ import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
 import { themeSources } from '../themeSource/themes';
 import type { TThemeMode } from '../themeSource/themes';
 import type { TButtonAppearance, TButtonSize, TButtonVariant } from '../types/atoms/button.types';
+import type { TIconSize } from '../types/atoms/icon.types';
 
 /**
  * Colors for one `variant` + `appearance` pairing, across every state.
@@ -87,8 +88,17 @@ export interface IButtonDimensionTokens {
   paddingHorizontal: Record<TButtonSize, number>;
   /** Same at every size. */
   minWidth: number;
-  /** Gap between the label and an icon, once icons exist. */
+  /** Gap between the label and an icon. `space/inline/sm` (8). */
   gap: number;
+  /**
+   * Which step of the Icon scale a button of each size uses.
+   *
+   * **Does not scale 1:1 with the control**, and cannot be derived: `xs` and
+   * `sm` both take `size/icon/sm` (16), `md` and `lg` both take `size/icon/md`
+   * (24) — *"porque la escala no tiene un paso de 20"*. Four button sizes map
+   * onto two icon sizes.
+   */
+  iconSize: Record<TButtonSize, TIconSize>;
   /** `radius/action` — fully rounded, so the Button is a pill at every size. */
   borderRadius: number;
   /** Only applied when the resolved state actually has a border colour. */
@@ -226,6 +236,9 @@ const readButtonTokens = (mode: TThemeMode): IButtonTokens => {
       },
       minWidth: dimensionAt('size.control.min-width'),
       gap: dimensionAt('space.inline.sm'),
+      // A mapping between two token scales rather than a token of its own, so
+      // it is stated here instead of read: bDS defines it in prose only.
+      iconSize: { xs: 'sm', sm: 'sm', md: 'md', lg: 'md' },
       borderRadius: dimensionAt('radius.action'),
       borderWidth: dimensionAt('border.width.default'),
       minTouchTarget: dimensionAt('size.target.min'),

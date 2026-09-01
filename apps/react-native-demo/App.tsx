@@ -13,7 +13,9 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 import {
   IconAlertTriangle,
+  IconArrowUpRight,
   IconCheckCircle,
+  IconChevronRight,
   IconImage,
   IconPlus,
   IconSearch,
@@ -107,6 +109,38 @@ const App = () => {
                     label="disabled"
                     onPress={handlePress}
                     testID={`button-${variant}-disabled`}
+                    variant={variant}
+                  />
+                </View>
+                {/* Slots de icono. El tamano del icono no es el del control: xs y
+                    sm usan 16, md y lg usan 24. En RN no hay currentColor, asi que
+                    el Button pasa el color de la etiqueta por tintColor. */}
+                <View style={styles.row}>
+                  {SIZES.map(size => (
+                    <Button
+                      key={size}
+                      label={size}
+                      leadingIcon={IconPlus}
+                      onPress={handlePress}
+                      size={size}
+                      testID={`button-${variant}-icon-${size}`}
+                      trailingIcon={IconChevronRight}
+                      variant={variant}
+                    />
+                  ))}
+                  <Button
+                    label="Salir"
+                    onPress={handlePress}
+                    testID={`button-${variant}-trailing`}
+                    trailingIcon={IconArrowUpRight}
+                    variant={variant}
+                  />
+                  <Button
+                    isDisabled
+                    label="disabled"
+                    leadingIcon={IconTrash}
+                    onPress={handlePress}
+                    testID={`button-${variant}-icon-disabled`}
                     variant={variant}
                   />
                 </View>

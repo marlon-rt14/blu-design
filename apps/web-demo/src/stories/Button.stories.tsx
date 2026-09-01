@@ -4,6 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 import { fn } from 'storybook/test';
 
+import { ICON_NAMES } from './iconNames';
 import { PlatformButton } from './PlatformButton';
 import type { IPlatformButtonProps, TPlatform } from './PlatformButton';
 
@@ -116,6 +117,23 @@ const meta = {
         'tables, never the main action — mobile applies `hitSlop` for it automatically.',
       table: { category: 'Appearance', defaultValue: { summary: 'md' } },
     },
+    leadingIcon: {
+      control: 'select',
+      options: [undefined, ...ICON_NAMES],
+      description:
+        'Icon before the label. The real prop takes the component — ' +
+        '`leadingIcon={IconPlus}` — but a control can only pass a string, so this ' +
+        'story resolves it per platform. **There is no `showLeadingIcon`**: passing ' +
+        'an icon is what shows it. The size is not the control\'s own — `xs` and `sm` ' +
+        'get 16, `md` and `lg` get 24.',
+      table: { category: 'Appearance' },
+    },
+    trailingIcon: {
+      control: 'select',
+      options: [undefined, ...ICON_NAMES],
+      description: 'Icon after the label. See `leadingIcon`.',
+      table: { category: 'Appearance' },
+    },
     // --- State --------------------------------------------------------------
     isDisabled: {
       control: 'boolean',
@@ -225,4 +243,71 @@ export const Disabled: TStory = {
       ))}
     </Row>
   ),
+};
+
+/**
+ * The two icon slots.
+ *
+ * The icon size is **not** the control's own: `xs` and `sm` both get 16, `md`
+ * and `lg` both get 24, because the icon scale has no step at 20. Compare the
+ * `sm` and `md` rows below — the buttons grow, the icons jump only once.
+ *
+ * Colour needs no wiring on web: the `<button>` sets `color` for its label and
+ * the icon resolves to `currentColor`. On React Native there is no cascade, so
+ * the Button hands the same value over through `tintColor` — flip the Platform
+ * dropdown and the result should be identical.
+ */
+export const Icons: TStory = {
+  render: (args, { globals }) => {
+    const platform = globals.platform as TPlatform;
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'flex-start' }}>
+        <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+          <PlatformButton {...args} label="Leading" leadingIcon="IconPlus" platform={platform} />
+          <PlatformButton {...args} label="Trailing" platform={platform} trailingIcon="IconArrowUpRight" />
+          <PlatformButton
+            {...args}
+            label="Ambos"
+            leadingIcon="IconPlus"
+            platform={platform}
+            trailingIcon="IconChevronRight"
+          />
+          <PlatformButton
+            {...args}
+            isDisabled
+            label="Disabled"
+            leadingIcon="IconTrash"
+            platform={platform}
+          />
+        </div>
+        {(['xs', 'sm', 'md', 'lg'] as const).map((size) => (
+          <div key={size} style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+            <span style={{ fontSize: 12, opacity: 0.6, width: 76 }}>
+              {size} · icon {size === 'xs' || size === 'sm' ? 16 : 24}
+            </span>
+            <PlatformButton
+              {...args}
+              label={size}
+              leadingIcon="IconPlus"
+              platform={platform}
+              size={size}
+              trailingIcon="IconChevronRight"
+            />
+          </div>
+        ))}
+        <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+          {(['fill', 'soft', 'outline', 'ghost'] as const).map((appearance) => (
+            <PlatformButton
+              {...args}
+              appearance={appearance}
+              key={appearance}
+              label={appearance}
+              leadingIcon="IconCheck"
+              platform={platform}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  },
 };

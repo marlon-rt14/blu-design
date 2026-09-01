@@ -1,5 +1,5 @@
 import { buttonTokens } from '@dsm/shared';
-import type { IButtonSurfaceColorTokens, TButtonState } from '@dsm/shared';
+import type { IButtonSurfaceColorTokens, TButtonState, TIconSize } from '@dsm/shared';
 import type { Insets, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
@@ -24,6 +24,22 @@ interface IUseButtonResult {
   /** The pressable box: height, padding, surface and radius. */
   containerStyle: StyleProp<ViewStyle>;
   labelStyle: StyleProp<TextStyle>;
+  /**
+   * Which Icon size step to give the slots. Not the control's own size: `xs` and
+   * `sm` both take 16, `md` and `lg` both take 24.
+   */
+  iconSize: TIconSize;
+  /**
+   * Colour for the icon slots, handed over explicitly because React Native has
+   * no `currentColor` to inherit through.
+   *
+   * This is the **label** colour. bDS publishes `icon-default` and
+   * `icon-disabled` per group, but all 28 of them are byte-identical to their
+   * `text-*` twin in both themes, so reading them separately would add fourteen
+   * lookups that provably return the same value. If they ever diverge, this is
+   * the line that changes.
+   */
+  iconColor: string;
   /** Expands the touch target up to `size/target/min`; `undefined` when the size already clears it. */
   hitSlop: Insets | undefined;
   /** Normalized disabled flag, safe to hand straight to `Pressable`. */
@@ -150,5 +166,14 @@ export const useButton = ({
   const hitSlop: Insets | undefined =
     verticalSlop === 0 ? undefined : { top: verticalSlop, bottom: verticalSlop };
 
-  return { ringStyle, containerStyle, labelStyle, hitSlop, isDisabled, state };
+  return {
+    ringStyle,
+    containerStyle,
+    labelStyle,
+    iconSize: tokens.dimension.iconSize[size],
+    iconColor: isDisabled ? surface.labelDisabled : surface.label,
+    hitSlop,
+    isDisabled,
+    state,
+  };
 };
