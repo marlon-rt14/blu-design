@@ -1,4 +1,5 @@
 export * from './atoms/button.types';
+export * from './atoms/checkbox.types';
 export * from './atoms/icon.types';
 export * from './atoms/linkButton.types';
 export * from './atoms/passwordField.types';
