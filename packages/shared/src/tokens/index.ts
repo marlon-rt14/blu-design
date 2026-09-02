@@ -6,6 +6,7 @@ export * from './spacing';
 export * from './icon.tokens';
 export * from './linkButton.tokens';
 export * from './passwordField.tokens';
+export * from './radio.tokens';
 export * from './switch.tokens';
 export * from './switchItem.tokens';
 export * from './textArea.tokens';

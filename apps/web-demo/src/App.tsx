@@ -1,4 +1,4 @@
-import { BluProvider, Button, PasswordField } from "@dsm/web";
+import { BluProvider, Button, Checkbox, LinkButton, PasswordField, Radio } from "@dsm/web";
 import type { TButtonAppearance, TButtonSize, TButtonVariant, TIconColor, TIconSize, TPasswordFieldSize, TPasswordFieldVisibility } from "@dsm/shared";
 import { useState } from "react";
 
@@ -10,6 +10,7 @@ const VARIANTS: TButtonVariant[] = ["primary", "danger"];
 const APPEARANCES: Exclude<TButtonAppearance, "on-inverse">[] = ["fill", "soft", "outline", "ghost"];
 const SIZES: TButtonSize[] = ["xs", "sm", "md", "lg"];
 const FIELD_SIZES: TPasswordFieldSize[] = ["sm", "md", "lg"];
+const METODOS = ["Débito", "Crédito", "Transferencia"];
 
 // The six steps of `size/icon/*`, with the px each one resolves to — the point
 // of the row is that the number is a token, never a hand-set width.
@@ -34,6 +35,8 @@ const App = () => {
   const [password, setPassword] = useState("MiClave2026");
   const [shortPassword, setShortPassword] = useState("123");
   const [visibility, setVisibility] = useState<TPasswordFieldVisibility>("visible");
+  const [metodo, setMetodo] = useState(METODOS[0]);
+  const [checked, setChecked] = useState(false);
 
   return (
     // BluProvider is what actually loads Mulish (see @dsm/web's theme/font.ts) —
@@ -46,6 +49,40 @@ const App = () => {
         <p className="demo__counter">
           Clicks: <strong data-testid="click-counter">{clicks}</strong>
         </p>
+
+        <section className="demo__section">
+          <h2 className="demo__section-title">Radio</h2>
+          {/* Un radio NO alterna: una vez marcado, volver a hacerle clic no dispara
+              `change`, porque el valor no cambió. Por eso el estado guarda *cuál*
+              está elegido y no un booleano por opción — cablearlo como toggle deja
+              el primero pegado en checked. El Checkbox de abajo sí alterna. */}
+          <p className="demo__counter">
+            Método: <strong data-testid="metodo">{metodo}</strong>
+          </p>
+          <div className="demo__row">
+            {METODOS.map((opcion) => (
+              <Radio
+                isChecked={metodo === opcion}
+                key={opcion}
+                label={opcion}
+                name="metodo"
+                onChange={() => setMetodo(opcion)}
+                testID={`radio-${opcion}`}
+                value={opcion}
+              />
+            ))}
+          </div>
+          <div className="demo__row">
+            <Radio isDisabled label="Deshabilitado" name="metodo-2" />
+            <Radio isChecked isDisabled label="Deshabilitado y marcado — sin punto, fiel a Figma" name="metodo-3" />
+            <Radio label="Sin etiqueta visible" name="metodo-4" showLabel={false} />
+          </div>
+          <div className="demo__row">
+            <Checkbox isChecked={checked} label="Checkbox — este sí alterna" onChange={() => setChecked((prev) => !prev)} />
+            <LinkButton label="LinkButton" />
+            <Button label="Button" variant="primary" />
+          </div>
+        </section>
 
         {VARIANTS.map((variant) => (
           <section className="demo__section" key={variant}>
@@ -76,7 +113,9 @@ const App = () => {
 
         <section className="demo__section">
           <h2 className="demo__section-title">Icon</h2>
-          <p className="demo__subtitle">El envoltorio por el que pasa todo icono del sistema. Los 31 glifos de bDS salen ya montados de <code>@dsm/web/icons</code>: <code>&lt;IconTrash size="lg" color="danger" /&gt;</code>. Cada uno es un <code>Icon</code> con sus paths adentro, así que fija la caja desde <code>size/icon/*</code> y resuelve el color del tema.</p>
+          <p className="demo__subtitle">
+            El envoltorio por el que pasa todo icono del sistema. Los 31 glifos de bDS salen ya montados de <code>@dsm/web/icons</code>: <code>&lt;IconTrash size="lg" color="danger" /&gt;</code>. Cada uno es un <code>Icon</code> con sus paths adentro, así que fija la caja desde <code>size/icon/*</code> y resuelve el color del tema.
+          </p>
 
           {/* Los 6 pasos. El label es el valor que resuelve el token, no un width escrito a mano. */}
           <div className="demo__row" style={{ alignItems: "flex-end", gap: 24 }}>
@@ -118,7 +157,16 @@ const App = () => {
 
           {/* Un puñado del set, para ver que son glifos distintos y no el mismo repetido. */}
           <div className="demo__row" style={{ gap: 24 }}>
-            {([["plus", IconPlus], ["search", IconSearch], ["trash", IconTrash], ["check-circle", IconCheckCircle], ["alert-triangle", IconAlertTriangle], ["image", IconImage]] as const).map(([name, IconComponent]) => (
+            {(
+              [
+                ["plus", IconPlus],
+                ["search", IconSearch],
+                ["trash", IconTrash],
+                ["check-circle", IconCheckCircle],
+                ["alert-triangle", IconAlertTriangle],
+                ["image", IconImage],
+              ] as const
+            ).map(([name, IconComponent]) => (
               <div key={name} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
                 <IconComponent size="lg" testID={`icon-glyph-${name}`} />
                 <span style={{ fontSize: 12, opacity: 0.65 }}>{name}</span>
