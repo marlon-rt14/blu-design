@@ -1,3 +1,4 @@
+export * from './atoms/alert.types';
 export * from './atoms/button.types';
 export * from './atoms/checkbox.types';
 export * from './atoms/icon.types';
@@ -7,6 +8,7 @@ export * from './atoms/radio.types';
 export * from './atoms/switch.types';
 export * from './atoms/textArea.types';
 export * from './atoms/textField.types';
+export * from './molecules/checkboxGroup.types';
 export * from './molecules/choiceItem.types';
 export * from './molecules/radioGroup.types';
 export * from './molecules/switchItem.types';

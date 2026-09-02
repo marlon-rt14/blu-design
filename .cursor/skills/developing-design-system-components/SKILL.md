@@ -289,9 +289,19 @@ one:
   false — property wins until the boolean flips). Description
   default color is `color.color.text.secondary` — the component group only ships
   `description.text-disabled`, no `text-default` co-token; don't invent one.
-- **There is no CheckboxList.** Figma page `3:42` is only Checkbox. Closest list
-  row is ChoiceItem (`control=checkbox`) — don't invent a group component. Stack
-  `Checkbox` or wait for ChoiceItem. `isIndeterminate` is `isChecked={false}` +
+- **CheckboxGroup is the fieldset, not the rows.** Sibling of RadioGroup
+  (page `631:5792`). Slot `children` takes **ChoiceItem `control="checkbox"`**
+  (or ListGroup). The group does **not** draw rows — `PlatformCheckboxGroup`
+  builds the rows so web/native stay on the same platform. **No group
+  `disabled`.** `isInvalid` (Figma `state=error`) only recolours helper via
+  `color.component.checkboxgroup.helper.text-error`. Size default **`sm`**.
+  Legend/helper inset follows the row: sm 8 / md 12. Legend is
+  `text/label/sm/strong` at both sizes. Helper is `text/caption/md`. Do
+  **not** put `role="radiogroup"` on it. Co-tokens live at
+  `color.component.checkboxgroup.*` (sync `83833e8`).
+- **There is no CheckboxList.** Figma page `3:42` is only Checkbox. Canonical
+  list row is ChoiceItem (`control=checkbox`). Group chrome is CheckboxGroup
+  (page `631:5792`) — it does not draw the rows. `isIndeterminate` is `isChecked={false}` +
   the input's DOM `indeterminate` property, not a third enum. Live size map
   (node, not the description's blanket "minHeight 48"): `sm` 16 box / 12 mark /
   32 row (`size.control.height.sm`); `md` 24 / 16 / 48 (`size.target.min`). **Property
@@ -305,6 +315,24 @@ one:
   shape is what distinguishes them). Don't
   read `typography.component.checkbox.labeled` (`400 16px/20px`); live type is
   `text/body/{sm,md}/default`, composed from `font.size.body.*`.
+- **Alert is in-flow, not a toast.** Occupies space; does not auto-dismiss
+  (that's Snackbar). Axes: `tone` (danger/warning/success/info/neutral,
+  default **danger**) × `placement` (page/section/inline, default **page**).
+  No border. Surface is `color.color.fill.{tone}.muted` — `color.component.alert.*`
+  is **not** in the theme export (Figma CSS vars alias those fills). Neutral
+  chip is `canvas.surface.inverse`, not a `fill.default`. Title and body are
+  both `text/primary`; ExtraBold vs Regular is the hierarchy. Do **not** read
+  `typography.component.alert` (`700 14/17`). Gap title→body is **0**. Chip is
+  always 24 with glyph `sm` 16, even on inline (live node, not the docs-page
+  copy that said 16). `iconBox` height = body line-box so the chip lines up
+  with the first text line — don't top-align it to the padding. Glyphs are
+  locked per tone (`ALERT_TONE_ICON`); no icon slot. Action is LinkButton
+  `appearance="on-muted"` `size="sm"` on every placement (live nodes — not a
+  Button outline). Dismiss is IconButton `veil` (24 visual, 48 hit) — IconButton
+  is not shipped yet, so Alert paints it locally from `fill.action.veil.*`.
+  `showDismiss` stays a free boolean; Figma's "not on danger/warning" is a
+  usage guideline. `announce` (default true): danger/warning → `role=alert`,
+  rest → `status`; turn off for a page-load notice that already sits before h1.
 - **Every component's own variant axes are its own — don't generalize.** `TextField` has a `size`
   axis (`small`/`medium`/`large`, matching Figma's `sm`/`md`/`lg`) and an `icon` color group;
   `TextArea` has neither — a single `state` axis, no size, no icon slot. Confirm the axes with
