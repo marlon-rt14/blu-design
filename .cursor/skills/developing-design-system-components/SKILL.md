@@ -289,9 +289,19 @@ one:
   false — property wins until the boolean flips). Description
   default color is `color.color.text.secondary` — the component group only ships
   `description.text-disabled`, no `text-default` co-token; don't invent one.
-- **There is no CheckboxList.** Figma page `3:42` is only Checkbox. Closest list
-  row is ChoiceItem (`control=checkbox`) — don't invent a group component. Stack
-  `Checkbox` or wait for ChoiceItem. `isIndeterminate` is `isChecked={false}` +
+- **CheckboxGroup is the fieldset, not the rows.** Sibling of RadioGroup
+  (page `631:5792`). Slot `children` takes **ChoiceItem `control="checkbox"`**
+  (or ListGroup). The group does **not** draw rows — `PlatformCheckboxGroup`
+  builds the rows so web/native stay on the same platform. **No group
+  `disabled`.** `isInvalid` (Figma `state=error`) only recolours helper via
+  `color.component.checkboxgroup.helper.text-error`. Size default **`sm`**.
+  Legend/helper inset follows the row: sm 8 / md 12. Legend is
+  `text/label/sm/strong` at both sizes. Helper is `text/caption/md`. Do
+  **not** put `role="radiogroup"` on it. Co-tokens live at
+  `color.component.checkboxgroup.*` (sync `83833e8`).
+- **There is no CheckboxList.** Figma page `3:42` is only Checkbox. Canonical
+  list row is ChoiceItem (`control=checkbox`). Group chrome is CheckboxGroup
+  (page `631:5792`) — it does not draw the rows. `isIndeterminate` is `isChecked={false}` +
   the input's DOM `indeterminate` property, not a third enum. Live size map
   (node, not the description's blanket "minHeight 48"): `sm` 16 box / 12 mark /
   32 row (`size.control.height.sm`); `md` 24 / 16 / 48 (`size.target.min`). **Property
