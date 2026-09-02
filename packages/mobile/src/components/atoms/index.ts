@@ -4,6 +4,7 @@ export * from './ChoiceBox';
 export * from './Icon';
 export * from './LinkButton';
 export * from './PasswordField';
+export * from './Radio';
 export * from './Switch';
 export * from './TextArea';
 export * from './TextField';

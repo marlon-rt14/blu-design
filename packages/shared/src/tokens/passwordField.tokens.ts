@@ -73,6 +73,19 @@ export interface IPasswordFieldDimensionTokens {
   borderWidth: number;
   /** Spread of the focus ring, drawn outside the container. */
   focusRingSpread: number;
+  /**
+   * Transparent gap between the control and the focus ring, from
+   * `focus/ring/offset`.
+   *
+   * Both platforms draw the ring with `outline`, whose offset leaves whatever is
+   * behind showing through. A painted gap would have to guess the surface and
+   * would halo over a card, over `bg/inverse` or over a photo.
+   *
+   * The token says 1 and Figma renders 2 — see `IButtonFocusTokens.offset` for
+   * the full note. Read rather than hardcoded, so design's answer arrives
+   * through the sync.
+   */
+  focusRingOffset: number;
   /** Gap between the content column and the reveal action. */
   actionGap: number;
   /** Padding above the helper slot. */
@@ -193,6 +206,7 @@ const readPasswordFieldTokens = (mode: TThemeMode): IPasswordFieldTokens => {
       borderRadius: dimensionAt('radius.field.md'),
       borderWidth: dimensionAt('border.width.default'),
       focusRingSpread: dimensionAt('focus.ring.spread'),
+      focusRingOffset: dimensionAt('focus.ring.offset'),
       actionGap: dimensionAt('space.inline.sm'),
       helperGap: dimensionAt('space.stack.xs'),
       minTouchTarget: dimensionAt('size.target.min'),

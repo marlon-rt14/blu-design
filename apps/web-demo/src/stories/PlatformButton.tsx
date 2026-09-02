@@ -1,7 +1,11 @@
 import { Button as NativeButton } from '@dsm/mobile';
+import * as MobileIcons from '@dsm/mobile/icons';
 import type { IButtonBaseProps } from '@dsm/shared';
 import { Button as WebButton } from '@dsm/web';
+import * as WebIcons from '@dsm/web/icons';
 import type { ReactElement } from 'react';
+
+import type { TIconExportName } from './iconNames';
 
 /** Which implementation to render. Mirrors the `platform` toolbar global. */
 export type TPlatform = 'web' | 'native';
@@ -13,6 +17,17 @@ export type TPlatform = 'web' | 'native';
 export interface IPlatformButtonProps extends IButtonBaseProps {
   /** Fired when the button is activated, on either platform. */
   onAction?: () => void;
+  /**
+   * Icon before the label, **by export name** rather than by component.
+   *
+   * The real prop takes the component itself — `leadingIcon={IconPlus}` — but a
+   * Storybook control can only hand over a string, so the story picks the
+   * platform's version here. There is no `showLeadingIcon`: passing an icon is
+   * what shows it.
+   */
+  leadingIcon?: TIconExportName;
+  /** Icon after the label, by export name. See {@link leadingIcon}. */
+  trailingIcon?: TIconExportName;
   /**
    * Implementation to render. Stories pass the `platform` toolbar global here.
    *
@@ -36,10 +51,27 @@ export interface IPlatformButtonProps extends IButtonBaseProps {
 export const PlatformButton = ({
   onAction,
   platform = 'web',
+  leadingIcon,
+  trailingIcon,
   ...props
-}: IPlatformButtonProps): ReactElement =>
-  platform === 'native' ? (
-    <NativeButton {...props} onPress={onAction} />
-  ) : (
-    <WebButton {...props} onClick={onAction} />
+}: IPlatformButtonProps): ReactElement => {
+  if (platform === 'native') {
+    return (
+      <NativeButton
+        {...props}
+        leadingIcon={leadingIcon ? MobileIcons[leadingIcon] : undefined}
+        onPress={onAction}
+        trailingIcon={trailingIcon ? MobileIcons[trailingIcon] : undefined}
+      />
+    );
+  }
+
+  return (
+    <WebButton
+      {...props}
+      leadingIcon={leadingIcon ? WebIcons[leadingIcon] : undefined}
+      onClick={onAction}
+      trailingIcon={trailingIcon ? WebIcons[trailingIcon] : undefined}
+    />
   );
+};

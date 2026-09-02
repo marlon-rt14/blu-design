@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { ReactElement } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, Text } from 'react-native';
 
 import { linkButtonStyles } from './LinkButton.styles';
 import type { ILinkButtonProps } from './LinkButton.types';
@@ -17,9 +17,11 @@ import { useLinkButton } from './useLinkButton';
  * colours — including the focus ring, which goes white on `on-inverse` and
  * `on-scene`.
  *
- * The outer `View` is the focus ring layer: it always reserves the ring's width
- * and only recolors it, so focusing never shifts layout. It only lights up
- * through react-native-web, which is how Storybook renders this.
+ * The focus ring is an `outline`, not a wrapping View. Like in CSS it is ignored
+ * by layout, so nothing has to be reserved to keep focusing from shifting the
+ * text, and `outlineOffset` keeps the gap transparent rather than painting it in
+ * a guessed surface colour. It only lights up through react-native-web, which is
+ * how Storybook renders this.
  *
  * `hitSlop` is always applied — bDS is explicit that a standalone link needs it,
  * since both sizes sit far below the minimum touch target.
@@ -33,29 +35,27 @@ import { useLinkButton } from './useLinkButton';
 export const LinkButton = ({ onPress, ...props }: ILinkButtonProps): ReactElement => {
   const [isPressed, setIsPressed] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-  const { ringStyle, labelStyle, hitSlop, isDisabled } = useLinkButton({
+  const { pressableStyle, labelStyle, hitSlop, isDisabled } = useLinkButton({
     ...props,
     isPressed,
     isFocused,
   });
 
   return (
-    <View style={ringStyle}>
-      <Pressable
-        accessibilityRole="link"
-        accessibilityState={{ disabled: isDisabled }}
-        disabled={isDisabled}
-        hitSlop={hitSlop}
-        onBlur={() => setIsFocused(false)}
-        onFocus={() => setIsFocused(true)}
-        onPress={onPress}
-        onPressIn={() => setIsPressed(true)}
-        onPressOut={() => setIsPressed(false)}
-        style={linkButtonStyles.container}
-        testID={props.testID}
-      >
-        <Text style={labelStyle}>{props.label}</Text>
-      </Pressable>
-    </View>
+    <Pressable
+      accessibilityRole="link"
+      accessibilityState={{ disabled: isDisabled }}
+      disabled={isDisabled}
+      hitSlop={hitSlop}
+      onBlur={() => setIsFocused(false)}
+      onFocus={() => setIsFocused(true)}
+      onPress={onPress}
+      onPressIn={() => setIsPressed(true)}
+      onPressOut={() => setIsPressed(false)}
+      style={[linkButtonStyles.container, pressableStyle]}
+      testID={props.testID}
+    >
+      <Text style={labelStyle}>{props.label}</Text>
+    </Pressable>
   );
 };

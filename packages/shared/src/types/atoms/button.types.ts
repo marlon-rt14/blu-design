@@ -68,9 +68,15 @@ export type TButtonState = 'default' | 'hover' | 'pressed' | 'focus' | 'disabled
  * It deliberately leaves out event handlers: each platform adds its own when
  * extending this interface (`onClick` on web, `onPress` on mobile).
  *
- * Mirrors the nine design properties of the bDS Figma component minus the icon
- * slots (`showLeadingIcon`, `leadingIcon`, `showTrailingIcon`, `trailingIcon`),
- * which need the Icon component first.
+ * The icon slots are declared per platform rather than here, for the same
+ * reason the handlers are: a web icon is a component returning DOM and a native
+ * one returns react-native-svg elements. See each package's `IButtonProps`.
+ *
+ * **`showLeadingIcon` and `showTrailingIcon` do not survive into code.** Figma
+ * needs a boolean because a variant cannot express "absent"; in React,
+ * `leadingIcon={IconPlus}` already says both *whether* and *which*. Keeping the
+ * boolean would invent a state the design has no token for — flag on, no icon.
+ * Same reasoning that keeps `state` internal and exposes only `isDisabled`.
  */
 export interface IButtonBaseProps {
   /** Text rendered inside the button. Required — the Button has no icon-only mode. */

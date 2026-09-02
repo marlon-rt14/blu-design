@@ -464,6 +464,11 @@
         "type": "dimension",
         "description": "64px de espacio. Escalon crudo. Los componentes usan space/inset (adentro), stack (vertical), inline (horizontal) o gutter (entre columnas) de 4. Layout, que ademas varian por viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
       },
+      "72": {
+        "value": "72px",
+        "type": "dimension",
+        "description": "72 px. Paso de la escala de 8 entre 64 y 80."
+      },
       "80": {
         "value": "80px",
         "type": "dimension",
@@ -509,6 +514,11 @@
           "value": "32px",
           "type": "dimension",
           "description": "Padding de secciones destacadas. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
+        },
+        "3xl": {
+          "value": "48px",
+          "type": "dimension",
+          "description": "48 px. Reserva de padding para un control posicionado absoluto: margen + ancho del control + separacion. No varia con la densidad, a proposito: el control que reserva mide siempre lo mismo."
         }
       },
       "stack": {
@@ -568,6 +578,11 @@
           "value": "24px",
           "type": "dimension",
           "description": "Separacion horizontal mayor. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
+        },
+        "2xl": {
+          "value": "32px",
+          "type": "dimension",
+          "description": "Separacion horizontal maxima. Cierra la simetria con stack/2xl e inset/2xl. Varia con la densidad."
         }
       },
       "gutter": {
@@ -585,6 +600,33 @@
           "value": "24px",
           "type": "dimension",
           "description": "Canaleta amplia. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
+        }
+      },
+      "doc": {
+        "sm": {
+          "value": "40px",
+          "type": "dimension",
+          "description": "40 px. Escala de la documentacion: padding y separacion de bloques de doc. No es escala de producto."
+        },
+        "md": {
+          "value": "48px",
+          "type": "dimension",
+          "description": "48 px. Escala de la documentacion: padding y separacion de bloques de doc. No es escala de producto."
+        },
+        "lg": {
+          "value": "64px",
+          "type": "dimension",
+          "description": "64 px. Escala de la documentacion: separacion entre secciones. No es escala de producto."
+        },
+        "xl": {
+          "value": "72px",
+          "type": "dimension",
+          "description": "72 px. Escala de la documentacion: padding de las secciones de una pagina. No es escala de producto."
+        },
+        "2xl": {
+          "value": "80px",
+          "type": "dimension",
+          "description": "80 px. Escala de la documentacion: margen de la pagina. No es escala de producto."
         }
       }
     },
@@ -1226,6 +1268,15 @@
             "value": "16px",
             "type": "dimension",
             "description": "Co-token de merchantavatar. Capa de indirección: aliasea border-radius/xl sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        }
+      },
+      "phonefield": {
+        "divider": {
+          "height": {
+            "value": "16px",
+            "type": "dimension",
+            "description": "Co-token de phonefield. Alto del separador vertical entre el prefijo y el valor: 16, la misma altura que la bandera y el chevron que tiene al lado, no los 24 de la fila. Aliasea size/16. Mismo valor en los tres modos: el separador no se comprime por densidad porque los glifos que acompaña tampoco. NO usar size/icon/sm para esto: coinciden hoy, pero uno es tamaño de icono y el otro alto de separador, y si la escala de iconos cambia el separador no tiene por qué seguirla."
           }
         }
       }

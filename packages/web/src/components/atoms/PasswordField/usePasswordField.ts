@@ -126,12 +126,16 @@ export const usePasswordField = ({
 
   const transition = prefersReducedMotion
     ? 'none'
-    : 'border-color 120ms ease, background-color 120ms ease, box-shadow 120ms ease';
+    : 'border-color 120ms ease, background-color 120ms ease, outline-color 120ms ease';
 
-  const boxShadow =
+  // `outline`, not `box-shadow`: only `outline-offset` leaves the gap
+  // transparent. A field is almost always on a card or a form surface rather
+  // than on the page background, so a painted gap would be the wrong colour
+  // most of the time.
+  const outline =
     isFocused && !isDisabled && !isReadOnly
-      ? `0 0 0 ${tokens.dimension.focusRingSpread}px ${tokens.colors.container.borderFocus}`
-      : undefined;
+      ? `${tokens.dimension.focusRingSpread}px solid ${tokens.colors.container.borderFocus}`
+      : 'none';
 
   // Hover's translucent wash, layered as a second background image over the
   // solid one — same technique as TextField and TextArea.
@@ -161,7 +165,8 @@ export const usePasswordField = ({
       border: `${tokens.dimension.borderWidth}px solid ${borderColor}`,
       backgroundColor,
       backgroundImage,
-      boxShadow,
+      outline,
+      outlineOffset: tokens.dimension.focusRingOffset,
       transition,
       cursor: isDisabled ? 'not-allowed' : undefined,
     },

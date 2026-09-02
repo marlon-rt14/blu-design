@@ -110,13 +110,18 @@ export const useLinkButton = ({
     textDecoration: underline ? 'underline' : 'none',
 
     // The ring is drawn outside the text box with its own radius; the link
-    // itself has no corners. `outline: none` stops the native ring doubling up.
-    outline: 'none',
+    // itself has no corners, so the radius exists only for the outline to follow.
+    //
+    // `outline`, not `box-shadow`: only `outline-offset` leaves the gap
+    // transparent. A painted gap would have to guess the surface behind, which
+    // for a link — something that lives inside running text, on any background —
+    // is a guess that is wrong more often than it is right.
     borderRadius: tokens.dimension.focusRingRadius,
-    boxShadow: isFocusVisible
-      ? `0 0 0 ${tokens.dimension.focusRingSpread}px ${colors.borderFocus}`
-      : undefined,
-    transition: prefersReducedMotion ? 'none' : 'color 120ms ease, box-shadow 120ms ease',
+    outline: isFocusVisible
+      ? `${tokens.dimension.focusRingSpread}px solid ${colors.borderFocus}`
+      : 'none',
+    outlineOffset: tokens.dimension.focusRingOffset,
+    transition: prefersReducedMotion ? 'none' : 'color 120ms ease, outline-color 120ms ease',
 
     cursor: isDisabled ? 'not-allowed' : 'pointer',
   };

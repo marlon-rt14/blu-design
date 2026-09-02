@@ -1,5 +1,18 @@
 import type { IButtonBaseProps } from '@dsm/shared';
-import type { MouseEvent } from 'react';
+import type { ComponentType, MouseEvent } from 'react';
+
+import type { TIconProps } from '../Icon';
+
+/**
+ * An icon a Button can carry: any component from `@dsm/web/icons`, or one built
+ * the same way on `Icon`.
+ *
+ * The Button supplies the size — `xs`/`sm` get 16 and `md`/`lg` get 24, which is
+ * not the control's own scale — and the colour comes for free: the `<button>`
+ * sets `color` for its label, and an `Icon` with no `color` role resolves to
+ * `currentColor`. There is nothing to wire up.
+ */
+export type TButtonIcon = ComponentType<TIconProps>;
 
 /**
  * Props of the web Button.
@@ -24,4 +37,20 @@ export interface IButtonProps extends IButtonBaseProps {
    * @defaultValue `'button'`
    */
   type?: 'button' | 'submit' | 'reset';
+  /**
+   * Icon shown before the label.
+   *
+   * ```tsx
+   * <Button label="Agregar" leadingIcon={IconPlus} />
+   * ```
+   *
+   * There is no separate `showLeadingIcon`: passing the component is what shows
+   * it. Figma has that boolean because a variant cannot express "absent".
+   */
+  leadingIcon?: TButtonIcon;
+  /**
+   * Icon shown after the label — a chevron, or `IconArrowUpRight` for an action
+   * that leaves the page.
+   */
+  trailingIcon?: TButtonIcon;
 }

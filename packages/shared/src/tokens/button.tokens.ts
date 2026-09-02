@@ -2,6 +2,7 @@ import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
 import { themeSources } from '../themeSource/themes';
 import type { TThemeMode } from '../themeSource/themes';
 import type { TButtonAppearance, TButtonSize, TButtonVariant } from '../types/atoms/button.types';
+import type { TIconSize } from '../types/atoms/icon.types';
 
 /**
  * Colors for one `variant` + `appearance` pairing, across every state.
@@ -87,9 +88,30 @@ export interface IButtonDimensionTokens {
   paddingHorizontal: Record<TButtonSize, number>;
   /** Same at every size. */
   minWidth: number;
-  /** Gap between the label and an icon, once icons exist. */
+  /** Gap between the label and an icon. `space/inline/sm` (8). */
   gap: number;
-  /** `radius/action` — fully rounded, so the Button is a pill at every size. */
+  /**
+   * Which step of the Icon scale a button of each size uses.
+   *
+   * **Does not scale 1:1 with the control**, and cannot be derived: `xs` and
+   * `sm` both take `size/icon/sm` (16), `md` and `lg` both take `size/icon/md`
+   * (24) — *"porque la escala no tiene un paso de 20"*. Four button sizes map
+   * onto two icon sizes.
+   */
+  iconSize: Record<TButtonSize, TIconSize>;
+  /**
+   * `radius/action` — **12 at every size**, not a pill.
+   *
+   * It used to be one: the token moved from `9999px` to `12px` in the sync of
+   * 2026-08-25. Verified on 2026-09-01 that Figma binds `radius/action` = 12 on
+   * the Button component set, so the value and the design agree and nothing here
+   * had to change — it is read at render time.
+   *
+   * The token's own **description still says pill** (*"RADIO DE BOTON: pildora.
+   * Se usa el centinela de pildora y NO un valor fijo"*), which contradicts its
+   * value. Stale prose in the export, reported upstream; `radius/pill` (9999)
+   * still exists for whatever genuinely needs it.
+   */
   borderRadius: number;
   /** Only applied when the resolved state actually has a border colour. */
   borderWidth: number;
@@ -102,7 +124,28 @@ export interface IButtonDimensionTokens {
 
 /** The focus ring: a layer outside the container, not a change to its border. */
 export interface IButtonFocusTokens {
+  /**
+   * Thickness of the blue ring. Measured against Figma's own render of
+   * `variant=primary, appearance=fill, size=md, state=focus` at 4x on
+   * 2026-09-01: exactly 3px of `color/border/focus`, matching this token.
+   */
   spread: number;
+  /**
+   * Transparent gap between the control and the ring.
+   *
+   * **Discrepancy, unresolved.** The token says 1; Figma renders 2. Its own
+   * description says *"1 desde el 14-ago (antes 2)"*, so either Figma was never
+   * updated after that change or the token got ahead of it. Reported; the value
+   * is read rather than hardcoded, so whichever way design settles it arrives
+   * through the sync.
+   *
+   * The gap is *not painted*. Both platforms draw the ring with `outline`, whose
+   * offset leaves whatever is behind showing through — a painted band would have
+   * to guess the surface, and would show as a halo the moment the control sits
+   * on a card, on `bg/inverse` or on a photo. That guessing is the flaw the
+   * token's own description admits to.
+   */
+  offset: number;
   color: string;
   /** The blue ring does not read on an inverted surface, so that one is white. */
   colorOnInverse: string;
@@ -226,6 +269,9 @@ const readButtonTokens = (mode: TThemeMode): IButtonTokens => {
       },
       minWidth: dimensionAt('size.control.min-width'),
       gap: dimensionAt('space.inline.sm'),
+      // A mapping between two token scales rather than a token of its own, so
+      // it is stated here instead of read: bDS defines it in prose only.
+      iconSize: { xs: 'sm', sm: 'sm', md: 'md', lg: 'md' },
       borderRadius: dimensionAt('radius.action'),
       borderWidth: dimensionAt('border.width.default'),
       minTouchTarget: dimensionAt('size.target.min'),
@@ -241,6 +287,7 @@ const readButtonTokens = (mode: TThemeMode): IButtonTokens => {
     },
     focus: {
       spread: dimensionAt('focus.ring.spread'),
+      offset: dimensionAt('focus.ring.offset'),
       color: readThemeToken(color, 'color.color.border.focus'),
       colorOnInverse: readThemeToken(color, 'color.color.border.focus.on-inverse'),
     },
