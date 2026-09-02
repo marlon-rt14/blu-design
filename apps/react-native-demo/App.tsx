@@ -2,8 +2,10 @@ import {
   BluProvider,
   Button,
   Checkbox,
+  ChoiceItem,
   LinkButton,
   Radio,
+  RadioGroup,
   useFontFamily,
 } from '@dsm/mobile';
 import { colors, spacing, typography } from '@dsm/shared';
@@ -28,6 +30,12 @@ import {
   IconSearch,
   IconTrash,
 } from '@dsm/mobile/icons';
+
+const METODOS = [
+  { id: 'Débito', detalle: 'Se debita al instante', cuota: '$ 1.200' },
+  { id: 'Crédito', detalle: 'Hasta 12 cuotas', cuota: '$ 1.450' },
+  { id: 'Transferencia', detalle: 'Acreditación en 24 h', cuota: '$ 1.180' },
+];
 
 const VARIANTS: TButtonVariant[] = ['primary', 'danger'];
 // `on-inverse` is left out: it only exists for `primary` and needs an inverted surface.
@@ -73,6 +81,8 @@ const App = () => {
   const mediumFont = useFontFamily(typography.fontWeights.medium);
   const semiboldFont = useFontFamily(typography.fontWeights.semibold);
   const [checked, setChecked] = useState(false);
+  // Guarda el id de la opción elegida, que es lo que un grupo de radios necesita.
+  const [metodo, setMetodo] = useState('Débito');
 
   return (
     <BluProvider>
@@ -96,15 +106,55 @@ const App = () => {
 
             <View style={styles.section}>
               <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+                RadioGroup · ChoiceItem
+              </Text>
+              {/* La combinación que muestra Figma: el grupo aporta la leyenda y
+                  el helper, y cada fila es un ChoiceItem. El estado guarda *cuál*
+                  está elegido, no un booleano por fila — un radio no alterna.
+
+                  El divisor se apaga en la última fila: el grupo no puede
+                  hacerlo por vos, porque quien arma el slot decide qué entra. */}
+              <RadioGroup
+                helperText="Se puede cambiar antes de confirmar"
+                legend="Método de pago"
+              >
+                {METODOS.map((metodoOpcion, index) => (
+                  <ChoiceItem
+                    description={metodoOpcion.detalle}
+                    isChecked={metodo === metodoOpcion.id}
+                    key={metodoOpcion.id}
+                    label={metodoOpcion.id}
+                    onPress={() => setMetodo(metodoOpcion.id)}
+                    showDescription
+                    showDivider={index < METODOS.length - 1}
+                    showTrailingText
+                    testID={`choice-${metodoOpcion.id}`}
+                    trailingText={metodoOpcion.cuota}
+                  />
+                ))}
+              </RadioGroup>
+
+              {/* El mismo grupo en error: solo se pinta el helper. NO tiñe las
+                  filas — el grupo no promete nada sobre el contenido del slot. */}
+              <RadioGroup
+                helperText="Elegí un método para continuar"
+                isInvalid
+                legend="Con error"
+              >
+                <ChoiceItem label="Opción 1" />
+                <ChoiceItem isChecked label="Opción 2" />
+              </RadioGroup>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
                 Radio
               </Text>
-              <Text>{checked.toString()}</Text>
+              {/* El Radio suelto sigue existiendo como átomo, para cuando no
+                  hace falta una fila entera. */}
               <View style={styles.row}>
-                <Radio
-                  label="Hola mundo"
-                  isChecked={checked}
-                  onPress={() => setChecked(prev => !prev)}
-                />
+                <Radio isChecked label="Radio suelto" />
+                <Radio isDisabled label="Deshabilitado" />
                 <Checkbox label="Checkbox" isChecked={checked} onValueChange={() => setChecked(prev => !prev)} />
                 <LinkButton label="LinkButton" onPress={handlePress} />
                 <Button label="Button" variant="primary" />

@@ -1,4 +1,4 @@
-import { BluProvider, Button, Checkbox, LinkButton, PasswordField, Radio } from "@dsm/web";
+import { BluProvider, Button, Checkbox, ChoiceItem, LinkButton, PasswordField, Radio, RadioGroup } from "@dsm/web";
 import type { TButtonAppearance, TButtonSize, TButtonVariant, TIconColor, TIconSize, TPasswordFieldSize, TPasswordFieldVisibility } from "@dsm/shared";
 import { useState } from "react";
 
@@ -10,7 +10,11 @@ const VARIANTS: TButtonVariant[] = ["primary", "danger"];
 const APPEARANCES: Exclude<TButtonAppearance, "on-inverse">[] = ["fill", "soft", "outline", "ghost"];
 const SIZES: TButtonSize[] = ["xs", "sm", "md", "lg"];
 const FIELD_SIZES: TPasswordFieldSize[] = ["sm", "md", "lg"];
-const METODOS = ["Débito", "Crédito", "Transferencia"];
+const METODOS = [
+  { id: "Débito", detalle: "Se debita al instante", cuota: "$ 1.200" },
+  { id: "Crédito", detalle: "Hasta 12 cuotas", cuota: "$ 1.450" },
+  { id: "Transferencia", detalle: "Acreditación en 24 h", cuota: "$ 1.180" },
+];
 
 // The six steps of `size/icon/*`, with the px each one resolves to — the point
 // of the row is that the number is a token, never a hand-set width.
@@ -35,7 +39,8 @@ const App = () => {
   const [password, setPassword] = useState("MiClave2026");
   const [shortPassword, setShortPassword] = useState("123");
   const [visibility, setVisibility] = useState<TPasswordFieldVisibility>("visible");
-  const [metodo, setMetodo] = useState(METODOS[0]);
+  // Guarda el id de la opción elegida, que es lo que un grupo de radios necesita.
+  const [metodo, setMetodo] = useState("Débito");
   const [checked, setChecked] = useState(false);
 
   return (
@@ -51,31 +56,51 @@ const App = () => {
         </p>
 
         <section className="demo__section">
-          <h2 className="demo__section-title">Radio</h2>
-          {/* Un radio NO alterna: una vez marcado, volver a hacerle clic no dispara
-              `change`, porque el valor no cambió. Por eso el estado guarda *cuál*
-              está elegido y no un booleano por opción — cablearlo como toggle deja
-              el primero pegado en checked. El Checkbox de abajo sí alterna. */}
+          <h2 className="demo__section-title">RadioGroup · ChoiceItem</h2>
           <p className="demo__counter">
             Método: <strong data-testid="metodo">{metodo}</strong>
           </p>
-          <div className="demo__row">
-            {METODOS.map((opcion) => (
-              <Radio
-                isChecked={metodo === opcion}
-                key={opcion}
-                label={opcion}
-                name="metodo"
-                onChange={() => setMetodo(opcion)}
-                testID={`radio-${opcion}`}
-                value={opcion}
-              />
-            ))}
+          {/* La combinación que muestra Figma: el grupo es el fieldset con su
+              legend, y las filas son ChoiceItem. La fila entera es el target, y
+              su sangrado lateral es el mismo que el de la leyenda — por eso el
+              control y el título arrancan en la misma columna.
+
+              El divisor se apaga en la última fila: el grupo no puede hacerlo
+              por vos, porque lo que entra por el slot lo controla quien lo arma. */}
+          <div style={{ maxWidth: 360 }}>
+            <RadioGroup helperText="Se puede cambiar antes de confirmar" legend="Método de pago">
+              {METODOS.map((metodoOpcion, index) => (
+                <ChoiceItem
+                  description={metodoOpcion.detalle}
+                  isChecked={metodo === metodoOpcion.id}
+                  key={metodoOpcion.id}
+                  label={metodoOpcion.id}
+                  name="metodo"
+                  onChange={() => setMetodo(metodoOpcion.id)}
+                  showDescription
+                  showDivider={index < METODOS.length - 1}
+                  showTrailingText
+                  testID={`choice-${metodoOpcion.id}`}
+                  trailingText={metodoOpcion.cuota}
+                  value={metodoOpcion.id}
+                />
+              ))}
+            </RadioGroup>
           </div>
+          {/* El mismo grupo en error: solo se pinta el helper. NO tiñe las filas
+              — el grupo no promete nada sobre lo que hay dentro del slot. */}
+          <div style={{ maxWidth: 360 }}>
+            <RadioGroup helperText="Elegí un método para continuar" isInvalid legend="Con error" size="md">
+              <ChoiceItem label="Opción 1" name="err" size="md" />
+              <ChoiceItem isChecked label="Opción 2" name="err" size="md" />
+            </RadioGroup>
+          </div>
+          {/* El Radio suelto sigue existiendo como átomo, para cuando no hace
+              falta una fila entera. */}
           <div className="demo__row">
-            <Radio isDisabled label="Deshabilitado" name="metodo-2" />
-            <Radio isChecked isDisabled label="Deshabilitado y marcado — sin punto, fiel a Figma" name="metodo-3" />
-            <Radio label="Sin etiqueta visible" name="metodo-4" showLabel={false} />
+            <Radio isChecked label="Radio suelto" name="atomo" />
+            <Radio isDisabled label="Deshabilitado" name="atomo-2" />
+            <Radio isChecked isDisabled label="Deshabilitado y marcado — sin punto, fiel a Figma" name="atomo-3" />
           </div>
           <div className="demo__row">
             <Checkbox isChecked={checked} label="Checkbox — este sí alterna" onChange={() => setChecked((prev) => !prev)} />
