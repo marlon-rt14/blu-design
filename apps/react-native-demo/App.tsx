@@ -1,4 +1,4 @@
-import { BluProvider, Button, useFontFamily } from '@dsm/mobile';
+import { BluProvider, Button, ChoiceBox, useFontFamily } from '@dsm/mobile';
 import { colors, spacing, typography } from '@dsm/shared';
 import type {
   TButtonAppearance,
@@ -51,6 +51,9 @@ const ICON_COLORS: TIconColor[] = [
 
 const App = () => {
   const [presses, setPresses] = useState(0);
+  const [selectedChoice, setSelectedChoice] = useState('monthly');
+  const [selectedTile, setSelectedTile] = useState('email');
+  const [selectedCompact, setSelectedCompact] = useState('6');
   const handlePress = () => setPresses(current => current + 1);
   // fontWeight isn't set alongside fontFamily below — each Mulish-*.ttf is
   // already a single static weight, same constraint as @dsm/mobile's own
@@ -112,6 +115,86 @@ const App = () => {
                 </View>
               </View>
             ))}
+
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>CHOICEBOX</Text>
+              <View style={styles.choiceBoxList}>
+                <ChoiceBox
+                  description="Facturacion mensual, sin permanencia."
+                  icon="image"
+                  isSelected={selectedChoice === 'monthly'}
+                  onValueChange={() => setSelectedChoice('monthly')}
+                  showDescription
+                  testID="choicebox-monthly"
+                  title="Plan mensual"
+                />
+                <ChoiceBox
+                  description="Ahorra un 20% con el pago anual."
+                  icon="image"
+                  isSelected={selectedChoice === 'annual'}
+                  onValueChange={() => setSelectedChoice('annual')}
+                  showDescription
+                  testID="choicebox-annual"
+                  title="Plan anual"
+                />
+                <ChoiceBox
+                  description="Esta opcion no esta disponible ahora."
+                  icon="image"
+                  isDisabled
+                  showDescription
+                  testID="choicebox-disabled"
+                  title="Plan empresarial"
+                />
+              </View>
+
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
+                CHOICEBOX · TILE
+              </Text>
+              <View style={styles.choiceBoxTileGrid}>
+                <View style={styles.choiceBoxTileCell}>
+                  <ChoiceBox
+                    description="Al ****6760"
+                    icon="image"
+                    isSelected={selectedTile === 'sms'}
+                    onValueChange={() => setSelectedTile('sms')}
+                    showDescription
+                    testID="choicebox-tile-sms"
+                    title="Mensaje de texto"
+                    variant="tile"
+                  />
+                </View>
+                <View style={styles.choiceBoxTileCell}>
+                  <ChoiceBox
+                    description="A j****@mail.com"
+                    icon="image"
+                    isSelected={selectedTile === 'email'}
+                    onValueChange={() => setSelectedTile('email')}
+                    showDescription
+                    testID="choicebox-tile-email"
+                    title="Correo"
+                    variant="tile"
+                  />
+                </View>
+              </View>
+
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
+                CHOICEBOX · COMPACT
+              </Text>
+              <View style={styles.row}>
+                {(['3', '6', '12'] as const).map(installments => (
+                  <ChoiceBox
+                    description={installments === '3' ? 'Sin interes' : 'Con interes'}
+                    isSelected={selectedCompact === installments}
+                    key={installments}
+                    onValueChange={() => setSelectedCompact(installments)}
+                    showDescription
+                    testID={`choicebox-compact-${installments}`}
+                    title={`${installments} cuotas`}
+                    variant="compact"
+                  />
+                ))}
+              </View>
+            </View>
 
             <View style={styles.section}>
               <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>ICON</Text>
@@ -248,6 +331,17 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: spacing.md,
     alignItems: 'center',
+  },
+  choiceBoxList: {
+    gap: spacing.md,
+  },
+  choiceBoxTileGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.md,
+  },
+  choiceBoxTileCell: {
+    width: '47%',
   },
   // Icons of different sizes sit on a shared bottom edge, so the six steps read
   // as one ascending scale instead of six centred dots.

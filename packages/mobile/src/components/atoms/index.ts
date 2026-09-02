@@ -1,5 +1,6 @@
 export * from './Button';
 export * from './Checkbox';
+export * from './ChoiceBox';
 export * from './Icon';
 export * from './LinkButton';
 export * from './PasswordField';
