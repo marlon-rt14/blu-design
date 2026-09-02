@@ -1,3 +1,4 @@
+export * from './atoms/alert.types';
 export * from './atoms/button.types';
 export * from './atoms/checkbox.types';
 export * from './atoms/icon.types';

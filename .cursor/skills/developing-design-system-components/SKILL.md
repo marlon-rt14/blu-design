@@ -305,6 +305,24 @@ one:
   shape is what distinguishes them). Don't
   read `typography.component.checkbox.labeled` (`400 16px/20px`); live type is
   `text/body/{sm,md}/default`, composed from `font.size.body.*`.
+- **Alert is in-flow, not a toast.** Occupies space; does not auto-dismiss
+  (that's Snackbar). Axes: `tone` (danger/warning/success/info/neutral,
+  default **danger**) × `placement` (page/section/inline, default **page**).
+  No border. Surface is `color.color.fill.{tone}.muted` — `color.component.alert.*`
+  is **not** in the theme export (Figma CSS vars alias those fills). Neutral
+  chip is `canvas.surface.inverse`, not a `fill.default`. Title and body are
+  both `text/primary`; ExtraBold vs Regular is the hierarchy. Do **not** read
+  `typography.component.alert` (`700 14/17`). Gap title→body is **0**. Chip is
+  always 24 with glyph `sm` 16, even on inline (live node, not the docs-page
+  copy that said 16). `iconBox` height = body line-box so the chip lines up
+  with the first text line — don't top-align it to the padding. Glyphs are
+  locked per tone (`ALERT_TONE_ICON`); no icon slot. Action is LinkButton
+  `appearance="on-muted"` `size="sm"` on every placement (live nodes — not a
+  Button outline). Dismiss is IconButton `veil` (24 visual, 48 hit) — IconButton
+  is not shipped yet, so Alert paints it locally from `fill.action.veil.*`.
+  `showDismiss` stays a free boolean; Figma's "not on danger/warning" is a
+  usage guideline. `announce` (default true): danger/warning → `role=alert`,
+  rest → `status`; turn off for a page-load notice that already sits before h1.
 - **Every component's own variant axes are its own — don't generalize.** `TextField` has a `size`
   axis (`small`/`medium`/`large`, matching Figma's `sm`/`md`/`lg`) and an `icon` color group;
   `TextArea` has neither — a single `state` axis, no size, no icon slot. Confirm the axes with

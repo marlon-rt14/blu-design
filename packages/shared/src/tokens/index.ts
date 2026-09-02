@@ -1,3 +1,4 @@
+export * from './alert.tokens';
 export * from './button.tokens';
 export * from './checkbox.tokens';
 export * from './colors';
