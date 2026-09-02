@@ -1,8 +1,8 @@
-import { BluProvider, Button, PasswordField } from "@dsm/web";
+import { BluProvider, Button, Checkbox, ChoiceItem, LinkButton, PasswordField, Radio, RadioGroup } from "@dsm/web";
 import type { TButtonAppearance, TButtonSize, TButtonVariant, TIconColor, TIconSize, TPasswordFieldSize, TPasswordFieldVisibility } from "@dsm/shared";
 import { useState } from "react";
 
-import { IconAlertTriangle, IconCheckCircle, IconImage, IconPlus, IconSearch, IconTrash } from "@dsm/web/icons";
+import { IconAlertTriangle, IconArrowUpRight, IconCheckCircle, IconChevronRight, IconImage, IconPlus, IconSearch, IconTrash } from "@dsm/web/icons";
 import "./App.css";
 
 const VARIANTS: TButtonVariant[] = ["primary", "danger"];
@@ -10,6 +10,11 @@ const VARIANTS: TButtonVariant[] = ["primary", "danger"];
 const APPEARANCES: Exclude<TButtonAppearance, "on-inverse">[] = ["fill", "soft", "outline", "ghost"];
 const SIZES: TButtonSize[] = ["xs", "sm", "md", "lg"];
 const FIELD_SIZES: TPasswordFieldSize[] = ["sm", "md", "lg"];
+const METODOS = [
+  { id: "Débito", detalle: "Se debita al instante", cuota: "$ 1.200" },
+  { id: "Crédito", detalle: "Hasta 12 cuotas", cuota: "$ 1.450" },
+  { id: "Transferencia", detalle: "Acreditación en 24 h", cuota: "$ 1.180" },
+];
 
 // The six steps of `size/icon/*`, with the px each one resolves to — the point
 // of the row is that the number is a token, never a hand-set width.
@@ -34,6 +39,9 @@ const App = () => {
   const [password, setPassword] = useState("MiClave2026");
   const [shortPassword, setShortPassword] = useState("123");
   const [visibility, setVisibility] = useState<TPasswordFieldVisibility>("visible");
+  // Guarda el id de la opción elegida, que es lo que un grupo de radios necesita.
+  const [metodo, setMetodo] = useState("Débito");
+  const [checked, setChecked] = useState(false);
 
   return (
     // BluProvider is what actually loads Mulish (see @dsm/web's theme/font.ts) —
@@ -46,6 +54,60 @@ const App = () => {
         <p className="demo__counter">
           Clicks: <strong data-testid="click-counter">{clicks}</strong>
         </p>
+
+        <section className="demo__section">
+          <h2 className="demo__section-title">RadioGroup · ChoiceItem</h2>
+          <p className="demo__counter">
+            Método: <strong data-testid="metodo">{metodo}</strong>
+          </p>
+          {/* La combinación que muestra Figma: el grupo es el fieldset con su
+              legend, y las filas son ChoiceItem. La fila entera es el target, y
+              su sangrado lateral es el mismo que el de la leyenda — por eso el
+              control y el título arrancan en la misma columna.
+
+              El divisor se apaga en la última fila: el grupo no puede hacerlo
+              por vos, porque lo que entra por el slot lo controla quien lo arma. */}
+          <div style={{ maxWidth: 360 }}>
+            <RadioGroup helperText="Se puede cambiar antes de confirmar" legend="Método de pago">
+              {METODOS.map((metodoOpcion, index) => (
+                <ChoiceItem
+                  description={metodoOpcion.detalle}
+                  isChecked={metodo === metodoOpcion.id}
+                  key={metodoOpcion.id}
+                  label={metodoOpcion.id}
+                  name="metodo"
+                  onChange={() => setMetodo(metodoOpcion.id)}
+                  showDescription
+                  showDivider={index < METODOS.length - 1}
+                  showTrailingText
+                  testID={`choice-${metodoOpcion.id}`}
+                  trailingText={metodoOpcion.cuota}
+                  value={metodoOpcion.id}
+                />
+              ))}
+            </RadioGroup>
+          </div>
+          {/* El mismo grupo en error: solo se pinta el helper. NO tiñe las filas
+              — el grupo no promete nada sobre lo que hay dentro del slot. */}
+          <div style={{ maxWidth: 360 }}>
+            <RadioGroup helperText="Elegí un método para continuar" isInvalid legend="Con error" size="md">
+              <ChoiceItem label="Opción 1" name="err" size="md" />
+              <ChoiceItem isChecked label="Opción 2" name="err" size="md" />
+            </RadioGroup>
+          </div>
+          {/* El Radio suelto sigue existiendo como átomo, para cuando no hace
+              falta una fila entera. */}
+          <div className="demo__row">
+            <Radio isChecked label="Radio suelto" name="atomo" />
+            <Radio isDisabled label="Deshabilitado" name="atomo-2" />
+            <Radio isChecked isDisabled label="Deshabilitado y marcado — sin punto, fiel a Figma" name="atomo-3" />
+          </div>
+          <div className="demo__row">
+            <Checkbox isChecked={checked} label="Checkbox — este sí alterna" onChange={() => setChecked((prev) => !prev)} />
+            <LinkButton label="LinkButton" />
+            <Button label="Button" variant="primary" />
+          </div>
+        </section>
 
         {VARIANTS.map((variant) => (
           <section className="demo__section" key={variant}>
@@ -61,12 +123,24 @@ const App = () => {
               ))}
               <Button isDisabled label="disabled" onClick={handleClick} testID={`button-${variant}-disabled`} variant={variant} />
             </div>
+            {/* Los slots de icono. El tamaño del icono no es el del control: xs y sm
+                usan 16, md y lg usan 24. El color no se configura — el <button> ya
+                pone `color` para su etiqueta y el icono resuelve a currentColor. */}
+            <div className="demo__row">
+              {SIZES.map((size) => (
+                <Button key={size} label={size} leadingIcon={IconPlus} onClick={handleClick} size={size} testID={`button-${variant}-icon-${size}`} trailingIcon={IconChevronRight} variant={variant} />
+              ))}
+              <Button label="Salir" onClick={handleClick} testID={`button-${variant}-trailing`} trailingIcon={IconArrowUpRight} variant={variant} />
+              <Button isDisabled label="disabled" leadingIcon={IconTrash} onClick={handleClick} testID={`button-${variant}-icon-disabled`} variant={variant} />
+            </div>
           </section>
         ))}
 
         <section className="demo__section">
           <h2 className="demo__section-title">Icon</h2>
-          <p className="demo__subtitle">El envoltorio por el que pasa todo icono del sistema. Los 31 glifos de bDS salen ya montados de <code>@dsm/web/icons</code>: <code>&lt;IconTrash size="lg" color="danger" /&gt;</code>. Cada uno es un <code>Icon</code> con sus paths adentro, así que fija la caja desde <code>size/icon/*</code> y resuelve el color del tema.</p>
+          <p className="demo__subtitle">
+            El envoltorio por el que pasa todo icono del sistema. Los 31 glifos de bDS salen ya montados de <code>@dsm/web/icons</code>: <code>&lt;IconTrash size="lg" color="danger" /&gt;</code>. Cada uno es un <code>Icon</code> con sus paths adentro, así que fija la caja desde <code>size/icon/*</code> y resuelve el color del tema.
+          </p>
 
           {/* Los 6 pasos. El label es el valor que resuelve el token, no un width escrito a mano. */}
           <div className="demo__row" style={{ alignItems: "flex-end", gap: 24 }}>
@@ -108,7 +182,16 @@ const App = () => {
 
           {/* Un puñado del set, para ver que son glifos distintos y no el mismo repetido. */}
           <div className="demo__row" style={{ gap: 24 }}>
-            {([["plus", IconPlus], ["search", IconSearch], ["trash", IconTrash], ["check-circle", IconCheckCircle], ["alert-triangle", IconAlertTriangle], ["image", IconImage]] as const).map(([name, IconComponent]) => (
+            {(
+              [
+                ["plus", IconPlus],
+                ["search", IconSearch],
+                ["trash", IconTrash],
+                ["check-circle", IconCheckCircle],
+                ["alert-triangle", IconAlertTriangle],
+                ["image", IconImage],
+              ] as const
+            ).map(([name, IconComponent]) => (
               <div key={name} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
                 <IconComponent size="lg" testID={`icon-glyph-${name}`} />
                 <span style={{ fontSize: 12, opacity: 0.65 }}>{name}</span>

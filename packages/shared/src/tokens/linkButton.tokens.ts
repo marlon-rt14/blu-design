@@ -56,6 +56,19 @@ export interface ILinkButtonDimensionTokens {
   gap: number;
   /** Thickness of the focus ring, drawn outside the text box. */
   focusRingSpread: number;
+  /**
+   * Transparent gap between the control and the focus ring, from
+   * `focus/ring/offset`.
+   *
+   * Both platforms draw the ring with `outline`, whose offset leaves whatever is
+   * behind showing through. A painted gap would have to guess the surface and
+   * would halo over a card, over `bg/inverse` or over a photo.
+   *
+   * The token says 1 and Figma renders 2 — see `IButtonFocusTokens.offset` for
+   * the full note. Read rather than hardcoded, so design's answer arrives
+   * through the sync.
+   */
+  focusRingOffset: number;
   /** `radius/control/sm` (4) — the ring's corner radius. The link itself has no radius. */
   focusRingRadius: number;
   /**
@@ -151,6 +164,7 @@ const readLinkButtonTokens = (mode: TThemeMode): ILinkButtonTokens => {
       },
       gap: dimensionAt('space.inline.xs'),
       focusRingSpread: dimensionAt('focus.ring.spread'),
+      focusRingOffset: dimensionAt('focus.ring.offset'),
       focusRingRadius: dimensionAt('radius.control.sm'),
       minTouchTarget: dimensionAt('size.target.min'),
     },

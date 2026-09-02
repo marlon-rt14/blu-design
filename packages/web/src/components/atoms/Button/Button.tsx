@@ -25,14 +25,22 @@ import { useButton } from './useButton';
  * <Button label="Publicar" onClick={publish} />
  * <Button label="Guardar borrador" appearance="outline" onClick={saveDraft} />
  * <Button label="Eliminar" variant="danger" size="sm" onClick={remove} />
+ * <Button label="Agregar" leadingIcon={IconPlus} onClick={add} />
  * ```
  */
 export const Button = (props: IButtonProps): ReactElement => {
-  const { label, onClick, testID, type = 'button' } = props;
+  const {
+    label,
+    onClick,
+    testID,
+    type = 'button',
+    leadingIcon: LeadingIcon,
+    trailingIcon: TrailingIcon,
+  } = props;
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
   const [isFocusVisible, setIsFocusVisible] = useState(false);
-  const { buttonStyle, isDisabled } = useButton({
+  const { buttonStyle, iconSize, isDisabled } = useButton({
     ...props,
     isHovered,
     isPressed,
@@ -67,7 +75,14 @@ export const Button = (props: IButtonProps): ReactElement => {
       style={buttonStyle}
       type={type}
     >
+      {/* No colour is passed: the icons resolve to `currentColor` and inherit
+          the label colour the style above already set. bDS publishes
+          `icon-default` and `icon-disabled` per group, but all 28 of them are
+          byte-identical to their `text-*` twin in both themes, so inheriting is
+          exact. If they ever diverge, this is the line that changes. */}
+      {LeadingIcon ? <LeadingIcon size={iconSize} /> : null}
       {label}
+      {TrailingIcon ? <TrailingIcon size={iconSize} /> : null}
     </button>
   );
 };

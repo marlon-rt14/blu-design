@@ -1,4 +1,13 @@
-import { BluProvider, Button, useFontFamily } from '@dsm/mobile';
+import {
+  BluProvider,
+  Button,
+  Checkbox,
+  ChoiceItem,
+  LinkButton,
+  Radio,
+  RadioGroup,
+  useFontFamily,
+} from '@dsm/mobile';
 import { colors, spacing, typography } from '@dsm/shared';
 import type {
   TButtonAppearance,
@@ -13,16 +22,29 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 import {
   IconAlertTriangle,
+  IconArrowUpRight,
   IconCheckCircle,
+  IconChevronRight,
   IconImage,
   IconPlus,
   IconSearch,
   IconTrash,
 } from '@dsm/mobile/icons';
 
+const METODOS = [
+  { id: 'Débito', detalle: 'Se debita al instante', cuota: '$ 1.200' },
+  { id: 'Crédito', detalle: 'Hasta 12 cuotas', cuota: '$ 1.450' },
+  { id: 'Transferencia', detalle: 'Acreditación en 24 h', cuota: '$ 1.180' },
+];
+
 const VARIANTS: TButtonVariant[] = ['primary', 'danger'];
 // `on-inverse` is left out: it only exists for `primary` and needs an inverted surface.
-const APPEARANCES: Exclude<TButtonAppearance, 'on-inverse'>[] = ['fill', 'soft', 'outline', 'ghost'];
+const APPEARANCES: Exclude<TButtonAppearance, 'on-inverse'>[] = [
+  'fill',
+  'soft',
+  'outline',
+  'ghost',
+];
 const SIZES: TButtonSize[] = ['xs', 'sm', 'md', 'lg'];
 
 // The six steps of `size/icon/*`, with the px each one resolves to — the point of
@@ -58,25 +80,92 @@ const App = () => {
   const regularFont = useFontFamily(typography.fontWeights.regular);
   const mediumFont = useFontFamily(typography.fontWeights.medium);
   const semiboldFont = useFontFamily(typography.fontWeights.semibold);
+  const [checked, setChecked] = useState(false);
+  // Guarda el id de la opción elegida, que es lo que un grupo de radios necesita.
+  const [metodo, setMetodo] = useState('Débito');
 
   return (
     <BluProvider>
       <SafeAreaProvider>
         <SafeAreaView style={styles.safeArea}>
           <ScrollView contentContainerStyle={styles.content}>
-            <Text style={[styles.title, { fontFamily: semiboldFont }]}>@dsm/mobile · demo</Text>
+            <Text style={[styles.title, { fontFamily: semiboldFont }]}>
+              @dsm/mobile · demo
+            </Text>
             <Text style={[styles.subtitle, { fontFamily: regularFont }]}>
               El mismo Button del design system, consumido desde una app React
               Native. Resuelve tokens de bDS para el tema activo.
             </Text>
 
-            <Text style={[styles.counter, { fontFamily: mediumFont }]} testID="press-counter">
+            <Text
+              style={[styles.counter, { fontFamily: mediumFont }]}
+              testID="press-counter"
+            >
               Presses: {presses}
             </Text>
 
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+                RadioGroup · ChoiceItem
+              </Text>
+              {/* La combinación que muestra Figma: el grupo aporta la leyenda y
+                  el helper, y cada fila es un ChoiceItem. El estado guarda *cuál*
+                  está elegido, no un booleano por fila — un radio no alterna.
+
+                  El divisor se apaga en la última fila: el grupo no puede
+                  hacerlo por vos, porque quien arma el slot decide qué entra. */}
+              <RadioGroup
+                helperText="Se puede cambiar antes de confirmar"
+                legend="Método de pago"
+              >
+                {METODOS.map((metodoOpcion, index) => (
+                  <ChoiceItem
+                    description={metodoOpcion.detalle}
+                    isChecked={metodo === metodoOpcion.id}
+                    key={metodoOpcion.id}
+                    label={metodoOpcion.id}
+                    onPress={() => setMetodo(metodoOpcion.id)}
+                    showDescription
+                    showDivider={index < METODOS.length - 1}
+                    showTrailingText
+                    testID={`choice-${metodoOpcion.id}`}
+                    trailingText={metodoOpcion.cuota}
+                  />
+                ))}
+              </RadioGroup>
+
+              {/* El mismo grupo en error: solo se pinta el helper. NO tiñe las
+                  filas — el grupo no promete nada sobre el contenido del slot. */}
+              <RadioGroup
+                helperText="Elegí un método para continuar"
+                isInvalid
+                legend="Con error"
+              >
+                <ChoiceItem label="Opción 1" />
+                <ChoiceItem isChecked label="Opción 2" />
+              </RadioGroup>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+                Radio
+              </Text>
+              {/* El Radio suelto sigue existiendo como átomo, para cuando no
+                  hace falta una fila entera. */}
+              <View style={styles.row}>
+                <Radio isChecked label="Radio suelto" />
+                <Radio isDisabled label="Deshabilitado" />
+                <Checkbox label="Checkbox" isChecked={checked} onValueChange={() => setChecked(prev => !prev)} />
+                <LinkButton label="LinkButton" onPress={handlePress} />
+                <Button label="Button" variant="primary" />
+              </View>
+            </View>
+
             {VARIANTS.map(variant => (
               <View key={variant} style={styles.section}>
-                <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+                <Text
+                  style={[styles.sectionTitle, { fontFamily: regularFont }]}
+                >
                   {variant.toUpperCase()}
                 </Text>
                 <View style={styles.row}>
@@ -110,19 +199,53 @@ const App = () => {
                     variant={variant}
                   />
                 </View>
+                {/* Slots de icono. El tamano del icono no es el del control: xs y
+                    sm usan 16, md y lg usan 24. En RN no hay currentColor, asi que
+                    el Button pasa el color de la etiqueta por tintColor. */}
+                <View style={styles.row}>
+                  {SIZES.map(size => (
+                    <Button
+                      key={size}
+                      label={size}
+                      leadingIcon={IconPlus}
+                      onPress={handlePress}
+                      size={size}
+                      testID={`button-${variant}-icon-${size}`}
+                      trailingIcon={IconChevronRight}
+                      variant={variant}
+                    />
+                  ))}
+                  <Button
+                    label="Salir"
+                    onPress={handlePress}
+                    testID={`button-${variant}-trailing`}
+                    trailingIcon={IconArrowUpRight}
+                    variant={variant}
+                  />
+                  <Button
+                    isDisabled
+                    label="disabled"
+                    leadingIcon={IconTrash}
+                    onPress={handlePress}
+                    testID={`button-${variant}-icon-disabled`}
+                    variant={variant}
+                  />
+                </View>
               </View>
             ))}
 
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>ICON</Text>
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+                ICON
+              </Text>
               <Text style={[styles.subtitle, { fontFamily: regularFont }]}>
                 Los 31 glifos de bDS salen ya montados de @dsm/mobile/icons:
-                &lt;IconTrash size="lg" color="danger" /&gt;. Cada uno es un Icon con
-                sus paths adentro, asi que fija la caja desde size/icon/* y resuelve
-                el color del tema.
+                &lt;IconTrash size="lg" color="danger" /&gt;. Cada uno es un
+                Icon con sus paths adentro, asi que fija la caja desde
+                size/icon/* y resuelve el color del tema.
               </Text>
 
-              <IconImage size='lg' />
+              <IconImage size="lg" />
 
               {/* Los 6 pasos. El label es el valor que resuelve el token, no un
                   width escrito a mano. */}
@@ -130,7 +253,9 @@ const App = () => {
                 {ICON_SIZES.map(([size, px]) => (
                   <View key={size} style={styles.iconCell}>
                     <IconImage size={size} testID={`icon-size-${size}`} />
-                    <Text style={[styles.iconLabel, { fontFamily: regularFont }]}>
+                    <Text
+                      style={[styles.iconLabel, { fontFamily: regularFont }]}
+                    >
                       {size} · {px}px
                     </Text>
                   </View>
@@ -146,7 +271,11 @@ const App = () => {
                 {['#174183', '#b22c42', '#008557'].map(tint => (
                   <View key={tint} style={styles.iconCell}>
                     <IconPlus size="md" tintColor={tint} />
-                    <Text style={[styles.iconLabel, { fontFamily: regularFont }]}>{tint}</Text>
+                    <Text
+                      style={[styles.iconLabel, { fontFamily: regularFont }]}
+                    >
+                      {tint}
+                    </Text>
                   </View>
                 ))}
               </View>
@@ -161,7 +290,11 @@ const App = () => {
                       size="lg"
                       testID={`icon-color-${color}`}
                     />
-                    <Text style={[styles.iconLabel, { fontFamily: regularFont }]}>{color}</Text>
+                    <Text
+                      style={[styles.iconLabel, { fontFamily: regularFont }]}
+                    >
+                      {color}
+                    </Text>
                   </View>
                 ))}
               </View>
@@ -180,7 +313,11 @@ const App = () => {
                 ).map(([name, IconComponent]) => (
                   <View key={name} style={styles.iconCell}>
                     <IconComponent size="lg" testID={`icon-glyph-${name}`} />
-                    <Text style={[styles.iconLabel, { fontFamily: regularFont }]}>{name}</Text>
+                    <Text
+                      style={[styles.iconLabel, { fontFamily: regularFont }]}
+                    >
+                      {name}
+                    </Text>
                   </View>
                 ))}
               </View>

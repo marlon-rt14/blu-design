@@ -67,8 +67,7 @@ export const PasswordField = (props: IPasswordFieldProps): ReactElement => {
     setInternalIsVisible(next === 'visible');
   };
   const {
-    ringStyle,
-    fieldStyle,
+        fieldStyle,
     labelStyle,
     inputStyle,
     actionSlotStyle,
@@ -85,45 +84,43 @@ export const PasswordField = (props: IPasswordFieldProps): ReactElement => {
 
   return (
     <View style={passwordFieldStyles.wrapper}>
-      <View style={ringStyle}>
-        <View style={fieldStyle}>
-          <View style={passwordFieldStyles.content}>
-            {showFloatingLabel && label ? <Text style={labelStyle}>{label}</Text> : null}
-            <TextInput
-              accessibilityLabel={label}
-              autoComplete={autoComplete}
-              editable={!isDisabled && !isReadOnly}
-              onBlur={() => {
-                setIsFocused(false);
-                onBlur?.();
-              }}
-              onChangeText={onChangeText}
-              onFocus={() => {
-                setIsFocused(true);
-                onFocus?.();
-              }}
-              placeholder={showFloatingLabel ? undefined : label}
-              placeholderTextColor={placeholderTextColor}
-              // TextInput does the masking. Never substitute characters in the
-              // value to fake it — that breaks selection, paste and managers.
-              secureTextEntry={!isVisible}
-              style={inputStyle}
-              testID={testID}
-              value={value}
+      <View style={fieldStyle}>
+        <View style={passwordFieldStyles.content}>
+          {showFloatingLabel && label ? <Text style={labelStyle}>{label}</Text> : null}
+          <TextInput
+            accessibilityLabel={label}
+            autoComplete={autoComplete}
+            editable={!isDisabled && !isReadOnly}
+            onBlur={() => {
+              setIsFocused(false);
+              onBlur?.();
+            }}
+            onChangeText={onChangeText}
+            onFocus={() => {
+              setIsFocused(true);
+              onFocus?.();
+            }}
+            placeholder={showFloatingLabel ? undefined : label}
+            placeholderTextColor={placeholderTextColor}
+            // TextInput does the masking. Never substitute characters in the
+            // value to fake it — that breaks selection, paste and managers.
+            secureTextEntry={!isVisible}
+            style={inputStyle}
+            testID={testID}
+            value={value}
+          />
+        </View>
+        {showAction ? (
+          <View style={actionSlotStyle}>
+            <LinkButton
+              isDisabled={isDisabled}
+              label={PASSWORD_FIELD_ACTION_LABEL[isVisible ? 'visible' : 'hidden']}
+              onPress={handleToggleVisibility}
+              size={actionSize}
+              testID={testID ? `${testID}-action` : undefined}
             />
           </View>
-          {showAction ? (
-            <View style={actionSlotStyle}>
-              <LinkButton
-                isDisabled={isDisabled}
-                label={PASSWORD_FIELD_ACTION_LABEL[isVisible ? 'visible' : 'hidden']}
-                onPress={handleToggleVisibility}
-                size={actionSize}
-                testID={testID ? `${testID}-action` : undefined}
-              />
-            </View>
-          ) : null}
-        </View>
+        ) : null}
       </View>
       {displayedHelperText ? (
         <Text accessibilityLiveRegion={isInvalid ? 'assertive' : 'polite'} style={helperStyle}>

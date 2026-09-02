@@ -1,5 +1,5 @@
 import { buttonTokens } from '@dsm/shared';
-import type { IButtonSurfaceColorTokens, TButtonState } from '@dsm/shared';
+import type { IButtonSurfaceColorTokens, TButtonState, TIconSize } from '@dsm/shared';
 import type { CSSProperties } from 'react';
 
 import { useFontFamily, usePrefersReducedMotion, useThemeMode } from '../../../theme';
@@ -27,6 +27,11 @@ interface IUseButtonResult {
    * second style object for the label — the type properties cascade to the text.
    */
   buttonStyle: CSSProperties;
+  /**
+   * Which Icon size step to give the slots. Not the control's own size: `xs` and
+   * `sm` both take 16, `md` and `lg` both take 24.
+   */
+  iconSize: TIconSize;
   /** Normalized disabled flag, safe to hand straight to the DOM element. */
   isDisabled: boolean;
   /** Resolved interaction state, exposed so stories and tests can assert on it. */
@@ -117,14 +122,19 @@ export const useButton = ({
 
   const transition = prefersReducedMotion
     ? 'none'
-    : 'background-color 120ms ease, border-color 120ms ease, box-shadow 120ms ease';
+    : 'background-color 120ms ease, border-color 120ms ease, outline-color 120ms ease';
 
-  // A solid spread shadow reproduces Figma's focus ring layer without an extra
-  // DOM node, and unlike `outline` it never affects layout. On an inverted
-  // surface the blue ring does not read, hence the second token.
-  const boxShadow = isFocusVisible
-    ? `0 0 0 ${tokens.focus.spread}px ${appearance === 'on-inverse' ? tokens.focus.colorOnInverse : tokens.focus.color}`
-    : undefined;
+  // `outline`, not `box-shadow`. Both draw outside the box without affecting
+  // layout, but only `outline-offset` leaves the gap *transparent*: a box-shadow
+  // gap has to be painted, and painting it means guessing the surface behind —
+  // which shows as a halo the moment the button sits on a card, on bg/inverse or
+  // on a photo. React Native supports the same four properties, so this is the
+  // rare case of one mechanism covering both platforms.
+  //
+  // On an inverted surface the blue does not read, hence the second colour.
+  const outline = isFocusVisible
+    ? `${tokens.focus.spread}px solid ${appearance === 'on-inverse' ? tokens.focus.colorOnInverse : tokens.focus.color}`
+    : 'none';
 
   const buttonStyle: CSSProperties = {
     boxSizing: 'border-box',
@@ -154,12 +164,11 @@ export const useButton = ({
     fontSize: tokens.typography.fontSize[size],
     whiteSpace: 'nowrap',
 
-    // The native outline is suppressed because the ring above would double up.
-    outline: 'none',
-    boxShadow,
+    outline,
+    outlineOffset: tokens.focus.offset,
     transition,
     cursor: isDisabled ? 'not-allowed' : 'pointer',
   };
 
-  return { buttonStyle, isDisabled, state };
+  return { buttonStyle, iconSize: tokens.dimension.iconSize[size], isDisabled, state };
 };

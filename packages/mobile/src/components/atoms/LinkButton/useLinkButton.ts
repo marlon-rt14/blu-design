@@ -18,8 +18,8 @@ interface IUseLinkButtonParams extends ILinkButtonProps {
 
 /** Styles and derived values the LinkButton needs to render. */
 interface IUseLinkButtonResult {
-  /** The ring layer: always reserves `focusRingSpread` of border, transparent unless focused — no layout shift on focus. */
-  ringStyle: StyleProp<ViewStyle>;
+  /** Everything the `Pressable` needs: hugging width, ring radius, and the outline when focused. */
+  pressableStyle: StyleProp<ViewStyle>;
   labelStyle: StyleProp<TextStyle>;
   /** Expands the touch target up to `size/target/min`. Never `undefined` here: both sizes fall short. */
   hitSlop: Insets;
@@ -68,15 +68,25 @@ export const useLinkButton = ({
         ? colors.textPressed
         : colors.text;
 
-  // Same technique as TextArea's ring: the border is always reserved and only
-  // its colour changes, so focusing never shifts layout. `alignSelf` keeps the
-  // ring hugging the text — the link has no width of its own, and a stretched
-  // wrapper would hand it a full-width touch area it never asked for.
-  const ringStyle: StyleProp<ViewStyle> = {
+  // `outline` rather than a wrapper View with a reserved border: it is ignored
+  // by layout, so there is nothing to reserve and no extra node. `outlineOffset`
+  // is what keeps the gap transparent instead of painting it in a guessed colour.
+  //
+  // `alignSelf` moves here from that wrapper and is still load-bearing: the link
+  // has no width of its own, and a stretched Pressable would hand it a
+  // full-width touch area it never asked for. `borderRadius` exists only for the
+  // outline to follow — the text itself has no corners.
+  const pressableStyle: StyleProp<ViewStyle> = {
     alignSelf: 'flex-start',
-    borderRadius: tokens.dimension.focusRingRadius + tokens.dimension.focusRingSpread,
-    borderWidth: tokens.dimension.focusRingSpread,
-    borderColor: isFocused ? colors.borderFocus : 'transparent',
+    borderRadius: tokens.dimension.focusRingRadius,
+    ...(isFocused
+      ? {
+          outlineWidth: tokens.dimension.focusRingSpread,
+          outlineOffset: tokens.dimension.focusRingOffset,
+          outlineColor: colors.borderFocus,
+          outlineStyle: 'solid' as const,
+        }
+      : {}),
   };
 
   // See @dsm/mobile's TextField useTextField for why fontWeight never
@@ -101,7 +111,7 @@ export const useLinkButton = ({
   );
 
   return {
-    ringStyle,
+    pressableStyle,
     labelStyle,
     hitSlop: { top: verticalSlop, bottom: verticalSlop },
     isDisabled,

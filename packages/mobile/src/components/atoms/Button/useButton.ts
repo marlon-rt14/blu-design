@@ -1,5 +1,5 @@
 import { buttonTokens } from '@dsm/shared';
-import type { IButtonSurfaceColorTokens, TButtonState } from '@dsm/shared';
+import type { IButtonSurfaceColorTokens, TButtonState, TIconSize } from '@dsm/shared';
 import type { Insets, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
@@ -19,11 +19,27 @@ interface IUseButtonParams extends IButtonProps {
 
 /** Styles and derived values the Button needs to render. */
 interface IUseButtonResult {
-  /** The ring layer: always reserves `focus.spread` of border, transparent unless focused — no layout shift on focus. */
-  ringStyle: StyleProp<ViewStyle>;
   /** The pressable box: height, padding, surface and radius. */
   containerStyle: StyleProp<ViewStyle>;
+  /** The focus ring, or `undefined` when not focused. Merged onto the pressable. */
+  outlineStyle: StyleProp<ViewStyle>;
   labelStyle: StyleProp<TextStyle>;
+  /**
+   * Which Icon size step to give the slots. Not the control's own size: `xs` and
+   * `sm` both take 16, `md` and `lg` both take 24.
+   */
+  iconSize: TIconSize;
+  /**
+   * Colour for the icon slots, handed over explicitly because React Native has
+   * no `currentColor` to inherit through.
+   *
+   * This is the **label** colour. bDS publishes `icon-default` and
+   * `icon-disabled` per group, but all 28 of them are byte-identical to their
+   * `text-*` twin in both themes, so reading them separately would add fourteen
+   * lookups that provably return the same value. If they ever diverge, this is
+   * the line that changes.
+   */
+  iconColor: string;
   /** Expands the touch target up to `size/target/min`; `undefined` when the size already clears it. */
   hitSlop: Insets | undefined;
   /** Normalized disabled flag, safe to hand straight to `Pressable`. */
@@ -104,19 +120,27 @@ export const useButton = ({
         ? surface.borderPressed ?? surface.border
         : surface.border;
 
-  // Same technique as TextArea's ring: the border is always reserved and only
-  // its color changes, so focusing never shifts layout. Its radius is the
-  // container's plus the ring width, for a concentric look. On an inverted
-  // surface the blue ring does not read, hence the second token.
-  const ringStyle: StyleProp<ViewStyle> = {
-    borderRadius: tokens.dimension.borderRadius + tokens.focus.spread,
-    borderWidth: tokens.focus.spread,
-    borderColor: isFocused
-      ? appearance === 'on-inverse'
-        ? tokens.focus.colorOnInverse
-        : tokens.focus.color
-      : 'transparent',
-  };
+  // `outline`, not a wrapper View with a reserved border. React Native has
+  // supported the four `outline*` properties since 0.71, and they behave like
+  // the CSS ones: drawn outside the box, ignored by layout, and — the reason
+  // this replaced the old ring — `outlineOffset` leaves the gap **transparent**.
+  // A painted gap would have to guess the surface behind it and would show as a
+  // halo over a card, over bg/inverse or over a photo.
+  //
+  // It also removes a whole node per Button: the wrapper existed only to reserve
+  // the border width so focusing did not shift layout, which an outline cannot
+  // do in the first place.
+  //
+  // On an inverted surface the blue does not read, hence the second colour.
+  const outlineStyle: StyleProp<ViewStyle> = isFocused
+    ? {
+        outlineWidth: tokens.focus.spread,
+        outlineOffset: tokens.focus.offset,
+        outlineColor:
+          appearance === 'on-inverse' ? tokens.focus.colorOnInverse : tokens.focus.color,
+        outlineStyle: 'solid',
+      }
+    : undefined;
 
   const containerStyle: StyleProp<ViewStyle> = {
     height: tokens.dimension.height[size],
@@ -150,5 +174,14 @@ export const useButton = ({
   const hitSlop: Insets | undefined =
     verticalSlop === 0 ? undefined : { top: verticalSlop, bottom: verticalSlop };
 
-  return { ringStyle, containerStyle, labelStyle, hitSlop, isDisabled, state };
+  return {
+    containerStyle,
+    outlineStyle,
+    labelStyle,
+    iconSize: tokens.dimension.iconSize[size],
+    iconColor: isDisabled ? surface.labelDisabled : surface.label,
+    hitSlop,
+    isDisabled,
+    state,
+  };
 };
