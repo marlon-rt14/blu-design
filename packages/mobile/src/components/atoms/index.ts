@@ -1,3 +1,5 @@
+export * from './Avatar';
+export * from './AvatarIndicator';
 export * from './Button';
 export * from './Checkbox';
 export * from './ChoiceBox';

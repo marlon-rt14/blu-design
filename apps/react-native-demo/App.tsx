@@ -1,4 +1,6 @@
 import {
+  Avatar,
+  AvatarGroup,
   BluProvider,
   Button,
   Checkbox,
@@ -11,6 +13,8 @@ import {
 } from '@dsm/mobile';
 import { colors, spacing, typography } from '@dsm/shared';
 import type {
+  IAvatarGroupItem,
+  TAvatarTone,
   TButtonAppearance,
   TButtonSize,
   TButtonVariant,
@@ -70,6 +74,26 @@ const ICON_COLORS: TIconColor[] = [
   'success',
   'info',
   'warning',
+];
+
+const AVATAR_TONES: TAvatarTone[] = [
+  'brand',
+  'sky',
+  'teal',
+  'green',
+  'lime',
+  'amber',
+  'orange',
+  'pink',
+  'violet',
+];
+
+const TEAM: IAvatarGroupItem[] = [
+  { initials: 'JG', tone: 'sky' },
+  { initials: 'MP', tone: 'teal' },
+  { initials: 'AL', tone: 'lime' },
+  { initials: 'RS', tone: 'violet' },
+  { initials: 'CV', tone: 'pink' },
 ];
 
 const App = () => {
@@ -316,6 +340,43 @@ const App = () => {
                   />
                 ))}
               </View>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>AVATAR</Text>
+              <View style={styles.row}>
+                <Avatar initials="JG" testID="avatar-initials" />
+                <Avatar icon="user" testID="avatar-icon" type="icon" />
+                <Avatar imageUrl="https://i.pravatar.cc/160" testID="avatar-image" type="image" />
+                <Avatar imageUrl="https://i.pravatar.cc/160" testID="avatar-logo" type="logo" />
+              </View>
+
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
+                AVATAR · TONE
+              </Text>
+              <View style={styles.row}>
+                {AVATAR_TONES.map(tone => (
+                  <Avatar initials="JG" key={tone} testID={`avatar-tone-${tone}`} tone={tone} />
+                ))}
+              </View>
+
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
+                AVATAR · SIZE / RING / INDICATOR
+              </Text>
+              <View style={styles.row}>
+                <Avatar initials="JG" size="xs" testID="avatar-size-xs" />
+                <Avatar initials="JG" size="sm" testID="avatar-size-sm" />
+                <Avatar initials="JG" size="md" testID="avatar-size-md" />
+                <Avatar initials="JG" size="lg" testID="avatar-size-lg" />
+                <Avatar initials="JG" showRing testID="avatar-ring" />
+                <Avatar initials="JG" showIndicator status="online" testID="avatar-indicator-online" />
+                <Avatar initials="JG" showIndicator status="busy" testID="avatar-indicator-busy" />
+              </View>
+
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
+                AVATARGROUP
+              </Text>
+              <AvatarGroup avatars={TEAM} overflowLabel="+4" showOverflow testID="avatar-group" />
             </View>
 
             <View style={styles.section}>
