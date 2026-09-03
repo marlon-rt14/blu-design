@@ -85,13 +85,5 @@ export interface IAlertBaseProps {
    * @defaultValue `'Cerrar aviso'`
    */
   dismissAccessibilityLabel?: string;
-  /**
-   * Whether the Alert announces on mount. Off for a page-load notice that
-   * already sits before `<h1>` (Figma: no live region on load). On for
-   * Alerts that appear later: danger/warning → `alert`, rest → `status`.
-   *
-   * @defaultValue `true`
-   */
-  announce?: boolean;
   testID?: string;
 }

@@ -1,5 +1,7 @@
-import type { TCheckboxGroupSize } from '@dsm/shared';
+import { readThemeToken, themeSources } from '@dsm/shared';
+import type { TCheckboxGroupSize, TThemeMode } from '@dsm/shared';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ReactNode } from 'react';
 import { useState } from 'react';
 
 import { PlatformCheckboxGroup } from './PlatformCheckboxGroup';
@@ -11,6 +13,18 @@ const INITIAL_CHECKED: string[] = [CANALES[0]];
 
 const toggleIn = (current: string[], option: string): string[] =>
   current.includes(option) ? current.filter((item) => item !== option) : [...current, option];
+
+/** Figma draws the group on `canvas/surface/primary` (white in light), not on `background/page`. */
+const Surface = ({ theme, children }: { theme: TThemeMode; children: ReactNode }): ReactNode => (
+  <div
+    style={{
+      width: 375,
+      backgroundColor: readThemeToken(themeSources[theme].color, 'color.color.canvas.surface.primary'),
+    }}
+  >
+    {children}
+  </div>
+);
 
 const meta = {
   title: 'Molecules/CheckboxGroup',
@@ -68,13 +82,15 @@ const meta = {
   render: function Render(args, { globals }) {
     const [checked, setChecked] = useState<string[]>(INITIAL_CHECKED);
     return (
-      <PlatformCheckboxGroup
-        {...args}
-        checked={checked}
-        onToggle={(option) => setChecked((current) => toggleIn(current, option))}
-        options={CANALES}
-        platform={globals.platform as TPlatform}
-      />
+      <Surface theme={globals.theme as TThemeMode}>
+        <PlatformCheckboxGroup
+          {...args}
+          checked={checked}
+          onToggle={(option) => setChecked((current) => toggleIn(current, option))}
+          options={CANALES}
+          platform={globals.platform as TPlatform}
+        />
+      </Surface>
     );
   },
 } satisfies Meta<IPlatformCheckboxGroupProps>;
@@ -95,20 +111,22 @@ export const Sizes: TStory = {
   render: function Render(args, { globals }) {
     const [checked, setChecked] = useState<string[]>(INITIAL_CHECKED);
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
-        {SIZES.map((size) => (
-          <PlatformCheckboxGroup
-            {...args}
-            checked={checked}
-            key={size}
-            legend={`Título del grupo · ${size}`}
-            onToggle={(option) => setChecked((current) => toggleIn(current, option))}
-            options={CANALES}
-            platform={globals.platform as TPlatform}
-            size={size}
-          />
-        ))}
-      </div>
+      <Surface theme={globals.theme as TThemeMode}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+          {SIZES.map((size) => (
+            <PlatformCheckboxGroup
+              {...args}
+              checked={checked}
+              key={size}
+              legend={`Título del grupo · ${size}`}
+              onToggle={(option) => setChecked((current) => toggleIn(current, option))}
+              options={CANALES}
+              platform={globals.platform as TPlatform}
+              size={size}
+            />
+          ))}
+        </div>
+      </Surface>
     );
   },
 };

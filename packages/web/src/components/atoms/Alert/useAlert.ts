@@ -1,5 +1,5 @@
 import { alertTokens } from '@dsm/shared';
-import type { TAlertPlacement } from '@dsm/shared';
+import type { TAlertPlacement, TAlertTone } from '@dsm/shared';
 import type { CSSProperties } from 'react';
 
 import { useFontFamily, useThemeMode } from '../../../theme';
@@ -21,7 +21,7 @@ interface IUseAlertResult {
   actionsStyle: CSSProperties;
   dismissHitStyle: CSSProperties;
   dismissVisualStyle: CSSProperties;
-  liveRole: 'alert' | 'status' | undefined;
+  liveRole: 'alert' | 'status';
 }
 
 const placementTokens = (
@@ -42,6 +42,22 @@ const placementTokens = (
   }
 };
 
+const liveRoleOf = (tone: TAlertTone): 'alert' | 'status' => {
+  switch (tone) {
+    case 'danger':
+    case 'warning':
+      return 'alert';
+    case 'success':
+    case 'info':
+    case 'neutral':
+      return 'status';
+    default: {
+      const _exhaustive: never = tone;
+      return _exhaustive;
+    }
+  }
+};
+
 /**
  * Chip sits in `iconBox` whose height is the body line-box so it lines up
  * with the first text line, not the padding edge. Do not drop that frame.
@@ -49,7 +65,6 @@ const placementTokens = (
 export const useAlert = ({
   tone = 'danger',
   placement = 'page',
-  announce = true,
   isDismissHovered,
   isDismissPressed,
   isDismissFocusVisible,
@@ -76,11 +91,7 @@ export const useAlert = ({
 
   const hitOutset = (targetMin - dismissSize) / 2;
 
-  const liveRole: 'alert' | 'status' | undefined = announce
-    ? tone === 'danger' || tone === 'warning'
-      ? 'alert'
-      : 'status'
-    : undefined;
+  const liveRole = liveRoleOf(tone);
 
   const rootStyle: CSSProperties = {
     boxSizing: 'border-box',

@@ -331,8 +331,9 @@ one:
   Button outline). Dismiss is IconButton `veil` (24 visual, 48 hit) — IconButton
   is not shipped yet, so Alert paints it locally from `fill.action.veil.*`.
   `showDismiss` stays a free boolean; Figma's "not on danger/warning" is a
-  usage guideline. `announce` (default true): danger/warning → `role=alert`,
-  rest → `status`; turn off for a page-load notice that already sits before h1.
+  usage guideline. Live region is **not a prop**: danger/warning →
+  `role=alert`, rest → `status`. Figma's "no live region on load before h1"
+  is host composition, not a component axis.
 - **Every component's own variant axes are its own — don't generalize.** `TextField` has a `size`
   axis (`small`/`medium`/`large`, matching Figma's `sm`/`md`/`lg`) and an `icon` color group;
   `TextArea` has neither — a single `state` axis, no size, no icon slot. Confirm the axes with

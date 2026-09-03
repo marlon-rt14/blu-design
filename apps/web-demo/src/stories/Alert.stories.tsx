@@ -79,11 +79,6 @@ const meta = {
       description: 'Accessible name of the dismiss control.',
       table: { category: 'Content', defaultValue: { summary: 'Cerrar aviso' } },
     },
-    announce: {
-      control: 'boolean',
-      description: 'Live region on mount. Off for a page-load notice before h1.',
-      table: { category: 'State', defaultValue: { summary: 'true' } },
-    },
     testID: { table: { disable: true } },
     onAction: { table: { disable: true } },
     onDismiss: { table: { disable: true } },
@@ -99,7 +94,6 @@ const meta = {
     showAction: false,
     actionLabel: 'Ver detalle',
     showDismiss: false,
-    announce: true,
   },
   render: (args, { globals }) => (
     <div style={{ maxWidth: 500 }}>

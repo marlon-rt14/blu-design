@@ -1,5 +1,5 @@
 import { alertTokens } from '@dsm/shared';
-import type { TAlertPlacement } from '@dsm/shared';
+import type { TAlertPlacement, TAlertTone } from '@dsm/shared';
 import type { Insets, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
@@ -21,7 +21,7 @@ interface IUseAlertResult {
   dismissVisualStyle: StyleProp<ViewStyle>;
   dismissHitSlop: Insets;
   liveRole: 'alert' | 'none';
-  liveRegion: 'assertive' | 'polite' | undefined;
+  liveRegion: 'assertive' | 'polite';
 }
 
 const placementTokens = (
@@ -42,10 +42,41 @@ const placementTokens = (
   }
 };
 
+const liveRoleOf = (tone: TAlertTone): 'alert' | 'none' => {
+  switch (tone) {
+    case 'danger':
+    case 'warning':
+      return 'alert';
+    case 'success':
+    case 'info':
+    case 'neutral':
+      return 'none';
+    default: {
+      const _exhaustive: never = tone;
+      return _exhaustive;
+    }
+  }
+};
+
+const liveRegionOf = (tone: TAlertTone): 'assertive' | 'polite' => {
+  switch (tone) {
+    case 'danger':
+    case 'warning':
+      return 'assertive';
+    case 'success':
+    case 'info':
+    case 'neutral':
+      return 'polite';
+    default: {
+      const _exhaustive: never = tone;
+      return _exhaustive;
+    }
+  }
+};
+
 export const useAlert = ({
   tone = 'danger',
   placement = 'page',
-  announce = true,
   isDismissPressed,
 }: IUseAlertParams): IUseAlertResult => {
   const mode = useThemeMode();
@@ -59,12 +90,8 @@ export const useAlert = ({
     ? tokens.colors.dismiss.backgroundPressed
     : tokens.colors.dismiss.background;
 
-  const liveRole: 'alert' | 'none' = announce && (tone === 'danger' || tone === 'warning') ? 'alert' : 'none';
-  const liveRegion: 'assertive' | 'polite' | undefined = announce
-    ? tone === 'danger' || tone === 'warning'
-      ? 'assertive'
-      : 'polite'
-    : undefined;
+  const liveRole = liveRoleOf(tone);
+  const liveRegion = liveRegionOf(tone);
 
   const rootStyle: StyleProp<ViewStyle> = {
     flexDirection: 'row',
