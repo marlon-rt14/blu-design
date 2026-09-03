@@ -16,12 +16,12 @@ interface IUseChoiceBoxResult {
   contentStyle: StyleProp<ViewStyle>;
   titleStyle: StyleProp<TextStyle>;
   descriptionStyle: StyleProp<TextStyle>;
-  isSelected: boolean;
+  isChecked: boolean;
   isDisabled: boolean;
 }
 
 export const useChoiceBox = ({
-  isSelected = false,
+  isChecked = false,
   isDisabled = false,
   variant = 'row',
   isPressed,
@@ -31,13 +31,13 @@ export const useChoiceBox = ({
 
   const backgroundColor = isDisabled
     ? tokens.colors.surface.backgroundDisabled
-    : isSelected
+    : isChecked
       ? tokens.colors.surface.backgroundSelected
       : tokens.colors.surface.background;
 
   const borderColor = isDisabled
     ? tokens.colors.surface.borderDisabled
-    : isSelected
+    : isChecked
       ? tokens.colors.surface.borderSelected
       : isPressed
         ? tokens.colors.surface.borderSelected
@@ -46,7 +46,7 @@ export const useChoiceBox = ({
   // Border width never changes — the extra "selected" thickness comes from an
   // absolutely-positioned inset ring instead, so choosing an option never
   // nudges the layout (Figma's `strokesIncludedInLayout=false`).
-  const selectionRingStyle: StyleProp<ViewStyle> | undefined = isSelected
+  const selectionRingStyle: StyleProp<ViewStyle> | undefined = isChecked
     ? {
         position: 'absolute',
         inset: tokens.dimension.borderWidth,
@@ -119,7 +119,7 @@ export const useChoiceBox = ({
     contentStyle,
     titleStyle,
     descriptionStyle,
-    isSelected,
+    isChecked,
     isDisabled,
   };
 };

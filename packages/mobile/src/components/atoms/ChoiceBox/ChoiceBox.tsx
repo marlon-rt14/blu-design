@@ -10,7 +10,7 @@ import { useChoiceBox } from './useChoiceBox';
 /**
  * The whole surface is the real control (Figma: "la caja entera es el
  * control"). The Checkbox rendered inside it is a non-interactive mirror of
- * `isSelected` (`pointerEvents="none"`) — the outer `Pressable` owns the
+ * `isChecked` (`pointerEvents="none"`) — the outer `Pressable` owns the
  * single toggle path.
  */
 export const ChoiceBox = (props: IChoiceBoxProps): ReactElement => {
@@ -22,7 +22,7 @@ export const ChoiceBox = (props: IChoiceBoxProps): ReactElement => {
     showDescription = true,
     showMedia = true,
     showControl = true,
-    isSelected = false,
+    isChecked = false,
     isDisabled = false,
     onValueChange,
     testID,
@@ -35,11 +35,11 @@ export const ChoiceBox = (props: IChoiceBoxProps): ReactElement => {
   const [isPressed, setIsPressed] = useState(false);
 
   const { rowStyle, surfaceStyle, selectionRingStyle, headerRowStyle, contentStyle, titleStyle, descriptionStyle } =
-    useChoiceBox({ ...props, isSelected, isDisabled, isPressed });
+    useChoiceBox({ ...props, isChecked, isDisabled, isPressed });
 
   const control = displayControl ? (
     <View importantForAccessibility="no-hide-descendants" pointerEvents="none">
-      <Checkbox isChecked={isSelected} isDisabled={isDisabled} showLabel={false} />
+      <Checkbox isChecked={isChecked} isDisabled={isDisabled} showLabel={false} />
     </View>
   ) : null;
 
@@ -53,9 +53,9 @@ export const ChoiceBox = (props: IChoiceBoxProps): ReactElement => {
   return (
     <Pressable
       accessibilityRole="checkbox"
-      accessibilityState={{ checked: isSelected, disabled: isDisabled }}
+      accessibilityState={{ checked: isChecked, disabled: isDisabled }}
       disabled={isDisabled}
-      onPress={() => onValueChange?.(!isSelected)}
+      onPress={() => onValueChange?.(!isChecked)}
       onPressIn={() => setIsPressed(true)}
       onPressOut={() => setIsPressed(false)}
       style={rowStyle}

@@ -6,7 +6,7 @@ import type { FocusEventHandler } from 'react';
  * blur target the surface itself, not the mirrored Checkbox inside it.
  */
 export interface IChoiceBoxProps extends IChoiceBoxBaseProps {
-  onChange?: (isSelected: boolean) => void;
+  onChange?: (isChecked: boolean) => void;
   onFocus?: FocusEventHandler<HTMLDivElement>;
   onBlur?: FocusEventHandler<HTMLDivElement>;
   id?: string;

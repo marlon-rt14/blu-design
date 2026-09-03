@@ -18,12 +18,12 @@ interface IUseChoiceBoxResult {
   contentStyle: CSSProperties;
   titleStyle: CSSProperties;
   descriptionStyle: CSSProperties;
-  isSelected: boolean;
+  isChecked: boolean;
   isDisabled: boolean;
 }
 
 export const useChoiceBox = ({
-  isSelected = false,
+  isChecked = false,
   isDisabled = false,
   variant = 'row',
   isHovered,
@@ -38,13 +38,13 @@ export const useChoiceBox = ({
 
   const backgroundColor = isDisabled
     ? tokens.colors.surface.backgroundDisabled
-    : isSelected
+    : isChecked
       ? tokens.colors.surface.backgroundSelected
       : tokens.colors.surface.background;
 
   const borderColor = isDisabled
     ? tokens.colors.surface.borderDisabled
-    : isSelected
+    : isChecked
       ? tokens.colors.surface.borderSelected
       : isPressed
         ? tokens.colors.surface.borderSelected
@@ -71,7 +71,7 @@ export const useChoiceBox = ({
   // Border width never changes — the extra "selected" thickness lands as an
   // inset shadow instead, so choosing an option never nudges the layout
   const shadows: string[] = [];
-  if (isSelected) {
+  if (isChecked) {
     shadows.push(`inset 0 0 0 ${tokens.dimension.selectionRingWidth}px ${borderColor}`);
   }
   if (isFocusVisible && !isDisabled) {
@@ -158,7 +158,7 @@ export const useChoiceBox = ({
     contentStyle,
     titleStyle,
     descriptionStyle,
-    isSelected,
+    isChecked,
     isDisabled,
   };
 };

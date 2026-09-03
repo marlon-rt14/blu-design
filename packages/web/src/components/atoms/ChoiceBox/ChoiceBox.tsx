@@ -9,7 +9,7 @@ import { useChoiceBox } from './useChoiceBox';
 /**
  * The whole surface is the real control (Figma: "la caja entera es el
  * control"). The Checkbox rendered inside it is a non-interactive mirror of
- * `isSelected` — clicks and key presses are handled on the wrapper, not on
+ * `isChecked` — clicks and key presses are handled on the wrapper, not on
  * the inner Checkbox, so there is exactly one toggle path.
  */
 export const ChoiceBox = (props: IChoiceBoxProps): ReactElement => {
@@ -21,7 +21,7 @@ export const ChoiceBox = (props: IChoiceBoxProps): ReactElement => {
     showDescription = true,
     showMedia = true,
     showControl = true,
-    isSelected = false,
+    isChecked = false,
     isDisabled = false,
     onChange,
     onFocus,
@@ -39,11 +39,11 @@ export const ChoiceBox = (props: IChoiceBoxProps): ReactElement => {
   const [isFocusVisible, setIsFocusVisible] = useState(false);
 
   const { rowStyle, surfaceStyle, overlayStyle, headerRowStyle, contentStyle, titleStyle, descriptionStyle } =
-    useChoiceBox({ ...props, isSelected, isDisabled, isHovered, isPressed, isFocusVisible });
+    useChoiceBox({ ...props, isChecked, isDisabled, isHovered, isPressed, isFocusVisible });
 
   const toggle = (): void => {
     if (isDisabled) return;
-    onChange?.(!isSelected);
+    onChange?.(!isChecked);
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>): void => {
@@ -66,7 +66,7 @@ export const ChoiceBox = (props: IChoiceBoxProps): ReactElement => {
 
   const control = displayControl ? (
     <span aria-hidden="true" style={{ pointerEvents: 'none' }}>
-      <Checkbox isChecked={isSelected} isDisabled={isDisabled} showLabel={false} />
+      <Checkbox isChecked={isChecked} isDisabled={isDisabled} showLabel={false} />
     </span>
   ) : null;
 
@@ -79,7 +79,7 @@ export const ChoiceBox = (props: IChoiceBoxProps): ReactElement => {
 
   return (
     <div
-      aria-checked={isSelected}
+      aria-checked={isChecked}
       aria-disabled={isDisabled || undefined}
       data-testid={testID}
       id={id}

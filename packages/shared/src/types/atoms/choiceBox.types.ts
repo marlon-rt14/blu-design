@@ -25,8 +25,8 @@ export interface IChoiceBoxBaseProps {
   title: string;
   /** Optional supporting description below the title. */
   description?: string;
-  /** Whether the choice is currently selected. */
-  isSelected?: boolean;
+  /** Whether the choice is currently checked. */
+  isChecked?: boolean;
   /** Disables interaction and applies disabled colors. */
   isDisabled?: boolean;
   /**
