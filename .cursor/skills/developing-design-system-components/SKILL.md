@@ -334,6 +334,19 @@ one:
   usage guideline. Live region is **not a prop**: danger/warning →
   `role=alert`, rest → `status`. Figma's "no live region on load before h1"
   is host composition, not a component axis.
+- **Snackbar is a toast, not an Alert.** Inverse bar
+  (`color.component.snackbar.surface.bg`), no chip, no `placement`, no
+  `neutral`. `tone` default **info**. Glyph + `on-inverse.{tone}` colour;
+  fill never changes. Live node action is **LinkButton `on-inverse` `sm`**
+  `"Deshacer"` (21px) — the set description still says Button; the nested
+  instance is a link (Figma wins). Close is IconButton `on-inverse` `sm`
+  (32 visual, 16 glyph, pill) painted locally from
+  `color.component.iconbutton.on-inverse.*`; Figma property is `showClose`
+  default false. Type is `text/body/md` (live `97:13653`). Max width **448**
+  is Figma copy, not a theme token. Auto-dismiss **6s** from mount, timer
+  does not restart (`SNACKBAR_DURATION_MS`). Live region is **not a prop**:
+  `role=status`, `aria-live=assertive` only on danger. Don't copy Alert's
+  muted fill, chip, LinkButton `on-muted`, or `announce`.
 - **Every component's own variant axes are its own — don't generalize.** `TextField` has a `size`
   axis (`small`/`medium`/`large`, matching Figma's `sm`/`md`/`lg`) and an `icon` color group;
   `TextArea` has neither — a single `state` axis, no size, no icon slot. Confirm the axes with
