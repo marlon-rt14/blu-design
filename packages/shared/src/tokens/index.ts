@@ -11,6 +11,7 @@ export * from './passwordField.tokens';
 export * from './choiceItem.tokens';
 export * from './radio.tokens';
 export * from './radioGroup.tokens';
+export * from './snackbar.tokens';
 export * from './switch.tokens';
 export * from './switchItem.tokens';
 export * from './textArea.tokens';

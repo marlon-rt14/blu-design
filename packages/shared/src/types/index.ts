@@ -5,6 +5,7 @@ export * from './atoms/icon.types';
 export * from './atoms/linkButton.types';
 export * from './atoms/passwordField.types';
 export * from './atoms/radio.types';
+export * from './atoms/snackbar.types';
 export * from './atoms/switch.types';
 export * from './atoms/textArea.types';
 export * from './atoms/textField.types';
