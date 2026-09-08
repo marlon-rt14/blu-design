@@ -3,6 +3,7 @@ import {
   AvatarGroup,
   BluProvider,
   Button,
+  Card,
   Checkbox,
   ChoiceBox,
   ChoiceItem,
@@ -190,6 +191,47 @@ const App = () => {
                 <LinkButton label="LinkButton" onPress={handlePress} />
                 <Button label="Button" variant="primary" />
               </View>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+                Card
+              </Text>
+              {/* Una superficie y nada más: fondo, radio y recorte. No es
+                  interactiva y no lleva rol — si la tarjeta entera fuera un
+                  destino, el rol y el foco los pondría un Pressable
+                  envolviéndola.
+
+                  En nativo son DOS View donde web usa una sola, y el motivo es
+                  de la plataforma: en iOS una vista que a la vez proyecta
+                  sombra y recorta a sus bordes pierde la sombra. La de afuera
+                  pinta, la de adentro recorta.
+
+                  Ojo con `raised`: el color del borde es transparente en los
+                  dos temas, así que hoy es 1px invisible que solo ocupa lugar
+                  — una raised mide 2px más que una flat. */}
+              {(['flat', 'raised'] as const).map(elevation =>
+                (['none', 'md'] as const).map(padding => (
+                  <View key={`${elevation}-${padding}`} style={styles.cardCell}>
+                    <Text style={[styles.subtitle, { fontFamily: regularFont }]}>
+                      {elevation} · padding {padding}
+                    </Text>
+                    <Card
+                      elevation={elevation}
+                      padding={padding}
+                      testID={`card-${elevation}-${padding}`}
+                    >
+                      {/* Sin radio propio: con padding none el recorte de la
+                          tarjeta es lo único que le redondea las esquinas. */}
+                      <View style={styles.cardFiller}>
+                        <Text style={[styles.cardFillerText, { fontFamily: regularFont }]}>
+                          {elevation} / {padding}
+                        </Text>
+                      </View>
+                    </Card>
+                  </View>
+                )),
+              )}
             </View>
 
             <View style={styles.section}>
@@ -571,6 +613,22 @@ const styles = StyleSheet.create({
     fontSize: typography.fontSizes.sm,
     letterSpacing: 1,
     color: colors.slate400,
+  },
+  // La sombra de una Card raised se sale de sus bordes, asi que la celda
+  // reserva aire abajo para que no la tape la siguiente.
+  cardCell: {
+    gap: spacing.xs,
+    marginBottom: spacing.md,
+  },
+  cardFiller: {
+    height: 72,
+    justifyContent: 'center',
+    paddingLeft: spacing.md,
+    backgroundColor: colors.slate200,
+  },
+  cardFillerText: {
+    fontSize: typography.fontSizes.sm,
+    color: colors.slate900,
   },
   row: {
     flexDirection: 'row',
