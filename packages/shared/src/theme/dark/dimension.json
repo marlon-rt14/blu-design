@@ -853,6 +853,38 @@
           "type": "dimension",
           "description": "Transiciones de pantalla. Mismo valor en los tres modos a proposito: no depende de la densidad. Con Reduce Motion del sistema activo pasa a 0 en runtime (WCAG 2.3.3). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         }
+      },
+      "dwell": {
+        "short": {
+          "value": "4000px",
+          "type": "dimension",
+          "description": "Permanencia de 4000ms (4 s). Escala de permanencia: short 4000 para confirmaciones sin accion, default 6000 por defecto, long 10000 cuando el mensaje trae una accion. NO es duracion de animacion: eso es motion/duration/*. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 4. Layout, que resuelven hasta aca."
+        },
+        "default": {
+          "value": "6000px",
+          "type": "dimension",
+          "description": "Permanencia de 6000ms (6 s). Escala de permanencia: short 4000 para confirmaciones sin accion, default 6000 por defecto, long 10000 cuando el mensaje trae una accion. NO es duracion de animacion: eso es motion/duration/*. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 4. Layout, que resuelven hasta aca."
+        },
+        "long": {
+          "value": "10000px",
+          "type": "dimension",
+          "description": "Permanencia de 10000ms (10 s). Escala de permanencia: short 4000 para confirmaciones sin accion, default 6000 por defecto, long 10000 cuando el mensaje trae una accion. NO es duracion de animacion: eso es motion/duration/*. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 4. Layout, que resuelven hasta aca."
+        },
+        "short_1": {
+          "value": "4000px",
+          "type": "dimension",
+          "description": "Cuanto se queda en pantalla un mensaje efimero SIN accion: una confirmacion que el usuario no necesita responder. 4 s desde que entra. Mismo valor en los tres modos a proposito: la permanencia no depende de la densidad. NO es duracion de animacion: la entrada y la salida del elemento son motion/duration/short + motion/easing/enter|exit. Reduce Motion apaga el movimiento, nunca este contador: el tiempo de lectura no es movimiento."
+        },
+        "default_1": {
+          "value": "6000px",
+          "type": "dimension",
+          "description": "PERMANENCIA BASE de lo efimero: es el valor del Snackbar. 6 s desde que entra; el contador arranca al montar y no se reinicia. Mismo valor en los tres modos a proposito: la permanencia no depende de la densidad. NO es duracion de animacion: la entrada y la salida del elemento son motion/duration/short + motion/easing/enter|exit. Reduce Motion apaga el movimiento, nunca este contador: el tiempo de lectura no es movimiento."
+        },
+        "long_1": {
+          "value": "10000px",
+          "type": "dimension",
+          "description": "Para un mensaje efimero CON accion: el usuario tiene que leer, decidir y llegar al control. 10 s. WCAG 2.2.1 — si el tiempo no alcanza para usar la accion, el patron correcto es Alert, no alargar este token. Mismo valor en los tres modos a proposito: la permanencia no depende de la densidad. NO es duracion de animacion: la entrada y la salida del elemento son motion/duration/short + motion/easing/enter|exit. Reduce Motion apaga el movimiento, nunca este contador: el tiempo de lectura no es movimiento."
+        }
       }
     },
     "size": {
@@ -1048,17 +1080,17 @@
           "lg": {
             "value": "12px",
             "type": "dimension",
-            "description": "[Component: ProgressBar] Alto de la pista y del relleno. No cambia con la densidad: el grosor de la barra es una decision de lectura, no de espacio."
+            "description": "Alto de una barra de progreso. COMPARTIDO A PROPOSITO, no es privado de ProgressBar: el medidor de PasswordStrength usa size/bar/height/sm. Por eso vive en la escala generica y no como co-token component/progressbar/*, a diferencia de component/avatar/size o component/scrollbar/width, que si son de un solo componente. Si aparece un tercer consumidor -un Slider, un Meter- entra aca sin crear nada nuevo."
           },
           "md": {
             "value": "8px",
             "type": "dimension",
-            "description": "[Component: ProgressBar] Alto de la pista y del relleno. No cambia con la densidad: el grosor de la barra es una decision de lectura, no de espacio."
+            "description": "Alto de una barra de progreso. COMPARTIDO A PROPOSITO, no es privado de ProgressBar: el medidor de PasswordStrength usa size/bar/height/sm. Por eso vive en la escala generica y no como co-token component/progressbar/*, a diferencia de component/avatar/size o component/scrollbar/width, que si son de un solo componente. Si aparece un tercer consumidor -un Slider, un Meter- entra aca sin crear nada nuevo."
           },
           "sm": {
             "value": "4px",
             "type": "dimension",
-            "description": "[Component: ProgressBar] Alto de la pista y del relleno. No cambia con la densidad: el grosor de la barra es una decision de lectura, no de espacio."
+            "description": "Alto de una barra de progreso. COMPARTIDO A PROPOSITO, no es privado de ProgressBar: el medidor de PasswordStrength usa size/bar/height/sm. Por eso vive en la escala generica y no como co-token component/progressbar/*, a diferencia de component/avatar/size o component/scrollbar/width, que si son de un solo componente. Si aparece un tercer consumidor -un Slider, un Meter- entra aca sin crear nada nuevo."
           }
         }
       }

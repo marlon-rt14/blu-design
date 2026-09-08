@@ -70,7 +70,7 @@ export const usePasswordField = ({
   isInvalid = false,
   errorMessage,
   helperText,
-  showHelper = false,
+  showHelper = true,
   isHovered,
   isFocused,
 }: IUsePasswordFieldParams): IUsePasswordFieldResult => {

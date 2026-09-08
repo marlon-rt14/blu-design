@@ -82,7 +82,12 @@ export interface IPasswordFieldBaseProps {
    * Whether the helper slot renders at all — independent of `helperText` or
    * `errorMessage` being set.
    *
-   * @defaultValue `false`
+   * @defaultValue `true`
+   *
+   * Every `show*` prop in the system defaults to `true`: in Figma these are
+   * boolean properties whose slots are drawn, and hiding one is the deliberate
+   * choice. Set it to `false` to reclaim the vertical space when the field
+   * carries no helper and no error.
    */
   showHelper?: boolean;
   /**

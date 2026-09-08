@@ -305,6 +305,38 @@ one:
   shape is what distinguishes them). Don't
   read `typography.component.checkbox.labeled` (`400 16px/20px`); live type is
   `text/body/{sm,md}/default`, composed from `font.size.body.*`.
+- **Alert is in-flow, not a toast.** Occupies space; does not auto-dismiss
+  (that's Snackbar). Axes: `tone` (danger/warning/success/info/neutral,
+  default **danger**) × `placement` (page/section/inline, default **page**).
+  No border. Surface is `color.color.fill.{tone}.muted` — `color.component.alert.*`
+  is **not** in the theme export (Figma CSS vars alias those fills). Neutral
+  chip is `canvas.surface.inverse`, not a `fill.default`. Title and body are
+  both `text/primary`; ExtraBold vs Regular is the hierarchy. Do **not** read
+  `typography.component.alert` (`700 14/17`). Gap title→body is **0**. Chip is
+  always 24 with glyph `sm` 16, even on inline (live node, not the docs-page
+  copy that said 16). `iconBox` height = body line-box so the chip lines up
+  with the first text line — don't top-align it to the padding. Glyphs are
+  locked per tone (`ALERT_TONE_ICON`); no icon slot. Action is LinkButton
+  `appearance="on-muted"` `size="sm"` on every placement (live nodes — not a
+  Button outline). Dismiss is IconButton `veil` (24 visual, 48 hit) — IconButton
+  is not shipped yet, so Alert paints it locally from `fill.action.veil.*`.
+  `showDismiss` stays a free boolean; Figma's "not on danger/warning" is a
+  usage guideline. Live region is **not a prop**: danger/warning →
+  `role=alert`, rest → `status`. Figma's "no live region on load before h1"
+  is host composition, not a component axis.
+- **Snackbar is a toast, not an Alert.** Inverse bar
+  (`color.component.snackbar.surface.bg`), no chip, no `placement`, no
+  `neutral`. `tone` default **info**. Glyph + `on-inverse.{tone}` colour;
+  fill never changes. Live node action is **LinkButton `on-inverse` `sm`**
+  `"Deshacer"` (21px) — the set description still says Button; the nested
+  instance is a link (Figma wins). Close is IconButton `on-inverse` `sm`
+  (32 visual, 16 glyph, pill) painted locally from
+  `color.component.iconbutton.on-inverse.*`; Figma property is `showClose`
+  default false. Type is `text/body/md` (live `97:13653`). Max width **448**
+  is Figma copy, not a theme token. Auto-dismiss **6s** from mount, timer
+  does not restart (`SNACKBAR_DURATION_MS`). Live region is **not a prop**:
+  `role=status`, `aria-live=assertive` only on danger. Don't copy Alert's
+  muted fill, chip, LinkButton `on-muted`, or `announce`.
 - **Every component's own variant axes are its own — don't generalize.** `TextField` has a `size`
   axis (`small`/`medium`/`large`, matching Figma's `sm`/`md`/`lg`) and an `icon` color group;
   `TextArea` has neither — a single `state` axis, no size, no icon slot. Confirm the axes with

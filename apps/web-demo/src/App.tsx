@@ -1,4 +1,4 @@
-import { BluProvider, Button, Checkbox, ChoiceItem, LinkButton, PasswordField, Radio, RadioGroup } from "@dsm/web";
+import { BluProvider, Button, Checkbox, ChoiceItem, LinkButton, OTPField, PasswordField, Radio, RadioGroup } from "@dsm/web";
 import type { TButtonAppearance, TButtonSize, TButtonVariant, TIconColor, TIconSize, TPasswordFieldSize, TPasswordFieldVisibility } from "@dsm/shared";
 import { useState } from "react";
 
@@ -42,6 +42,8 @@ const App = () => {
   // Guarda el id de la opción elegida, que es lo que un grupo de radios necesita.
   const [metodo, setMetodo] = useState("Débito");
   const [checked, setChecked] = useState(false);
+  const [code, setCode] = useState("");
+  const [wrongCode, setWrongCode] = useState("1234");
 
   return (
     // BluProvider is what actually loads Mulish (see @dsm/web's theme/font.ts) —
@@ -252,6 +254,52 @@ const App = () => {
             <div style={{ width: 280 }}>
               <PasswordField isDisabled label="Deshabilitada" testID="password-disabled" value={password} />
             </div>
+          </div>
+        </section>
+
+        <section className="demo__section">
+          <h2 className="demo__section-title">OTPField</h2>
+          {/* Las cajas son presentación: debajo hay UN input, no seis. Eso es lo
+              que deja que el sistema operativo pegue el código completo del SMS
+              y que se pueda pegar a mano desde mensajes. Por eso tampoco hay
+              cursor — el anillo en la caja activa es el cursor.
+
+              Fijate que el anillo salta a la primera caja vacía a medida que
+              escribís, y que las letras se caen solas. */}
+          <p className="demo__counter">
+            Código: <strong data-testid="otp-value">{code || "(vacío)"}</strong>
+          </p>
+          <div className="demo__row">
+            <OTPField
+              helperText="Reenviar código en 00:30"
+              onValueChange={setCode}
+              testID="otp-6"
+              length={6}
+              value={code}
+            />
+          </div>
+          <div className="demo__row">
+            <OTPField
+              helperText="Cuatro dígitos"
+              onValueChange={setCode}
+              testID="otp-4"
+              value={code}
+            />
+            {/* Error y foco son ejes independientes: este se puede enfocar y
+                sigue en rojo. El disabled de al lado, en cambio, gana sobre
+                todo y no deja rastro del error. */}
+            <OTPField
+              errorMessage="Código incorrecto"
+              onValueChange={setWrongCode}
+              testID="otp-error"
+              value={wrongCode}
+            />
+            <OTPField
+              errorMessage="Código incorrecto"
+              isDisabled
+              testID="otp-disabled"
+              value={wrongCode}
+            />
           </div>
         </section>
       </main>

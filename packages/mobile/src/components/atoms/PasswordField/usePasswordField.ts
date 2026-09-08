@@ -57,7 +57,7 @@ export const usePasswordField = ({
   isInvalid = false,
   errorMessage,
   helperText,
-  showHelper = false,
+  showHelper = true,
   isFocused,
 }: IUsePasswordFieldParams): IUsePasswordFieldResult => {
   const mode = useThemeMode();
