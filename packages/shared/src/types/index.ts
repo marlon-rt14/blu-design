@@ -14,5 +14,6 @@ export * from './atoms/textArea.types';
 export * from './atoms/textField.types';
 export * from './molecules/avatarGroup.types';
 export * from './molecules/choiceItem.types';
+export * from './molecules/listItem.types';
 export * from './molecules/radioGroup.types';
 export * from './molecules/switchItem.types';

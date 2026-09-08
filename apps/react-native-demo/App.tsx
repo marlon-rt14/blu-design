@@ -7,6 +7,7 @@ import {
   ChoiceBox,
   ChoiceItem,
   LinkButton,
+  ListItem,
   OTPField,
   Radio,
   RadioGroup,
@@ -424,6 +425,64 @@ const App = () => {
                 AVATARGROUP
               </Text>
               <AvatarGroup avatars={TEAM} overflowLabel="+4" showOverflow testID="avatar-group" />
+            </View>
+
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>LISTITEM · LEADING</Text>
+              <ListItem label="Sin leading" testID="listitem-none" />
+              <ListItem icon="user" label="Con icono" leadingContent="icon" testID="listitem-icon" />
+              <ListItem avatarInitials="JG" label="Con avatar" leadingContent="avatar" testID="listitem-avatar" />
+
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
+                LISTITEM · SIZE
+              </Text>
+              <ListItem avatarInitials="JG" label="Tamaño sm" leadingContent="avatar" size="sm" testID="listitem-size-sm" />
+              <ListItem avatarInitials="JG" label="Tamaño md" leadingContent="avatar" size="md" testID="listitem-size-md" />
+
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
+                LISTITEM · CONTENIDO
+              </Text>
+              <ListItem
+                avatarInitials="JG"
+                description="Hoy, 14:32"
+                label="Envío a Juan García"
+                leadingContent="avatar"
+                showDescription
+                showDivider
+                showTrailingText
+                testID="listitem-content-1"
+                trailingText="$1.250,00"
+              />
+              <ListItem
+                avatarInitials="MP"
+                description="Ayer, 09:10"
+                label="Pago de servicios"
+                leadingContent="avatar"
+                showDescription
+                showTrailingText
+                testID="listitem-content-2"
+                trailingText="$430,00"
+              />
+
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
+                LISTITEM · INTERACTIVO / TRAILING / DISABLED
+              </Text>
+              <ListItem
+                icon="user"
+                label="Ver todos los contactos"
+                leadingContent="icon"
+                onPress={handlePress}
+                showTrailing
+                testID="listitem-interactive"
+                trailing={<IconChevronRight color="secondary" size="sm" />}
+              />
+              <ListItem
+                avatarInitials="RS"
+                isDisabled
+                label="Cuenta suspendida"
+                leadingContent="avatar"
+                testID="listitem-disabled"
+              />
             </View>
 
             <View style={styles.section}>
