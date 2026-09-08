@@ -318,22 +318,28 @@ one:
 - **Alert is in-flow, not a toast.** Occupies space; does not auto-dismiss
   (that's Snackbar). Axes: `tone` (danger/warning/success/info/neutral,
   default **danger**) × `placement` (page/section/inline, default **page**).
-  No border. Surface is `color.color.fill.{tone}.muted` — `color.component.alert.*`
-  is **not** in the theme export (Figma CSS vars alias those fills). Neutral
-  chip is `canvas.surface.inverse`, not a `fill.default`. Title and body are
-  both `text/primary`; ExtraBold vs Regular is the hierarchy. Do **not** read
-  `typography.component.alert` (`700 14/17`). Gap title→body is **0**. Chip is
-  always 24 with glyph `sm` 16, even on inline (live node, not the docs-page
-  copy that said 16). `iconBox` height = body line-box so the chip lines up
-  with the first text line — don't top-align it to the padding. Glyphs are
-  locked per tone (`ALERT_TONE_ICON`); no icon slot. Action is LinkButton
-  `appearance="on-muted"` `size="sm"` on every placement (live nodes — not a
-  Button outline). Dismiss is IconButton `veil` (24 visual, 48 hit) — IconButton
-  is not shipped yet, so Alert paints it locally from `fill.action.veil.*`.
-  `showDismiss` stays a free boolean; Figma's "not on danger/warning" is a
-  usage guideline. Live region is **not a prop**: danger/warning →
-  `role=alert`, rest → `status`. Figma's "no live region on load before h1"
-  is host composition, not a component axis.
+  Figma's live variant axis is named `status`; the set description and
+  Supernova still say `tone` — public API is `tone`. Properties (8, Figma
+  + Supernova): those two axes plus `showTitle` (true), `title`, `body`,
+  `showIcon` (true), `showAction` (false), `showDismiss` (false). The last
+  two are independent booleans even though the 15 published variants
+  have them off. Action is a nested **LinkButton `on-muted` `sm`
+  `underline=false`** (label edited on the instance; default variant
+  copy is `"Resolver ahora"`). Dismiss is IconButton `veil` `xs` (24
+  visual, glyph 16 `primary`, pill) painted locally from
+  `color.component.iconbutton.veil.*` — IconButton is not shipped. A11y
+  name `"Cerrar aviso"`; hitSlop to `size.target.min` (48). Usage copy:
+  `showDismiss` on for info/neutral/success; off for danger/warning unless
+  the same info is reachable another way — that is guidance, not a
+  variant lock. `inline` has **no title layer** (`showTitle` is a no-op
+  there). No border. Read `color.component.alert.surface.bg-{tone}` /
+  `chip.bg-{tone}` / `content.{title,body}`. Neutral chip is
+  `chip.bg-neutral`. Title and body share `text/primary`; ExtraBold vs
+  Regular is the hierarchy. Do **not** read `typography.component.alert`
+  (`700 14/17`). Gap title→body is **0**. Chip is always 24 with glyph
+  `sm` 16. `iconBox` is **chip-sized (24)** on every placement. Glyphs
+  locked per tone (`ALERT_TONE_ICON`); no icon slot. Live region is **not
+  a prop**: danger/warning → `role=alert`, rest → `status`.
 - **Snackbar is a toast, not an Alert.** Inverse bar
   (`color.component.snackbar.surface.bg`), no chip, no `placement`, no
   `neutral`. `tone` default **info**. Glyph + `on-inverse.{tone}` colour;

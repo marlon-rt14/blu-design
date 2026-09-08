@@ -21,8 +21,9 @@ const meta = {
       description: {
         component:
           'In-flow notice — occupies space, does not auto-dismiss (that is Snackbar). ' +
-          '`tone` × `placement` (15 variants). No border; muted fill + circular chip. ' +
-          'Action is a LinkButton `on-muted` `sm`. Dismiss is a 24px veil control with a 48pt hit target.',
+          '`tone` × `placement` (15 variants). `showAction` / `showDismiss` default false. ' +
+          'Action is a LinkButton `on-muted` `sm`. Dismiss is a 24px veil IconButton with a 48pt hit target. ' +
+          '`inline` has no title layer.',
       },
     },
   },
@@ -36,17 +37,17 @@ const meta = {
     placement: {
       control: 'inline-radio',
       options: PLACEMENTS,
-      description: 'page: body md / 16 pad. section: body sm / 16 pad. inline: body sm / 12 pad.',
+      description: 'page: body md / 16 pad. section: body sm / 16 pad. inline: body sm / 12 pad, no title.',
       table: { category: 'Appearance', defaultValue: { summary: 'page' } },
     },
     showTitle: {
       control: 'boolean',
-      description: 'Whether the title renders. Independent of `title` being set.',
+      description: 'Whether the title renders. No-op on inline — that placement has no title layer.',
       table: { category: 'Content', defaultValue: { summary: 'true' } },
     },
     title: {
       control: 'text',
-      description: 'Headline. Hidden when `showTitle` is false.',
+      description: 'Headline. Hidden when `showTitle` is false or `placement` is inline.',
       table: { category: 'Content' },
     },
     body: {
@@ -66,12 +67,12 @@ const meta = {
     },
     actionLabel: {
       control: 'text',
-      description: 'Label of the nested LinkButton.',
-      table: { category: 'Content', defaultValue: { summary: 'Ver detalle' } },
+      description: 'Label of the nested LinkButton. Edited on the nested instance in Figma.',
+      table: { category: 'Content', defaultValue: { summary: 'Resolver ahora' } },
     },
     showDismiss: {
       control: 'boolean',
-      description: 'Whether the dismiss control renders. Guideline: info/neutral/success, not danger/warning.',
+      description: 'Whether the dismiss control renders. Usage: on for info / neutral / success.',
       table: { category: 'Content', defaultValue: { summary: 'false' } },
     },
     dismissAccessibilityLabel: {
@@ -92,7 +93,7 @@ const meta = {
     body: 'Descripción breve de la condición y de lo que se puede hacer.',
     showIcon: true,
     showAction: false,
-    actionLabel: 'Ver detalle',
+    actionLabel: 'Resolver ahora',
     showDismiss: false,
   },
   render: (args, { globals }) => (
@@ -134,18 +135,6 @@ export const Placements: TStory = {
   },
 };
 
-export const WithAction: TStory = {
-  args: { showAction: true, actionLabel: 'Resolver ahora', tone: 'danger' },
-};
-
-export const WithDismiss: TStory = {
-  args: { showDismiss: true, tone: 'info' },
-};
-
-export const WithActionAndDismiss: TStory = {
-  args: { showAction: true, showDismiss: true, tone: 'success', actionLabel: 'Ver detalle' },
-};
-
 export const WithoutTitle: TStory = {
   args: { showTitle: false },
 };
@@ -155,5 +144,17 @@ export const WithoutIcon: TStory = {
 };
 
 export const Inline: TStory = {
-  args: { placement: 'inline', showTitle: false },
+  args: { placement: 'inline' },
+};
+
+export const WithAction: TStory = {
+  args: { showAction: true },
+};
+
+export const WithDismiss: TStory = {
+  args: { showDismiss: true, tone: 'info' },
+};
+
+export const WithActionAndDismiss: TStory = {
+  args: { showAction: true, showDismiss: true, tone: 'info' },
 };

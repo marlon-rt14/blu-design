@@ -7,6 +7,7 @@ import type { IAlertProps } from './Alert.types';
 
 interface IUseAlertParams extends IAlertProps {
   isDismissPressed: boolean;
+  isDismissFocused: boolean;
 }
 
 interface IUseAlertResult {
@@ -78,17 +79,19 @@ export const useAlert = ({
   tone = 'danger',
   placement = 'page',
   isDismissPressed,
+  isDismissFocused,
 }: IUseAlertParams): IUseAlertResult => {
   const mode = useThemeMode();
   const tokens = alertTokens[mode];
   const sizeTokens = placementTokens(placement, tokens);
-  const { chipSize, dismissSize, targetMin, pillRadius, actionPaddingTop } = tokens.dimension;
+  const { chipSize, pillRadius, actionPaddingTop, actionGap, dismissSize, targetMin, focusRingOffset, focusRingSpread } =
+    tokens.dimension;
   const toneColors = tokens.colors.tones[tone];
   const hitOutset = (targetMin - dismissSize) / 2;
 
   const dismissBackground = isDismissPressed
     ? tokens.colors.dismiss.backgroundPressed
-    : tokens.colors.dismiss.background;
+    : tokens.colors.dismiss.backgroundDefault;
 
   const liveRole = liveRoleOf(tone);
   const liveRegion = liveRegionOf(tone);
@@ -107,7 +110,7 @@ export const useAlert = ({
     alignItems: 'center',
     justifyContent: 'center',
     width: chipSize,
-    height: sizeTokens.body.lineHeight,
+    height: chipSize,
     flexShrink: 0,
   };
 
@@ -131,17 +134,20 @@ export const useAlert = ({
     fontFamily: resolveMulishFontFamily(sizeTokens.title.fontWeight),
     fontSize: sizeTokens.title.fontSize,
     lineHeight: sizeTokens.title.lineHeight,
-    color: tokens.colors.text,
+    color: tokens.colors.title,
   };
 
   const bodyStyle: StyleProp<TextStyle> = {
     fontFamily: resolveMulishFontFamily(sizeTokens.body.fontWeight),
     fontSize: sizeTokens.body.fontSize,
     lineHeight: sizeTokens.body.lineHeight,
-    color: tokens.colors.text,
+    color: tokens.colors.body,
   };
 
   const actionsStyle: StyleProp<ViewStyle> = {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: actionGap,
     paddingTop: actionPaddingTop,
   };
 
@@ -160,6 +166,14 @@ export const useAlert = ({
     height: dismissSize,
     borderRadius: pillRadius,
     backgroundColor: dismissBackground,
+    ...(isDismissFocused
+      ? {
+          outlineWidth: focusRingSpread,
+          outlineOffset: focusRingOffset,
+          outlineColor: tokens.colors.dismiss.borderFocus,
+          outlineStyle: 'solid' as const,
+        }
+      : {}),
   };
 
   const dismissHitSlop: Insets = {

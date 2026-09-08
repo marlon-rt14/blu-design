@@ -3,13 +3,7 @@ import type { FocusEvent, ReactElement } from 'react';
 
 import { ALERT_TONE_ICON, type TAlertTone } from '@dsm/shared';
 
-import {
-  IconAlertCircle,
-  IconAlertTriangle,
-  IconCheckCircle,
-  IconInfo,
-  IconX,
-} from '../../../icons';
+import { IconAlertCircle, IconAlertTriangle, IconCheckCircle, IconInfo, IconX } from '../../../icons';
 import type { TIconProps } from '../Icon';
 import { LinkButton } from '../LinkButton';
 import type { IAlertProps } from './Alert.types';
@@ -36,12 +30,13 @@ const toneIcon = (tone: TAlertTone): ((props: TIconProps) => ReactElement) => {
 export const Alert = (props: IAlertProps): ReactElement => {
   const {
     tone = 'danger',
+    placement = 'page',
     showTitle = true,
     title = 'Título del aviso',
     body = 'Descripción breve de la condición y de lo que se puede hacer.',
     showIcon = true,
     showAction = false,
-    actionLabel = 'Ver detalle',
+    actionLabel = 'Resolver ahora',
     showDismiss = false,
     dismissAccessibilityLabel = 'Cerrar aviso',
     onAction,
@@ -72,6 +67,7 @@ export const Alert = (props: IAlertProps): ReactElement => {
   });
 
   const ToneIcon = toneIcon(tone);
+  const renderTitle = placement !== 'inline' && showTitle;
 
   const handleDismissFocus = (event: FocusEvent<HTMLButtonElement>): void => {
     setIsDismissFocusVisible(event.currentTarget.matches(':focus-visible'));
@@ -92,11 +88,17 @@ export const Alert = (props: IAlertProps): ReactElement => {
         </span>
       ) : null}
       <div style={contentStyle}>
-        {showTitle ? <p style={titleStyle}>{title}</p> : null}
+        {renderTitle ? <p style={titleStyle}>{title}</p> : null}
         <p style={bodyStyle}>{body}</p>
         {showAction ? (
           <div style={actionsStyle}>
-            <LinkButton appearance="on-muted" label={actionLabel} onClick={onAction} size="sm" />
+            <LinkButton
+              appearance="on-muted"
+              label={actionLabel}
+              onClick={onAction}
+              size="sm"
+              underline={false}
+            />
           </div>
         ) : null}
       </div>

@@ -13,17 +13,20 @@ export interface IAlertToneColorTokens {
 
 /** IconButton `veil` colours used by the local dismiss control. */
 export interface IAlertDismissColorTokens {
-  background: string;
+  backgroundDefault: string;
   backgroundHover: string;
   backgroundPressed: string;
+  icon: string;
+  borderFocus: string;
 }
 
 export interface IAlertColorTokens {
   tones: Record<TAlertTone, IAlertToneColorTokens>;
-  /** Title and body share `color/text/primary` — the chip carries the tone. */
-  text: string;
+  /** `component/alert/content/title` — aliases `color/text/primary`. */
+  title: string;
+  /** `component/alert/content/body` — aliases `color/text/primary`. */
+  body: string;
   dismiss: IAlertDismissColorTokens;
-  borderFocus: string;
 }
 
 /**
@@ -42,10 +45,11 @@ export interface IAlertPlacementTokens {
 export interface IAlertDimensionTokens {
   chipSize: number;
   iconSize: number;
+  pillRadius: number;
   actionPaddingTop: number;
+  actionGap: number;
   dismissSize: number;
   targetMin: number;
-  pillRadius: number;
   focusRingOffset: number;
   focusRingSpread: number;
 }
@@ -58,7 +62,7 @@ export interface IAlertTokens {
 
 const readAlertTokens = (mode: TThemeMode): IAlertTokens => {
   const { color, dimension } = themeSources[mode];
-  const fillAt = (path: string): string => readThemeToken(color, `color.color.fill.${path}`);
+  const colorAt = (path: string): string => readThemeToken(color, `color.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
 
   const composedTypographyAt = (sizePath: string, weightPath: string): IThemeTypographyValue => {
@@ -76,29 +80,39 @@ const readAlertTokens = (mode: TThemeMode): IAlertTokens => {
   const bodySm = composedTypographyAt('font.size.body.sm', 'font.weight.regular');
   const titleSm = composedTypographyAt('font.size.body.sm', 'font.weight.extrabold');
 
-  // `color.component.alert.*` is not in the theme export. Figma aliases
-  // `color/bg/{tone}/muted` (JSON: `fill.{tone}.muted`) and
-  // `color/bg/{tone}/default` (`fill.{tone}.default`). Neutral chip is
-  // `canvas/surface/inverse`, not a fill.default — that co-token does not exist.
   return {
     colors: {
       tones: {
-        danger: { surface: fillAt('danger.muted'), chip: fillAt('danger.default') },
-        warning: { surface: fillAt('warning.muted'), chip: fillAt('warning.default') },
-        success: { surface: fillAt('success.muted'), chip: fillAt('success.default') },
-        info: { surface: fillAt('info.muted'), chip: fillAt('info.default') },
+        danger: {
+          surface: colorAt('component.alert.surface.bg-danger'),
+          chip: colorAt('component.alert.chip.bg-danger'),
+        },
+        warning: {
+          surface: colorAt('component.alert.surface.bg-warning'),
+          chip: colorAt('component.alert.chip.bg-warning'),
+        },
+        success: {
+          surface: colorAt('component.alert.surface.bg-success'),
+          chip: colorAt('component.alert.chip.bg-success'),
+        },
+        info: {
+          surface: colorAt('component.alert.surface.bg-info'),
+          chip: colorAt('component.alert.chip.bg-info'),
+        },
         neutral: {
-          surface: fillAt('neutral.muted'),
-          chip: readThemeToken(color, 'color.color.canvas.surface.inverse'),
+          surface: colorAt('component.alert.surface.bg-neutral'),
+          chip: colorAt('component.alert.chip.bg-neutral'),
         },
       },
-      text: readThemeToken(color, 'color.color.text.primary'),
+      title: colorAt('component.alert.content.title'),
+      body: colorAt('component.alert.content.body'),
       dismiss: {
-        background: fillAt('action.veil.default'),
-        backgroundHover: fillAt('action.veil.hover'),
-        backgroundPressed: fillAt('action.veil.pressed'),
+        backgroundDefault: colorAt('component.iconbutton.veil.bg-default'),
+        backgroundHover: colorAt('component.iconbutton.veil.bg-hover'),
+        backgroundPressed: colorAt('component.iconbutton.veil.bg-pressed'),
+        icon: colorAt('component.iconbutton.veil.icon-default'),
+        borderFocus: colorAt('component.iconbutton.focus.border'),
       },
-      borderFocus: readThemeToken(color, 'color.color.border.focus'),
     },
     placements: {
       page: {
@@ -126,10 +140,11 @@ const readAlertTokens = (mode: TThemeMode): IAlertTokens => {
     dimension: {
       chipSize: dimensionAt('size.icon.md'),
       iconSize: dimensionAt('size.icon.sm'),
-      actionPaddingTop: dimensionAt('space.inset.sm'),
-      dismissSize: dimensionAt('size.icon.md'),
-      targetMin: dimensionAt('size.target.min'),
       pillRadius: dimensionAt('radius.pill'),
+      actionPaddingTop: dimensionAt('space.inset.sm'),
+      actionGap: dimensionAt('space.inline.sm'),
+      dismissSize: dimensionAt('size.control.height.xs'),
+      targetMin: dimensionAt('size.target.min'),
       focusRingOffset: dimensionAt('focus.ring.offset'),
       focusRingSpread: dimensionAt('focus.ring.spread'),
     },

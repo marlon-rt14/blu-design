@@ -4,13 +4,7 @@ import { Pressable, Text, View } from 'react-native';
 
 import { ALERT_TONE_ICON, type TAlertTone } from '@dsm/shared';
 
-import {
-  IconAlertCircle,
-  IconAlertTriangle,
-  IconCheckCircle,
-  IconInfo,
-  IconX,
-} from '../../../icons';
+import { IconAlertCircle, IconAlertTriangle, IconCheckCircle, IconInfo, IconX } from '../../../icons';
 import type { TIconProps } from '../Icon';
 import { LinkButton } from '../LinkButton';
 import type { IAlertProps } from './Alert.types';
@@ -37,12 +31,13 @@ const toneIcon = (tone: TAlertTone): ((props: TIconProps) => ReactElement) => {
 export const Alert = (props: IAlertProps): ReactElement => {
   const {
     tone = 'danger',
+    placement = 'page',
     showTitle = true,
     title = 'Título del aviso',
     body = 'Descripción breve de la condición y de lo que se puede hacer.',
     showIcon = true,
     showAction = false,
-    actionLabel = 'Ver detalle',
+    actionLabel = 'Resolver ahora',
     showDismiss = false,
     dismissAccessibilityLabel = 'Cerrar aviso',
     onAction,
@@ -50,6 +45,7 @@ export const Alert = (props: IAlertProps): ReactElement => {
     testID,
   } = props;
   const [isDismissPressed, setIsDismissPressed] = useState(false);
+  const [isDismissFocused, setIsDismissFocused] = useState(false);
   const {
     rootStyle,
     iconBoxStyle,
@@ -63,9 +59,10 @@ export const Alert = (props: IAlertProps): ReactElement => {
     dismissHitSlop,
     liveRole,
     liveRegion,
-  } = useAlert({ ...props, isDismissPressed });
+  } = useAlert({ ...props, isDismissPressed, isDismissFocused });
 
   const ToneIcon = toneIcon(tone);
+  const renderTitle = placement !== 'inline' && showTitle;
 
   return (
     <View
@@ -82,7 +79,7 @@ export const Alert = (props: IAlertProps): ReactElement => {
         </View>
       ) : null}
       <View style={contentStyle}>
-        {showTitle ? <Text style={titleStyle}>{title}</Text> : null}
+        {renderTitle ? <Text style={titleStyle}>{title}</Text> : null}
         <Text style={bodyStyle}>{body}</Text>
         {showAction ? (
           <View style={actionsStyle}>
@@ -95,6 +92,8 @@ export const Alert = (props: IAlertProps): ReactElement => {
           accessibilityLabel={dismissAccessibilityLabel}
           accessibilityRole="button"
           hitSlop={dismissHitSlop}
+          onBlur={() => setIsDismissFocused(false)}
+          onFocus={() => setIsDismissFocused(true)}
           onPress={onDismiss}
           onPressIn={() => setIsDismissPressed(true)}
           onPressOut={() => setIsDismissPressed(false)}

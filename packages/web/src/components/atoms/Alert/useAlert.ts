@@ -59,8 +59,9 @@ const liveRoleOf = (tone: TAlertTone): 'alert' | 'status' => {
 };
 
 /**
- * Chip sits in `iconBox` whose height is the body line-box so it lines up
- * with the first text line, not the padding edge. Do not drop that frame.
+ * Chip sits in `iconBox` sized to the 24 chip (live `111:17176` / `111:17271`
+ * / `111:17376`). Figma's `lineBox` only matches that height at `page`
+ * (`text/body/md` → 24); section/inline body is 21 and the chip wins.
  */
 export const useAlert = ({
   tone = 'danger',
@@ -72,24 +73,18 @@ export const useAlert = ({
   const mode = useThemeMode();
   const tokens = alertTokens[mode];
   const sizeTokens = placementTokens(placement, tokens);
-  const { chipSize, dismissSize, targetMin, pillRadius, focusRingOffset, focusRingSpread, actionPaddingTop } =
+  const { chipSize, pillRadius, actionPaddingTop, actionGap, dismissSize, targetMin, focusRingOffset, focusRingSpread } =
     tokens.dimension;
   const titleFontFamily = useFontFamily(sizeTokens.title.fontWeight);
   const bodyFontFamily = useFontFamily(sizeTokens.body.fontWeight);
   const toneColors = tokens.colors.tones[tone];
+  const hitOutset = (targetMin - dismissSize) / 2;
 
   const dismissBackground = isDismissPressed
     ? tokens.colors.dismiss.backgroundPressed
     : isDismissHovered
       ? tokens.colors.dismiss.backgroundHover
-      : tokens.colors.dismiss.background;
-
-  const showFocusRing = isDismissFocusVisible;
-  const boxShadow = showFocusRing
-    ? `0 0 0 ${focusRingSpread - focusRingOffset}px ${tokens.colors.borderFocus}`
-    : undefined;
-
-  const hitOutset = (targetMin - dismissSize) / 2;
+      : tokens.colors.dismiss.backgroundDefault;
 
   const liveRole = liveRoleOf(tone);
 
@@ -112,7 +107,7 @@ export const useAlert = ({
     justifyContent: 'center',
     flexShrink: 0,
     width: chipSize,
-    height: sizeTokens.body.lineHeight,
+    height: chipSize,
   };
 
   const chipStyle: CSSProperties = {
@@ -140,7 +135,7 @@ export const useAlert = ({
     fontWeight: sizeTokens.title.fontWeight,
     fontSize: sizeTokens.title.fontSize,
     lineHeight: `${sizeTokens.title.lineHeight}px`,
-    color: tokens.colors.text,
+    color: tokens.colors.title,
   };
 
   const bodyStyle: CSSProperties = {
@@ -149,10 +144,14 @@ export const useAlert = ({
     fontWeight: sizeTokens.body.fontWeight,
     fontSize: sizeTokens.body.fontSize,
     lineHeight: `${sizeTokens.body.lineHeight}px`,
-    color: tokens.colors.text,
+    color: tokens.colors.body,
   };
 
   const actionsStyle: CSSProperties = {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: actionGap,
     paddingTop: actionPaddingTop,
   };
 
@@ -179,7 +178,8 @@ export const useAlert = ({
     height: dismissSize,
     borderRadius: pillRadius,
     backgroundColor: dismissBackground,
-    boxShadow,
+    outline: isDismissFocusVisible ? `${focusRingSpread}px solid ${tokens.colors.dismiss.borderFocus}` : 'none',
+    outlineOffset: focusRingOffset,
   };
 
   return {
