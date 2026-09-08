@@ -3,6 +3,7 @@ export * from './Button';
 export * from './Checkbox';
 export * from './Icon';
 export * from './LinkButton';
+export * from './OTPField';
 export * from './PasswordField';
 export * from './Radio';
 export * from './Snackbar';

@@ -7,6 +7,7 @@ export * from './radii';
 export * from './spacing';
 export * from './icon.tokens';
 export * from './linkButton.tokens';
+export * from './otpField.tokens';
 export * from './passwordField.tokens';
 export * from './choiceItem.tokens';
 export * from './radio.tokens';

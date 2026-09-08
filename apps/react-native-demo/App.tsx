@@ -4,6 +4,7 @@ import {
   Checkbox,
   ChoiceItem,
   LinkButton,
+  OTPField,
   Radio,
   RadioGroup,
   useFontFamily,
@@ -83,6 +84,8 @@ const App = () => {
   const [checked, setChecked] = useState(false);
   // Guarda el id de la opción elegida, que es lo que un grupo de radios necesita.
   const [metodo, setMetodo] = useState('Débito');
+  const [code, setCode] = useState('');
+  const [wrongCode, setWrongCode] = useState('1234');
 
   return (
     <BluProvider>
@@ -159,6 +162,50 @@ const App = () => {
                 <LinkButton label="LinkButton" onPress={handlePress} />
                 <Button label="Button" variant="primary" />
               </View>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+                OTPField
+              </Text>
+              {/* Las cajas son presentación: debajo hay UN TextInput, no seis.
+                  Eso es lo que deja que iOS ofrezca el código sobre el teclado
+                  y que Android lo autocomplete del SMS. Por eso tampoco hay
+                  cursor — el anillo en la caja activa es el cursor.
+
+                  Tocá cualquier caja: el foco va al input único, y el anillo
+                  salta a la primera vacía mientras escribís. */}
+              <Text style={[styles.counter, { fontFamily: mediumFont }]} testID="otp-value">
+                Código: {code || '(vacío)'}
+              </Text>
+              <OTPField
+                helperText="Reenviar código en 00:30"
+                length={6}
+                onValueChange={setCode}
+                testID="otp-6"
+                value={code}
+              />
+              <OTPField
+                helperText="Cuatro dígitos"
+                onValueChange={setCode}
+                testID="otp-4"
+                value={code}
+              />
+              {/* Error y foco son ejes independientes: este se puede enfocar y
+                  sigue en rojo. El de abajo está deshabilitado, que gana sobre
+                  todo y no deja rastro del error. */}
+              <OTPField
+                errorMessage="Código incorrecto"
+                onValueChange={setWrongCode}
+                testID="otp-error"
+                value={wrongCode}
+              />
+              <OTPField
+                errorMessage="Código incorrecto"
+                isDisabled
+                testID="otp-disabled"
+                value={wrongCode}
+              />
             </View>
 
             {VARIANTS.map(variant => (

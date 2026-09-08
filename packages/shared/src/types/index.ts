@@ -4,6 +4,7 @@ export * from './atoms/checkbox.types';
 export * from './atoms/icon.types';
 export * from './atoms/linkButton.types';
 export * from './atoms/passwordField.types';
+export * from './atoms/otpField.types';
 export * from './atoms/radio.types';
 export * from './atoms/snackbar.types';
 export * from './atoms/switch.types';
