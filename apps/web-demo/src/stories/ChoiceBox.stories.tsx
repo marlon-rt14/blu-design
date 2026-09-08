@@ -11,8 +11,8 @@ const Row = ({ children }: { children: ReactNode }): ReactElement => (
 );
 
 const IsolatedPlatformChoiceBox = (props: IPlatformChoiceBoxProps): ReactElement => {
-  const [isSelected, setIsSelected] = useState(props.isSelected ?? false);
-  return <PlatformChoiceBox {...props} isSelected={isSelected} onValueChange={setIsSelected} />;
+  const [isChecked, setIsChecked] = useState(props.isChecked ?? false);
+  return <PlatformChoiceBox {...props} isChecked={isChecked} onValueChange={setIsChecked} />;
 };
 
 const meta = {
@@ -24,7 +24,7 @@ const meta = {
       description: {
         component:
           'Selectable surface tile with a title and optional description. It is controlled: ' +
-          'the parent owns `isSelected` and receives the next value through the platform event handler.',
+          'the parent owns `isChecked` and receives the next value through the platform event handler.',
       },
     },
   },
@@ -51,7 +51,7 @@ const meta = {
       description: "Whether the mirrored Checkbox renders. Forced off when `variant='compact'`.",
       table: { category: 'Content', defaultValue: { summary: 'true' } },
     },
-    isSelected: {
+    isChecked: {
       control: 'boolean',
       description: 'Whether the choice is selected. Controlled.',
       table: { category: 'State', defaultValue: { summary: 'false' } },
@@ -72,7 +72,7 @@ const meta = {
     showDescription: true,
     showMedia: true,
     showControl: true,
-    isSelected: false,
+    isChecked: false,
     isDisabled: false,
   },
   render: (args, { globals }) => {
@@ -81,7 +81,7 @@ const meta = {
       <PlatformChoiceBox
         {...args}
         platform={globals['platform'] as TPlatform}
-        onValueChange={(isSelected) => updateArgs({ isSelected })}
+        onValueChange={(isChecked) => updateArgs({ isChecked })}
       />
     );
   },
@@ -94,7 +94,7 @@ type TStory = StoryObj<IPlatformChoiceBoxProps>;
 export const Playground: TStory = {};
 
 export const Selected: TStory = {
-  args: { isSelected: true },
+  args: { isChecked: true },
 };
 
 export const WithoutDescription: TStory = {
@@ -108,7 +108,7 @@ export const Tile: TStory = {
     return (
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 200px)', gap: 16 }}>
         <IsolatedPlatformChoiceBox {...args} platform={platform} title="Mensaje de texto" description="Al ****6760" />
-        <IsolatedPlatformChoiceBox {...args} isSelected platform={platform} title="Correo" description="A j****@mail.com" />
+        <IsolatedPlatformChoiceBox {...args} isChecked platform={platform} title="Correo" description="A j****@mail.com" />
         <IsolatedPlatformChoiceBox {...args} platform={platform} title="Llamada" description="Al ****6760" />
         <IsolatedPlatformChoiceBox {...args} platform={platform} title="App blu" description="Notificacion push" />
       </div>
@@ -123,7 +123,7 @@ export const Compact: TStory = {
     return (
       <Row>
         <IsolatedPlatformChoiceBox {...args} platform={platform} title="3 cuotas" description="Sin interes" />
-        <IsolatedPlatformChoiceBox {...args} isSelected platform={platform} title="6 cuotas" description="Con interes" />
+        <IsolatedPlatformChoiceBox {...args} isChecked platform={platform} title="6 cuotas" description="Con interes" />
         <IsolatedPlatformChoiceBox {...args} platform={platform} title="12 cuotas" description="Con interes" />
       </Row>
     );
@@ -135,7 +135,7 @@ export const Disabled: TStory = {
     const platform = globals['platform'] as TPlatform;
     return (
       <Row>
-        <PlatformChoiceBox isDisabled isSelected platform={platform} title="Seleccionada" />
+        <PlatformChoiceBox isDisabled isChecked platform={platform} title="Seleccionada" />
         <PlatformChoiceBox isDisabled platform={platform} title="No disponible" />
       </Row>
     );
@@ -155,7 +155,7 @@ export const States: TStory = {
         />
         <IsolatedPlatformChoiceBox
           description="Estado activo"
-          isSelected
+          isChecked
           platform={platform}
           showDescription
           title="Seleccionada"

@@ -268,7 +268,7 @@ const App = () => {
                 <ChoiceBox
                   description="Facturacion mensual, sin permanencia."
                   icon="image"
-                  isSelected={selectedChoice === 'monthly'}
+                  isChecked={selectedChoice === 'monthly'}
                   onValueChange={() => setSelectedChoice('monthly')}
                   showDescription
                   testID="choicebox-monthly"
@@ -277,7 +277,7 @@ const App = () => {
                 <ChoiceBox
                   description="Ahorra un 20% con el pago anual."
                   icon="image"
-                  isSelected={selectedChoice === 'annual'}
+                  isChecked={selectedChoice === 'annual'}
                   onValueChange={() => setSelectedChoice('annual')}
                   showDescription
                   testID="choicebox-annual"
@@ -301,7 +301,7 @@ const App = () => {
                   <ChoiceBox
                     description="Al ****6760"
                     icon="image"
-                    isSelected={selectedTile === 'sms'}
+                    isChecked={selectedTile === 'sms'}
                     onValueChange={() => setSelectedTile('sms')}
                     showDescription
                     testID="choicebox-tile-sms"
@@ -313,7 +313,7 @@ const App = () => {
                   <ChoiceBox
                     description="A j****@mail.com"
                     icon="image"
-                    isSelected={selectedTile === 'email'}
+                    isChecked={selectedTile === 'email'}
                     onValueChange={() => setSelectedTile('email')}
                     showDescription
                     testID="choicebox-tile-email"
@@ -330,7 +330,7 @@ const App = () => {
                 {(['3', '6', '12'] as const).map(installments => (
                   <ChoiceBox
                     description={installments === '3' ? 'Sin interes' : 'Con interes'}
-                    isSelected={selectedCompact === installments}
+                    isChecked={selectedCompact === installments}
                     key={installments}
                     onValueChange={() => setSelectedCompact(installments)}
                     showDescription

@@ -6,7 +6,7 @@ import type { ReactElement } from 'react';
 export type TPlatform = 'web' | 'native';
 
 export interface IPlatformChoiceBoxProps extends IChoiceBoxBaseProps {
-  onValueChange?: (isSelected: boolean) => void;
+  onValueChange?: (isChecked: boolean) => void;
   platform?: TPlatform;
 }
 
