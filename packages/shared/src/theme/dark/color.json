@@ -39,6 +39,11 @@
             "type": "color",
             "description": "Escalon 500 de la rampa neutra en modo light. #7c8396. Es la rampa de superficies, textos e iconos que no llevan color: la mas usada del sistema. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
           },
+          "550": {
+            "value": "#6e7587",
+            "type": "color",
+            "description": "Escalon intermedio de la rampa clara, creado el 01-sep para el borde de control activo. 4.64 contra blanco y 3.79 contra surface/sunken, que es el peor fondo donde cae un control. Existe para dar margen sobre el minimo de 1.4.11 sin llevar el borde de light al valor de mc-light, que dejaria sin funcion al escalon de contraste medio."
+          },
           "600": {
             "value": "#5f6677",
             "type": "color",
@@ -1080,194 +1085,194 @@
         "brand": {
           "discover": {
             "25": {
-              "value": "#fff9f6",
+              "value": "#fff9f8",
               "type": "color",
               "description": "Escalon 25 de la rampa de discover en modo light. #fff9f6. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "50": {
-              "value": "#fff1ea",
+              "value": "#fff4f1",
               "type": "color",
               "description": "Escalon 50 de la rampa de discover en modo light. #fff1ea. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "100": {
-              "value": "#ffe2d2",
+              "value": "#ffe7df",
               "type": "color",
               "description": "Escalon 100 de la rampa de discover en modo light. #ffe2d2. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "200": {
-              "value": "#fec6a9",
+              "value": "#ffd3c5",
               "type": "color",
               "description": "Escalon 200 de la rampa de discover en modo light. #fec6a9. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "300": {
-              "value": "#f9a275",
+              "value": "#ffbba6",
               "type": "color",
               "description": "Escalon 300 de la rampa de discover en modo light. #f9a275. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "400": {
-              "value": "#f47922",
+              "value": "#ff9f81",
               "type": "color",
               "description": "Escalon 400 de la rampa de discover en modo light. #f47922. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "500": {
-              "value": "#d05c12",
+              "value": "#ff7c53",
               "type": "color",
               "description": "Escalon 500 de la rampa de discover en modo light. #d05c12. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "600": {
-              "value": "#a64302",
+              "value": "#fb5205",
               "type": "color",
               "description": "Escalon 600 de la rampa de discover en modo light. #a64302. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "700": {
-              "value": "#7c2d00",
+              "value": "#d74400",
               "type": "color",
               "description": "Escalon 700 de la rampa de discover en modo light. #7c2d00. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "800": {
-              "value": "#632100",
+              "value": "#ad3400",
               "type": "color",
               "description": "Escalon 800 de la rampa de discover en modo light. #632100. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "900": {
-              "value": "#4c1801",
+              "value": "#7d2300",
               "type": "color",
               "description": "Escalon 900 de la rampa de discover en modo light. #4c1801. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "950": {
-              "value": "#331104",
+              "value": "#4b1000",
               "type": "color",
               "description": "Escalon 950 de la rampa de discover en modo light. #331104. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "975": {
-              "value": "#1f0903",
+              "value": "#200000",
               "type": "color",
               "description": "Escalon 975 de la rampa de discover en modo light. #1f0903. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "fill": {
-              "value": "#b04711",
+              "value": "#ad3400",
               "type": "color",
               "description": "Relleno de marca de discover. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-hover": {
-              "value": "#8f3c08",
+              "value": "#7d2300",
               "type": "color",
               "description": "Relleno de marca de discover. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-pressed": {
-              "value": "#7c2d00",
+              "value": "#4b1000",
               "type": "color",
               "description": "Relleno de marca de discover. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-hc": {
-              "value": "#83350d",
+              "value": "#7d2300",
               "type": "color",
               "description": "Relleno de marca de discover. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-hover-hc": {
-              "value": "#65290a",
+              "value": "#4b1000",
               "type": "color",
               "description": "Relleno de marca de discover. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-pressed-hc": {
-              "value": "#481d07",
+              "value": "#200000",
               "type": "color",
               "description": "Relleno de marca de discover. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             }
           },
           "clubmiles": {
             "25": {
-              "value": "#f9fbff",
+              "value": "#f7fbff",
               "type": "color",
               "description": "Escalon 25 de la rampa de clubmiles en modo light. #f9fbff. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "50": {
-              "value": "#eff4ff",
+              "value": "#f1f7ff",
               "type": "color",
               "description": "Escalon 50 de la rampa de clubmiles en modo light. #eff4ff. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "100": {
-              "value": "#dee8ff",
+              "value": "#e0eeff",
               "type": "color",
               "description": "Escalon 100 de la rampa de clubmiles en modo light. #dee8ff. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "200": {
-              "value": "#c0d5ff",
+              "value": "#c7e0ff",
               "type": "color",
               "description": "Escalon 200 de la rampa de clubmiles en modo light. #c0d5ff. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "300": {
-              "value": "#92bbff",
+              "value": "#a9d0ff",
               "type": "color",
               "description": "Escalon 300 de la rampa de clubmiles en modo light. #92bbff. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "400": {
-              "value": "#3a93f3",
+              "value": "#86beff",
               "type": "color",
               "description": "Escalon 400 de la rampa de clubmiles en modo light. #3a93f3. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "500": {
-              "value": "#0085ec",
+              "value": "#60a9fd",
               "type": "color",
               "description": "Escalon 500 de la rampa de clubmiles en modo light. #0085ec. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "600": {
-              "value": "#0067bc",
+              "value": "#3a93f3",
               "type": "color",
               "description": "Escalon 600 de la rampa de clubmiles en modo light. #0067bc. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "700": {
-              "value": "#004a90",
+              "value": "#287cd4",
               "type": "color",
               "description": "Escalon 700 de la rampa de clubmiles en modo light. #004a90. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "800": {
-              "value": "#003a78",
+              "value": "#0e61b0",
               "type": "color",
               "description": "Escalon 800 de la rampa de clubmiles en modo light. #003a78. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "900": {
-              "value": "#002c64",
+              "value": "#004482",
               "type": "color",
               "description": "Escalon 900 de la rampa de clubmiles en modo light. #002c64. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "950": {
-              "value": "#001e54",
+              "value": "#00254e",
               "type": "color",
               "description": "Escalon 950 de la rampa de clubmiles en modo light. #001e54. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "975": {
-              "value": "#00113c",
+              "value": "#000524",
               "type": "color",
               "description": "Escalon 975 de la rampa de clubmiles en modo light. #00113c. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "fill": {
-              "value": "#0064b7",
+              "value": "#0e61b0",
               "type": "color",
               "description": "Relleno de marca de clubmiles. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-hover": {
-              "value": "#005194",
+              "value": "#004482",
               "type": "color",
               "description": "Relleno de marca de clubmiles. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-pressed": {
-              "value": "#003f73",
+              "value": "#00254e",
               "type": "color",
               "description": "Relleno de marca de clubmiles. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-hc": {
-              "value": "#005194",
+              "value": "#004482",
               "type": "color",
               "description": "Relleno de marca de clubmiles. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-hover-hc": {
-              "value": "#003f73",
+              "value": "#00254e",
               "type": "color",
               "description": "Relleno de marca de clubmiles. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-pressed-hc": {
-              "value": "#002d53",
+              "value": "#000524",
               "type": "color",
               "description": "Relleno de marca de clubmiles. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             }
@@ -1468,97 +1473,97 @@
           },
           "titanium": {
             "25": {
-              "value": "#f9fbff",
+              "value": "#f7fbff",
               "type": "color",
               "description": "Escalon 25 de la rampa de titanium en modo light. #f9fbff. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "50": {
-              "value": "#f1f4fb",
+              "value": "#f2f6ff",
               "type": "color",
               "description": "Escalon 50 de la rampa de titanium en modo light. #f1f4fb. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "100": {
-              "value": "#e3e8f6",
+              "value": "#e2eaf8",
               "type": "color",
               "description": "Escalon 100 de la rampa de titanium en modo light. #e3e8f6. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "200": {
-              "value": "#cbd4ea",
+              "value": "#cdd6e8",
               "type": "color",
               "description": "Escalon 200 de la rampa de titanium en modo light. #cbd4ea. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "300": {
-              "value": "#abbad9",
+              "value": "#b6c1d6",
               "type": "color",
               "description": "Escalon 300 de la rampa de titanium en modo light. #abbad9. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "400": {
-              "value": "#8ca0c7",
+              "value": "#9da9c1",
               "type": "color",
               "description": "Escalon 400 de la rampa de titanium en modo light. #8ca0c7. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "500": {
-              "value": "#6a83ae",
+              "value": "#8290ab",
               "type": "color",
               "description": "Escalon 500 de la rampa de titanium en modo light. #6a83ae. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "600": {
-              "value": "#4e658f",
+              "value": "#677693",
               "type": "color",
               "description": "Escalon 600 de la rampa de titanium en modo light. #4e658f. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "700": {
-              "value": "#33486f",
+              "value": "#4a5a7a",
               "type": "color",
               "description": "Escalon 700 de la rampa de titanium en modo light. #33486f. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "800": {
-              "value": "#25375d",
+              "value": "#2a3a5b",
               "type": "color",
               "description": "Escalon 800 de la rampa de titanium en modo light. #25375d. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "900": {
-              "value": "#19294b",
+              "value": "#091839",
               "type": "color",
               "description": "Escalon 900 de la rampa de titanium en modo light. #19294b. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "950": {
-              "value": "#0d1833",
+              "value": "#010726",
               "type": "color",
               "description": "Escalon 950 de la rampa de titanium en modo light. #0d1833. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "975": {
-              "value": "#090e24",
+              "value": "#000015",
               "type": "color",
               "description": "Escalon 975 de la rampa de titanium en modo light. #090e24. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "fill": {
-              "value": "#242f43",
+              "value": "#2a3a5b",
               "type": "color",
               "description": "Relleno de marca de titanium. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-hover": {
-              "value": "#171e2b",
+              "value": "#091839",
               "type": "color",
               "description": "Relleno de marca de titanium. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-pressed": {
-              "value": "#0e121a",
+              "value": "#010726",
               "type": "color",
               "description": "Relleno de marca de titanium. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-hc": {
-              "value": "#171e2b",
+              "value": "#091839",
               "type": "color",
               "description": "Relleno de marca de titanium. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-hover-hc": {
-              "value": "#0e121a",
+              "value": "#010726",
               "type": "color",
               "description": "Relleno de marca de titanium. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-pressed-hc": {
-              "value": "#0e121a",
+              "value": "#000015",
               "type": "color",
               "description": "Relleno de marca de titanium. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             }
@@ -1569,86 +1574,91 @@
             "4": {
               "value": "#070f250a",
               "type": "color",
-              "description": "neutral al 4% de opacidad. #070f25. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "neutral al 4% de opacidad. #070f25. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "8": {
               "value": "#070f2514",
               "type": "color",
-              "description": "neutral al 8% de opacidad. #070f25. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "neutral al 8% de opacidad. #070f25. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "12": {
               "value": "#070f251f",
               "type": "color",
-              "description": "neutral al 12% de opacidad. #070f25. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "neutral al 12% de opacidad. #070f25. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "16": {
               "value": "#070f2529",
               "type": "color",
-              "description": "neutral al 16% de opacidad. #070f25. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "neutral al 16% de opacidad. #070f25. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "24": {
               "value": "#070f253d",
               "type": "color",
-              "description": "neutral al 24% de opacidad. #070f25. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "neutral al 24% de opacidad. #070f25. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "32": {
               "value": "#070f2552",
               "type": "color",
-              "description": "neutral al 32% de opacidad. #070f25. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "neutral al 32% de opacidad. #070f25. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             }
           },
           "red": {
             "8": {
               "value": "#b22c4214",
               "type": "color",
-              "description": "red al 8% de opacidad. #b22c42. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "red al 8% de opacidad. #b22c42. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "12": {
               "value": "#b22c421f",
               "type": "color",
-              "description": "red al 12% de opacidad. #b22c42. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "red al 12% de opacidad. #b22c42. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "16": {
               "value": "#b22c4229",
               "type": "color",
-              "description": "red al 16% de opacidad. #b22c42. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "red al 16% de opacidad. #b22c42. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             }
           },
           "blu": {
+            "4": {
+              "value": "#001e600a",
+              "type": "color",
+              "description": "blu al 4% de opacidad. #001e60. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+            },
             "6": {
               "value": "#001e600f",
               "type": "color",
-              "description": "blu al 6% de opacidad. #001e60. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "blu al 6% de opacidad. #001e60. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "8": {
               "value": "#001e6014",
               "type": "color",
-              "description": "blu al 8% de opacidad. #001e60. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "blu al 8% de opacidad. #001e60. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "10": {
               "value": "#001e601a",
               "type": "color",
-              "description": "blu al 10% de opacidad. #001e60. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "blu al 10% de opacidad. #001e60. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "12": {
               "value": "#001e601f",
               "type": "color",
-              "description": "blu al 12% de opacidad. #001e60. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "blu al 12% de opacidad. #001e60. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "16": {
               "value": "#001e6029",
               "type": "color",
-              "description": "blu al 16% de opacidad. #001e60. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "blu al 16% de opacidad. #001e60. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "24": {
               "value": "#001e603d",
               "type": "color",
-              "description": "blu al 24% de opacidad. #001e60. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "blu al 24% de opacidad. #001e60. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "32": {
               "value": "#001e6052",
               "type": "color",
-              "description": "blu al 32% de opacidad. #001e60. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "blu al 32% de opacidad. #001e60. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             }
           }
         },
@@ -2820,194 +2830,194 @@
         "brand": {
           "discover": {
             "25": {
-              "value": "#f6eeea",
+              "value": "#f4efed",
               "type": "color",
               "description": "Escalon 25 de la rampa de discover en modo dark. #f6eeea. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "50": {
-              "value": "#f5e4da",
+              "value": "#f5eae6",
               "type": "color",
               "description": "Escalon 50 de la rampa de discover en modo dark. #f5e4da. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "100": {
-              "value": "#f9d6c3",
+              "value": "#f5ddd6",
               "type": "color",
               "description": "Escalon 100 de la rampa de discover en modo dark. #f9d6c3. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "200": {
-              "value": "#ffc4a4",
+              "value": "#f6cabd",
               "type": "color",
               "description": "Escalon 200 de la rampa de discover en modo dark. #ffc4a4. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "300": {
-              "value": "#ffa271",
+              "value": "#f7b39e",
               "type": "color",
               "description": "Escalon 300 de la rampa de discover en modo dark. #ffa271. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "400": {
-              "value": "#f47922",
+              "value": "#f8987b",
               "type": "color",
               "description": "Escalon 400 de la rampa de discover en modo dark. #f47922. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "500": {
-              "value": "#d15d15",
+              "value": "#f9774d",
               "type": "color",
               "description": "Escalon 500 de la rampa de discover en modo dark. #d15d15. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "600": {
-              "value": "#a54712",
+              "value": "#f64d00",
               "type": "color",
               "description": "Escalon 600 de la rampa de discover en modo dark. #a54712. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "700": {
-              "value": "#7c3510",
+              "value": "#d44100",
               "type": "color",
               "description": "Escalon 700 de la rampa de discover en modo dark. #7c3510. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "800": {
-              "value": "#5e2a12",
+              "value": "#ab3300",
               "type": "color",
               "description": "Escalon 800 de la rampa de discover en modo dark. #5e2a12. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "900": {
-              "value": "#462112",
+              "value": "#7d2400",
               "type": "color",
               "description": "Escalon 900 de la rampa de discover en modo dark. #462112. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "950": {
-              "value": "#2e170f",
+              "value": "#4d1300",
               "type": "color",
               "description": "Escalon 950 de la rampa de discover en modo dark. #2e170f. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "975": {
-              "value": "#180b07",
+              "value": "#240200",
               "type": "color",
               "description": "Escalon 975 de la rampa de discover en modo dark. #180b07. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "fill": {
-              "value": "#ffa271",
+              "value": "#f6cabd",
               "type": "color",
               "description": "Relleno de marca de discover. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-hover": {
-              "value": "#ffc4a4",
+              "value": "#f5ddd6",
               "type": "color",
               "description": "Relleno de marca de discover. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-pressed": {
-              "value": "#f9d6c3",
+              "value": "#f5eae6",
               "type": "color",
               "description": "Relleno de marca de discover. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-hc": {
-              "value": "#ffc4a4",
+              "value": "#f5ddd6",
               "type": "color",
               "description": "Relleno de marca de discover. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-hover-hc": {
-              "value": "#f9d6c3",
+              "value": "#f5eae6",
               "type": "color",
               "description": "Relleno de marca de discover. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-pressed-hc": {
-              "value": "#f5e4da",
+              "value": "#f4efed",
               "type": "color",
               "description": "Relleno de marca de discover. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             }
           },
           "clubmiles": {
             "25": {
-              "value": "#ecf0fc",
+              "value": "#edf0f5",
               "type": "color",
               "description": "Escalon 25 de la rampa de clubmiles en modo dark. #ecf0fc. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "50": {
-              "value": "#e0e8fd",
+              "value": "#e7edf5",
               "type": "color",
               "description": "Escalon 50 de la rampa de clubmiles en modo dark. #e0e8fd. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "100": {
-              "value": "#d0deff",
+              "value": "#d7e5f6",
               "type": "color",
               "description": "Escalon 100 de la rampa de clubmiles en modo dark. #d0deff. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "200": {
-              "value": "#bdd3ff",
+              "value": "#bfd8f7",
               "type": "color",
               "description": "Escalon 200 de la rampa de clubmiles en modo dark. #bdd3ff. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "300": {
-              "value": "#96bdff",
+              "value": "#a2c9f8",
               "type": "color",
               "description": "Escalon 300 de la rampa de clubmiles en modo dark. #96bdff. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "400": {
-              "value": "#0693fe",
+              "value": "#81b8f9",
               "type": "color",
               "description": "Escalon 400 de la rampa de clubmiles en modo dark. #0693fe. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "500": {
-              "value": "#0086ee",
+              "value": "#5ca5f9",
               "type": "color",
               "description": "Escalon 500 de la rampa de clubmiles en modo dark. #0086ee. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "600": {
-              "value": "#0069bf",
+              "value": "#3791f0",
               "type": "color",
               "description": "Escalon 600 de la rampa de clubmiles en modo dark. #0069bf. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "700": {
-              "value": "#004a90",
+              "value": "#277bd3",
               "type": "color",
               "description": "Escalon 700 de la rampa de clubmiles en modo dark. #004a90. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "800": {
-              "value": "#003c7b",
+              "value": "#1062b1",
               "type": "color",
               "description": "Escalon 800 de la rampa de clubmiles en modo dark. #003c7b. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "900": {
-              "value": "#002c64",
+              "value": "#054786",
               "type": "color",
               "description": "Escalon 900 de la rampa de clubmiles en modo dark. #002c64. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "950": {
-              "value": "#001f48",
+              "value": "#022b54",
               "type": "color",
               "description": "Escalon 950 de la rampa de clubmiles en modo dark. #001f48. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "975": {
-              "value": "#000f27",
+              "value": "#000e2b",
               "type": "color",
               "description": "Escalon 975 de la rampa de clubmiles en modo dark. #000f27. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "fill": {
-              "value": "#96bdff",
+              "value": "#bfd8f7",
               "type": "color",
               "description": "Relleno de marca de clubmiles. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-hover": {
-              "value": "#bdd3ff",
+              "value": "#d7e5f6",
               "type": "color",
               "description": "Relleno de marca de clubmiles. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-pressed": {
-              "value": "#d0deff",
+              "value": "#e7edf5",
               "type": "color",
               "description": "Relleno de marca de clubmiles. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-hc": {
-              "value": "#bdd3ff",
+              "value": "#d7e5f6",
               "type": "color",
               "description": "Relleno de marca de clubmiles. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-hover-hc": {
-              "value": "#d0deff",
+              "value": "#e7edf5",
               "type": "color",
               "description": "Relleno de marca de clubmiles. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-pressed-hc": {
-              "value": "#e0e8fd",
+              "value": "#edf0f5",
               "type": "color",
               "description": "Relleno de marca de clubmiles. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             }
@@ -3208,97 +3218,97 @@
           },
           "titanium": {
             "25": {
-              "value": "#eef0f6",
+              "value": "#eef0f5",
               "type": "color",
               "description": "Escalon 25 de la rampa de titanium en modo dark. #eef0f6. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "50": {
-              "value": "#e4e8f3",
+              "value": "#e8ecf5",
               "type": "color",
               "description": "Escalon 50 de la rampa de titanium en modo dark. #e4e8f3. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "100": {
-              "value": "#d5def2",
+              "value": "#dae2f0",
               "type": "color",
               "description": "Escalon 100 de la rampa de titanium en modo dark. #d5def2. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "200": {
-              "value": "#c4d3f3",
+              "value": "#c7d0e2",
               "type": "color",
               "description": "Escalon 200 de la rampa de titanium en modo dark. #c4d3f3. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "300": {
-              "value": "#a6bce8",
+              "value": "#b3bed3",
               "type": "color",
               "description": "Escalon 300 de la rampa de titanium en modo dark. #a6bce8. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "400": {
-              "value": "#84a2d6",
+              "value": "#9da9c1",
               "type": "color",
               "description": "Escalon 400 de la rampa de titanium en modo dark. #84a2d6. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "500": {
-              "value": "#6184bb",
+              "value": "#8593ae",
               "type": "color",
               "description": "Escalon 500 de la rampa de titanium en modo dark. #6184bb. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "600": {
-              "value": "#45679c",
+              "value": "#6d7c99",
               "type": "color",
               "description": "Escalon 600 de la rampa de titanium en modo dark. #45679c. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "700": {
-              "value": "#2c4876",
+              "value": "#536384",
               "type": "color",
               "description": "Escalon 700 de la rampa de titanium en modo dark. #2c4876. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "800": {
-              "value": "#1f3a67",
+              "value": "#364769",
               "type": "color",
               "description": "Escalon 800 de la rampa de titanium en modo dark. #1f3a67. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "900": {
-              "value": "#17294d",
+              "value": "#17284a",
               "type": "color",
               "description": "Escalon 900 de la rampa de titanium en modo dark. #17294d. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "950": {
-              "value": "#131d38",
+              "value": "#0a1939",
               "type": "color",
               "description": "Escalon 950 de la rampa de titanium en modo dark. #131d38. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "975": {
-              "value": "#0a0d1f",
+              "value": "#030c29",
               "type": "color",
               "description": "Escalon 975 de la rampa de titanium en modo dark. #0a0d1f. La escala va de 25, el tinte mas claro, a 975, el mas profundo. El color de marca en si NO vive aca: vive en 2. Brand, porque los cinco colores caen en escalones distintos y ninguna posicion los describe a todos. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "fill": {
-              "value": "#a6bce8",
+              "value": "#c7d0e2",
               "type": "color",
               "description": "Relleno de marca de titanium. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-hover": {
-              "value": "#c4d3f3",
+              "value": "#dae2f0",
               "type": "color",
               "description": "Relleno de marca de titanium. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-pressed": {
-              "value": "#d5def2",
+              "value": "#e8ecf5",
               "type": "color",
               "description": "Relleno de marca de titanium. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-hc": {
-              "value": "#c4d3f3",
+              "value": "#dae2f0",
               "type": "color",
               "description": "Relleno de marca de titanium. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-hover-hc": {
-              "value": "#d5def2",
+              "value": "#e8ecf5",
               "type": "color",
               "description": "Relleno de marca de titanium. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             },
             "fill-pressed-hc": {
-              "value": "#e4e8f3",
+              "value": "#eef0f5",
               "type": "color",
               "description": "Relleno de marca de titanium. No sale del ramp: es un color propio de la identidad. Antes vivia como hex crudo dentro de 2. Brand, unico literal de toda la arquitectura."
             }
@@ -3309,51 +3319,51 @@
             "48": {
               "value": "#040c287a",
               "type": "color",
-              "description": "neutral al 48% de opacidad. #040c28. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "neutral al 48% de opacidad. #040c28. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "64": {
               "value": "#040c28a3",
               "type": "color",
-              "description": "neutral al 64% de opacidad. #040c28. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "neutral al 64% de opacidad. #040c28. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "72": {
               "value": "#040c28b8",
               "type": "color",
-              "description": "neutral al 72% de opacidad. #040c28. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "neutral al 72% de opacidad. #040c28. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             }
           },
           "red": {
             "16": {
               "value": "#d94d5e29",
               "type": "color",
-              "description": "red al 16% de opacidad. #d94d5e. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "red al 16% de opacidad. #d94d5e. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "24": {
               "value": "#d94d5e3d",
               "type": "color",
-              "description": "red al 24% de opacidad. #d94d5e. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "red al 24% de opacidad. #d94d5e. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "32": {
               "value": "#d94d5e52",
               "type": "color",
-              "description": "red al 32% de opacidad. #d94d5e. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "red al 32% de opacidad. #d94d5e. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             }
           },
           "blu": {
             "16": {
               "value": "#adb9f329",
               "type": "color",
-              "description": "blu al 16% de opacidad. #adb9f3. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "blu al 16% de opacidad. #adb9f3. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "24": {
               "value": "#adb9f33d",
               "type": "color",
-              "description": "blu al 24% de opacidad. #adb9f3. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "blu al 24% de opacidad. #adb9f3. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "32": {
               "value": "#adb9f352",
               "type": "color",
-              "description": "blu al 32% de opacidad. #adb9f3. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "blu al 32% de opacidad. #adb9f3. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             }
           }
         },
@@ -3482,124 +3492,124 @@
             "6": {
               "value": "#ffffff0f",
               "type": "color",
-              "description": "white al 6% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "white al 6% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "8": {
               "value": "#ffffff14",
               "type": "color",
-              "description": "white al 8% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "white al 8% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "10": {
               "value": "#ffffff1a",
               "type": "color",
-              "description": "white al 10% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "white al 10% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "12": {
               "value": "#ffffff1f",
               "type": "color",
-              "description": "white al 12% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "white al 12% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "16": {
               "value": "#ffffff29",
               "type": "color",
-              "description": "white al 16% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "white al 16% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "24": {
               "value": "#ffffff3d",
               "type": "color",
-              "description": "white al 24% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "white al 24% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "32": {
               "value": "#ffffff52",
               "type": "color",
-              "description": "white al 32% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "white al 32% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "40": {
               "value": "#ffffff66",
               "type": "color",
-              "description": "white al 40% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "white al 40% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "48": {
               "value": "#ffffff7a",
               "type": "color",
-              "description": "white al 48% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "white al 48% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "56": {
               "value": "#ffffff8f",
               "type": "color",
-              "description": "white al 56% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "white al 56% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "64": {
               "value": "#ffffffa3",
               "type": "color",
-              "description": "white al 64% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "white al 64% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "72": {
               "value": "#ffffffb8",
               "type": "color",
-              "description": "white al 72% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "white al 72% de opacidad. #ffffff. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             }
           },
           "black": {
             "6": {
               "value": "#0000000f",
               "type": "color",
-              "description": "black al 6% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "black al 6% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "8": {
               "value": "#00000014",
               "type": "color",
-              "description": "black al 8% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "black al 8% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "10": {
               "value": "#0000001a",
               "type": "color",
-              "description": "black al 10% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "black al 10% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "12": {
               "value": "#0000001f",
               "type": "color",
-              "description": "black al 12% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "black al 12% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "16": {
               "value": "#00000029",
               "type": "color",
-              "description": "black al 16% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "black al 16% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "24": {
               "value": "#0000003d",
               "type": "color",
-              "description": "black al 24% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "black al 24% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "32": {
               "value": "#00000052",
               "type": "color",
-              "description": "black al 32% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "black al 32% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "40": {
               "value": "#00000066",
               "type": "color",
-              "description": "black al 40% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "black al 40% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "48": {
               "value": "#0000007a",
               "type": "color",
-              "description": "black al 48% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "black al 48% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "56": {
               "value": "#0000008f",
               "type": "color",
-              "description": "black al 56% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "black al 56% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "64": {
               "value": "#000000a3",
               "type": "color",
-              "description": "black al 64% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "black al 64% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             },
             "72": {
               "value": "#000000b8",
               "type": "color",
-              "description": "black al 72% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS del sistema: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Los valores altos (48 a 72) son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+              "description": "black al 72% de opacidad. #000000. Los alpha existen porque un velo de estado o una sombra tienen que dejar pasar lo que hay debajo: un color solido taparia el contenido en vez de matizarlo. JERARQUIA DE VELOS vigente: en claro hover 4 < pressed 10 < selected 16 < selected-hover 24. En oscuro hover 6 < pressed 16 = selected 16 < selected-hover 24. No existe un rol activated. Los valores de 40 a 72 son para scrims y sombras, no para estados. Es un PRIMITIVO: color crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
             }
           }
         },
@@ -3950,12 +3960,12 @@
         },
         "bar": {
           "veil": {
-            "value": "#040c28b8",
+            "value": "#ffffffb8",
             "type": "color",
             "description": "Velo translucido 72%. Consumidor sin confirmar: candidato a AppBar/TabBar en BDS3-Platforms, paginas hoy vacias. No mover a component/* hasta confirmarlo."
           },
           "track": {
-            "value": "#333b4d",
+            "value": "#ced4e3",
             "type": "color",
             "description": "[Component: ProgressBar] Canal vacio de la barra. Se lee sobre page, surface y raised en los 4 modos (min 1.24) y deja >=3:1 con cualquiera de los cinco rellenos."
           },
@@ -4824,7 +4834,7 @@
         "disabled": {
           "value": "#7d8497",
           "type": "color",
-          "description": "Borde de un control deshabilitado. Un paso MAS TENUE que el borde de control activo (color/border/input/default): lo inactivo se atenua, no se marca. Deliberadamente por debajo de 3:1 -- WCAG 1.4.11 exime a los controles deshabilitados del minimo de contraste. Es lo OPUESTO a color/border/input/readonly, que debe seguir siendo perceptible porque su contenido hay que leerlo. Ya NO comparte valor con color/border/divider/default. Valor definido en los 4 modos."
+          "description": "Borde de un control apagado. NO LLEGA A 3.0 EN light NI EN dark, Y ES DELIBERADO (decidido 01-sep).\n\nPeor caso contra las cinco superficies donde puede caer un control: light 2.13 · dark 2.26 · mc-light 3.09 · mc-dark 3.00 · hc-light 4.69 · hc-dark 4.39.\n\nPOR QUE NO SE FUERZA\n1. WCAG 1.4.11 exime a los componentes inactivos. No es un incumplimiento.\n2. No hay lugar en la rampa. En claro, neutral/400 da 2.61 contra blanco y neutral/500 da 3.79: subir el apagado a 500 lo dejaria en el mismo valor que el borde activo, y un control apagado que se ve igual que uno activo es peor que uno con poco contraste. El objetivo del token no es el contraste absoluto sino la DISTANCIA con el mismo control habilitado.\n3. Donde importa, llega. En los cuatro modos de contraste reforzado esta entre 3.00 y 4.69, y ahi la silueta la lleva el borde: es el mecanismo de disabled-silueta-borde.\n\nEste razonamiento vive aca y no en la descripcion de ningun componente. Chip, los campos, Checkbox, Radio y Select heredan este token sin variantes propias, asi que la regla es una sola."
         },
         "brand": {
           "value": "#9abaf2",
@@ -4837,7 +4847,7 @@
           "on-scene": {
             "value": "#ffffff",
             "type": "color",
-            "description": "Anillo de foco cuando el control vive sobre una escena de marca (color/fill/scene/*), que es oscura en los 4 modos: por eso es blanco siempre. Para canvas/surface/inverse NO sirve — esa superficie se invierte y en dark queda clara; ahi va color/border/focus/on-inverse."
+            "description": "Anillo de foco cuando el control vive sobre una escena de marca (color/fill/scene/*), que es oscura en los 6 modos: por eso es blanco siempre. Para canvas/surface/inverse NO sirve — esa superficie se invierte y en dark queda clara; ahi va color/border/focus/on-inverse."
           },
           "on-inverse": {
             "value": "#232b3d",
@@ -4847,7 +4857,7 @@
           "on-media": {
             "value": "#ffffff",
             "type": "color",
-            "description": "Anillo de foco cuando el control vive sobre una imagen. color/border/focus es azure y desaparece sobre una foto azul; el blanco se apoya en el velo de 48% que el propio boton trae debajo. Blanco en los 4 modos, como on-scene."
+            "description": "Anillo de foco cuando el control vive sobre una imagen. color/border/focus es azure y desaparece sobre una foto azul; el blanco se apoya en el velo de 48% que el propio boton trae debajo. Blanco en los 6 modos, como on-scene. LIMITE CONOCIDO: es blanco fijo, asi que sobre media clara da 1.0. Solo sirve pintado sobre el velo del control, nunca por fuera. El co-token component/iconbutton/focus/border-on-media lo consume."
           },
           "description": "Anillo de foco. Azul claro accesible, deliberadamente distinto del color de marca: si el anillo fuera del color de la marca quedaria invisible sobre las escenas y sobre los botones de marca. Se dibuja con offset 2, asi que se apoya en la superficie contenedora, no en el control. Verificado a 3:1 o mas contra las ocho superficies normales, en los cuatro modos y con los cinco productos. Sobre una escena de marca usar color/border/focus/on-scene."
         },
@@ -4855,7 +4865,7 @@
           "default": {
             "value": "#9aa2b7",
             "type": "color",
-            "description": "Borde portante de control. Este SI carga el requisito de contraste (3.79 en light, hasta 8.81 en hc-dark). Es el que va en inputs, selects y checkboxes. Valor definido en los 4 modos. Nunca usar un primitivo directo en su lugar."
+            "description": "Borde de un control habilitado. Es un objeto grafico esencial: le aplica WCAG 1.4.11, minimo 3.0.\n\nPeor caso contra las cinco superficies: light 3.76 · dark 3.31 · mc-light 4.69 · mc-dark 4.39 · hc-light 7.34 · hc-dark 5.90. El peor fondo es surface/sunken en los modos claros y surface/elevated en los oscuros.\n\nCUIDADO AL TOCAR SUPERFICIES\nEn light pasaba por 0.09 hasta el 01-sep, apoyado en neutral/500. Se creo color/light/neutral/550 para darle margen sin llevarlo al valor de mc-light, que habria dejado sin funcion al escalon de contraste medio. Si se aclara surface/sunken en claro o se aclara surface/elevated en oscuro, hay que recalcular esto.\n\nEn oscuro la escalera Standard - MC - HC no la hace el borde sino la superficie: dark y mc-dark comparten dark/neutral/400 y lo que cambia es surface/elevated."
           },
           "hover": {
             "value": "#b4bcd1",
@@ -4997,7 +5007,7 @@
       "overlay": {
         "state": {
           "hover": {
-            "value": "#ffffff14",
+            "value": "#ffffff0f",
             "type": "color",
             "description": "Capa de estado sobre superficie NEUTRA. Medido: produce ΔE 4.9 a 21 sobre input, surface, elevated, disabled y selected/surface. NO usar sobre superficie de marca: ahí el tinte se apoya sobre su propio tinte y da ΔE 1.0 a 1.8, imperceptible. Para ese caso existe color/overlay/on-fill/*."
           },
@@ -6075,6 +6085,11 @@
           "value": "#ffffff29",
           "type": "color",
           "description": "Co-token de skeleton. Capa de re-tematización: su destino cambia según el modo porque no existe rol semántico para esta decisión. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        },
+        "bg": {
+          "value": "#040c28",
+          "type": "color",
+          "description": "Co-token de image. Capa de indirección: aliasea color/canvas/surface/sunken sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
         }
       },
       "scrollbar": {
@@ -6460,7 +6475,7 @@
             "description": "Co-token de button. Capa de indirección: aliasea color/fill/action/primary/quiet/pressed sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "bg-hover": {
-            "value": "#ffffff14",
+            "value": "#ffffff0f",
             "type": "color",
             "description": "Co-token de button. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
@@ -6681,7 +6696,7 @@
         },
         "ghost": {
           "bg-hover": {
-            "value": "#ffffff14",
+            "value": "#ffffff0f",
             "type": "color",
             "description": "Co-token de iconbutton. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -6829,6 +6844,16 @@
             "value": "#232b3d",
             "type": "color",
             "description": "Co-token de iconbutton. Capa de indirección: aliasea color/border/focus/on-inverse sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-on-scene": {
+            "value": "#ffffff",
+            "type": "color",
+            "description": "Co-token de iconbutton. Capa de indirección: aliasea color/border/focus/on-scene sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-on-media": {
+            "value": "#ffffff",
+            "type": "color",
+            "description": "Co-token de iconbutton. Capa de indirección: aliasea color/border/focus/on-media sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje. Va pintado SOBRE el velo del propio botón: si el anillo cae por fuera, queda sobre la foto y no cumple."
           }
         }
       },
@@ -6845,7 +6870,7 @@
             "description": "Co-token de textfield. Capa de indirección: aliasea color/fill/input/readonly sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#ffffff0f",
             "type": "color",
             "description": "Co-token de textfield. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -6883,6 +6908,16 @@
             "value": "#333b4d",
             "type": "color",
             "description": "Co-token de textfield. Capa de indirección: aliasea color/fill/input/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-warning": {
+            "value": "#da9100",
+            "type": "color",
+            "description": "Co-token de textfield. Capa de indirección: aliasea color/border/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-success": {
+            "value": "#1ebe7d",
+            "type": "color",
+            "description": "Co-token de textfield. Capa de indirección: aliasea color/border/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         },
         "label": {
@@ -6946,6 +6981,16 @@
             "value": "#9aa2b7",
             "type": "color",
             "description": "Co-token de textfield. Capa de indirección: aliasea color/text/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-warning": {
+            "value": "#fec978",
+            "type": "color",
+            "description": "Co-token de textfield. Capa de indirección: aliasea color/text/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-success": {
+            "value": "#8fe9b6",
+            "type": "color",
+            "description": "Co-token de textfield. Capa de indirección: aliasea color/text/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         },
         "counter": {
@@ -6963,6 +7008,16 @@
             "value": "#9aa2b7",
             "type": "color",
             "description": "Co-token de textfield. Capa de indirección: aliasea color/text/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-warning": {
+            "value": "#fec978",
+            "type": "color",
+            "description": "Co-token de textfield. Capa de indirección: aliasea color/text/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-success": {
+            "value": "#8fe9b6",
+            "type": "color",
+            "description": "Co-token de textfield. Capa de indirección: aliasea color/text/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         },
         "icon": {
@@ -6996,7 +7051,7 @@
             "description": "Co-token de textarea. Capa de indirección: aliasea color/fill/input/readonly sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#ffffff0f",
             "type": "color",
             "description": "Co-token de textarea. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -7029,6 +7084,16 @@
             "value": "#464d5e",
             "type": "color",
             "description": "Co-token de textarea. Capa de indirección: aliasea color/border/control/readonly sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-warning": {
+            "value": "#da9100",
+            "type": "color",
+            "description": "Co-token de textarea. Capa de indirección: aliasea color/border/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-success": {
+            "value": "#1ebe7d",
+            "type": "color",
+            "description": "Co-token de textarea. Capa de indirección: aliasea color/border/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         },
         "label": {
@@ -7080,6 +7145,16 @@
             "value": "#9aa2b7",
             "type": "color",
             "description": "Co-token de textarea. Capa de indirección: aliasea color/text/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-warning": {
+            "value": "#fec978",
+            "type": "color",
+            "description": "Co-token de textarea. Capa de indirección: aliasea color/text/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-success": {
+            "value": "#8fe9b6",
+            "type": "color",
+            "description": "Co-token de textarea. Capa de indirección: aliasea color/text/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         },
         "counter": {
@@ -7097,6 +7172,16 @@
             "value": "#9aa2b7",
             "type": "color",
             "description": "Co-token de textarea. Capa de indirección: aliasea color/text/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-warning": {
+            "value": "#fec978",
+            "type": "color",
+            "description": "Co-token de textarea. Capa de indirección: aliasea color/text/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-success": {
+            "value": "#8fe9b6",
+            "type": "color",
+            "description": "Co-token de textarea. Capa de indirección: aliasea color/text/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         }
       },
@@ -7113,7 +7198,7 @@
             "description": "Co-token de passwordfield. Capa de indirección: aliasea color/fill/input/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#ffffff0f",
             "type": "color",
             "description": "Co-token de passwordfield. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -7151,6 +7236,16 @@
             "value": "#464d5e",
             "type": "color",
             "description": "Co-token de passwordfield. Capa de indirección: aliasea color/border/control/readonly sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-warning": {
+            "value": "#da9100",
+            "type": "color",
+            "description": "Co-token de passwordfield. Capa de indirección: aliasea color/border/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-success": {
+            "value": "#1ebe7d",
+            "type": "color",
+            "description": "Co-token de passwordfield. Capa de indirección: aliasea color/border/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         },
         "label": {
@@ -7202,6 +7297,16 @@
             "value": "#9aa2b7",
             "type": "color",
             "description": "Co-token de passwordfield. Capa de indirección: aliasea color/text/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-warning": {
+            "value": "#fec978",
+            "type": "color",
+            "description": "Co-token de passwordfield. Capa de indirección: aliasea color/text/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-success": {
+            "value": "#8fe9b6",
+            "type": "color",
+            "description": "Co-token de passwordfield. Capa de indirección: aliasea color/text/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         },
         "requirement": {
@@ -7326,7 +7431,7 @@
             "description": "Co-token de checkbox. Capa de indirección: aliasea color/border/focus sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#ffffff0f",
             "type": "color",
             "description": "Co-token de checkbox. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -7399,7 +7504,7 @@
             "description": "Co-token de radio. Capa de indirección: aliasea color/border/focus sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#ffffff0f",
             "type": "color",
             "description": "Co-token de radio. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -7407,6 +7512,11 @@
             "value": "#001e60",
             "type": "color",
             "description": "Co-token de radio. Fondo del anillo cuando esta seleccionado. Aliasea color/fill/selected/surface/default, el mismo tinte que pinta la fila seleccionada: dentro de ChoiceItem el anillo se funde con la fila en vez de abrir un hueco blanco. NO usar el velo alfa color/overlay/state/selected aca: su base es navy, sobre blanco da gris azulado y al apilarse sobre la fila tintada se ensucia."
+          },
+          "bg-selected-pressed": {
+            "value": "#d3ddf3",
+            "type": "color",
+            "description": "Co-token de radio. Capa de indirección: aliasea color/fill/selected/control/pressed sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         },
         "dot": {
@@ -7472,7 +7582,7 @@
             "description": "Co-token de switch. Capa de indirección: aliasea color/border/focus sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#ffffff0f",
             "type": "color",
             "description": "Co-token de switch. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -7773,6 +7883,16 @@
             "value": "#9abaf2",
             "type": "color",
             "description": "Co-token de otpfield. Capa de indirección: aliasea color/border/focus sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-warning": {
+            "value": "#da9100",
+            "type": "color",
+            "description": "Co-token de otpfield. Capa de indirección: aliasea color/border/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-success": {
+            "value": "#1ebe7d",
+            "type": "color",
+            "description": "Co-token de otpfield. Capa de indirección: aliasea color/border/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         },
         "char": {
@@ -7802,6 +7922,16 @@
             "value": "#9aa2b7",
             "type": "color",
             "description": "Co-token de otpfield. Capa de indirección: aliasea color/text/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-warning": {
+            "value": "#fec978",
+            "type": "color",
+            "description": "Co-token de otpfield. Capa de indirección: aliasea color/text/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-success": {
+            "value": "#8fe9b6",
+            "type": "color",
+            "description": "Co-token de otpfield. Capa de indirección: aliasea color/text/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         }
       },
@@ -7843,9 +7973,19 @@
             "description": "Co-token de phonefield. Capa de indirección: aliasea color/border/focus sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#ffffff0f",
             "type": "color",
             "description": "Co-token de phonefield. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-warning": {
+            "value": "#da9100",
+            "type": "color",
+            "description": "Co-token de phonefield. Capa de indirección: aliasea color/border/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-success": {
+            "value": "#1ebe7d",
+            "type": "color",
+            "description": "Co-token de phonefield. Capa de indirección: aliasea color/border/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         },
         "flag": {
@@ -7923,6 +8063,16 @@
             "value": "#9aa2b7",
             "type": "color",
             "description": "Co-token de phonefield. Capa de indirección: aliasea color/text/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-warning": {
+            "value": "#fec978",
+            "type": "color",
+            "description": "Co-token de phonefield. Capa de indirección: aliasea color/text/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-success": {
+            "value": "#8fe9b6",
+            "type": "color",
+            "description": "Co-token de phonefield. Capa de indirección: aliasea color/text/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         },
         "icon": {
@@ -7959,6 +8109,16 @@
             "value": "#9aa2b7",
             "type": "color",
             "description": "Co-token de amountfield. Capa de indirección: aliasea color/text/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-warning": {
+            "value": "#fec978",
+            "type": "color",
+            "description": "Co-token de amountfield. Capa de indirección: aliasea color/text/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-success": {
+            "value": "#8fe9b6",
+            "type": "color",
+            "description": "Co-token de amountfield. Capa de indirección: aliasea color/text/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         },
         "caret": {
@@ -7983,6 +8143,16 @@
             "value": "#9aa2b7",
             "type": "color",
             "description": "Co-token de amountfield. Capa de indirección: aliasea color/text/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-warning": {
+            "value": "#fec978",
+            "type": "color",
+            "description": "Co-token de amountfield. Capa de indirección: aliasea color/text/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-success": {
+            "value": "#8fe9b6",
+            "type": "color",
+            "description": "Co-token de amountfield. Capa de indirección: aliasea color/text/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         }
       },
@@ -8024,7 +8194,7 @@
             "description": "Co-token de cardfield. Capa de indirección: aliasea color/border/focus sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#ffffff0f",
             "type": "color",
             "description": "Co-token de cardfield. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -8037,6 +8207,16 @@
             "value": "#464d5e",
             "type": "color",
             "description": "Borde del contenedor de CardField en readonly."
+          },
+          "border-warning": {
+            "value": "#da9100",
+            "type": "color",
+            "description": "Co-token de cardfield. Capa de indirección: aliasea color/border/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-success": {
+            "value": "#1ebe7d",
+            "type": "color",
+            "description": "Co-token de cardfield. Capa de indirección: aliasea color/border/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         },
         "label": {
@@ -8088,6 +8268,16 @@
             "value": "#9aa2b7",
             "type": "color",
             "description": "Co-token de cardfield. Capa de indirección: aliasea color/text/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-warning": {
+            "value": "#fec978",
+            "type": "color",
+            "description": "Co-token de cardfield. Capa de indirección: aliasea color/text/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-success": {
+            "value": "#8fe9b6",
+            "type": "color",
+            "description": "Co-token de cardfield. Capa de indirección: aliasea color/text/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         },
         "brandicon": {
@@ -8156,9 +8346,19 @@
             "description": "Co-token de select. Capa de indirección: aliasea color/border/focus sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#ffffff0f",
             "type": "color",
             "description": "Co-token de select. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-warning": {
+            "value": "#da9100",
+            "type": "color",
+            "description": "Co-token de select. Capa de indirección: aliasea color/border/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-success": {
+            "value": "#1ebe7d",
+            "type": "color",
+            "description": "Co-token de select. Capa de indirección: aliasea color/border/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         },
         "label": {
@@ -8210,6 +8410,16 @@
             "value": "#9aa2b7",
             "type": "color",
             "description": "Co-token de select. Capa de indirección: aliasea color/text/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-warning": {
+            "value": "#fec978",
+            "type": "color",
+            "description": "Co-token de select. Capa de indirección: aliasea color/text/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-success": {
+            "value": "#8fe9b6",
+            "type": "color",
+            "description": "Co-token de select. Capa de indirección: aliasea color/text/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         },
         "menu": {
@@ -8285,9 +8495,19 @@
             "description": "Co-token de combobox. Capa de indirección: aliasea color/border/focus sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#ffffff0f",
             "type": "color",
             "description": "Co-token de combobox. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-warning": {
+            "value": "#da9100",
+            "type": "color",
+            "description": "Co-token de combobox. Capa de indirección: aliasea color/border/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-success": {
+            "value": "#1ebe7d",
+            "type": "color",
+            "description": "Co-token de combobox. Capa de indirección: aliasea color/border/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         },
         "label": {
@@ -8339,6 +8559,16 @@
             "value": "#9aa2b7",
             "type": "color",
             "description": "Co-token de combobox. Capa de indirección: aliasea color/text/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-warning": {
+            "value": "#fec978",
+            "type": "color",
+            "description": "Co-token de combobox. Capa de indirección: aliasea color/text/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-success": {
+            "value": "#8fe9b6",
+            "type": "color",
+            "description": "Co-token de combobox. Capa de indirección: aliasea color/text/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         },
         "menu": {
@@ -8391,7 +8621,7 @@
             "description": "Co-token de choiceitem. Capa de indirección: aliasea color/fill/selected/surface/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#ffffff0f",
             "type": "color",
             "description": "Co-token de choiceitem. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -8470,7 +8700,7 @@
             "description": "Co-token de switchitem. Capa de indirección: aliasea color/canvas/surface/primary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#ffffff0f",
             "type": "color",
             "description": "Co-token de switchitem. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -8550,7 +8780,7 @@
             "description": "Co-token de choicebox. Capa de indirección: aliasea color/border/focus sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#ffffff0f",
             "type": "color",
             "description": "Co-token de choicebox. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -8629,6 +8859,16 @@
             "value": "#fed2d1",
             "type": "color",
             "description": "Co-token de checkboxgroup. Capa de indirección: aliasea color/text/danger sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-warning": {
+            "value": "#fec978",
+            "type": "color",
+            "description": "Co-token de checkboxgroup. Capa de indirección: aliasea color/text/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-success": {
+            "value": "#8fe9b6",
+            "type": "color",
+            "description": "Co-token de checkboxgroup. Capa de indirección: aliasea color/text/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         }
       },
@@ -8650,6 +8890,16 @@
             "value": "#fed2d1",
             "type": "color",
             "description": "Co-token de radiogroup. Capa de indirección: aliasea color/text/danger sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-warning": {
+            "value": "#fec978",
+            "type": "color",
+            "description": "Co-token de radiogroup. Capa de indirección: aliasea color/text/warning sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-success": {
+            "value": "#8fe9b6",
+            "type": "color",
+            "description": "Co-token de radiogroup. Capa de indirección: aliasea color/text/success sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         }
       },
@@ -8717,7 +8967,7 @@
             "description": "Co-token de chip. Capa de indirección: aliasea color/border/focus sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#ffffff0f",
             "type": "color",
             "description": "Co-token de chip. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -9457,14 +9707,14 @@
           "bg": {
             "value": "#333b4d",
             "type": "color",
-            "description": "Co-token de progressbar. Capa de indirección: aliasea color/fill/bar/track sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            "description": "Pista de la barra. Calibrada por modo: neutral/200 en light, /300 en mc-light y hc-light, /800 en dark y mc-dark, /700 en hc-dark. Esa calibracion vivia en color/fill/bar/track, un token intermedio que solo servia a este; se colapso aca el 01-sep y el intermedio se borro. Los valores resueltos no cambiaron en ninguno de los 6 modos."
           }
         },
         "fill": {
           "brand": {
             "value": "#9abaf2",
             "type": "color",
-            "description": "Co-token de progressbar. Capa de indirección: aliasea color/fill/bar/accent sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            "description": "Relleno de la barra en su tono de marca. Apunta directo a color/fill/brand/default, igual que los otros cuatro tonos apuntan a color/fill/{success,warning,danger}/default. Antes pasaba por color/fill/bar/accent, que resultó ser un duplicado exacto de color/fill/brand/default en los 6 modos; se borro el 01-sep."
           },
           "accent": {
             "value": "#ff9d4e",
@@ -9511,13 +9761,6 @@
             "value": "#616778",
             "type": "color",
             "description": "Co-token de image. Capa de indirección: aliasea color/border/divider/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
-          }
-        },
-        "skeleton": {
-          "bg": {
-            "value": "#040c28",
-            "type": "color",
-            "description": "Co-token de image. Capa de indirección: aliasea color/canvas/surface/sunken sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         },
         "icon": {
@@ -9660,7 +9903,7 @@
         },
         "surface": {
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#ffffff0f",
             "type": "color",
             "description": "Co-token de tabs. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -9809,7 +10052,7 @@
             "description": "Co-token de listitem. Capa de indirección: aliasea color/fill/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#ffffff0f",
             "type": "color",
             "description": "Co-token de listitem. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -9906,7 +10149,7 @@
             "description": "Co-token de menu. Capa de indirección: aliasea color/fill/selected/surface/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#ffffff0f",
             "type": "color",
             "description": "Co-token de menu. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -9986,12 +10229,12 @@
           }
         }
       },
-      "listgroup": {
+      "card": {
         "surface": {
           "bg": {
             "value": "#333b4d",
             "type": "color",
-            "description": "Co-token de listgroup. Capa de indirección: aliasea color/canvas/surface/primary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            "description": "Superficie de una tarjeta. La comparten Card y ListGroup: se renombro el 01-sep desde component/listgroup/surface/bg conservando el ID, asi los bindings vivos de ListGroup siguieron funcionando y un solo token gobierna las dos. ListGroup es una Card con el slot restringido a filas; lo que las separa es el contrato del slot, no la superficie."
           }
         }
       }
