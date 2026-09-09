@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { FocusEvent, ReactElement } from 'react';
 
-import { ALERT_TONE_ICON, type TAlertTone } from '@dsm/shared';
+import { ALERT_STATUS_ICON, type TAlertStatus } from '@dsm/shared';
 
 import { IconAlertCircle, IconAlertTriangle, IconCheckCircle, IconInfo, IconX } from '../../../icons';
 import type { TIconProps } from '../Icon';
@@ -9,8 +9,8 @@ import { LinkButton } from '../LinkButton';
 import type { IAlertProps } from './Alert.types';
 import { useAlert } from './useAlert';
 
-const toneIcon = (tone: TAlertTone): ((props: TIconProps) => ReactElement) => {
-  const name = ALERT_TONE_ICON[tone];
+const statusIcon = (status: TAlertStatus): ((props: TIconProps) => ReactElement) => {
+  const name = ALERT_STATUS_ICON[status];
   switch (name) {
     case 'alert-circle':
       return IconAlertCircle;
@@ -29,7 +29,7 @@ const toneIcon = (tone: TAlertTone): ((props: TIconProps) => ReactElement) => {
 
 export const Alert = (props: IAlertProps): ReactElement => {
   const {
-    tone = 'danger',
+    status = 'danger',
     placement = 'page',
     showTitle = true,
     title = 'Título del aviso',
@@ -66,7 +66,7 @@ export const Alert = (props: IAlertProps): ReactElement => {
     isDismissFocusVisible,
   });
 
-  const ToneIcon = toneIcon(tone);
+  const StatusIcon = statusIcon(status);
   const renderTitle = placement !== 'inline' && showTitle;
 
   const handleDismissFocus = (event: FocusEvent<HTMLButtonElement>): void => {
@@ -83,7 +83,7 @@ export const Alert = (props: IAlertProps): ReactElement => {
       {showIcon ? (
         <span aria-hidden style={iconBoxStyle}>
           <span style={chipStyle}>
-            <ToneIcon color="inverse" size="sm" />
+            <StatusIcon color="inverse" size="sm" />
           </span>
         </span>
       ) : null}

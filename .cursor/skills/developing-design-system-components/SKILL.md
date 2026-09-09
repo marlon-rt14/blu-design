@@ -306,11 +306,13 @@ one:
   read `typography.component.checkbox.labeled` (`400 16px/20px`); live type is
   `text/body/{sm,md}/default`, composed from `font.size.body.*`.
 - **Alert is in-flow, not a toast.** Occupies space; does not auto-dismiss
-  (that's Snackbar). Axes: `tone` (danger/warning/success/info/neutral,
+  (that's Snackbar). Axes: **`status`** (danger/warning/success/info/neutral,
   default **danger**) × `placement` (page/section/inline, default **page**).
-  Figma's live variant axis is named `status`; the set description and
-  Supernova still say `tone` — public API is `tone`. Properties (8, Figma
-  + Supernova): those two axes plus `showTitle` (true), `title`, `body`,
+  Set description may still say `tone` in prose; property + Supernova + Dev
+  frame use `status`. Keep partial API: `showTitle` / `showAction` /
+  `showDismiss` + `actionLabel` / `onAction` / `onDismiss` — do **not** switch
+  to Dev presence-based `title` / `action` / `onDismiss`-only. Properties (8,
+  Figma + Supernova): those two axes plus `showTitle` (true), `title`, `body`,
   `showIcon` (true), `showAction` (false), `showDismiss` (false). The last
   two are independent booleans even though the 15 published variants
   have them off. Action is a nested **LinkButton `on-muted` `sm`
@@ -322,13 +324,13 @@ one:
   `showDismiss` on for info/neutral/success; off for danger/warning unless
   the same info is reachable another way — that is guidance, not a
   variant lock. `inline` has **no title layer** (`showTitle` is a no-op
-  there). No border. Read `color.component.alert.surface.bg-{tone}` /
-  `chip.bg-{tone}` / `content.{title,body}`. Neutral chip is
+  there). No border. Read `color.component.alert.surface.bg-{status}` /
+  `chip.bg-{status}` / `content.{title,body}`. Neutral chip is
   `chip.bg-neutral`. Title and body share `text/primary`; ExtraBold vs
   Regular is the hierarchy. Do **not** read `typography.component.alert`
   (`700 14/17`). Gap title→body is **0**. Chip is always 24 with glyph
   `sm` 16. `iconBox` is **chip-sized (24)** on every placement. Glyphs
-  locked per tone (`ALERT_TONE_ICON`); no icon slot. Live region is **not
+  locked per status (`ALERT_STATUS_ICON`); no icon slot. Live region is **not
   a prop**: danger/warning → `role=alert`, rest → `status`.
 - **Snackbar is a toast, not an Alert.** Inverse bar
   (`color.component.snackbar.surface.bg`), no chip, no `placement`, no

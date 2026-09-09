@@ -1,5 +1,5 @@
 import { alertTokens } from '@dsm/shared';
-import type { TAlertPlacement, TAlertTone } from '@dsm/shared';
+import type { TAlertPlacement, TAlertStatus } from '@dsm/shared';
 import type { Insets, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
@@ -43,8 +43,8 @@ const placementTokens = (
   }
 };
 
-const liveRoleOf = (tone: TAlertTone): 'alert' | 'none' => {
-  switch (tone) {
+const liveRoleOf = (status: TAlertStatus): 'alert' | 'none' => {
+  switch (status) {
     case 'danger':
     case 'warning':
       return 'alert';
@@ -53,14 +53,14 @@ const liveRoleOf = (tone: TAlertTone): 'alert' | 'none' => {
     case 'neutral':
       return 'none';
     default: {
-      const _exhaustive: never = tone;
+      const _exhaustive: never = status;
       return _exhaustive;
     }
   }
 };
 
-const liveRegionOf = (tone: TAlertTone): 'assertive' | 'polite' => {
-  switch (tone) {
+const liveRegionOf = (status: TAlertStatus): 'assertive' | 'polite' => {
+  switch (status) {
     case 'danger':
     case 'warning':
       return 'assertive';
@@ -69,14 +69,14 @@ const liveRegionOf = (tone: TAlertTone): 'assertive' | 'polite' => {
     case 'neutral':
       return 'polite';
     default: {
-      const _exhaustive: never = tone;
+      const _exhaustive: never = status;
       return _exhaustive;
     }
   }
 };
 
 export const useAlert = ({
-  tone = 'danger',
+  status = 'danger',
   placement = 'page',
   isDismissPressed,
   isDismissFocused,
@@ -86,15 +86,15 @@ export const useAlert = ({
   const sizeTokens = placementTokens(placement, tokens);
   const { chipSize, pillRadius, actionPaddingTop, actionGap, dismissSize, targetMin, focusRingOffset, focusRingSpread } =
     tokens.dimension;
-  const toneColors = tokens.colors.tones[tone];
+  const statusColors = tokens.colors.statuses[status];
   const hitOutset = (targetMin - dismissSize) / 2;
 
   const dismissBackground = isDismissPressed
     ? tokens.colors.dismiss.backgroundPressed
     : tokens.colors.dismiss.backgroundDefault;
 
-  const liveRole = liveRoleOf(tone);
-  const liveRegion = liveRegionOf(tone);
+  const liveRole = liveRoleOf(status);
+  const liveRegion = liveRegionOf(status);
 
   const rootStyle: StyleProp<ViewStyle> = {
     flexDirection: 'row',
@@ -103,7 +103,7 @@ export const useAlert = ({
     width: '100%',
     padding: sizeTokens.padding,
     borderRadius: sizeTokens.borderRadius,
-    backgroundColor: toneColors.surface,
+    backgroundColor: statusColors.surface,
   };
 
   const iconBoxStyle: StyleProp<ViewStyle> = {
@@ -120,7 +120,7 @@ export const useAlert = ({
     width: chipSize,
     height: chipSize,
     borderRadius: pillRadius,
-    backgroundColor: toneColors.chip,
+    backgroundColor: statusColors.chip,
   };
 
   const contentStyle: StyleProp<ViewStyle> = {

@@ -1,20 +1,18 @@
 import type { TIconName } from './icon.types';
 
 /**
- * Semantic tone of the Alert.
- *
- * Figma's live variant axis is named `status`; the set description and
- * Supernova's import still call it `tone`. Public API stays `tone` for
- * Alert (five values including `neutral`). Snackbar ships as `status`.
+ * Semantic status of the Alert. Matches Figma's `status` variant axis
+ * (Supernova + Dev frame). The set description may still say `tone` in
+ * prose — the property name wins.
  *
  * The chip fill + glyph shape carry the meaning together (WCAG 1.4.1) —
- * colour alone is not enough. Glyphs are locked per tone; there is no
+ * colour alone is not enough. Glyphs are locked per status; there is no
  * icon slot.
  */
-export type TAlertTone = 'danger' | 'warning' | 'success' | 'info' | 'neutral';
+export type TAlertStatus = 'danger' | 'warning' | 'success' | 'info' | 'neutral';
 
 /** Glyphs Alert is allowed to paint — a closed subset of {@link TIconName}. */
-export type TAlertToneIcon = Extract<TIconName, 'alert-circle' | 'alert-triangle' | 'check-circle' | 'info'>;
+export type TAlertStatusIcon = Extract<TIconName, 'alert-circle' | 'alert-triangle' | 'check-circle' | 'info'>;
 
 /**
  * Where the Alert sits. Matches Figma's `placement` axis.
@@ -25,8 +23,8 @@ export type TAlertToneIcon = Extract<TIconName, 'alert-circle' | 'alert-triangle
  */
 export type TAlertPlacement = 'page' | 'section' | 'inline';
 
-/** Glyph locked to each tone — host picks it, consumers cannot swap. */
-export const ALERT_TONE_ICON: Record<TAlertTone, TAlertToneIcon> = {
+/** Glyph locked to each status — host picks it, consumers cannot swap. */
+export const ALERT_STATUS_ICON: Record<TAlertStatus, TAlertStatusIcon> = {
   danger: 'alert-circle',
   warning: 'alert-triangle',
   success: 'check-circle',
@@ -38,10 +36,13 @@ export const ALERT_TONE_ICON: Record<TAlertTone, TAlertToneIcon> = {
  * Shared Alert contract. Non-modal, in-flow notice — it occupies space
  * and does not auto-dismiss (that is Snackbar).
  *
- * Figma + Supernova properties (8): `tone` × `placement`, `showTitle`,
+ * Figma + Supernova properties (8): `status` × `placement`, `showTitle`,
  * `title`, `body`, `showIcon`, `showAction`, `showDismiss`. The last two
  * default **false** — the 15 published variants have them off, but they
- * are real independent booleans, never inferred from content.
+ * are real independent booleans, never inferred from content. Code pairs
+ * `showAction` → `onAction` and `showDismiss` → `onDismiss` (same pattern
+ * as Snackbar). Dev frame wants presence-based `title` / `action` /
+ * `onDismiss` — we keep the partial `show*` API.
  *
  * Nested action is a **LinkButton** `on-muted` `sm` `underline=false`.
  * Nested dismiss is IconButton `veil` `xs` (24), painted locally because
@@ -52,7 +53,7 @@ export interface IAlertBaseProps {
   /**
    * @defaultValue `'danger'`
    */
-  tone?: TAlertTone;
+  status?: TAlertStatus;
   /**
    * @defaultValue `'page'`
    */

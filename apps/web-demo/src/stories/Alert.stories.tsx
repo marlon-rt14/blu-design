@@ -1,11 +1,11 @@
-import type { TAlertPlacement, TAlertTone } from '@dsm/shared';
+import type { TAlertPlacement, TAlertStatus } from '@dsm/shared';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement, ReactNode } from 'react';
 
 import { PlatformAlert } from './PlatformAlert';
 import type { IPlatformAlertProps, TPlatform } from './PlatformAlert';
 
-const TONES: TAlertTone[] = ['danger', 'warning', 'success', 'info', 'neutral'];
+const STATUSES: TAlertStatus[] = ['danger', 'warning', 'success', 'info', 'neutral'];
 const PLACEMENTS: TAlertPlacement[] = ['page', 'section', 'inline'];
 
 const Column = ({ children }: { children: ReactNode }): ReactElement => (
@@ -21,17 +21,17 @@ const meta = {
       description: {
         component:
           'In-flow notice — occupies space, does not auto-dismiss (that is Snackbar). ' +
-          '`tone` × `placement` (15 variants). `showAction` / `showDismiss` default false. ' +
+          '`status` × `placement` (15 variants). `showAction` / `showDismiss` default false. ' +
           'Action is a LinkButton `on-muted` `sm`. Dismiss is a 24px veil IconButton with a 48pt hit target. ' +
           '`inline` has no title layer.',
       },
     },
   },
   argTypes: {
-    tone: {
+    status: {
       control: 'inline-radio',
-      options: TONES,
-      description: 'Semantic tone. Chip fill + glyph carry meaning together.',
+      options: STATUSES,
+      description: 'Semantic status. Chip fill + glyph carry meaning together.',
       table: { category: 'Appearance', defaultValue: { summary: 'danger' } },
     },
     placement: {
@@ -57,7 +57,7 @@ const meta = {
     },
     showIcon: {
       control: 'boolean',
-      description: 'Whether the tone chip renders. Glyph is locked to `tone`.',
+      description: 'Whether the status chip renders. Glyph is locked to `status`.',
       table: { category: 'Content', defaultValue: { summary: 'true' } },
     },
     showAction: {
@@ -86,7 +86,7 @@ const meta = {
     platform: { table: { disable: true } },
   },
   args: {
-    tone: 'danger',
+    status: 'danger',
     placement: 'page',
     showTitle: true,
     title: 'Título del aviso',
@@ -109,13 +109,13 @@ type TStory = StoryObj<IPlatformAlertProps>;
 
 export const Playground: TStory = {};
 
-export const Tones: TStory = {
+export const Statuses: TStory = {
   render: (_args, { globals }) => {
     const platform = globals['platform'] as TPlatform;
     return (
       <Column>
-        {TONES.map((tone) => (
-          <PlatformAlert key={tone} platform={platform} title={tone} tone={tone} />
+        {STATUSES.map((status) => (
+          <PlatformAlert key={status} platform={platform} status={status} title={status} />
         ))}
       </Column>
     );
@@ -152,9 +152,9 @@ export const WithAction: TStory = {
 };
 
 export const WithDismiss: TStory = {
-  args: { showDismiss: true, tone: 'info' },
+  args: { showDismiss: true, status: 'info' },
 };
 
 export const WithActionAndDismiss: TStory = {
-  args: { showAction: true, showDismiss: true, tone: 'info' },
+  args: { showAction: true, showDismiss: true, status: 'info' },
 };

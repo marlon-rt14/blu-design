@@ -3,10 +3,10 @@ import type { IThemeTypographyValue } from '../themeSource/tokenPath';
 import { themeSources } from '../themeSource/themes';
 import type { TThemeMode } from '../themeSource/themes';
 import { baseFontFamily } from './theme.tokens';
-import type { TAlertPlacement, TAlertTone } from '../types/atoms/alert.types';
+import type { TAlertPlacement, TAlertStatus } from '../types/atoms/alert.types';
 
-/** Surface + chip fills for one tone. */
-export interface IAlertToneColorTokens {
+/** Surface + chip fills for one status. */
+export interface IAlertStatusColorTokens {
   surface: string;
   chip: string;
 }
@@ -21,7 +21,7 @@ export interface IAlertDismissColorTokens {
 }
 
 export interface IAlertColorTokens {
-  tones: Record<TAlertTone, IAlertToneColorTokens>;
+  statuses: Record<TAlertStatus, IAlertStatusColorTokens>;
   /** `component/alert/content/title` — aliases `color/text/primary`. */
   title: string;
   /** `component/alert/content/body` — aliases `color/text/primary`. */
@@ -82,7 +82,7 @@ const readAlertTokens = (mode: TThemeMode): IAlertTokens => {
 
   return {
     colors: {
-      tones: {
+      statuses: {
         danger: {
           surface: colorAt('component.alert.surface.bg-danger'),
           chip: colorAt('component.alert.chip.bg-danger'),

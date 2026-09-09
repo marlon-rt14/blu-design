@@ -1,5 +1,5 @@
 import { alertTokens } from '@dsm/shared';
-import type { TAlertPlacement, TAlertTone } from '@dsm/shared';
+import type { TAlertPlacement, TAlertStatus } from '@dsm/shared';
 import type { CSSProperties } from 'react';
 
 import { useFontFamily, useThemeMode } from '../../../theme';
@@ -42,8 +42,8 @@ const placementTokens = (
   }
 };
 
-const liveRoleOf = (tone: TAlertTone): 'alert' | 'status' => {
-  switch (tone) {
+const liveRoleOf = (status: TAlertStatus): 'alert' | 'status' => {
+  switch (status) {
     case 'danger':
     case 'warning':
       return 'alert';
@@ -52,7 +52,7 @@ const liveRoleOf = (tone: TAlertTone): 'alert' | 'status' => {
     case 'neutral':
       return 'status';
     default: {
-      const _exhaustive: never = tone;
+      const _exhaustive: never = status;
       return _exhaustive;
     }
   }
@@ -64,7 +64,7 @@ const liveRoleOf = (tone: TAlertTone): 'alert' | 'status' => {
  * (`text/body/md` → 24); section/inline body is 21 and the chip wins.
  */
 export const useAlert = ({
-  tone = 'danger',
+  status = 'danger',
   placement = 'page',
   isDismissHovered,
   isDismissPressed,
@@ -77,7 +77,7 @@ export const useAlert = ({
     tokens.dimension;
   const titleFontFamily = useFontFamily(sizeTokens.title.fontWeight);
   const bodyFontFamily = useFontFamily(sizeTokens.body.fontWeight);
-  const toneColors = tokens.colors.tones[tone];
+  const statusColors = tokens.colors.statuses[status];
   const hitOutset = (targetMin - dismissSize) / 2;
 
   const dismissBackground = isDismissPressed
@@ -86,7 +86,7 @@ export const useAlert = ({
       ? tokens.colors.dismiss.backgroundHover
       : tokens.colors.dismiss.backgroundDefault;
 
-  const liveRole = liveRoleOf(tone);
+  const liveRole = liveRoleOf(status);
 
   const rootStyle: CSSProperties = {
     boxSizing: 'border-box',
@@ -97,7 +97,7 @@ export const useAlert = ({
     width: '100%',
     padding: sizeTokens.padding,
     borderRadius: sizeTokens.borderRadius,
-    backgroundColor: toneColors.surface,
+    backgroundColor: statusColors.surface,
   };
 
   const iconBoxStyle: CSSProperties = {
@@ -118,7 +118,7 @@ export const useAlert = ({
     width: chipSize,
     height: chipSize,
     borderRadius: pillRadius,
-    backgroundColor: toneColors.chip,
+    backgroundColor: statusColors.chip,
   };
 
   const contentStyle: CSSProperties = {
