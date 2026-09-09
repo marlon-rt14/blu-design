@@ -295,7 +295,12 @@ one:
   the input's DOM `indeterminate` property, not a third enum. Live size map
   (node, not the description's blanket "minHeight 48"): `sm` 16 box / 12 mark /
   32 row (`size.control.height.sm`); `md` 24 / 16 / 48 (`size.target.min`). **Property
-  default is `sm`** (Figma/Supernova properties table) — not `md`. Marks
+  default is `md`** (Figma/Supernova + Dev frame) — not `sm`. Keep partial API:
+  `isChecked` + `isIndeterminate` + `showLabel` (Figma axes) — do **not** collapse
+  to Dev's `checked: boolean | 'indeterminate'` or presence-based `label` unless
+  asked. Dev §07 says checked+indeterminate is "impossible"; live set description
+  says the four combos are valid and indeterminate wins the paint — Figma wins.
+  Marks
   are `IconCheck` / `IconMinus` with `color="fixed.white"` (Figma: not on-brand —
   selected fill is the same azure in all 4 modes) or `disabled`. **Never `lg`
   inside the box.** Focus is an **offset** ring (`focus/ring/offset` 1px gap +
