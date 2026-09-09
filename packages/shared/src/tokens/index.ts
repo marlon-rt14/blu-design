@@ -14,6 +14,7 @@ export * from './radioGroup.tokens';
 export * from './snackbar.tokens';
 export * from './switch.tokens';
 export * from './switchItem.tokens';
+export * from './tabs.tokens';
 export * from './textArea.tokens';
 export * from './textField.tokens';
 export * from './theme.tokens';

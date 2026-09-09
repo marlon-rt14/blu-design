@@ -7,5 +7,6 @@ export * from './PasswordField';
 export * from './Radio';
 export * from './Snackbar';
 export * from './Switch';
+export * from './TabItem';
 export * from './TextArea';
 export * from './TextField';

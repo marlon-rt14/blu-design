@@ -353,6 +353,27 @@ one:
   does not restart (`SNACKBAR_DURATION_MS`). Live region is **not a prop**:
   `role=status`, `aria-live=assertive` only on danger. Don't copy Alert's
   muted fill, chip, LinkButton `on-muted`, or `announce`.
+- **Tabs / TabItem is a bar + items, not a TabPanel.** Ship `TabItem`
+  (atom) + `Tabs` (molecule) — same split as Radio / RadioGroup. Live set
+  is named **Tab item** (`97:14033`); search still lists `Tab`. Public
+  name is `TabItem`. Live selected axis is **`isSelected`** (Supernova's
+  import still says `selected` — Figma wins). `showLeadingIcon` /
+  `showBadge` are independent booleans; glyph default `user`; badge count
+  default `"9"`, painted locally from `color.component.badge.*` (Badge
+  is not shipped). ExtraBold at **every** state — live nodes use
+  `text/label/{md,lg}/strong` even unselected; colour carries inactive vs
+  active (`component.tabs.label.text-{active,inactive,disabled}`).
+  Indicator hugs the **content** column, not the full tab — fitted tabs
+  are `flex: 1` but the underline still hugs the label. Leading icon is
+  **16 at both sizes**. Hover/pressed overlay is absolute inset 0,
+  `radius/control/sm`, behind content. Focus is Switch's flush ring
+  (`spread` − `offset`, no gap), not TextField's offset two-tone.
+  Figma's `showItem3`–`showItem6` are 6-slot master toggles — **do not
+  ship as API**; code uses `children` (min 2, max 6). `showDivider`
+  stays a real boolean, default true. Canvas 375 is "a sangre", not a
+  max-width. No TabPanel. Arrow keys move between enabled tabs; Tab
+  leaves the bar. One shared token file `tabs.tokens.ts` (both
+  components use `color.component.tabs`).
 - **Every component's own variant axes are its own — don't generalize.** `TextField` has a `size`
   axis (`small`/`medium`/`large`, matching Figma's `sm`/`md`/`lg`) and an `icon` color group;
   `TextArea` has neither — a single `state` axis, no size, no icon slot. Confirm the axes with
