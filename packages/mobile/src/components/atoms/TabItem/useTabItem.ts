@@ -64,7 +64,7 @@ const chromeOf = (isDisabled: boolean, isSelected: boolean, isPressed: boolean):
  * and `md` (44 < 48) get hitSlop out to `size.target.min`.
  */
 export const useTabItem = ({
-  size = 'md',
+  size = 'lg',
   layout = 'scrollable',
   isSelected = false,
   isDisabled = false,

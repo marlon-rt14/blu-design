@@ -25,7 +25,7 @@ import { useTabs } from './useTabs';
  * ```
  */
 export const Tabs = (props: ITabsProps): ReactElement => {
-  const { children, layout = 'scrollable', size = 'md', showDivider = true, testID } = props;
+  const { children, layout = 'scrollable', size = 'lg', showDivider = true, testID } = props;
   const { rootStyle, listStyle, scrollViewStyle, scrollContentStyle, dividerStyle, isScrollable } =
     useTabs(props);
 

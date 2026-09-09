@@ -73,7 +73,7 @@ const overlayColorOf = (
  * colour carries inactive vs active.
  */
 export const useTabItem = ({
-  size = 'md',
+  size = 'lg',
   layout = 'scrollable',
   isSelected = false,
   isDisabled = false,

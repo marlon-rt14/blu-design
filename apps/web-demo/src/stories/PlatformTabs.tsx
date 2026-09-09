@@ -46,7 +46,7 @@ export const PlatformTabs = ({
   selected,
   onSelect,
   platform = 'web',
-  size = 'md',
+  size = 'lg',
   ...props
 }: IPlatformTabsProps): ReactElement => {
   const chosen = selected ?? items[0]?.label;

@@ -352,7 +352,11 @@ one:
   (atom) + `Tabs` (molecule) — same split as Radio / RadioGroup. Live set
   is named **Tab item** (`97:14033`); search still lists `Tab`. Public
   name is `TabItem`. Live selected axis is **`isSelected`** (Supernova's
-  import still says `selected` — Figma wins). `showLeadingIcon` /
+  import still says `selected` — Figma wins). **`size` default is `lg`**
+  (Figma / Supernova / Dev frame) — not `md`. Dev frame wants
+  `tabs[]` + `value` + `onChange(key)` + `divider`; we keep the partial
+  RadioGroup-like API (`children` + `isSelected`/`onChange` per item +
+  `showDivider`) — same `show*` pattern as Alert/Snackbar. `showLeadingIcon` /
   `showBadge` are independent booleans; glyph default `user`; badge count
   default `"9"`, painted locally from `color.component.badge.*` (Badge
   is not shipped). ExtraBold at **every** state — live nodes use

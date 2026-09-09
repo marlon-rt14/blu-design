@@ -6,7 +6,7 @@ import type { TIconName } from './icon.types';
  * - `md`: 44 tall, `text/label/md` (14).
  * - `lg`: 56 tall, `text/label/lg` (16).
  *
- * @defaultValue `'md'`
+ * @defaultValue `'lg'`
  */
 export type TTabSize = 'md' | 'lg';
 
@@ -35,7 +35,7 @@ export interface ITabItemBaseProps {
    */
   isSelected?: boolean;
   /**
-   * @defaultValue `'md'`
+   * @defaultValue `'lg'`
    */
   size?: TTabSize;
   /**

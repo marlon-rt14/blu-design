@@ -51,7 +51,7 @@ const meta = {
       control: 'inline-radio',
       options: SIZES,
       description: 'Must match the TabItems inside.',
-      table: { category: 'Appearance', defaultValue: { summary: 'md' } },
+      table: { category: 'Appearance', defaultValue: { summary: 'lg' } },
     },
     showDivider: {
       control: 'boolean',
@@ -133,7 +133,6 @@ export const FiveItems: TStory = {
 
 /** Live example `97:18871`: Bandeja (icon + selected), Pendientes + badge 9, Enviados. */
 export const WithIconAndBadge: TStory = {
-  args: { size: 'lg' },
   render: function Render(args, { globals }) {
     const [selected, setSelected] = useState(BANDEJA[0]?.label);
     return (
@@ -143,7 +142,6 @@ export const WithIconAndBadge: TStory = {
         onSelect={setSelected}
         platform={globals.platform as TPlatform}
         selected={selected}
-        size="lg"
       />
     );
   },

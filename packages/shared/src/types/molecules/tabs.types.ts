@@ -29,9 +29,10 @@ export interface ITabsBaseProps {
    */
   layout?: TTabsLayout;
   /**
-   * Must match the Tab items inside.
+   * Must match the Tab items inside. Figma / Supernova / Dev frame default
+   * is `lg` (56) — not `md`.
    *
-   * @defaultValue `'md'`
+   * @defaultValue `'lg'`
    */
   size?: TTabSize;
   /**

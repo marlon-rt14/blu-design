@@ -44,7 +44,7 @@ const meta = {
       control: 'inline-radio',
       options: SIZES,
       description: 'md 44 / `text/label/md` 14. lg 56 / `text/label/lg` 16.',
-      table: { category: 'Appearance', defaultValue: { summary: 'md' } },
+      table: { category: 'Appearance', defaultValue: { summary: 'lg' } },
     },
     showLeadingIcon: {
       control: 'boolean',
