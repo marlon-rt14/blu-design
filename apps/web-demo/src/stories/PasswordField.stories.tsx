@@ -154,7 +154,7 @@ const meta = {
     showHelper: {
       control: 'boolean',
       description: 'Whether the helper slot renders at all — independent of either text being set.',
-      table: { category: 'Feedback', defaultValue: { summary: 'false' } },
+      table: { category: 'Feedback', defaultValue: { summary: 'true' } },
     },
     errorMessage: {
       control: 'text',

@@ -44,10 +44,10 @@ const meta = {
     docs: {
       description: {
         component:
-          'Tick box with an optional label. For a labelled group use `CheckboxGroup` with ' +
-          '`ChoiceItem` (`control="checkbox"`) as the rows — not a stack of standalone Checkbox. ' +
-          '`isIndeterminate` is `checked=false` + the DOM `indeterminate` property. ' +
-          'Focus is an offset ring, kept on a checked box.',
+          'Tick box with an optional label. No CheckboxList in Figma — stack `Checkbox`, ' +
+          'or use ChoiceItem (`control=checkbox`) for a list row. `isIndeterminate` is ' +
+          '`checked=false` + the DOM `indeterminate` property. Focus is an offset ring, ' +
+          'kept on a checked box.',
       },
     },
   },
