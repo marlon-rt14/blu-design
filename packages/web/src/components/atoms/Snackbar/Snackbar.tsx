@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import type { FocusEvent, PointerEvent, ReactElement } from 'react';
 
 import {
-  SNACKBAR_DURATION_MS,
-  SNACKBAR_TONE_ICON,
+  resolveSnackbarDurationMs,
+  SNACKBAR_STATUS_ICON,
   type TIconColor,
-  type TSnackbarTone,
-  type TSnackbarToneIcon,
+  type TSnackbarStatus,
+  type TSnackbarStatusIcon,
 } from '@dsm/shared';
 
 import {
@@ -21,15 +21,15 @@ import { LinkButton } from '../LinkButton';
 import type { ISnackbarProps } from './Snackbar.types';
 import { useSnackbar } from './useSnackbar';
 
-const TONE_ICON_COMPONENT: Record<TSnackbarToneIcon, (props: TIconProps) => ReactElement> = {
+const STATUS_ICON_COMPONENT: Record<TSnackbarStatusIcon, (props: TIconProps) => ReactElement> = {
   'alert-circle': IconAlertCircle,
   'alert-triangle': IconAlertTriangle,
   'check-circle': IconCheckCircle,
   info: IconInfo,
 };
 
-const iconColorOf = (tone: TSnackbarTone): TIconColor => {
-  switch (tone) {
+const iconColorOf = (status: TSnackbarStatus): TIconColor => {
+  switch (status) {
     case 'danger':
       return 'on-inverse.danger';
     case 'warning':
@@ -39,59 +39,63 @@ const iconColorOf = (tone: TSnackbarTone): TIconColor => {
     case 'info':
       return 'on-inverse.info';
     default: {
-      const _exhaustive: never = tone;
+      const _exhaustive: never = status;
       return _exhaustive;
     }
   }
 };
 
-const ToneGlyph = ({ tone }: { tone: TSnackbarTone }): ReactElement => {
-  const Glyph = TONE_ICON_COMPONENT[SNACKBAR_TONE_ICON[tone]];
-  return <Glyph color={iconColorOf(tone)} size="md" />;
+const StatusGlyph = ({ status }: { status: TSnackbarStatus }): ReactElement => {
+  const Glyph = STATUS_ICON_COMPONENT[SNACKBAR_STATUS_ICON[status]];
+  return <Glyph color={iconColorOf(status)} size="md" />;
 };
 
 export const Snackbar = (props: ISnackbarProps): ReactElement => {
   const {
-    tone = 'info',
+    status = 'info',
     message = 'Se guardó el cambio en tu tarjeta',
     showIcon = true,
     showAction = true,
     actionLabel = 'Deshacer',
-    showClose = false,
-    closeAccessibilityLabel = 'Cerrar',
+    showDismiss = false,
+    dismissAccessibilityLabel = 'Cerrar',
+    duration,
     onAction,
     onDismiss,
     onFocus,
     onBlur,
     testID,
   } = props;
-  const [isCloseHovered, setIsCloseHovered] = useState(false);
-  const [isClosePressed, setIsClosePressed] = useState(false);
-  const [isCloseFocusVisible, setIsCloseFocusVisible] = useState(false);
+  const [isDismissHovered, setIsDismissHovered] = useState(false);
+  const [isDismissPressed, setIsDismissPressed] = useState(false);
+  const [isDismissFocusVisible, setIsDismissFocusVisible] = useState(false);
   const {
     rootStyle,
     contentStyle,
     iconBoxStyle,
     messageStyle,
     actionsStyle,
-    closeHitStyle,
-    closeVisualStyle,
+    dismissHitStyle,
+    dismissVisualStyle,
     live,
     swipeThreshold,
   } = useSnackbar({
     ...props,
-    isCloseHovered,
-    isClosePressed,
-    isCloseFocusVisible,
+    isDismissHovered,
+    isDismissPressed,
+    isDismissFocusVisible,
   });
 
   const onDismissRef = useRef(onDismiss);
   useEffect(() => {
     onDismissRef.current = onDismiss;
   });
+  // Timer starts on mount and does not restart (Figma: dwell from mount).
   useEffect(() => {
-    const id = window.setTimeout(() => onDismissRef.current?.(), SNACKBAR_DURATION_MS);
+    const ms = resolveSnackbarDurationMs(duration, showAction);
+    const id = window.setTimeout(() => onDismissRef.current?.(), ms);
     return () => window.clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only dwell
   }, []);
 
   const swipeStartY = useRef<number | null>(null);
@@ -113,16 +117,16 @@ export const Snackbar = (props: ISnackbarProps): ReactElement => {
     }
   };
 
-  const handleCloseFocus = (event: FocusEvent<HTMLButtonElement>): void => {
-    setIsCloseFocusVisible(event.currentTarget.matches(':focus-visible'));
+  const handleDismissFocus = (event: FocusEvent<HTMLButtonElement>): void => {
+    setIsDismissFocusVisible(event.currentTarget.matches(':focus-visible'));
     onFocus?.(event);
   };
-  const handleCloseBlur = (event: FocusEvent<HTMLButtonElement>): void => {
-    setIsCloseFocusVisible(false);
+  const handleDismissBlur = (event: FocusEvent<HTMLButtonElement>): void => {
+    setIsDismissFocusVisible(false);
     onBlur?.(event);
   };
 
-  const showActions = showAction || showClose;
+  const showActions = showAction || showDismiss;
 
   return (
     <div
@@ -137,7 +141,7 @@ export const Snackbar = (props: ISnackbarProps): ReactElement => {
       <div style={contentStyle}>
         {showIcon ? (
           <span aria-hidden style={iconBoxStyle}>
-            <ToneGlyph tone={tone} />
+            <StatusGlyph status={status} />
           </span>
         ) : null}
         <p style={messageStyle}>{message}</p>
@@ -153,23 +157,23 @@ export const Snackbar = (props: ISnackbarProps): ReactElement => {
               underline={false}
             />
           ) : null}
-          {showClose ? (
+          {showDismiss ? (
             <button
-              aria-label={closeAccessibilityLabel}
-              onBlur={handleCloseBlur}
+              aria-label={dismissAccessibilityLabel}
+              onBlur={handleDismissBlur}
               onClick={onDismiss}
-              onFocus={handleCloseFocus}
-              onMouseEnter={() => setIsCloseHovered(true)}
+              onFocus={handleDismissFocus}
+              onMouseEnter={() => setIsDismissHovered(true)}
               onMouseLeave={() => {
-                setIsCloseHovered(false);
-                setIsClosePressed(false);
+                setIsDismissHovered(false);
+                setIsDismissPressed(false);
               }}
-              onPointerDown={() => setIsClosePressed(true)}
-              onPointerUp={() => setIsClosePressed(false)}
-              style={closeHitStyle}
+              onPointerDown={() => setIsDismissPressed(true)}
+              onPointerUp={() => setIsDismissPressed(false)}
+              style={dismissHitStyle}
               type="button"
             >
-              <span style={closeVisualStyle}>
+              <span style={dismissVisualStyle}>
                 <IconX color="inverse" size="sm" />
               </span>
             </button>

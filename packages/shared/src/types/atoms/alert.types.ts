@@ -4,8 +4,8 @@ import type { TIconName } from './icon.types';
  * Semantic tone of the Alert.
  *
  * Figma's live variant axis is named `status`; the set description and
- * Supernova's import still call it `tone`. Public API stays `tone` (same
- * word as Snackbar, same five values).
+ * Supernova's import still call it `tone`. Public API stays `tone` for
+ * Alert (five values including `neutral`). Snackbar ships as `status`.
  *
  * The chip fill + glyph shape carry the meaning together (WCAG 1.4.1) —
  * colour alone is not enough. Glyphs are locked per tone; there is no

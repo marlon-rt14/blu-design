@@ -332,17 +332,22 @@ one:
   a prop**: danger/warning → `role=alert`, rest → `status`.
 - **Snackbar is a toast, not an Alert.** Inverse bar
   (`color.component.snackbar.surface.bg`), no chip, no `placement`, no
-  `neutral`. `tone` default **info**. Glyph + `on-inverse.{tone}` colour;
-  fill never changes. Live node action is **LinkButton `on-inverse` `sm`**
-  `"Deshacer"` (21px) — the set description still says Button; the nested
-  instance is a link (Figma wins). Close is IconButton `on-inverse` `sm`
-  (32 visual, 16 glyph, pill) painted locally from
-  `color.component.iconbutton.on-inverse.*`; Figma property is `showClose`
-  default false. Type is `text/body/md` (live `97:13653`). Max width **448**
-  is Figma copy, not a theme token. Auto-dismiss **6s** from mount, timer
-  does not restart (`SNACKBAR_DURATION_MS`). Live region is **not a prop**:
-  `role=status`, `aria-live=assertive` only on danger. Don't copy Alert's
-  muted fill, chip, LinkButton `on-muted`, or `announce`.
+  `neutral`. Axis is **`status`** (default **info**) — set description may
+  still say `tone` in prose; property + Supernova + Dev frame use `status`.
+  Glyph + `on-inverse.{status}` colour; fill never changes. Live node action
+  is **LinkButton `on-inverse` `sm`** `"Deshacer"` (21px) — the set
+  description still says Button; the nested instance is a link (Figma wins).
+  Dismiss is IconButton `on-inverse` `sm` (32 visual, 16 glyph, pill)
+  painted locally from `color.component.iconbutton.on-inverse.*`; Figma
+  property is **`showDismiss`** default false (pairs with `onDismiss` in
+  code, same as Alert's `showAction`/`onAction`). Type is `text/body/md`
+  (live `97:13653`). Max width **448** is Figma copy, not a theme token.
+  Autoclose: `motion/dwell/default` (6s) without action, `motion/dwell/long`
+  (10s) when `showAction`; optional `duration` overrides
+  (`resolveSnackbarDurationMs`). Timer starts on mount and does not restart.
+  Live region is **not a prop**: `role=status`, `aria-live=assertive` only
+  on danger. Don't copy Alert's muted fill, chip, LinkButton `on-muted`, or
+  presence-based `action` object from the Dev frame (ship `show*` + handlers).
 - **Tabs / TabItem is a bar + items, not a TabPanel.** Ship `TabItem`
   (atom) + `Tabs` (molecule) — same split as Radio / RadioGroup. Live set
   is named **Tab item** (`97:14033`); search still lists `Tab`. Public

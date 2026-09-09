@@ -3,10 +3,10 @@ import type { IThemeTypographyValue } from '../themeSource/tokenPath';
 import { themeSources } from '../themeSource/themes';
 import type { TThemeMode } from '../themeSource/themes';
 import { baseFontFamily } from './theme.tokens';
-import type { TSnackbarTone } from '../types/atoms/snackbar.types';
+import type { TSnackbarStatus } from '../types/atoms/snackbar.types';
 
-/** IconButton `on-inverse` colours used by the local close control. */
-export interface ISnackbarCloseColorTokens {
+/** IconButton `on-inverse` colours used by the local dismiss control. */
+export interface ISnackbarDismissColorTokens {
   backgroundHover: string;
   backgroundPressed: string;
   icon: string;
@@ -17,8 +17,8 @@ export interface ISnackbarColorTokens {
   surface: string;
   border: string;
   text: string;
-  icon: Record<TSnackbarTone, string>;
-  close: ISnackbarCloseColorTokens;
+  icon: Record<TSnackbarStatus, string>;
+  dismiss: ISnackbarDismissColorTokens;
   overlayShadowNear: string;
   overlayShadowFar: string;
 }
@@ -36,8 +36,8 @@ export interface ISnackbarDimensionTokens {
   borderRadius: number;
   iconSize: number;
   contentMinHeight: number;
-  closeSize: number;
-  closeIconSize: number;
+  dismissSize: number;
+  dismissIconSize: number;
   targetMin: number;
   pillRadius: number;
   focusRingOffset: number;
@@ -54,6 +54,16 @@ export interface ISnackbarDimensionTokens {
   zIndex: number;
   /** Vertical dy before the pan claims the gesture — `space/inline/sm`. */
   swipeCapture: number;
+  /**
+   * Autoclose without action — layout alias of `motion/dwell/default`
+   * (`default_1` in the Token Studio export).
+   */
+  dwellDefaultMs: number;
+  /**
+   * Autoclose with `showAction` — layout alias of `motion/dwell/long`
+   * (`long_1` in the Token Studio export).
+   */
+  dwellLongMs: number;
 }
 
 export interface ISnackbarTokens {
@@ -82,7 +92,7 @@ const readSnackbarTokens = (mode: TThemeMode): ISnackbarTokens => {
         warning: colorAt('component.snackbar.icon.warning'),
         danger: colorAt('component.snackbar.icon.danger'),
       },
-      close: {
+      dismiss: {
         backgroundHover: colorAt('component.iconbutton.on-inverse.bg-hover'),
         backgroundPressed: colorAt('component.iconbutton.on-inverse.bg-pressed'),
         icon: colorAt('component.iconbutton.on-inverse.icon-default'),
@@ -100,8 +110,8 @@ const readSnackbarTokens = (mode: TThemeMode): ISnackbarTokens => {
       borderRadius: dimensionAt('radius.surface.sm'),
       iconSize: dimensionAt('size.icon.md'),
       contentMinHeight: dimensionAt('size.control.height.sm'),
-      closeSize: dimensionAt('size.control.height.sm'),
-      closeIconSize: dimensionAt('size.icon.sm'),
+      dismissSize: dimensionAt('size.control.height.sm'),
+      dismissIconSize: dimensionAt('size.icon.sm'),
       targetMin: dimensionAt('size.target.min'),
       pillRadius: dimensionAt('radius.pill'),
       focusRingOffset: dimensionAt('focus.ring.offset'),
@@ -113,6 +123,9 @@ const readSnackbarTokens = (mode: TThemeMode): ISnackbarTokens => {
       maxWidth: SNACKBAR_MAX_WIDTH_PX,
       zIndex: dimensionAt('z.toast_1'),
       swipeCapture: dimensionAt('space.inline.sm'),
+      // Layout aliases (`*_1`) — same ms as primitives `motion.dwell.{default,long}`.
+      dwellDefaultMs: dimensionAt('motion.dwell.default_1'),
+      dwellLongMs: dimensionAt('motion.dwell.long_1'),
     },
     message: {
       fontWeight: String(dimensionAt('font.weight.regular')),
@@ -126,4 +139,17 @@ const readSnackbarTokens = (mode: TThemeMode): ISnackbarTokens => {
 export const snackbarTokens: Record<TThemeMode, ISnackbarTokens> = {
   light: readSnackbarTokens('light'),
   dark: readSnackbarTokens('dark'),
+};
+
+/**
+ * Resolves autoclose dwell. Explicit `duration` wins; otherwise
+ * `motion/dwell/long` when `showAction`, else `motion/dwell/default`.
+ * Same across modes — dwell is not density-dependent.
+ */
+export const resolveSnackbarDurationMs = (duration: number | undefined, showAction: boolean): number => {
+  const { dwellDefaultMs, dwellLongMs } = snackbarTokens.light.dimension;
+  if (duration != null) {
+    return duration;
+  }
+  return showAction ? dwellLongMs : dwellDefaultMs;
 };
