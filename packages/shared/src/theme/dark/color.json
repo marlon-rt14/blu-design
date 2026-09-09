@@ -4066,7 +4066,8 @@
             },
             "hover": {
               "value": "#ffc0c0",
-              "type": "color"
+              "type": "color",
+              "description": "Relleno de una acción destructiva con el puntero encima. Un paso más oscuro que default en claro y más claro en oscuro. Solo para acciones que borran o cancelan algo difícil de deshacer."
             }
           },
           "on-scene": {
@@ -4096,11 +4097,13 @@
           "neutral": {
             "default": {
               "value": "#333b4d",
-              "type": "color"
+              "type": "color",
+              "description": "Relleno de una acción neutra en reposo — el Button y el IconButton con appearance neutral. En claro es un gris tenue; en oscuro se invierte. Nunca usar un primitivo directo en su lugar."
             },
             "pressed": {
               "value": "#616778",
-              "type": "color"
+              "type": "color",
+              "description": "Relleno de una acción neutra mientras se la mantiene presionada. Siempre más oscuro que default en los modos claros y más claro en los oscuros, para que el gesto se sienta."
             },
             "hover": {
               "value": "#464d5e",
@@ -4700,13 +4703,15 @@
           "neutral": {
             "default": {
               "value": "#eff0f3",
-              "type": "color"
+              "type": "color",
+              "description": "Color del icono dentro de una acción neutra. Va en la escala opuesta al relleno para garantizar contraste sobre él en los seis modos."
             }
           },
           "on-scene": {
             "default": {
               "value": "#001e60",
-              "type": "color"
+              "type": "color",
+              "description": "Color del icono de una acción apoyada sobre una escena de marca o sobre una imagen. Resuelve por el rol _role/scene/on/action-text, así que sigue a la marca activa y no hay que redefinirlo por vertical."
             }
           }
         },
@@ -4873,9 +4878,9 @@
             "description": "Token semantic de color. Rol border. [SOLO WEB] React Native no tiene hover. Valor definido en los 4 modos. Nunca usar un primitivo directo en su lugar."
           },
           "readonly": {
-            "value": "#464d5e",
+            "value": "#7d8497",
             "type": "color",
-            "description": "Token semantic de color. Rol border. Valor definido en los 4 modos. Nunca usar un primitivo directo en su lugar."
+            "description": "Borde de un campo en solo lectura. Definido en los 6 modos y verificado ≥3:1 contra el relleno del campo (WCAG 1.4.11): readonly es un control operable y no está exento como disabled. La escalera Standard → MC → HC crece en los dos temas. Nunca usar un primitivo directo en su lugar."
           }
         },
         "danger": {
@@ -5921,7 +5926,8 @@
         },
         "link-pressed": {
           "value": "#d3ddf3",
-          "type": "color"
+          "type": "color",
+          "description": "INTERNO. Rol de marca para un enlace mientras se lo mantiene presionado. No consumir directo desde un componente: usar color/text/link/pressed, que resuelve acá. Existe para que la rampa de marca se pueda mover sin tocar la capa semántica."
         },
         "soft": {
           "value": "#ffffff1f",
@@ -5940,19 +5946,23 @@
         },
         "link-on-inverse": {
           "value": "#2760aa",
-          "type": "color"
+          "type": "color",
+          "description": "INTERNO. Rol de marca para un enlace sobre la superficie inversa, como la barra del Snackbar. Cruza de rampa a propósito: en modo claro toma la rampa oscura y viceversa, porque el fondo está invertido. No consumir directo: usar color/text/link/on-inverse/default."
         },
         "link-on-inverse-hover": {
           "value": "#174183",
-          "type": "color"
+          "type": "color",
+          "description": "INTERNO. El anterior con el puntero encima. No consumir directo: usar color/text/link/on-inverse/hover."
         },
         "link-on-inverse-pressed": {
           "value": "#0f2f6f",
-          "type": "color"
+          "type": "color",
+          "description": "INTERNO. El anterior mientras se lo mantiene presionado. No consumir directo: usar color/text/link/on-inverse/pressed."
         },
         "link-muted-pressed": {
           "value": "#e3e7f2",
-          "type": "color"
+          "type": "color",
+          "description": "INTERNO. Rol de marca para un enlace presionado sobre un relleno tenue — el cuerpo de un Alert. No consumir directo: usar color/text/link/on-muted/pressed."
         },
         "fill-strong": {
           "value": "#e3e7f2",
@@ -6900,7 +6910,7 @@
             "description": "Co-token de textfield. Capa de indirección: aliasea color/border/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "border-readonly": {
-            "value": "#464d5e",
+            "value": "#7d8497",
             "type": "color",
             "description": "Co-token de textfield. Capa de indirección: aliasea color/border/control/readonly sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -7081,7 +7091,7 @@
             "description": "Co-token de textarea. Capa de indirección: aliasea color/border/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "border-readonly": {
-            "value": "#464d5e",
+            "value": "#7d8497",
             "type": "color",
             "description": "Co-token de textarea. Capa de indirección: aliasea color/border/control/readonly sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -7233,7 +7243,7 @@
             "description": "Co-token de passwordfield. Capa de indirección: aliasea color/fill/input/readonly sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "border-readonly": {
-            "value": "#464d5e",
+            "value": "#7d8497",
             "type": "color",
             "description": "Co-token de passwordfield. Capa de indirección: aliasea color/border/control/readonly sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -8204,7 +8214,7 @@
             "description": "Fondo del contenedor de CardField en readonly. Espeja component/textfield/container/bg-readonly."
           },
           "border-readonly": {
-            "value": "#464d5e",
+            "value": "#7d8497",
             "type": "color",
             "description": "Borde del contenedor de CardField en readonly."
           },
@@ -8331,7 +8341,7 @@
             "description": "Co-token de select. Capa de indirección: aliasea color/border/danger sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "border-readonly": {
-            "value": "#464d5e",
+            "value": "#7d8497",
             "type": "color",
             "description": "Co-token de select. Capa de indirección: aliasea color/border/control/readonly sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -8480,7 +8490,7 @@
             "description": "Co-token de combobox. Capa de indirección: aliasea color/border/danger sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "border-readonly": {
-            "value": "#464d5e",
+            "value": "#7d8497",
             "type": "color",
             "description": "Co-token de combobox. Capa de indirección: aliasea color/border/control/readonly sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -8942,7 +8952,7 @@
             "description": "Co-token de chip. Capa de indirección: aliasea color/fill/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "border-default": {
-            "value": "#9aa2b7",
+            "value": "#9abaf2",
             "type": "color",
             "description": "Co-token de chip. Capa de indirección: aliasea color/border/control/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -8989,7 +8999,7 @@
         },
         "label": {
           "text-default": {
-            "value": "#e6e8ec",
+            "value": "#bdd1fa",
             "type": "color",
             "description": "Co-token de chip. Capa de indirección: aliasea color/text/primary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -9006,7 +9016,7 @@
         },
         "icon": {
           "icon-default": {
-            "value": "#dbdee6",
+            "value": "#9abaf2",
             "type": "color",
             "description": "Co-token de chip. Capa de indirección: aliasea color/icon/primary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -10247,98 +10257,98 @@
           "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
         },
         "2": {
-          "value": "#ffba8c",
+          "value": "#f0ae44",
           "type": "color",
           "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos. Nota de separabilidad: apunta a un primitivo, NO a accent. Deuna serie de grafico se elige por cuanto se distingue de las otras, no por identidad de marca. Cuando colgaba de accent, cualquier ajuste de marca cambiaba la paleta de datos sin que nadie lo notara."
         },
         "3": {
-          "value": "#56c2c9",
+          "value": "#1ebe7d",
           "type": "color",
           "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos. Nota de separabilidad: apunta a un primitivo, NO a accent. Deuna serie de grafico se elige por cuanto se distingue de las otras, no por identidad de marca. Cuando colgaba de accent, cualquier ajuste de marca cambiaba la paleta de datos sin que nadie lo notara."
         },
         "4": {
-          "value": "#ccaaf7",
-          "type": "color",
-          "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
-        },
-        "5": {
-          "value": "#1ebe7d",
-          "type": "color",
-          "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
-        },
-        "6": {
-          "value": "#f0ae44",
-          "type": "color",
-          "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
-        },
-        "7": {
-          "value": "#66c8fd",
-          "type": "color",
-          "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
-        },
-        "8": {
           "value": "#fd97c6",
           "type": "color",
           "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
         },
-        "9": {
-          "value": "#8ab338",
+        "5": {
+          "value": "#56c2c9",
           "type": "color",
           "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
         },
-        "10": {
+        "6": {
           "value": "#ff9c9f",
           "type": "color",
           "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
         },
-        "alt": {
+        "7": {
+          "value": "#8ab338",
+          "type": "color",
+          "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
+        },
+        "8": {
+          "value": "#66c8fd",
+          "type": "color",
+          "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
+        },
+        "9": {
+          "value": "#ffba8c",
+          "type": "color",
+          "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
+        },
+        "10": {
+          "value": "#ccaaf7",
+          "type": "color",
+          "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
+        },
+        "subtle": {
           "1": {
             "value": "#3062a8",
             "type": "color",
             "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
           },
           "2": {
-            "value": "#8c4a0e",
+            "value": "#6c4300",
             "type": "color",
             "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos. Nota de separabilidad: apunta a un primitivo, NO a accent. Deuna serie de grafico se elige por cuanto se distingue de las otras, no por identidad de marca. Cuando colgaba de accent, cualquier ajuste de marca cambiaba la paleta de datos sin que nadie lo notara."
           },
           "3": {
-            "value": "#174343",
+            "value": "#005d3a",
             "type": "color",
             "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos. Nota de separabilidad: apunta a un primitivo, NO a accent. Deuna serie de grafico se elige por cuanto se distingue de las otras, no por identidad de marca. Cuando colgaba de accent, cualquier ajuste de marca cambiaba la paleta de datos sin que nadie lo notara."
           },
           "4": {
-            "value": "#5a3886",
-            "type": "color",
-            "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
-          },
-          "5": {
-            "value": "#005d3a",
-            "type": "color",
-            "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
-          },
-          "6": {
-            "value": "#6c4300",
-            "type": "color",
-            "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
-          },
-          "7": {
-            "value": "#005474",
-            "type": "color",
-            "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
-          },
-          "8": {
             "value": "#7e2659",
             "type": "color",
             "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
           },
-          "9": {
+          "5": {
+            "value": "#174343",
+            "type": "color",
+            "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
+          },
+          "6": {
+            "value": "#862434",
+            "type": "color",
+            "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
+          },
+          "7": {
             "value": "#3b5706",
             "type": "color",
             "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
           },
+          "8": {
+            "value": "#005474",
+            "type": "color",
+            "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
+          },
+          "9": {
+            "value": "#8c4a0e",
+            "type": "color",
+            "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
+          },
           "10": {
-            "value": "#862434",
+            "value": "#5a3886",
             "type": "color",
             "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
           }
@@ -10352,7 +10362,7 @@
       "sequential": {
         "primary": {
           "1": {
-            "value": "#001e60",
+            "value": "#131534",
             "type": "color",
             "description": "Rampa secuencial de precedencia PRIMARIA: la que se usa por defecto. Nombrada por precedencia y no por color (era sequential-blue) para que no mienta si la marca cambia de matiz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
           },
@@ -10362,12 +10372,12 @@
             "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
           },
           "3": {
-            "value": "#001e60",
+            "value": "#243264",
             "type": "color",
             "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
           },
           "4": {
-            "value": "#3062a8",
+            "value": "#174183",
             "type": "color",
             "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
           },
@@ -10399,7 +10409,7 @@
             "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
           },
           "3": {
-            "value": "#183c3c",
+            "value": "#1e5253",
             "type": "color",
             "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
           },
@@ -10616,19 +10626,19 @@
       },
       "grid": {
         "default": {
-          "value": "#232c41",
+          "value": "#464d5e",
           "type": "color",
           "description": "Retimoula de fondo. Andamiaje decorativo: WCAG 1.4.11 no le exige 3:1. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
         },
         "strong": {
-          "value": "#333b4d",
+          "value": "#616778",
           "type": "color",
           "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
         }
       },
       "axis": {
         "line": {
-          "value": "#7d8497",
+          "value": "#9aa2b7",
           "type": "color",
           "description": "Linea de eje. Subida de paso 300/700 a 500: la RETICULA puede ser decorativa (WCAG 1.4.11 no le exige 3:1) pero un EJE comunica informacion, es la referencia para leer las magnitudes. Debe cumplir 3:1. Valor definido en los 4 modos."
         },
@@ -10643,7 +10653,7 @@
           "description": "Marca de escala del eje. Comunica magnitud, asi que cumple 3:1 contra la superficie (WCAG 1.4.11). No confundir con chart/grid, que es reticula decorativa y no tiene ese requisito."
         },
         "baseline": {
-          "value": "#7d8497",
+          "value": "#9aa2b7",
           "type": "color",
           "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
         }
@@ -10696,7 +10706,7 @@
           "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
         },
         "muted": {
-          "value": "#333b4d",
+          "value": "#464d5e",
           "type": "color",
           "description": "Token de data-viz. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
         },

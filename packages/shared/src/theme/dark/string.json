@@ -25,11 +25,13 @@
         },
         "text": {
           "value": "Mulish",
-          "type": "string"
+          "type": "string",
+          "description": "Familia de texto del sistema. Alias de Mulish en los tres modos de densidad: la densidad cambia tamaños, no la fuente. Los estilos de texto la consumen desde acá, nunca desde el primitivo."
         },
         "mono_1": {
           "value": "IBM Plex Mono",
-          "type": "string"
+          "type": "string",
+          "description": "Familia monoespaciada, IBM Plex Mono. Solo para los estilos text/code/*: importes de un extracto, identificadores, fragmentos de código. Nunca para texto corrido."
         }
       }
     },
@@ -87,11 +89,13 @@
         "style": {
           "regular": {
             "value": "Regular",
-            "type": "string"
+            "type": "string",
+            "description": "Nombre del corte regular tal como lo pide cada plataforma. Igual en las tres hoy; existe para que iOS o Android puedan apuntar a un nombre de familia distinto sin tocar los estilos."
           },
           "medium": {
             "value": "Medium",
-            "type": "string"
+            "type": "string",
+            "description": "Nombre del corte medium por plataforma. Igual en las tres hoy; el token existe para absorber una divergencia futura sin renombrar estilos."
           },
           "semibold": {
             "value": "SemiBold",
@@ -100,7 +104,8 @@
           },
           "bold": {
             "value": "Bold",
-            "type": "string"
+            "type": "string",
+            "description": "Nombre del corte bold por plataforma. Igual en las tres hoy; el token existe para absorber una divergencia futura sin renombrar estilos."
           }
         },
         "family": {

@@ -57,19 +57,23 @@
         },
         "regular_1": {
           "value": "400px",
-          "type": "dimension"
+          "type": "dimension",
+          "description": "Peso 400. El cuerpo de texto, las etiquetas default y los caption default. Es el peso de lectura del sistema."
         },
         "medium_1": {
           "value": "500px",
-          "type": "dimension"
+          "type": "dimension",
+          "description": "Peso 500. Hoy no lo usa ningún estilo de texto publicado; queda disponible para la escala. Antes de usarlo, revisar si el caso no pide semibold o extrabold."
         },
         "semibold_1": {
           "value": "600px",
-          "type": "dimension"
+          "type": "dimension",
+          "description": "Peso 600. Lo usan los estilos text/link/*: sin subrayado, Medium contra Regular no se distingue al tamaño de lectura, y semibold sí."
         },
         "bold_1": {
           "value": "700px",
-          "type": "dimension"
+          "type": "dimension",
+          "description": "Peso 700. Sostiene solo a text/unit/{md,sm}. Es el peso con menos uso del sistema: antes de sumarle un estilo, evaluar si corresponde extrabold."
         },
         "extrabold_1": {
           "value": "800px",
@@ -345,19 +349,23 @@
         },
         "tight_1": {
           "value": "120px",
-          "type": "dimension"
+          "type": "dimension",
+          "description": "Interlineado 120 %. Para display y amount grandes, donde el tamaño ya separa las líneas y un interlineado mayor rompe el bloque."
         },
         "snug_1": {
           "value": "135px",
-          "type": "dimension"
+          "type": "dimension",
+          "description": "Interlineado 135 %. Para títulos medianos y para las filas de monto, donde hay una o dos líneas."
         },
         "normal_1": {
           "value": "150px",
-          "type": "dimension"
+          "type": "dimension",
+          "description": "Interlineado 150 %. El de lectura: body y label. Es el valor por defecto de un párrafo."
         },
         "relaxed_1": {
           "value": "170px",
-          "type": "dimension"
+          "type": "dimension",
+          "description": "Interlineado 170 %. Para bloques largos de texto legal o de ayuda, donde se lee corrido y conviene más aire."
         }
       },
       "letter-spacing": {
@@ -388,23 +396,28 @@
         },
         "tighter_1": {
           "value": "-2px",
-          "type": "dimension"
+          "type": "dimension",
+          "description": "Tracking −2 %. Solo para amount hero y display grandes: a partir de cierto tamaño las letras se ven separadas y hay que cerrarlas."
         },
         "tight_1": {
           "value": "-1px",
-          "type": "dimension"
+          "type": "dimension",
+          "description": "Tracking −1 %. Para display, heading y amount lg. Es la corrección óptica estándar de los tamaños grandes."
         },
         "normal_1": {
           "value": "0px",
-          "type": "dimension"
+          "type": "dimension",
+          "description": "Tracking 0. El valor de todo el texto de lectura. Si un estilo no tiene razón explícita para separarse de acá, usa esto."
         },
         "wide_1": {
           "value": "2px",
-          "type": "dimension"
+          "type": "dimension",
+          "description": "Tracking +2 %. Para texto chico que necesita respirar, por debajo del tamaño de lectura."
         },
         "wider_1": {
           "value": "8px",
-          "type": "dimension"
+          "type": "dimension",
+          "description": "Tracking +8 %. Exclusivo de text/overline: mayúsculas a 11 px, que sin tracking se leen como un bloque."
         }
       }
     },
@@ -1317,15 +1330,18 @@
       "radius": {
         "sm": {
           "value": "4px",
-          "type": "dimension"
+          "type": "dimension",
+          "description": "Radio chico por plataforma: 8 en iOS y Android, 4 en web. Native redondea más que web a propósito — es la convención de cada sistema, no una preferencia."
         },
         "md": {
           "value": "8px",
-          "type": "dimension"
+          "type": "dimension",
+          "description": "Radio medio por plataforma: 12 en iOS y Android, 8 en web. Es el radio de un control o un campo."
         },
         "lg": {
           "value": "12px",
-          "type": "dimension"
+          "type": "dimension",
+          "description": "Radio grande por plataforma: 16 en iOS y Android, 12 en web. Es el radio de una superficie: tarjeta, hoja, popover."
         },
         "xl": {
           "value": "16px",
@@ -1334,7 +1350,8 @@
         },
         "full": {
           "value": "999px",
-          "type": "dimension"
+          "type": "dimension",
+          "description": "Pastilla. 999 en las tres plataformas: no divergen porque un borde totalmente redondeado se ve igual en todas."
         }
       },
       "segment": {
@@ -1497,11 +1514,13 @@
         },
         "section-gap": {
           "value": "32px",
-          "type": "dimension"
+          "type": "dimension",
+          "description": "Separación entre secciones de una pantalla: 20 en iOS, 24 en Android, 32 en web. Crece con el tamaño típico del viewport."
         },
         "item-gap": {
           "value": "16px",
-          "type": "dimension"
+          "type": "dimension",
+          "description": "Separación entre elementos de una misma sección: 12 en iOS, 16 en Android y web. Es el aire de adentro de un bloque, no el de entre bloques."
         }
       },
       "target": {
@@ -1510,6 +1529,135 @@
           "type": "dimension",
           "description": "Area tactil minima. iOS 44pt · Android 48dp · web 40px. Nunca bajar de aqui aunque el glifo sea mas chico."
         }
+      }
+    },
+    "chart": {
+      "line": {
+        "width": {
+          "thin": {
+            "value": "1px",
+            "type": "dimension",
+            "description": "Trazo de series secundarias, benchmark y forecast. Sube a 2 en alto contraste."
+          },
+          "default": {
+            "value": "2px",
+            "type": "dimension",
+            "description": "Trazo de una serie de datos. Sube a 3 en alto contraste: en gráficos el refuerzo de contraste va por grosor, no por color."
+          },
+          "emphasis": {
+            "value": "3px",
+            "type": "dimension",
+            "description": "Serie seleccionada o resaltada al pasar el mouse."
+          }
+        }
+      },
+      "grid": {
+        "width": {
+          "value": "1px",
+          "type": "dimension",
+          "description": "Grosor de la línea de grilla. Sube a 2 en alto contraste."
+        }
+      },
+      "marker": {
+        "size": {
+          "sm": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Punto de scatter y marcador de leyenda en su tamaño chico."
+          },
+          "md": {
+            "value": "10px",
+            "type": "dimension",
+            "description": "Marcador de serie sobre la línea, y punto de scatter destacado."
+          }
+        }
+      },
+      "bar": {
+        "radius": {
+          "value": "4px",
+          "type": "dimension",
+          "description": "Radio de la punta de una barra. 4 en las tres densidades: con 15 o 20 columnas la barra queda fina y un radio mayor se come el valor."
+        }
+      }
+    },
+    "radius": {
+      "focus": {
+        "control": {
+          "value": "6px",
+          "type": "dimension",
+          "description": "Radio del anillo de foco. Valor derivado: radio del control + focus/ring/offset (2). No es un paso de la escala; existe para que el anillo quede paralelo al control en las esquinas (equivale a outline-offset en CSS)."
+        },
+        "field": {
+          "value": "14px",
+          "type": "dimension",
+          "description": "Radio del anillo de foco. Valor derivado: radio del control + focus/ring/offset (2). No es un paso de la escala; existe para que el anillo quede paralelo al control en las esquinas (equivale a outline-offset en CSS)."
+        },
+        "action": {
+          "value": "14px",
+          "type": "dimension",
+          "description": "Radio del anillo de foco. Valor derivado: radio del control + focus/ring/offset (2). No es un paso de la escala; existe para que el anillo quede paralelo al control en las esquinas (equivale a outline-offset en CSS)."
+        },
+        "surface": {
+          "value": "18px",
+          "type": "dimension",
+          "description": "Radio del anillo de foco. Valor derivado: radio del control + focus/ring/offset (2). No es un paso de la escala; existe para que el anillo quede paralelo al control en las esquinas (equivale a outline-offset en CSS)."
+        }
+      },
+      "control": {
+        "sm": {
+          "value": "4px",
+          "type": "dimension",
+          "description": "Radio de control pequeno: checkbox, chip, tag, badge cuadrado. 4px. Para CAMPOS usar radius/field/*, para BOTONES radius/action."
+        }
+      },
+      "surface": {
+        "sm": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "Radio de card. 12 en compact y 16 en pantallas grandes. Varia con la densidad ('4. Layout'). El radio de una SUPERFICIE es independiente del de un CONTROL: una card muy redondeada con inputs cuadrados adentro se ve descoordinada, pero igualarlos tampoco es automatico -- el radio se percibe en relacion a la ALTURA del elemento, y un input mide una fraccion de lo que mide una hoja. Nunca usar el primitivo crudo en un componente."
+        },
+        "md": {
+          "value": "16px",
+          "type": "dimension",
+          "description": "Radio de superficie flotante: menu, popover, dropdown. Varia con la densidad ('4. Layout'). El radio de una SUPERFICIE es independiente del de un CONTROL: una card muy redondeada con inputs cuadrados adentro se ve descoordinada, pero igualarlos tampoco es automatico -- el radio se percibe en relacion a la ALTURA del elemento, y un input mide una fraccion de lo que mide una hoja. Nunca usar el primitivo crudo en un componente."
+        },
+        "lg": {
+          "value": "24px",
+          "type": "dimension",
+          "description": "Radio de hoja y modal. 24 en los tres modos: es el radio mas expresivo del sistema y define el caracter de las superficies grandes. Varia con la densidad ('4. Layout'). El radio de una SUPERFICIE es independiente del de un CONTROL: una card muy redondeada con inputs cuadrados adentro se ve descoordinada, pero igualarlos tampoco es automatico -- el radio se percibe en relacion a la ALTURA del elemento, y un input mide una fraccion de lo que mide una hoja. Nunca usar el primitivo crudo en un componente."
+        },
+        "xs": {
+          "value": "8px",
+          "type": "dimension",
+          "description": "Radio de una superficie anidada dentro de otra superficie. Regla concéntrica: r_interior = r_exterior − padding, con piso en este paso. Nunca igual ni mayor al radio del contenedor."
+        }
+      },
+      "pill": {
+        "value": "9999px",
+        "type": "dimension",
+        "description": "Pildora y circulo: avatar, badge numerico, boton de pildora. Mismo valor en los tres modos a proposito: no depende de la densidad. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
+      },
+      "field": {
+        "sm": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "Radio de campo compacto: 16 sobre 44 de alto."
+        },
+        "md": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "RADIO DE CAMPO BASE: 24 sobre 56 de alto. NO es pildora: a 56 la pildora seria 28, asi que queda un tramo recto en el medio y la forma se lee como decision y no como accidente. PADDING MINIMO: space/inset/lg. Con padding menor que el radio el texto se ve apretado contra la curva. En campos multilinea la curva se nota mas: revisar el textarea antes de darlo por bueno."
+        }
+      },
+      "action": {
+        "value": "12px",
+        "type": "dimension",
+        "icon": {
+          "value": "9999px",
+          "type": "dimension",
+          "description": "Radio de acciones circulares (IconButton, FAB). Independiente de radius/action para permitir que los botones con label usen 12px sin afectar las acciones de icono."
+        },
+        "description": "RADIO DE BOTON: pildora. Se usa el centinela de pildora y NO un valor fijo, para que se adapte solo si cambia la altura del control (hoy 44/44/48, o sea pildora 22/22/24). PADDING MINIMO: space/inset/lg, y mas en botones anchos. NO usar en campos de texto: complica el texto largo, los grupos de controles y los textarea."
       }
     },
     "border": {
@@ -1539,59 +1687,6 @@
           "type": "dimension",
           "description": "Grosor de borde de control que necesita mas presencia que el filete de 1px: la caja de Checkbox y Radio. 2px normal, 3px en alto contraste, misma escalada que border/width/default. No usar border/width/indicator para esto: ese token nombra la barra que marca lo elegido (Tab activo, fila seleccionada), no el borde de un control."
         }
-      }
-    },
-    "radius": {
-      "control": {
-        "sm": {
-          "value": "4px",
-          "type": "dimension",
-          "description": "Radio de control pequeno: checkbox, chip, tag, badge cuadrado. 4px. Para CAMPOS usar radius/field/*, para BOTONES radius/action."
-        }
-      },
-      "surface": {
-        "sm": {
-          "value": "12px",
-          "type": "dimension",
-          "description": "Radio de card. 12 en compact y 16 en pantallas grandes. Varia con la densidad ('4. Layout'). El radio de una SUPERFICIE es independiente del de un CONTROL: una card muy redondeada con inputs cuadrados adentro se ve descoordinada, pero igualarlos tampoco es automatico -- el radio se percibe en relacion a la ALTURA del elemento, y un input mide una fraccion de lo que mide una hoja. Nunca usar el primitivo crudo en un componente."
-        },
-        "md": {
-          "value": "16px",
-          "type": "dimension",
-          "description": "Radio de superficie flotante: menu, popover, dropdown. Varia con la densidad ('4. Layout'). El radio de una SUPERFICIE es independiente del de un CONTROL: una card muy redondeada con inputs cuadrados adentro se ve descoordinada, pero igualarlos tampoco es automatico -- el radio se percibe en relacion a la ALTURA del elemento, y un input mide una fraccion de lo que mide una hoja. Nunca usar el primitivo crudo en un componente."
-        },
-        "lg": {
-          "value": "24px",
-          "type": "dimension",
-          "description": "Radio de hoja y modal. 24 en los tres modos: es el radio mas expresivo del sistema y define el caracter de las superficies grandes. Varia con la densidad ('4. Layout'). El radio de una SUPERFICIE es independiente del de un CONTROL: una card muy redondeada con inputs cuadrados adentro se ve descoordinada, pero igualarlos tampoco es automatico -- el radio se percibe en relacion a la ALTURA del elemento, y un input mide una fraccion de lo que mide una hoja. Nunca usar el primitivo crudo en un componente."
-        }
-      },
-      "pill": {
-        "value": "9999px",
-        "type": "dimension",
-        "description": "Pildora y circulo: avatar, badge numerico, boton de pildora. Mismo valor en los tres modos a proposito: no depende de la densidad. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
-      },
-      "field": {
-        "sm": {
-          "value": "12px",
-          "type": "dimension",
-          "description": "Radio de campo compacto: 16 sobre 44 de alto."
-        },
-        "md": {
-          "value": "12px",
-          "type": "dimension",
-          "description": "RADIO DE CAMPO BASE: 24 sobre 56 de alto. NO es pildora: a 56 la pildora seria 28, asi que queda un tramo recto en el medio y la forma se lee como decision y no como accidente. PADDING MINIMO: space/inset/lg. Con padding menor que el radio el texto se ve apretado contra la curva. En campos multilinea la curva se nota mas: revisar el textarea antes de darlo por bueno."
-        }
-      },
-      "action": {
-        "value": "12px",
-        "type": "dimension",
-        "icon": {
-          "value": "9999px",
-          "type": "dimension",
-          "description": "Radio de acciones circulares (IconButton, FAB). Independiente de radius/action para permitir que los botones con label usen 12px sin afectar las acciones de icono."
-        },
-        "description": "RADIO DE BOTON: pildora. Se usa el centinela de pildora y NO un valor fijo, para que se adapte solo si cambia la altura del control (hoy 44/44/48, o sea pildora 22/22/24). PADDING MINIMO: space/inset/lg, y mas en botones anchos. NO usar en campos de texto: complica el texto largo, los grupos de controles y los textarea."
       }
     }
   }
