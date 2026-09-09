@@ -1,4 +1,4 @@
-import { BluProvider, Button, Checkbox, ChoiceItem, LinkButton, OTPField, PasswordField, Radio, RadioGroup } from "@dsm/web";
+import { BluProvider, Button, Card, Checkbox, ChoiceItem, LinkButton, OTPField, PasswordField, Radio, RadioGroup } from "@dsm/web";
 import type { TButtonAppearance, TButtonSize, TButtonVariant, TIconColor, TIconSize, TPasswordFieldSize, TPasswordFieldVisibility } from "@dsm/shared";
 import { useState } from "react";
 
@@ -300,6 +300,41 @@ const App = () => {
               testID="otp-disabled"
               value={wrongCode}
             />
+          </div>
+        </section>
+
+        <section className="demo__section">
+          <h2 className="demo__section-title">Card</h2>
+          {/* Una superficie y nada más: fondo, radio y recorte. No es
+              interactiva y no lleva rol — si la tarjeta entera fuera un
+              destino, el rol y el foco los pondría un enlace o un botón
+              envolviéndola.
+
+              Ojo con lo que hace `raised` en los dos temas que exportamos:
+              Figma bindea borde Y sombra, pero el color del borde es
+              transparente acá, así que hoy es 1px invisible que solo ocupa
+              lugar. Una tarjeta raised mide 2px más que una flat con el mismo
+              contenido. El borde aparece solo el día que llegue un tema de
+              alto contraste.
+
+              De paso: estos cards de la demo (.demo__section) son CSS a mano y
+              siguen blancos en dark. Este componente es justamente lo que
+              deberían usar. */}
+          <div className="demo__row">
+            {(["flat", "raised"] as const).map((elevation) =>
+              (["none", "md"] as const).map((padding) => (
+                <div key={`${elevation}-${padding}`} style={{ width: 220 }}>
+                  <p className="demo__counter">{elevation} · padding {padding}</p>
+                  <Card elevation={elevation} padding={padding} testID={`card-${elevation}-${padding}`}>
+                    {/* Sin radio propio: con padding none el recorte de la
+                        tarjeta es lo único que le redondea las esquinas. */}
+                    <div style={{ alignItems: "center", background: "#e5e8f1", color: "#232b3d", display: "flex", fontSize: 13, height: 72, paddingLeft: 12 }}>
+                      {elevation} / {padding}
+                    </div>
+                  </Card>
+                </div>
+              )),
+            )}
           </div>
         </section>
       </main>
