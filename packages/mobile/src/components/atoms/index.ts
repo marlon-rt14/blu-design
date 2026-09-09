@@ -13,5 +13,6 @@ export * from './Radio';
 export * from './Snackbar';
 export * from './Switch';
 export * from './TabItem';
+export * from './Tag';
 export * from './TextArea';
 export * from './TextField';
