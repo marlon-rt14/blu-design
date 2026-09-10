@@ -18,5 +18,6 @@ export * from './molecules/avatarGroup.types';
 export * from './molecules/choiceItem.types';
 export * from './molecules/listItem.types';
 export * from './molecules/radioGroup.types';
+export * from './molecules/select.types';
 export * from './molecules/switchItem.types';
 export * from './molecules/tagGroup.types';

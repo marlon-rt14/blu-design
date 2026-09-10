@@ -12,6 +12,7 @@ import {
   OTPField,
   Radio,
   RadioGroup,
+  Select,
   Tag,
   TagGroup,
   useFontFamily,
@@ -19,6 +20,7 @@ import {
 import { colors, spacing, typography } from '@dsm/shared';
 import type {
   IAvatarGroupItem,
+  ISelectOption,
   ITagGroupItem,
   TAvatarTone,
   TButtonAppearance,
@@ -108,11 +110,19 @@ const CITIES: ITagGroupItem[] = [
   { label: 'Cuenca' },
 ];
 
+const COUNTRIES: ISelectOption[] = [
+  { value: 'ec', label: 'Ecuador' },
+  { value: 'pe', label: 'Perú' },
+  { value: 'co', label: 'Colombia' },
+  { value: 'mx', label: 'México' },
+];
+
 const App = () => {
   const [presses, setPresses] = useState(0);
   const [selectedChoice, setSelectedChoice] = useState('monthly');
   const [selectedTile, setSelectedTile] = useState('email');
   const [selectedCompact, setSelectedCompact] = useState('6');
+  const [country, setCountry] = useState<string | undefined>('ec');
   const handlePress = () => setPresses(current => current + 1);
   // fontWeight isn't set alongside fontFamily below — each Mulish-*.ttf is
   // already a single static weight, same constraint as @dsm/mobile's own
@@ -564,6 +574,38 @@ const App = () => {
                 TAGGROUP
               </Text>
               <TagGroup overflowLabel="+2" showOverflow tags={CITIES} testID="tag-group" />
+            </View>
+
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>SELECT</Text>
+              <Select
+                helperText="Usamos esto para calcular impuestos"
+                label="País"
+                onChange={setCountry}
+                options={COUNTRIES}
+                testID="select-country"
+                value={country}
+              />
+
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
+                SELECT · ERROR / DISABLED
+              </Text>
+              <Select
+                error="Elegí un país para continuar"
+                label="País"
+                onChange={setCountry}
+                options={COUNTRIES}
+                testID="select-error"
+                value={undefined}
+              />
+              <Select
+                disabled
+                label="País"
+                onChange={setCountry}
+                options={COUNTRIES}
+                testID="select-disabled"
+                value="ec"
+              />
             </View>
 
             <View style={styles.section}>
