@@ -9,6 +9,7 @@ export * from './radii';
 export * from './spacing';
 export * from './icon.tokens';
 export * from './image.tokens';
+export * from './iconButton.tokens';
 export * from './linkButton.tokens';
 export * from './otpField.tokens';
 export * from './passwordField.tokens';

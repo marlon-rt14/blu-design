@@ -9,6 +9,7 @@ export * from './atoms/image.types';
 export * from './atoms/linkButton.types';
 export * from './atoms/passwordField.types';
 export * from './atoms/card.types';
+export * from './atoms/iconButton.types';
 export * from './atoms/otpField.types';
 export * from './atoms/radio.types';
 export * from './atoms/snackbar.types';

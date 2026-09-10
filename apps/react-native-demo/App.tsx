@@ -7,6 +7,7 @@ import {
   Checkbox,
   ChoiceBox,
   ChoiceItem,
+  IconButton,
   LinkButton,
   ListItem,
   OTPField,
@@ -15,8 +16,9 @@ import {
   Tag,
   TagGroup,
   useFontFamily,
+  useThemeMode,
 } from '@dsm/mobile';
-import { colors, spacing, typography } from '@dsm/shared';
+import { colors, readThemeToken, spacing, themeSources, typography } from '@dsm/shared';
 import type {
   IAvatarGroupItem,
   ITagGroupItem,
@@ -107,6 +109,59 @@ const CITIES: ITagGroupItem[] = [
   { label: 'Manta' },
   { label: 'Cuenca' },
 ];
+/**
+ * Las tres apariencias que describen la superficie de abajo, cada una sobre la
+ * suya.
+ *
+ * Componente aparte y no un bloque dentro de `App` porque necesita
+ * `useThemeMode`, que es un hook de contexto: `App` monta el `BluProvider`, así
+ * que el hook tiene que correr por debajo. (`useFontFamily` sí se puede llamar
+ * arriba porque en esta plataforma es una función pura.)
+ *
+ * `on-scene` y `on-media` van con un color fijo — la escena de marca es oscura
+ * en los seis modos y una foto no sigue al tema. `on-inverse` sí se da vuelta,
+ * así que su fondo sale de `color/canvas/surface/inverse`. Con un navy a mano el
+ * glifo quedaba casi invisible en oscuro; lo vi en el simulador.
+ */
+const FilasSobreSuperficie = ({ onPress }: { onPress: () => void }) => {
+  const mode = useThemeMode();
+  const inversa = readThemeToken(
+    themeSources[mode].color,
+    'color.color.canvas.surface.inverse',
+  );
+  const filas = [
+    ['on-scene', '#364481'],
+    ['on-media', '#6b7280'],
+    ['on-inverse', inversa],
+  ] as const;
+  return (
+    <>
+      {filas.map(([appearance, fondo]) => (
+        <View key={appearance} style={[styles.row, styles.onSurface, { backgroundColor: fondo }]}>
+          {(['sm', 'md', 'lg'] as const).map(size => (
+            <IconButton
+              appearance={appearance}
+              icon={IconTrash}
+              key={size}
+              label="Eliminar"
+              onPress={onPress}
+              size={size}
+              testID={`ib-${appearance}-${size}`}
+            />
+          ))}
+          <IconButton
+            appearance={appearance}
+            disabled
+            icon={IconTrash}
+            label="Eliminar"
+            onPress={onPress}
+            testID={`ib-${appearance}-disabled`}
+          />
+        </View>
+      ))}
+    </>
+  );
+};
 
 const App = () => {
   const [presses, setPresses] = useState(0);
@@ -201,6 +256,49 @@ const App = () => {
                 <LinkButton label="LinkButton" onPress={handlePress} />
                 <Button label="Button" variant="primary" />
               </View>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+                IconButton
+              </Text>
+              {/* La misma acción que el Button pero sin etiqueta, así que
+                  `label` es obligatoria: es el único nombre que va a tener el
+                  control. Dice la acción, no el dibujo.
+
+                  En xs, sm y md el control queda por debajo del mínimo tocable
+                  de 48, así que el componente pone `hitSlop` — crece lo que
+                  responde al dedo sin mover el dibujo. En web eso lo tiene que
+                  poner quien lo aloja. */}
+              {(['brand', 'neutral', 'ghost', 'veil'] as const).map(appearance => (
+                <View key={appearance} style={styles.row}>
+                  <Text style={[styles.subtitle, { fontFamily: regularFont }]}>
+                    {appearance}
+                  </Text>
+                  {(['xs', 'sm', 'md', 'lg'] as const).map(size => (
+                    <IconButton
+                      appearance={appearance}
+                      icon={IconTrash}
+                      key={size}
+                      label="Eliminar"
+                      onPress={handlePress}
+                      size={size}
+                      testID={`ib-${appearance}-${size}`}
+                    />
+                  ))}
+                  <IconButton
+                    appearance={appearance}
+                    disabled
+                    icon={IconTrash}
+                    label="Eliminar"
+                    onPress={handlePress}
+                    testID={`ib-${appearance}-disabled`}
+                  />
+                </View>
+              ))}
+              {/* Las tres atadas a una superficie, cada una sobre la suya: sin
+                  el fondo correcto no se ven o mienten. */}
+              <FilasSobreSuperficie onPress={handlePress} />
             </View>
 
             <View style={styles.section}>
@@ -717,6 +815,11 @@ const styles = StyleSheet.create({
   cardCell: {
     gap: spacing.xs,
     marginBottom: spacing.md,
+  },
+  // Los on-* necesitan su propia superficie debajo para leerse.
+  onSurface: {
+    borderRadius: 8,
+    padding: spacing.md,
   },
   cardFiller: {
     height: 72,

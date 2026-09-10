@@ -6,6 +6,7 @@ export * from './Checkbox';
 export * from './ChoiceBox';
 export * from './Icon';
 export * from './Image';
+export * from './IconButton';
 export * from './LinkButton';
 export * from './Card';
 export * from './OTPField';
