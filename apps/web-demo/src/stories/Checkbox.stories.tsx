@@ -67,7 +67,7 @@ const meta = {
       control: 'inline-radio',
       options: SIZES,
       description: 'sm: 16 box / 12 mark / 32 row. md: 24 box / 16 mark / 48 row.',
-      table: { category: 'Appearance', defaultValue: { summary: 'sm' } },
+      table: { category: 'Appearance', defaultValue: { summary: 'md' } },
     },
     isDisabled: {
       control: 'boolean',
@@ -97,7 +97,7 @@ const meta = {
     isChecked: false,
     isIndeterminate: false,
     isDisabled: false,
-    size: 'sm',
+    size: 'md',
     label: 'Etiqueta de la opcion',
     showLabel: true,
   },

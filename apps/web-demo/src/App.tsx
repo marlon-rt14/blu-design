@@ -1,4 +1,5 @@
-import { BluProvider, Button, Card, Checkbox, ChoiceItem, LinkButton, OTPField, PasswordField, Radio, RadioGroup } from "@dsm/web";
+import { BluProvider, Button, Card, Checkbox, ChoiceItem, IconButton, LinkButton, OTPField, PasswordField, Radio, RadioGroup, Tooltip, useThemeMode } from "@dsm/web";
+import { readThemeToken, themeSources } from "@dsm/shared";
 import type { TButtonAppearance, TButtonSize, TButtonVariant, TIconColor, TIconSize, TPasswordFieldSize, TPasswordFieldVisibility } from "@dsm/shared";
 import { useState } from "react";
 
@@ -30,6 +31,41 @@ const ICON_SIZES: [TIconSize, number][] = [
 // own surface. The `on-inverse.*`, `on-scene.*` and `action.*` families are left
 // out because they only make sense on a surface this demo does not have.
 const ICON_COLORS: TIconColor[] = ["primary", "secondary", "tertiary", "disabled", "brand", "danger", "success", "info", "warning"];
+
+/**
+ * Las tres apariencias que describen la superficie de abajo, cada una sobre la
+ * suya.
+ *
+ * Es un componente aparte y no un bloque dentro de `App` porque necesita
+ * `useThemeMode`, y `App` es quien monta el `BluProvider`: el hook tiene que
+ * correr por debajo.
+ *
+ * `on-scene` y `on-media` van con un color fijo — la escena de marca es oscura
+ * en los seis modos y una foto no sigue al tema. `on-inverse` sí se da vuelta,
+ * así que su fondo sale de `color/canvas/surface/inverse`. Con un navy a mano
+ * el glifo quedaba casi invisible en oscuro.
+ */
+const FilasSobreSuperficie = ({ onPress }: { onPress: () => void }) => {
+  const mode = useThemeMode();
+  const inversa = readThemeToken(themeSources[mode].color, "color.color.canvas.surface.inverse");
+  const filas = [
+    ["on-scene", "#364481"],
+    ["on-media", "#6b7280"],
+    ["on-inverse", inversa],
+  ] as const;
+  return (
+    <div className="demo__row">
+      {filas.map(([appearance, fondo]) => (
+        <div key={appearance} style={{ alignItems: "center", background: fondo, borderRadius: 8, display: "flex", gap: 12, padding: 12 }}>
+          {(["sm", "md", "lg"] as const).map((size) => (
+            <IconButton appearance={appearance} icon={IconTrash} key={size} label="Eliminar" onPress={onPress} size={size} testID={`ib-${appearance}-${size}`} />
+          ))}
+          <IconButton appearance={appearance} disabled icon={IconTrash} label="Eliminar" onPress={() => {}} testID={`ib-${appearance}-disabled`} />
+        </div>
+      ))}
+    </div>
+  );
+};
 
 const App = () => {
   const [clicks, setClicks] = useState(0);
@@ -335,6 +371,67 @@ const App = () => {
                 </div>
               )),
             )}
+          </div>
+        </section>
+
+        <section className="demo__section">
+          <h2 className="demo__section-title">IconButton</h2>
+          {/* La misma acción que el Button pero sin etiqueta. Por eso `label`
+              es obligatoria: es el único nombre que va a tener el control, y
+              dice la acción y no el dibujo — "Eliminar", no "tacho".
+
+              Las siete apariencias se parten en dos: brand, neutral, ghost y
+              veil describen una FORMA; on-scene, on-media y on-inverse
+              describen la SUPERFICIE de abajo, así que sin el fondo correcto
+              no se ven o mienten. Por eso cada fila trae el suyo. */}
+          <div className="demo__row">
+            {(["brand", "neutral", "ghost", "veil"] as const).map((appearance) => (
+              <div key={appearance} style={{ alignItems: "center", display: "flex", gap: 12 }}>
+                <span className="demo__counter">{appearance}</span>
+                {(["xs", "sm", "md", "lg"] as const).map((size) => (
+                  <IconButton appearance={appearance} icon={IconTrash} key={size} label="Eliminar" onPress={() => setClicks((n) => n + 1)} size={size} testID={`ib-${appearance}-${size}`} />
+                ))}
+                <IconButton appearance={appearance} disabled icon={IconTrash} label="Eliminar" onPress={() => {}} testID={`ib-${appearance}-disabled`} />
+              </div>
+            ))}
+          </div>
+          {/* Las tres atadas a una superficie, cada una sobre la suya. */}
+          <FilasSobreSuperficie onPress={() => setClicks((n) => n + 1)} />
+        </section>
+
+        <section className="demo__section">
+          <h2 className="demo__section-title">Tooltip</h2>
+          {/* El Tooltip ENVUELVE a su disparador: `children` es la cosa que se
+              explica, y el panel se ancla a ella. En web se abre apuntando o
+              enfocando; en móvil, manteniendo presionado, porque el tap le
+              pertenece al control de adentro.
+
+              `placement` es una preferencia, no una orden: si no hay lugar de
+              ese lado, el motor lo voltea. Achicá la ventana y miralo.
+
+              Tres cosas vienen de WCAG 1.4.13 y no son configurables: Esc lo
+              cierra, meter el puntero DENTRO del panel no lo cierra —si no, el
+              link de adentro sería inalcanzable— y nunca se va por tiempo. */}
+          <div className="demo__row" style={{ alignItems: "center", gap: 32, minHeight: 120 }}>
+            <Tooltip body="Se envía a tu correo apenas confirmes." testID="tt-desc">
+              <Button label="Descriptive" variant="primary" />
+            </Tooltip>
+            {/* `info` se queda hasta que lo cierren, y por eso es el único que
+                tiene título y equis. La presencia del valor sustituye al
+                booleano: no hay showTitle ni showLink ni showDismiss. */}
+            <Tooltip
+              body="Tu sesión se cierra a los 15 minutos sin actividad."
+              link={{ label: "Cambiar", onPress: () => setClicks((n) => n + 1) }}
+              onDismiss={() => setClicks((n) => n + 1)}
+              testID="tt-info"
+              title="Sesión"
+              type="info"
+            >
+              <Button label="Info" variant="primary" />
+            </Tooltip>
+            <Tooltip body="Sin punta: señala una zona y no un punto." placement="none" testID="tt-none">
+              <Button appearance="outline" label="placement none" />
+            </Tooltip>
           </div>
         </section>
       </main>

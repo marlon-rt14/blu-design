@@ -56,6 +56,7 @@ export const Button = ({
       hitSlop={hitSlop}
       onBlur={() => setIsFocused(false)}
       onFocus={() => setIsFocused(true)}
+      onLongPress={props.onLongPress}
       onPress={onPress}
       onPressIn={() => setIsPressed(true)}
       onPressOut={() => setIsPressed(false)}

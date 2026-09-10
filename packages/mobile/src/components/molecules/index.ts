@@ -4,4 +4,6 @@ export * from './ListItem';
 export * from './RadioGroup';
 export * from './Select';
 export * from './SwitchItem';
+export * from './Tabs';
 export * from './TagGroup';
+export * from './Tooltip';

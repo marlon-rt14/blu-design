@@ -23,11 +23,17 @@ Copy this checklist and work through it in order:
 
 ```
 - [ ] 0. Spec: Figma MCP directly on "BDS3 - Core components" (search_design_system, then
-       get_design_context / get_metadata / get_screenshot) — the primary design reference. Cross-check
-       component properties/variants against Supernova (sn_get_figma_component_detail /
-       sn_get_component_property_list) — see "Design reference" below.
+       get_design_context / get_metadata / get_screenshot) — the primary design reference.
+       **Always locate and read the sibling `«Component» · Dev` / `«Component» · contrato de
+       desarrollo` frame on the same page** (firma de código + props públicas + divergencias).
+       Cross-check component properties/variants against Supernova
+       (sn_get_figma_component_detail / sn_get_component_property_list) — see "Design reference"
+       below.
 - [ ] 1. Contract: src/types/atoms/<name>.types.ts in @dsm/shared (I<Name>BaseProps, no event handlers).
        Check the component's OWN variant axes — don't copy another component's size/state shape.
+       Prefer the Dev firma for public prop names/defaults; keep Figma `show*` / independent
+       booleans when the team has chosen partial (Alert/Snackbar/Checkbox style) unless the
+       user asks for Dev-full.
 - [ ] 2. Tokens: src/tokens/<name>.tokens.ts in @dsm/shared — one Record<TThemeMode, I<Name>Tokens>,
        reading color/dimension/typography from theme/{base,dark} via themeSource, ALL per mode.
 - [ ] 3. Web: four-file component folder, use<Name>.ts returns CSSProperties from tokens[mode] + local
@@ -82,6 +88,14 @@ one:
   real node. Build the component against the theme JSON tokens already in `@dsm/shared` (see
   "Tokens" below) — this is simpler than round-tripping the component's shape through Supernova, and
   it's the live file, not an import snapshot.
+- **Always read `«Name» · Dev` / `«Name» · contrato de desarrollo`.** Every Core page that has a
+  docs frame also has (or is getting) a sibling Dev frame with the code firma, public props table,
+  nested-instance notes, platform diffs, tokens/a11y, and open divergences. Find it via
+  `get_metadata` on the page (`name` ends with `· Dev`) — e.g. Image `1020:118882`, Alert
+  `1012:77661`, Checkbox `1018:101870`. Treat that frame as part of the contract: surface
+  Dev-vs-Figma gaps before coding; do not invent prop names that contradict the firma. When Dev
+  and the live component set disagree, call it out — historically we ship **partial** (Figma
+  `show*` / independent axes) unless the user asks for Dev-full.
 - **Supernova MCP is now scoped to component properties/configuration, not the design reference.**
   Use `sn_get_figma_component_detail` (variants + Figma component property definitions as JSON) and
   `sn_get_component_property_list` (property IDs, code names, option sets) to get the structured list
@@ -295,7 +309,12 @@ one:
   the input's DOM `indeterminate` property, not a third enum. Live size map
   (node, not the description's blanket "minHeight 48"): `sm` 16 box / 12 mark /
   32 row (`size.control.height.sm`); `md` 24 / 16 / 48 (`size.target.min`). **Property
-  default is `sm`** (Figma/Supernova properties table) — not `md`. Marks
+  default is `md`** (Figma/Supernova + Dev frame) — not `sm`. Keep partial API:
+  `isChecked` + `isIndeterminate` + `showLabel` (Figma axes) — do **not** collapse
+  to Dev's `checked: boolean | 'indeterminate'` or presence-based `label` unless
+  asked. Dev §07 says checked+indeterminate is "impossible"; live set description
+  says the four combos are valid and indeterminate wins the paint — Figma wins.
+  Marks
   are `IconCheck` / `IconMinus` with `color="fixed.white"` (Figma: not on-brand —
   selected fill is the same azure in all 4 modes) or `disabled`. **Never `lg`
   inside the box.** Focus is an **offset** ring (`focus/ring/offset` 1px gap +
@@ -305,38 +324,95 @@ one:
   shape is what distinguishes them). Don't
   read `typography.component.checkbox.labeled` (`400 16px/20px`); live type is
   `text/body/{sm,md}/default`, composed from `font.size.body.*`.
+- **Image is a ratio frame, not a raw `<img>`.** Width from the host; height from
+  `ratio` (`1:1` | `4:3` | `3:2` | `16:9`, default **`1:1`**). `radius`
+  (`md` | `sm` | `none`, default **`md`**) — use `none` when the host already
+  clips. Dev firma (`Image · Dev` `1020:118882`) adds `src`, required `alt`
+  (empty only if decorative),   and `fit` (`cover` | `contain` | `fill`, default cover — contain for logos,
+  fill stretches). Dev firma listed only cover|contain; `fill` added for
+  CSS/RN parity (web `object-fit: fill`, RN `resizeMode: stretch`). `status` is a Figma VARIANT but **not for callers** —
+  derive from load (`empty` / `loading` / `error` / `default`); optional
+  override only for stories. Empty = dashed border + `IconImage` `lg`
+  `tertiary`; error = solid border + `IconAlertTriangle` `lg` `secondary`;
+  loading = skeleton sheen (`component/skeleton/{bg,highlight}`, 26% band,
+  respect reduce-motion). Default has **no** border. On **error**, paint
+  `IconAlertTriangle` only (Figma); `alt` is the accessible name, not painted.
+  Tokens: `color.component.image.surface.{bg,border}` + icon co-tokens. Mobile
+  export is named `Image` — import RN's as `Image as RNImage` inside the file.
+  **Sizing trap:** root is `width: 100%` + `aspect-ratio`; the bitmap is
+  absolute so it adds **zero** intrinsic size. A host with only `maxWidth`
+  (or a flex hug parent) collapses the frame to ~0 / icon — Storybook must
+  wrap with an explicit `width` (e.g. `320`).
 - **Alert is in-flow, not a toast.** Occupies space; does not auto-dismiss
-  (that's Snackbar). Axes: `tone` (danger/warning/success/info/neutral,
+  (that's Snackbar). Axes: **`status`** (danger/warning/success/info/neutral,
   default **danger**) × `placement` (page/section/inline, default **page**).
-  No border. Surface is `color.color.fill.{tone}.muted` — `color.component.alert.*`
-  is **not** in the theme export (Figma CSS vars alias those fills). Neutral
-  chip is `canvas.surface.inverse`, not a `fill.default`. Title and body are
-  both `text/primary`; ExtraBold vs Regular is the hierarchy. Do **not** read
-  `typography.component.alert` (`700 14/17`). Gap title→body is **0**. Chip is
-  always 24 with glyph `sm` 16, even on inline (live node, not the docs-page
-  copy that said 16). `iconBox` height = body line-box so the chip lines up
-  with the first text line — don't top-align it to the padding. Glyphs are
-  locked per tone (`ALERT_TONE_ICON`); no icon slot. Action is LinkButton
-  `appearance="on-muted"` `size="sm"` on every placement (live nodes — not a
-  Button outline). Dismiss is IconButton `veil` (24 visual, 48 hit) — IconButton
-  is not shipped yet, so Alert paints it locally from `fill.action.veil.*`.
-  `showDismiss` stays a free boolean; Figma's "not on danger/warning" is a
-  usage guideline. Live region is **not a prop**: danger/warning →
-  `role=alert`, rest → `status`. Figma's "no live region on load before h1"
-  is host composition, not a component axis.
+  Set description may still say `tone` in prose; property + Supernova + Dev
+  frame use `status`. Keep partial API: `showTitle` / `showAction` /
+  `showDismiss` + `actionLabel` / `onAction` / `onDismiss` — do **not** switch
+  to Dev presence-based `title` / `action` / `onDismiss`-only. Properties (8,
+  Figma + Supernova): those two axes plus `showTitle` (true), `title`, `body`,
+  `showIcon` (true), `showAction` (false), `showDismiss` (false). The last
+  two are independent booleans even though the 15 published variants
+  have them off. Action is a nested **LinkButton `on-muted` `sm`
+  `underline=false`** (label edited on the instance; default variant
+  copy is `"Resolver ahora"`). Dismiss is IconButton `veil` `xs` (24
+  visual, glyph 16 `primary`, pill) painted locally from
+  `color.component.iconbutton.veil.*` — IconButton is not shipped. A11y
+  name `"Cerrar aviso"`; hitSlop to `size.target.min` (48). Usage copy:
+  `showDismiss` on for info/neutral/success; off for danger/warning unless
+  the same info is reachable another way — that is guidance, not a
+  variant lock. `inline` has **no title layer** (`showTitle` is a no-op
+  there). No border. Read `color.component.alert.surface.bg-{status}` /
+  `chip.bg-{status}` / `content.{title,body}`. Neutral chip is
+  `chip.bg-neutral`. Title and body share `text/primary`; ExtraBold vs
+  Regular is the hierarchy. Do **not** read `typography.component.alert`
+  (`700 14/17`). Gap title→body is **0**. Chip is always 24 with glyph
+  `sm` 16. `iconBox` is **chip-sized (24)** on every placement. Glyphs
+  locked per status (`ALERT_STATUS_ICON`); no icon slot. Live region is **not
+  a prop**: danger/warning → `role=alert`, rest → `status`.
 - **Snackbar is a toast, not an Alert.** Inverse bar
   (`color.component.snackbar.surface.bg`), no chip, no `placement`, no
-  `neutral`. `tone` default **info**. Glyph + `on-inverse.{tone}` colour;
-  fill never changes. Live node action is **LinkButton `on-inverse` `sm`**
-  `"Deshacer"` (21px) — the set description still says Button; the nested
-  instance is a link (Figma wins). Close is IconButton `on-inverse` `sm`
-  (32 visual, 16 glyph, pill) painted locally from
-  `color.component.iconbutton.on-inverse.*`; Figma property is `showClose`
-  default false. Type is `text/body/md` (live `97:13653`). Max width **448**
-  is Figma copy, not a theme token. Auto-dismiss **6s** from mount, timer
-  does not restart (`SNACKBAR_DURATION_MS`). Live region is **not a prop**:
-  `role=status`, `aria-live=assertive` only on danger. Don't copy Alert's
-  muted fill, chip, LinkButton `on-muted`, or `announce`.
+  `neutral`. Axis is **`status`** (default **info**) — set description may
+  still say `tone` in prose; property + Supernova + Dev frame use `status`.
+  Glyph + `on-inverse.{status}` colour; fill never changes. Live node action
+  is **LinkButton `on-inverse` `sm`** `"Deshacer"` (21px) — the set
+  description still says Button; the nested instance is a link (Figma wins).
+  Dismiss is IconButton `on-inverse` `sm` (32 visual, 16 glyph, pill)
+  painted locally from `color.component.iconbutton.on-inverse.*`; Figma
+  property is **`showDismiss`** default false (pairs with `onDismiss` in
+  code, same as Alert's `showAction`/`onAction`). Type is `text/body/md`
+  (live `97:13653`). Max width **448** is Figma copy, not a theme token.
+  Autoclose: `motion/dwell/default` (6s) without action, `motion/dwell/long`
+  (10s) when `showAction`; optional `duration` overrides
+  (`resolveSnackbarDurationMs`). Timer starts on mount and does not restart.
+  Live region is **not a prop**: `role=status`, `aria-live=assertive` only
+  on danger. Don't copy Alert's muted fill, chip, LinkButton `on-muted`, or
+  presence-based `action` object from the Dev frame (ship `show*` + handlers).
+- **Tabs / TabItem is a bar + items, not a TabPanel.** Ship `TabItem`
+  (atom) + `Tabs` (molecule) — same split as Radio / RadioGroup. Live set
+  is named **Tab item** (`97:14033`); search still lists `Tab`. Public
+  name is `TabItem`. Live selected axis is **`isSelected`** (Supernova's
+  import still says `selected` — Figma wins). **`size` default is `lg`**
+  (Figma / Supernova / Dev frame) — not `md`. Dev frame wants
+  `tabs[]` + `value` + `onChange(key)` + `divider`; we keep the partial
+  RadioGroup-like API (`children` + `isSelected`/`onChange` per item +
+  `showDivider`) — same `show*` pattern as Alert/Snackbar. `showLeadingIcon` /
+  `showBadge` are independent booleans; glyph default `user`; badge count
+  default `"9"`, painted locally from `color.component.badge.*` (Badge
+  is not shipped). ExtraBold at **every** state — live nodes use
+  `text/label/{md,lg}/strong` even unselected; colour carries inactive vs
+  active (`component.tabs.label.text-{active,inactive,disabled}`).
+  Indicator hugs the **content** column, not the full tab — fitted tabs
+  are `flex: 1` but the underline still hugs the label. Leading icon is
+  **16 at both sizes**. Hover/pressed overlay is absolute inset 0,
+  `radius/control/sm`, behind content. Focus is Switch's flush ring
+  (`spread` − `offset`, no gap), not TextField's offset two-tone.
+  Figma's `showItem3`–`showItem6` are 6-slot master toggles — **do not
+  ship as API**; code uses `children` (min 2, max 6). `showDivider`
+  stays a real boolean, default true. Canvas 375 is "a sangre", not a
+  max-width. No TabPanel. Arrow keys move between enabled tabs; Tab
+  leaves the bar. One shared token file `tabs.tokens.ts` (both
+  components use `color.component.tabs`).
 - **Every component's own variant axes are its own — don't generalize.** `TextField` has a `size`
   axis (`small`/`medium`/`large`, matching Figma's `sm`/`md`/`lg`) and an `icon` color group;
   `TextArea` has neither — a single `state` axis, no size, no icon slot. Confirm the axes with

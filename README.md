@@ -22,7 +22,7 @@ Design system monorepo: components live in `packages/` and are consumed by the d
 
 - Node >= 22.11
 - pnpm 11
-- For iOS: Xcode + CocoaPods · For Android: JDK 17 + Android SDK
+- For iOS: Xcode + CocoaPods · For Android: JDK 17 + Android SDK 
 
 ## Getting started
 

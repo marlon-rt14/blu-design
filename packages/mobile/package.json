@@ -13,7 +13,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@dsm/shared": "workspace:*"
+    "@dsm/shared": "workspace:*",
+    "@floating-ui/react-native": "^0.10.10"
   },
   "peerDependencies": {
     "react": "*",

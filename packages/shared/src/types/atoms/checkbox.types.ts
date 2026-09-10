@@ -24,10 +24,10 @@ export interface ICheckboxBaseProps {
    */
   isIndeterminate?: boolean;
   /**
-   * @defaultValue `'sm'`
+   * @defaultValue `'md'`
    *
-   * Figma/Supernova property default. `md` is the 48pt target — opt in when the
-   * row must meet `size/target/min`.
+   * Figma/Supernova/Dev property default (`md` first on the axis). `sm` is the
+   * denser 16 box / 32 row; `md` is 24 / 48 (`size/target/min`).
    */
   size?: TCheckboxSize;
   /**
