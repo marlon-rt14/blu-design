@@ -52,7 +52,7 @@ The `packages/` are consumed as **TypeScript source** (`main` points at `src/ind
 build step, and Vite and Metro transpile them directly. Editing a design system component hot-reloads
 in the web demo.
 
-## Storybook
+## Storybook 
 
 `pnpm storybook` serves a single Storybook that documents **both** implementations.
 The **Platform** dropdown in the toolbar decides which one renders:
