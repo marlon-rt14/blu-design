@@ -5,6 +5,7 @@ export * from './atoms/button.types';
 export * from './atoms/checkbox.types';
 export * from './atoms/choiceBox.types';
 export * from './atoms/icon.types';
+export * from './atoms/image.types';
 export * from './atoms/linkButton.types';
 export * from './atoms/passwordField.types';
 export * from './atoms/card.types';

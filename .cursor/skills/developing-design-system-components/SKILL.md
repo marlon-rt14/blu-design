@@ -23,11 +23,17 @@ Copy this checklist and work through it in order:
 
 ```
 - [ ] 0. Spec: Figma MCP directly on "BDS3 - Core components" (search_design_system, then
-       get_design_context / get_metadata / get_screenshot) — the primary design reference. Cross-check
-       component properties/variants against Supernova (sn_get_figma_component_detail /
-       sn_get_component_property_list) — see "Design reference" below.
+       get_design_context / get_metadata / get_screenshot) — the primary design reference.
+       **Always locate and read the sibling `«Component» · Dev` / `«Component» · contrato de
+       desarrollo` frame on the same page** (firma de código + props públicas + divergencias).
+       Cross-check component properties/variants against Supernova
+       (sn_get_figma_component_detail / sn_get_component_property_list) — see "Design reference"
+       below.
 - [ ] 1. Contract: src/types/atoms/<name>.types.ts in @dsm/shared (I<Name>BaseProps, no event handlers).
        Check the component's OWN variant axes — don't copy another component's size/state shape.
+       Prefer the Dev firma for public prop names/defaults; keep Figma `show*` / independent
+       booleans when the team has chosen partial (Alert/Snackbar/Checkbox style) unless the
+       user asks for Dev-full.
 - [ ] 2. Tokens: src/tokens/<name>.tokens.ts in @dsm/shared — one Record<TThemeMode, I<Name>Tokens>,
        reading color/dimension/typography from theme/{base,dark} via themeSource, ALL per mode.
 - [ ] 3. Web: four-file component folder, use<Name>.ts returns CSSProperties from tokens[mode] + local
@@ -82,6 +88,14 @@ one:
   real node. Build the component against the theme JSON tokens already in `@dsm/shared` (see
   "Tokens" below) — this is simpler than round-tripping the component's shape through Supernova, and
   it's the live file, not an import snapshot.
+- **Always read `«Name» · Dev` / `«Name» · contrato de desarrollo`.** Every Core page that has a
+  docs frame also has (or is getting) a sibling Dev frame with the code firma, public props table,
+  nested-instance notes, platform diffs, tokens/a11y, and open divergences. Find it via
+  `get_metadata` on the page (`name` ends with `· Dev`) — e.g. Image `1020:118882`, Alert
+  `1012:77661`, Checkbox `1018:101870`. Treat that frame as part of the contract: surface
+  Dev-vs-Figma gaps before coding; do not invent prop names that contradict the firma. When Dev
+  and the live component set disagree, call it out — historically we ship **partial** (Figma
+  `show*` / independent axes) unless the user asks for Dev-full.
 - **Supernova MCP is now scoped to component properties/configuration, not the design reference.**
   Use `sn_get_figma_component_detail` (variants + Figma component property definitions as JSON) and
   `sn_get_component_property_list` (property IDs, code names, option sets) to get the structured list
@@ -310,6 +324,25 @@ one:
   shape is what distinguishes them). Don't
   read `typography.component.checkbox.labeled` (`400 16px/20px`); live type is
   `text/body/{sm,md}/default`, composed from `font.size.body.*`.
+- **Image is a ratio frame, not a raw `<img>`.** Width from the host; height from
+  `ratio` (`1:1` | `4:3` | `3:2` | `16:9`, default **`1:1`**). `radius`
+  (`md` | `sm` | `none`, default **`md`**) — use `none` when the host already
+  clips. Dev firma (`Image · Dev` `1020:118882`) adds `src`, required `alt`
+  (empty only if decorative),   and `fit` (`cover` | `contain` | `fill`, default cover — contain for logos,
+  fill stretches). Dev firma listed only cover|contain; `fill` added for
+  CSS/RN parity (web `object-fit: fill`, RN `resizeMode: stretch`). `status` is a Figma VARIANT but **not for callers** —
+  derive from load (`empty` / `loading` / `error` / `default`); optional
+  override only for stories. Empty = dashed border + `IconImage` `lg`
+  `tertiary`; error = solid border + `IconAlertTriangle` `lg` `secondary`;
+  loading = skeleton sheen (`component/skeleton/{bg,highlight}`, 26% band,
+  respect reduce-motion). Default has **no** border. On **error**, paint
+  `IconAlertTriangle` only (Figma); `alt` is the accessible name, not painted.
+  Tokens: `color.component.image.surface.{bg,border}` + icon co-tokens. Mobile
+  export is named `Image` — import RN's as `Image as RNImage` inside the file.
+  **Sizing trap:** root is `width: 100%` + `aspect-ratio`; the bitmap is
+  absolute so it adds **zero** intrinsic size. A host with only `maxWidth`
+  (or a flex hug parent) collapses the frame to ~0 / icon — Storybook must
+  wrap with an explicit `width` (e.g. `320`).
 - **Alert is in-flow, not a toast.** Occupies space; does not auto-dismiss
   (that's Snackbar). Axes: **`status`** (danger/warning/success/info/neutral,
   default **danger**) × `placement` (page/section/inline, default **page**).
