@@ -5,3 +5,4 @@ export * from './RadioGroup';
 export * from './SwitchItem';
 export * from './Tabs';
 export * from './TagGroup';
+export * from './Tooltip';

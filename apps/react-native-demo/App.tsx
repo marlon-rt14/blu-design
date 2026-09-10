@@ -15,6 +15,7 @@ import {
   RadioGroup,
   Tag,
   TagGroup,
+  Tooltip,
   useFontFamily,
   useThemeMode,
 } from '@dsm/mobile';
@@ -255,6 +256,36 @@ const App = () => {
                 <Checkbox label="Checkbox" isChecked={checked} onValueChange={() => setChecked(prev => !prev)} />
                 <LinkButton label="LinkButton" onPress={handlePress} />
                 <Button label="Button" variant="primary" />
+              </View>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+                Tooltip
+              </Text>
+              {/* El Tooltip ENVUELVE a su disparador. Acá se abre
+                  MANTENIENDO PRESIONADO, nunca con el tap: el tap le pertenece
+                  al control de adentro. Se cierra tocando afuera.
+
+                  bDS avisa que en táctil un `descriptive` casi no se puede
+                  abrir — "si la información hace falta, va visible" — así que
+                  en móvil conviene `info`. */}
+              <View style={styles.row}>
+                <Tooltip body="Se envía a tu correo apenas confirmes." testID="tt-desc">
+                  <Button label="Mantené presionado" variant="primary" />
+                </Tooltip>
+              </View>
+              <View style={styles.row}>
+                <Tooltip
+                  body="Tu sesión se cierra a los 15 minutos sin actividad."
+                  link={{ label: 'Cambiar', onPress: handlePress }}
+                  onDismiss={handlePress}
+                  testID="tt-info"
+                  title="Sesión"
+                  type="info"
+                >
+                  <Button appearance="outline" label="Info con título y cierre" />
+                </Tooltip>
               </View>
             </View>
 

@@ -1,4 +1,4 @@
-import { BluProvider, Button, Card, Checkbox, ChoiceItem, IconButton, LinkButton, OTPField, PasswordField, Radio, RadioGroup, useThemeMode } from "@dsm/web";
+import { BluProvider, Button, Card, Checkbox, ChoiceItem, IconButton, LinkButton, OTPField, PasswordField, Radio, RadioGroup, Tooltip, useThemeMode } from "@dsm/web";
 import { readThemeToken, themeSources } from "@dsm/shared";
 import type { TButtonAppearance, TButtonSize, TButtonVariant, TIconColor, TIconSize, TPasswordFieldSize, TPasswordFieldVisibility } from "@dsm/shared";
 import { useState } from "react";
@@ -397,6 +397,42 @@ const App = () => {
           </div>
           {/* Las tres atadas a una superficie, cada una sobre la suya. */}
           <FilasSobreSuperficie onPress={() => setClicks((n) => n + 1)} />
+        </section>
+
+        <section className="demo__section">
+          <h2 className="demo__section-title">Tooltip</h2>
+          {/* El Tooltip ENVUELVE a su disparador: `children` es la cosa que se
+              explica, y el panel se ancla a ella. En web se abre apuntando o
+              enfocando; en móvil, manteniendo presionado, porque el tap le
+              pertenece al control de adentro.
+
+              `placement` es una preferencia, no una orden: si no hay lugar de
+              ese lado, el motor lo voltea. Achicá la ventana y miralo.
+
+              Tres cosas vienen de WCAG 1.4.13 y no son configurables: Esc lo
+              cierra, meter el puntero DENTRO del panel no lo cierra —si no, el
+              link de adentro sería inalcanzable— y nunca se va por tiempo. */}
+          <div className="demo__row" style={{ alignItems: "center", gap: 32, minHeight: 120 }}>
+            <Tooltip body="Se envía a tu correo apenas confirmes." testID="tt-desc">
+              <Button label="Descriptive" variant="primary" />
+            </Tooltip>
+            {/* `info` se queda hasta que lo cierren, y por eso es el único que
+                tiene título y equis. La presencia del valor sustituye al
+                booleano: no hay showTitle ni showLink ni showDismiss. */}
+            <Tooltip
+              body="Tu sesión se cierra a los 15 minutos sin actividad."
+              link={{ label: "Cambiar", onPress: () => setClicks((n) => n + 1) }}
+              onDismiss={() => setClicks((n) => n + 1)}
+              testID="tt-info"
+              title="Sesión"
+              type="info"
+            >
+              <Button label="Info" variant="primary" />
+            </Tooltip>
+            <Tooltip body="Sin punta: señala una zona y no un punto." placement="none" testID="tt-none">
+              <Button appearance="outline" label="placement none" />
+            </Tooltip>
+          </div>
         </section>
       </main>
     </BluProvider>
