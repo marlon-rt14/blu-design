@@ -1,13 +1,13 @@
 import { snackbarTokens } from '@dsm/shared';
-import type { TSnackbarTone } from '@dsm/shared';
+import type { TSnackbarStatus } from '@dsm/shared';
 import type { Insets, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
 import type { ISnackbarProps } from './Snackbar.types';
 
 interface IUseSnackbarParams extends ISnackbarProps {
-  isClosePressed: boolean;
-  isCloseFocused: boolean;
+  isDismissPressed: boolean;
+  isDismissFocused: boolean;
 }
 
 interface IUseSnackbarResult {
@@ -16,9 +16,9 @@ interface IUseSnackbarResult {
   iconBoxStyle: StyleProp<ViewStyle>;
   messageStyle: StyleProp<TextStyle>;
   actionsStyle: StyleProp<ViewStyle>;
-  closeHitStyle: StyleProp<ViewStyle>;
-  closeVisualStyle: StyleProp<ViewStyle>;
-  closeHitSlop: Insets;
+  dismissHitStyle: StyleProp<ViewStyle>;
+  dismissVisualStyle: StyleProp<ViewStyle>;
+  dismissHitSlop: Insets;
   liveRegion: 'assertive' | 'polite';
   swipeThreshold: number;
   swipeCapture: number;
@@ -32,8 +32,8 @@ const overlayShadow = (tokens: (typeof snackbarTokens)['light']): string => {
   ].join(', ');
 };
 
-const liveRegionOf = (tone: TSnackbarTone): 'assertive' | 'polite' => {
-  switch (tone) {
+const liveRegionOf = (status: TSnackbarStatus): 'assertive' | 'polite' => {
+  switch (status) {
     case 'danger':
       return 'assertive';
     case 'info':
@@ -41,23 +41,23 @@ const liveRegionOf = (tone: TSnackbarTone): 'assertive' | 'polite' => {
     case 'warning':
       return 'polite';
     default: {
-      const _exhaustive: never = tone;
+      const _exhaustive: never = status;
       return _exhaustive;
     }
   }
 };
 
 export const useSnackbar = ({
-  tone = 'info',
-  isClosePressed,
-  isCloseFocused,
+  status = 'info',
+  isDismissPressed,
+  isDismissFocused,
 }: IUseSnackbarParams): IUseSnackbarResult => {
   const mode = useThemeMode();
   const tokens = snackbarTokens[mode];
   const { dimension, colors, message } = tokens;
-  const hitOutset = (dimension.targetMin - dimension.closeSize) / 2;
+  const hitOutset = (dimension.targetMin - dimension.dismissSize) / 2;
 
-  const closeBackground = isClosePressed ? colors.close.backgroundPressed : 'transparent';
+  const dismissBackground = isDismissPressed ? colors.dismiss.backgroundPressed : 'transparent';
 
   const rootStyle: StyleProp<ViewStyle> = {
     flexDirection: 'row',
@@ -108,32 +108,32 @@ export const useSnackbar = ({
     flexShrink: 0,
   };
 
-  const closeHitStyle: StyleProp<ViewStyle> = {
+  const dismissHitStyle: StyleProp<ViewStyle> = {
     alignItems: 'center',
     justifyContent: 'center',
-    width: dimension.closeSize,
-    height: dimension.closeSize,
+    width: dimension.dismissSize,
+    height: dimension.dismissSize,
     flexShrink: 0,
   };
 
-  const closeVisualStyle: StyleProp<ViewStyle> = {
+  const dismissVisualStyle: StyleProp<ViewStyle> = {
     alignItems: 'center',
     justifyContent: 'center',
-    width: dimension.closeSize,
-    height: dimension.closeSize,
+    width: dimension.dismissSize,
+    height: dimension.dismissSize,
     borderRadius: dimension.pillRadius,
-    backgroundColor: closeBackground,
-    ...(isCloseFocused
+    backgroundColor: dismissBackground,
+    ...(isDismissFocused
       ? {
           outlineWidth: dimension.focusRingSpread,
           outlineOffset: dimension.focusRingOffset,
-          outlineColor: colors.close.borderFocus,
+          outlineColor: colors.dismiss.borderFocus,
           outlineStyle: 'solid' as const,
         }
       : {}),
   };
 
-  const closeHitSlop: Insets = {
+  const dismissHitSlop: Insets = {
     top: hitOutset,
     right: hitOutset,
     bottom: hitOutset,
@@ -146,10 +146,10 @@ export const useSnackbar = ({
     iconBoxStyle,
     messageStyle,
     actionsStyle,
-    closeHitStyle,
-    closeVisualStyle,
-    closeHitSlop,
-    liveRegion: liveRegionOf(tone),
+    dismissHitStyle,
+    dismissVisualStyle,
+    dismissHitSlop,
+    liveRegion: liveRegionOf(status),
     swipeThreshold: dimension.targetMin,
     swipeCapture: dimension.swipeCapture,
   };

@@ -3,11 +3,11 @@ import type { ReactElement } from 'react';
 import { PanResponder, Pressable, Text, View } from 'react-native';
 
 import {
-  SNACKBAR_DURATION_MS,
-  SNACKBAR_TONE_ICON,
+  resolveSnackbarDurationMs,
+  SNACKBAR_STATUS_ICON,
   type TIconColor,
-  type TSnackbarTone,
-  type TSnackbarToneIcon,
+  type TSnackbarStatus,
+  type TSnackbarStatusIcon,
 } from '@dsm/shared';
 
 import {
@@ -22,15 +22,15 @@ import { LinkButton } from '../LinkButton';
 import type { ISnackbarProps } from './Snackbar.types';
 import { useSnackbar } from './useSnackbar';
 
-const TONE_ICON_COMPONENT: Record<TSnackbarToneIcon, (props: TIconProps) => ReactElement> = {
+const STATUS_ICON_COMPONENT: Record<TSnackbarStatusIcon, (props: TIconProps) => ReactElement> = {
   'alert-circle': IconAlertCircle,
   'alert-triangle': IconAlertTriangle,
   'check-circle': IconCheckCircle,
   info: IconInfo,
 };
 
-const iconColorOf = (tone: TSnackbarTone): TIconColor => {
-  switch (tone) {
+const iconColorOf = (status: TSnackbarStatus): TIconColor => {
+  switch (status) {
     case 'danger':
       return 'on-inverse.danger';
     case 'warning':
@@ -40,53 +40,57 @@ const iconColorOf = (tone: TSnackbarTone): TIconColor => {
     case 'info':
       return 'on-inverse.info';
     default: {
-      const _exhaustive: never = tone;
+      const _exhaustive: never = status;
       return _exhaustive;
     }
   }
 };
 
-const ToneGlyph = ({ tone }: { tone: TSnackbarTone }): ReactElement => {
-  const Glyph = TONE_ICON_COMPONENT[SNACKBAR_TONE_ICON[tone]];
-  return <Glyph color={iconColorOf(tone)} size="md" />;
+const StatusGlyph = ({ status }: { status: TSnackbarStatus }): ReactElement => {
+  const Glyph = STATUS_ICON_COMPONENT[SNACKBAR_STATUS_ICON[status]];
+  return <Glyph color={iconColorOf(status)} size="md" />;
 };
 
 export const Snackbar = (props: ISnackbarProps): ReactElement => {
   const {
-    tone = 'info',
+    status = 'info',
     message = 'Se guardó el cambio en tu tarjeta',
     showIcon = true,
     showAction = true,
     actionLabel = 'Deshacer',
-    showClose = false,
-    closeAccessibilityLabel = 'Cerrar',
+    showDismiss = false,
+    dismissAccessibilityLabel = 'Cerrar',
+    duration,
     onAction,
     onDismiss,
     testID,
   } = props;
-  const [isClosePressed, setIsClosePressed] = useState(false);
-  const [isCloseFocused, setIsCloseFocused] = useState(false);
+  const [isDismissPressed, setIsDismissPressed] = useState(false);
+  const [isDismissFocused, setIsDismissFocused] = useState(false);
   const {
     rootStyle,
     contentStyle,
     iconBoxStyle,
     messageStyle,
     actionsStyle,
-    closeHitStyle,
-    closeVisualStyle,
-    closeHitSlop,
+    dismissHitStyle,
+    dismissVisualStyle,
+    dismissHitSlop,
     liveRegion,
     swipeThreshold,
     swipeCapture,
-  } = useSnackbar({ ...props, isClosePressed, isCloseFocused });
+  } = useSnackbar({ ...props, isDismissPressed, isDismissFocused });
 
   const onDismissRef = useRef(onDismiss);
   useEffect(() => {
     onDismissRef.current = onDismiss;
   });
+  // Timer starts on mount and does not restart (Figma: dwell from mount).
   useEffect(() => {
-    const id = setTimeout(() => onDismissRef.current?.(), SNACKBAR_DURATION_MS);
+    const ms = resolveSnackbarDurationMs(duration, showAction);
+    const id = setTimeout(() => onDismissRef.current?.(), ms);
     return () => clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only dwell
   }, []);
 
   const panHandlers = useMemo(
@@ -103,7 +107,7 @@ export const Snackbar = (props: ISnackbarProps): ReactElement => {
     [onDismiss, swipeCapture, swipeThreshold],
   );
 
-  const showActions = showAction || showClose;
+  const showActions = showAction || showDismiss;
 
   return (
     <View
@@ -116,7 +120,7 @@ export const Snackbar = (props: ISnackbarProps): ReactElement => {
       <View style={contentStyle}>
         {showIcon ? (
           <View importantForAccessibility="no-hide-descendants" style={iconBoxStyle}>
-            <ToneGlyph tone={tone} />
+            <StatusGlyph status={status} />
           </View>
         ) : null}
         <Text numberOfLines={2} style={messageStyle}>
@@ -133,19 +137,19 @@ export const Snackbar = (props: ISnackbarProps): ReactElement => {
               size="sm"
             />
           ) : null}
-          {showClose ? (
+          {showDismiss ? (
             <Pressable
-              accessibilityLabel={closeAccessibilityLabel}
+              accessibilityLabel={dismissAccessibilityLabel}
               accessibilityRole="button"
-              hitSlop={closeHitSlop}
-              onBlur={() => setIsCloseFocused(false)}
-              onFocus={() => setIsCloseFocused(true)}
+              hitSlop={dismissHitSlop}
+              onBlur={() => setIsDismissFocused(false)}
+              onFocus={() => setIsDismissFocused(true)}
               onPress={onDismiss}
-              onPressIn={() => setIsClosePressed(true)}
-              onPressOut={() => setIsClosePressed(false)}
-              style={closeHitStyle}
+              onPressIn={() => setIsDismissPressed(true)}
+              onPressOut={() => setIsDismissPressed(false)}
+              style={dismissHitStyle}
             >
-              <View style={closeVisualStyle}>
+              <View style={dismissVisualStyle}>
                 <IconX color="inverse" size="sm" />
               </View>
             </Pressable>

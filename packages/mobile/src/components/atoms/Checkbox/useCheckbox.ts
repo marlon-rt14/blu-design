@@ -41,7 +41,7 @@ const markIconSizeForField = (size: TCheckboxSize): TIconSize => {
  * when unfocused) so layout does not jump. Opposite of TextField's flush ring.
  */
 export const useCheckbox = ({
-  size = 'sm',
+  size = 'md',
   isChecked = false,
   isIndeterminate = false,
   isDisabled = false,

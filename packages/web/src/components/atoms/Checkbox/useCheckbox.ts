@@ -43,7 +43,7 @@ const markIconSizeForField = (size: TCheckboxSize): TIconSize => {
  * an offset ring (gap + spread), kept on a checked box — not TextField's flush ring.
  */
 export const useCheckbox = ({
-  size = 'sm',
+  size = 'md',
   isChecked = false,
   isIndeterminate = false,
   isDisabled = false,

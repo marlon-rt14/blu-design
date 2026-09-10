@@ -1,14 +1,14 @@
 import { snackbarTokens } from '@dsm/shared';
-import type { TSnackbarTone } from '@dsm/shared';
+import type { TSnackbarStatus } from '@dsm/shared';
 import type { CSSProperties } from 'react';
 
 import { useFontFamily, useThemeMode } from '../../../theme';
 import type { ISnackbarProps } from './Snackbar.types';
 
 interface IUseSnackbarParams extends ISnackbarProps {
-  isCloseHovered: boolean;
-  isClosePressed: boolean;
-  isCloseFocusVisible: boolean;
+  isDismissHovered: boolean;
+  isDismissPressed: boolean;
+  isDismissFocusVisible: boolean;
 }
 
 interface IUseSnackbarResult {
@@ -17,8 +17,8 @@ interface IUseSnackbarResult {
   iconBoxStyle: CSSProperties;
   messageStyle: CSSProperties;
   actionsStyle: CSSProperties;
-  closeHitStyle: CSSProperties;
-  closeVisualStyle: CSSProperties;
+  dismissHitStyle: CSSProperties;
+  dismissVisualStyle: CSSProperties;
   live: 'assertive' | 'polite';
   swipeThreshold: number;
 }
@@ -31,8 +31,8 @@ const overlayShadow = (tokens: (typeof snackbarTokens)['light']): string => {
   ].join(', ');
 };
 
-const liveOf = (tone: TSnackbarTone): 'assertive' | 'polite' => {
-  switch (tone) {
+const liveOf = (status: TSnackbarStatus): 'assertive' | 'polite' => {
+  switch (status) {
     case 'danger':
       return 'assertive';
     case 'info':
@@ -40,28 +40,28 @@ const liveOf = (tone: TSnackbarTone): 'assertive' | 'polite' => {
     case 'warning':
       return 'polite';
     default: {
-      const _exhaustive: never = tone;
+      const _exhaustive: never = status;
       return _exhaustive;
     }
   }
 };
 
 export const useSnackbar = ({
-  tone = 'info',
-  isCloseHovered,
-  isClosePressed,
-  isCloseFocusVisible,
+  status = 'info',
+  isDismissHovered,
+  isDismissPressed,
+  isDismissFocusVisible,
 }: IUseSnackbarParams): IUseSnackbarResult => {
   const mode = useThemeMode();
   const tokens = snackbarTokens[mode];
   const { dimension, colors, message } = tokens;
   const fontFamily = useFontFamily(message.fontWeight);
-  const hitOutset = (dimension.targetMin - dimension.closeSize) / 2;
+  const hitOutset = (dimension.targetMin - dimension.dismissSize) / 2;
 
-  const closeBackground = isClosePressed
-    ? colors.close.backgroundPressed
-    : isCloseHovered
-      ? colors.close.backgroundHover
+  const dismissBackground = isDismissPressed
+    ? colors.dismiss.backgroundPressed
+    : isDismissHovered
+      ? colors.dismiss.backgroundHover
       : 'transparent';
 
   const rootStyle: CSSProperties = {
@@ -126,7 +126,7 @@ export const useSnackbar = ({
     flexShrink: 0,
   };
 
-  const closeHitStyle: CSSProperties = {
+  const dismissHitStyle: CSSProperties = {
     boxSizing: 'border-box',
     display: 'inline-flex',
     alignItems: 'center',
@@ -141,16 +141,16 @@ export const useSnackbar = ({
     cursor: 'pointer',
   };
 
-  const closeVisualStyle: CSSProperties = {
+  const dismissVisualStyle: CSSProperties = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: dimension.closeSize,
-    height: dimension.closeSize,
+    width: dimension.dismissSize,
+    height: dimension.dismissSize,
     borderRadius: dimension.pillRadius,
-    backgroundColor: closeBackground,
-    outline: isCloseFocusVisible
-      ? `${dimension.focusRingSpread}px solid ${colors.close.borderFocus}`
+    backgroundColor: dismissBackground,
+    outline: isDismissFocusVisible
+      ? `${dimension.focusRingSpread}px solid ${colors.dismiss.borderFocus}`
       : 'none',
     outlineOffset: dimension.focusRingOffset,
   };
@@ -161,9 +161,9 @@ export const useSnackbar = ({
     iconBoxStyle,
     messageStyle,
     actionsStyle,
-    closeHitStyle,
-    closeVisualStyle,
-    live: liveOf(tone),
+    dismissHitStyle,
+    dismissVisualStyle,
+    live: liveOf(status),
     swipeThreshold: dimension.targetMin,
   };
 };
