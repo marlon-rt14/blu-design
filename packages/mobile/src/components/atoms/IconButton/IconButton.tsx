@@ -27,7 +27,7 @@ import { useIconButton } from './useIconButton';
  * ```
  */
 export const IconButton = (props: IIconButtonProps): ReactElement => {
-  const { icon: Icon, label, onPress, testID } = props;
+  const { icon: Icon, label, onLongPress, onPress, testID } = props;
   const [isPressed, setIsPressed] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const { buttonStyle, iconSize, iconColor, hitSlop, isDisabled } = useIconButton({
@@ -45,6 +45,7 @@ export const IconButton = (props: IIconButtonProps): ReactElement => {
       hitSlop={hitSlop}
       onBlur={() => setIsFocused(false)}
       onFocus={() => setIsFocused(true)}
+      onLongPress={onLongPress}
       onPress={onPress}
       onPressIn={() => setIsPressed(true)}
       onPressOut={() => setIsPressed(false)}

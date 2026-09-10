@@ -1,4 +1,5 @@
 import { TOOLTIP_DISMISS_LABEL } from '@dsm/shared';
+import { cloneElement, isValidElement } from 'react';
 import type { ReactElement } from 'react';
 import { Modal, Pressable, Text, View } from 'react-native';
 
@@ -54,14 +55,34 @@ export const Tooltip = (props: ITooltipProps): ReactElement => {
     onDismiss?.();
   };
 
+  // React Native hands a touch to a single view, so a `Pressable` *around* an
+  // interactive trigger never sees the long press: the inner one claims it
+  // first. The handler therefore goes onto the trigger itself, where the same
+  // `Pressable` runs both gestures and the tap still belongs to the child.
+  //
+  // The wrapper below stays for the other case — a trigger that claims nothing,
+  // like a `Text` or a plain `View`. Between the two, both shapes work.
+  //
+  // Worth knowing why this was not caught earlier: through react-native-web the
+  // wrapper *does* fire, because there these are DOM elements and events
+  // bubble. The bug only exists on a device.
+  const trigger = isValidElement<{ onLongPress?: () => void }>(children)
+    ? cloneElement(children, {
+        onLongPress: () => {
+          children.props.onLongPress?.();
+          show();
+        },
+      })
+    : children;
+
   return (
     <>
-      {/* `onLongPress` only: the plain press keeps travelling to whatever
-          `children` renders. `collapsable={false}` keeps the view in the native
-          hierarchy so the engine can measure it — without it React Native is
-          free to flatten a wrapper that only holds another view. */}
+      {/* `collapsable={false}` keeps this view in the native hierarchy so the
+          engine can measure it — without it React Native is free to flatten a
+          wrapper that only holds another view. Its own `onLongPress` is the
+          fallback for a non-interactive trigger; see `trigger` above. */}
       <Pressable collapsable={false} onLongPress={show} ref={setReference} testID={testID}>
-        {children}
+        {trigger}
       </Pressable>
       <Modal animationType="none" onRequestClose={hide} transparent visible={open}>
         <Pressable onPress={hide} style={{ flex: 1 }}>

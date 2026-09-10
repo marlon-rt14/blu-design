@@ -34,4 +34,17 @@ export type TIconButtonIcon = ComponentType<TIconProps>;
 export interface IIconButtonProps extends IIconButtonBaseProps {
   /** The glyph. Required: an IconButton with nothing in it is not anything. */
   icon: TIconButtonIcon;
+  /**
+   * Called when the press is held.
+   *
+   * **Mobile only, and it exists so a Tooltip can wrap this button.** React
+   * Native hands a touch to a single view, so a `Pressable` around this one
+   * never sees the long press — the inner one claims it first. The Tooltip
+   * therefore injects its handler here instead, and `Pressable` runs both
+   * gestures without conflict: a tap still calls `onPress`.
+   *
+   * Web has no equivalent because it has no long press: there a tooltip opens
+   * on hover or focus, and nothing has to be threaded through.
+   */
+  onLongPress?: () => void;
 }
