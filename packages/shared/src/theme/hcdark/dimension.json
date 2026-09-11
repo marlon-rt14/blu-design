@@ -1112,7 +1112,7 @@
       "raised": {
         "shadow": {
           "near-blur": {
-            "value": "3px",
+            "value": "2px",
             "type": "dimension",
             "description": "Desenfoque de la sombra cercana de raised. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
           },
@@ -1122,12 +1122,12 @@
             "description": "Desplazamiento vertical de la sombra cercana de raised. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
           },
           "far-blur": {
-            "value": "8px",
+            "value": "0px",
             "type": "dimension",
             "description": "Desenfoque de la sombra lejana de raised. Cero en dark: la capa esta apagada. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
           },
           "far-y": {
-            "value": "4px",
+            "value": "0px",
             "type": "dimension",
             "description": "Desplazamiento vertical de la sombra lejana de raised. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
           }
@@ -1136,22 +1136,22 @@
       "overlay": {
         "shadow": {
           "near-blur": {
-            "value": "12px",
+            "value": "24px",
             "type": "dimension",
             "description": "Desenfoque de la sombra cercana de overlay. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
           },
           "near-y": {
-            "value": "4px",
+            "value": "8px",
             "type": "dimension",
             "description": "Desplazamiento vertical de la sombra cercana de overlay. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
           },
           "far-blur": {
-            "value": "24px",
+            "value": "0px",
             "type": "dimension",
             "description": "Desenfoque de la sombra lejana de overlay. Cero en dark: la capa esta apagada. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
           },
           "far-y": {
-            "value": "8px",
+            "value": "0px",
             "type": "dimension",
             "description": "Desplazamiento vertical de la sombra lejana de overlay. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
           }
@@ -1166,7 +1166,7 @@
           "description": "Separacion entre el borde del control y el anillo de foco. 1 desde el 14-ago (antes 2): con 2 el anillo quedaba demasiado despegado y la franja intermedia, que se pinta con canvas/surface/primary, se notaba como un halo cuando el control no estaba sobre una superficie blanca. VALOR DERIVADO AGUAS ABAJO: focus/ring/spread = offset + border/width/focus. Si se cambia este numero hay que recalcular el spread a mano, porque Figma no hace aritmetica entre variables."
         },
         "spread": {
-          "value": "3px",
+          "value": "4px",
           "type": "dimension",
           "description": "Spread de la capa azul del anillo de foco. NO es un valor libre: es focus/ring/offset + border/width/focus. El grosor visible del azul es spread menos offset, o sea exactamente border/width/focus (2 en light y dark, 3 en los modos hc). Si cambia cualquiera de los dos de los que depende, hay que recalcular este a mano."
         }
@@ -1535,17 +1535,17 @@
       "line": {
         "width": {
           "thin": {
-            "value": "1px",
+            "value": "2px",
             "type": "dimension",
             "description": "Trazo de series secundarias, benchmark y forecast. Sube a 2 en alto contraste."
           },
           "default": {
-            "value": "2px",
+            "value": "3px",
             "type": "dimension",
             "description": "Trazo de una serie de datos. Sube a 3 en alto contraste: en gráficos el refuerzo de contraste va por grosor, no por color."
           },
           "emphasis": {
-            "value": "3px",
+            "value": "4px",
             "type": "dimension",
             "description": "Serie seleccionada o resaltada al pasar el mouse."
           }
@@ -1553,7 +1553,7 @@
       },
       "grid": {
         "width": {
-          "value": "1px",
+          "value": "2px",
           "type": "dimension",
           "description": "Grosor de la línea de grilla. Sube a 2 en alto contraste."
         }
@@ -1663,27 +1663,27 @@
     "border": {
       "width": {
         "default": {
-          "value": "1px",
+          "value": "2px",
           "type": "dimension",
           "description": "Grosor de borde de control. En alto contraste pasa de 1px a 2px: cuando no podes depender de sombras ni de diferencias sutiles de fondo, el BORDE es el mecanismo principal para separar superficies. Sin esto, el tema HC queda como 'el tema normal con colores mas fuertes'. Valor definido en los 4 modos."
         },
         "focus": {
-          "value": "2px",
+          "value": "3px",
           "type": "dimension",
           "description": "Grosor del anillo de foco. 2px normal, 3px en alto contraste. Es un requisito de WCAG 2.4.13 (Focus Appearance): el indicador de foco tiene que ser perceptible, no insinuado. Va junto a color/border/focus, que es solido a proposito para poder garantizar 3:1. Valor definido en los 4 modos."
         },
         "divider": {
-          "value": "1px",
+          "value": "2px",
           "type": "dimension",
           "description": "Grosor de divisor decorativo. Engorda en alto contraste por la misma razon que el borde de control: en HC la separacion no puede depender del tinte. Valor definido en los 4 modos."
         },
         "indicator": {
-          "value": "2px",
+          "value": "3px",
           "type": "dimension",
           "description": "Grosor de la barra que marca lo elegido: el indicador activo de Tab y el indicador de seleccion de las filas. 2px normal, 3px en alto contraste, igual que el resto de la familia border/width. No usar border/width/focus para esto: foco y seleccion son dos señales distintas y tienen que poder cambiar de grosor por separado. Valor definido en los 4 modos."
         },
         "control-strong": {
-          "value": "2px",
+          "value": "3px",
           "type": "dimension",
           "description": "Grosor de borde de control que necesita mas presencia que el filete de 1px: la caja de Checkbox y Radio. 2px normal, 3px en alto contraste, misma escalada que border/width/default. No usar border/width/indicator para esto: ese token nombra la barra que marca lo elegido (Tab activo, fila seleccionada), no el borde de un control."
         }

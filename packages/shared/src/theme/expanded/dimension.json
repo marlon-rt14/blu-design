@@ -169,51 +169,51 @@
         },
         "display": {
           "lg": {
-            "value": "30px",
+            "value": "48px",
             "type": "dimension",
             "description": "Titular expresivo mayor: onboarding, pantallas de exito, marketing. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
           },
           "md": {
-            "value": "24px",
+            "value": "36px",
             "type": "dimension",
             "description": "Titular expresivo medio. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
           },
           "sm": {
-            "value": "20px",
+            "value": "30px",
             "type": "dimension",
             "description": "Titular expresivo menor. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
           }
         },
         "heading": {
           "lg": {
-            "value": "24px",
+            "value": "30px",
             "type": "dimension",
             "description": "Titulo de pantalla. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
           },
           "md": {
-            "value": "20px",
+            "value": "24px",
             "type": "dimension",
             "description": "Titulo de seccion. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
           },
           "sm": {
-            "value": "18px",
+            "value": "20px",
             "type": "dimension",
             "description": "Subtitulo de seccion. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
           }
         },
         "title": {
           "lg": {
-            "value": "18px",
+            "value": "20px",
             "type": "dimension",
             "description": "Titulo de card. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
           },
           "md": {
-            "value": "16px",
+            "value": "18px",
             "type": "dimension",
             "description": "Titulo de fila o de bloque. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
           },
           "sm": {
-            "value": "14px",
+            "value": "16px",
             "type": "dimension",
             "description": "Titulo compacto. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
           }
@@ -499,32 +499,32 @@
       },
       "inset": {
         "xs": {
-          "value": "4px",
+          "value": "8px",
           "type": "dimension",
           "description": "Padding interno minimo: chips, badges. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "sm": {
-          "value": "8px",
+          "value": "12px",
           "type": "dimension",
           "description": "Padding interno compacto: botones pequenos, celdas densas. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "md": {
-          "value": "12px",
+          "value": "16px",
           "type": "dimension",
           "description": "PADDING INTERNO BASE: cards, inputs, botones. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "lg": {
-          "value": "16px",
+          "value": "24px",
           "type": "dimension",
           "description": "Padding de contenedores amplios y hojas. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "xl": {
-          "value": "24px",
+          "value": "40px",
           "type": "dimension",
           "description": "Padding de pantalla. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "2xl": {
-          "value": "32px",
+          "value": "48px",
           "type": "dimension",
           "description": "Padding de secciones destacadas. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
@@ -546,22 +546,22 @@
           "description": "Separacion vertical entre elementos relacionados. Mismo valor en los tres modos a proposito: no depende de la densidad. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "md": {
-          "value": "12px",
+          "value": "16px",
           "type": "dimension",
           "description": "SEPARACION VERTICAL BASE entre bloques. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "lg": {
-          "value": "16px",
+          "value": "24px",
           "type": "dimension",
           "description": "Separacion entre grupos. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "xl": {
-          "value": "24px",
+          "value": "40px",
           "type": "dimension",
           "description": "Separacion entre secciones. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "2xl": {
-          "value": "32px",
+          "value": "64px",
           "type": "dimension",
           "description": "Separacion mayor de pantalla. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         }
@@ -578,39 +578,39 @@
           "description": "Separacion horizontal entre elementos en fila. Mismo valor en los tres modos a proposito: no depende de la densidad. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "md": {
-          "value": "12px",
+          "value": "16px",
           "type": "dimension",
           "description": "SEPARACION HORIZONTAL BASE. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "lg": {
-          "value": "16px",
+          "value": "24px",
           "type": "dimension",
           "description": "Separacion horizontal amplia. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "xl": {
-          "value": "24px",
+          "value": "32px",
           "type": "dimension",
           "description": "Separacion horizontal mayor. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "2xl": {
-          "value": "32px",
+          "value": "40px",
           "type": "dimension",
           "description": "Separacion horizontal maxima. Cierra la simetria con stack/2xl e inset/2xl. Varia con la densidad."
         }
       },
       "gutter": {
         "sm": {
-          "value": "8px",
+          "value": "16px",
           "type": "dimension",
           "description": "Canaleta entre columnas, retícula densa. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "md": {
-          "value": "16px",
+          "value": "24px",
           "type": "dimension",
           "description": "CANALETA BASE entre columnas. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "lg": {
-          "value": "24px",
+          "value": "40px",
           "type": "dimension",
           "description": "Canaleta amplia. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         }
@@ -1009,7 +1009,7 @@
       "control": {
         "height": {
           "sm": {
-            "value": "32px",
+            "value": "36px",
             "type": "dimension",
             "description": "Altura del control compacto: 32. La usan tanto el boton sm como el campo compacto de una sola linea, porque las dos escalas comparten numero desde el 14-ago. El campo compacto NO tiene etiqueta flotante: la etiqueta vive como placeholder dentro del valor. A partir de md (44) el campo si la lleva."
           },
@@ -1019,7 +1019,7 @@
             "description": "Control destacado: CTA principal. Mismo valor en los tres modos a proposito: no depende de la densidad. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
           },
           "md": {
-            "value": "44px",
+            "value": "48px",
             "type": "dimension",
             "description": "ALTURA DE CONTROL BASE. 44 en compact (minimo tocable de iOS) y 48 en expanded (minimo de Android y comodo con mouse). Varia con la densidad. Nunca usar el primitivo crudo."
           },
@@ -1038,7 +1038,7 @@
       "field": {
         "height": {
           "md": {
-            "value": "44px",
+            "value": "48px",
             "type": "dimension",
             "description": "Altura del campo mediano: 44. Mismo numero que size/control/height/md. Es el campo de una sola linea, sin etiqueta flotante: la etiqueta vive como placeholder."
           },
@@ -1561,12 +1561,12 @@
       "marker": {
         "size": {
           "sm": {
-            "value": "8px",
+            "value": "10px",
             "type": "dimension",
             "description": "Punto de scatter y marcador de leyenda en su tamaño chico."
           },
           "md": {
-            "value": "10px",
+            "value": "14px",
             "type": "dimension",
             "description": "Marcador de serie sobre la línea, y punto de scatter destacado."
           }
@@ -1598,7 +1598,7 @@
           "description": "Radio del anillo de foco. Valor derivado: radio del control + focus/ring/offset (2). No es un paso de la escala; existe para que el anillo quede paralelo al control en las esquinas (equivale a outline-offset en CSS)."
         },
         "surface": {
-          "value": "18px",
+          "value": "26px",
           "type": "dimension",
           "description": "Radio del anillo de foco. Valor derivado: radio del control + focus/ring/offset (2). No es un paso de la escala; existe para que el anillo quede paralelo al control en las esquinas (equivale a outline-offset en CSS)."
         }
@@ -1612,12 +1612,12 @@
       },
       "surface": {
         "sm": {
-          "value": "12px",
+          "value": "16px",
           "type": "dimension",
           "description": "Radio de card. 12 en compact y 16 en pantallas grandes. Varia con la densidad ('4. Layout'). El radio de una SUPERFICIE es independiente del de un CONTROL: una card muy redondeada con inputs cuadrados adentro se ve descoordinada, pero igualarlos tampoco es automatico -- el radio se percibe en relacion a la ALTURA del elemento, y un input mide una fraccion de lo que mide una hoja. Nunca usar el primitivo crudo en un componente."
         },
         "md": {
-          "value": "16px",
+          "value": "24px",
           "type": "dimension",
           "description": "Radio de superficie flotante: menu, popover, dropdown. Varia con la densidad ('4. Layout'). El radio de una SUPERFICIE es independiente del de un CONTROL: una card muy redondeada con inputs cuadrados adentro se ve descoordinada, pero igualarlos tampoco es automatico -- el radio se percibe en relacion a la ALTURA del elemento, y un input mide una fraccion de lo que mide una hoja. Nunca usar el primitivo crudo en un componente."
         },
