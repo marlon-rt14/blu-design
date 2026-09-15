@@ -1,54 +1,25 @@
-import { BluProvider as MobileBluProvider } from '@dsm/mobile';
-import type { TThemeMode } from '@dsm/shared';
-import { BluProvider as WebBluProvider } from '@dsm/web';
+import { THEME_BRANDS, THEME_LAYOUTS, THEME_MODES, modesForBrand } from '@dsm/shared';
 import type { Decorator, Preview } from '@storybook/react-vite';
-import type { PropsWithChildren, ReactElement } from 'react';
+
+import { themeFromGlobals } from '../src/stories/themeGlobals';
+
+import { ThemedStory } from './ThemedStory';
 
 import './preview.css';
 import './native-fonts.css';
 
-/**
- * Applies `theme` to the story canvas and to every component rendered inside
- * it, on both platforms.
- *
- * Neither platform has a CSS cascade to lean on for this anymore — `@dsm/web`
- * dropped its `data-dsm-theme` attribute in favour of resolving tokens from
- * `theme[mode]` at render time (see `useTextField`), the same approach
- * mobile always used. So both platforms get their own `BluProvider` here:
- * the web one feeds `useThemeMode()` to `@dsm/web` components AND paints the
- * actual canvas background/text/font (see its own doc comment); the mobile
- * one feeds the same mode to `@dsm/mobile` components. Nesting them is
- * harmless — each provider is only read by its own platform's components.
- *
- * Centers its children itself, in place of Storybook's `layout: 'centered'`
- * parameter — that parameter centers via a flex container with
- * `align-items: center`, which shrinks this `<div>` down to its content's
- * width instead of letting it paint full-bleed. Every story below sets
- * `layout: 'fullscreen'` for that reason.
- */
-const ThemedStory = ({ theme, children }: PropsWithChildren<{ theme: TThemeMode }>): ReactElement => (
-  <WebBluProvider
-    mode={theme}
-    style={{
-      boxSizing: 'border-box',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '100vh',
-      width: '100%',
-      padding: 24,
-    }}
-  >
-    <MobileBluProvider mode={theme}>{children}</MobileBluProvider>
-  </WebBluProvider>
-);
-
-/** Applies the `theme` toolbar global to every story via {@link ThemedStory}. */
+/** Applies the three theme toolbar globals to every story via {@link ThemedStory}. */
 const withTheme: Decorator = (Story, context) => (
-  <ThemedStory theme={context.globals['theme'] as TThemeMode}>
+  <ThemedStory theme={themeFromGlobals(context.globals)}>
     <Story />
   </ThemedStory>
 );
+
+/** Turns `hc-light` into `HC light` for the dropdown, leaving `light` alone. */
+const modeTitle = (mode: string): string =>
+  mode.includes('-')
+    ? `${mode.split('-')[0]?.toUpperCase() ?? ''} ${mode.split('-')[1] ?? ''}`
+    : `${mode.charAt(0).toUpperCase()}${mode.slice(1)}`;
 
 const preview: Preview = {
   // Autodocs are opt-in since Storybook 8. Enabling the tag globally means every
@@ -60,8 +31,11 @@ const preview: Preview = {
    * implementation of a component the stories render. See
    * `src/stories/PlatformButton.tsx` for how a story consumes it.
    *
-   * `theme` renders alongside it and decides which theme mode — `light` or
-   * `dark` — every story renders in, on both platforms. See `withTheme` above.
+   * The other three are the theme axes, mirroring Figma's variable collections
+   * one for one — `2. Brand`, `3. Semantic` and `4. Layout`. They are separate
+   * dropdowns because that is how a designer thinks about them, even though the
+   * export only contains one axis moved at a time: every value is offered and
+   * the `FallbackNotice` in `ThemedStory.tsx` owns up to what actually rendered. See `withTheme`.
    */
   globalTypes: {
     platform: {
@@ -76,22 +50,52 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
-    theme: {
-      description: 'Which theme mode the design system tokens resolve to',
+    brand: {
+      description: 'Which product the screen belongs to — Figma’s “2. Brand” collection',
       toolbar: {
-        title: 'Theme',
+        title: 'Brand',
+        icon: 'paintbrush',
+        items: THEME_BRANDS.map((brand) => ({
+          value: brand,
+          title: `${brand.charAt(0).toUpperCase()}${brand.slice(1)}`,
+          // Says which modes that brand really has, so the fallback is visible
+          // before it happens rather than only after.
+          right: modesForBrand(brand).length === THEME_MODES.length ? 'all modes' : 'light only',
+        })),
+        dynamicTitle: true,
+      },
+    },
+    mode: {
+      description: 'How much contrast the surface has — Figma’s “3. Semantic” collection',
+      toolbar: {
+        title: 'Mode',
         icon: 'mirror',
-        items: [
-          { value: 'light', title: 'Light', icon: 'sun' },
-          { value: 'dark', title: 'Dark', icon: 'moon' },
-        ],
+        items: THEME_MODES.map((mode) => ({
+          value: mode,
+          title: modeTitle(mode),
+          icon: mode.endsWith('dark') ? 'moon' : 'sun',
+        })),
+        dynamicTitle: true,
+      },
+    },
+    layout: {
+      description: 'How generous the spacing and type scale are — Figma’s “4. Layout” collection',
+      toolbar: {
+        title: 'Layout',
+        icon: 'grow',
+        items: THEME_LAYOUTS.map((layout) => ({
+          value: layout,
+          title: `${layout.charAt(0).toUpperCase()}${layout.slice(1)}`,
+        })),
         dynamicTitle: true,
       },
     },
   },
   initialGlobals: {
     platform: 'web',
-    theme: 'light',
+    brand: 'blu',
+    mode: 'light',
+    layout: 'compact',
   },
   parameters: {
     controls: {

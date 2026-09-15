@@ -1,7 +1,7 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
 import type { IThemeTypographyValue } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import { baseFontFamily } from './theme.tokens';
 
 export interface IChoiceBoxSurfaceColorTokens {
@@ -61,8 +61,8 @@ export interface IChoiceBoxTokens {
   typography: IChoiceBoxTypographyTokens;
 }
 
-const readChoiceBoxTokens = (mode: TThemeMode): IChoiceBoxTokens => {
-  const { color, dimension } = themeSources[mode];
+const readChoiceBoxTokens = (key: TThemeSourceKey): IChoiceBoxTokens => {
+  const { color, dimension } = themeSources[key];
   const colorAt = (path: string): string => readThemeToken(color, `color.component.choicebox.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
 
@@ -124,7 +124,4 @@ const readChoiceBoxTokens = (mode: TThemeMode): IChoiceBoxTokens => {
   };
 };
 
-export const choiceBoxTokens: Record<TThemeMode, IChoiceBoxTokens> = {
-  light: readChoiceBoxTokens('light'),
-  dark: readChoiceBoxTokens('dark'),
-};
+export const choiceBoxTokens = fromThemeSources(readChoiceBoxTokens);

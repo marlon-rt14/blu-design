@@ -1,6 +1,6 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import type { TIconColor, TIconSize } from '../types/atoms/icon.types';
 
 /**
@@ -96,8 +96,8 @@ const COLORS: readonly TIconColor[] = [
   'action.on-scene.default',
 ];
 
-const readIconTokens = (mode: TThemeMode): IIconTokens => {
-  const { color, dimension } = themeSources[mode];
+const readIconTokens = (key: TThemeSourceKey): IIconTokens => {
+  const { color, dimension } = themeSources[key];
 
   // The doubled `color.` is not a typo. The first segment is the export's file
   // wrapper, the second is the semantic role group *also* named `color` — so
@@ -132,7 +132,4 @@ const readIconTokens = (mode: TThemeMode): IIconTokens => {
  * `color/icon/primary`, which is the glyph's default fill rather than a design
  * axis — the component has no colour property.
  */
-export const iconTokens: Record<TThemeMode, IIconTokens> = {
-  light: readIconTokens('light'),
-  dark: readIconTokens('dark'),
-};
+export const iconTokens = fromThemeSources(readIconTokens);

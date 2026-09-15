@@ -1,6 +1,6 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import type {
   TLinkButtonAppearance,
   TLinkButtonSize,
@@ -131,8 +131,8 @@ const APPEARANCES: readonly TLinkButtonAppearance[] = [
   'on-scene',
 ];
 
-const readLinkButtonTokens = (mode: TThemeMode): ILinkButtonTokens => {
-  const { color, dimension } = themeSources[mode];
+const readLinkButtonTokens = (key: TThemeSourceKey): ILinkButtonTokens => {
+  const { color, dimension } = themeSources[key];
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
   const colorAt = (path: string): string =>
     readThemeToken(color, `color.component.linkbutton.${path}`);
@@ -191,7 +191,4 @@ const readLinkButtonTokens = (mode: TThemeMode): ILinkButtonTokens => {
  * hold across themes, while `text-hover`, `text-pressed` and `text-visited` do
  * not. The tokens win; reading per theme costs nothing here.
  */
-export const linkButtonTokens: Record<TThemeMode, ILinkButtonTokens> = {
-  light: readLinkButtonTokens('light'),
-  dark: readLinkButtonTokens('dark'),
-};
+export const linkButtonTokens = fromThemeSources(readLinkButtonTokens);

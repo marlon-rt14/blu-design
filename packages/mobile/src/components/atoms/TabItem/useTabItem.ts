@@ -1,5 +1,5 @@
 import { tabsTokens } from '@dsm/shared';
-import type { TTabSize, TTabsLayout } from '@dsm/shared';
+import type { TTabSize, TTabsLayout, TTokensOf } from '@dsm/shared';
 import type { Insets, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
@@ -25,7 +25,7 @@ interface IUseTabItemResult {
   isDisabled: boolean;
 }
 
-const sizeTokensOf = (size: TTabSize, tokens: (typeof tabsTokens)['light']) => {
+const sizeTokensOf = (size: TTabSize, tokens: TTokensOf<typeof tabsTokens>) => {
   switch (size) {
     case 'md':
       return tokens.sizes.md;

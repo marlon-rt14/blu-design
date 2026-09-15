@@ -1,7 +1,7 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
 import type { IThemeTypographyValue } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { DEFAULT_THEME_SOURCE_KEY, fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import { baseFontFamily } from './theme.tokens';
 import type { TSnackbarStatus } from '../types/atoms/snackbar.types';
 
@@ -74,8 +74,8 @@ export interface ISnackbarTokens {
 
 const SNACKBAR_MAX_WIDTH_PX = 448;
 
-const readSnackbarTokens = (mode: TThemeMode): ISnackbarTokens => {
-  const { color, dimension } = themeSources[mode];
+const readSnackbarTokens = (key: TThemeSourceKey): ISnackbarTokens => {
+  const { color, dimension } = themeSources[key];
   const colorAt = (path: string): string => readThemeToken(color, `color.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
 
@@ -136,10 +136,7 @@ const readSnackbarTokens = (mode: TThemeMode): ISnackbarTokens => {
   };
 };
 
-export const snackbarTokens: Record<TThemeMode, ISnackbarTokens> = {
-  light: readSnackbarTokens('light'),
-  dark: readSnackbarTokens('dark'),
-};
+export const snackbarTokens = fromThemeSources(readSnackbarTokens);
 
 /**
  * Resolves autoclose dwell. Explicit `duration` wins; otherwise
@@ -147,7 +144,7 @@ export const snackbarTokens: Record<TThemeMode, ISnackbarTokens> = {
  * Same across modes — dwell is not density-dependent.
  */
 export const resolveSnackbarDurationMs = (duration: number | undefined, showAction: boolean): number => {
-  const { dwellDefaultMs, dwellLongMs } = snackbarTokens.light.dimension;
+  const { dwellDefaultMs, dwellLongMs } = snackbarTokens[DEFAULT_THEME_SOURCE_KEY].dimension;
   if (duration != null) {
     return duration;
   }

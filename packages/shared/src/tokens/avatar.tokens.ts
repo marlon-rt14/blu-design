@@ -1,6 +1,6 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import type { TAvatarSize, TAvatarTone } from '../types/atoms/avatar.types';
 import type { TAvatarStatus } from '../types/atoms/avatarIndicator.types';
 import { baseFontFamily } from './theme.tokens';
@@ -60,8 +60,8 @@ const TONES: readonly TAvatarTone[] = [
 
 const SIZES: readonly TAvatarSize[] = ['xs', 'sm', 'md', 'lg'];
 
-const readAvatarTokens = (mode: TThemeMode): IAvatarTokens => {
-  const { color, dimension } = themeSources[mode];
+const readAvatarTokens = (key: TThemeSourceKey): IAvatarTokens => {
+  const { color, dimension } = themeSources[key];
   const colorAt = (path: string): string => readThemeToken(color, `color.component.avatar.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
 
@@ -120,7 +120,4 @@ const readAvatarTokens = (mode: TThemeMode): IAvatarTokens => {
   };
 };
 
-export const avatarTokens: Record<TThemeMode, IAvatarTokens> = {
-  light: readAvatarTokens('light'),
-  dark: readAvatarTokens('dark'),
-};
+export const avatarTokens = fromThemeSources(readAvatarTokens);

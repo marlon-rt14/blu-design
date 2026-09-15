@@ -1,11 +1,12 @@
 import { readThemeToken, themeSources } from '@dsm/shared';
-import type { TIconColor, TIconSize, TThemeMode } from '@dsm/shared';
+import type { TIconColor, TIconSize } from '@dsm/shared';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 
 import { ICON_NAMES, toFigmaName } from './iconNames';
 import { PlatformIcon } from './PlatformIcon';
 import type { IPlatformIconProps, TPlatform } from './PlatformIcon';
+import { themeFromGlobals } from './themeGlobals';
 
 const SIZES: [TIconSize, number][] = [
   ['2xs', 8],
@@ -238,7 +239,7 @@ export const Colors: TStory = {
 /** The roles that need a surface the page does not have. */
 export const OnSurfaces: TStory = {
   render: (args, { globals }) => {
-    const theme = globals.theme as TThemeMode;
+    const { key: themeKey } = themeFromGlobals(globals);
     return (
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, justifyContent: 'center' }}>
         {SURFACE_COLORS.map(([role, token, note]) => (
@@ -247,7 +248,7 @@ export const OnSurfaces: TStory = {
                 be unreadable on half of these surfaces. */}
             <div
               style={{
-                backgroundColor: readThemeToken(themeSources[theme].color, token),
+                backgroundColor: readThemeToken(themeSources[themeKey].color, token),
                 padding: 20,
                 borderRadius: 12,
                 display: 'flex',

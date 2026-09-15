@@ -1,6 +1,6 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import type { TButtonAppearance, TButtonSize, TButtonVariant } from '../types/atoms/button.types';
 import type { TIconSize } from '../types/atoms/icon.types';
 
@@ -232,8 +232,8 @@ const readSurface = (
   };
 };
 
-const readButtonTokens = (mode: TThemeMode): IButtonTokens => {
-  const { color, dimension } = themeSources[mode];
+const readButtonTokens = (key: TThemeSourceKey): IButtonTokens => {
+  const { color, dimension } = themeSources[key];
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
   const surface = (variant: TButtonVariant, appearance: TButtonAppearance): IButtonSurfaceColorTokens =>
     readSurface(color, variant, appearance);
@@ -307,7 +307,4 @@ const readButtonTokens = (mode: TThemeMode): IButtonTokens => {
  * surface that way are documented on {@link IButtonSurfaceColorTokens} and
  * {@link IButtonDimensionTokens.paddingHorizontal}.
  */
-export const buttonTokens: Record<TThemeMode, IButtonTokens> = {
-  light: readButtonTokens('light'),
-  dark: readButtonTokens('dark'),
-};
+export const buttonTokens = fromThemeSources(readButtonTokens);

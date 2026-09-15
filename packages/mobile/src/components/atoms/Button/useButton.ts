@@ -1,5 +1,5 @@
 import { buttonTokens } from '@dsm/shared';
-import type { IButtonSurfaceColorTokens, TButtonState, TIconSize } from '@dsm/shared';
+import type { IButtonSurfaceColorTokens, TButtonState, TIconSize, TTokensOf } from '@dsm/shared';
 import type { Insets, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
@@ -57,7 +57,7 @@ interface IUseButtonResult {
  * `readThemeToken` in `@dsm/shared`.
  */
 const readSurface = (
-  colors: (typeof buttonTokens)['light']['colors'],
+  colors: TTokensOf<typeof buttonTokens>['colors'],
   variant: NonNullable<IButtonProps['variant']>,
   appearance: NonNullable<IButtonProps['appearance']>,
 ): IButtonSurfaceColorTokens => {

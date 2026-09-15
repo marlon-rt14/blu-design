@@ -1,5 +1,5 @@
 import { alertTokens } from '@dsm/shared';
-import type { TAlertPlacement, TAlertStatus } from '@dsm/shared';
+import type { TAlertPlacement, TAlertStatus, TTokensOf } from '@dsm/shared';
 import type { Insets, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
@@ -27,7 +27,7 @@ interface IUseAlertResult {
 
 const placementTokens = (
   placement: TAlertPlacement,
-  tokens: (typeof alertTokens)['light'],
+  tokens: TTokensOf<typeof alertTokens>,
 ): (typeof tokens.placements)[TAlertPlacement] => {
   switch (placement) {
     case 'page':

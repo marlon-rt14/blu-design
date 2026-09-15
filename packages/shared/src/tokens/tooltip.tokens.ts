@@ -1,6 +1,6 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import type { TTooltipType } from '../types/molecules/tooltip.types';
 
 /** Every colour a Tooltip needs, resolved for a single theme. */
@@ -124,8 +124,8 @@ export interface ITooltipTokens {
 /** Line-height ratio of `text/body/sm/*`. Not a token. */
 const BODY_LINE_HEIGHT_RATIO = 1.5;
 
-const readTooltipTokens = (mode: TThemeMode): ITooltipTokens => {
-  const { color, dimension } = themeSources[mode];
+const readTooltipTokens = (key: TThemeSourceKey): ITooltipTokens => {
+  const { color, dimension } = themeSources[key];
   const colorAt = (path: string): string => readThemeToken(color, `color.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
 
@@ -194,7 +194,4 @@ const readTooltipTokens = (mode: TThemeMode): ITooltipTokens => {
  * `border/width/default` is about the shared `.TipPointer`, which the Coachmark
  * uses with `tone="floating"`.
  */
-export const tooltipTokens: Record<TThemeMode, ITooltipTokens> = {
-  light: readTooltipTokens('light'),
-  dark: readTooltipTokens('dark'),
-};
+export const tooltipTokens = fromThemeSources(readTooltipTokens);

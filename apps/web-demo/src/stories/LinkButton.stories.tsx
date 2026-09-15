@@ -1,11 +1,12 @@
 import { readThemeToken, themeSources } from '@dsm/shared';
-import type { TLinkButtonAppearance, TLinkButtonSize, TThemeMode } from '@dsm/shared';
+import type { TLinkButtonAppearance, TLinkButtonSize, TThemeSourceKey } from '@dsm/shared';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 import { fn } from 'storybook/test';
 
 import { PlatformLinkButton } from './PlatformLinkButton';
 import type { IPlatformLinkButtonProps, TPlatform } from './PlatformLinkButton';
+import { themeFromGlobals } from './themeGlobals';
 
 const APPEARANCES: TLinkButtonAppearance[] = ['default', 'on-inverse', 'on-muted', 'on-scene'];
 const SIZES: TLinkButtonSize[] = ['md', 'sm'];
@@ -32,11 +33,11 @@ const SURFACE_TOKEN: Record<TLinkButtonAppearance, string | undefined> = {
 /** Puts its children on the surface the given appearance is meant to sit on. */
 const Surface = ({
   appearance,
-  theme,
+  themeKey,
   children,
 }: {
   appearance: TLinkButtonAppearance;
-  theme: TThemeMode;
+  themeKey: TThemeSourceKey;
   children: ReactNode;
 }): ReactNode => {
   const token = SURFACE_TOKEN[appearance];
@@ -46,7 +47,7 @@ const Surface = ({
   return (
     <div
       style={{
-        backgroundColor: readThemeToken(themeSources[theme].color, token),
+        backgroundColor: readThemeToken(themeSources[themeKey].color, token),
         padding: 16,
         borderRadius: 12,
         display: 'inline-flex',
@@ -172,13 +173,13 @@ export const Playground: TStory = {};
 export const Appearances: TStory = {
   render: (args, { globals }) => {
     const platform = globals.platform as TPlatform;
-    const theme = globals.theme as TThemeMode;
+    const { key: themeKey } = themeFromGlobals(globals);
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
         {APPEARANCES.map((appearance) => (
           <Group key={appearance} title={appearance}>
-            <Surface appearance={appearance} theme={theme}>
+            <Surface appearance={appearance} themeKey={themeKey}>
               <PlatformLinkButton
                 {...args}
                 appearance={appearance}

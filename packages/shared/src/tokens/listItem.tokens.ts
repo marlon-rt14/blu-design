@@ -1,6 +1,6 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import type { TListItemSize, TListItemState } from '../types/molecules/listItem.types';
 
 /**
@@ -73,8 +73,8 @@ export interface IListItemTokens {
 /** Baked into Figma's text styles, which are not variables and never export. */
 const LINE_HEIGHT_RATIO = 1.5;
 
-const readListItemTokens = (mode: TThemeMode): IListItemTokens => {
-  const { color, dimension } = themeSources[mode];
+const readListItemTokens = (key: TThemeSourceKey): IListItemTokens => {
+  const { color, dimension } = themeSources[key];
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
   const at = (path: string): string => readThemeToken(color, `color.component.listitem.${path}`);
 
@@ -135,7 +135,4 @@ const readListItemTokens = (mode: TThemeMode): IListItemTokens => {
 /**
  * ListItem tokens, keyed by theme mode.
  */
-export const listItemTokens: Record<TThemeMode, IListItemTokens> = {
-  light: readListItemTokens('light'),
-  dark: readListItemTokens('dark'),
-};
+export const listItemTokens = fromThemeSources(readListItemTokens);

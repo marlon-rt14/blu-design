@@ -1,6 +1,6 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import type { TPasswordFieldSize } from '../types/atoms/passwordField.types';
 
 /** Container colours, keyed by the state that drives them. */
@@ -157,8 +157,8 @@ const VALUE_LINE_HEIGHT_RATIO = 1.5;
  */
 const LABEL_LETTER_SPACING_RATIO = 0.02;
 
-const readPasswordFieldTokens = (mode: TThemeMode): IPasswordFieldTokens => {
-  const { color, dimension } = themeSources[mode];
+const readPasswordFieldTokens = (key: TThemeSourceKey): IPasswordFieldTokens => {
+  const { color, dimension } = themeSources[key];
   const colorAt = (path: string): string =>
     readThemeToken(color, `color.component.passwordfield.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
@@ -235,7 +235,4 @@ const readPasswordFieldTokens = (mode: TThemeMode): IPasswordFieldTokens => {
  * tokens differ between the two themes. The mapping was read out of the Figma
  * component (`20:4164`) one variant at a time.
  */
-export const passwordFieldTokens: Record<TThemeMode, IPasswordFieldTokens> = {
-  light: readPasswordFieldTokens('light'),
-  dark: readPasswordFieldTokens('dark'),
-};
+export const passwordFieldTokens = fromThemeSources(readPasswordFieldTokens);

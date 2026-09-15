@@ -1,16 +1,10 @@
-import type { TThemeMode } from '@dsm/shared';
+import type { IThemeRequest } from '@dsm/shared';
 import type { PropsWithChildren, ReactElement } from 'react';
 
 import { ThemeProvider } from './theme';
 
 /** Props of {@link BluProvider}. */
-export interface IBluProviderProps extends PropsWithChildren {
-  /**
-   * Forces a theme mode instead of following the OS setting. Used by
-   * Storybook's theme toolbar; app code should normally leave this unset.
-   */
-  mode?: TThemeMode;
-}
+export interface IBluProviderProps extends PropsWithChildren, IThemeRequest {}
 
 /**
  * Root wrapper for `@dsm/mobile` — wrap your app in this once, at the top.
@@ -29,9 +23,16 @@ export interface IBluProviderProps extends PropsWithChildren {
  * // App root — follows the OS theme setting:
  * <BluProvider><App /></BluProvider>
  * // Storybook — forced from the toolbar:
- * <BluProvider mode={globals.theme}><Story /></BluProvider>
+ * <BluProvider brand={globals.brand} mode={globals.mode}><Story /></BluProvider>
  * ```
  */
-export const BluProvider = ({ mode, children }: IBluProviderProps): ReactElement => (
-  <ThemeProvider mode={mode}>{children}</ThemeProvider>
+export const BluProvider = ({
+  brand,
+  mode,
+  layout,
+  children,
+}: IBluProviderProps): ReactElement => (
+  <ThemeProvider brand={brand} layout={layout} mode={mode}>
+    {children}
+  </ThemeProvider>
 );

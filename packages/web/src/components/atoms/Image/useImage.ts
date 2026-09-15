@@ -1,5 +1,5 @@
 import { imageTokens, IMAGE_RATIO_CSS } from '@dsm/shared';
-import type { TImageFit, TImageRadius, TImageRatio, TImageStatus } from '@dsm/shared';
+import type { TImageFit, TImageRadius, TImageRatio, TImageStatus, TTokensOf } from '@dsm/shared';
 import type { CSSProperties } from 'react';
 
 import { usePrefersReducedMotion, useThemeMode } from '../../../theme';
@@ -20,7 +20,7 @@ interface IUseImageResult {
   showErrorIcon: boolean;
 }
 
-const radiusValue = (radius: TImageRadius, tokens: (typeof imageTokens)['light']): number => {
+const radiusValue = (radius: TImageRadius, tokens: TTokensOf<typeof imageTokens>): number => {
   switch (radius) {
     case 'none':
       return tokens.dimension.radii.none;
