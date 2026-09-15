@@ -7,6 +7,7 @@ import {
   Checkbox,
   ChoiceBox,
   ChoiceItem,
+  Divider,
   IconButton,
   LinkButton,
   ListItem,
@@ -381,6 +382,50 @@ const App = () => {
                   </View>
                 )),
               )}
+            </View>
+
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+                Divider
+              </Text>
+              {/* Una línea decorativa y nada más: dos props, sin children, sin
+                  texto y sin estados. Es a propósito — "es decorativo: no se
+                  toca, no recibe foco y no cambia con la interacción".
+
+                  NO es un borde. `component/divider/line/*` da ~1.5 de
+                  contraste adrede; para delimitar un campo el token es
+                  `color/border/input/*`, que va de 3.79 a 8.81.
+
+                  El grosor sale de `border/width/divider`: 1 en light y dark, 2
+                  en los dos modos de alto contraste. Cambiá el tema del SO y la
+                  línea engorda sola.
+
+                  Va con accessibilityRole="none", y acá no hay alternativa:
+                  React Native NO tiene rol de separador — AccessibilityRole va
+                  de 'none' a 'iconmenu' y no lo incluye. bDS igual resuelve el
+                  caso con significado por otro lado: "agrupar no es nombrar, un
+                  divisor no reemplaza a un encabezado". */}
+              {(['subtle', 'default', 'strong'] as const).map(appearance => (
+                <View key={appearance} style={styles.dividerCell}>
+                  <Text style={[styles.subtitle, { fontFamily: regularFont }]}>
+                    horizontal · {appearance}
+                  </Text>
+                  <Divider appearance={appearance} testID={`divider-${appearance}`} />
+                </View>
+              ))}
+              {/* La vertical no lleva alto propio: se estira a la fila. Esta
+                  fila no declara alto y la línea igual se ve, porque el hook usa
+                  alignSelf stretch. */}
+              <Text style={[styles.subtitle, { fontFamily: regularFont }]}>
+                vertical, en una fila sin alto propio
+              </Text>
+              <View style={styles.dividerRow}>
+                <Text style={[styles.dividerLabel, { fontFamily: regularFont }]}>Débito</Text>
+                <Divider orientation="vertical" testID="divider-inline-1" />
+                <Text style={[styles.dividerLabel, { fontFamily: regularFont }]}>Crédito</Text>
+                <Divider orientation="vertical" testID="divider-inline-2" />
+                <Text style={[styles.dividerLabel, { fontFamily: regularFont }]}>Transferencia</Text>
+              </View>
             </View>
 
             <View style={styles.section}>
@@ -903,6 +948,17 @@ const styles = StyleSheet.create({
   cardFillerText: {
     fontSize: typography.fontSizes.sm,
     color: colors.slate900,
+  },
+  dividerCell: {
+    marginBottom: spacing.md,
+  },
+  dividerRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: spacing.md,
+  },
+  dividerLabel: {
+    fontSize: typography.fontSizes.sm,
   },
   row: {
     flexDirection: 'row',

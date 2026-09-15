@@ -4,6 +4,7 @@ export * from './AvatarIndicator';
 export * from './Button';
 export * from './Checkbox';
 export * from './ChoiceBox';
+export * from './Divider';
 export * from './Icon';
 export * from './Image';
 export * from './IconButton';

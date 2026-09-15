@@ -1,4 +1,4 @@
-import { BluProvider, Button, Card, Checkbox, ChoiceItem, IconButton, LinkButton, OTPField, PasswordField, Radio, RadioGroup, Tooltip, useThemeMode } from "@dsm/web";
+import { BluProvider, Button, Card, Checkbox, ChoiceItem, Divider, IconButton, LinkButton, OTPField, PasswordField, Radio, RadioGroup, Tooltip, useThemeMode } from "@dsm/web";
 import { readThemeToken, themeSources } from "@dsm/shared";
 import type { TButtonAppearance, TButtonSize, TButtonVariant, TIconColor, TIconSize, TPasswordFieldSize, TPasswordFieldVisibility } from "@dsm/shared";
 import { useState } from "react";
@@ -371,6 +371,47 @@ const App = () => {
                 </div>
               )),
             )}
+          </div>
+        </section>
+
+        <section className="demo__section">
+          <h2 className="demo__section-title">Divider</h2>
+          {/* Una línea decorativa y nada más: dos props, sin children, sin
+              texto y sin estados. Es a propósito — "es decorativo: no se toca,
+              no recibe foco y no cambia con la interacción".
+
+              NO es un borde. `component/divider/line/*` da ~1.5 de contraste
+              adrede; para delimitar un campo el token es
+              `color/border/input/*`, que va de 3.79 a 8.81.
+
+              El grosor sale de `border/width/divider`: 1 en light y dark, 2 en
+              los dos modos de alto contraste. Cambiá el tema del SO y la línea
+              engorda sola — escribir el 1 a mano es lo que rompe esos modos.
+
+              Siempre va oculto al lector de pantalla, en las dos plataformas.
+              React Native no tiene rol de separador, así que el caso semántico
+              sería una conducta solo-web. Y bDS ya resuelve ese caso:
+              "agrupar no es nombrar, un divisor no reemplaza a un encabezado". */}
+          {/* Apiladas y no en fila: una línea horizontal ocupa todo el ancho
+              que le dan, así que tres en la misma fila se pisarían. */}
+          {(["subtle", "default", "strong"] as const).map((appearance) => (
+            <div key={appearance} style={{ marginBottom: 20 }}>
+              <p className="demo__counter">horizontal · {appearance}</p>
+              <Divider appearance={appearance} testID={`divider-${appearance}`} />
+            </div>
+          ))}
+          {/* La vertical no lleva alto propio: se estira a la fila. Acá la fila
+              no tiene alto declarado y la línea igual se ve, porque el hook usa
+              `alignSelf: stretch` y no `height: 100%` — un alto definido saca
+              al item del estirado y el porcentaje contra un padre indefinido
+              resuelve a `auto`, o sea cero. */}
+          <p className="demo__counter">vertical, en una fila sin alto propio</p>
+          <div style={{ alignItems: "center", display: "flex", fontSize: 14, gap: 16 }}>
+            <span>Débito</span>
+            <Divider orientation="vertical" testID="divider-inline-1" />
+            <span>Crédito</span>
+            <Divider orientation="vertical" testID="divider-inline-2" />
+            <span>Transferencia</span>
           </div>
         </section>
 

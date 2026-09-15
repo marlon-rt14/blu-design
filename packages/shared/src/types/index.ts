@@ -27,3 +27,4 @@ export * from './molecules/switchItem.types';
 export * from './molecules/tabs.types';
 export * from './molecules/tagGroup.types';
 export * from './molecules/tooltip.types';
+export * from './atoms/divider.types';
