@@ -26,4 +26,5 @@ export * from './molecules/select.types';
 export * from './molecules/switchItem.types';
 export * from './molecules/tabs.types';
 export * from './molecules/tagGroup.types';
+export * from './molecules/coachmark.types';
 export * from './molecules/tooltip.types';

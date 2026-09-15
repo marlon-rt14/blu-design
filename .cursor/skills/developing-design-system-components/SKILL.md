@@ -388,6 +388,38 @@ one:
   Live region is **not a prop**: `role=status`, `aria-live=assertive` only
   on danger. Don't copy Alert's muted fill, chip, LinkButton `on-muted`, or
   presence-based `action` object from the Dev frame (ship `show*` + handlers).
+- **Coachmark is a system-triggered tourtip, not a Tooltip.** Elevated /
+  floating surface (light card with controls) — **not** inverse. Axes:
+  **`media`** (none|image) × **`placement`** (13 Floating UI values) ×
+  **`sequence`** (single|multi) → 52 variants. `media` is an axis because
+  dismiss flips IconButton `veil` → `on-media` over the photo; a boolean
+  cannot change appearance. Keep partial API: `showTitle` / `showAction` /
+  `showDismiss` / `showBack` + handlers. `showTitle` only applies with
+  `media=image` (without image the title is mandatory for `aria-labelledby`).
+  `showBack` is a no-op on `single`.   Host-controlled **`isOpen`** — never
+  hover. Esc closes always; outside press closes `single`, not `multi`.
+  **`placement` is computed by the positioning engine** (Dev frame: *"Los 13
+  placement son el resultado, no la entrada"* / `placement?: Placement // lo
+  calcula el motor`). Floating UI `flip`/`shift` may move it when there is no
+  room; the Storybook control stays on the preference. Set copy also: on scroll
+  **follow the anchor**; if it leaves the viewport, `single` closes and `multi`
+  docks under the nav. Native: no `offsetParent` with `measureInWindow` (corrupts
+  Y — tip on the wrong edge); web Storybook uses `position: fixed` overlay
+  instead of RN-web `Modal`. Width **320** fixed (Figma copy, not a theme leaf). Tip is `.TipPointer`
+  `tone=floating` as the **live SVG vector** (rounded tip cornerRadius 2,
+  open stroke with 2 px mitre stubs, 2 px faldón) — **not** a CSS border
+  triangle (that closed the mouth and left a seam on the card edge). Same
+  16×10 / inset 2 geometry as Tooltip; floating stroke uses
+  `border/width/default`. Stacking is **`z.popover_1`** (1200) — the set prose says
+  "z/overlay (1200)" but the leaf that names Coachmark is popover. Title↔body
+  gap **0**. Body type is **`text/body/sm/default`** (live node wins over
+  set prose that said md). Nested Image `16:9` `radius=none`; footer
+  Buttons `sm` (action fill, back **ghost**). Default CTA:
+  `resolveCoachmarkActionLabel` → `"Entendido"` on `single`, `"Siguiente"`
+  on `multi`. Single footer: CTA **start** (no spacer); multi: step start
+  + actions end. No backdrop scrim. Focus moves into the non-modal dialog
+  on open (web `FloatingFocusManager`). Do **not** dump Figma screenshots
+  into `.cursor/` — designs drift; re-fetch via Figma MCP when checking.
 - **Tabs / TabItem is a bar + items, not a TabPanel.** Ship `TabItem`
   (atom) + `Tabs` (molecule) — same split as Radio / RadioGroup. Live set
   is named **Tab item** (`97:14033`); search still lists `Tab`. Public

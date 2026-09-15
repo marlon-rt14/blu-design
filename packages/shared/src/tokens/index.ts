@@ -3,6 +3,7 @@ export * from './avatar.tokens';
 export * from './button.tokens';
 export * from './card.tokens';
 export * from './checkbox.tokens';
+export * from './coachmark.tokens';
 export * from './choiceBox.tokens';
 export * from './colors';
 export * from './radii';
