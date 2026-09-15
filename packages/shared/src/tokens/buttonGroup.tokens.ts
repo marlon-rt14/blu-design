@@ -5,9 +5,9 @@ import type { TThemeMode } from '../themeSource/themes';
 /**
  * Metrics the ButtonGroup itself owns.
  *
- * Nested Buttons resolve their own tokens. Dev §06 lists 18 leaves that include
+ * Nested Buttons resolve their own tokens. Dev lists 18 leaves that include
  * Button colours / type from the documentation instances — those do not travel
- * with the group (Dev §08: *"no configura botones, los acomoda"*).
+ * with the group (Dev: *"no configura botones, los acomoda"*).
  */
 export interface IButtonGroupDimensionTokens {
   /** Horizontal gap — `space/inline/md` (12). Live node `981:63842`. */

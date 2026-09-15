@@ -8,7 +8,7 @@ import { useButtonGroup } from './useButtonGroup';
  *
  * Figma slot `actions` → `children`. Owns `orientation`, `distribution` and the
  * gap (`space/inline/md` row, `space/stack/md` column). Hierarchy stays on each
- * Button. No a11y role — not a toolbar or radiogroup (ButtonGroup · Dev §06).
+ * Button. No a11y role — not a toolbar or radiogroup (ButtonGroup · Dev).
  *
  * @example
  * ```tsx

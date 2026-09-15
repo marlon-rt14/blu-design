@@ -13,7 +13,7 @@ interface IUseButtonGroupResult {
  *
  * `distribution="fill"` uses CSS grid with equal `1fr` tracks so each Button
  * stretches to the same width without cloning children or teaching Button a
- * `style` prop (Dev §05: *"flex: 1 en cada hijo"* / equal parts).
+ * `style` prop (Dev: *"flex: 1 en cada hijo"* / equal parts).
  */
 export const useButtonGroup = ({
   orientation = 'horizontal',
@@ -34,7 +34,7 @@ export const useButtonGroup = ({
         justifyContent: 'start',
         gap: tokens.dimension.gapInline,
         width: isFill ? '100%' : 'max-content',
-        // Dev §05: never wrap mid-label — host should switch to vertical.
+        // Never wrap mid-label — host should switch to vertical (Dev).
         gridTemplateRows: 'auto',
       }
     : {

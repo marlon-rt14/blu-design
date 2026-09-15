@@ -21,6 +21,7 @@ export * from './radio.tokens';
 export * from './radioGroup.tokens';
 export * from './select.tokens';
 export * from './snackbar.tokens';
+export * from './spinner.tokens';
 export * from './switch.tokens';
 export * from './switchItem.tokens';
 export * from './tabs.tokens';

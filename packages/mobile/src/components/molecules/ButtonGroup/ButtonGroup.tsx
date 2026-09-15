@@ -25,9 +25,9 @@ const mapFillChildren = (children: ReactNode, itemStyle: ViewStyle): ReactNode =
  *
  * Figma slot `actions` → `children`. Owns `orientation`, `distribution` and the
  * gap (`space/inline/md` row, `space/stack/md` column). Hierarchy stays on each
- * Button. No a11y role — not a toolbar or radiogroup (ButtonGroup · Dev §06).
+ * Button. No a11y role — not a toolbar or radiogroup (ButtonGroup · Dev).
  *
- * `distribution="fill"` clones `flex: 1` onto each child (Dev §05). Buttons must
+ * `distribution="fill"` clones `flex: 1` onto each child. Buttons must
  * accept a layout `style` prop — `@dsm/mobile`'s Button does.
  *
  * @example

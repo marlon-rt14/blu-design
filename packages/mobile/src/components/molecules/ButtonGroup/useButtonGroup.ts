@@ -13,8 +13,8 @@ interface IUseButtonGroupResult {
 /**
  * Resolves the RN flex shell for ButtonGroup.
  *
- * `distribution="fill"` puts `flex: 1` on each child (Dev §05). Vertical
- * stretches via `alignItems: 'stretch'` so hug still equalises to the widest.
+ * `distribution="fill"` puts `flex: 1` on each child. Vertical stretches via
+ * `alignItems: 'stretch'` so hug still equalises to the widest.
  */
 export const useButtonGroup = ({
   orientation = 'horizontal',

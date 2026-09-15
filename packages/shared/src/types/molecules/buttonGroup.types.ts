@@ -28,11 +28,11 @@ export type TButtonGroupDistribution = 'hug' | 'fill';
  *
  * **Slot → children.** Figma's `actions` slot is `children` in code. The group
  * never freezes nested props and never invents default Cancelar/Continuar —
- * those are documentation examples only (ButtonGroup · Dev §03 / §08).
+ * those are documentation examples only (ButtonGroup · Dev).
  *
  * **Not a selection control.** No `role="toolbar"` / `radiogroup`. Tab reaches
- * each Button; none stays marked. Order is the children order (open decision
- * on platform primary placement — Dev §07).
+ * each Button; none stays marked. Order is the children order (open Dev
+ * decision on platform primary placement).
  *
  * @example
  * ```tsx

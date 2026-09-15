@@ -324,7 +324,7 @@ one:
   default is `md`** (Figma/Supernova + Dev frame) — not `sm`. Keep partial API:
   `isChecked` + `isIndeterminate` + `showLabel` (Figma axes) — do **not** collapse
   to Dev's `checked: boolean | 'indeterminate'` or presence-based `label` unless
-  asked. Dev §07 says checked+indeterminate is "impossible"; live set description
+  asked. Dev docs say checked+indeterminate is "impossible"; live set description
   says the four combos are valid and indeterminate wins the paint — Figma wins.
   Marks
   are `IconCheck` / `IconMinus` with `color="fixed.white"` (Figma: not on-brand —
@@ -495,13 +495,24 @@ one:
 - **`ButtonGroup` is layout-only — Figma's Cancelar/Continuar are docs, not defaults.** Slot
   `actions` → `children`. The group owns `orientation`, `distribution`, and gap
   (`space/inline/md` row, `space/stack/md` column). It does **not** configure Button
-  appearance/variant/size and ships no nested defaults (ButtonGroup · Dev §03 / §08). Dev §06's
+  appearance/variant/size and ships no nested defaults (ButtonGroup · Dev). Dev's
   "18 tokens" mostly belong to the documentation Button instances — do not put Button colours in
   `buttonGroup.tokens.ts`. `distribution="fill"` = equal parts (web: grid `1fr` tracks; RN: clone
   `flex: 1` onto children). That needs a layout `style` merge on Button — without it RN children
   stay intrinsic-width inside a flex slot. No a11y role on the group. Order = children order
-  (platform primary placement is an open Dev §07 decision). Do not invent wrap: if they don't fit,
+  (platform primary placement is an open Dev decision). Do not invent wrap: if they don't fit,
   host switches to `orientation="vertical"`.
+- **`Spinner` rotation is native-thread only; reduced motion freezes the arc.** Geometry is the
+  live SVG paths on a 24×24 grid (`SPINNER_*_PATH`), sized with `size/icon/{sm,md,lg}`. Colours
+  from `component/spinner/indicator|track/*` by `appearance` (`brand` / `primary` / `on-brand`).
+  Web: CSS `@keyframes` (Image sheen pattern). Mobile native: `Animated.loop` + `useNativeDriver`.
+  Mobile on `Platform.OS === 'web'` (Storybook / RN-web): StyleSheet `animationKeyframes` — RN-web
+  Animated transform does not reliably rotate `react-native-svg` children. Never `setInterval`.
+  **Dev wins over the set description on reduced motion**: stop the spin and leave the arc
+  visible — do **not** swap to an opacity pulse. `label` defaults to `"Cargando"` (missing in
+  Figma; from Dev). Default size is Dev `md`, not Supernova's Figma default `lg`. No cycle-length
+  leaf in theme — `SPINNER_ROTATION_DURATION_MS` (1000) is documented like Coachmark width.
+  `radius/pill` is listed in Dev tokens but unused by the filled-path drawing.
 
 ## Conventions (quick reference — full list in README)
 

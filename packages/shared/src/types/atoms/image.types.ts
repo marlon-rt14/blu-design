@@ -84,7 +84,7 @@ export const resolveImageStatus = ({
  *
  * Fixed-ratio content image: reserves space before the bitmap arrives so the
  * layout does not jump. Axes from Figma: `ratio` × `radius` × `status`. Code
- * adds `src`, `alt`, and `fit` (none exist as Figma properties — Dev §07).
+ * adds `src`, `alt`, and `fit` (none exist as Figma properties — from Dev).
  *
  * `status` is listed on the firma but is **not** for callers in production —
  * it derives from the load. Pass it only to force a variant in stories/tests.
