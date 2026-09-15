@@ -36,6 +36,7 @@ export const Button = (props: IButtonProps): ReactElement => {
     type = 'button',
     leadingIcon: LeadingIcon,
     trailingIcon: TrailingIcon,
+    style,
   } = props;
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
@@ -72,7 +73,7 @@ export const Button = (props: IButtonProps): ReactElement => {
       onMouseLeave={handleMouseLeave}
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
-      style={buttonStyle}
+      style={style === undefined ? buttonStyle : { ...buttonStyle, ...style }}
       type={type}
     >
       {/* No colour is passed: the icons resolve to `currentColor` and inherit

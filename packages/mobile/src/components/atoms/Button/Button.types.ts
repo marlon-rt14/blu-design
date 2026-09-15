@@ -1,5 +1,6 @@
 import type { IButtonBaseProps } from '@dsm/shared';
 import type { ComponentType } from 'react';
+import type { StyleProp, ViewStyle } from 'react-native';
 
 import type { TIconProps } from '../Icon';
 
@@ -58,4 +59,10 @@ export interface IButtonProps extends IButtonBaseProps {
    * that leaves the screen.
    */
   trailingIcon?: TButtonIcon;
+  /**
+   * Layout-only overrides (e.g. `flex: 1` / `width: '100%'` from ButtonGroup
+   * `distribution="fill"`). Merged after token styles so visuals stay owned by
+   * `useButton`.
+   */
+  style?: StyleProp<ViewStyle>;
 }

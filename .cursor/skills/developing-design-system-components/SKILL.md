@@ -22,6 +22,13 @@ the code once.
 Copy this checklist and work through it in order:
 
 ```
+- [ ] -1. MCP gate (HARD STOP): verify BOTH design MCPs before any spec or code.
+       Figma: call `whoami` (or `get_metadata` / `get_screenshot` on the target
+       fileKey). Supernova: call `sn_get_me`. Both must succeed in THIS session.
+       If either namespace is missing, `needsAuth`, errors, or returns empty /
+       auth failures — **stop**. Do not implement from memory, cached screenshots,
+       or Supernova alone. Tell the user which MCP failed and how to reconnect
+       (Figma plugin auth / Supernova MCP). Only continue once both pass again.
 - [ ] 0. Spec: Figma MCP directly on "BDS3 - Core components" (search_design_system, then
        get_design_context / get_metadata / get_screenshot) — the primary design reference.
        **Always locate and read the sibling `«Component» · Dev` / `«Component» · contrato de
@@ -74,6 +81,11 @@ discrepancy before writing code instead of silently picking one. Add any new non
 "Known gotchas" below once the component ships.
 
 ## Design reference — Figma MCP first, Supernova for properties
+
+**Before any of the below:** run the MCP gate in Workflow step `-1`. No Figma
+namespace / failed `whoami` / failed `sn_get_me` → stop. Supernova alone is not
+enough to ship a component (Figma wins on live nodes; without it you cannot
+read Dev frames, screenshots, or pixel context).
 
 Two different MCP servers cover design, and they now have distinct jobs — don't reach for the wrong
 one:
@@ -480,6 +492,16 @@ one:
   be announced too (`aria-live="polite"` / `accessibilityLiveRegion="polite"`), not just visible.
 - **Turbo caching is off on purpose** (see README "Monorepo notes") — a green `pnpm typecheck` /
   `pnpm lint` is a real run, not a replayed cache hit. Don't re-enable caching to "speed things up".
+- **`ButtonGroup` is layout-only — Figma's Cancelar/Continuar are docs, not defaults.** Slot
+  `actions` → `children`. The group owns `orientation`, `distribution`, and gap
+  (`space/inline/md` row, `space/stack/md` column). It does **not** configure Button
+  appearance/variant/size and ships no nested defaults (ButtonGroup · Dev §03 / §08). Dev §06's
+  "18 tokens" mostly belong to the documentation Button instances — do not put Button colours in
+  `buttonGroup.tokens.ts`. `distribution="fill"` = equal parts (web: grid `1fr` tracks; RN: clone
+  `flex: 1` onto children). That needs a layout `style` merge on Button — without it RN children
+  stay intrinsic-width inside a flex slot. No a11y role on the group. Order = children order
+  (platform primary placement is an open Dev §07 decision). Do not invent wrap: if they don't fit,
+  host switches to `orientation="vertical"`.
 
 ## Conventions (quick reference — full list in README)
 

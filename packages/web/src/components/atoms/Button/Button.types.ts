@@ -1,5 +1,5 @@
 import type { IButtonBaseProps } from '@dsm/shared';
-import type { ComponentType, MouseEvent } from 'react';
+import type { ComponentType, CSSProperties, MouseEvent } from 'react';
 
 import type { TIconProps } from '../Icon';
 
@@ -53,4 +53,10 @@ export interface IButtonProps extends IButtonBaseProps {
    * that leaves the page.
    */
   trailingIcon?: TButtonIcon;
+  /**
+   * Layout-only overrides (e.g. `width: '100%'` / `flex: 1` from ButtonGroup
+   * `distribution="fill"`). Merged after token styles so visuals stay owned by
+   * `useButton`.
+   */
+  style?: CSSProperties;
 }
