@@ -1,4 +1,5 @@
 import { cardTokens } from '@dsm/shared';
+import type { TTokensOf } from '@dsm/shared';
 import type { StyleProp, ViewStyle } from 'react-native';
 
 import { useThemeMode } from '../../../theme';
@@ -30,7 +31,7 @@ interface IUseCardResult {
  * Native takes CSS `boxShadow` from 0.76 on the New Architecture. Neither layer
  * has an x offset or a spread: there are no tokens for either.
  */
-const raisedShadow = (tokens: (typeof cardTokens)['light']): string => {
+const raisedShadow = (tokens: TTokensOf<typeof cardTokens>): string => {
   const { colors, dimension } = tokens;
   return [
     `0 ${dimension.raisedShadowFarY}px ${dimension.raisedShadowFarBlur}px ${colors.raisedShadowFar}`,

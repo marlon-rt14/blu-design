@@ -1,6 +1,6 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import type { TIconSize } from '../types/atoms/icon.types';
 import type { TIconButtonAppearance, TIconButtonSize } from '../types/atoms/iconButton.types';
 
@@ -97,8 +97,8 @@ export interface IIconButtonTokens {
   dimension: IIconButtonDimensionTokens;
 }
 
-const readIconButtonTokens = (mode: TThemeMode): IIconButtonTokens => {
-  const { color, dimension } = themeSources[mode];
+const readIconButtonTokens = (key: TThemeSourceKey): IIconButtonTokens => {
+  const { color, dimension } = themeSources[key];
   const colorAt = (path: string): string =>
     readThemeToken(color, `color.component.iconbutton.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
@@ -183,7 +183,4 @@ const readIconButtonTokens = (mode: TThemeMode): IIconButtonTokens => {
  * says `on-media` deepens to 64% when pressed, while the token is `#000000b8`,
  * which is 72%. Default (48%) and hover (56%) do match. Reported to design.
  */
-export const iconButtonTokens: Record<TThemeMode, IIconButtonTokens> = {
-  light: readIconButtonTokens('light'),
-  dark: readIconButtonTokens('dark'),
-};
+export const iconButtonTokens = fromThemeSources(readIconButtonTokens);

@@ -1,16 +1,11 @@
 import { pageColorTokens } from '@dsm/shared';
-import type { TThemeMode } from '@dsm/shared';
+import type { IThemeRequest } from '@dsm/shared';
 import type { CSSProperties, PropsWithChildren, ReactElement } from 'react';
 
 import { ThemeProvider, useFontFamily, useThemeMode } from './theme';
 
 /** Props of {@link BluProvider}. */
-export interface IBluProviderProps extends PropsWithChildren {
-  /**
-   * Forces a theme mode instead of following the OS setting. Used by
-   * Storybook's theme toolbar; app code should normally leave this unset.
-   */
-  mode?: TThemeMode;
+export interface IBluProviderProps extends PropsWithChildren, IThemeRequest {
   /** Extra class applied to the root element, e.g. to size it in Storybook. */
   className?: string;
   /** Extra inline styles, merged after the theme's own background/text/font. */
@@ -46,16 +41,29 @@ const ThemedSurface = ({
  * element with the theme's page background/text/font so a themed page never
  * needs its own CSS for those three properties.
  *
+ * Takes the three theme axes bDS has — `brand`, `mode` and `layout` — and
+ * resolves them to one exported theme. Only one of them can leave its default,
+ * because the export has no combinations; see `resolveTheme` in `@dsm/shared`.
+ *
  * @example
  * ```tsx
- * // App root — follows the OS theme setting:
+ * // App root — follows the OS theme setting, default brand:
  * <BluProvider><App /></BluProvider>
+ * // A screen that belongs to another product:
+ * <BluProvider brand="discover"><Checkout /></BluProvider>
  * // Storybook — forced from the toolbar, sized to fill the canvas:
- * <BluProvider mode={globals.theme} style={{ minHeight: '100vh' }}><Story /></BluProvider>
+ * <BluProvider brand={globals.brand} mode={globals.mode} style={{ minHeight: '100vh' }}><Story /></BluProvider>
  * ```
  */
-export const BluProvider = ({ mode, className, style, children }: IBluProviderProps): ReactElement => (
-  <ThemeProvider mode={mode}>
+export const BluProvider = ({
+  brand,
+  mode,
+  layout,
+  className,
+  style,
+  children,
+}: IBluProviderProps): ReactElement => (
+  <ThemeProvider brand={brand} layout={layout} mode={mode}>
     <ThemedSurface className={className} style={style}>
       {children}
     </ThemedSurface>

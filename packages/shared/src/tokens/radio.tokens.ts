@@ -1,6 +1,6 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import type { TRadioSize } from '../types/atoms/radio.types';
 
 /**
@@ -90,8 +90,8 @@ export interface IRadioTokens {
 /** Baked into Figma's `body` text styles, which are not variables and never export. */
 const LABEL_LINE_HEIGHT_RATIO = 1.5;
 
-const readRadioTokens = (mode: TThemeMode): IRadioTokens => {
-  const { color, dimension } = themeSources[mode];
+const readRadioTokens = (key: TThemeSourceKey): IRadioTokens => {
+  const { color, dimension } = themeSources[key];
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
   const at = (path: string): string => readThemeToken(color, `color.component.radio.${path}`);
 
@@ -211,7 +211,4 @@ const readRadioTokens = (mode: TThemeMode): IRadioTokens => {
  * - `box/border-hover` is painted on **pressed**, and hover uses the overlay.
  * - a disabled selected radio loses its dot.
  */
-export const radioTokens: Record<TThemeMode, IRadioTokens> = {
-  light: readRadioTokens('light'),
-  dark: readRadioTokens('dark'),
-};
+export const radioTokens = fromThemeSources(readRadioTokens);

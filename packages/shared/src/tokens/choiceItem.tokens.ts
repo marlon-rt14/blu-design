@@ -1,6 +1,6 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import type { TChoiceItemSize, TChoiceItemState } from '../types/molecules/choiceItem.types';
 
 /**
@@ -88,8 +88,8 @@ export interface IChoiceItemTokens {
 /** Baked into Figma's text styles, which are not variables and never export. */
 const LINE_HEIGHT_RATIO = 1.5;
 
-const readChoiceItemTokens = (mode: TThemeMode): IChoiceItemTokens => {
-  const { color, dimension } = themeSources[mode];
+const readChoiceItemTokens = (key: TThemeSourceKey): IChoiceItemTokens => {
+  const { color, dimension } = themeSources[key];
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
   const at = (path: string): string => readThemeToken(color, `color.component.choiceitem.${path}`);
   const semanticAt = (path: string): string => readThemeToken(color, `color.color.${path}`);
@@ -170,7 +170,4 @@ const readChoiceItemTokens = (mode: TThemeMode): IChoiceItemTokens => {
  * Foundations rather than deleting them. Consuming them would paint something
  * the design has retired.
  */
-export const choiceItemTokens: Record<TThemeMode, IChoiceItemTokens> = {
-  light: readChoiceItemTokens('light'),
-  dark: readChoiceItemTokens('dark'),
-};
+export const choiceItemTokens = fromThemeSources(readChoiceItemTokens);

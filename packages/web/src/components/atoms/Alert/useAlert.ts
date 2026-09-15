@@ -1,5 +1,5 @@
 import { alertTokens } from '@dsm/shared';
-import type { TAlertPlacement, TAlertStatus } from '@dsm/shared';
+import type { TAlertPlacement, TAlertStatus, TTokensOf } from '@dsm/shared';
 import type { CSSProperties } from 'react';
 
 import { useFontFamily, useThemeMode } from '../../../theme';
@@ -26,7 +26,7 @@ interface IUseAlertResult {
 
 const placementTokens = (
   placement: TAlertPlacement,
-  tokens: (typeof alertTokens)['light'],
+  tokens: TTokensOf<typeof alertTokens>,
 ): (typeof tokens.placements)[TAlertPlacement] => {
   switch (placement) {
     case 'page':

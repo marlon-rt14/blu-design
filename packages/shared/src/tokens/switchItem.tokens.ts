@@ -1,7 +1,7 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
 import type { IThemeTypographyValue } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import { baseFontFamily } from './theme.tokens';
 import type { TSwitchItemSize } from '../types/molecules/switchItem.types';
 
@@ -46,8 +46,8 @@ export interface ISwitchItemTokens {
   };
 }
 
-const readSwitchItemTokens = (mode: TThemeMode): ISwitchItemTokens => {
-  const { color, dimension } = themeSources[mode];
+const readSwitchItemTokens = (key: TThemeSourceKey): ISwitchItemTokens => {
+  const { color, dimension } = themeSources[key];
   const colorAt = (path: string): string =>
     readThemeToken(color, `color.component.switchitem.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
@@ -118,7 +118,4 @@ const readSwitchItemTokens = (mode: TThemeMode): ISwitchItemTokens => {
  * because the component group has no `description.text-default`. Both
  * platforms pick the right entry at render time via `useThemeMode()`.
  */
-export const switchItemTokens: Record<TThemeMode, ISwitchItemTokens> = {
-  light: readSwitchItemTokens('light'),
-  dark: readSwitchItemTokens('dark'),
-};
+export const switchItemTokens = fromThemeSources(readSwitchItemTokens);

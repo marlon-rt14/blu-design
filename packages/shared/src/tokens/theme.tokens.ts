@@ -1,6 +1,6 @@
 import { readThemeToken } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { DEFAULT_THEME_SOURCE_KEY, fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 
 /** Page-level surface colors — the canvas both providers paint behind every component. */
 export interface IPageColorTokens {
@@ -8,8 +8,8 @@ export interface IPageColorTokens {
   text: string;
 }
 
-const readPageColors = (mode: TThemeMode): IPageColorTokens => {
-  const { color } = themeSources[mode];
+const readPageColors = (key: TThemeSourceKey): IPageColorTokens => {
+  const { color } = themeSources[key];
   return {
     background: readThemeToken(color, 'color.color.canvas.background.page'),
     text: readThemeToken(color, 'color.color.text.primary'),
@@ -22,10 +22,7 @@ const readPageColors = (mode: TThemeMode): IPageColorTokens => {
  * `BluProvider` on both platforms paints its root surface from this — see
  * `packages/web/src/BluProvider.tsx` and `packages/mobile/src/BluProvider.tsx`.
  */
-export const pageColorTokens: Record<TThemeMode, IPageColorTokens> = {
-  light: readPageColors('light'),
-  dark: readPageColors('dark'),
-};
+export const pageColorTokens = fromThemeSources(readPageColors);
 
 /**
  * The design system's brand typeface, e.g. `"Mulish"`.
@@ -35,6 +32,6 @@ export const pageColorTokens: Record<TThemeMode, IPageColorTokens> = {
  * `@dsm/web`'s and `@dsm/mobile`'s `theme/` modules.
  */
 export const baseFontFamily: string = readThemeToken(
-  themeSources.light.string,
+  themeSources[DEFAULT_THEME_SOURCE_KEY].string,
   'string.platform.font.family',
 );

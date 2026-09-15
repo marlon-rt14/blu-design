@@ -1,6 +1,6 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import type { TCardPadding } from '../types/atoms/card.types';
 
 /** Every colour a Card needs, resolved for a single theme. */
@@ -76,8 +76,8 @@ export interface ICardTokens {
   dimension: ICardDimensionTokens;
 }
 
-const readCardTokens = (mode: TThemeMode): ICardTokens => {
-  const { color, dimension } = themeSources[mode];
+const readCardTokens = (key: TThemeSourceKey): ICardTokens => {
+  const { color, dimension } = themeSources[key];
   // Note the single `color.` here: the elevation ramp sits at the top level of
   // the export, next to `color.color.*`, not inside it. Same as the Snackbar.
   const colorAt = (path: string): string => readThemeToken(color, `color.${path}`);
@@ -110,7 +110,4 @@ const readCardTokens = (mode: TThemeMode): ICardTokens => {
  * `#333b4d`) and so does the whole raised ramp; the radius and the padding do
  * not.
  */
-export const cardTokens: Record<TThemeMode, ICardTokens> = {
-  light: readCardTokens('light'),
-  dark: readCardTokens('dark'),
-};
+export const cardTokens = fromThemeSources(readCardTokens);

@@ -1,6 +1,6 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 
 /**
  * Colours of one digit box.
@@ -124,8 +124,8 @@ const DIGIT_LINE_HEIGHT_RATIO = 1.2;
 /** Line-height ratio of Figma's `text/caption/md/default`. Not a token. */
 const HELPER_LINE_HEIGHT_RATIO = 1.5;
 
-const readOTPFieldTokens = (mode: TThemeMode): IOTPFieldTokens => {
-  const { color, dimension } = themeSources[mode];
+const readOTPFieldTokens = (key: TThemeSourceKey): IOTPFieldTokens => {
+  const { color, dimension } = themeSources[key];
   const colorAt = (path: string): string =>
     readThemeToken(color, `color.component.otpfield.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
@@ -186,7 +186,4 @@ const readOTPFieldTokens = (mode: TThemeMode): IOTPFieldTokens => {
  * the box as padding, but the box is a fixed 56 square with its digit centred,
  * so the padding never decides anything. Reading it would suggest it does.
  */
-export const otpFieldTokens: Record<TThemeMode, IOTPFieldTokens> = {
-  light: readOTPFieldTokens('light'),
-  dark: readOTPFieldTokens('dark'),
-};
+export const otpFieldTokens = fromThemeSources(readOTPFieldTokens);

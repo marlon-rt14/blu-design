@@ -1,7 +1,7 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
 import type { IThemeTypographyValue } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import { baseFontFamily } from './theme.tokens';
 import type { TTextFieldSize } from '../types/atoms/textField.types';
 
@@ -131,8 +131,8 @@ export interface ITextFieldTokens {
   iconSize: Record<TTextFieldSize, number>;
 }
 
-const readTextFieldTokens = (mode: TThemeMode): ITextFieldTokens => {
-  const { color, dimension } = themeSources[mode];
+const readTextFieldTokens = (key: TThemeSourceKey): ITextFieldTokens => {
+  const { color, dimension } = themeSources[key];
   const colorAt = (path: string): string => readThemeToken(color, `color.component.textfield.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
   // `font.line-height.*` primitives are literal percentages mis-typed as
@@ -249,7 +249,4 @@ const readTextFieldTokens = (mode: TThemeMode): ITextFieldTokens => {
  * match. Both platforms pick the right entry at render time via
  * `useThemeMode()`.
  */
-export const textFieldTokens: Record<TThemeMode, ITextFieldTokens> = {
-  light: readTextFieldTokens('light'),
-  dark: readTextFieldTokens('dark'),
-};
+export const textFieldTokens = fromThemeSources(readTextFieldTokens);

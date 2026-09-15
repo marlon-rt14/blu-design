@@ -1,6 +1,6 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import type { TRadioGroupSize } from '../types/molecules/radioGroup.types';
 
 /** Colours of the legend and the helper. */
@@ -52,8 +52,8 @@ const HELPER_LINE_HEIGHT_RATIO = 1.5;
  */
 const LEGEND_LETTER_SPACING_RATIO = 0.02;
 
-const readRadioGroupTokens = (mode: TThemeMode): IRadioGroupTokens => {
-  const { color, dimension } = themeSources[mode];
+const readRadioGroupTokens = (key: TThemeSourceKey): IRadioGroupTokens => {
+  const { color, dimension } = themeSources[key];
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
   const colorAt = (path: string): string =>
     readThemeToken(color, `color.component.radiogroup.${path}`);
@@ -104,7 +104,4 @@ const readRadioGroupTokens = (mode: TThemeMode): IRadioGroupTokens => {
  * `space/stack/xs` above. The rows slot itself carries no gap — each row brings
  * its own height and vertical inset.
  */
-export const radioGroupTokens: Record<TThemeMode, IRadioGroupTokens> = {
-  light: readRadioGroupTokens('light'),
-  dark: readRadioGroupTokens('dark'),
-};
+export const radioGroupTokens = fromThemeSources(readRadioGroupTokens);

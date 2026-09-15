@@ -7,6 +7,7 @@ export * from './checkbox.tokens';
 export * from './coachmark.tokens';
 export * from './choiceBox.tokens';
 export * from './colors';
+export * from './divider.tokens';
 export * from './radii';
 export * from './spacing';
 export * from './icon.tokens';

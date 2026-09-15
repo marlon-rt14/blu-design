@@ -1,5 +1,5 @@
 import { tabsTokens } from '@dsm/shared';
-import type { TTabSize, TTabsLayout } from '@dsm/shared';
+import type { TTabSize, TTabsLayout, TTokensOf } from '@dsm/shared';
 import type { CSSProperties } from 'react';
 
 import { useFontFamily, usePrefersReducedMotion, useThemeMode } from '../../../theme';
@@ -27,7 +27,7 @@ interface IUseTabItemResult {
   isDisabled: boolean;
 }
 
-const sizeTokensOf = (size: TTabSize, tokens: (typeof tabsTokens)['light']) => {
+const sizeTokensOf = (size: TTabSize, tokens: TTokensOf<typeof tabsTokens>) => {
   switch (size) {
     case 'md':
       return tokens.sizes.md;
@@ -55,7 +55,7 @@ const overlayColorOf = (
   isDisabled: boolean,
   isHovered: boolean,
   isPressed: boolean,
-  tokens: (typeof tabsTokens)['light'],
+  tokens: TTokensOf<typeof tabsTokens>,
 ): string | undefined => {
   if (isDisabled) return undefined;
   if (isPressed) return tokens.colors.surface.overlayPressed;

@@ -1,5 +1,5 @@
 import { snackbarTokens } from '@dsm/shared';
-import type { TSnackbarStatus } from '@dsm/shared';
+import type { TSnackbarStatus, TTokensOf } from '@dsm/shared';
 import type { CSSProperties } from 'react';
 
 import { useFontFamily, useThemeMode } from '../../../theme';
@@ -23,7 +23,7 @@ interface IUseSnackbarResult {
   swipeThreshold: number;
 }
 
-const overlayShadow = (tokens: (typeof snackbarTokens)['light']): string => {
+const overlayShadow = (tokens: TTokensOf<typeof snackbarTokens>): string => {
   const { dimension, colors } = tokens;
   return [
     `0 ${dimension.overlayShadowFarY}px ${dimension.overlayShadowFarBlur}px ${colors.overlayShadowFar}`,

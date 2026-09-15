@@ -1,7 +1,7 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
 import type { IThemeTypographyValue } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import { baseFontFamily } from './theme.tokens';
 import type { TSwitchSize } from '../types/atoms/switch.types';
 
@@ -76,8 +76,8 @@ export interface ISwitchTokens {
   letterSpacing: number;
 }
 
-const readSwitchTokens = (mode: TThemeMode): ISwitchTokens => {
-  const { color, dimension } = themeSources[mode];
+const readSwitchTokens = (key: TThemeSourceKey): ISwitchTokens => {
+  const { color, dimension } = themeSources[key];
   const colorAt = (path: string): string => readThemeToken(color, `color.component.switch.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
   const fontSize = dimensionAt('font.size.overline');
@@ -145,7 +145,4 @@ const readSwitchTokens = (mode: TThemeMode): ISwitchTokens => {
  * primitives. Both platforms pick the right entry at render time via
  * `useThemeMode()`.
  */
-export const switchTokens: Record<TThemeMode, ISwitchTokens> = {
-  light: readSwitchTokens('light'),
-  dark: readSwitchTokens('dark'),
-};
+export const switchTokens = fromThemeSources(readSwitchTokens);

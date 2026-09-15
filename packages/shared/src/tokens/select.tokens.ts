@@ -1,7 +1,7 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
 import type { IThemeTypographyValue } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import { baseFontFamily } from './theme.tokens';
 import type { TSelectSize } from '../types/molecules/select.types';
 
@@ -104,8 +104,8 @@ export interface ISelectTokens {
   iconSize: Record<TSelectSize, number>;
 }
 
-const readSelectTokens = (mode: TThemeMode): ISelectTokens => {
-  const { color, dimension } = themeSources[mode];
+const readSelectTokens = (key: TThemeSourceKey): ISelectTokens => {
+  const { color, dimension } = themeSources[key];
   const colorAt = (path: string): string => readThemeToken(color, `color.component.select.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
   const composedTypographyAt = (
@@ -206,7 +206,4 @@ const readSelectTokens = (mode: TThemeMode): ISelectTokens => {
  * and `theme/dark` — typography is composed from `dimension.font.*`
  * primitives, same reasoning as `textField.tokens.ts`.
  */
-export const selectTokens: Record<TThemeMode, ISelectTokens> = {
-  light: readSelectTokens('light'),
-  dark: readSelectTokens('dark'),
-};
+export const selectTokens = fromThemeSources(readSelectTokens);

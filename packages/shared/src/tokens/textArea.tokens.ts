@@ -1,7 +1,7 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
 import type { IThemeTypographyValue } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import { baseFontFamily } from './theme.tokens';
 
 /** Container colors, keyed by the state that drives them. */
@@ -117,8 +117,8 @@ export interface ITextAreaTokens {
   typography: ITextAreaTypographyTokens;
 }
 
-const readTextAreaTokens = (mode: TThemeMode): ITextAreaTokens => {
-  const { color, dimension } = themeSources[mode];
+const readTextAreaTokens = (key: TThemeSourceKey): ITextAreaTokens => {
+  const { color, dimension } = themeSources[key];
   const colorAt = (path: string): string => readThemeToken(color, `color.component.textarea.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
   // `font.line-height.*` primitives are literal percentages mis-typed as
@@ -201,7 +201,4 @@ const readTextAreaTokens = (mode: TThemeMode): ITextAreaTokens => {
  * (light) and `theme/dark`. Both platforms pick the right entry at render
  * time via `useThemeMode()`.
  */
-export const textAreaTokens: Record<TThemeMode, ITextAreaTokens> = {
-  light: readTextAreaTokens('light'),
-  dark: readTextAreaTokens('dark'),
-};
+export const textAreaTokens = fromThemeSources(readTextAreaTokens);

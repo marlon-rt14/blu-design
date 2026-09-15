@@ -1,7 +1,7 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
 import type { IThemeTypographyValue } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import { baseFontFamily } from './theme.tokens';
 import type { TCheckboxSize } from '../types/atoms/checkbox.types';
 
@@ -66,8 +66,8 @@ export interface ICheckboxTokens {
   dimension: ICheckboxDimensionTokens;
 }
 
-const readCheckboxTokens = (mode: TThemeMode): ICheckboxTokens => {
-  const { color, dimension } = themeSources[mode];
+const readCheckboxTokens = (key: TThemeSourceKey): ICheckboxTokens => {
+  const { color, dimension } = themeSources[key];
   const colorAt = (path: string): string => readThemeToken(color, `color.component.checkbox.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
   // `font.line-height.*` primitives are literal percentages mis-typed as
@@ -133,7 +133,4 @@ const readCheckboxTokens = (mode: TThemeMode): ICheckboxTokens => {
   };
 };
 
-export const checkboxTokens: Record<TThemeMode, ICheckboxTokens> = {
-  light: readCheckboxTokens('light'),
-  dark: readCheckboxTokens('dark'),
-};
+export const checkboxTokens = fromThemeSources(readCheckboxTokens);

@@ -1,7 +1,7 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
 import type { IThemeTypographyValue } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import { baseFontFamily } from './theme.tokens';
 import type { TAlertPlacement, TAlertStatus } from '../types/atoms/alert.types';
 
@@ -60,8 +60,8 @@ export interface IAlertTokens {
   dimension: IAlertDimensionTokens;
 }
 
-const readAlertTokens = (mode: TThemeMode): IAlertTokens => {
-  const { color, dimension } = themeSources[mode];
+const readAlertTokens = (key: TThemeSourceKey): IAlertTokens => {
+  const { color, dimension } = themeSources[key];
   const colorAt = (path: string): string => readThemeToken(color, `color.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
 
@@ -151,7 +151,4 @@ const readAlertTokens = (mode: TThemeMode): IAlertTokens => {
   };
 };
 
-export const alertTokens: Record<TThemeMode, IAlertTokens> = {
-  light: readAlertTokens('light'),
-  dark: readAlertTokens('dark'),
-};
+export const alertTokens = fromThemeSources(readAlertTokens);

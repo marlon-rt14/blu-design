@@ -1,6 +1,6 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import type { TTagAppearance, TTagPalette, TTagSize } from '../types/atoms/tag.types';
 
 export interface ITagAppearanceColorTokens {
@@ -57,8 +57,8 @@ const PALETTES: readonly TTagPalette[] = [
   'indigo',
 ];
 
-const readTagTokens = (mode: TThemeMode): ITagTokens => {
-  const { color, dimension } = themeSources[mode];
+const readTagTokens = (key: TThemeSourceKey): ITagTokens => {
+  const { color, dimension } = themeSources[key];
   const at = (path: string): string => readThemeToken(color, `color.component.tag.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
 
@@ -117,7 +117,4 @@ const readTagTokens = (mode: TThemeMode): ITagTokens => {
 /** Re-exported so consumers can format a line-height from `fontSize` without hardcoding the ratio again. */
 export const TAG_LINE_HEIGHT_RATIO = LINE_HEIGHT_RATIO;
 
-export const tagTokens: Record<TThemeMode, ITagTokens> = {
-  light: readTagTokens('light'),
-  dark: readTagTokens('dark'),
-};
+export const tagTokens = fromThemeSources(readTagTokens);

@@ -1,7 +1,7 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
 import type { IThemeTypographyValue } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import { baseFontFamily } from './theme.tokens';
 import type { TTabSize } from '../types/atoms/tabItem.types';
 
@@ -70,8 +70,8 @@ export interface ITabsTokens {
   badge: IThemeTypographyValue;
 }
 
-const readTabsTokens = (mode: TThemeMode): ITabsTokens => {
-  const { color, dimension } = themeSources[mode];
+const readTabsTokens = (key: TThemeSourceKey): ITabsTokens => {
+  const { color, dimension } = themeSources[key];
   const colorAt = (path: string): string => readThemeToken(color, `color.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
 
@@ -146,7 +146,4 @@ const readTabsTokens = (mode: TThemeMode): ITabsTokens => {
   };
 };
 
-export const tabsTokens: Record<TThemeMode, ITabsTokens> = {
-  light: readTabsTokens('light'),
-  dark: readTabsTokens('dark'),
-};
+export const tabsTokens = fromThemeSources(readTabsTokens);

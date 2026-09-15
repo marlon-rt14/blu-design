@@ -1,5 +1,5 @@
 import { readThemeToken, themeSources } from '@dsm/shared';
-import type { TButtonAppearance, TButtonSize, TButtonVariant, TThemeMode } from '@dsm/shared';
+import type { TButtonAppearance, TButtonSize, TButtonVariant, TThemeSourceKey } from '@dsm/shared';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 import { fn } from 'storybook/test';
@@ -7,6 +7,7 @@ import { fn } from 'storybook/test';
 import { ICON_NAMES } from './iconNames';
 import { PlatformButton } from './PlatformButton';
 import type { IPlatformButtonProps, TPlatform } from './PlatformButton';
+import { themeFromGlobals } from './themeGlobals';
 
 const VARIANTS: TButtonVariant[] = ['primary', 'danger'];
 /** `on-inverse` is excluded: it only exists for `primary`, and needs an inverted surface. */
@@ -33,11 +34,17 @@ const Group = ({ title, children }: { title: string; children: ReactNode }): Rea
  * dropdown — note it goes light in the dark theme, because "inverse" means the
  * opposite of the current surface.
  */
-const InverseSurface = ({ theme, children }: { theme: TThemeMode; children: ReactNode }): ReactNode => (
+const InverseSurface = ({
+  themeKey,
+  children,
+}: {
+  themeKey: TThemeSourceKey;
+  children: ReactNode;
+}): ReactNode => (
   <div
     style={{
       backgroundColor: readThemeToken(
-        themeSources[theme].color,
+        themeSources[themeKey].color,
         'color.color.canvas.background.inverse',
       ),
       padding: 24,
@@ -51,7 +58,7 @@ const InverseSurface = ({ theme, children }: { theme: TThemeMode; children: Reac
       style={{
         fontSize: 12,
         opacity: 0.65,
-        color: readThemeToken(themeSources[theme].color, 'color.color.text.inverse'),
+        color: readThemeToken(themeSources[themeKey].color, 'color.color.text.inverse'),
       }}
     >
       primary · on-inverse
@@ -175,7 +182,7 @@ export const Playground: TStory = {};
 export const Appearances: TStory = {
   render: (args, { globals }) => {
     const platform = globals.platform as TPlatform;
-    const theme = globals.theme as TThemeMode;
+    const { key: themeKey } = themeFromGlobals(globals);
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
@@ -193,7 +200,7 @@ export const Appearances: TStory = {
             ))}
           </Group>
         ))}
-        <InverseSurface theme={theme}>
+        <InverseSurface themeKey={themeKey}>
           <PlatformButton
             {...args}
             appearance="on-inverse"

@@ -1,6 +1,6 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import type { TImageRadius } from '../types/atoms/image.types';
 
 export interface IImageSurfaceColorTokens {
@@ -44,8 +44,8 @@ export interface IImageTokens {
   dimension: IImageDimensionTokens;
 }
 
-const readImageTokens = (mode: TThemeMode): IImageTokens => {
-  const { color, dimension } = themeSources[mode];
+const readImageTokens = (key: TThemeSourceKey): IImageTokens => {
+  const { color, dimension } = themeSources[key];
   const colorAt = (path: string): string => readThemeToken(color, `color.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
 
@@ -77,7 +77,4 @@ const readImageTokens = (mode: TThemeMode): IImageTokens => {
   };
 };
 
-export const imageTokens: Record<TThemeMode, IImageTokens> = {
-  light: readImageTokens('light'),
-  dark: readImageTokens('dark'),
-};
+export const imageTokens = fromThemeSources(readImageTokens);
