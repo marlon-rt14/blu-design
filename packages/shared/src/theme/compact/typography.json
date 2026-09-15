@@ -1,0 +1,747 @@
+{
+  "_comment": "This file was generated automatically by Supernova.io and should not be changed manually. To modify the format or content of this file, please contact your design system team.",
+  "typography": {
+    "semantic": {
+      "typography": {
+        "numbers": {
+          "regular": {
+            "100": {
+              "value": "400 11px/14px Mulish",
+              "type": "typography"
+            },
+            "200": {
+              "value": "400 13px/16px Mulish",
+              "type": "typography"
+            },
+            "300": {
+              "value": "400 14px/17px Mulish",
+              "type": "typography"
+            },
+            "400": {
+              "value": "400 16px/20px Mulish",
+              "type": "typography"
+            },
+            "500": {
+              "value": "400 18px/22px Mulish",
+              "type": "typography"
+            },
+            "600": {
+              "value": "400 22px/27px Mulish",
+              "type": "typography"
+            },
+            "700": {
+              "value": "400 24px/30px Mulish",
+              "type": "typography"
+            },
+            "800": {
+              "value": "400 28px/35px Mulish",
+              "type": "typography"
+            },
+            "900": {
+              "value": "400 32px/40px Mulish",
+              "type": "typography"
+            },
+            "1000": {
+              "value": "400 36px/44px Mulish",
+              "type": "typography"
+            },
+            "1100": {
+              "value": "400 42px/52px Mulish",
+              "type": "typography"
+            }
+          },
+          "medium": {
+            "100": {
+              "value": "500 11px/14px Mulish",
+              "type": "typography"
+            },
+            "200": {
+              "value": "500 13px/16px Mulish",
+              "type": "typography"
+            },
+            "300": {
+              "value": "500 14px/17px Mulish",
+              "type": "typography"
+            },
+            "400": {
+              "value": "500 16px/20px Mulish",
+              "type": "typography"
+            },
+            "500": {
+              "value": "500 18px/22px Mulish",
+              "type": "typography"
+            },
+            "600": {
+              "value": "500 22px/27px Mulish",
+              "type": "typography"
+            },
+            "700": {
+              "value": "500 24px/30px Mulish",
+              "type": "typography"
+            },
+            "800": {
+              "value": "500 28px/35px Mulish",
+              "type": "typography"
+            },
+            "900": {
+              "value": "500 32px/40px Mulish",
+              "type": "typography"
+            },
+            "1000": {
+              "value": "500 36px/44px Mulish",
+              "type": "typography"
+            },
+            "1100": {
+              "value": "500 42px/52px Mulish",
+              "type": "typography"
+            }
+          },
+          "bold": {
+            "100": {
+              "value": "700 11px/14px Mulish",
+              "type": "typography"
+            },
+            "200": {
+              "value": "700 13px/16px Mulish",
+              "type": "typography"
+            },
+            "300": {
+              "value": "700 14px/17px Mulish",
+              "type": "typography"
+            },
+            "400": {
+              "value": "700 16px/20px Mulish",
+              "type": "typography"
+            },
+            "500": {
+              "value": "700 18px/22px Mulish",
+              "type": "typography"
+            },
+            "600": {
+              "value": "700 22px/27px Mulish",
+              "type": "typography"
+            },
+            "700": {
+              "value": "700 24px/30px Mulish",
+              "type": "typography"
+            },
+            "800": {
+              "value": "700 28px/35px Mulish",
+              "type": "typography"
+            },
+            "900": {
+              "value": "700 32px/40px Mulish",
+              "type": "typography"
+            },
+            "1000": {
+              "value": "700 36px/44px Mulish",
+              "type": "typography"
+            },
+            "1100": {
+              "value": "700 42px/52px Mulish",
+              "type": "typography"
+            }
+          }
+        },
+        "text": {
+          "regular": {
+            "100": {
+              "value": "400 11px/14px Mulish",
+              "type": "typography"
+            },
+            "200": {
+              "value": "400 13px/16px Mulish",
+              "type": "typography"
+            },
+            "300": {
+              "value": "400 14px/17px Mulish",
+              "type": "typography"
+            },
+            "400": {
+              "value": "400 16px/20px Mulish",
+              "type": "typography"
+            },
+            "500": {
+              "value": "400 18px/22px Mulish",
+              "type": "typography"
+            },
+            "600": {
+              "value": "400 22px/27px Mulish",
+              "type": "typography"
+            },
+            "700": {
+              "value": "400 24px/30px Mulish",
+              "type": "typography"
+            },
+            "800": {
+              "value": "400 28px/35px Mulish",
+              "type": "typography"
+            },
+            "900": {
+              "value": "400 32px/40px Mulish",
+              "type": "typography"
+            },
+            "1000": {
+              "value": "400 36px/44px Mulish",
+              "type": "typography"
+            },
+            "1100": {
+              "value": "400 42px/52px Mulish",
+              "type": "typography"
+            }
+          },
+          "medium": {
+            "100": {
+              "value": "500 11px/14px Mulish",
+              "type": "typography"
+            },
+            "200": {
+              "value": "500 13px/16px Mulish",
+              "type": "typography"
+            },
+            "300": {
+              "value": "500 14px/17px Mulish",
+              "type": "typography"
+            },
+            "400": {
+              "value": "500 16px/20px Mulish",
+              "type": "typography"
+            },
+            "500": {
+              "value": "500 18px/22px Mulish",
+              "type": "typography"
+            },
+            "600": {
+              "value": "500 22px/27px Mulish",
+              "type": "typography"
+            },
+            "700": {
+              "value": "500 24px/30px Mulish",
+              "type": "typography"
+            },
+            "800": {
+              "value": "500 28px/35px Mulish",
+              "type": "typography"
+            },
+            "900": {
+              "value": "500 32px/40px Mulish",
+              "type": "typography"
+            },
+            "1000": {
+              "value": "500 36px/44px Mulish",
+              "type": "typography"
+            },
+            "1100": {
+              "value": "500 42px/52px Mulish",
+              "type": "typography"
+            }
+          },
+          "bold": {
+            "100": {
+              "value": "700 11px/14px Mulish",
+              "type": "typography"
+            },
+            "200": {
+              "value": "700 13px/16px Mulish",
+              "type": "typography"
+            },
+            "300": {
+              "value": "700 14px/17px Mulish",
+              "type": "typography"
+            },
+            "400": {
+              "value": "700 16px/20px Mulish",
+              "type": "typography"
+            },
+            "500": {
+              "value": "700 18px/22px Mulish",
+              "type": "typography"
+            },
+            "600": {
+              "value": "700 22px/27px Mulish",
+              "type": "typography"
+            },
+            "700": {
+              "value": "700 24px/30px Mulish",
+              "type": "typography"
+            },
+            "800": {
+              "value": "700 28px/35px Mulish",
+              "type": "typography"
+            },
+            "900": {
+              "value": "700 32px/40px Mulish",
+              "type": "typography"
+            },
+            "1000": {
+              "value": "700 36px/44px Mulish",
+              "type": "typography"
+            },
+            "1100": {
+              "value": "700 42px/52px Mulish",
+              "type": "typography"
+            }
+          },
+          "regular-underline": {
+            "100": {
+              "value": "400 11px/14px Mulish",
+              "type": "typography"
+            },
+            "200": {
+              "value": "400 13px/16px Mulish",
+              "type": "typography"
+            },
+            "300": {
+              "value": "400 14px/17px Mulish",
+              "type": "typography"
+            },
+            "400": {
+              "value": "400 16px/20px Mulish",
+              "type": "typography"
+            },
+            "500": {
+              "value": "400 18px/22px Mulish",
+              "type": "typography"
+            },
+            "600": {
+              "value": "400 22px/27px Mulish",
+              "type": "typography"
+            },
+            "700": {
+              "value": "400 24px/30px Mulish",
+              "type": "typography"
+            },
+            "800": {
+              "value": "400 28px/35px Mulish",
+              "type": "typography"
+            },
+            "900": {
+              "value": "400 32px/40px Mulish",
+              "type": "typography"
+            },
+            "1000": {
+              "value": "400 36px/44px Mulish",
+              "type": "typography"
+            },
+            "1100": {
+              "value": "400 42px/52px Mulish",
+              "type": "typography"
+            }
+          },
+          "medium-underline": {
+            "100": {
+              "value": "500 11px/14px Mulish",
+              "type": "typography"
+            },
+            "200": {
+              "value": "500 13px/16px Mulish",
+              "type": "typography"
+            },
+            "300": {
+              "value": "500 14px/17px Mulish",
+              "type": "typography"
+            },
+            "400": {
+              "value": "500 16px/20px Mulish",
+              "type": "typography"
+            },
+            "500": {
+              "value": "500 18px/22px Mulish",
+              "type": "typography"
+            },
+            "600": {
+              "value": "500 22px/27px Mulish",
+              "type": "typography"
+            },
+            "700": {
+              "value": "500 24px/30px Mulish",
+              "type": "typography"
+            },
+            "800": {
+              "value": "500 28px/35px Mulish",
+              "type": "typography"
+            },
+            "900": {
+              "value": "500 32px/40px Mulish",
+              "type": "typography"
+            },
+            "1000": {
+              "value": "500 36px/44px Mulish",
+              "type": "typography"
+            },
+            "1100": {
+              "value": "500 42px/52px Mulish",
+              "type": "typography"
+            }
+          },
+          "bold-underline": {
+            "100": {
+              "value": "700 11px/14px Mulish",
+              "type": "typography"
+            },
+            "200": {
+              "value": "700 13px/16px Mulish",
+              "type": "typography"
+            },
+            "300": {
+              "value": "700 14px/17px Mulish",
+              "type": "typography"
+            },
+            "400": {
+              "value": "700 16px/20px Mulish",
+              "type": "typography"
+            },
+            "500": {
+              "value": "700 18px/22px Mulish",
+              "type": "typography"
+            },
+            "600": {
+              "value": "700 22px/27px Mulish",
+              "type": "typography"
+            },
+            "700": {
+              "value": "700 24px/30px Mulish",
+              "type": "typography"
+            },
+            "800": {
+              "value": "700 28px/35px Mulish",
+              "type": "typography"
+            },
+            "900": {
+              "value": "700 32px/40px Mulish",
+              "type": "typography"
+            },
+            "1000": {
+              "value": "700 36px/44px Mulish",
+              "type": "typography"
+            },
+            "1100": {
+              "value": "700 42px/52px Mulish",
+              "type": "typography"
+            }
+          }
+        }
+      }
+    },
+    "component": {
+      "button": {
+        "typography": {
+          "primary": {
+            "value": "400 16px/20px Mulish",
+            "type": "typography"
+          },
+          "secondary": {
+            "value": "400 16px/20px Mulish",
+            "type": "typography"
+          },
+          "link": {
+            "value": "400 16px/20px Mulish",
+            "type": "typography"
+          }
+        }
+      },
+      "badge": {
+        "typography": {
+          "label": {
+            "default": {
+              "value": "400 13px/16px Mulish",
+              "type": "typography"
+            },
+            "new": {
+              "value": "700 11px/14px Mulish",
+              "type": "typography"
+            },
+            "number-default": {
+              "value": "400 13px/16px Mulish",
+              "type": "typography"
+            },
+            "number-new": {
+              "value": "700 11px/14px Mulish",
+              "type": "typography"
+            }
+          }
+        }
+      },
+      "chip": {
+        "typography": {
+          "label": {
+            "value": "400 13px/16px Mulish",
+            "type": "typography"
+          }
+        }
+      },
+      "inputs": {
+        "input-number": {
+          "input-number-field": {
+            "typography": {
+              "value": "400 16px/20px Mulish",
+              "type": "typography"
+            }
+          }
+        },
+        "input-text": {
+          "typography": {
+            "text-holder": {
+              "value": "400 13px/16px Mulish",
+              "type": "typography"
+            },
+            "content": {
+              "value": "400 14px/17px Mulish",
+              "type": "typography"
+            },
+            "helper": {
+              "value": "400 13px/16px Mulish",
+              "type": "typography"
+            },
+            "character-count": {
+              "value": "400 11px/14px Mulish",
+              "type": "typography"
+            }
+          }
+        },
+        "input-amount": {
+          "typography": {
+            "title-text": {
+              "value": "400 16px/20px Mulish",
+              "type": "typography"
+            },
+            "currency": {
+              "value": "700 42px/52px Mulish",
+              "type": "typography"
+            },
+            "number": {
+              "value": "700 42px/52px Mulish",
+              "type": "typography"
+            },
+            "typing": {
+              "value": "400 42px/52px Mulish",
+              "type": "typography"
+            },
+            "helper-text": {
+              "value": "400 13px/16px Mulish",
+              "type": "typography"
+            }
+          }
+        },
+        "input-password": {
+          "typography": {
+            "password-requirement": {
+              "value": "400 14px/17px Mulish",
+              "type": "typography"
+            },
+            "warning-restriction": {
+              "value": "400 13px/16px Mulish",
+              "type": "typography"
+            }
+          }
+        }
+      },
+      "templates": {
+        "tutorial": {
+          "typography": {
+            "container": {
+              "text-container": {
+                "title": {
+                  "value": "700 24px/30px Mulish",
+                  "type": "typography"
+                },
+                "description": {
+                  "value": "400 16px/20px Mulish",
+                  "type": "typography"
+                }
+              }
+            }
+          }
+        }
+      },
+      "header": {
+        "typography": {
+          "title": {
+            "value": "500 22px/27px Mulish",
+            "type": "typography"
+          },
+          "subtitle": {
+            "value": "400 16px/20px Mulish",
+            "type": "typography"
+          }
+        }
+      },
+      "alert": {
+        "typography": {
+          "title": {
+            "value": "700 14px/17px Mulish",
+            "type": "typography"
+          },
+          "subtitle": {
+            "value": "400 14px/17px Mulish",
+            "type": "typography"
+          },
+          "subtitle-bold": {
+            "value": "700 14px/17px Mulish",
+            "type": "typography"
+          }
+        }
+      },
+      "toast": {
+        "typography": {
+          "title": {
+            "value": "700 14px/17px Mulish",
+            "type": "typography"
+          },
+          "subtitle": {
+            "value": "400 14px/17px Mulish",
+            "type": "typography"
+          },
+          "link-button": {
+            "value": "400 14px/17px Mulish",
+            "type": "typography"
+          }
+        }
+      },
+      "checkbox": {
+        "labeled": {
+          "text": {
+            "default": {
+              "typography": {
+                "value": "400 16px/20px Mulish",
+                "type": "typography"
+              }
+            },
+            "link": {
+              "typography": {
+                "value": "400 16px/20px Mulish",
+                "type": "typography"
+              }
+            }
+          }
+        }
+      },
+      "button-slide": {
+        "typography": {
+          "value": "400 16px/20px Mulish",
+          "type": "typography"
+        }
+      },
+      "search-field": {
+        "typography": {
+          "text-holder": {
+            "value": "400 16px/20px Mulish",
+            "type": "typography"
+          },
+          "helper-text": {
+            "value": "400 13px/16px Mulish",
+            "type": "typography"
+          },
+          "character-count": {
+            "value": "400 11px/14px Mulish",
+            "type": "typography"
+          }
+        }
+      },
+      "selector": {
+        "text-style": {
+          "selector-option": {
+            "value": "400 13px/16px Mulish",
+            "type": "typography"
+          },
+          "selector-group": {
+            "value": "400 14px/17px Mulish",
+            "type": "typography"
+          }
+        }
+      },
+      "dropdown-mobile": {
+        "text-style": {
+          "title": {
+            "value": "400 14px/17px Mulish",
+            "type": "typography"
+          },
+          "placeholder": {
+            "value": "400 16px/20px Mulish",
+            "type": "typography"
+          },
+          "helper-text": {
+            "value": "400 13px/16px Mulish",
+            "type": "typography"
+          }
+        }
+      },
+      "drop-down-menu": {
+        "cancel": {
+          "typography": {
+            "text": {
+              "value": "400 16px/20px Mulish",
+              "type": "typography"
+            }
+          }
+        },
+        "title-menu": {
+          "typography": {
+            "only-one": {
+              "value": "400 16px/20px Mulish",
+              "type": "typography"
+            },
+            "top": {
+              "value": "400 16px/20px Mulish",
+              "type": "typography"
+            },
+            "middle": {
+              "value": "400 16px/20px Mulish",
+              "type": "typography"
+            },
+            "bottom": {
+              "value": "400 16px/20px Mulish",
+              "type": "typography"
+            }
+          }
+        }
+      },
+      "tabs-mobile": {
+        "tab-item": {
+          "text": {
+            "typography": {
+              "default": {
+                "value": "400 14px/17px Mulish",
+                "type": "typography"
+              },
+              "selected": {
+                "value": "700 14px/17px Mulish",
+                "type": "typography"
+              }
+            }
+          }
+        }
+      },
+      "system-alert-blu": {
+        "content": {
+          "title": {
+            "typography": {
+              "value": "700 18px/22px Mulish",
+              "type": "typography"
+            }
+          },
+          "message": {
+            "typography": {
+              "value": "400 14px/17px Mulish",
+              "type": "typography"
+            }
+          }
+        },
+        "alert-button": {
+          "bold": {
+            "typography": {
+              "value": "700 16px/20px Mulish",
+              "type": "typography"
+            }
+          },
+          "regular": {
+            "typography": {
+              "value": "400 16px/20px Mulish",
+              "type": "typography"
+            }
+          }
+        }
+      }
+    }
+  }
+}
