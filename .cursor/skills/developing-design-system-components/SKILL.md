@@ -3,11 +3,10 @@ name: developing-design-system-components
 description: >-
   Build or extend a design-system component (web + React Native) in this
   monorepo: spec it against the Figma MCP ("BDS3 - Core components") and
-  Supernova's property/variant data, consume tokens from the Supernova theme
-  export, and ship Storybook stories for both platforms. Use when adding a
-  new component under packages/web or packages/mobile, adding a
-  size/variant/state to an existing one, or wiring a component to new
-  tokens.
+  Supernova's property/variant data, consume tokens via fromThemeSources /
+  TThemeSourceKey (brand × mode × layout), and ship Storybook stories for both
+  platforms. Use when adding a component under packages/web or packages/mobile,
+  adding a size/variant/state, or wiring tokens after a theme sync.
 ---
 
 # Developing design system components
@@ -41,15 +40,20 @@ Copy this checklist and work through it in order:
        Prefer the Dev firma for public prop names/defaults; keep Figma `show*` / independent
        booleans when the team has chosen partial (Alert/Snackbar/Checkbox style) unless the
        user asks for Dev-full.
-- [ ] 2. Tokens: src/tokens/<name>.tokens.ts in @dsm/shared — one Record<TThemeMode, I<Name>Tokens>,
-       reading color/dimension/typography from theme/{base,dark} via themeSource, ALL per mode.
-- [ ] 3. Web: four-file component folder, use<Name>.ts returns CSSProperties from tokens[mode] + local
-       hover/focus state. No CSS generator, no build step — see "Tokens" below.
+- [ ] 2. Tokens: src/tokens/<name>.tokens.ts in @dsm/shared — `fromThemeSources(read)` →
+       `Record<TThemeSourceKey, I<Name>Tokens>`. Reader takes `key: TThemeSourceKey`, reads
+       `themeSources[key]` via `readThemeToken` / `readThemeDimension` / `readThemeTypography`.
+       Never hand-roll `{ light: …, dark: … }` — keys are composed (`light@compact`, …).
+- [ ] 3. Web: four-file component folder, use<Name>.ts returns CSSProperties from
+       tokens[useThemeMode()] + local hover/focus state. `useThemeMode()` returns
+       `TThemeSourceKey` (not a bare mode). No CSS generator — see "Tokens" below.
 - [ ] 4. Mobile: four-file component folder, use<Name>.ts returns StyleSheet-compatible objects from
-       tokens[mode] + local focus state (no hover on touch).
+       tokens[useThemeMode()] + local focus state (no hover on touch).
 - [ ] 5. Barrels: atoms/index.ts (or the right level) in both @dsm/web and @dsm/mobile
 - [ ] 6. Storybook: Platform<Name>.tsx wrapper + <Name>.stories.tsx covering every Figma state and
-       every independently-toggleable prop combination
+       every independently-toggleable prop combination. Toolbar axes are **brand / mode / layout**
+       (not a single `theme` global). Surface colours in stories: `themeFromGlobals(globals).key`
+       → `themeSources[key]` — see `Button.stories.tsx` / `themeGlobals.ts`.
 - [ ] 7. Verify: pnpm typecheck && pnpm lint && pnpm build-storybook
 ```
 
@@ -128,31 +132,70 @@ one:
   component isn't specced in Figma just because it's missing from the page list; try the node-id from
   the design URL directly first.
 
-## Tokens — read from `theme/`, never hand-roll
+## Tokens — three axes, composed keys, never hand-roll
 
-- Source of truth is `packages/shared/src/theme/{base,dark}/*.json` (Supernova's own export,
-  already resolved). **`theme/` holds only that JSON** — the sync pipeline replaces the whole folder
-  on every run, so nothing hand-written lives inside it. Read it with `readThemeToken` /
-  `readThemeDimension` / `readThemeTypography`, barrel-exported from `@dsm/shared`'s
-  `themeSource/index.ts` (a sibling folder, safe from the sync) — never copy a literal color/px value
-  into a `.tokens.ts` file or a component.
-- **`dimension.json` is NOT fully theme-invariant — read every field per mode.** Only
-  `typography.json` and `string.json` are byte-identical between `base` and `dark`.
-  `dimension.elevation.{raised,overlay}.shadow.*` (7 tokens) actually differs. A component's
-  `.tokens.ts` should collapse into a single `Record<TThemeMode, I<Name>Tokens>` reading `color`,
-  `dimension` and `typography` all from `themeSources[mode]` — never assume `light` is a safe
-  stand-in for `dark` for a field you haven't diffed, even if today's two numbers happen to match.
-- **No build step, on either platform — this replaced a CSS generator.** A component's `use<Name>.ts`
-  hook calls `useThemeMode()`, indexes into `<name>Tokens[mode]`, and returns plain style objects
-  directly — `CSSProperties` on web, `StyleSheet`-compatible objects on mobile. There is no
-  `generate-web-theme.mjs` anymore and no per-component path list to keep in sync; adding a component
-  never touches a shared generator file. The one thing that must stay in real CSS is `::placeholder`
-  (a pseudo-element — no inline-style equivalent): apply the shared `dsm-input` class from
-  `packages/web/src/styles/pseudo.css` and set `--dsm-input-placeholder-color` inline from the token.
-  Don't create a new CSS file for a new component's placeholder — extend `pseudo.css`.
+bDS themes are **three Figma variable collections**, not a single light/dark switch:
+
+| Axis | Type | Default | What it moves |
+| --- | --- | --- | --- |
+| **Brand** (`2. Brand`) | `TThemeBrand` | `blu` | ~180 colours (`brand/*`, `role/brand`, brand-tinted components) |
+| **Mode** (`3. Semantic`) | `TThemeMode` | `light` | ~1042 colours (+ a few mode dimension/elevation leaves) |
+| **Layout** (`4. Layout`) | `TThemeLayout` | `compact` | 34 dimension tokens (`space/*`, `font/size/*`, `radius/*`, …) — **0 colour** |
+
+- Source JSON lives under `packages/shared/src/theme/<folder>/*.json` (Supernova export). Folders
+  include modes (`light`, `dark`, `mc-*`, `hc-*`), brands (`titanium`, `discover`, …), and layouts
+  (`compact`, `regular`, `expanded`). **`theme/` holds only that JSON** — the sync pipeline replaces
+  the whole folder; readers live in `themeSource/` (safe from the sync).
+- **`themeSources` is keyed by `TThemeSourceKey` = `` `${colorSource}@${layout}` ``**
+  (e.g. `light@compact`, `dark@regular`, `discover@expanded`) — **30 entries**, not `'light' | 'dark'`.
+  Layout composes with colour sources because their dimension edits are disjoint
+  (`composeDimension` in `themes.ts`). Brand × non-default mode is the one impossible combo —
+  `resolveTheme` keeps the **mode** (contrast) and drops the brand; `isExact` is `false`.
+- **Component tokens always use `fromThemeSources`:**
+
+  ```ts
+  const readFooTokens = (key: TThemeSourceKey): IFooTokens => {
+    const { color, dimension } = themeSources[key];
+    // readThemeToken / readThemeDimension / readThemeTypography — never literals
+    …
+  };
+  export const fooTokens = fromThemeSources(readFooTokens);
+  ```
+
+  That yields `Record<TThemeSourceKey, IFooTokens>`. Nest size/state axes *inside* each entry.
+  Reference: `divider.tokens.ts`, `alert.tokens.ts`, `spinner.tokens.ts`.
+- **Never** write `{ light: read('light'), dark: read('dark') }` or index `themeSources['light']`.
+  Those keys do not exist. Doing so throws at **module init** when the barrel loads and kills
+  **every** Storybook story (blank canvas / stuck spinner) — hit once after the multi-axis merge.
+- **`useThemeMode()` returns `TThemeSourceKey`** (kept name for call-site stability). Index with
+  `<name>Tokens[useThemeMode()]`. Need the axes / `isExact`? → `useResolvedTheme()`.
+  For a single theme's shape in types: `TTokensOf<typeof fooTokens>`, not `typeof fooTokens['light']`.
+- **Invariant-ish files:** `typography.json` and `string.json` are identical across exports (imported
+  once). Dimension is **not** invariant — layout moves spacing/type scale; modes move elevation /
+  border / focus leaves. Never assume `light@compact` equals another key for a field you haven't
+  checked.
+- Theme-invariant constants (font family, Snackbar dwell, Spinner rotation ms): read from
+  `themeSources[DEFAULT_THEME_SOURCE_KEY]` or a documented constant — don't invent a key literal.
+- **No build step.** `use<Name>.ts` → tokens[key] → `CSSProperties` / RN styles. Placeholder seam
+  only: shared `dsm-input` class + `--dsm-input-placeholder-color` in `pseudo.css`.
+- **`BluProvider`** takes optional `brand` / `mode` / `layout` (`IThemeRequest`). Storybook passes
+  all three from the toolbar via `ThemedStory` + `themeFromGlobals` — not a single `theme` global.
 
 ## Known gotchas (each of these was a real bug once — don't reintroduce them)
 
+- **`fromThemeSources` is mandatory after the multi-axis theme.** Hand-written
+  `Record<TThemeMode, …>` with only `light`/`dark` and `themeSources[mode]` where `mode` is
+  `'light'` crashes on import (`Cannot destructure … of undefined`). Symptoms: Storybook manager
+  loads, canvas stuck preparing, *all* stories broken — not just the new component. Fix before
+  shipping any component that touches `@dsm/shared` tokens.
+- **Storybook toolbar is brand × mode × layout.** Old stories that read `globals.theme` or paint
+  with `themeSources[globals.theme as TThemeMode]` are wrong. Use `themeFromGlobals(globals)` from
+  `apps/web-demo/src/stories/themeGlobals.ts` and index `themeSources[key]`. Stale localStorage
+  globals after the migration can confuse the toolbar — hard-refresh / clear site data for
+  `localhost:6006` if axes look wrong.
+- **Brand in a non-default mode falls back.** Toolbar can ask for `discover` + `dark`; export
+  cannot. `resolveTheme` keeps dark, drops brand, `isExact: false`. `ThemedStory` shows
+  `FallbackNotice` — don't invent a fake combined palette.
 - **`label` doubles as the placeholder — there is no separate `placeholder` prop, on either
   `TextField` or `TextArea`.** Figma's own node has one text element whose bound property switches
   between `label` (while empty — it renders in place of a value) and `value` (once there is one);

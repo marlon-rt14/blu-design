@@ -55,58 +55,50 @@ in the web demo.
 ## Storybook 
 
 `pnpm storybook` serves a single Storybook that documents **both** implementations.
-The **Platform** dropdown in the toolbar decides which one renders:
+Toolbar globals:
 
-| Option | Package | How it renders |
+| Global | Values | Role |
 | --- | --- | --- |
-| React | `@dsm/web` | Natively in the browser |
-| React Native | `@dsm/mobile` | Through react-native-web |
+| **Platform** | React / React Native | Which package renders (`@dsm/web` vs `@dsm/mobile` via react-native-web) |
+| **Brand** | blu, titanium, discover, … | Figma `2. Brand` |
+| **Mode** | light, dark, mc-*, hc-* | Figma `3. Semantic` |
+| **Layout** | compact, regular, expanded | Figma `4. Layout` |
 
-Stories are written once, against the shared `@dsm/shared` contract, and
-`apps/web-demo/src/stories/PlatformButton.tsx` maps the neutral `onAction` prop to
-whichever handler each platform expects (`onClick` vs `onPress`). Copy that helper's
-shape when adding the next component.
+`ThemedStory` + `themeFromGlobals` resolve those three axes through `resolveTheme` and pass
+`brand` / `mode` / `layout` into both `BluProvider`s. Stories that need a surface colour read
+`themeFromGlobals(globals).key` then `themeSources[key]` — see `Button.stories.tsx`. Do **not**
+read a legacy `globals.theme`.
 
-Autodocs are enabled globally in `.storybook/preview.tsx`, so every component gets a
-Docs page with its props table. The tables declare `argTypes` explicitly because
+Stories are written once against `@dsm/shared`. `PlatformButton.tsx` maps neutral handlers
+(`onAction` → `onClick` / `onPress`); copy that shape for new components.
+
+Autodocs are enabled globally in `.storybook/preview.tsx`. Declare `argTypes` explicitly —
 react-docgen cannot resolve props inherited from another package.
 
 ## Theming & tokens
 
-Supernova's own pipeline — not Style Dictionary — is the source of resolved token JSON, synced into
-`packages/shared/src/theme/{base,dark}/{color,dimension,typography,string}.json`. `base` is the light
-theme; `dark` is dark. Both ship fully resolved (no `{alias}` refs left), keyed by a dot path that
-mirrors Supernova's own token tree (e.g. `color.component.textfield.container.border-focus`).
+Themes are **three axes** (brand × mode × layout), composed into
+`TThemeSourceKey` keys like `light@compact`. Supernova exports flat folders under
+`packages/shared/src/theme/<folder>/{color,dimension,typography,string}.json`
+(modes, brands, layouts). Fully resolved (no `{alias}` refs). Dot paths mirror Supernova
+(e.g. `color.component.textfield.container.border-focus`).
 
-**`theme/` holds nothing but that JSON.** The sync pipeline replaces the whole folder on every run, so
-no hand-written file lives inside it — the utilities that read it live one level up, in
-`packages/shared/src/themeSource/` (barrel-exported, so components import from `@dsm/shared` directly):
+**`theme/` holds nothing but that JSON.** Sync replaces the whole folder; readers live in
+`packages/shared/src/themeSource/` (barrel-exported from `@dsm/shared`):
 
-- `packages/shared/src/themeSource/tokenPath.ts` — `readThemeToken` / `readThemeDimension` /
-  `readThemeTypography` walk that JSON by path and throw if a token is missing, instead of silently
-  rendering a blank style.
-- `packages/shared/src/themeSource/themes.ts` — `themeSources` maps `'light' | 'dark'` to the parsed
-  JSON (imported from `../theme/{base,dark}/*.json`). **Only `typography.json` and `string.json` are
-  actually theme-invariant.** `dimension.json` is not — `dimension.elevation.{raised,overlay}.shadow.*`
-  differs between `base` and `dark` — so component token files read `color`, `dimension` **and**
-  `typography` per mode; never assume `light` is a safe stand-in for `dark` just because today's numbers
-  happen to match.
-- `packages/shared/src/tokens/<name>.tokens.ts` — one file per component, reading every path it needs
-  via `tokenPath` and re-exporting a single `Record<TThemeMode, I<Name>Tokens>`, nesting size/state
-  variants (e.g. `Record<TTextFieldSize, ...>`) *inside* each mode's entry rather than splitting them
-  out as their own theme-invariant export. See `textField.tokens.ts` and `textArea.tokens.ts`.
-- `packages/shared/src/tokens/theme.tokens.ts` — the page-level tokens both providers paint their root
-  surface with (`pageColorTokens`), plus `baseFontFamily` (`"Mulish"`).
-- The legacy hand-rolled tokens (`colors.ts`, `spacing.ts`, etc.) are frozen — kept only for `Button`,
-  which predates this pipeline. Do not add new tokens there; new components read from `theme/`.
+- `tokenPath.ts` — `readThemeToken` / `readThemeDimension` / `readThemeTypography` (throw if missing).
+- `themes.ts` — `themeSources: Record<TThemeSourceKey, IThemeSource>` (30 composed entries),
+  `resolveTheme`, `fromThemeSources`, `DEFAULT_THEME_SOURCE_KEY`, axis lists. Layout composes with
+  colour sources (`composeDimension`); brand + non-default mode falls back (mode wins, `isExact: false`).
+- `tokens/<name>.tokens.ts` — **always** `export const xTokens = fromThemeSources(readXTokens)`.
+  Nest size/state inside each entry. See `divider.tokens.ts` / `alert.tokens.ts`. Never
+  `{ light: …, dark: … }` or `themeSources['light']` — those keys do not exist and crash module init.
+- `tokens/theme.tokens.ts` — `pageColorTokens` + `baseFontFamily`.
+- Legacy hand-rolled tokens (`colors.ts`, …) are frozen for old `Button` only.
 
-**No build step, on either platform.** Earlier revisions generated CSS custom properties for web
-(`generate-web-theme.mjs` → `textfield-theme.css`, scoped by a `data-dsm-theme` attribute) and required
-updating that generator's path list for every new component. That pipeline is gone. Both platforms now
-resolve tokens the same way, at render time: a component's `use<Name>.ts` hook calls `useThemeMode()`,
-indexes into `<name>Tokens[mode]`, and returns plain style objects — `CSSProperties` on web,
-`StyleSheet`-compatible objects on mobile. Adding a component never touches a shared generator file
-again; see "Adding a component" below.
+**No build step.** `useThemeMode()` returns `TThemeSourceKey`; hooks index `<name>Tokens[key]` and
+return plain style objects. `useResolvedTheme()` when you need axes / `isExact`. Type a single
+theme's bag with `TTokensOf<typeof xTokens>`.
 
 **Font**: `string.platform.font.family` (`"Mulish"`) is documented in Supernova as a **web-only**
 alias — iOS/Android are "meant" to use their OS system font — but the product decision is to brand
@@ -146,20 +138,17 @@ both platforms with Mulish, so both actually load it, through each platform's ow
   call this instead of hand-building a font stack, so a future rebrand only touches this one function
   per platform.
 
-**`BluProvider`** is the root wrapper every consuming app renders once, at the top —
-`<BluProvider><App /></BluProvider>` — and now exists on **both** platforms:
+**`BluProvider`** is the root wrapper every consuming app renders once —
+`<BluProvider><App /></BluProvider>` — on **both** platforms:
 
-- `@dsm/mobile`'s sets up the active theme mode (`useThemeMode`) for every themed component below it.
-  It does not and cannot load fonts (see above); font linking is a native build step, done once per app.
-- `@dsm/web`'s does the same for `@dsm/web` components, **and** paints its own root element's
-  `backgroundColor` / `color` / `fontFamily` from `pageColorTokens[mode]` and `useFontFamily` — so a
-  themed page never needs its own CSS for those three properties, and loads Mulish (see above). Accepts
-  `className` / `style` passthrough so an app can size it (e.g. `style={{ minHeight: '100vh' }}`).
-- Both accept the same `mode?: TThemeMode` override, used by Storybook's theme toolbar
-  (`apps/web-demo/.storybook/preview.tsx` nests both, one per platform, under a single `theme` global).
-- `@dsm/web` also exposes `usePrefersReducedMotion()` from the same `theme/` module — with CSS gone,
-  components build their own `transition` string in JS and need this to decide whether to skip it,
-  instead of hiding behind a `@media (prefers-reduced-motion: reduce)` rule.
+- Optional `brand` / `mode` / `layout` (`IThemeRequest`). Omit `mode` → follow OS colour scheme
+  (unless a non-default brand is stated — then stay on default light so brand isn't dropped).
+- Mobile: theme context for `@dsm/mobile` (fonts are a native link step, above).
+- Web: same for `@dsm/web`, plus paints root `backgroundColor` / `color` / `fontFamily` from
+  `pageColorTokens` / `useFontFamily`. Accepts `className` / `style`.
+- Storybook: `ThemedStory` nests both providers with all three axes from the toolbar.
+- `@dsm/web` also exposes `usePrefersReducedMotion()` — components build `transition` in JS and need
+  this instead of a `@media (prefers-reduced-motion)` rule.
 
 ## Adding a component
 
@@ -188,19 +177,17 @@ Steps:
    variant/size type aliases, if it has any. No event handlers: each platform adds its own. Check the
    component's *own* Figma variant axes before copying another component's shape — `TextField` has a
    `size` axis, `TextArea` does not; don't generalize one onto the other.
-2. **Tokens in `@dsm/shared`** — `src/tokens/<name>.tokens.ts`, reading `color`, `dimension` **and**
-   `typography` from `theme/{base,dark}` via `tokenPath`, all per mode (see "Theming & tokens" above —
-   `dimension` is not fully theme-invariant). Collapse everything into one
-   `Record<TThemeMode, I<Name>Tokens>`; nest a size/state axis inside each mode's entry, don't split it
-   into its own top-level export. Never hand-roll a value that already exists in that JSON.
+2. **Tokens in `@dsm/shared`** — `src/tokens/<name>.tokens.ts` with
+   `fromThemeSources((key) => { … themeSources[key] … })`. Nest size/state inside each
+   `TThemeSourceKey` entry. Never `{ light, dark }` or `themeSources['light']`. See
+   "Theming & tokens" and `divider.tokens.ts`.
 3. **Web and mobile implementations** — the four-file folder in each package, `use<Name>.ts` resolving
-   styles from `<name>Tokens[mode]` plus local interaction state (hover/focus tracked as React state on
-   web, since there are no pseudo-classes to lean on; focus-only on mobile, since touch has no hover).
+   styles from `<name>Tokens[useThemeMode()]` (`TThemeSourceKey`) plus local interaction state
+   (hover/focus as React state on web; focus-only on mobile).
 4. **Barrels** — add it to the `index.ts` of its level (`atoms/index.ts`, and so on).
-5. **Storybook** — a `Platform<Name>.tsx` wrapper in `apps/web-demo/src/stories/` (mapping the neutral
-   story prop to each platform's event handler) plus `<Name>.stories.tsx` covering every Figma `state`
-   and every independent prop combination (e.g. `TextArea`'s helper/counter footer slots, which can be
-   toggled on/off independently). See "Storybook" above.
+5. **Storybook** — `Platform<Name>.tsx` + `<Name>.stories.tsx`. Surface colours via
+   `themeFromGlobals(globals).key` — not `globals.theme`. Cover every Figma state and independent
+   prop combo. See "Storybook" above.
 
 ## Conventions
 
