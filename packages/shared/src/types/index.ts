@@ -3,6 +3,7 @@ export * from './atoms/avatar.types';
 export * from './atoms/avatarIndicator.types';
 export * from './atoms/button.types';
 export * from './atoms/checkbox.types';
+export * from './atoms/chip.types';
 export * from './atoms/choiceBox.types';
 export * from './atoms/icon.types';
 export * from './atoms/image.types';

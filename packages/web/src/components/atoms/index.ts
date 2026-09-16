@@ -3,6 +3,7 @@ export * from './Avatar';
 export * from './AvatarIndicator';
 export * from './Button';
 export * from './Checkbox';
+export * from './Chip';
 export * from './ChoiceBox';
 export * from './Divider';
 export * from './Icon';

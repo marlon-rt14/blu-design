@@ -462,6 +462,42 @@ one:
   `TextArea` has neither — a single `state` axis, no size, no icon slot. Confirm the axes with
   `get_design_context` on the live node before writing the shared types file, every time — see
   "Design reference" above for why Supernova's own record isn't always enough on its own.
+- **Chip is touched, Tag is read — they are not the same component with different props.** Chip
+  toggles (`selected` + `onToggle`, `aria-pressed`, always a `<button>`); Tag has no interaction
+  axis at all (bDS removed it entirely — see Tag's own gotcha). Built without live Figma/Supernova
+  MCP access in this workspace (neither was reachable this session) — sourced entirely from the
+  `Chip · contrato de desarrollo` PDF plus the real `color.component.chip.*` / `dimension.*` JSON
+  leaves; flagged to the user rather than silently skipping the MCP gate above. `leadingIcon`'s
+  presence alone turns its slot on (no separate `showLeadingIcon`, unlike Tag) — the Dev firma is
+  explicit about this being a divergence from Tag's own pattern, so don't copy Tag's boolean here.
+  Same for the remove control: its existence is decided by whether the platform prop `onRemove` is
+  set, not a `showRemove` boolean — "sin handler no hay equis" (no handler, no ×). **The × is an
+  icon inside the chip, not a nested IconButton** — Dev's own open-decisions section (§07) says so
+  explicitly: no focus stop, no dedicated hit target, own by design (an anatomy change for design
+  to make, not something to invent a fix for in code). Implemented as a plain `<span onClick>` with
+  `stopPropagation()` inside the toggle `<button>` — nesting a real `<button>` there would be invalid
+  HTML and Dev explicitly rejects it. Color tokens have MORE states than Dev's own tokens table lists
+  (`bg-selected-pressed`, `border-selected-pressed`, `overlay-hover`, `overlay-selected-hover`,
+  `border-selected-disabled` all exist in the JSON despite not being enumerated in Dev's "26 tokens"
+  count) — the JSON's actual leaf set won, consistent with "trust the value/JSON over stale prose"
+  elsewhere in this file. `border-selected-disabled`'s own token description explains a deliberate
+  a11y trick: it's set to the SAME color as `bg-disabled`, so a disabled+selected chip reads as a
+  solid filled block with no visible border, while a disabled+unselected chip keeps `border-disabled`
+  (a different, visible gray) so the two disabled states stay distinguishable by silhouette alone
+  (filled vs outlined) even though both share one background color. Focus ring is **flush**, not
+  offset like TextField/Select — Dev's own token list has `focus/ring/spread` and no `offset` token
+  at all for Chip, so it's a single `box-shadow: 0 0 0 <spread>px <border-focus>`, no inner gap layer
+  (same family as Switch/Tabs' flush ring, not TextField's two-tone one). Shape is `radius/pill`
+  (fully rounded), not Tag's `radius/control/sm` (squared) — don't copy Tag's border radius token.
+  Web-only in this pass (`packages/web/src/components/atoms/Chip`) — mobile wasn't requested and
+  wasn't built; if it's added later, there is no hover row for it in Dev's platform table (hover is
+  a web-only state per §05), so `useChip` shouldn't take an `isHovered` param on that platform.
+- **Screenshotting a just-clicked element in this workspace's browser tool can show a stale,
+  one-frame-behind image — always cross-check with `read_page`'s accessibility tree, and don't
+  assume a screenshot showing wrong colors/state is a real rendering bug before reloading and
+  re-screenshotting.** Hit this on both Select's dropdown and Chip's selected-label color; both
+  times a fresh reload + re-screenshot showed the correct render, and the accessibility snapshot had
+  already reflected the true DOM state during the "wrong-looking" screenshot.
 - **Hover and focus are React state now, not CSS pseudo-classes, on web.** `useTextField` /
   `useTextArea` take `isHovered` / `isFocused` as params; the component owns the state
   (`onMouseEnter`/`onMouseLeave` on the bordered box, `onFocus`/`onBlur` on the input) and feeds it in.
