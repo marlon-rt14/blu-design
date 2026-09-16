@@ -34,18 +34,32 @@ export const useDivider = ({
       // side per orientation (`borderTopWidth` against `borderLeftWidth`) and
       // the colour prop would double with it. Same token, same measurement.
       backgroundColor: line[appearance],
-      // Two mechanisms, because which axis needs resolving depends on the
-      // parent's `flexDirection` and the component cannot know it.
-      // `alignSelf: stretch` fills the cross axis — bDS's own instruction for
-      // this platform, and what makes a vertical divider visible inside a row.
-      // `minWidth`/`minHeight` at 100% fills the main axis, which is `auto` on a
-      // `View` with no children, i.e. zero. Measured on web, where the first
-      // version of this hook rendered nothing at all for `horizontal`; the same
-      // flexbox rule applies here.
+      // `alignSelf: stretch` and nothing else. It fills the cross axis, which
+      // is what bDS asks for on this platform and what makes a vertical divider
+      // visible inside a row.
+      //
+      // **No `minHeight: '100%'` here, unlike the web hook, and the difference
+      // is Yoga.** In CSS a percentage minimum against a parent of indefinite
+      // size resolves to `auto` — it imposes nothing — which is exactly what the
+      // web side leans on to fill the *main* axis without breaking the cross
+      // one. Yoga does not do that: the percentage resolves against the parent
+      // and the row grows to every pixel available. On a device the two vertical
+      // dividers in a row swallowed the whole screen and pushed their sibling
+      // labels out of view.
+      //
+      // Found on the simulator, not here: Storybook's `platform: native` toggle
+      // renders through react-native-web, where this measured a correct 17.5px.
+      // Anything that depends on Yoga's own layout rules has to be checked on a
+      // device.
+      //
+      // The limitation this accepts, declared: a **horizontal** divider inside a
+      // `flexDirection: 'row'` parent has a main size of `auto`, i.e. zero, so it
+      // will not show. That is a layout nobody reaches for — a rule across a row
+      // of siblings is a vertical divider — and the web hook only solves it
+      // because `minWidth: '100%'` is safe there. Here it is not worth an
+      // asymmetry that cannot be checked without a device.
       alignSelf: 'stretch',
-      ...(isVertical
-        ? { width: thickness, minHeight: '100%' }
-        : { height: thickness, minWidth: '100%' }),
+      ...(isVertical ? { width: thickness } : { height: thickness }),
     },
   };
 };
