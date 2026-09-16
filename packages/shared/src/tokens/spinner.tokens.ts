@@ -1,6 +1,6 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import type { TSpinnerAppearance, TSpinnerSize } from '../types/atoms/spinner.types';
 
 /** Indicator + track for one appearance. */
@@ -49,8 +49,8 @@ export const SPINNER_TRACK_PATH =
 export const SPINNER_INDICATOR_PATH =
   'M12 0C13.7523 -7.65948e-08 15.4833 0.383759 17.0714 1.12431C18.6595 1.86485 20.0662 2.94422 21.1925 4.28655C22.3189 5.62888 23.1376 7.20159 23.5911 8.89417C24.0446 10.5867 24.122 12.3581 23.8177 14.0838L21.4542 13.667C21.6976 12.2865 21.6357 10.8694 21.2729 9.51534C20.9101 8.16127 20.2551 6.9031 19.354 5.82924C18.4529 4.75538 17.3276 3.89188 16.0571 3.29944C14.7866 2.70701 13.4018 2.4 12 2.4L12 0Z';
 
-const readSpinnerTokens = (mode: TThemeMode): ISpinnerTokens => {
-  const { color, dimension } = themeSources[mode];
+const readSpinnerTokens = (key: TThemeSourceKey): ISpinnerTokens => {
+  const { color, dimension } = themeSources[key];
   const colorAt = (path: string): string => readThemeToken(color, `color.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
 
@@ -87,7 +87,4 @@ const readSpinnerTokens = (mode: TThemeMode): ISpinnerTokens => {
  *
  * Source: `color.component.spinner.{indicator,track}.*` and `dimension.size.icon.*`.
  */
-export const spinnerTokens: Record<TThemeMode, ISpinnerTokens> = {
-  light: readSpinnerTokens('light'),
-  dark: readSpinnerTokens('dark'),
-};
+export const spinnerTokens = fromThemeSources(readSpinnerTokens);

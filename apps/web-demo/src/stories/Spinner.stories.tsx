@@ -1,11 +1,11 @@
-import type { TSpinnerAppearance, TSpinnerSize } from '@dsm/shared';
+import type { TSpinnerAppearance, TSpinnerSize, TThemeSourceKey } from '@dsm/shared';
 import { readThemeToken, themeSources } from '@dsm/shared';
-import type { TThemeMode } from '@dsm/shared';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties, ReactNode } from 'react';
 
 import { PlatformSpinner } from './PlatformSpinner';
 import type { IPlatformSpinnerProps, TPlatform } from './PlatformSpinner';
+import { themeFromGlobals } from './themeGlobals';
 
 const APPEARANCES: TSpinnerAppearance[] = ['brand', 'primary', 'on-brand'];
 const SIZES: TSpinnerSize[] = ['sm', 'md', 'lg'];
@@ -22,16 +22,16 @@ const Group = ({ title, children }: { title: string; children: ReactNode }): Rea
 );
 
 const OnBrandSurface = ({
-  theme,
+  themeKey,
   children,
 }: {
-  theme: TThemeMode;
+  themeKey: TThemeSourceKey;
   children: ReactNode;
 }): ReactNode => (
   <div
     style={{
       backgroundColor: readThemeToken(
-        themeSources[theme].color,
+        themeSources[themeKey].color,
         'color.color.canvas.background.brand',
       ),
       padding: 24,
@@ -45,7 +45,7 @@ const OnBrandSurface = ({
       style={{
         fontSize: 12,
         opacity: 0.85,
-        color: readThemeToken(themeSources[theme].color, 'color.color.icon.on-brand'),
+        color: readThemeToken(themeSources[themeKey].color, 'color.color.icon.on-brand'),
       }}
     >
       appearance=on-brand
@@ -109,7 +109,7 @@ export const Playground: TStory = {};
 export const Matrix: TStory = {
   render: (_args, { globals }) => {
     const platform = globals['platform'] as TPlatform;
-    const theme = globals['theme'] as TThemeMode;
+    const { key: themeKey } = themeFromGlobals(globals);
     const stack: CSSProperties = { display: 'flex', flexDirection: 'column', gap: 24, padding: 24 };
 
     return (
@@ -124,7 +124,7 @@ export const Matrix: TStory = {
             <PlatformSpinner appearance="primary" key={`primary-${size}`} platform={platform} size={size} />
           ))}
         </Group>
-        <OnBrandSurface theme={theme}>
+        <OnBrandSurface themeKey={themeKey}>
           {SIZES.map((size) => (
             <PlatformSpinner
               appearance="on-brand"

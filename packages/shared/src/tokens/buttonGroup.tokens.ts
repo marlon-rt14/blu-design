@@ -1,6 +1,6 @@
 import { readThemeDimension } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 
 /**
  * Metrics the ButtonGroup itself owns.
@@ -20,8 +20,8 @@ export interface IButtonGroupTokens {
   dimension: IButtonGroupDimensionTokens;
 }
 
-const readButtonGroupTokens = (mode: TThemeMode): IButtonGroupTokens => {
-  const { dimension } = themeSources[mode];
+const readButtonGroupTokens = (key: TThemeSourceKey): IButtonGroupTokens => {
+  const { dimension } = themeSources[key];
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
 
   return {
@@ -38,7 +38,4 @@ const readButtonGroupTokens = (mode: TThemeMode): IButtonGroupTokens => {
  * Source: `dimension.space.inline.md` (row) and `dimension.space.stack.md`
  * (column). Same numeric value today; separate leaves so density can diverge.
  */
-export const buttonGroupTokens: Record<TThemeMode, IButtonGroupTokens> = {
-  light: readButtonGroupTokens('light'),
-  dark: readButtonGroupTokens('dark'),
-};
+export const buttonGroupTokens = fromThemeSources(readButtonGroupTokens);

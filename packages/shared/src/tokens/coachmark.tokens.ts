@@ -1,7 +1,7 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
 import type { IThemeTypographyValue } from '../themeSource/tokenPath';
-import { themeSources } from '../themeSource/themes';
-import type { TThemeMode } from '../themeSource/themes';
+import { fromThemeSources, themeSources } from '../themeSource/themes';
+import type { TThemeSourceKey } from '../themeSource/themes';
 import { baseFontFamily } from './theme.tokens';
 import {
   TOOLTIP_POINTER_DEPTH,
@@ -102,8 +102,8 @@ export const COACHMARK_WIDTH_PX = 320;
  */
 export const COACHMARK_POINTER_EDGE_INSET_PX = 24;
 
-const readCoachmarkTokens = (mode: TThemeMode): ICoachmarkTokens => {
-  const { color, dimension } = themeSources[mode];
+const readCoachmarkTokens = (key: TThemeSourceKey): ICoachmarkTokens => {
+  const { color, dimension } = themeSources[key];
   const colorAt = (path: string): string => readThemeToken(color, `color.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
 
@@ -179,7 +179,4 @@ const readCoachmarkTokens = (mode: TThemeMode): ICoachmarkTokens => {
  * (floating tone), `elevation.overlay`, and `dimension.*`. Nested Button /
  * IconButton / Image read their own tokens.
  */
-export const coachmarkTokens: Record<TThemeMode, ICoachmarkTokens> = {
-  light: readCoachmarkTokens('light'),
-  dark: readCoachmarkTokens('dark'),
-};
+export const coachmarkTokens = fromThemeSources(readCoachmarkTokens);
