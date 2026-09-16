@@ -2,6 +2,7 @@ export * from './Alert';
 export * from './Avatar';
 export * from './AvatarIndicator';
 export * from './Button';
+export * from './CardField';
 export * from './Checkbox';
 export * from './ChoiceBox';
 export * from './Divider';

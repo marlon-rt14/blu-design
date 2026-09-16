@@ -4,6 +4,7 @@ import {
   BluProvider,
   Button,
   Card,
+  CardField,
   Checkbox,
   ChoiceBox,
   ChoiceItem,
@@ -52,6 +53,18 @@ const METODOS = [
   { id: 'Débito', detalle: 'Se debita al instante', cuota: '$ 1.200' },
   { id: 'Crédito', detalle: 'Hasta 12 cuotas', cuota: '$ 1.450' },
   { id: 'Transferencia', detalle: 'Acreditación en 24 h', cuota: '$ 1.180' },
+];
+
+// Un numero real por marca, para que el selector cambie EL NUMERO y no la
+// prop `brand`: la marca se deduce del numero, nunca la elige quien llama.
+// Amex esta a proposito — no es una de las cuatro declaradas, asi que no
+// muestra placa, y eso es correcto y no un faltante.
+const TARJETAS: [string, string][] = [
+  ['Visa', '4539 1488 0343 6467'],
+  ['Mastercard', '5425 2334 3010 9903'],
+  ['Discover', '6011 0009 9013 9424'],
+  ['Diners', '3056 9309 0259 04'],
+  ['Amex', '3400 0000 0000 009'],
 ];
 
 const VARIANTS: TButtonVariant[] = ['primary', 'danger'];
@@ -180,6 +193,12 @@ const App = () => {
   const [selectedTile, setSelectedTile] = useState('email');
   const [selectedCompact, setSelectedCompact] = useState('6');
   const [country, setCountry] = useState<string | undefined>('ec');
+  // En codigo son tres campos distintos, con su mascara y su teclado propios.
+  // El agrupado de a 4 lo pondria un formateador: aca el valor arranca ya
+  // agrupado a proposito.
+  const [cardNumber, setCardNumber] = useState('3056 9309 0259 04');
+  const [cardExpiry, setCardExpiry] = useState('12/34');
+  const [cardCvv, setCardCvv] = useState('123');
   const handlePress = () => setPresses(current => current + 1);
   // fontWeight isn't set alongside fontFamily below — each Mulish-*.ttf is
   // already a single static weight, same constraint as @dsm/mobile's own
@@ -382,6 +401,81 @@ const App = () => {
                   </View>
                 )),
               )}
+            </View>
+
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+                CardField
+              </Text>
+              {/* Los tres campos de una tarjeta. `part` decide cuál, y con eso
+                  el teclado (number-pad), el largo aceptado, el hint de
+                  autorrelleno del SO y si los caracteres se enmascaran.
+
+                  La MARCA SE DETECTA del número, no se elige. Solo Diners
+                  dibuja su marca real: las otras tres no están en el archivo
+                  de diseño y caen al ícono genérico. Igual se detectan y se
+                  anuncian por nombre — el logo va oculto al lector.
+
+                  El CVV va con secureTextEntry y textContentType="none" a
+                  propósito: RN 0.87 tiene creditCardSecurityCode, pero pedirlo
+                  es justo lo que dejaría al SO guardarlo, y la regla del medio
+                  de pago dice que no se guarda.
+
+                  Acá no hay hover ni anillo de foco: el foco es el color del
+                  borde más el cursor, como en todos los campos nativos. */}
+              {/* El selector cambia el NUMERO, no la marca: asi se ve lo que
+                  el componente hace de verdad, que es deducirla de los
+                  digitos. */}
+              <View style={styles.cardBrandPicker}>
+                {TARJETAS.map(([nombre, numero]) => (
+                  <Button
+                    appearance={cardNumber === numero ? 'fill' : 'outline'}
+                    key={nombre}
+                    label={nombre}
+                    onPress={() => setCardNumber(numero)}
+                    size="xs"
+                    testID={`cardfield-marca-${nombre.toLowerCase()}`}
+                    variant="primary"
+                  />
+                ))}
+              </View>
+              <View style={styles.cardFieldStack}>
+                <CardField
+                  label="Numero de tarjeta"
+                  onChangeText={setCardNumber}
+                  part="number"
+                  testID="cardfield-number"
+                  value={cardNumber}
+                />
+                <View style={styles.cardFieldRow}>
+                  <View style={styles.cardFieldHalf}>
+                    <CardField
+                      label="Vencimiento"
+                      onChangeText={setCardExpiry}
+                      part="expiry"
+                      testID="cardfield-expiry"
+                      value={cardExpiry}
+                    />
+                  </View>
+                  <View style={styles.cardFieldHalf}>
+                    <CardField
+                      label="CVV"
+                      onChangeText={setCardCvv}
+                      part="cvv"
+                      testID="cardfield-cvv"
+                      value={cardCvv}
+                    />
+                  </View>
+                </View>
+                <CardField
+                  error="El numero esta incompleto"
+                  label="Numero de tarjeta"
+                  onChangeText={() => {}}
+                  part="number"
+                  testID="cardfield-error"
+                  value="4539 14"
+                />
+              </View>
             </View>
 
             <View style={styles.section}>
@@ -948,6 +1042,22 @@ const styles = StyleSheet.create({
   cardFillerText: {
     fontSize: typography.fontSizes.sm,
     color: colors.slate900,
+  },
+  cardBrandPicker: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.sm,
+    marginBottom: spacing.md,
+  },
+  cardFieldStack: {
+    gap: spacing.md,
+  },
+  cardFieldRow: {
+    flexDirection: 'row',
+    gap: spacing.sm,
+  },
+  cardFieldHalf: {
+    flex: 1,
   },
   dividerCell: {
     marginBottom: spacing.md,

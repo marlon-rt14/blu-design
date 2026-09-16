@@ -33,3 +33,4 @@ export * from './molecules/tagGroup.types';
 export * from './molecules/coachmark.types';
 export * from './molecules/tooltip.types';
 export * from './atoms/divider.types';
+export * from './atoms/cardField.types';

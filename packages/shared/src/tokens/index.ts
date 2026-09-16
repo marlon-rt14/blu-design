@@ -3,6 +3,7 @@ export * from './avatar.tokens';
 export * from './button.tokens';
 export * from './buttonGroup.tokens';
 export * from './card.tokens';
+export * from './cardField.tokens';
 export * from './checkbox.tokens';
 export * from './chip.tokens';
 export * from './coachmark.tokens';

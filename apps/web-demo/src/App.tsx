@@ -1,10 +1,22 @@
-import { BluProvider, Button, Card, Checkbox, ChoiceItem, Divider, IconButton, LinkButton, OTPField, PasswordField, Radio, RadioGroup, Tooltip, useThemeMode } from "@dsm/web";
+import { BluProvider, Button, Card, CardField, Checkbox, ChoiceItem, Divider, IconButton, LinkButton, OTPField, PasswordField, Radio, RadioGroup, Tooltip, useThemeMode } from "@dsm/web";
 import { readThemeToken, themeSources } from "@dsm/shared";
 import type { TButtonAppearance, TButtonSize, TButtonVariant, TIconColor, TIconSize, TPasswordFieldSize, TPasswordFieldVisibility } from "@dsm/shared";
 import { useState } from "react";
 
 import { IconAlertTriangle, IconArrowUpRight, IconCheckCircle, IconChevronRight, IconImage, IconPlus, IconSearch, IconTrash } from "@dsm/web/icons";
 import "./App.css";
+
+// Un numero real por marca, para que el selector cambie EL NUMERO y no la
+// prop `brand`: la marca se deduce del numero, nunca la elige quien llama.
+// Amex esta a proposito — no es una de las cuatro declaradas, asi que no
+// muestra placa, y eso es correcto y no un faltante.
+const TARJETAS: [string, string][] = [
+  ["Visa", "4539 1488 0343 6467"],
+  ["Mastercard", "5425 2334 3010 9903"],
+  ["Discover", "6011 0009 9013 9424"],
+  ["Diners", "3056 9309 0259 04"],
+  ["Amex", "3400 0000 0000 009"],
+];
 
 const VARIANTS: TButtonVariant[] = ["primary", "danger"];
 // `on-inverse` is left out: it only exists for `primary` and needs an inverted surface.
@@ -73,6 +85,12 @@ const App = () => {
   // One piece of state per field: the PasswordField is controlled, like any
   // input. The reveal toggle is *not* part of it — the component owns that.
   const [password, setPassword] = useState("MiClave2026");
+  // Los tres campos de la tarjeta viven por separado: en codigo son tres
+  // campos, con su mascara y su teclado. El agrupado de a 4 lo pondria un
+  // formateador — aca el valor arranca ya agrupado a proposito.
+  const [cardNumber, setCardNumber] = useState("3056 9309 0259 04");
+  const [cardExpiry, setCardExpiry] = useState("12/34");
+  const [cardCvv, setCardCvv] = useState("123");
   const [shortPassword, setShortPassword] = useState("123");
   const [visibility, setVisibility] = useState<TPasswordFieldVisibility>("visible");
   // Guarda el id de la opción elegida, que es lo que un grupo de radios necesita.
@@ -371,6 +389,78 @@ const App = () => {
                 </div>
               )),
             )}
+          </div>
+        </section>
+
+        <section className="demo__section">
+          <h2 className="demo__section-title">CardField</h2>
+          {/* Los tres campos de una tarjeta. `part` decide cuál, y con eso el
+              teclado, el largo aceptado, el token de autocompletado y si los
+              caracteres se enmascaran. Todo lo demás lo comparten, que es por
+              qué es un componente y no tres.
+
+              La MARCA SE DETECTA, no se elige: escribí un número y el logo
+              aparece solo. 4539… Visa, 5425… Mastercard, 6011… Discover,
+              3056… Diners. Solo Diners dibuja su marca real — las otras tres
+              no están en el archivo de diseño y caen al ícono genérico.
+
+              El componente NO FORMATEA: el agrupado de a 4 lo pone un
+              formateador de afuera.
+
+              El CVV va enmascarado y SIN autocompletado en las dos
+              plataformas: pedir el token del código de seguridad es justo lo
+              que invita al navegador a guardarlo. */}
+          {/* El selector cambia el NUMERO, no la marca: asi se ve lo que el
+              componente hace de verdad, que es deducirla de los digitos. */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
+            {TARJETAS.map(([nombre, numero]) => (
+              <Button
+                appearance={cardNumber === numero ? "fill" : "outline"}
+                key={nombre}
+                label={nombre}
+                onClick={() => setCardNumber(numero)}
+                size="xs"
+                testID={`cardfield-marca-${nombre.toLowerCase()}`}
+                variant="primary"
+              />
+            ))}
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16, maxWidth: 320 }}>
+            <CardField
+              label="Numero de tarjeta"
+              onChangeText={setCardNumber}
+              part="number"
+              testID="cardfield-number"
+              value={cardNumber}
+            />
+            <div style={{ display: "flex", gap: 12 }}>
+              <div style={{ flex: 1 }}>
+                <CardField
+                  label="Vencimiento"
+                  onChangeText={setCardExpiry}
+                  part="expiry"
+                  testID="cardfield-expiry"
+                  value={cardExpiry}
+                />
+              </div>
+              <div style={{ flex: 1 }}>
+                <CardField
+                  label="CVV"
+                  onChangeText={setCardCvv}
+                  part="cvv"
+                  testID="cardfield-cvv"
+                  value={cardCvv}
+                />
+              </div>
+            </div>
+            <CardField
+              error="El numero esta incompleto"
+              label="Numero de tarjeta"
+              onChangeText={() => {}}
+              part="number"
+              testID="cardfield-error"
+              value="4539 14"
+            />
           </div>
         </section>
 
