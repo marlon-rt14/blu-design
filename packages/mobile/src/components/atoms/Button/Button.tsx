@@ -41,6 +41,7 @@ export const Button = ({
   onPress,
   leadingIcon: LeadingIcon,
   trailingIcon: TrailingIcon,
+  style,
   ...props
 }: IButtonProps): ReactElement => {
   const [isPressed, setIsPressed] = useState(false);
@@ -60,7 +61,7 @@ export const Button = ({
       onPress={onPress}
       onPressIn={() => setIsPressed(true)}
       onPressOut={() => setIsPressed(false)}
-      style={[buttonStyles.container, containerStyle, outlineStyle]}
+      style={[buttonStyles.container, containerStyle, outlineStyle, style]}
       testID={props.testID}
     >
       {/* `tintColor`, not `color`: the value is a hex the Button already

@@ -1,5 +1,7 @@
 export * from './AvatarGroup';
+export * from './ButtonGroup';
 export * from './ChoiceItem';
+export * from './Coachmark';
 export * from './ListItem';
 export * from './RadioGroup';
 export * from './Select';

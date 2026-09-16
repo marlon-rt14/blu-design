@@ -114,6 +114,31 @@ export const TOOLTIP_POINTER_DEPTH = 10;
  */
 export const TOOLTIP_POINTER_INSET = 2;
 
+/**
+ * Full `.TipPointer` SVG span including the 2 px mitre stubs on each shoulder
+ * (`16 + 2 + 2`). Live Figma export for `tone=floating` / `direction=down`.
+ */
+export const TIP_POINTER_VIEW_LENGTH = 20;
+export const TIP_POINTER_VIEW_DEPTH = 10;
+
+/**
+ * Fill path for `.TipPointer` `direction=down` (faldón at y=0…2, rounded tip
+ * at y≈9.17). Vertex cornerRadius 2 — not a sharp CSS triangle.
+ */
+export const TIP_POINTER_FILL_PATH =
+  'M2 0H18V2L12.8284 7.17158C11.4951 8.50491 10.8284 9.17157 10 9.17157C9.17157 9.17157 8.50491 8.50491 7.17157 7.17157L2 2V0Z';
+
+/**
+ * Open stroke for `tone=floating`: two diagonals + 2 px horizontal stubs that
+ * mitre into the card border. Base of the tip stays open so the faldón covers
+ * the card edge instead of drawing a seam across it.
+ */
+export const TIP_POINTER_STROKE_PATH =
+  'M0 2H2L8.58579 8.58579C9.36684 9.36684 10.6332 9.36683 11.4142 8.58579L18 2H20';
+
+/** Where the tip points — toward the anchor. Maps from the panel's side. */
+export type TTipPointerDirection = 'up' | 'down' | 'left' | 'right';
+
 /** Every token a Tooltip needs, resolved for a single theme. */
 export interface ITooltipTokens {
   colors: ITooltipColorTokens;

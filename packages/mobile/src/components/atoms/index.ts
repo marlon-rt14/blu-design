@@ -14,6 +14,7 @@ export * from './OTPField';
 export * from './PasswordField';
 export * from './Radio';
 export * from './Snackbar';
+export * from './Spinner';
 export * from './Switch';
 export * from './TabItem';
 export * from './Tag';

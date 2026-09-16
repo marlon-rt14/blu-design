@@ -22,6 +22,13 @@ the code once.
 Copy this checklist and work through it in order:
 
 ```
+- [ ] -1. MCP gate (HARD STOP): verify BOTH design MCPs before any spec or code.
+       Figma: call `whoami` (or `get_metadata` / `get_screenshot` on the target
+       fileKey). Supernova: call `sn_get_me`. Both must succeed in THIS session.
+       If either namespace is missing, `needsAuth`, errors, or returns empty /
+       auth failures — **stop**. Do not implement from memory, cached screenshots,
+       or Supernova alone. Tell the user which MCP failed and how to reconnect
+       (Figma plugin auth / Supernova MCP). Only continue once both pass again.
 - [ ] 0. Spec: Figma MCP directly on "BDS3 - Core components" (search_design_system, then
        get_design_context / get_metadata / get_screenshot) — the primary design reference.
        **Always locate and read the sibling `«Component» · Dev` / `«Component» · contrato de
@@ -74,6 +81,11 @@ discrepancy before writing code instead of silently picking one. Add any new non
 "Known gotchas" below once the component ships.
 
 ## Design reference — Figma MCP first, Supernova for properties
+
+**Before any of the below:** run the MCP gate in Workflow step `-1`. No Figma
+namespace / failed `whoami` / failed `sn_get_me` → stop. Supernova alone is not
+enough to ship a component (Figma wins on live nodes; without it you cannot
+read Dev frames, screenshots, or pixel context).
 
 Two different MCP servers cover design, and they now have distinct jobs — don't reach for the wrong
 one:
@@ -312,7 +324,7 @@ one:
   default is `md`** (Figma/Supernova + Dev frame) — not `sm`. Keep partial API:
   `isChecked` + `isIndeterminate` + `showLabel` (Figma axes) — do **not** collapse
   to Dev's `checked: boolean | 'indeterminate'` or presence-based `label` unless
-  asked. Dev §07 says checked+indeterminate is "impossible"; live set description
+  asked. Dev docs say checked+indeterminate is "impossible"; live set description
   says the four combos are valid and indeterminate wins the paint — Figma wins.
   Marks
   are `IconCheck` / `IconMinus` with `color="fixed.white"` (Figma: not on-brand —
@@ -388,6 +400,38 @@ one:
   Live region is **not a prop**: `role=status`, `aria-live=assertive` only
   on danger. Don't copy Alert's muted fill, chip, LinkButton `on-muted`, or
   presence-based `action` object from the Dev frame (ship `show*` + handlers).
+- **Coachmark is a system-triggered tourtip, not a Tooltip.** Elevated /
+  floating surface (light card with controls) — **not** inverse. Axes:
+  **`media`** (none|image) × **`placement`** (13 Floating UI values) ×
+  **`sequence`** (single|multi) → 52 variants. `media` is an axis because
+  dismiss flips IconButton `veil` → `on-media` over the photo; a boolean
+  cannot change appearance. Keep partial API: `showTitle` / `showAction` /
+  `showDismiss` / `showBack` + handlers. `showTitle` only applies with
+  `media=image` (without image the title is mandatory for `aria-labelledby`).
+  `showBack` is a no-op on `single`.   Host-controlled **`isOpen`** — never
+  hover. Esc closes always; outside press closes `single`, not `multi`.
+  **`placement` is computed by the positioning engine** (Dev frame: *"Los 13
+  placement son el resultado, no la entrada"* / `placement?: Placement // lo
+  calcula el motor`). Floating UI `flip`/`shift` may move it when there is no
+  room; the Storybook control stays on the preference. Set copy also: on scroll
+  **follow the anchor**; if it leaves the viewport, `single` closes and `multi`
+  docks under the nav. Native: no `offsetParent` with `measureInWindow` (corrupts
+  Y — tip on the wrong edge); web Storybook uses `position: fixed` overlay
+  instead of RN-web `Modal`. Width **320** fixed (Figma copy, not a theme leaf). Tip is `.TipPointer`
+  `tone=floating` as the **live SVG vector** (rounded tip cornerRadius 2,
+  open stroke with 2 px mitre stubs, 2 px faldón) — **not** a CSS border
+  triangle (that closed the mouth and left a seam on the card edge). Same
+  16×10 / inset 2 geometry as Tooltip; floating stroke uses
+  `border/width/default`. Stacking is **`z.popover_1`** (1200) — the set prose says
+  "z/overlay (1200)" but the leaf that names Coachmark is popover. Title↔body
+  gap **0**. Body type is **`text/body/sm/default`** (live node wins over
+  set prose that said md). Nested Image `16:9` `radius=none`; footer
+  Buttons `sm` (action fill, back **ghost**). Default CTA:
+  `resolveCoachmarkActionLabel` → `"Entendido"` on `single`, `"Siguiente"`
+  on `multi`. Single footer: CTA **start** (no spacer); multi: step start
+  + actions end. No backdrop scrim. Focus moves into the non-modal dialog
+  on open (web `FloatingFocusManager`). Do **not** dump Figma screenshots
+  into `.cursor/` — designs drift; re-fetch via Figma MCP when checking.
 - **Tabs / TabItem is a bar + items, not a TabPanel.** Ship `TabItem`
   (atom) + `Tabs` (molecule) — same split as Radio / RadioGroup. Live set
   is named **Tab item** (`97:14033`); search still lists `Tab`. Public
@@ -448,6 +492,27 @@ one:
   be announced too (`aria-live="polite"` / `accessibilityLiveRegion="polite"`), not just visible.
 - **Turbo caching is off on purpose** (see README "Monorepo notes") — a green `pnpm typecheck` /
   `pnpm lint` is a real run, not a replayed cache hit. Don't re-enable caching to "speed things up".
+- **`ButtonGroup` is layout-only — Figma's Cancelar/Continuar are docs, not defaults.** Slot
+  `actions` → `children`. The group owns `orientation`, `distribution`, and gap
+  (`space/inline/md` row, `space/stack/md` column). It does **not** configure Button
+  appearance/variant/size and ships no nested defaults (ButtonGroup · Dev). Dev's
+  "18 tokens" mostly belong to the documentation Button instances — do not put Button colours in
+  `buttonGroup.tokens.ts`. `distribution="fill"` = equal parts (web: grid `1fr` tracks; RN: clone
+  `flex: 1` onto children). That needs a layout `style` merge on Button — without it RN children
+  stay intrinsic-width inside a flex slot. No a11y role on the group. Order = children order
+  (platform primary placement is an open Dev decision). Do not invent wrap: if they don't fit,
+  host switches to `orientation="vertical"`.
+- **`Spinner` rotation is native-thread only; reduced motion freezes the arc.** Geometry is the
+  live SVG paths on a 24×24 grid (`SPINNER_*_PATH`), sized with `size/icon/{sm,md,lg}`. Colours
+  from `component/spinner/indicator|track/*` by `appearance` (`brand` / `primary` / `on-brand`).
+  Web: CSS `@keyframes` (Image sheen pattern). Mobile native: `Animated.loop` + `useNativeDriver`.
+  Mobile on `Platform.OS === 'web'` (Storybook / RN-web): StyleSheet `animationKeyframes` — RN-web
+  Animated transform does not reliably rotate `react-native-svg` children. Never `setInterval`.
+  **Dev wins over the set description on reduced motion**: stop the spin and leave the arc
+  visible — do **not** swap to an opacity pulse. `label` defaults to `"Cargando"` (missing in
+  Figma; from Dev). Default size is Dev `md`, not Supernova's Figma default `lg`. No cycle-length
+  leaf in theme — `SPINNER_ROTATION_DURATION_MS` (1000) is documented like Coachmark width.
+  `radius/pill` is listed in Dev tokens but unused by the filled-path drawing.
 
 ## Conventions (quick reference — full list in README)
 
