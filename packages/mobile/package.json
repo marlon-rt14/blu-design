@@ -10,7 +10,8 @@
     "./icons": "./src/icons/index.tsx"
   },
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint -c ../../.oxlintrc.json src"
   },
   "dependencies": {
     "@dsm/shared": "workspace:*",
