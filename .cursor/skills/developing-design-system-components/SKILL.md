@@ -556,6 +556,17 @@ bDS themes are **three Figma variable collections**, not a single light/dark swi
   Figma; from Dev). Default size is Dev `md`, not Supernova's Figma default `lg`. No cycle-length
   leaf in theme — `SPINNER_ROTATION_DURATION_MS` (1000) is documented like Coachmark width.
   `radius/pill` is listed in Dev tokens but unused by the filled-path drawing.
+- **`Skeleton` is a footprint placeholder, not a Spinner.** Axes: `shape` (text|block|circle) ×
+  `size` (sm|md|lg). **Dev default size `md`** (Figma/Supernova property default is `lg`). Size
+  meaning depends on shape: text → line height of caption/md · body/sm · body/md; circle →
+  `component/avatar/size/*`; block → only `radius/surface/*` (host owns height — fill parent).
+  Code-only props: `lines` (text stack, default 1), `width` (default `100%`, ignored on circle),
+  and `height` (block only — without a definite px/`%` of a sized host, `%` collapses to 0).
+  Colours: `component/skeleton/{bg,highlight}` — **same pair as Image loading**. Sheen band 26%;
+  web CSS keyframes / native `Animated` translateX; RN-web uses StyleSheet `animationKeyframes`
+  (Spinner pattern). Reduced motion: freeze sheen, keep bone — never blink. A11y: shapes
+  `aria-hidden` / `accessibilityElementsHidden`; wrapper `role="status"` + one `"Cargando"`
+  announcement. Do not invent a max-duration prop (open Dev decision).
 
 ## Conventions (quick reference — full list in README)
 

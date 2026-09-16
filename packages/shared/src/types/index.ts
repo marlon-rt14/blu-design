@@ -14,6 +14,7 @@ export * from './atoms/otpField.types';
 export * from './atoms/radio.types';
 export * from './atoms/snackbar.types';
 export * from './atoms/spinner.types';
+export * from './atoms/skeleton.types';
 export * from './atoms/switch.types';
 export * from './atoms/tabItem.types';
 export * from './atoms/tag.types';
