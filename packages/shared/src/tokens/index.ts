@@ -19,6 +19,7 @@ export * from './otpField.tokens';
 export * from './passwordField.tokens';
 export * from './choiceItem.tokens';
 export * from './listItem.tokens';
+export * from './menu.tokens';
 export * from './radio.tokens';
 export * from './radioGroup.tokens';
 export * from './select.tokens';

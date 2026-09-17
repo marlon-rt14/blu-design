@@ -44,7 +44,7 @@ export const useTagGroup = ({ size = 'sm' }: ITagGroupProps): IUseTagGroupResult
     fontFamily: font,
     fontWeight: tokens.dimension.fontWeight,
     fontSize: sizeTokens.fontSize,
-    lineHeight: sizeTokens.fontSize * TAG_LINE_HEIGHT_RATIO,
+    lineHeight: `${sizeTokens.fontSize * TAG_LINE_HEIGHT_RATIO}px`,
     whiteSpace: 'nowrap',
   };
 

@@ -498,6 +498,30 @@ one:
   re-screenshotting.** Hit this on both Select's dropdown and Chip's selected-label color; both
   times a fresh reload + re-screenshot showed the correct render, and the accessibility snapshot had
   already reflected the true DOM state during the "wrong-looking" screenshot.
+- **`lineHeight: fontSize * ratio` in a web `CSSProperties` object MUST be a `` `${value}px` `` string,
+  never a bare number.** React's inline-style engine does not append `px` to `lineHeight` (it's in
+  React's unitless-property list, same family as `opacity`/`zIndex`/`flex`), so a bare computed
+  number like `24` renders as CSS `line-height: 24` — a **unitless multiplier**, i.e. 24× the
+  element's own font-size (16px × 24 = 384px), not 24 pixels. This shipped silently in `Tag`,
+  `Chip` and `TagGroup` (`sizeTokens.fontSize * X_LINE_HEIGHT_RATIO` with no `px`) and went
+  unnoticed because those rows use a **fixed** `height` — the oversized line box just overflows
+  invisibly with nothing depending on the text's own natural size. It became blatantly visible
+  building Menu, whose rows use `minHeight` (not fixed `height`): every row inflated to ~600px tall.
+  Contrast with the CORRECT unitless pattern already used everywhere else (`TextField`, `ListItem`,
+  `ChoiceItem`, `Tooltip`, `RadioGroup`, …): those pass the bare **ratio** itself (e.g. `1.5`) as
+  `lineHeight`, which IS valid/idiomatic unitless CSS (150% of font-size) — the bug is specifically
+  in *pre-multiplying* `fontSize * ratio` into a pixel-scale number and then leaving it unitless.
+  Fixed all four call sites to `` `${fontSize * ratio}px` ``. When adding a new component, either
+  pass the naked ratio (like `ListItem`) or an explicit `px` string (like `Select`/`TextField`) —
+  never a pre-multiplied bare number.
+- **`page.keyboard.press()` in this workspace's browser tool can silently fail to reach a focused
+  element inside the Storybook iframe** (observed while testing Menu's arrow-key navigation —
+  identical key presses worked maybe 1 time in 5, with no console error). Don't conclude a
+  keyboard handler is broken from `type_in_page`/`page.keyboard.press` alone: confirm first by
+  dispatching a real `KeyboardEvent` directly on the focused element via `run_playwright_code`
+  (`el.dispatchEvent(new KeyboardEvent('keydown', { key, code, bubbles: true, cancelable: true }))`)
+  — if that reliably reproduces the expected state change and the tool-driven press doesn't, the
+  component is fine and the input tool is the flaky part.
 - **Hover and focus are React state now, not CSS pseudo-classes, on web.** `useTextField` /
   `useTextArea` take `isHovered` / `isFocused` as params; the component owns the state
   (`onMouseEnter`/`onMouseLeave` on the bordered box, `onFocus`/`onBlur` on the input) and feeds it in.

@@ -88,7 +88,7 @@ export const useChip = ({
       fontFamily: labelFont,
       fontWeight: tokens.dimension.fontWeight,
       fontSize: sizeTokens.fontSize,
-      lineHeight: sizeTokens.fontSize * CHIP_LINE_HEIGHT_RATIO,
+      lineHeight: `${sizeTokens.fontSize * CHIP_LINE_HEIGHT_RATIO}px`,
       whiteSpace: 'nowrap',
     },
     removeWrapperStyle: {

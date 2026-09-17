@@ -54,7 +54,7 @@ export const useTag = ({
       fontFamily: labelFont,
       fontWeight: tokens.dimension.fontWeight,
       fontSize: sizeTokens.fontSize,
-      lineHeight: sizeTokens.fontSize * TAG_LINE_HEIGHT_RATIO,
+      lineHeight: `${sizeTokens.fontSize * TAG_LINE_HEIGHT_RATIO}px`,
       whiteSpace: 'nowrap',
     },
     removeButtonStyle: {
