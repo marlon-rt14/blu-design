@@ -5,6 +5,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement } from 'react';
 import { useState } from 'react';
 import { useArgs } from 'storybook/preview-api';
+import { IconCreditCard } from '@dsm/web/icons';
 
 const SIZES: TMenuSize[] = ['sm', 'md'];
 
@@ -16,9 +17,9 @@ const ACCOUNTS: IMenuOption[] = [
 ];
 
 const ACCOUNTS_WITH_DETAIL: IMenuOption[] = [
-  { value: 'savings', label: 'Cuenta de ahorros', description: '••• 4821', leading: 'credit-card', trailingText: '$12.400,00' },
-  { value: 'checking', label: 'Cuenta corriente', description: '••• 0093', leading: 'credit-card', trailingText: '$3.150,00' },
-  { value: 'credit-card', label: 'Tarjeta de crédito', description: '••• 5567', leading: 'credit-card', trailingText: '-$820,00' },
+  { value: 'savings', label: 'Cuenta de ahorros', description: '••• 4821', leadingContent: <IconCreditCard size="sm" />, trailingText: '$12.400,00' },
+  { value: 'checking', label: 'Cuenta corriente', description: '••• 0093', leadingContent: <IconCreditCard size="sm" />, trailingText: '$3.150,00' },
+  { value: 'credit-card', label: 'Tarjeta de crédito', description: '••• 5567', leadingContent: <IconCreditCard size="sm" />, trailingText: '-$820,00' },
 ];
 
 const ACCOUNTS_WITH_DISABLED: IMenuOption[] = [

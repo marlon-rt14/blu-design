@@ -3,7 +3,6 @@ import type { CSSProperties } from 'react';
 import { useEffect, useId, useRef, useState } from 'react';
 import type { KeyboardEvent, ReactElement } from 'react';
 
-import { FieldIcon } from '../../atoms/TextField/FieldIcon';
 import { IconCheck } from '../../../icons';
 import type { IMenuProps } from './Menu.types';
 import { useMenu } from './useMenu';
@@ -176,9 +175,15 @@ export const Menu = (props: IMenuProps): ReactElement => {
                 role="option"
                 style={rowStyle}
               >
-                {option.leading ? (
+                {option.leadingContent ? (
+                  // `color` stays on the wrapper even though the slot now takes
+                  // any node: it is what a system glyph's `currentColor` fill
+                  // reads, and it is inert for artwork — an emoji is a character
+                  // and an SVG with its own `fill` does not inherit it. So a
+                  // themed glyph still follows the menu and a third-party logo
+                  // still cannot be tinted.
                   <span style={{ display: 'inline-flex', flexShrink: 0, color: iconColor }}>
-                    <FieldIcon name={option.leading} size="sm" />
+                    {option.leadingContent}
                   </span>
                 ) : null}
                 <span style={contentColumnStyle}>

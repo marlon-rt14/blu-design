@@ -1,4 +1,5 @@
-import type { TIconName } from '../atoms/icon.types';
+import type { ReactNode } from 'react';
+
 
 /**
  * Physical size, largest first. `md` (44 tall, `size/field/height/md`) is
@@ -14,19 +15,36 @@ export type TMenuSize = 'sm' | 'md';
  * demo, not the catalog: in code the real list is however many `options` the
  * caller passes.
  *
- * `leading` is typed `IconName` here, matching the dev contract's own firma
- * — Figma's instance-swap slot is looser (it also accepts Flag/Avatar/
- * MerchantAvatar, which is how PhoneField puts country flags in its own
- * rows), but that flexibility isn't part of this component's public code
- * contract.
+ * `leadingContent` is a `ReactNode`, as loose as Figma's instance-swap slot —
+ * which also accepts Flag/Avatar/MerchantAvatar, and is how PhoneField puts a
+ * country flag in each of its rows. The dev contract's own firma says
+ * `IconName`; that was narrower than both the design and the use, so the slot
+ * was widened here.
  */
 export interface IMenuOption {
   value: string;
   label: string;
   /** Second line under the label. Its presence turns the slot on — no separate boolean. */
   description?: string;
-  /** Glyph before the label. Its presence turns the leading slot on — no separate boolean. */
-  leading?: TIconName;
+  /**
+   * Whatever goes before the label. Its presence turns the leading slot on — no
+   * separate boolean.
+   *
+   * **A node, not an icon name.** It started as a `TIconName`, which limited the
+   * slot to the 31 system glyphs and left no way to put artwork in a row — a
+   * country flag, a card-brand logo, an avatar. Widened for the PhoneField's
+   * country selector, where each row carries its country's flag and those are
+   * third-party artwork that must not be tinted by the theme, so they can never
+   * be system glyphs.
+   *
+   * A glyph is still the common case and costs one element:
+   * `leadingContent: <IconFlag size="sm" />`.
+   *
+   * **Not to be confused with `ListItem`'s `leadingContent`**, which is an enum
+   * — `'none' | 'icon' | 'avatar'` — naming *what kind* of thing the slot holds.
+   * This one is the thing itself.
+   */
+  leadingContent?: ReactNode;
   /** Trailing amount or shortcut, e.g. `"$1.250,00"`. Its presence turns the slot on — no separate boolean. */
   trailingText?: string;
   /**
