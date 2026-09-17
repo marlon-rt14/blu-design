@@ -1,4 +1,4 @@
-import { BluProvider, Button, Card, CardField, Checkbox, ChoiceItem, Divider, IconButton, LinkButton, OTPField, PasswordField, Radio, RadioGroup, Tooltip, useThemeMode } from "@dsm/web";
+import { BluProvider, Button, Card, CardField, Checkbox, ChoiceItem, Divider, IconButton, LinkButton, OTPField, PasswordField, PhoneField, Radio, RadioGroup, Tooltip, useThemeMode } from "@dsm/web";
 import { readThemeToken, themeSources } from "@dsm/shared";
 import type { TButtonAppearance, TButtonSize, TButtonVariant, TIconColor, TIconSize, TPasswordFieldSize, TPasswordFieldVisibility } from "@dsm/shared";
 import { useState } from "react";
@@ -91,6 +91,7 @@ const App = () => {
   const [cardNumber, setCardNumber] = useState("3056 9309 0259 04");
   const [cardExpiry, setCardExpiry] = useState("12/34");
   const [cardCvv, setCardCvv] = useState("123");
+  const [phone, setPhone] = useState("99 123 4567");
   const [shortPassword, setShortPassword] = useState("123");
   const [visibility, setVisibility] = useState<TPasswordFieldVisibility>("visible");
   // Guarda el id de la opción elegida, que es lo que un grupo de radios necesita.
@@ -460,6 +461,50 @@ const App = () => {
               part="number"
               testID="cardfield-error"
               value="4539 14"
+            />
+          </div>
+        </section>
+
+        <section className="demo__section">
+          <h2 className="demo__section-title">PhoneField</h2>
+          {/* EL SELECTOR ES UN EJE, no un dado: `leadingContent` es `select` o
+              `none`, y la mitad del set de Figma —72 de 144 variantes— es
+              `none`.
+
+              - select: trae el bloque de la izquierda, bandera + codigo +
+                chevron, con su propia area tocable de 48.
+              - none: "no trae nada a la izquierda. El campo queda limpio, como
+                un input de texto, y el valor arranca en el borde. Para cuando
+                el pais es fijo y ya se sabe cual, o cuando el codigo se pide en
+                otra parte del formulario."
+
+              Y SIN SELECTOR SIGUE SIENDO UN PhoneField, no un TextField:
+              conserva el teclado de telefono, la pista de autocompletado y la
+              validacion. Lo que lo define es el dato, no el prefijo. */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 16, maxWidth: 320 }}>
+            <PhoneField
+              helperText="leadingContent=select — bandera, codigo, chevron y separador"
+              label="Numero de celular"
+              onChangeText={setPhone}
+              testID="phonefield-select"
+              value={phone}
+            />
+            <PhoneField
+              helperText="leadingContent=none — el valor arranca en el borde"
+              label="Numero de celular"
+              leadingContent="none"
+              onChangeText={setPhone}
+              testID="phonefield-none"
+              value={phone}
+            />
+            {/* El helper y el error no dependen del prefijo. */}
+            <PhoneField
+              error="El numero esta incompleto"
+              label="Numero de celular"
+              leadingContent="none"
+              onChangeText={() => {}}
+              testID="phonefield-none-error"
+              value="99 12"
             />
           </div>
         </section>

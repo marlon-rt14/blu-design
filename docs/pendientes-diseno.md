@@ -155,16 +155,17 @@ firma no ofrece.
 
 ## PhoneField
 
-Fuente: `PhoneField · Dev`, nodo `1018:96583`. **En espera**, ver más abajo.
+Fuente: `PhoneField · Dev`, nodo `1018:96583`. **Implementado** en las dos
+plataformas; lo único en espera es el arte de las banderas.
 
 | # | Qué | Quién lo cierra | Estado |
 |---|---|---|---|
 | 1 | La bandera y el prefijo son dos props sueltas en Figma y se pueden contradecir. En código son un solo dato, `country`. *"Hay que firmarlo o el exporter va a emitir dos props independientes."* | Design Lead + Tech Lead | **abierta** |
-| 2 | `leadingContent` es un eje de variante y en código no debería ser prop: si el producto opera en un solo país, el selector no va. | Jetto + producto | **abierta** |
+| 2 | ~~`leadingContent` es un eje de variante y en código no debería ser prop.~~ **Mal leído de nuestro lado.** El eje es real y es la mitad del set —72 de 144 variantes son `none`— así que es prop: `leadingContent?: 'none' \| 'select'`. Quien llama al campo *es* el producto. | nosotros | **cerrada** |
 | 3 | **El catálogo de países no existe**: en Figma son cuatro instancias dibujadas a mano. | Jetto + producto | **abierta** |
 | 4 | El menú abierto se documenta con `showMenu`, que es property y no estado. | Tech Lead | declarada |
 
-### Lo que lo tiene en espera
+### Lo que sigue en espera
 
 - **El set de banderas: ubicado, pero sin acceso.** Está en `BDS3 - Assets` como
   `Flag icon`, con un set base de **265 entradas** — ver la sección de arriba.
@@ -174,14 +175,45 @@ Fuente: `PhoneField · Dev`, nodo `1018:96583`. **En espera**, ver más abajo.
   implementado por deducción: el alto sale de `size/icon/*`, el ancho en
   Rectangle es ×1,5, el círculo usa `radius/pill`, y el filete alrededor existe
   *"para que JP, FI y CH no se pierdan sobre fondo claro"*.
-- **El Menu.** La lista de países es una instancia de Menu en el diseño. No
-  bloquea el código —la sección `03` cierra con *"de las siete instancias
-  anidadas, a código llegan dos datos: qué país está elegido y qué países se
-  ofrecen"*— pero conviene esperar el componente de Joel para no construir un
-  panel que después haya que tirar.
+- **El Menu ya está** (de Joel) y es el que usa la versión web. Lo que faltaba
+  para poder usarlo era el slot: `leading` era un `TIconName`, o sea los 31
+  glifos del sistema, y una bandera no es un glifo. Se ensanchó a
+  `leadingContent?: ReactNode` con permiso de Marlon. La firma de la doc de
+  desarrollo del Menu dice `IconName`; conviene corregirla, porque el slot de
+  Figma ya aceptaba Flag/Avatar/MerchantAvatar y era la doc la que iba más
+  angosta que el diseño y que el uso.
 
-El trabajo hecho está en un stash: catálogo de 243 países, contrato de 10 props y
-47 tokens verificados.
+### Hallazgos nuestros, no declarados en la doc
+
+0. **La firma de la doc de desarrollo se queda corta contra el component set.**
+   La firma (`1018:96962`) tiene 10 props y no menciona `leadingContent`, pero el
+   component set tiene el eje con 72 variantes de cada valor. Las 144 salen de
+   `leadingContent(2) × size(3) × state(3) × isFilled(2) × isDisabled(2) ×
+   validation(2)`. Conviene agregarlo a la firma; el código ya lo implementa.
+   De paso, **la descripción usa el nombre viejo del eje**: dice `prefix=none` /
+   `prefix=select` en todo el primer bloque, y el eje se llama `leadingContent`.
+1. **El Menu no tiene alto máximo ni scroll interno.** Es contenido puro, lo
+   cual es correcto, pero significa que con 243 países el panel mide **10.718
+   px** medidos. Lo acota quien lo llama: el PhoneField web lo mete en un
+   contenedor con `max-block-size` y `overflow-y: auto`. Sería útil que el Menu
+   lo resolviera él, como ya hace el Select, que se acota solo.
+2. **No existe token de alto máximo de menú.** En `dimension.json` la única
+   clave que menciona un dropdown es `z/dropdown` (1100). Así que el Select y el
+   PhoneField comparten un literal de **280 px** escrito a mano en los dos. Con
+   un token —`size/menu/max-height`— dejaría de ser un número inventado dos
+   veces.
+3. **Dos superficies no pueden anidarse.** El Menu pinta su propio fondo, borde
+   y radio. Si el panel del PhoneField pintara los suyos, se vería un filete
+   doble por los costados. El panel quedó **sin superficie**: solo posiciona,
+   recorta y proyecta la sombra, y la tira del buscador pinta la parte de
+   arriba.
+4. **El foco al abrir.** El Menu se enfoca a sí mismo al montarse, que es lo
+   correcto para un menú sin disparador. Acá el foco tiene que ir al buscador,
+   porque con 243 filas lo primero que se hace es escribir. Se resuelve desde el
+   PhoneField —el efecto del padre corre después del hijo, así que gana— y
+   `ArrowDown` le entrega el foco a la lista. El patrón completo sería
+   `combobox` con `aria-activedescendant`, que necesitaría que el Menu acepte
+   teclas desde afuera. Queda anotado, no hecho.
 
 ---
 

@@ -13,6 +13,7 @@ import {
   LinkButton,
   ListItem,
   OTPField,
+  PhoneField,
   Radio,
   RadioGroup,
   Select,
@@ -199,6 +200,7 @@ const App = () => {
   const [cardNumber, setCardNumber] = useState('3056 9309 0259 04');
   const [cardExpiry, setCardExpiry] = useState('12/34');
   const [cardCvv, setCardCvv] = useState('123');
+  const [phone, setPhone] = useState('99 123 4567');
   const handlePress = () => setPresses(current => current + 1);
   // fontWeight isn't set alongside fontFamily below — each Mulish-*.ttf is
   // already a single static weight, same constraint as @dsm/mobile's own
@@ -474,6 +476,59 @@ const App = () => {
                   part="number"
                   testID="cardfield-error"
                   value="4539 14"
+                />
+              </View>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+                PhoneField
+              </Text>
+              {/* EL SELECTOR ES UN EJE, no un dado: `leadingContent` es
+                  `select` o `none`, y la mitad del set de Figma —72 de 144
+                  variantes— es `none`.
+
+                  - select: trae el bloque de la izquierda, bandera + codigo +
+                    chevron, con su propia area tocable de 48. Al tocarlo abre
+                    una hoja inferior con buscador, no un panel anclado: es la
+                    misma decision que ya tomo el Select.
+                  - none: "no trae nada a la izquierda. El campo queda limpio,
+                    como un input de texto, y el valor arranca en el borde."
+                    Aca ni se monta el Modal: sin disparador no hay nada que
+                    pueda abrirlo.
+
+                  Y SIN SELECTOR SIGUE SIENDO UN PhoneField: conserva el teclado
+                  phone-pad, el textContentType y la validacion. Lo que lo
+                  define es el dato, no el prefijo.
+
+                  Las banderas son provisionales — emoji dentro de un circulo
+                  recortado con filete. El set real son 265 componentes en
+                  `BDS3 - Assets`, al que todavia no tenemos acceso; el arte
+                  esta aislado en `PhoneField/flags/`. */}
+              <View style={styles.cardFieldStack}>
+                <PhoneField
+                  helperText="leadingContent=select — bandera, codigo, chevron y separador"
+                  label="Numero de celular"
+                  onChangeText={setPhone}
+                  testID="phonefield-select"
+                  value={phone}
+                />
+                <PhoneField
+                  helperText="leadingContent=none — el valor arranca en el borde"
+                  label="Numero de celular"
+                  leadingContent="none"
+                  onChangeText={setPhone}
+                  testID="phonefield-none"
+                  value={phone}
+                />
+                {/* El helper y el error no dependen del prefijo. */}
+                <PhoneField
+                  error="El numero esta incompleto"
+                  label="Numero de celular"
+                  leadingContent="none"
+                  onChangeText={() => {}}
+                  testID="phonefield-none-error"
+                  value="99 12"
                 />
               </View>
             </View>

@@ -14,6 +14,7 @@ export * from './LinkButton';
 export * from './Card';
 export * from './OTPField';
 export * from './PasswordField';
+export * from './PhoneField';
 export * from './Radio';
 export * from './Snackbar';
 export * from './Spinner';
