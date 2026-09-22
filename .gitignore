@@ -54,3 +54,6 @@ yarn-error.*
 .vscode/*
 !.vscode/extensions.json
 *.iml
+
+# Descargas crudas de Figma: fuente del generador, no del repo.
+.figma-assets/

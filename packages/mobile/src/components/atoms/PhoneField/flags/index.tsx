@@ -1,22 +1,9 @@
+import { FLAG_ASPECT_RATIO, FLAG_PATHS, FLAG_VIEW_BOX } from '@dsm/shared';
 import type { TCountryCode } from '@dsm/shared';
-import type { ComponentType, ReactElement } from 'react';
+import type { ReactElement } from 'react';
+import Svg, { Path } from 'react-native-svg';
 
-import { EmojiFlag } from './EmojiFlag';
 import type { IFlagProps } from './flag.types';
-
-/**
- * Countries whose real artwork is in the repo.
- *
- * **`Partial` on purpose**, unlike `CardField/marks/`, which is exhaustive. A
- * missing card brand hides a product question; a missing country does not — the
- * set is open and mechanical, and demanding every key would mean 243 entries
- * whose only purpose is to name the fallback.
- *
- * When the real set arrives it will be a generated data module plus one
- * renderer, not 243 components. See the web file and
- * `docs/pendientes-diseno.md`.
- */
-const FLAG_ART: Partial<Record<TCountryCode, ComponentType<IFlagProps>>> = {};
 
 /** Props of {@link CountryFlagArt}. */
 interface ICountryFlagArtProps extends IFlagProps {
@@ -27,11 +14,20 @@ interface ICountryFlagArtProps extends IFlagProps {
  * A country's flag, and **the only thing that knows where flag artwork comes
  * from**.
  *
- * `CountryFlag` draws the circle and the hairline and names the country without
- * ever mentioning emoji or code points. The day the real set lands, only
- * `flags/` changes.
+ * `CountryFlag` draws the circle and the hairline and names the country; this
+ * draws the flag and nothing else. The paths come from `FLAG_PATHS`, the same
+ * generated module the web renderer reads — the platforms differ in which
+ * element draws a path, not in what the path is.
+ *
+ * The country's name is announced by `CountryFlag` one level up, which also
+ * hides this subtree from the screen reader.
  */
-export const CountryFlagArt = ({ country, ...props }: ICountryFlagArtProps): ReactElement => {
-  const Art = FLAG_ART[country];
-  return Art === undefined ? <EmojiFlag {...props} country={country} /> : <Art {...props} />;
-};
+export const CountryFlagArt = ({ country, size }: ICountryFlagArtProps): ReactElement => (
+  <Svg height={size} viewBox={FLAG_VIEW_BOX} width={size * FLAG_ASPECT_RATIO}>
+    {FLAG_PATHS[country].map((path, index) => (
+      // The index is a stable key: the list is generated data that only changes
+      // when the flag is redrawn.
+      <Path key={index} {...path} />
+    ))}
+  </Svg>
+);

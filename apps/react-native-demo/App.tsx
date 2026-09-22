@@ -501,10 +501,11 @@ const App = () => {
                   phone-pad, el textContentType y la validacion. Lo que lo
                   define es el dato, no el prefijo.
 
-                  Las banderas son provisionales — emoji dentro de un circulo
-                  recortado con filete. El set real son 265 componentes en
-                  `BDS3 - Assets`, al que todavia no tenemos acceso; el arte
-                  esta aislado en `PhoneField/flags/`. */}
+                  Las banderas son el arte real del set `.Flag` de
+                  `BDS3 - Assets`: 243, una por pais del catalogo, como paths en
+                  un modulo generado y no como 243 componentes. El filete del
+                  circulo lo pide bDS "para que JP, FI y CH no se pierdan sobre
+                  fondo claro". */}
               <View style={styles.cardFieldStack}>
                 <PhoneField
                   helperText="leadingContent=select — bandera, codigo, chevron y separador"

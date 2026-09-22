@@ -28,8 +28,7 @@ interface ICountryFlagProps {
  * A country's flag, as a circle.
  *
  * **It draws the circle and names the country; it does not know what a flag
- * looks like.** The artwork lives in `./flags`, which is the seam — see that
- * folder for why it is an emoji today.
+ * looks like.** The artwork lives in `./flags`, which is the seam.
  *
  * ### Why there is a hairline at all
  *
@@ -63,9 +62,8 @@ export const CountryFlag = ({
       flexShrink: 0,
       height: size,
       justifyContent: 'center',
-      // The circle is drawn and clipped by this box, not by the artwork: an
-      // emoji is a character and cannot be clipped to a shape on its own, and a
-      // rectangular SVG flag needs the same treatment — bDS says Circle
+      // The circle is drawn and clipped by this box, not by the artwork: every
+      // flag is a 3:2 rectangle, so the circle crops its sides — bDS says Circle
       // *"recorta al centro"*.
       overflow: 'hidden',
       width: size,

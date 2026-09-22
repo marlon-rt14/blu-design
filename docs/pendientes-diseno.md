@@ -13,67 +13,107 @@ la cierren.
 
 ---
 
-## El archivo `BDS3 - Assets` — acceso
+## El archivo `BDS3 - Assets` — **acceso concedido el 22-sep**
 
-**Prioridad alta: desbloquea dos componentes.**
-
-Hay un cuarto origen de diseño que no estaba en el radar:
+Jetto dio acceso a `marlon.ruiz@centrohub.co`. Era la vía preferida justamente
+por esto: el arte se exporta sin coordinar con nadie, y cuando diseño corrija
+una bandera se vuelve a exportar solo.
 
 ```
 BDS3 - Assets    Figma EjuudbnL2TbkjnSCwBNztw
-                 97 componentes · propietario Jetto Gonzalez · import cada hora
+                 propietario Jetto Gonzalez
 ```
 
-Ahí viven los dos sets de arte que faltaban:
+### Lo que había adentro
 
-- **`Card network icon`** — *"conjunto de logotipos compactos de medios de pago.
-  Incluye versiones de Diners Club, Discover, Visa, Mastercard y American
-  Express"*. Ejes `Shape` (Rectangle/Square/Circle) × `Size` (xs 12 · sm 16 ·
-  md 24 · lg 32 · xl 40, ligado a `size/icon/*`).
-- **`Flag icon`** — *"las 15 variantes apuntan al mismo set base 'Flag'
-  (**265 entradas**)"*. Mismos ejes.
+| Página | Set | Node | Qué |
+|---|---|---|---|
+| Flags | `.Flag` | `2053:2053` | **265 países**, eje `Country` con formato `"EC - Ecuador"` |
+| Flags | `Flag icon` | `2055:2028` | `Shape` (Rectangle/Square/Circle) × `Size` (xs…xl) sobre `.Flag` |
+| Card network | `.Brand rect` | `2094:149` | **6 marcas**: Diners Club, Discover, Visa, Mastercard, Amex, "Amex alternative" |
+| Card network | `Card network icon` | `2008:690` | `Shape` × `Size` sobre `.Brand` |
+| Cards - Pending | `Tarjetas_cards_consolidado` | `2060:448` | el arte de **16 tarjetas físicas** (Titanium, Débito Blue, Freedom, Kids, Supermaxi…) |
+| Badges | `Wallets`, `App Stores`, `Pay` | `2008:249` | Apple/Google Pay y los badges de las tiendas |
 
-**En los dos, la marca o el país NO es un eje de variante: es una propiedad de
-una instancia anidada** (`Country`, formato `"CO - Colombia"`). Por eso buscar
-"Visa" o "Ecuador" en la librería no devuelve nada, y por eso yo había concluido
-—mal— que el arte no existía.
+Las dos últimas páginas no estaban en el radar y no las usa ningún componente
+todavía. Quedan anotadas por si aparece una `Card` de producto o un botón de
+wallet.
 
-**El bloqueo es de permisos.** `list_file_components_for_code_connect`,
-`search_design_system` y `get_metadata` responden los tres *"looks like you
-don't have edit access to this file"* para ese fileKey, aunque el asiento en la
-organización sea Dev.
+### Banderas: hechas
 
-### El pedido, concreto
+Las 243 del catálogo, cerradas el 22-sep. **Cero faltantes**: los 265 del set
+cubren nuestros 243 y sobran 22 que son territorios sin prefijo telefónico
+(`EU`, `GB-ENG`, `ES-CT`, `XK`, `AQ`…), así que no entran.
 
-**Archivo:** https://www.figma.com/design/EjuudbnL2TbkjnSCwBNztw/BDS3---Assets
+Medido antes de elegir el enfoque: las 265 son `<path>` y nada más, todas con
+`viewBox="0 0 240 160"`, sin un solo raster ni `base64`. Los 530 `clipPath` que
+traen son rects del frame completo —recortes de Figma, no de diseño— así que se
+descartan, y con ellos el problema de ids duplicados al inlinear 243 SVG en un
+documento.
 
-Alcanza con **una** de las dos cosas:
+Son **datos, no componentes**: un módulo generado
+(`packages/shared/src/data/flags.generated.ts`, 1.159 paths) y un renderer por
+plataforma. 243 componentes serían 486 archivos con el mismo `<svg>` alrededor
+de distinta geometría.
 
-1. **Acceso al archivo** para `marlon.ruiz@centrohub.co` — con eso los exporto
-   yo y no hay que coordinar nada más. Es la vía preferida: cuando el diseñador
-   corrija una bandera o un logo, se vuelve a exportar sin pedir nada.
-2. **Los SVG sueltos**, si el acceso no se puede dar:
+**Costo medido en el bundle: +241,2 kB (+74,8 kB gzip)**, comparando el build
+con el módulo vaciado contra el módulo entero. Es el 2,8 % del bundle; los temas
+siguen siendo el grueso. Se suma al pendiente de carga perezosa, no lo crea.
 
-| Para | Qué | Componente en Assets |
+Se regenera con dos scripts, que necesitan `FIGMA_API_KEY` en el entorno:
+
+```
+node scripts/fetch-figma-flags.mjs     # 2 requests REST + 265 descargas
+node --experimental-strip-types scripts/generate-flags.mjs
+```
+
+El MCP de Figma no servía para esto: baja **un nodo por llamada**, o sea 265
+llamadas. La API REST acepta todos los ids juntos.
+
+### Logos de tarjeta: medidos, y nuestro CardField está mal
+
+Los 6 SVG están bajados y el muestrario `__test-borde` (`2094:1078`, columna
+LIGHT) da las seis marcas renderizadas a 48×32. Medido de ahí:
+
+| Marca | Placa | Logo |
 |---|---|---|
-| **CardField** | los **5 logos de red** — Diners Club, Discover, Visa, Mastercard, American Express | `Card network icon`, `Shape=Rectangle` |
-| **PhoneField** | el set base **`Flag`, 265 entradas** | `Flag icon`, `Shape=Circle` |
+| Diners Club | **blanca** | `#046AA9` |
+| Discover | `#232B3D` | **degradado lineal** |
+| Visa | `#1434CB` | blanco |
+| Mastercard | `#232B3D` | `#FF5F00` · `#EB001B` · `#F79E1B` |
+| Amex | `#006FCF` | blanco + `#016FD0` |
+| Amex alternative | `#006FCF` | `#006FCF` + blanco |
 
-De los tamaños no hace falta nada: el alto sale de `size/icon/*` y el ancho se
-deriva, así que con **un** SVG por marca y por país alcanza — el escalado lo
-hace el código.
+Todas 48×32 con `rx=2`, más un `rect` de 47×31 inset 0,5 que es el filete.
 
-Ids en Supernova, por si sirve para ubicarlos:
-`Card network icon` = `7ecf5c53-90c1-455d-be7e-f40c3cb1c7c3` ·
-`Flag icon` = `965f4788-43bb-40bd-b31e-a9cb485631fe`.
+**El color de la placa es de la marca, no del token.** Nuestro `CardBrandLogo`
+pinta la placa con un token neutro para las cuatro y encima un glifo de color.
+Con Diners coincide de casualidad —su placa *es* blanca— y eso fue lo que nos
+hizo generalizar mal: medimos el único caso donde la regla equivocada da el
+resultado correcto.
 
-### Y una discrepancia que aparece de paso
+Dos cosas más que caen con esto:
 
-**El set de arte tiene cinco marcas y la descripción del CardField declara
-cuatro** — American Express está en `BDS3 - Assets` y no en la lista del
-componente. Hoy `TCardBrand` tiene las cuatro declaradas, así que un número de
-Amex no muestra logo. Es parte de la divergencia 4: hay que decidir si Amex
-entra.
+- **"El logo es la mitad del ancho de la placa" es un hecho de Diners**, no una
+  regla. El de Diners ocupa 24 de 48; el wordmark de Visa ocupa mucho más.
+- **Discover trae un degradado**, que es el primer asset del sistema que no se
+  resuelve con `fill` plano. `react-native-svg` lo soporta con `Defs` +
+  `LinearGradient`, pero obliga a ids únicos por instancia — justo el problema
+  que en las banderas pudimos esquivar.
+
+Lo correcto es que **la marca sea el arte completo de 3:2, fondo incluido**, y
+que el `CardBrandLogo` ponga solo el filete y el recorte. La placa con token
+queda únicamente para el caso sin marca detectada. Es cambio de CardField, no de
+banderas, así que va en su propio commit.
+
+### Y la discrepancia de Amex, ahora con arte
+
+**El set tiene seis marcas y la descripción del CardField declara cuatro.**
+American Express está en `BDS3 - Assets` —y "Amex alternative" también— y no en
+la lista del componente. Hoy `TCardBrand` tiene las cuatro declaradas, así que
+un número de Amex no muestra logo. Ya no se puede argumentar que el arte no
+existe: es decisión de producto si Amex entra. Parte de la divergencia 4 del
+CardField.
 
 ---
 
@@ -120,8 +160,10 @@ Razones, en orden:
 
 ### El arte de las marcas
 
-Ubicado en `BDS3 - Assets`, sin acceso — ver la sección de arriba. Mientras
-tanto solo **Diners** tiene su marca real (exportada de las variantes del propio
+Ubicado en `BDS3 - Assets`, **con acceso desde el 22-sep** y los 6 SVG ya
+bajados — pero sin aplicar todavía, porque falta medir si la placa la dibuja el
+componente o la trae el asset (ver la sección de arriba). Hoy sigue siendo que
+solo **Diners** tiene su marca real (exportada de las variantes del propio
 CardField en Core, donde el diseñador la dibujó inline) y las otras tres caen al
 `icon/credit-card` genérico. Las cuatro se detectan y se anuncian igual, así que
 no hay nada mal en silencio.
@@ -167,14 +209,14 @@ plataformas; lo único en espera es el arte de las banderas.
 
 ### Lo que sigue en espera
 
-- **El set de banderas: ubicado, pero sin acceso.** Está en `BDS3 - Assets` como
-  `Flag icon`, con un set base de **265 entradas** — ver la sección de arriba.
-  `icon/flag` en Core es solo el placeholder, y su descripción ya lo decía: la
-  bandera real *"lo reemplaza"*. Falta el acceso al archivo, o los SVG.
-  De paso, la descripción de `Flag icon` confirma dos cosas que habíamos
-  implementado por deducción: el alto sale de `size/icon/*`, el ancho en
-  Rectangle es ×1,5, el círculo usa `radius/pill`, y el filete alrededor existe
-  *"para que JP, FI y CH no se pierdan sobre fondo claro"*.
+- ~~**El set de banderas.**~~ **Hecho el 22-sep**, con el acceso a
+  `BDS3 - Assets` — las 243 del catálogo, sin faltantes. Ver la sección de
+  arriba. De paso, el set confirmó lo que habíamos implementado por deducción:
+  el alto sale de `size/icon/*`, el ancho en Rectangle es ×1,5 (los SVG son
+  240×160 exactos), el círculo usa `radius/pill`, y el filete existe *"para que
+  JP, FI y CH no se pierdan sobre fondo claro"*. No hubo que rehacer nada del
+  `CountryFlag`: solo cambió lo que dibuja `flags/`, que era exactamente el
+  propósito de esa carpeta.
 - **El Menu ya está** (de Joel) y es el que usa la versión web. Lo que faltaba
   para poder usarlo era el slot: `leading` era un `TIconName`, o sea los 31
   glifos del sistema, y una bandera no es un glifo. Se ensanchó a

@@ -178,10 +178,10 @@ export const Menu = (props: IMenuProps): ReactElement => {
                 {option.leadingContent ? (
                   // `color` stays on the wrapper even though the slot now takes
                   // any node: it is what a system glyph's `currentColor` fill
-                  // reads, and it is inert for artwork — an emoji is a character
-                  // and an SVG with its own `fill` does not inherit it. So a
-                  // themed glyph still follows the menu and a third-party logo
-                  // still cannot be tinted.
+                  // reads, and it is inert for artwork — an SVG that carries its
+                  // own `fill` on every path, like a country flag, does not
+                  // inherit it. So a themed glyph still follows the menu and a
+                  // third-party mark still cannot be tinted.
                   <span style={{ display: 'inline-flex', flexShrink: 0, color: iconColor }}>
                     {option.leadingContent}
                   </span>

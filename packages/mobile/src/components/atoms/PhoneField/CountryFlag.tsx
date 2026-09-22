@@ -60,8 +60,8 @@ export const CountryFlag = ({
       borderWidth,
       height: size,
       justifyContent: 'center',
-      // The circle clips the artwork: an emoji is a character and cannot be
-      // clipped to a shape on its own, and bDS says Circle *"recorta al centro"*.
+      // The circle clips the artwork: every flag is a 3:2 rectangle, so the
+      // circle crops its sides — bDS says Circle *"recorta al centro"*.
       overflow: 'hidden',
       width: size,
     }}

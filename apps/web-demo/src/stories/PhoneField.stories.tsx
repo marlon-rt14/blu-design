@@ -60,11 +60,11 @@ const meta = {
           'not the prefix.\n\n' +
           '**It does not format the number.** `99 123 4567` arrives grouped from a formatter ' +
           'outside the component; `value` is what the user typed.\n\n' +
-          '**The flags are placeholders.** Every row draws its country as an emoji inside a ' +
-          'clipped circle with a hairline — the hairline is bDS’s own requirement, *"para que ' +
-          'JP, FI y CH no se pierdan sobre fondo claro"*. The real set is 265 components in ' +
-          '`BDS3 - Assets`, a Figma file we do not have access to yet. The artwork is isolated ' +
-          'in `PhoneField/flags/` so that only that folder changes when it lands.\n\n' +
+          '**The flags are the real artwork**, straight from the `.Flag` set in `BDS3 - Assets`: ' +
+          '243 of them, one per country in the catalogue, as paths in a generated data module ' +
+          'rather than 243 components. Each one is drawn inside a clipped circle with a ' +
+          'hairline — bDS’s own requirement, *"para que JP, FI y CH no se pierdan sobre fondo ' +
+          'claro"*, since those three have white fields that would bleed into the surface.\n\n' +
           '`showMenu` is not a prop: opening is internal state, the same trap `isOpen` has in ' +
           'the Select. And in code the chevron **rotates** — in Figma it cannot, because ' +
           '*"un booleano prende y apaga, no transforma"*.',
