@@ -468,8 +468,10 @@ bDS themes are **three Figma variable collections**, not a single light/dark swi
   `border/width/default`. Stacking is **`z.popover_1`** (1200) — the set prose says
   "z/overlay (1200)" but the leaf that names Coachmark is popover. Title↔body
   gap **0**. Body type is **`text/body/sm/default`** (live node wins over
-  set prose that said md). Nested Image `16:9` `radius=none`; footer
-  Buttons `sm` (action fill, back **ghost**). Default CTA:
+  set prose that said md). Nested Image `16:9` `radius=none` inside a media
+  wrap that clips with `radius/surface/md`. Live node `137:20132`: media is
+  **inset** by container `space/inset/lg` (same padding as text/footer) — not
+  full-bleed. Footer Buttons `sm` (action fill, back **ghost**). Default CTA:
   `resolveCoachmarkActionLabel` → `"Entendido"` on `single`, `"Siguiente"`
   on `multi`. Single footer: CTA **start** (no spacer); multi: step start
   + actions end. No backdrop scrim. Focus moves into the non-modal dialog

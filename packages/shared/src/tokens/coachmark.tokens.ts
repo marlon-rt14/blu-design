@@ -37,6 +37,10 @@ export interface ICoachmarkColorTokens {
 export interface ICoachmarkDimensionTokens {
   /** Fixed card width. Figma copy *"Ancho 320 fijo"* — not a theme leaf. */
   width: number;
+  /**
+   * Container inset — `space/inset/lg`. Applies to every side including around
+   * `media="image"` (live node `137:20132`: media at 16,16 — not full-bleed).
+   */
   padding: number;
   blockGap: number;
   inlineGap: number;
