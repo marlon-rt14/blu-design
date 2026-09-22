@@ -1324,6 +1324,63 @@
             "description": "Co-token de phonefield. Alto del separador vertical entre el prefijo y el valor: 16, la misma altura que la bandera y el chevron que tiene al lado, no los 24 de la fila. Aliasea size/16. Mismo valor en los tres modos: el separador no se comprime por densidad porque los glifos que acompaña tampoco. NO usar size/icon/sm para esto: coinciden hoy, pero uno es tamaño de icono y el otro alto de separador, y si la escala de iconos cambia el separador no tiene por qué seguirla."
           }
         }
+      },
+      "accordion": {
+        "header": {
+          "min-height": {
+            "sm": {
+              "value": "48px",
+              "type": "dimension",
+              "description": "Co-token de accordion. Capa de indirección: aliasea size/target/min sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            },
+            "lg": {
+              "value": "56px",
+              "type": "dimension",
+              "description": "Co-token de accordion. Capa de indirección: aliasea size/control/height/lg sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            }
+          },
+          "padding-x": {
+            "value": "16px",
+            "type": "dimension",
+            "description": "Co-token de accordion. Capa de indirección: aliasea space/inset/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "padding-y": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Co-token de accordion. Capa de indirección: aliasea space/inset/sm sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "gap": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Co-token de accordion. Capa de indirección: aliasea space/inline/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "content": {
+          "padding-top": {
+            "value": "4px",
+            "type": "dimension",
+            "description": "Co-token de accordion. Capa de indirección: aliasea space/stack/xs sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "padding-bottom": {
+            "value": "16px",
+            "type": "dimension",
+            "description": "Co-token de accordion. Capa de indirección: aliasea space/stack/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "icon": {
+          "size": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Co-token de accordion. Capa de indirección: aliasea size/icon/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "chevron": {
+          "size": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Co-token de accordion. Capa de indirección: aliasea size/icon/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        }
       }
     },
     "platform": {
@@ -1578,6 +1635,13 @@
           "type": "dimension",
           "description": "Radio de la punta de una barra. 4 en las tres densidades: con 15 o 20 columnas la barra queda fina y un radio mayor se come el valor."
         }
+      },
+      "segment": {
+        "gap": {
+          "value": "2px",
+          "type": "dimension",
+          "description": "Separación entre segmentos de una serie apilada y entre barras de un mismo grupo. No es espaciado de layout: es geometría del gráfico, por eso no escala con la densidad."
+        }
       }
     },
     "radius": {
@@ -1604,6 +1668,11 @@
         }
       },
       "control": {
+        "xs": {
+          "value": "2px",
+          "type": "dimension",
+          "description": "El paso más chico de la escala de radios. Para marcas de gráfico muy angostas —segmentos de Status strip, celdas de heatmap, nodos de Sankey— donde 4 ya convierte la pieza en una píldora."
+        },
         "sm": {
           "value": "4px",
           "type": "dimension",
