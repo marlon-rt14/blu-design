@@ -70,6 +70,29 @@ node --experimental-strip-types scripts/generate-flags.mjs
 El MCP de Figma no servía para esto: baja **un nodo por llamada**, o sea 265
 llamadas. La API REST acepta todos los ids juntos.
 
+#### Hermes no trae `Intl.DisplayNames` — confirmado en simulador
+
+Lo que estaba anotado como "verificar en dispositivo" se verificó el 22-sep en
+un iPhone 17 Pro: la hoja de países listaba **`EC` en lugar de `Ecuador`**. No
+era un crash porque `countryName` ya degradaba a propósito, pero era ilegible.
+
+Arreglado con una tabla de nombres en español **generada desde el ICU de Node**
+—la misma data CLDR que responde el navegador—, así que las dos plataformas
+dicen lo mismo y nadie transcribió 243 nombres a mano:
+
+```
+node --experimental-strip-types scripts/generate-country-names.mjs
+```
+
+Donde `Intl` existe sigue ganando `Intl`, porque cubre cualquier locale. La
+tabla es solo español: pedir otro locale sin `Intl` devuelve español, que es
+mejor que `EC`.
+
+Cuesta **+3,8 kB** en el bundle, medido. Y quedó una prueba que lo fija
+(`apps/react-native-demo/__tests__/countryName.test.ts`): borra
+`Intl.DisplayNames` y exige nombres reales, porque typecheck, lint y el
+navegador estuvieron verdes todo el tiempo que el bug existió.
+
 ### Logos de tarjeta: medidos el 22-sep, y aplicados el mismo día
 
 Los 6 SVG están bajados y el muestrario `__test-borde` (`2094:1078`, columna

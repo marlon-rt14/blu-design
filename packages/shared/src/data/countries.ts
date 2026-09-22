@@ -1,3 +1,5 @@
+import { COUNTRY_NAMES_ES } from './countryNames.generated';
+
 /**
  * The country catalogue the PhoneField's selector offers.
  *
@@ -15,11 +17,11 @@
  *   reference data (ITU E.164) written here by hand; the common ones are
  *   certain, and the small territories are worth a review before this ships to
  *   production.
- * - **The names are not a table.** They come from CLDR through
- *   `Intl.DisplayNames`, which is both more accurate than hand-written Spanish
- *   and free in any other locale. Checked against the design: `EC` resolves to
- *   `Ecuador`, `CO` to `Colombia`, `PE` to `Peru` and `US` to `Estados Unidos`,
- *   which is exactly what Figma draws.
+ * - **The names come from CLDR, never from hand-written Spanish.** Through
+ *   `Intl.DisplayNames` where it exists, and through a table generated from
+ *   Node's ICU — the same data — where it does not, which is Hermes. Checked
+ *   against the design: `EC` resolves to `Ecuador`, `CO` to `Colombia`, `PE` to
+ *   `Peru` and `US` to `Estados Unidos`, which is exactly what Figma draws.
  *
  * All 243 codes below were validated against CLDR — `Intl.DisplayNames` knows
  * every one of them, so none is a typo.
@@ -320,17 +322,23 @@ const displayNamesFor = (locale: string): Intl.DisplayNames | null => {
 /**
  * The country's name in the given locale, from CLDR.
  *
- * Falls back to the code itself when `Intl.DisplayNames` is unavailable, which
- * is the one thing to watch on React Native: a list reading `EC` instead of
- * `Ecuador` means Hermes shipped without the API on that platform, and the
- * catalogue then needs real names. **Verify on a device, not in the browser.**
+ * **Falls back to a bundled Spanish table when `Intl.DisplayNames` is
+ * missing**, which on React Native is not hypothetical: measured on an
+ * iPhone 17 Pro simulator, Hermes has no `DisplayNames` and the country sheet
+ * listed `EC` instead of `Ecuador`. The table is generated from Node's ICU —
+ * the same CLDR data the browser answers with — so the two platforms agree.
+ *
+ * The fallback is Spanish only. Ask for another locale on a runtime without
+ * `Intl` and you get Spanish, not the code: a readable name in the wrong
+ * language beats `EC`. A second locale there would need a second table.
  *
  * @param code - The ISO 3166-1 alpha-2 code.
  * @param locale - BCP 47 tag. Defaults to Spanish, the product's language.
- * @returns The localized name, or `code` if the runtime cannot resolve it.
+ * @returns The localized name. Never the bare code: without `Intl` it is the
+ *   Spanish table, which covers every code in the catalogue.
  */
 export const countryName = (code: TCountryCode, locale = 'es'): string =>
-  displayNamesFor(locale)?.of(code) ?? code;
+  displayNamesFor(locale)?.of(code) ?? COUNTRY_NAMES_ES[code];
 
 /**
  * Sorts codes by their localized name, which is the only neutral order for a
