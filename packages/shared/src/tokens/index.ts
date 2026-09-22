@@ -5,6 +5,7 @@ export * from './buttonGroup.tokens';
 export * from './card.tokens';
 export * from './cardField.tokens';
 export * from './checkbox.tokens';
+export * from './checkboxGroup.tokens';
 export * from './chip.tokens';
 export * from './coachmark.tokens';
 export * from './choiceBox.tokens';

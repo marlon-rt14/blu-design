@@ -1,5 +1,6 @@
 export * from './AvatarGroup';
 export * from './ButtonGroup';
+export * from './CheckboxGroup';
 export * from './ChoiceItem';
 export * from './Coachmark';
 export * from './ListItem';
