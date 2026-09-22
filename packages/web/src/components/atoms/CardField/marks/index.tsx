@@ -1,31 +1,12 @@
 import type { TCardBrand } from '@dsm/shared';
 import type { ComponentType, ReactElement } from 'react';
 
-import { IconCreditCard } from '../../../../icons';
 import type { IMarkProps } from './mark.types';
+import { AmexMark } from './AmexMark';
 import { DinersMark } from './DinersMark';
-
-/**
- * The generic payment glyph, standing in for a brand whose artwork is not here
- * yet.
- *
- * It is `icon/credit-card` from the system set, and its own description sanctions
- * this use: *"marca todo lo que es medio de pago: el brandIcon de CardField y el
- * media por defecto de ChoiceBox"*. Unlike a real mark it **does** go through
- * `Icon`, and that is right — it is a monochrome system glyph, so the theme
- * should paint it.
- *
- * **It takes no props at all**, and so ignores the width: `Icon` sizes from the
- * `size/icon/*` ramp as a square, and 18 is not on that ramp. A zero-parameter
- * function is assignable to `ComponentType<IMarkProps>`, so the registry below
- * still accepts it.
- *
- * The consequence, which is real but preexisting: it draws 16x16 at every size,
- * so in `lg` — a 48x32 plate — the glyph is small for its plate. It goes away
- * when the artwork arrives; noted in `docs/pendientes-diseno.md` rather than
- * papered over.
- */
-const GenericMark = (): ReactElement => <IconCreditCard size="sm" />;
+import { DiscoverMark } from './DiscoverMark';
+import { MastercardMark } from './MastercardMark';
+import { VisaMark } from './VisaMark';
 
 /**
  * Brand to artwork.
@@ -33,7 +14,7 @@ const GenericMark = (): ReactElement => <IconCreditCard size="sm" />;
  * **`satisfies Record<TCardBrand, …>` on purpose, and the exhaustiveness is the
  * point**: adding a fifth brand to `TCardBrand` breaks this file until somebody
  * says what it draws. A `Partial<Record<…>>` with a fallback would compile and
- * silently give the new brand the generic glyph — and there *is* a fifth brand
+ * silently give the new brand somebody else's artwork, or none — and there *is* a fifth brand
  * coming, because the artwork set in `BDS3 - Assets`
  * (Figma `EjuudbnL2TbkjnSCwBNztw`, component `Card network icon`) includes
  * American Express while `TCardBrand` does not. That decision should surface as a type error, not
@@ -43,16 +24,19 @@ const GenericMark = (): ReactElement => <IconCreditCard size="sm" />;
  * way of turning a union into a component: `as const satisfies Record<…>` keeps
  * the literal types while still demanding every key.
  *
- * Today only Diners has real artwork. The other three point at the generic glyph
- * explicitly rather than by omission, so the gap is visible in one place —
- * see `docs/pendientes-diseno.md` for why (the artwork lives in a Figma file we
- * have no access to yet).
+ * All four have their real artwork since the 22-sep access to `BDS3 - Assets`,
+ * which is what retired the generic glyph that used to stand in for the three
+ * without it. **There is no fallback now, on purpose**: the map is exhaustive,
+ * so a fifth brand does not compile until somebody says what it draws. And a
+ * fifth is coming — the art set declares **six**, American Express included,
+ * while `TCardBrand` declares four.
  */
 const BRAND_MARKS = {
   diners: DinersMark,
-  visa: GenericMark,
-  mastercard: GenericMark,
-  discover: GenericMark,
+  amex: AmexMark,
+  visa: VisaMark,
+  mastercard: MastercardMark,
+  discover: DiscoverMark,
 } as const satisfies Record<TCardBrand, ComponentType<IMarkProps>>;
 
 /** Props of {@link CardBrandMark}. */
@@ -65,16 +49,16 @@ interface ICardBrandMarkProps extends IMarkProps {
  * what**.
  *
  * This folder is the isolation seam: `CardBrandLogo` draws the plate and names
- * the brand for a screen reader without ever mentioning a brand or the generic
- * glyph, so the day the four missing logos arrive, only `marks/` changes — a new
+ * the brand for a screen reader without ever mentioning a brand, so the day the four missing logos arrive, only `marks/` changes — a new
  * file per brand and a line each in the map above.
  *
  * ### Adding a mark
  *
- * 1. A file named after the component — `VisaMark.tsx` — owning its own `BOX`
- *    taken from the export's `viewBox`. No shared aspect constant: the brands do
- *    not share proportions.
- * 2. A line in the map below, replacing `GenericMark`.
+ * 1. A file named after the component — `AmexMark.tsx` — drawing the **whole
+ *    plate**: the background rect in the brand's colour plus the logo, inside
+ *    the shared `MARK_VIEW_BOX`. The background belongs to the brand; only
+ *    Diners' happens to be white.
+ * 2. A line in the map below.
  * 3. **On web, the `<svg>` needs its own `aria-hidden="true"`.** The marks do not
  *    go through `Icon`, which is what adds it for the generic glyph, so a mark
  *    that forgets the attribute leaks into the accessibility tree. On mobile

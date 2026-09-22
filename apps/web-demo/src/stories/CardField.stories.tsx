@@ -17,6 +17,7 @@ const SAMPLE_NUMBERS: Record<string, string> = {
   mastercard: '5425 2334 3010 9903',
   discover: '6011 0009 9013 9424',
   diners: '3056 9309 0259 04',
+  amex: '3400 0000 0000 009',
 };
 
 /** A labelled cell, sized like a form field rather than the full canvas. */
@@ -55,12 +56,13 @@ const meta = {
           '**The brand is detected, never chosen.** *"brandIcon es un slot: la marca se deduce ' +
           'del número en código, nunca la elige quien diseña."* Type a number in the Playground ' +
           'and the logo appears on its own. Passing `brand` overrides it; nothing else can.\n\n' +
-          '**Only the Diners mark is real.** bDS declares four brands — Visa, Mastercard, ' +
-          'Discover, Diners — but the design file only contains the Diners artwork; the others ' +
-          'fall back to the generic `icon/credit-card` until it exists. They are still detected ' +
-          'and still announced as text, because the logo itself is decorative and hidden: ' +
-          '*"el logo de la marca es decorativo y va oculto al lector: la marca detectada, si ' +
-          'importa, se anuncia como texto"*.\n\n' +
+          '**The four marks are the real artwork**, from the `.Brand rect` set in ' +
+          '`BDS3 - Assets`, and **the plate comes with them**: `#1434CB` for Visa, navy for ' +
+          'Mastercard and Discover, white for Diners. Only Diners paints nothing and lets the ' +
+          'field’s own plate show, because that plate is already its colour. Which is exactly ' +
+          'what made the wrong rule look right for a whole implementation: with Diners as the ' +
+          'only mark in the repo, a token plate plus a coloured glyph was indistinguishable ' +
+          'from the truth.\n\n' +
           '**It does not format the value.** `4539 1488 0343 6467` arrives grouped from a ' +
           'formatter — *"el formato lo pone el formateador, no el componente"*. And two rules ' +
           'that are not about drawing: never store or show the full number, and the CVV is ' +
@@ -290,20 +292,25 @@ export const States: TStory = {
 /**
  * Detection, brand by brand, from real IIN prefixes — nothing is passed in.
  *
- * Only **Diners** draws its own mark; the other three fall back to the generic
- * card glyph because the design file does not contain their artwork. All four
- * are detected and all four announce their name to a screen reader.
+ * All four draw their own artwork, plate included. They are decorative and
+ * hidden from a screen reader, which hears the brand's name as text instead.
  *
- * An American Express number shows **no** logo at all, and that is correct
- * rather than missing: bDS declares four brands and Amex is not one of them.
- * What a product should do with a card it does not recognize is an open
- * decision — see `docs/pendientes-diseno.md`.
+ * The last row is a JCB number, a network bDS does not declare: it shows no
+ * logo at all. That is the neutral answer, and what a product *should* do with
+ * a card it does not recognize is still open — see `docs/pendientes-diseno.md`.
+ *
+ * **Recognizing is not accepting.** The field says what the digits describe;
+ * whether the product takes that card is a payment rule and lives in
+ * validation.
  */
 export const BrandDetection: TStory = {
   render: function Render(_args, { globals }) {
     const platform = globals.platform as TPlatform;
-    const samples = [...CARD_BRANDS.map((b) => [CARD_BRAND_NAMES[b], SAMPLE_NUMBERS[b] ?? ''] as const),
-      ['American Express — no declarada', '3400 0000 0000 009'] as const];
+    const samples = [
+      ...CARD_BRANDS.map((b) => [CARD_BRAND_NAMES[b], SAMPLE_NUMBERS[b] ?? ''] as const),
+      // A brand the set does not have, to show what an unrecognized card does.
+      ['JCB — fuera del catalogo', '3530 1113 3330 0000'] as const,
+    ];
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         {samples.map(([name, number]) => (

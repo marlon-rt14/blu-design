@@ -26,7 +26,6 @@ interface IUseCardFieldResult {
   brandPlate: {
     plateWidth: number;
     plateHeight: number;
-    logoWidth: number;
     borderRadius: number;
     borderWidth: number;
     background: string;
@@ -183,7 +182,6 @@ export const useCardField = (props: ICardFieldProps): IUseCardFieldResult => {
       plateWidth: brandPlateWidth,
       // The rule, not a coincidence: the mark is a fraction of the plate's
       // width, measured at exactly a half on all three sizes.
-      logoWidth: brandPlateWidth * dimension.brandLogoWidthRatio,
       borderRadius: dimension.brandRadius,
       borderWidth: dimension.borderWidth,
       background: colors.brandIcon.background,

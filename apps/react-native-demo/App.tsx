@@ -58,14 +58,16 @@ const METODOS = [
 
 // Un numero real por marca, para que el selector cambie EL NUMERO y no la
 // prop `brand`: la marca se deduce del numero, nunca la elige quien llama.
-// Amex esta a proposito — no es una de las cuatro declaradas, asi que no
-// muestra placa, y eso es correcto y no un faltante.
+// La ultima es JCB, una red que bDS no declara: no muestra placa, que es la
+// respuesta neutra. Reconocer no es aceptar — si el producto toma esa tarjeta
+// es regla de pago y vive en la validacion.
 const TARJETAS: [string, string][] = [
   ['Visa', '4539 1488 0343 6467'],
   ['Mastercard', '5425 2334 3010 9903'],
   ['Discover', '6011 0009 9013 9424'],
   ['Diners', '3056 9309 0259 04'],
   ['Amex', '3400 0000 0000 009'],
+  ['JCB (fuera)', '3530 1113 3330 0000'],
 ];
 
 const VARIANTS: TButtonVariant[] = ['primary', 'danger'];
@@ -413,10 +415,10 @@ const App = () => {
                   el teclado (number-pad), el largo aceptado, el hint de
                   autorrelleno del SO y si los caracteres se enmascaran.
 
-                  La MARCA SE DETECTA del número, no se elige. Solo Diners
-                  dibuja su marca real: las otras tres no están en el archivo
-                  de diseño y caen al ícono genérico. Igual se detectan y se
-                  anuncian por nombre — el logo va oculto al lector.
+                  La MARCA SE DETECTA del número, no se elige. Las cuatro
+                  traen su arte real y LA PLACA VIENE CON LA MARCA: azul en
+                  Visa, azul marino en Mastercard y Discover, blanca en Diners.
+                  El logo va oculto al lector y la marca se anuncia por nombre.
 
                   El CVV va con secureTextEntry y textContentType="none" a
                   propósito: RN 0.87 tiene creditCardSecurityCode, pero pedirlo

@@ -11,8 +11,6 @@ interface ICardBrandLogoProps {
   /** Width of the plate. The plate is a card, so this is its height times 3:2. */
   plateWidth: number;
   plateHeight: number;
-  /** Width of the mark inside, half the plate's. */
-  logoWidth: number;
   borderRadius: number;
   borderWidth: number;
   background: string;
@@ -39,7 +37,6 @@ export const CardBrandLogo = ({
   brand,
   plateWidth,
   plateHeight,
-  logoWidth,
   borderRadius,
   borderWidth,
   background,
@@ -56,9 +53,11 @@ export const CardBrandLogo = ({
       borderWidth,
       height: plateHeight,
       justifyContent: 'center',
+      // The artwork reaches the edges, so the rounded corners have to cut it.
+      overflow: 'hidden',
       width: plateWidth,
     }}
   >
-    <CardBrandMark brand={brand} width={logoWidth} />
+    <CardBrandMark brand={brand} height={plateHeight} width={plateWidth} />
   </View>
 );

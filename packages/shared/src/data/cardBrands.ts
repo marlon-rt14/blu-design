@@ -1,20 +1,32 @@
 /**
  * The card brands the CardField recognizes.
  *
- * **These four and no more, because these four are what bDS declares**: *"las
- * marcas de tarjeta (Visa, Mastercard, Discover, Diners) llevan su color de
- * marca, sin token, a propósito"*. American Express is deliberately absent — it
- * is not in that list, and adding it would be inventing a product rule.
+ * **Five, because five is what bDS declares.** The `Card network icon` set says
+ * so in its own description: *"conjunto de logotipos compactos de medios de
+ * pago. Incluye versiones de Diners Club, Discover, Visa, Mastercard y American
+ * Express."*
  *
- * Which brands a product accepts, and what happens with one that is not
- * recognized, is an open decision owned by product — the file says so: *"el
- * catálogo de marcas de tarjeta no está declarado en ningún lado"*. See
- * `docs/pendientes-diseno.md`.
+ * This list said four until the artwork arrived, on the strength of a different
+ * quote — *"las marcas de tarjeta (Visa, Mastercard, Discover, Diners) llevan
+ * su color de marca, sin token"* — which is about colour, not about the
+ * catalogue. Reading a catalogue out of it was our mistake, and it made an Amex
+ * number show nothing.
+ *
+ * **Recognizing a brand is not accepting it.** Whether a product takes Amex is
+ * a payment rule and belongs to validation; this field's job is to say what
+ * card the digits describe. What a product does with a card it does not accept
+ * is still open — see `docs/pendientes-diseno.md`.
  */
-export type TCardBrand = 'visa' | 'mastercard' | 'discover' | 'diners';
+export type TCardBrand = 'visa' | 'mastercard' | 'discover' | 'diners' | 'amex';
 
 /** Every brand, in the order bDS lists them. */
-export const CARD_BRANDS: readonly TCardBrand[] = ['visa', 'mastercard', 'discover', 'diners'];
+export const CARD_BRANDS: readonly TCardBrand[] = [
+  'visa',
+  'mastercard',
+  'discover',
+  'diners',
+  'amex',
+];
 
 /**
  * The brand's name as a reader should hear it.
@@ -28,6 +40,7 @@ export const CARD_BRAND_NAMES: Record<TCardBrand, string> = {
   mastercard: 'Mastercard',
   discover: 'Discover',
   diners: 'Diners Club',
+  amex: 'American Express',
 };
 
 /**
@@ -39,6 +52,7 @@ export const CARD_BRAND_NAMES: Record<TCardBrand, string> = {
  */
 const IIN_MATCHERS: readonly (readonly [TCardBrand, (digits: string) => boolean])[] = [
   ['visa', (d) => d.startsWith('4')],
+  ['amex', (d) => d.startsWith('34') || d.startsWith('37')],
   [
     'mastercard',
     (d) => {

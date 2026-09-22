@@ -8,14 +8,16 @@ import "./App.css";
 
 // Un numero real por marca, para que el selector cambie EL NUMERO y no la
 // prop `brand`: la marca se deduce del numero, nunca la elige quien llama.
-// Amex esta a proposito — no es una de las cuatro declaradas, asi que no
-// muestra placa, y eso es correcto y no un faltante.
+// La ultima es JCB, una red que bDS no declara: no muestra placa, que es la
+// respuesta neutra. Reconocer no es aceptar — si el producto toma esa tarjeta
+// es regla de pago y vive en la validacion.
 const TARJETAS: [string, string][] = [
   ["Visa", "4539 1488 0343 6467"],
   ["Mastercard", "5425 2334 3010 9903"],
   ["Discover", "6011 0009 9013 9424"],
   ["Diners", "3056 9309 0259 04"],
   ["Amex", "3400 0000 0000 009"],
+  ["JCB (fuera del catalogo)", "3530 1113 3330 0000"],
 ];
 
 const VARIANTS: TButtonVariant[] = ["primary", "danger"];
@@ -402,8 +404,10 @@ const App = () => {
 
               La MARCA SE DETECTA, no se elige: escribí un número y el logo
               aparece solo. 4539… Visa, 5425… Mastercard, 6011… Discover,
-              3056… Diners. Solo Diners dibuja su marca real — las otras tres
-              no están en el archivo de diseño y caen al ícono genérico.
+              3056… Diners. Las cuatro traen su arte real y LA PLACA VIENE CON
+              LA MARCA: azul en Visa, azul marino en Mastercard y Discover,
+              blanca en Diners. Solo Diners no pinta fondo, porque la placa del
+              campo ya es de ese color.
 
               El componente NO FORMATEA: el agrupado de a 4 lo pone un
               formateador de afuera.

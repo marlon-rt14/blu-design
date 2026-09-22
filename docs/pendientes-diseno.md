@@ -70,7 +70,7 @@ node --experimental-strip-types scripts/generate-flags.mjs
 El MCP de Figma no servía para esto: baja **un nodo por llamada**, o sea 265
 llamadas. La API REST acepta todos los ids juntos.
 
-### Logos de tarjeta: medidos, y nuestro CardField está mal
+### Logos de tarjeta: medidos el 22-sep, y aplicados el mismo día
 
 Los 6 SVG están bajados y el muestrario `__test-borde` (`2094:1078`, columna
 LIGHT) da las seis marcas renderizadas a 48×32. Medido de ahí:
@@ -102,18 +102,39 @@ Dos cosas más que caen con esto:
   que en las banderas pudimos esquivar.
 
 Lo correcto es que **la marca sea el arte completo de 3:2, fondo incluido**, y
-que el `CardBrandLogo` ponga solo el filete y el recorte. La placa con token
-queda únicamente para el caso sin marca detectada. Es cambio de CardField, no de
-banderas, así que va en su propio commit.
+que el `CardBrandLogo` ponga solo el filete y el recorte. **Hecho**: ver *El
+arte de las marcas* en la sección del CardField, más abajo.
 
-### Y la discrepancia de Amex, ahora con arte
+### Amex: estaba declarada y nosotros no la teníamos
 
-**El set tiene seis marcas y la descripción del CardField declara cuatro.**
-American Express está en `BDS3 - Assets` —y "Amex alternative" también— y no en
-la lista del componente. Hoy `TCardBrand` tiene las cuatro declaradas, así que
-un número de Amex no muestra logo. Ya no se puede argumentar que el arte no
-existe: es decisión de producto si Amex entra. Parte de la divergencia 4 del
-CardField.
+**No era decisión de producto, era un atraso nuestro.** La descripción del
+propio `Card network icon` lo dice: *"conjunto de logotipos compactos de medios
+de pago. Incluye versiones de Diners Club, Discover, Visa, Mastercard **y
+American Express**."*
+
+`TCardBrand` declaraba cuatro apoyándose en otra cita —*"las marcas de tarjeta
+(Visa, Mastercard, Discover, Diners) llevan su color de marca, sin token"*—
+**que habla de color, no de catálogo**. Leer un catálogo de ahí fue error
+nuestro, y el efecto era que un número `34…` o `37…` no mostraba nada.
+
+Arreglado el 22-sep: `amex` en el tipo, en `CARD_BRANDS`, en
+`CARD_BRAND_NAMES`, su rango IIN (`34` y `37`, ISO 7812 como los otros cuatro) y
+su `AmexMark` en las dos plataformas.
+
+**Y reconocer no es aceptar**: que el producto tome o no Amex es regla de pago y
+vive en la validación, no en el campo. Lo que el campo hace es decir qué tarjeta
+describen los dígitos.
+
+### Lo que sí queda abierto, y es de diseño
+
+1. **Cuál de los dos dibujos de Amex.** `.Brand rect` trae `Amex` —un `AMEX`
+   grande cuyas letras **se salen de la placa y quedan cortadas**— y
+   `Amex alternative`, el lockup `AMERICAN EXPRESS` completo. Usamos el
+   segundo, que es el que entra entero. **Los nombres parecen invertidos** y el
+   recorte parece defecto, no tratamiento. Cambiar de uno al otro es un archivo.
+2. **Legibilidad del lockup en `sm`.** En la placa de 24×16 el lockup de dos
+   líneas queda diminuto. Si hace falta algo legible a ese tamaño, es
+   justamente para lo que serviría un `AMEX` compacto — bien recortado.
 
 ---
 
@@ -158,26 +179,73 @@ Razones, en orden:
    separación en tres envoltorios finos sobre el mismo hook, los mismos tokens y
    los mismos tipos.
 
-### El arte de las marcas
+### El arte de las marcas — puesto el 22-sep
 
-Ubicado en `BDS3 - Assets`, **con acceso desde el 22-sep** y los 6 SVG ya
-bajados — pero sin aplicar todavía, porque falta medir si la placa la dibuja el
-componente o la trae el asset (ver la sección de arriba). Hoy sigue siendo que
-solo **Diners** tiene su marca real (exportada de las variantes del propio
-CardField en Core, donde el diseñador la dibujó inline) y las otras tres caen al
-`icon/credit-card` genérico. Las cuatro se detectan y se anuncian igual, así que
-no hay nada mal en silencio.
+Las cuatro marcas declaradas traen su arte real del set **`.Brand rect`**, y
+**la placa viene con la marca**:
 
-El arte vive aislado en `packages/{web,mobile}/src/components/atoms/CardField/marks/`
-— un archivo por marca más el registro. Reemplazar un logo **toca esa carpeta y
-nada más**; el `CardBrandLogo` no menciona ninguna marca. El `marks/index.tsx`
-lleva la checklist de qué hace falta para agregar una.
+| Marca | Placa | Logo |
+|---|---|---|
+| Visa | `#1434CB` | wordmark blanco |
+| Mastercard | `#232B3D` | los tres círculos de color |
+| Discover | `#232B3D` | bola con degradado `#EC500E` → `#F9A121` |
+| Diners | blanca | `#046AA9` |
+| Amex | `#006FCF` | lockup blanco + `#016FD0` |
 
-**Un defecto que se va solo cuando llegue el arte**: el glifo genérico ignora el
-ancho que le pasa la placa y se dibuja de 16×16 en los tres tamaños, porque
-`Icon` dimensiona desde `size/icon/*` como cuadrado y 18 no está en esa rampa. En
-`sm` (placa 24×16) ocupa el alto completo; en `lg` (48×32) queda chico para su
-placa. No se arregla a mano: desaparece cuando cada marca traiga su propio SVG.
+Diners es la única que **no pinta fondo**: su placa es blanca y la del campo
+—`component/cardfield/brandicon/bg-default`, `#ffffff` en light— ya lo es, así
+que se deja ver en lugar de repintar el mismo color.
+
+Verificado muestreando el píxel de nuestro render: `#1434CB`, `#232B3D`,
+`#232B3D`, `#FFFFFF`, y el filete en `#CED4E3`, que es el valor exacto del
+token.
+
+#### Una inconsistencia para revisar en Figma
+
+Las instancias del CardField **no usan todas el mismo set de marcas**. En
+capturas del componente real, Visa y Mastercard salen de `.Brand rect` (placa de
+color) mientras Discover y Amex aparecen con placa blanca y el logo suelto, que
+es el otro set. Como el arte canónico es el de la página `Card network` —el que
+está en la tira `.Brand rect` y en el `__test-borde`—, el código sigue ese, y la
+diferencia queda como algo a alinear del lado del diseño.
+
+#### Cómo llegamos acá, porque el camino importa
+
+Tres lecturas equivocadas antes de la buena, todas por la misma causa: **medir
+un caso y generalizar**.
+
+1. *"La placa es del componente, con token"* — cierto para Diners, que era la
+   única marca que teníamos.
+2. *"La placa es de la marca"* — sacado del muestrario `__test-borde`
+   (`2094:1078`), que usa el set **`.Brand rect`**: Visa azul con logo blanco,
+   Amex `#006FCF` con logo blanco. Ese set **no es el que usa el CardField**.
+3. La buena salió de capturas del componente real, marca por marca. Diners
+   confirmaba las tres lecturas porque su placa es blanca en todas.
+
+Hay dos sets de arte y se parecen: `.Brand rect` (relleno, para el muestrario) y
+`.Brand` (**externo**, el que instancia el CardField). El segundo da 404 por la
+API, así que su geometría salió del componente en el Core.
+
+Con esto se fueron dos cosas del código:
+
+- El token `brandLogoWidthRatio` (0,5). *"El logo es la mitad del ancho de la
+  placa"* también era un hecho de Diners; el wordmark de Visa ocupa casi todo.
+- El `GenericMark`. **No hay fallback**, y es a propósito: el registro es
+  exhaustivo, así que una quinta marca no compila hasta que alguien diga qué
+  dibuja.
+
+El radio se queda en el componente: Figma lo mantiene en **2 en los tres
+tamaños** (medido en 24×16, 36×24 y 48×32), así que no puede vivir dentro de un
+`viewBox` que escala. `CardBrandLogo` lo dibuja y recorta.
+
+#### Dos cosas declaradas, no olvidadas
+
+- **La sombra interior de Discover** (`feOffset` + `feGaussianBlur` +
+  `feColorMatrix`) queda fuera. En una placa de 16 a 32 px no se ve, y los
+  filtros SVG son soporte reciente y desparejo en `react-native-svg`.
+- **En dark, el muestrario invierte Mastercard y Discover** (`#232B3D` →
+  `#E6E8EC`). Nosotros dejamos la placa de Mastercard fija en su color. Si bDS
+  quiere que se invierta, hace falta un segundo valor por marca y es CHG.
 
 ### Hallazgo nuestro, no declarado en la doc
 

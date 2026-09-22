@@ -133,12 +133,6 @@ export interface ICardFieldDimensionTokens {
    * sizes, measured. The width comes from the height times this.
    */
   brandPlateAspect: number;
-  /**
-   * The logo is exactly **half the plate's width**, at every size: 12 of 24, 18
-   * of 36, 24 of 48. Its height follows the mark's own proportions, which differ
-   * per brand, so only the width is set.
-   */
-  brandLogoWidthRatio: number;
   /** Gap between the box and the helper line, `space/stack/xs`. */
   helperGap: number;
 }
@@ -173,13 +167,14 @@ export interface ICardFieldTokens {
 /**
  * The brand plate's width over its height. A credit card's proportion, measured
  * identical at all three sizes: 24/16, 36/24 and 48/32. Not a token.
+ *
+ * It is also the artwork's own box: what `BDS3 - Assets` hands over per brand is
+ * the whole 48x32 plate, background included, so the mark fills this and there
+ * is no separate logo ratio. There used to be one — `brandLogoWidthRatio`, a
+ * half — taken from Diners, the only mark that happens to be a circle centred
+ * on its plate. Visa's wordmark spans nearly the whole width.
  */
 const BRAND_PLATE_ASPECT = 1.5;
-/**
- * The logo's width over the plate's width — exactly a half at all three sizes,
- * measured. Not a token.
- */
-const BRAND_LOGO_WIDTH_RATIO = 0.5;
 
 /** Line-height ratio of Figma's `text/label/sm/strong`. Not a token. */
 const LABEL_LINE_HEIGHT_RATIO = 1.35;
@@ -263,7 +258,6 @@ const readCardFieldTokens = (key: TThemeSourceKey): ICardFieldTokens => {
       brandGap: dimensionAt('space.inline.sm'),
       brandRadius: dimensionAt('border-radius.xs'),
       brandPlateAspect: BRAND_PLATE_ASPECT,
-      brandLogoWidthRatio: BRAND_LOGO_WIDTH_RATIO,
       helperGap: dimensionAt('space.stack.xs'),
     },
     typography: {
