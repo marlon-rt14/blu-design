@@ -4,6 +4,7 @@ export * from './ChoiceItem';
 export * from './Coachmark';
 export * from './ListItem';
 export * from './Menu';
+export * from './Popover';
 export * from './RadioGroup';
 export * from './Select';
 export * from './SwitchItem';

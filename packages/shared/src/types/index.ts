@@ -33,6 +33,7 @@ export * from './molecules/tabs.types';
 export * from './molecules/tagGroup.types';
 export * from './molecules/coachmark.types';
 export * from './molecules/tooltip.types';
+export * from './molecules/popover.types';
 export * from './atoms/divider.types';
 export * from './atoms/cardField.types';
 export * from './atoms/phoneField.types';
