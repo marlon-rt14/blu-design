@@ -1381,6 +1381,25 @@
             "description": "Co-token de accordion. Capa de indirección: aliasea size/icon/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         }
+      },
+      "alert": {
+        "radius": {
+          "page": {
+            "value": "0px",
+            "type": "dimension",
+            "description": "Co-token de alert. Capa de indirección: aliasea border-radius/none sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje. El aviso de página va a sangre completa, pegado al borde de la pantalla bajo la barra superior: sin radio, como la referencia de eBay (page notice)."
+          },
+          "section": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Co-token de alert. Capa de indirección: aliasea radius/surface/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "inline": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Co-token de alert. Capa de indirección: aliasea radius/surface/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        }
       }
     },
     "platform": {
