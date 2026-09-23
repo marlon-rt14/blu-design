@@ -629,6 +629,17 @@ bDS themes are **three Figma variable collections**, not a single light/dark swi
   (Spinner pattern). Reduced motion: freeze sheen, keep bone — never blink. A11y: shapes
   `aria-hidden` / `accessibilityElementsHidden`; wrapper `role="status"` + one `"Cargando"`
   announcement. Do not invent a max-duration prop (open Dev decision).
+- **`ProgressStepper` is data-driven `steps[]` — not Figma's 3–7 VARIANT.** Dev firma
+  (`1020:123665`) wins: pass `IProgressStepDef[]` (`label`, optional `secondaryLabel`,
+  `status`). Lengths 3–7 are guidance in JSDoc; do **not** throw/clamp. Ship `Step` +
+  `StepConnector` atoms + `ProgressStepper` molecule (Tabs/RadioGroup split). Connectors
+  derive from the **left** step only (`deriveStepConnectorStatus`: `done`/`warning` →
+  `done` rail; else `inactive`) — looking at the next step painted the segment before an
+  error badly. Vertical **never** has a leading line (previous trailing forms the rail).
+  Horizontal label align: first start / middle center / last end. `purpose`: `status`
+  (empty/dot/glyphs) vs `wizard` (numbered pending/active). `warning` vs `error` is
+  visual only (AlertTriangle vs X). One token file `progressStepper.tokens.ts`. A11y:
+  `role="list"` / listitem + `aria-current="step"` on active. Non-interactive.
 
 ## Conventions (quick reference — full list in README)
 

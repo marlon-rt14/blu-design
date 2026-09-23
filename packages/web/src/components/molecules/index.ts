@@ -6,6 +6,7 @@ export * from './Coachmark';
 export * from './ListItem';
 export * from './Menu';
 export * from './Popover';
+export * from './ProgressStepper';
 export * from './RadioGroup';
 export * from './Select';
 export * from './SwitchItem';

@@ -4,6 +4,7 @@ export * from './CheckboxGroup';
 export * from './ChoiceItem';
 export * from './Coachmark';
 export * from './ListItem';
+export * from './ProgressStepper';
 export * from './RadioGroup';
 export * from './Select';
 export * from './SwitchItem';

@@ -18,6 +18,8 @@ export * from './Radio';
 export * from './Snackbar';
 export * from './Spinner';
 export * from './Skeleton';
+export * from './Step';
+export * from './StepConnector';
 export * from './Switch';
 export * from './TabItem';
 export * from './Tag';
