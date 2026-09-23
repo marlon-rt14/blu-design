@@ -10459,9 +10459,9 @@
             "description": "Co-token de callout. Capa de indirección: aliasea color/text/primary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "icon": {
-            "value": "#eff0f3",
+            "value": "#bdd1fa",
             "type": "color",
-            "description": "Co-token de callout. Capa de indirección: aliasea color/icon/primary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            "description": "Co-token de callout. Icono del callout de marca. Aliasea color/icon/brand, NO color/icon/primary: el fondo ya sigue la vertical via fill/brand/subtle, asi que el icono es el unico lugar donde se lee el programa. Verificado sobre fill/brand/subtle en las 5 marcas x 6 modos: 30/30 pasan 3:1 (WCAG 1.4.11), par mas ajustado clubmiles/light 3,62. El titulo y el cuerpo se quedan en neutral a proposito: texto largo pide legibilidad maxima, no identidad."
           }
         },
         "neutral": {
@@ -10483,7 +10483,7 @@
           "icon": {
             "value": "#eff0f3",
             "type": "color",
-            "description": "Co-token de callout. Capa de indirección: aliasea color/icon/primary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            "description": "Co-token de callout. Icono del callout neutral. Aliasea color/icon/primary. Es lo que diferencia palette=neutral de palette=brand en el icono: el neutral no expresa programa."
           }
         }
       },

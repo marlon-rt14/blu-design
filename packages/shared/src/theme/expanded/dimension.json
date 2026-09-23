@@ -1686,6 +1686,15 @@
             "description": "Co-token compartido de Tooltip y Coachmark: la padding del lado de la punta, que reserva el lugar donde se apoya el TipPointer (posición absoluta, 10 de alto con 2 de solapamiento). Fijo en 8 en las tres densidades porque la punta no cambia de tamaño. Reemplaza el enlace directo al primitivo space/8."
           }
         }
+      },
+      "choicebox": {
+        "row": {
+          "padding-right": {
+            "value": "48px",
+            "type": "dimension",
+            "description": "Co-token de choicebox. Hueco derecho reservado para el control en layout=row: 48 = space/inset/lg (16) + ancho del control (16) + space/inline/lg (16). El control va posicionado absoluto contra el borde, asi que este padding es lo que evita que el texto se le meta debajo. NO es un space/inset/3xl: coincide en 48 por ahora, pero significa otra cosa. Si cambia el tamano del control o el gap, hay que recalcular este token."
+          }
+        }
       }
     },
     "platform": {
