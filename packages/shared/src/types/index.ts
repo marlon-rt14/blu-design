@@ -1,4 +1,5 @@
 export * from './atoms/alert.types';
+export * from './atoms/callout.types';
 export * from './atoms/avatar.types';
 export * from './atoms/avatarIndicator.types';
 export * from './atoms/button.types';
