@@ -686,8 +686,33 @@
       }
     },
     "opacity": {
+      "4": {
+        "value": "4px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "6": {
+        "value": "6px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "8": {
+        "value": "8px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
       "10": {
         "value": "10px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "12": {
+        "value": "12px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "16": {
+        "value": "16px",
         "type": "dimension",
         "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
       },
@@ -696,8 +721,18 @@
         "type": "dimension",
         "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
       },
+      "24": {
+        "value": "24px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
       "30": {
         "value": "30px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "32": {
+        "value": "32px",
         "type": "dimension",
         "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
       },
@@ -706,8 +741,18 @@
         "type": "dimension",
         "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
       },
+      "48": {
+        "value": "48px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
       "50": {
         "value": "50px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "56": {
+        "value": "56px",
         "type": "dimension",
         "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
       },
@@ -716,8 +761,18 @@
         "type": "dimension",
         "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
       },
+      "64": {
+        "value": "64px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
       "70": {
         "value": "70px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "72": {
+        "value": "72px",
         "type": "dimension",
         "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
       },
@@ -1005,6 +1060,11 @@
         "value": "56px",
         "type": "dimension",
         "description": "Dimension de 56px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "160": {
+        "value": "160px",
+        "type": "dimension",
+        "description": "Paso de tamaño 160. Primer uso: ancho mínimo del CTA de EmptyState en layout=page."
       },
       "control": {
         "height": {
@@ -1398,6 +1458,232 @@
             "value": "16px",
             "type": "dimension",
             "description": "Co-token de alert. Capa de indirección: aliasea radius/surface/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        }
+      },
+      "callout": {
+        "radius": {
+          "value": "16px",
+          "type": "dimension",
+          "description": "Co-token de callout. Capa de indirección: aliasea radius/surface/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        },
+        "padding": {
+          "value": "16px",
+          "type": "dimension",
+          "description": "Co-token de callout. Capa de indirección: aliasea space/inset/lg sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        },
+        "gap": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "Co-token de callout. Capa de indirección: aliasea space/inline/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        },
+        "icon": {
+          "size": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Co-token de callout. Capa de indirección: aliasea size/icon/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        }
+      },
+      "emptystate": {
+        "padding": {
+          "value": "24px",
+          "type": "dimension",
+          "description": "Co-token de emptystate. Capa de indirección: aliasea space/inset/xl sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        },
+        "gap": {
+          "graphic": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Co-token de emptystate. Capa de indirección: aliasea space/stack/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Co-token de emptystate. Capa de indirección: aliasea space/stack/sm sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "action": {
+            "value": "16px",
+            "type": "dimension",
+            "description": "Co-token de emptystate. Capa de indirección: aliasea space/stack/lg sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "actions": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Co-token de emptystate. Capa de indirección: aliasea space/inline/md sin re-tematizar. Separa la acción principal de la secundaria: apiladas en page, una al lado de la otra en inline. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "icon": {
+          "size": {
+            "value": "40px",
+            "type": "dimension",
+            "description": "Co-token de emptystate. Capa de indirección: aliasea size/icon/xl sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "action": {
+          "min-width": {
+            "value": "160px",
+            "type": "dimension",
+            "description": "Co-token de emptystate. Ancho mínimo del CTA en layout=page: el botón va en hug y crece con la etiqueta, pero no baja de 160 para que una etiqueta corta no quede apretada en el centro de la pantalla. Aliasea size/160. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        }
+      },
+      "searchfield": {
+        "height": {
+          "md": {
+            "value": "44px",
+            "type": "dimension",
+            "description": "Co-token de searchfield. Capa de indirección: aliasea size/field/height/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "sm": {
+            "value": "32px",
+            "type": "dimension",
+            "description": "Co-token de searchfield. Capa de indirección: aliasea size/control/height/sm sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "padding-x": {
+          "md": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Co-token de searchfield. Capa de indirección: aliasea space/inset/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "sm": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Co-token de searchfield. Capa de indirección: aliasea space/inset/sm sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "gap": {
+          "value": "8px",
+          "type": "dimension",
+          "description": "Co-token de searchfield. Capa de indirección: aliasea space/inline/sm sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        },
+        "radius": {
+          "value": "9999px",
+          "type": "dimension",
+          "description": "Co-token de searchfield. Capa de indirección: aliasea radius/pill sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        },
+        "icon": {
+          "size": {
+            "md": {
+              "value": "24px",
+              "type": "dimension",
+              "description": "Co-token de searchfield. Capa de indirección: aliasea size/icon/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            },
+            "sm": {
+              "value": "16px",
+              "type": "dimension",
+              "description": "Co-token de searchfield. Capa de indirección: aliasea size/icon/sm sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            }
+          }
+        }
+      },
+      "expansion": {
+        "gap": {
+          "value": "8px",
+          "type": "dimension",
+          "description": "Co-token de expansion. Capa de indirección: aliasea space/stack/sm sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        }
+      },
+      "numericstepper": {
+        "gap": {
+          "value": "8px",
+          "type": "dimension",
+          "description": "Co-token de numericstepper. Capa de indirección: aliasea space/inline/sm sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        },
+        "value": {
+          "min-width": {
+            "value": "40px",
+            "type": "dimension",
+            "description": "Co-token de numericstepper. Capa de indirección: aliasea size/40 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        }
+      },
+      "pageindicator": {
+        "dot": {
+          "size": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Co-token de pageindicator. Capa de indirección: aliasea size/8 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "width-active": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Co-token de pageindicator. Capa de indirección: aliasea size/24 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "gap": {
+          "value": "4px",
+          "type": "dimension",
+          "description": "Co-token de pageindicator. Capa de indirección: aliasea space/inline/xs sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        },
+        "radius": {
+          "value": "9999px",
+          "type": "dimension",
+          "description": "Co-token de pageindicator. Capa de indirección: aliasea radius/pill sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        }
+      },
+      "carousel": {
+        "gap": {
+          "items": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Co-token de carousel. Capa de indirección: aliasea space/inline/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "indicator": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Co-token de carousel. Capa de indirección: aliasea space/stack/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "padding-x": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "Co-token de carousel. Capa de indirección: aliasea space/inset/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        }
+      },
+      "calendar": {
+        "day": {
+          "size": {
+            "value": "48px",
+            "type": "dimension",
+            "description": "Co-token de calendar. Capa de indirección: aliasea size/target/min sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "selection-size": {
+            "value": "32px",
+            "type": "dimension",
+            "description": "Co-token de calendar. Capa de indirección: aliasea size/control/height/sm sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "indicator-size": {
+            "value": "4px",
+            "type": "dimension",
+            "description": "Co-token de calendar. Capa de indirección: aliasea size/4 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "padding": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "Co-token de calendar. Capa de indirección: aliasea space/inset/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        },
+        "gap": {
+          "header": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Co-token de calendar. Capa de indirección: aliasea space/stack/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "radius": {
+          "value": "9999px",
+          "type": "dimension",
+          "description": "Co-token de calendar. Capa de indirección: aliasea radius/pill sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        }
+      },
+      "tip": {
+        "pointer": {
+          "offset": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Co-token compartido de Tooltip y Coachmark: la padding del lado de la punta, que reserva el lugar donde se apoya el TipPointer (posición absoluta, 10 de alto con 2 de solapamiento). Fijo en 8 en las tres densidades porque la punta no cambia de tamaño. Reemplaza el enlace directo al primitivo space/8."
           }
         }
       }

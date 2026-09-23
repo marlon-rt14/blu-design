@@ -3669,12 +3669,12 @@
           },
           "overlay": {
             "default": {
-              "value": "#000000b8",
+              "value": "#0000007a",
               "type": "color",
               "description": "La capa que se interpone entre el contenido y un elemento superpuesto, atenuando lo que queda detras.\n\nUSO: Velo detras de modales, drawers, hojas y menus a pantalla completa. Es semitransparente a proposito: el contenido de atras tiene que seguir insinuandose.\n\nSI: Usar siempre por debajo de un surface.elevated que bloquea la interaccion.\nNO: No usar como fondo de un contenedor ni para atenuar un elemento individual.\n\nEJEMPLOS: Scrim de modal · Backdrop de drawer · Fondo de bottom sheet\n\nREGLA ARQUITECTONICA — background = entorno · surface = contenedor · componente = consumidor. Un componente NUNCA define su propio fondo: elige el rol semantico que corresponde a su intencion. No existen ni deben crearse tokens por componente (background.card, surface.modal, surface.sidebar)."
             },
             "subtle": {
-              "value": "#0000007a",
+              "value": "#00000052",
               "type": "color",
               "description": "Velo de intensidad reducida entre el contenido y un elemento superpuesto. Atenua el fondo sin ocultarlo.\n\nUSO: superposiciones donde el contenido de atras debe seguir siendo legible y dar contexto.\n\nSI: usar en hojas parciales, popovers anclados y paneles laterales que no bloquean del todo la pantalla.\nNO: usar bajo un modal bloqueante — ahi corresponde canvas/background/overlay/default, que si corta la atencion. No usarlo como fondo de un contenedor.\n\nEJEMPLOS: bottom sheet a media altura, panel lateral de filtros, hoja de acciones sobre una lista.\n\nNOTA: sube de 32 a 48 por ciento en los temas oscuros porque un velo fijo pierde efecto sobre fondos ya oscuros.\n\nREGLA ARQUITECTONICA — background = entorno · surface = contenedor · componente = consumidor. Un componente NUNCA define su propio fondo: elige el rol semantico que corresponde a su intencion. No existen ni deben crearse tokens por componente."
             }
@@ -3800,6 +3800,11 @@
             "value": "#06021a",
             "type": "color",
             "description": "Relleno soft de marca. Sale de brand/ramp, asi que sigue al producto en los cinco modos de 2. Brand. Misma regla que los otros ocho tonos: paso 200 en los modos claros, 950 en dark, 975 en mc-dark y hc-dark. NO usa _role/brand/soft: ese rol es del Button sobre escena y en los modos oscuros resuelve a un alpha blanco que sobre una superficie no se lee. Verificado en 6 modos x 5 productos: peor separacion 1,37:1, peor texto 5,96:1."
+          },
+          "subtle": {
+            "value": "#001e60",
+            "type": "color",
+            "description": "Relleno subtle de marca: el tinte pálido para fondos amplios que tienen que verse contra canvas/background/page y dentro de canvas/surface/primary, en los seis modos. Sale de brand/ramp, así que sigue al producto en los cinco modos de 2. Brand. Pasos calibrados, no copiados de otro tono: 100 en light, 200 en mc-light, 300 en hc-light; 975 en dark (más oscuro que la página, por eso se ve también dentro de una tarjeta), 900 en mc-dark y 800 en hc-dark. La escalera Standard → MC → HC crece. Uso principal: el fondo de component/callout/brand."
           }
         },
         "complementary": {
@@ -4008,17 +4013,17 @@
             },
             "soft": {
               "default": {
-                "value": "#ffffff1f",
+                "value": "#dfe7fa",
                 "type": "color",
                 "description": "Fondo tonal de la apariencia soft de Button. Light /100, hc-light /200, dark /900, hc-dark /950. Un paso por encima de brand/subtle; el texto va en on-soft (/800) y pasa AAA en los 4 modos."
               },
               "pressed": {
-                "value": "#ffffff3d",
+                "value": "#9cb8eb",
                 "type": "color",
                 "description": "Fondo tonal de la apariencia soft de Button."
               },
               "hover": {
-                "value": "#ffffff29",
+                "value": "#c2d2f5",
                 "type": "color",
                 "description": "Estado hover del fondo soft de acciones primarias. Creado 23-ago-2026."
               }
@@ -4049,17 +4054,17 @@
             },
             "soft": {
               "default": {
-                "value": "#ffffff1f",
+                "value": "#ffe0df",
                 "type": "color",
                 "description": "Relleno tonal del boton destructivo secundario. En claro es un peldano opaco de la rampa red; en oscuro es un VELO ALFA neutro que se compone sobre el fondo, para que el boton aclare sobre la pagina, sobre surface y sobre una tarjeta en vez de oscurecerse. La identidad de peligro la llevan el borde y la etiqueta, no el relleno. El limite del control es el borde: el relleno solo nunca llega a 3:1 (WCAG 1.4.11)."
               },
               "pressed": {
-                "value": "#ffffff3d",
+                "value": "#fc9c9f",
                 "type": "color",
                 "description": "Relleno tonal del boton destructivo secundario. En claro es un peldano opaco de la rampa red; en oscuro es un VELO ALFA neutro que se compone sobre el fondo, para que el boton aclare sobre la pagina, sobre surface y sobre una tarjeta en vez de oscurecerse. La identidad de peligro la llevan el borde y la etiqueta, no el relleno. El limite del control es el borde: el relleno solo nunca llega a 3:1 (WCAG 1.4.11)."
               },
               "hover": {
-                "value": "#ffffff29",
+                "value": "#ffc3c3",
                 "type": "color",
                 "description": "Estado hover del fondo soft de acciones danger. Creado 23-ago-2026."
               }
@@ -4113,17 +4118,17 @@
           },
           "veil": {
             "hover": {
-              "value": "#ffffff29",
+              "value": "#001e6029",
               "type": "color",
               "description": "Hover de appearance=veil. [SOLO WEB]. El velo se profundiza; NO se apila color/overlay/state/hover encima, que daria doble velo."
             },
             "pressed": {
-              "value": "#ffffff3d",
+              "value": "#001e603d",
               "type": "color",
               "description": "Pressed de appearance=veil. El velo se profundiza; no se apila overlay encima."
             },
             "default": {
-              "value": "#ffffff1f",
+              "value": "#001e601a",
               "type": "color",
               "description": "Relleno en reposo de IconButton appearance=veil: un velo neutro translucido que toma su color de la superficie de abajo. Tiene modo (tinta en claro, blanco en oscuro) porque la superficie se invierte. Medido en reposo: chip vs fondo 1.17 minimo, dL* 6.0 minimo; glifo color/icon/primary sobre el chip 7.09 minimo. No es color/fill/action/*/soft, que es opaco y de marca."
             }
@@ -4177,6 +4182,11 @@
               "type": "color",
               "description": "Fondo de la FILA seleccionada: ChoiceItem, ChoiceBox, MenuItem. Es un tinte palido porque tiene que sostener texto encima; el relleno del control es saturado porque no lleva texto. Antes se llamaba subtle y vivia junto a los estados del control, mezclando intensidad con estado."
             }
+          },
+          "range": {
+            "value": "#174183",
+            "type": "color",
+            "description": "Tinte de un RANGO elegido: los días entre el inicio y el fin del Calendar. Más marcado que fill/selected/surface (que da 1,11:1 y hace perder los días del medio) y más suave que fill/selected/control, que es el de los extremos. Claro 100 · 200 · 300 (1,24 · 1,51 · 2,01 contra surface/primary); oscuro 700 en los tres (1,13 · 1,41 · 1,41, la diferencia la carga el tono azul contra la superficie gris). text/primary encima: 8,1:1 o más en los 6 modos."
           }
         },
         "input": {
@@ -4211,6 +4221,11 @@
             "value": "#040c28",
             "type": "color",
             "description": "Relleno soft: tinte de la familia que se lee como pastilla SOBRE canvas/surface/primary. Se distingue de subtle y de muted, que estan calibrados para fondos amplios sobre canvas/background/* y colapsan contra surface en los modos oscuros. Usarlo en Tag appearance=soft y en cualquier control chico que viva sobre una superficie. Pareja de texto: color/text/neutral."
+          },
+          "subtle": {
+            "value": "#131d35",
+            "type": "color",
+            "description": "Relleno subtle neutro: el tinte gris pálido para fondos amplios que tienen que verse contra canvas/background/page y dentro de canvas/surface/primary, en los seis modos. Pasos: 100 en light, 200 en mc-light, 300 en hc-light; 975 en dark, 950 en mc-dark y 800 en hc-dark. La escalera Standard → MC → HC crece. Uso principal: el fondo de component/callout/neutral."
           }
         }
       },
@@ -4704,7 +4719,7 @@
             "default": {
               "value": "#eff0f3",
               "type": "color",
-              "description": "Color del icono dentro de una acción neutra. Va en la escala opuesta al relleno para garantizar contraste sobre él en los seis modos."
+              "description": "Color del icono dentro de una acción neutra. Va en la escala opuesta al relleno para garantizar contraste sobre él en los seis modos. 22-sep: en mc-light, hc-light y hc-dark el relleno neutral invierte (se oscurece en la familia clara y se aclara en la oscura) y el icono no lo acompanaba: daba 2,95 · 1,34 · 1,14 contra su propio relleno. Ahora sigue al relleno: blanco en los dos claros y neutral/975 en hc-dark. Medido 5,75 · 14,15 · 16,69."
             }
           },
           "on-scene": {
@@ -4821,12 +4836,12 @@
             "description": "Version mas profunda. Para enfasis, o cuando el default no alcanza contraste contra lo que lleva encima. En modo claro L*55. ESCALA DE INTENSIDAD del sistema, de mas debil a mas fuerte: subtle (tinte palido, para fondos amplios) · muted (tinte mas presente) · default (el color canonico de la familia) · strong (mas profundo, para enfasis). Cada familia instancia SOLO los escalones que necesita: brand y complementary usan subtle-default-strong; danger, success, warning e info usan subtle-muted-default; partner usa subtle-default. OJO: Figma ordena alfabeticamente, asi que en el panel vas a ver default primero. La escala NO se lee del orden del panel, se lee de aca."
           },
           "on-brand": {
-            "value": "#0000003d",
+            "value": "#ffffff29",
             "type": "color",
             "description": "Separador sutil sobre un relleno de marca. Es el hermano on-brand de color/border/divider/subtle: mismo rol, distinto contexto. Su uso principal es la pista (track) del Spinner en tone=on-brand, donde el indicador es color/icon/on-brand. EL VELO CAMBIA DE SIGNO SEGUN EL MODO, y esto es lo importante: en claro el relleno de marca es oscuro y el velo va en blanco; en oscuro el relleno es un tinte claro y el velo tiene que ir en NEGRO, porque el indicador tambien va oscuro y la pista debe ser una version debil del indicador, no lo contrario. Antes esto usaba color/overlay/on-fill/selected, que era blanco en los cuatro modos: en dark daba 1.12 de contraste contra el relleno y en hc-dark 1.07, o sea invisible. No existe alpha-black/16, por eso oscuro arranca en 24. Contraste contra el relleno: light 1.55 · hc-light 2.06 · dark 1.71 · hc-dark 2.14."
           },
           "on-scene": {
-            "value": "#ffffff3d",
+            "value": "#ffffff29",
             "type": "color",
             "description": "Separador sutil sobre una escena (canvas/background/brand, canvas/background/neutral). Es el hermano on-scene de color/border/divider/subtle: mismo rol, distinto contexto. A DIFERENCIA de color/border/divider/on-brand, el velo NO cambia de signo: la escena se mantiene oscura en los cuatro temas, así que el velo va en blanco en todos los modos. Escala 16 → 24 → 32 en standard, mc y hc. Nunca usar un primitivo directo en su lugar."
           }
@@ -5017,12 +5032,12 @@
       "overlay": {
         "state": {
           "hover": {
-            "value": "#ffffff14",
+            "value": "#001e600a",
             "type": "color",
             "description": "Capa de estado sobre superficie NEUTRA. Medido: produce ΔE 4.9 a 21 sobre input, surface, elevated, disabled y selected/surface. NO usar sobre superficie de marca: ahí el tinte se apoya sobre su propio tinte y da ΔE 1.0 a 1.8, imperceptible. Para ese caso existe color/overlay/on-fill/*."
           },
           "pressed": {
-            "value": "#ffffff29",
+            "value": "#001e601a",
             "type": "color",
             "description": "Capa de estado sobre superficie NEUTRA. Medido: produce ΔE 4.9 a 21 sobre input, surface, elevated, disabled y selected/surface. NO usar sobre superficie de marca: ahí el tinte se apoya sobre su propio tinte y da ΔE 1.0 a 1.8, imperceptible. Para ese caso existe color/overlay/on-fill/*."
           },
@@ -5032,12 +5047,12 @@
             "description": "Token semantic de color. Rol overlay. Valor definido en los 4 modos. Nunca usar un primitivo directo en su lugar."
           },
           "selected": {
-            "value": "#adb9f329",
+            "value": "#001e6029",
             "type": "color",
             "description": "Capa de estado sobre superficie NEUTRA. Medido: produce ΔE 4.9 a 21 sobre input, surface, elevated, disabled y selected/surface. NO usar sobre superficie de marca: ahí el tinte se apoya sobre su propio tinte y da ΔE 1.0 a 1.8, imperceptible. Para ese caso existe color/overlay/on-fill/*."
           },
           "selected-hover": {
-            "value": "#adb9f33d",
+            "value": "#001e603d",
             "type": "color",
             "description": "Capa de estado sobre superficie NEUTRA. Medido: produce ΔE 4.9 a 21 sobre input, surface, elevated, disabled y selected/surface. NO usar sobre superficie de marca: ahí el tinte se apoya sobre su propio tinte y da ΔE 1.0 a 1.8, imperceptible. Para ese caso existe color/overlay/on-fill/*."
           },
@@ -5054,12 +5069,12 @@
         },
         "on-fill": {
           "hover": {
-            "value": "#ffffff29",
+            "value": "#070f2529",
             "type": "color",
             "description": "Capa de estado sobre RELLENO DE MARCA o tonal. Es la contraparte de color/overlay/state/* para superficies teñidas, donde un overlay del mismo tinte sería invisible. Consumidores medidos: Checkbox marcado y Switch encendido."
           },
           "pressed": {
-            "value": "#ffffff3d",
+            "value": "#070f253d",
             "type": "color",
             "description": "Capa de estado sobre RELLENO DE MARCA o tonal. Es la contraparte de color/overlay/state/* para superficies teñidas, donde un overlay del mismo tinte sería invisible. Consumidores medidos: Checkbox marcado y Switch encendido."
           },
@@ -5088,29 +5103,29 @@
         },
         "danger": {
           "hover": {
-            "value": "#d94d5e29",
+            "value": "#b22c4214",
             "type": "color",
             "description": "Token semantic de color. Rol overlay. [SOLO WEB] React Native no tiene hover; se genera igual para paridad de nombres. Valor definido en los 4 modos. Nunca usar un primitivo directo en su lugar."
           },
           "pressed": {
-            "value": "#d94d5e3d",
+            "value": "#b22c421f",
             "type": "color",
             "description": "Token semantic de color. Rol overlay. Valor definido en los 4 modos. Nunca usar un primitivo directo en su lugar."
           }
         },
         "disabled": {
-          "value": "#040c28a3",
+          "value": "#ffffffa3",
           "type": "color",
           "description": "Velo que se pinta ENCIMA para atenuar. Opuesto a color/fill/bar/veil, que se pinta DETRAS. Valor definido en los 4 modos. Nunca usar un primitivo directo en su lugar."
         },
         "on-inverse": {
           "hover": {
-            "value": "#001e601f",
+            "value": "#ffffff1f",
             "type": "color",
             "description": "Velo de hover sobre canvas/surface/inverse. Mismo escalón de ΔL* que color/overlay/state/hover; lo único que cambia es de qué lado viene el velo."
           },
           "pressed": {
-            "value": "#001e603d",
+            "value": "#ffffff3d",
             "type": "color",
             "description": "Velo de pressed sobre canvas/surface/inverse. Mismo escalón de ΔL* que color/overlay/state/pressed."
           }
@@ -5935,12 +5950,12 @@
           "description": "INTERNO. Rol de marca para un enlace mientras se lo mantiene presionado. No consumir directo desde un componente: usar color/text/link/pressed, que resuelve acá. Existe para que la rampa de marca se pueda mover sin tocar la capa semántica."
         },
         "soft": {
-          "value": "#ffffff1f",
+          "value": "#dfe7fa",
           "type": "color",
           "description": "Rol interno. No consumir directo desde un componente: es la capa que permite re-tematizar por marca sin tocar nodos. Los co-tokens component/* y los semánticos color/* aliasean acá. · Contraste: en modos MC y HC el relleno se aclara mientras el texto (on-soft) se oscurece, para que la brecha se abra por los dos lados. No oscurecerlo: el texto encima va en la misma direccion y el contraste se cierra."
         },
         "soft-pressed": {
-          "value": "#ffffff3d",
+          "value": "#9cb8eb",
           "type": "color",
           "description": "Rol interno. No consumir directo desde un componente: es la capa que permite re-tematizar por marca sin tocar nodos. Los co-tokens component/* y los semánticos color/* aliasean acá. · Contraste: en modos MC y HC el relleno se aclara mientras el texto (on-soft) se oscurece, para que la brecha se abra por los dos lados. No oscurecerlo: el texto encima va en la misma direccion y el contraste se cierra."
         },
@@ -5980,7 +5995,7 @@
           "description": "Rol interno. No consumir directo desde un componente: es la capa que permite re-tematizar por marca sin tocar nodos. Los co-tokens component/* y los semánticos color/* aliasean acá."
         },
         "soft-hover": {
-          "value": "#ffffff29",
+          "value": "#c2d2f5",
           "type": "color",
           "description": "Rol interno. No consumir directo desde un componente: es la capa que permite re-tematizar por marca sin tocar nodos. Los co-tokens component/* y los semánticos color/* aliasean acá. · Contraste: en modos MC y HC el relleno se aclara mientras el texto (on-soft) se oscurece, para que la brecha se abra por los dos lados. No oscurecerlo: el texto encima va en la misma direccion y el contraste se cierra."
         }
@@ -6097,7 +6112,7 @@
       },
       "skeleton": {
         "highlight": {
-          "value": "#ffffff29",
+          "value": "#070f250a",
           "type": "color",
           "description": "Co-token de skeleton. Capa de re-tematización: su destino cambia según el modo porque no existe rol semántico para esta decisión. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
         },
@@ -6356,12 +6371,12 @@
         },
         "primary-soft": {
           "bg-default": {
-            "value": "#ffffff1f",
+            "value": "#dfe7fa",
             "type": "color",
             "description": "Co-token de button. Capa de indirección: aliasea color/fill/action/primary/soft/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "bg-pressed": {
-            "value": "#ffffff3d",
+            "value": "#9cb8eb",
             "type": "color",
             "description": "Co-token de button. Capa de indirección: aliasea color/fill/action/primary/soft/pressed sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -6391,7 +6406,7 @@
             "description": "Co-token de button. Capa de indirección: aliasea color/border/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "bg-hover": {
-            "value": "#ffffff29",
+            "value": "#c2d2f5",
             "type": "color",
             "description": "Co-token de button. Capa de indirección: aliasea color/fill/action/primary/soft/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -6490,7 +6505,7 @@
             "description": "Co-token de button. Capa de indirección: aliasea color/fill/action/primary/quiet/pressed sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "bg-hover": {
-            "value": "#ffffff14",
+            "value": "#001e600a",
             "type": "color",
             "description": "Co-token de button. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
@@ -6532,7 +6547,7 @@
             "description": "Co-token de button. Capa de indirección: aliasea color/fill/action/danger/quiet/pressed sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "bg-hover": {
-            "value": "#d94d5e29",
+            "value": "#b22c4214",
             "type": "color",
             "description": "Co-token de button. Capa de indirección: aliasea color/overlay/danger/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -6544,12 +6559,12 @@
         },
         "danger-soft": {
           "bg-default": {
-            "value": "#ffffff1f",
+            "value": "#ffe0df",
             "type": "color",
             "description": "Co-token de button. Capa de indirección: aliasea color/fill/action/danger/soft/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "bg-pressed": {
-            "value": "#ffffff3d",
+            "value": "#fc9c9f",
             "type": "color",
             "description": "Co-token de button. Capa de indirección: aliasea color/fill/action/danger/soft/pressed sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -6574,7 +6589,7 @@
             "description": "Co-token de button. Capa de indirección: aliasea color/border/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "bg-hover": {
-            "value": "#ffffff29",
+            "value": "#ffc3c3",
             "type": "color",
             "description": "Co-token de button. Capa de indirección: aliasea color/fill/action/danger/soft/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -6611,12 +6626,12 @@
             "description": "Co-token de button. Capa de indirección: aliasea color/icon/on-inverse/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "bg-hover": {
-            "value": "#001e601f",
+            "value": "#ffffff1f",
             "type": "color",
             "description": "Co-token de button. Capa de indirección: aliasea color/overlay/on-inverse/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "bg-pressed": {
-            "value": "#001e603d",
+            "value": "#ffffff3d",
             "type": "color",
             "description": "Co-token de button. Capa de indirección: aliasea color/overlay/on-inverse/pressed sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
@@ -6711,7 +6726,7 @@
         },
         "ghost": {
           "bg-hover": {
-            "value": "#ffffff14",
+            "value": "#001e600a",
             "type": "color",
             "description": "Co-token de iconbutton. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -6733,12 +6748,12 @@
         },
         "on-inverse": {
           "bg-hover": {
-            "value": "#001e601f",
+            "value": "#ffffff1f",
             "type": "color",
             "description": "Co-token de iconbutton. Capa de indirección: aliasea color/overlay/on-inverse/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "bg-pressed": {
-            "value": "#001e603d",
+            "value": "#ffffff3d",
             "type": "color",
             "description": "Co-token de iconbutton. Capa de indirección: aliasea color/overlay/on-inverse/pressed sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -6819,22 +6834,22 @@
         },
         "veil": {
           "bg-default": {
-            "value": "#ffffff1f",
+            "value": "#001e601a",
             "type": "color",
             "description": "Co-token de iconbutton. Capa de indirección: aliasea color/fill/action/veil/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "bg-hover": {
-            "value": "#ffffff29",
+            "value": "#001e6029",
             "type": "color",
             "description": "Co-token de iconbutton. Capa de indirección: aliasea color/fill/action/veil/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "bg-pressed": {
-            "value": "#ffffff3d",
+            "value": "#001e603d",
             "type": "color",
             "description": "Co-token de iconbutton. Capa de indirección: aliasea color/fill/action/veil/pressed sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "bg-disabled": {
-            "value": "#ffffff1f",
+            "value": "#001e601a",
             "type": "color",
             "description": "Co-token de iconbutton. Capa de indirección: aliasea color/fill/action/veil/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -6885,7 +6900,7 @@
             "description": "Co-token de textfield. Capa de indirección: aliasea color/fill/input/readonly sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#001e600a",
             "type": "color",
             "description": "Co-token de textfield. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -7066,7 +7081,7 @@
             "description": "Co-token de textarea. Capa de indirección: aliasea color/fill/input/readonly sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#001e600a",
             "type": "color",
             "description": "Co-token de textarea. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -7213,7 +7228,7 @@
             "description": "Co-token de passwordfield. Capa de indirección: aliasea color/fill/input/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#001e600a",
             "type": "color",
             "description": "Co-token de passwordfield. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -7446,12 +7461,12 @@
             "description": "Co-token de checkbox. Capa de indirección: aliasea color/border/focus sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#001e600a",
             "type": "color",
             "description": "Co-token de checkbox. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover-selected": {
-            "value": "#ffffff29",
+            "value": "#070f2529",
             "type": "color",
             "description": "Co-token de checkbox. Capa de indirección: aliasea color/overlay/on-fill/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
@@ -7519,7 +7534,7 @@
             "description": "Co-token de radio. Capa de indirección: aliasea color/border/focus sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#001e600a",
             "type": "color",
             "description": "Co-token de radio. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -7597,12 +7612,12 @@
             "description": "Co-token de switch. Capa de indirección: aliasea color/border/focus sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#001e600a",
             "type": "color",
             "description": "Co-token de switch. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover-on": {
-            "value": "#ffffff29",
+            "value": "#070f2529",
             "type": "color",
             "description": "Co-token de switch. Capa de indirección: aliasea color/overlay/on-fill/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
@@ -7988,7 +8003,7 @@
             "description": "Co-token de phonefield. Capa de indirección: aliasea color/border/focus sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#001e600a",
             "type": "color",
             "description": "Co-token de phonefield. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -8209,7 +8224,7 @@
             "description": "Co-token de cardfield. Capa de indirección: aliasea color/border/focus sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#001e600a",
             "type": "color",
             "description": "Co-token de cardfield. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -8361,7 +8376,7 @@
             "description": "Co-token de select. Capa de indirección: aliasea color/border/focus sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#001e600a",
             "type": "color",
             "description": "Co-token de select. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -8510,7 +8525,7 @@
             "description": "Co-token de combobox. Capa de indirección: aliasea color/border/focus sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#001e600a",
             "type": "color",
             "description": "Co-token de combobox. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -8636,22 +8651,22 @@
             "description": "Co-token de choiceitem. Capa de indirección: aliasea color/fill/selected/surface/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#001e600a",
             "type": "color",
             "description": "Co-token de choiceitem. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-pressed": {
-            "value": "#ffffff29",
+            "value": "#001e601a",
             "type": "color",
             "description": "Co-token de choiceitem. Capa de indirección: aliasea color/overlay/state/pressed sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-selected": {
-            "value": "#adb9f329",
+            "value": "#001e6029",
             "type": "color",
             "description": "Co-token de choiceitem. Capa de indirección: aliasea color/overlay/state/selected sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-selected-hover": {
-            "value": "#adb9f33d",
+            "value": "#001e603d",
             "type": "color",
             "description": "Co-token de choiceitem. Capa de indirección: aliasea color/overlay/state/selected-hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -8715,12 +8730,12 @@
             "description": "Co-token de switchitem. Capa de indirección: aliasea color/canvas/surface/primary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#001e600a",
             "type": "color",
             "description": "Co-token de switchitem. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-pressed": {
-            "value": "#ffffff29",
+            "value": "#001e601a",
             "type": "color",
             "description": "Co-token de switchitem. Capa de indirección: aliasea color/overlay/state/pressed sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -8795,12 +8810,12 @@
             "description": "Co-token de choicebox. Capa de indirección: aliasea color/border/focus sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#001e600a",
             "type": "color",
             "description": "Co-token de choicebox. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-pressed": {
-            "value": "#ffffff29",
+            "value": "#001e601a",
             "type": "color",
             "description": "Co-token de choicebox. Capa de indirección: aliasea color/overlay/state/pressed sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
@@ -8982,17 +8997,17 @@
             "description": "Co-token de chip. Capa de indirección: aliasea color/border/focus sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#001e600a",
             "type": "color",
             "description": "Co-token de chip. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-pressed": {
-            "value": "#ffffff29",
+            "value": "#001e601a",
             "type": "color",
             "description": "Co-token de chip. Capa de indirección: aliasea color/overlay/state/pressed sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-selected-hover": {
-            "value": "#ffffff29",
+            "value": "#070f2529",
             "type": "color",
             "description": "Co-token de chip. Capa de indirección: aliasea color/overlay/on-fill/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -9863,7 +9878,7 @@
             "description": "Co-token de spinner. Capa de indirección: aliasea color/border/divider/subtle sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "on-brand": {
-            "value": "#0000003d",
+            "value": "#ffffff29",
             "type": "color",
             "description": "Co-token de spinner. Capa de indirección: aliasea color/border/divider/on-brand sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
@@ -9918,12 +9933,12 @@
         },
         "surface": {
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#001e600a",
             "type": "color",
             "description": "Co-token de tabs. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-pressed": {
-            "value": "#ffffff29",
+            "value": "#001e601a",
             "type": "color",
             "description": "Co-token de tabs. Capa de indirección: aliasea color/overlay/state/pressed sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -10067,12 +10082,12 @@
             "description": "Co-token de listitem. Capa de indirección: aliasea color/fill/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#001e600a",
             "type": "color",
             "description": "Co-token de listitem. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-pressed": {
-            "value": "#ffffff29",
+            "value": "#001e601a",
             "type": "color",
             "description": "Co-token de listitem. Capa de indirección: aliasea color/overlay/state/pressed sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -10164,17 +10179,17 @@
             "description": "Co-token de menu. Capa de indirección: aliasea color/fill/selected/surface/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#001e600a",
             "type": "color",
             "description": "Co-token de menu. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-pressed": {
-            "value": "#ffffff29",
+            "value": "#001e601a",
             "type": "color",
             "description": "Co-token de menu. Capa de indirección: aliasea color/overlay/state/pressed sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-selected": {
-            "value": "#adb9f329",
+            "value": "#001e6029",
             "type": "color",
             "description": "Co-token de menu. Capa de indirección: aliasea color/overlay/state/selected sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -10291,12 +10306,12 @@
             "description": "Co-token de accordion. Capa de indirección: aliasea color/icon/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#ffffff14",
+            "value": "#001e600a",
             "type": "color",
             "description": "Co-token de accordion. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-pressed": {
-            "value": "#ffffff29",
+            "value": "#001e601a",
             "type": "color",
             "description": "Co-token de accordion. Capa de indirección: aliasea color/overlay/state/pressed sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -10363,7 +10378,7 @@
             "description": "Co-token de accordion. Capa de indirección: aliasea color/border/focus/on-scene sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "divider": {
-            "value": "#ffffff3d",
+            "value": "#ffffff29",
             "type": "color",
             "description": "Co-token de accordion. Capa de indirección: aliasea color/border/divider/on-scene sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
@@ -10405,12 +10420,12 @@
             "description": "Co-token de accordion. Capa de indirección: aliasea color/icon/on-inverse/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-hover": {
-            "value": "#001e601f",
+            "value": "#ffffff1f",
             "type": "color",
             "description": "Co-token de accordion. Capa de indirección: aliasea color/overlay/on-inverse/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
           "overlay-pressed": {
-            "value": "#001e603d",
+            "value": "#ffffff3d",
             "type": "color",
             "description": "Co-token de accordion. Capa de indirección: aliasea color/overlay/on-inverse/pressed sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
@@ -10423,6 +10438,223 @@
             "value": "#dbdee6",
             "type": "color",
             "description": "Co-token de accordion. Capa de indirección: aliasea color/border/inverse sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        }
+      },
+      "callout": {
+        "brand": {
+          "bg": {
+            "value": "#001e60",
+            "type": "color",
+            "description": "Co-token de callout. Capa de indirección: aliasea color/fill/brand/subtle sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "title": {
+            "value": "#e6e8ec",
+            "type": "color",
+            "description": "Co-token de callout. Capa de indirección: aliasea color/text/primary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "body": {
+            "value": "#e6e8ec",
+            "type": "color",
+            "description": "Co-token de callout. Capa de indirección: aliasea color/text/primary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "icon": {
+            "value": "#dbdee6",
+            "type": "color",
+            "description": "Co-token de callout. Capa de indirección: aliasea color/icon/primary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "neutral": {
+          "bg": {
+            "value": "#131d35",
+            "type": "color",
+            "description": "Co-token de callout. Capa de indirección: aliasea color/fill/neutral/subtle sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "title": {
+            "value": "#e6e8ec",
+            "type": "color",
+            "description": "Co-token de callout. Capa de indirección: aliasea color/text/primary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "body": {
+            "value": "#e6e8ec",
+            "type": "color",
+            "description": "Co-token de callout. Capa de indirección: aliasea color/text/primary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "icon": {
+            "value": "#dbdee6",
+            "type": "color",
+            "description": "Co-token de callout. Capa de indirección: aliasea color/icon/primary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        }
+      },
+      "emptystate": {
+        "title": {
+          "value": "#e6e8ec",
+          "type": "color",
+          "description": "Co-token de emptystate. Capa de indirección: aliasea color/text/primary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        },
+        "body": {
+          "value": "#dbdee6",
+          "type": "color",
+          "description": "Co-token de emptystate. Capa de indirección: aliasea color/text/secondary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        },
+        "icon": {
+          "value": "#b4bcd1",
+          "type": "color",
+          "description": "Co-token de emptystate. Capa de indirección: aliasea color/icon/secondary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        }
+      },
+      "searchfield": {
+        "container": {
+          "bg-default": {
+            "value": "#232c41",
+            "type": "color",
+            "description": "Co-token de searchfield. Capa de indirección: aliasea color/fill/input/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "bg-disabled": {
+            "value": "#040c28",
+            "type": "color",
+            "description": "Co-token de searchfield. Capa de indirección: aliasea color/fill/input/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-default": {
+            "value": "#b4bcd1",
+            "type": "color",
+            "description": "Co-token de searchfield. Capa de indirección: aliasea color/border/control/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-hover": {
+            "value": "#cdd2e2",
+            "type": "color",
+            "description": "Co-token de searchfield. Capa de indirección: aliasea color/border/control/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-focus": {
+            "value": "#9abaf2",
+            "type": "color",
+            "description": "Co-token de searchfield. Capa de indirección: aliasea color/border/focus sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-disabled": {
+            "value": "#7d8497",
+            "type": "color",
+            "description": "Co-token de searchfield. Capa de indirección: aliasea color/border/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "value": {
+          "text-placeholder": {
+            "value": "#b4bcd1",
+            "type": "color",
+            "description": "Co-token de searchfield. Capa de indirección: aliasea color/text/placeholder sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-filled": {
+            "value": "#e6e8ec",
+            "type": "color",
+            "description": "Co-token de searchfield. Capa de indirección: aliasea color/text/primary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-disabled": {
+            "value": "#9aa2b7",
+            "type": "color",
+            "description": "Co-token de searchfield. Capa de indirección: aliasea color/text/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "icon": {
+          "icon-default": {
+            "value": "#b4bcd1",
+            "type": "color",
+            "description": "Co-token de searchfield. Capa de indirección: aliasea color/icon/secondary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "icon-disabled": {
+            "value": "#9aa2b7",
+            "type": "color",
+            "description": "Co-token de searchfield. Capa de indirección: aliasea color/icon/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        }
+      },
+      "numericstepper": {
+        "value": {
+          "text-default": {
+            "value": "#e6e8ec",
+            "type": "color",
+            "description": "Co-token de numericstepper. Capa de indirección: aliasea color/text/primary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-disabled": {
+            "value": "#9aa2b7",
+            "type": "color",
+            "description": "Co-token de numericstepper. Capa de indirección: aliasea color/text/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        }
+      },
+      "pageindicator": {
+        "dot": {
+          "bg-active": {
+            "value": "#9abaf2",
+            "type": "color",
+            "description": "Co-token de pageindicator. Capa de indirección: aliasea color/fill/action/primary/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "bg-inactive": {
+            "value": "#7d8497",
+            "type": "color",
+            "description": "Co-token de pageindicator. Capa de indirección: aliasea color/border/divider/strong sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        }
+      },
+      "calendar": {
+        "day": {
+          "text-default": {
+            "value": "#e6e8ec",
+            "type": "color",
+            "description": "Co-token de calendar. Capa de indirección: aliasea color/text/primary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-selected": {
+            "value": "#040c28",
+            "type": "color",
+            "description": "Co-token de calendar. Capa de indirección: aliasea color/text/on-selected sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text-disabled": {
+            "value": "#9aa2b7",
+            "type": "color",
+            "description": "Co-token de calendar. Capa de indirección: aliasea color/text/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "bg-selected": {
+            "value": "#9abaf2",
+            "type": "color",
+            "description": "Co-token de calendar. Capa de indirección: aliasea color/fill/selected/control/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "bg-range": {
+            "value": "#174183",
+            "type": "color",
+            "description": "Co-token de calendar. Capa de indirección: aliasea color/fill/selected/range sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-today": {
+            "value": "#b4bcd1",
+            "type": "color",
+            "description": "Co-token de calendar. Capa de indirección: aliasea color/border/control/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "border-focus": {
+            "value": "#9abaf2",
+            "type": "color",
+            "description": "Co-token de calendar. Capa de indirección: aliasea color/border/focus sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "indicator": {
+            "value": "#9abaf2",
+            "type": "color",
+            "description": "Co-token de calendar. Capa de indirección: aliasea color/fill/selected/control/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "indicator-selected": {
+            "value": "#040c28",
+            "type": "color",
+            "description": "Co-token de calendar. Capa de indirección: aliasea color/icon/on-selected sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "header": {
+          "title": {
+            "value": "#e6e8ec",
+            "type": "color",
+            "description": "Co-token de calendar. Capa de indirección: aliasea color/text/primary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "weekday": {
+          "text": {
+            "value": "#dbdee6",
+            "type": "color",
+            "description": "Co-token de calendar. Capa de indirección: aliasea color/text/secondary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         }
       }
@@ -10865,14 +11097,14 @@
       },
       "brush": {
         "fill": {
-          "value": "#adb9f329",
+          "value": "#001e6029",
           "type": "color",
           "description": "Relleno del selector de rango temporal. Pasa a ALPHA (antes solido): se dibuja ENCIMA de los datos y en solido los tapaba. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
         }
       },
       "selection": {
         "fill": {
-          "value": "#adb9f33d",
+          "value": "#001e603d",
           "type": "color",
           "description": "Relleno del area de seleccion por arrastre. Pasa a ALPHA (antes solido) por la misma razon que brush. Requisito transversal: cada serie debe distinguirse ADEMAS por patron, forma de marcador o etiqueta directa. Un grafico legible solo por color no cumple AA, y en banca los graficos comunican dinero. Valor definido en los 4 modos."
         }
@@ -10936,12 +11168,12 @@
         },
         "shadow": {
           "near": {
-            "value": "#0000003d",
+            "value": "#070f2514",
             "type": "color",
             "description": "Sombra cercana de una superficie elevada. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano. En light la sombra es lo UNICO que separa dos superficies que son el mismo blanco; en dark el peso lo lleva el escalon de fondo (elevation/raised/bg) y la sombra solo asienta el borde."
           },
           "far": {
-            "value": "#00000000",
+            "value": "#070f250a",
             "type": "color",
             "description": "Sombra lejana de una superficie elevada. En dark va a alpha 0 a proposito: dos sombras negras sobre un fondo oscuro se leen como suciedad, no como altura. El estilo conserva las dos capas para que el numero de capas no dependa del modo. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
           }
@@ -10955,12 +11187,12 @@
         },
         "shadow": {
           "near": {
-            "value": "#00000066",
+            "value": "#070f251f",
             "type": "color",
             "description": "Sombra cercana de una capa flotante (modal, hoja, menu). El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
           },
           "far": {
-            "value": "#00000000",
+            "value": "#070f2514",
             "type": "color",
             "description": "Sombra lejana de una capa flotante. En dark va a alpha 0 por el mismo motivo que raised/far. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
           }
