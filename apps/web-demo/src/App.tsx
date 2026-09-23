@@ -1,4 +1,4 @@
-import { BluProvider, Button, Card, CardField, Checkbox, ChoiceItem, Divider, IconButton, LinkButton, ListGroup, ListItem, OTPField, PasswordField, PhoneField, Radio, RadioGroup, Tooltip, useThemeMode } from "@dsm/web";
+import { BluProvider, Button, Card, CardField, Checkbox, ChoiceItem, Divider, IconButton, LinkButton, ListGroup, ListItem, OTPField, ProgressBar, PasswordField, PhoneField, Radio, RadioGroup, Tooltip, useThemeMode } from "@dsm/web";
 import { readThemeToken, themeSources } from "@dsm/shared";
 import type { TButtonAppearance, TButtonSize, TButtonVariant, TIconColor, TIconSize, TPasswordFieldSize, TPasswordFieldVisibility } from "@dsm/shared";
 import { useState } from "react";
@@ -552,6 +552,56 @@ const App = () => {
             <ListGroup header="Una sola fila" testID="listgroup-una">
               <ListItem description="Hoy, 10:24" label="Transferencia a Ana" showDescription showTrailingText trailingText="$1.250,00" />
             </ListGroup>
+          </div>
+        </section>
+
+        <section className="demo__section">
+          <h2 className="demo__section-title">ProgressBar</h2>
+          {/* Dice cuanto se avanzo de algo que tiene principio y fin. INFORMA,
+              NO SE TOCA: no tiene disabled, ni hover, ni pressed, ni eje de
+              estado.
+
+              STATUS NO ES UNA PALETA, es lo que separa un avance de un
+              problema: "un ProgressBar en danger no es una barra roja bonita,
+              es un progreso que va mal". brand y accent son una tarea que
+              avanza; success, warning y danger son para cuando el color
+              codifica EL VALOR y no el progreso. Lee las etiquetas de abajo,
+              no los colores — ese es el punto del eje.
+
+              NO ES UN DIV CON UN ANCHO: lleva role="progressbar" con su valor.
+              Y la etiqueta es la que lo nombra, porque "75 % sin contexto no
+              es informacion". Nada anuncia cada cambio: una barra que habla en
+              cada porcentaje es inusable con lector.
+
+              NO HAY BARRA INDETERMINADA, ni aca ni en Figma: "barra si se
+              puede medir, spinner si no". */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 20, maxWidth: 320 }}>
+            <ProgressBar label="Subiendo el documento" testID="progressbar-brand" value={60} />
+            <ProgressBar label="Perfil completo" status="accent" testID="progressbar-accent" value={40} />
+            <ProgressBar label="Meta de ahorro alcanzada" status="success" testID="progressbar-success" value={100} />
+            <ProgressBar label="Cupo usado" status="warning" testID="progressbar-warning" value={82} />
+            <ProgressBar label="Plazo por vencer" status="danger" testID="progressbar-danger" value={95} />
+          </div>
+          {/* Los tres altos de pista: 4 / 8 / 12. El encabezado no cambia. */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 20, marginTop: 24, maxWidth: 320 }}>
+            {FIELD_SIZES.map((size) => (
+              <ProgressBar key={size} label={`size ${size}`} size={size} testID={`progressbar-size-${size}`} value={60} />
+            ))}
+          </div>
+          {/* Los bordes: en 1 el relleno es un punto y no nada —"cualquier
+              valor mayor que 0 dibuja como minimo el alto de la pista"—, y 120
+              se recorta a 100 en lugar de desbordar. */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 20, marginTop: 24, maxWidth: 320 }}>
+            <ProgressBar label="value 1 — un punto, no nada" testID="progressbar-uno" value={1} />
+            <ProgressBar label="value 120 — recortado a 100" testID="progressbar-recorte" value={120} />
+            <ProgressBar label="sin porcentaje" showValue={false} testID="progressbar-sin-valor" value={60} />
+            {/* showLabel oculta el TEXTO y nada mas: la barra sigue nombrada
+                por label para el lector de pantalla. Es la misma solucion que
+                usa el CheckboxGroup con su legend. */}
+            <ProgressBar label="Subiendo el documento" showLabel={false} testID="progressbar-sin-etiqueta" value={60} />
+            {/* showHeader gana sobre los otros dos: sin fila, y sin el alto de
+                una fila vacia. */}
+            <ProgressBar label="Subiendo el documento" showHeader={false} testID="progressbar-sin-encabezado" value={60} />
           </div>
         </section>
 

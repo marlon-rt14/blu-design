@@ -13,6 +13,7 @@ export * from './choiceBox.tokens';
 export * from './colors';
 export * from './divider.tokens';
 export * from './phoneField.tokens';
+export * from './progressBar.tokens';
 export * from './radii';
 export * from './spacing';
 export * from './icon.tokens';

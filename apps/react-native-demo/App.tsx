@@ -14,6 +14,7 @@ import {
   ListGroup,
   ListItem,
   OTPField,
+  ProgressBar,
   PhoneField,
   Radio,
   RadioGroup,
@@ -571,6 +572,41 @@ const App = () => {
                 <ListGroup header="Una sola fila" testID="listgroup-una">
                   <ListItem description="Hoy, 10:24" label="Transferencia a Ana" showDescription showTrailingText trailingText="$1.250,00" />
                 </ListGroup>
+              </View>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+                ProgressBar
+              </Text>
+              {/* Dice cuanto se avanzo de algo que tiene principio y fin.
+                  INFORMA, NO SE TOCA.
+
+                  STATUS NO ES UNA PALETA: separa un avance de un problema.
+                  brand y accent son una tarea que avanza; success, warning y
+                  danger son para cuando el color codifica EL VALOR. Lee las
+                  etiquetas, no los colores.
+
+                  Lleva accessibilityRole="progressbar" con accessibilityValue,
+                  no un View con un ancho. Y nada anuncia cada cambio.
+
+                  El relleno se anima con Animated y useNativeDriver EN false,
+                  porque el driver nativo no anima width — solo transforms y
+                  opacidad. Un scaleX correria nativo pero deformaria la punta
+                  redondeada. Con Reduce Motion salta en vez de deslizarse. */}
+              <View style={styles.cardFieldStack}>
+                <ProgressBar label="Subiendo el documento" testID="progressbar-brand" value={60} />
+                <ProgressBar label="Perfil completo" status="accent" testID="progressbar-accent" value={40} />
+                <ProgressBar label="Meta de ahorro alcanzada" status="success" testID="progressbar-success" value={100} />
+                <ProgressBar label="Cupo usado" status="warning" testID="progressbar-warning" value={82} />
+                <ProgressBar label="Plazo por vencer" status="danger" testID="progressbar-danger" value={95} />
+                {/* En 1 el relleno es un punto y no nada; 120 se recorta. */}
+                <ProgressBar label="value 1 — un punto, no nada" testID="progressbar-uno" value={1} />
+                <ProgressBar label="value 120 — recortado a 100" testID="progressbar-recorte" value={120} />
+                {/* showLabel oculta el TEXTO y nada mas: la barra sigue
+                    nombrada para el lector. showHeader gana sobre los dos. */}
+                <ProgressBar label="Subiendo el documento" showLabel={false} testID="progressbar-sin-etiqueta" value={60} />
+                <ProgressBar label="Subiendo el documento" showHeader={false} testID="progressbar-sin-encabezado" value={60} />
               </View>
             </View>
 

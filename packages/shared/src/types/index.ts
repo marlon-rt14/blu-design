@@ -40,6 +40,7 @@ export * from './molecules/popover.types';
 export * from './atoms/divider.types';
 export * from './atoms/cardField.types';
 export * from './atoms/phoneField.types';
+export * from './atoms/progressBar.types';
 export * from './atoms/step.types';
 export * from './atoms/stepConnector.types';
 export * from './molecules/progressStepper.types';
