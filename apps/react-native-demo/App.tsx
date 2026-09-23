@@ -11,6 +11,7 @@ import {
   Divider,
   IconButton,
   LinkButton,
+  ListGroup,
   ListItem,
   OTPField,
   PhoneField,
@@ -533,6 +534,43 @@ const App = () => {
                   testID="phonefield-none-error"
                   value="99 12"
                 />
+              </View>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+                ListGroup
+              </Text>
+              {/* La tarjeta de una pantalla de ajustes: superficie, radio y
+                  recorte, y nada mas. NO pone padding lateral —"ese es margen
+                  de la pantalla"— ni hueco entre filas —"lo que separa es el
+                  divisor, no el margen"— ni scroll propio.
+
+                  SU TRABAJO SON LOS DIVISORES. Un ListItem suelto viene sin
+                  divisor; este es el unico lugar donde viene encendido, y el
+                  de la ultima fila se apaga. Y LO HACE EL GRUPO: fijate que
+                  ningun ListItem de abajo pasa showDivider.
+
+                  Es un View y no un FlatList, y eso es a proposito: la firma
+                  recibe children y un FlatList necesita data y renderItem. Una
+                  lista de trescientas filas no es este componente — pide un
+                  FlatList a nivel de pantalla. */}
+              <View style={styles.cardFieldStack}>
+                <ListGroup header="Hoy" testID="listgroup-hoy">
+                  <ListItem description="Hoy, 10:24" label="Transferencia a Ana" showDescription showTrailingText trailingText="$1.250,00" />
+                  <ListItem description="Hoy, 09:02" label="Pago de servicios" showDescription showTrailingText trailingText="$320,00" />
+                  <ListItem description="Ayer, 18:41" label="Recarga de celular" showDescription showTrailingText trailingText="$15,00" />
+                </ListGroup>
+                <ListGroup testID="listgroup-ajustes">
+                  <ListItem icon="user" label="Datos personales" leadingContent="icon" />
+                  <ListItem icon="lock" label="Seguridad" leadingContent="icon" />
+                  <ListItem icon="info" label="Ayuda" leadingContent="icon" />
+                </ListGroup>
+                {/* Con una sola fila el divisor se apaga, porque esa fila
+                    tambien es la ultima. */}
+                <ListGroup header="Una sola fila" testID="listgroup-una">
+                  <ListItem description="Hoy, 10:24" label="Transferencia a Ana" showDescription showTrailingText trailingText="$1.250,00" />
+                </ListGroup>
               </View>
             </View>
 

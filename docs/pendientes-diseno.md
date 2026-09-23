@@ -350,6 +350,47 @@ plataformas; lo único en espera es el arte de las banderas.
 
 ---
 
+## ListGroup
+
+Fuente: `ListGroup · Dev`, nodo `1020:112256`. Implementado el 23-sep.
+
+| # | Qué | Quién lo cierra | Estado |
+|---|---|---|---|
+| 1 | **El grupo no tiene encabezado en el archivo.** Una lista de secciones —"Hoy", "Ayer", "Esta semana"— es el caso más común de una app bancaria y hoy se arma por fuera. Está en la firma del contrato, así que lo implementamos: leyendo la capa semántica y ubicado **arriba** de la tarjeta. Las dos cosas son decisiones nuestras, no mediciones. | Jetto | **abierta** |
+| 2 | Los divisores se apagan fila por fila en Figma y ya se perdieron una vez, en el pase de renombres del 20-ago. En código lo resuelve el grupo. | Tech Lead | declarada |
+| 3 | **No hay estado vacío.** Una lista sin elementos es un caso real y no está dibujado. | Jetto | **abierta** |
+
+### Hallazgos nuestros, no declarados en la doc
+
+1. **El token de superficie que el contrato nombra no existe.** La sección `06`
+   lista `component/listgroup/surface/bg`, y en el export **no hay grupo
+   `listgroup`** — sí están `checkboxgroup`, `radiogroup` y `switchgroup`. Lo
+   que el componente bindea en Figma es `component/card/surface/bg`, que es
+   coherente con que la descripción lo llame *"la tarjeta"*. Leemos ese.
+2. **Son cuatro tokens, no seis.** Medido por resta: pedirle a Figma las
+   variables del componente entero devuelve trece, y las de un `ListItem` de
+   adentro devuelve once de esas. Lo que queda es la superficie y
+   `radius/surface/md`. Los otros cuatro que el contrato lista
+   (`size/control/height/lg`, `space/inline/sm`, `space/inset/md`,
+   `space/inset/xs`) son de las filas.
+3. **El eje de layout sí mueve este componente**, que es esperable en uno que
+   es casi puras dimensiones: en `expanded` el radio pasa de 16 a 24 y el inset
+   de 12 a 16.
+4. **`children` y virtualización son incompatibles.** La firma recibe
+   `children`; un `FlatList` necesita `data` y `renderItem`. El contrato pide
+   virtualizar las listas largas —*"trescientas filas montadas de una vez es el
+   problema de rendimiento más común de una app bancaria"*— así que **una lista
+   larga no es este componente**: pide un `FlatList` a nivel de pantalla, y ahí
+   la regla del divisor vuelve a quien llama. Preferimos decirlo a resolverlo a
+   medias.
+5. **Las dos fuentes no coinciden en qué filas acepta.** El contrato de
+   desarrollo dice *"ListItem, y solo ListItem"*; la descripción del componente
+   dice *"pueden ser ListItem, ChoiceItem o las dos mezcladas"*. El tipo permite
+   la versión amplia, porque un `ReactNode` no puede prometer otra cosa y una
+   pantalla de ajustes con una fila de switch es el caso obvio.
+
+---
+
 ## Divider
 
 Fuente: `Divider · Dev`, nodo `1017:79919`. Implementado y commiteado en `53aeb34`.

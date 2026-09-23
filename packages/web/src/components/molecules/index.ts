@@ -3,6 +3,7 @@ export * from './ButtonGroup';
 export * from './CheckboxGroup';
 export * from './ChoiceItem';
 export * from './Coachmark';
+export * from './ListGroup';
 export * from './ListItem';
 export * from './Menu';
 export * from './Popover';

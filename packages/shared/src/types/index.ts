@@ -26,6 +26,7 @@ export * from './molecules/avatarGroup.types';
 export * from './molecules/buttonGroup.types';
 export * from './molecules/checkboxGroup.types';
 export * from './molecules/choiceItem.types';
+export * from './molecules/listGroup.types';
 export * from './molecules/listItem.types';
 export * from './molecules/menu.types';
 export * from './molecules/radioGroup.types';

@@ -16,6 +16,7 @@ export * from './phoneField.tokens';
 export * from './radii';
 export * from './spacing';
 export * from './icon.tokens';
+export * from './listGroup.tokens';
 export * from './image.tokens';
 export * from './iconButton.tokens';
 export * from './linkButton.tokens';

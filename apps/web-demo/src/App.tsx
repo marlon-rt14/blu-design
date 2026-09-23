@@ -1,4 +1,4 @@
-import { BluProvider, Button, Card, CardField, Checkbox, ChoiceItem, Divider, IconButton, LinkButton, OTPField, PasswordField, PhoneField, Radio, RadioGroup, Tooltip, useThemeMode } from "@dsm/web";
+import { BluProvider, Button, Card, CardField, Checkbox, ChoiceItem, Divider, IconButton, LinkButton, ListGroup, ListItem, OTPField, PasswordField, PhoneField, Radio, RadioGroup, Tooltip, useThemeMode } from "@dsm/web";
 import { readThemeToken, themeSources } from "@dsm/shared";
 import type { TButtonAppearance, TButtonSize, TButtonVariant, TIconColor, TIconSize, TPasswordFieldSize, TPasswordFieldVisibility } from "@dsm/shared";
 import { useState } from "react";
@@ -510,6 +510,48 @@ const App = () => {
               testID="phonefield-none-error"
               value="99 12"
             />
+          </div>
+        </section>
+
+        <section className="demo__section">
+          <h2 className="demo__section-title">ListGroup</h2>
+          {/* La tarjeta de una pantalla de ajustes: pone la superficie, el
+              radio y el recorte, y nada mas. NO pone padding lateral — "ese es
+              margen de la pantalla" — ni hueco entre filas — "lo que separa es
+              el divisor, no el margen" — ni scroll propio.
+
+              LO QUE HACE ES OCUPARSE DE LOS DIVISORES, y es todo su trabajo.
+              Un ListItem suelto viene SIN divisor, porque Core sirve a web y a
+              app y el divisor es patron de lista agrupada. Este es el unico
+              lugar donde viene encendido, y el de la ultima fila se apaga.
+
+              Y LO HACE EL GRUPO, no quien arma la lista: fijate que abajo
+              ningun ListItem pasa showDivider. "En Figma se apaga fila por
+              fila; en codigo lo maneja el grupo." En el archivo esos booleanos
+              ya se perdieron una vez, en el pase de renombres del 20-ago.
+
+              El divisor igual lo dibuja la fila y no el grupo, porque arranca
+              donde arranca SU texto: una fila con avatar indenta su propio
+              filete, y una linea dibujada por el grupo no podria saberlo. */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 24, maxWidth: 375 }}>
+            <ListGroup header="Hoy" testID="listgroup-hoy">
+              <ListItem description="Hoy, 10:24" label="Transferencia a Ana" showDescription showTrailingText trailingText="$1.250,00" />
+              <ListItem description="Hoy, 09:02" label="Pago de servicios" showDescription showTrailingText trailingText="$320,00" />
+              <ListItem description="Ayer, 18:41" label="Recarga de celular" showDescription showTrailingText trailingText="$15,00" />
+            </ListGroup>
+            {/* El encabezado no existe en Figma: esta en la firma del contrato
+                y no en el archivo. Se implementa leyendo la capa semantica y va
+                arriba de la tarjeta; las dos son decisiones, no mediciones. */}
+            <ListGroup testID="listgroup-ajustes">
+              <ListItem icon="user" label="Datos personales" leadingContent="icon" />
+              <ListItem icon="lock" label="Seguridad" leadingContent="icon" />
+              <ListItem icon="info" label="Ayuda" leadingContent="icon" />
+            </ListGroup>
+            {/* Con una sola fila el divisor se apaga, porque esa fila tambien
+                es la ultima. */}
+            <ListGroup header="Una sola fila" testID="listgroup-una">
+              <ListItem description="Hoy, 10:24" label="Transferencia a Ana" showDescription showTrailingText trailingText="$1.250,00" />
+            </ListGroup>
           </div>
         </section>
 
