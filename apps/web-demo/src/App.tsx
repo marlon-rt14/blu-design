@@ -1,6 +1,6 @@
 import { BluProvider, Button, Card, CardField, Checkbox, ChoiceItem, Divider, IconButton, LinkButton, ListGroup, ListItem, OTPField, ProgressBar, PasswordField, PhoneField, Radio, RadioGroup, Tooltip, useThemeMode } from "@dsm/web";
 import { readThemeToken, themeSources } from "@dsm/shared";
-import type { TButtonAppearance, TButtonSize, TButtonVariant, TIconColor, TIconSize, TPasswordFieldSize, TPasswordFieldVisibility } from "@dsm/shared";
+import type { TButtonAppearance, TButtonSize, TButtonVariant, TIconColor, TIconSize, TPasswordFieldSize, TPasswordStrength } from "@dsm/shared";
 import { useState } from "react";
 
 import { IconAlertTriangle, IconArrowUpRight, IconCheckCircle, IconChevronRight, IconImage, IconPlus, IconSearch, IconTrash } from "@dsm/web/icons";
@@ -95,7 +95,17 @@ const App = () => {
   const [cardCvv, setCardCvv] = useState("123");
   const [phone, setPhone] = useState("99 123 4567");
   const [shortPassword, setShortPassword] = useState("123");
-  const [visibility, setVisibility] = useState<TPasswordFieldVisibility>("visible");
+  const [passwordVisible, setPasswordVisible] = useState(true);
+  const [newPassword, setNewPassword] = useState("Contra");
+  // El criterio es de la demo, no del sistema: bDS no lo tiene escrito.
+  const passwordStrength: TPasswordStrength =
+    newPassword.length >= 12 && /[A-Z]/.test(newPassword) && /[0-9]/.test(newPassword)
+      ? "strong"
+      : newPassword.length >= 10
+        ? "good"
+        : newPassword.length >= 8
+          ? "acceptable"
+          : "weak";
   // Guarda el id de la opción elegida, que es lo que un grupo de radios necesita.
   const [metodo, setMetodo] = useState("Débito");
   const [checked, setChecked] = useState(false);
@@ -275,42 +285,82 @@ const App = () => {
           <div className="demo__row">
             <PasswordField
               label="Controlada por el padre"
-              onChange={(event) => setPassword(event.target.value)}
-              // Passing the handler is what makes it controlled: the reveal
-              // action now reports the next value instead of changing itself,
-              // so `visibility` stays the single source of truth.
-              onVisibilityChange={setVisibility}
+              onChangeText={setPassword}
+              // Pasar el handler es lo que la hace controlada: la accion de
+              // revelar avisa y no cambia nada por su cuenta, asi que `visible`
+              // queda como unica fuente de verdad.
+              onToggleVisible={() => setPasswordVisible((v) => !v)}
               testID="password-controlled"
-              visibility={visibility}
               value={password}
+              visible={passwordVisible}
             />
-            <Button label={`Visibility toggle (${visibility})`} onClick={() => setVisibility((current) => (current === "visible" ? "hidden" : "visible"))} />
+            <Button label={`Visible: ${passwordVisible ? "si" : "no"}`} onClick={() => setPasswordVisible((v) => !v)} />
             {FIELD_SIZES.map((size) => (
               <div key={size} style={{ width: 280 }}>
-                <PasswordField label={`Contraseña (${size})`} onChange={(event) => setPassword(event.target.value)} size={size} testID={`password-${size}`} value={password} />
+                <PasswordField label={`Contraseña (${size})`} onChangeText={setPassword} size={size} testID={`password-${size}`} value={password} />
               </div>
             ))}
           </div>
           <div className="demo__row">
             <div style={{ width: 280 }}>
-              <PasswordField errorMessage="Mínimo 8 caracteres" label="Contraseña corta" onChange={(event) => setShortPassword(event.target.value)} showHelper testID="password-error" value={shortPassword} />
+              {/* La presencia del mensaje ES el estado de error: no hay isInvalid
+                  aparte, porque "el error lo comunica el mensaje, no el color" y
+                  un campo rojo sin nada que leer es justo lo que eso prohibe. */}
+              <PasswordField error="Mínimo 8 caracteres" label="Contraseña corta" onChangeText={setShortPassword} testID="password-error" value={shortPassword} />
             </div>
             <div style={{ width: 280 }}>
               <PasswordField
                 helperText="Se guarda cifrada"
                 label="Nueva contraseña"
-                onChange={(event) => setPassword(event.target.value)}
-                showHelper
+                onChangeText={setPassword}
                 testID="password-new"
                 value={password}
-                // On a sign-up or change-password form this tells the password
-                // manager to offer a generated one instead of an existing one.
+                // En un alta o un cambio de clave esto le dice al gestor que
+                // ofrezca una generada en vez de una existente.
                 autoComplete="new-password"
               />
             </div>
             <div style={{ width: 280 }}>
-              <PasswordField isDisabled label="Deshabilitada" testID="password-disabled" value={password} />
+              <PasswordField disabled label="Deshabilitada" onChangeText={() => {}} testID="password-disabled" value={password} />
             </div>
+          </div>
+          {/* LO QUE PIDE FIGMA Y NO TENIAMOS: el medidor de fuerza y la lista
+              de requisitos. Los dos aparecen por la PRESENCIA de su prop.
+
+              La regla de bDS para la lista es de momento, no de dibujo:
+              "mostrá qué se pide mientras escribe, no después de fallar".
+
+              La barra es un ProgressBar de verdad —en Figma tambien lo es— con
+              el encabezado apagado: la palabra la pone el PasswordField, que
+              tiene su propio color por nivel. Los rellenos son 25/50/75/100,
+              medidos sobre las cuatro variantes.
+
+              El nivel lo decide QUIEN LLAMA: bDS no tiene escrito qué cuenta
+              como debil o fuerte, y sin esa regla los cuatro niveles serian
+              decoracion. Aca abajo el criterio es de la demo, no del sistema. */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 24, marginTop: 16, maxWidth: 380 }}>
+            <PasswordField
+              label="Contraseña"
+              onChangeText={setNewPassword}
+              requirements={[
+                { label: "12 caracteres de largo", met: newPassword.length >= 12 },
+                { label: "Al menos una mayúscula", met: /[A-Z]/.test(newPassword) },
+                { label: "Al menos un número", met: /[0-9]/.test(newPassword) },
+              ]}
+              strength={passwordStrength}
+              testID="password-full"
+              value={newPassword}
+            />
+            {/* Bloq Mayús es SOLO WEB: en móvil no existe la tecla, la prop no
+                aplica y el aviso no se monta. Va como región viva porque
+                aparece mientras la persona escribe. */}
+            <PasswordField
+              capsLock
+              label="Con Bloq Mayús activado"
+              onChangeText={() => {}}
+              testID="password-capslock"
+              value="Secreta123"
+            />
           </div>
         </section>
 

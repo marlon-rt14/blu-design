@@ -32,9 +32,9 @@ interface IUsePasswordFieldResult {
   /** Wraps the action so its touch target reaches `size/target/min`. */
   actionSlotStyle: CSSProperties;
   helperStyle: CSSProperties;
-  isDisabled: boolean;
-  isReadOnly: boolean;
-  /** `true` when `isInvalid` or `errorMessage` is set. */
+  disabled: boolean;
+  readOnly: boolean;
+  /** `true` when there is an error message. */
   isInvalid: boolean;
   /** Resolved state, exposed so stories and tests can assert on it. */
   state: TPasswordFieldState;
@@ -48,7 +48,23 @@ interface IUsePasswordFieldResult {
   showAction: boolean;
   /** The action's own size: `sm` mirrors the field, everything else is `md`. */
   actionSize: 'sm' | 'md';
-  /** `errorMessage` or `helperText` when `showHelper` is `true`; `undefined` otherwise. */
+  /** The Caps Lock chip inside the field. Web only. */
+  capsLockStyle: CSSProperties;
+  /** Wraps the meter and the requirements under the field. */
+  blockStyle: CSSProperties;
+  /** The strength word, coloured by level. */
+  strengthWordStyle: CSSProperties;
+  /** The requirements heading. */
+  requirementsTitleStyle: CSSProperties;
+  /** One requirement row. */
+  requirementRowStyle: CSSProperties;
+  /** A requirement's text. */
+  requirementTextStyle: CSSProperties;
+  /** Icon colour by whether the requirement is met. */
+  requirementIconColor: (met: boolean) => string;
+  /** The list, as a column. */
+  requirementListStyle: CSSProperties;
+  /** `error` if there is one, else `helperText`; `undefined` when neither. */
   displayedHelperText: string | undefined;
 }
 
@@ -65,12 +81,11 @@ interface IUsePasswordFieldResult {
 export const usePasswordField = ({
   value,
   size = 'md',
-  isDisabled = false,
-  isReadOnly = false,
-  isInvalid = false,
-  errorMessage,
+  disabled = false,
+  readOnly = false,
+  strength,
+  error,
   helperText,
-  showHelper = true,
   isHovered,
   isFocused,
 }: IUsePasswordFieldParams): IUsePasswordFieldResult => {
@@ -78,12 +93,14 @@ export const usePasswordField = ({
   const tokens = passwordFieldTokens[mode];
   const fontFamily = useFontFamily(tokens.typography.value.fontWeight);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const hasError = isInvalid || Boolean(errorMessage);
+  // The message *is* the error state: bDS forbids a red field with nothing
+  // to read — *"el error lo comunica el mensaje, no el color"*.
+  const hasError = error !== undefined && error !== '';
   const hasValue = value.length > 0;
 
-  const state: TPasswordFieldState = isDisabled
+  const state: TPasswordFieldState = disabled
     ? 'disabled'
-    : isReadOnly
+    : readOnly
       ? 'readonly'
       : hasError
         ? 'error'
@@ -116,9 +133,9 @@ export const usePasswordField = ({
         ? tokens.colors.container.backgroundReadOnly
         : tokens.colors.container.background;
 
-  const valueColor = isDisabled
+  const valueColor = disabled
     ? tokens.colors.value.disabled
-    : isReadOnly
+    : readOnly
       ? tokens.colors.value.readOnly
       : hasValue
         ? tokens.colors.value.filled
@@ -133,7 +150,7 @@ export const usePasswordField = ({
   // than on the page background, so a painted gap would be the wrong colour
   // most of the time.
   const outline =
-    isFocused && !isDisabled && !isReadOnly
+    isFocused && !disabled && !readOnly
       ? `${tokens.dimension.focusRingSpread}px solid ${tokens.colors.container.borderFocus}`
       : 'none';
 
@@ -168,7 +185,7 @@ export const usePasswordField = ({
       outline,
       outlineOffset: tokens.dimension.focusRingOffset,
       transition,
-      cursor: isDisabled ? 'not-allowed' : undefined,
+      cursor: disabled ? 'not-allowed' : undefined,
     },
     contentStyle: {
       display: 'flex',
@@ -183,7 +200,7 @@ export const usePasswordField = ({
       fontSize: label.fontSize,
       lineHeight: label.lineHeightRatio,
       letterSpacing: label.letterSpacing,
-      color: isDisabled ? tokens.colors.label.disabled : tokens.colors.label.default,
+      color: disabled ? tokens.colors.label.disabled : tokens.colors.label.default,
     },
     inputStyle: {
       boxSizing: 'border-box',
@@ -199,8 +216,8 @@ export const usePasswordField = ({
       lineHeight: valueType.lineHeightRatio,
       color: valueColor,
       outline: 'none',
-      cursor: isDisabled ? 'not-allowed' : undefined,
-      '--dsm-input-placeholder-color': isDisabled
+      cursor: disabled ? 'not-allowed' : undefined,
+      '--dsm-input-placeholder-color': disabled
         ? tokens.colors.value.disabled
         : tokens.colors.value.placeholder,
     },
@@ -221,14 +238,14 @@ export const usePasswordField = ({
       fontWeight: label.fontWeight,
       fontSize: label.fontSize,
       lineHeight: label.lineHeightRatio,
-      color: isDisabled
+      color: disabled
         ? tokens.colors.helper.disabled
         : hasError
           ? tokens.colors.helper.error
           : tokens.colors.helper.default,
     },
-    isDisabled,
-    isReadOnly,
+    disabled,
+    readOnly,
     isInvalid: hasError,
     state,
     // Figma: the label rises only when there is a value, and at `sm` it never
@@ -237,6 +254,69 @@ export const usePasswordField = ({
     // "En estados sin valor la acción se oculta: no hay nada que revelar."
     showAction: hasValue,
     actionSize: size === 'sm' ? 'sm' : 'md',
-    displayedHelperText: showHelper ? errorMessage ?? helperText : undefined,
+    capsLockStyle: {
+      alignItems: 'center',
+      // A chip rather than a bare glyph: the token is a background, and on a
+      // white field a grey icon alone would read as decoration.
+      backgroundColor: disabled
+        ? tokens.colors.capsLock.backgroundDisabled
+        : tokens.colors.capsLock.background,
+      borderRadius: tokens.dimension.strengthBarRadius,
+      color: disabled ? tokens.colors.value.disabled : tokens.colors.value.filled,
+      display: 'inline-flex',
+      flexShrink: 0,
+      padding: tokens.dimension.requirementRowGap,
+    },
+    blockStyle: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: tokens.dimension.strengthGap,
+      marginBlockStart: tokens.dimension.blockGap,
+    },
+    strengthWordStyle: {
+      color: strength === undefined ? tokens.colors.helper.default : tokens.colors.strength.text[strength],
+      fontFamily,
+      fontSize: tokens.typography.caption.fontSize,
+      fontWeight: tokens.typography.caption.fontWeight,
+      lineHeight: tokens.typography.caption.lineHeightRatio,
+    },
+    requirementsTitleStyle: {
+      color: tokens.colors.requirement.title,
+      fontFamily,
+      fontSize: tokens.typography.caption.fontSize,
+      fontWeight: tokens.typography.caption.fontWeight,
+      lineHeight: tokens.typography.caption.lineHeightRatio,
+      marginBlockEnd: tokens.dimension.requirementRowGap,
+    },
+    requirementListStyle: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: tokens.dimension.requirementRowGap,
+      listStyle: 'none',
+      margin: 0,
+      padding: 0,
+    },
+    requirementRowStyle: {
+      alignItems: 'center',
+      display: 'flex',
+      gap: tokens.dimension.requirementGap,
+    },
+    requirementTextStyle: {
+      color: tokens.colors.requirement.text,
+      fontFamily,
+      fontSize: tokens.typography.caption.fontSize,
+      fontWeight: tokens.typography.caption.fontWeight,
+      lineHeight: tokens.typography.caption.lineHeightRatio,
+    },
+    // Only two of the four states are reachable: the signature has a boolean.
+    // `failed` and `disabled` have colours in the file and nothing to read them.
+    requirementIconColor: (met: boolean): string =>
+      disabled
+        ? tokens.colors.requirement.iconDisabled
+        : met
+          ? tokens.colors.requirement.iconMet
+          : tokens.colors.requirement.iconPending,
+    // The presence of the text renders the line; there is no separate switch.
+    displayedHelperText: error ?? helperText,
   };
 };

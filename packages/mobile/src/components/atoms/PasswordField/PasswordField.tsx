@@ -1,10 +1,17 @@
-import { PASSWORD_FIELD_ACTION_LABEL } from '@dsm/shared';
-import type { TPasswordFieldVisibility } from '@dsm/shared';
+import {
+  PASSWORD_FIELD_ACTION_LABEL,
+  PASSWORD_REQUIREMENTS_TITLE,
+  PASSWORD_STRENGTH_LABEL,
+  PASSWORD_STRENGTH_STATUS,
+  PASSWORD_STRENGTH_VALUE,
+} from '@dsm/shared';
 import { useState } from 'react';
 import type { ReactElement } from 'react';
 import { Text, TextInput, View } from 'react-native';
 
+import { IconCheckCircle, IconCircle } from '../../../icons';
 import { LinkButton } from '../LinkButton';
+import { ProgressBar } from '../ProgressBar';
 import { passwordFieldStyles } from './PasswordField.styles';
 import type { IPasswordFieldProps } from './PasswordField.types';
 import { usePasswordField } from './usePasswordField';
@@ -38,33 +45,35 @@ export const PasswordField = (props: IPasswordFieldProps): ReactElement => {
     onFocus,
     onBlur,
     autoComplete = 'current-password',
-    visibility = 'hidden',
-    onVisibilityChange,
+    strength,
+    requirements,
+    visible = false,
+    onToggleVisible,
     testID,
   } = props;
   const [isFocused, setIsFocused] = useState(false);
-  // Controlled when the caller passes a handler: from then on `visibility` is
-  // the single source of truth and the action only reports the next value.
-  // Without it the component owns the state, and a *new* `visibility` still
-  // overrides whatever the action last set.
-  const isControlled = onVisibilityChange !== undefined;
-  const [internalIsVisible, setInternalIsVisible] = useState(visibility === 'visible');
-  const [lastVisibility, setLastVisibility] = useState(visibility);
-  if (!isControlled && visibility !== lastVisibility) {
+  // Controlled when the caller passes a handler: from then on `visible` is the
+  // single source of truth and the action only reports that it was pressed.
+  // Without it the component owns the state, and a *new* `visible` still
+  // overrides whatever the action last set. bDS leaves this undecided; both is
+  // the answer that costs nothing.
+  const isControlled = onToggleVisible !== undefined;
+  const [internalIsVisible, setInternalIsVisible] = useState(visible);
+  const [lastVisible, setLastVisible] = useState(visible);
+  if (!isControlled && visible !== lastVisible) {
     // Adjusting state during render rather than in an effect: React re-runs the
     // render before committing, so there is no frame with the stale value.
-    setLastVisibility(visibility);
-    setInternalIsVisible(visibility === 'visible');
+    setLastVisible(visible);
+    setInternalIsVisible(visible);
   }
-  const isVisible = isControlled ? visibility === 'visible' : internalIsVisible;
+  const isVisible = isControlled ? visible : internalIsVisible;
 
   const handleToggleVisibility = (): void => {
-    const next: TPasswordFieldVisibility = isVisible ? 'hidden' : 'visible';
     if (isControlled) {
-      onVisibilityChange(next);
+      onToggleVisible();
       return;
     }
-    setInternalIsVisible(next === 'visible');
+    setInternalIsVisible((current) => !current);
   };
   const {
         fieldStyle,
@@ -73,13 +82,19 @@ export const PasswordField = (props: IPasswordFieldProps): ReactElement => {
     actionSlotStyle,
     helperStyle,
     placeholderTextColor,
-    isDisabled,
-    isReadOnly,
+    disabled,
+    readOnly,
     isInvalid,
     showFloatingLabel,
     showAction,
     actionSize,
     displayedHelperText,
+    blockStyle,
+    strengthWordStyle,
+    requirementsTitleStyle,
+    requirementRowStyle,
+    requirementTextStyle,
+    requirementIconColor,
   } = usePasswordField({ ...props, isFocused });
 
   return (
@@ -90,7 +105,7 @@ export const PasswordField = (props: IPasswordFieldProps): ReactElement => {
           <TextInput
             accessibilityLabel={label}
             autoComplete={autoComplete}
-            editable={!isDisabled && !isReadOnly}
+            editable={!disabled && !readOnly}
             onBlur={() => {
               setIsFocused(false);
               onBlur?.();
@@ -113,7 +128,7 @@ export const PasswordField = (props: IPasswordFieldProps): ReactElement => {
         {showAction ? (
           <View style={actionSlotStyle}>
             <LinkButton
-              isDisabled={isDisabled}
+              isDisabled={disabled}
               label={PASSWORD_FIELD_ACTION_LABEL[isVisible ? 'visible' : 'hidden']}
               onPress={handleToggleVisibility}
               size={actionSize}
@@ -127,6 +142,46 @@ export const PasswordField = (props: IPasswordFieldProps): ReactElement => {
           {displayedHelperText}
         </Text>
       ) : null}
+      {strength === undefined ? null : (
+        <View style={blockStyle}>
+          {/* The word is the information and it carries its own colour, which
+              the bar's header could not give it. */}
+          <Text style={strengthWordStyle}>{PASSWORD_STRENGTH_LABEL[strength]}</Text>
+          {/* A real ProgressBar, because that is what Figma instances here —
+              measured: the fill is 25, 50, 75 or 100 per cent of the track. */}
+          <ProgressBar
+            label={`Fuerza de la contraseña: ${PASSWORD_STRENGTH_LABEL[strength]}`}
+            showHeader={false}
+            size="sm"
+            status={PASSWORD_STRENGTH_STATUS[strength]}
+            testID={testID ? `${testID}-strength` : undefined}
+            value={PASSWORD_STRENGTH_VALUE[strength]}
+          />
+        </View>
+      )}
+      {requirements === undefined ? null : (
+        <View accessibilityRole="list" style={blockStyle}>
+          <Text style={requirementsTitleStyle}>{PASSWORD_REQUIREMENTS_TITLE}</Text>
+          {requirements.map((requirement) => (
+            // The state travels in the label, not in the colour: *"la lista
+            // tiene que anunciar cuáles se cumplieron, no solo pintarlos de
+            // verde"*.
+            <View
+              accessibilityLabel={`${requirement.label} — ${requirement.met ? 'cumplido' : 'pendiente'}`}
+              accessible
+              key={requirement.label}
+              style={requirementRowStyle}
+            >
+              {requirement.met ? (
+                <IconCheckCircle size="sm" tintColor={requirementIconColor(true)} />
+              ) : (
+                <IconCircle size="sm" tintColor={requirementIconColor(false)} />
+              )}
+              <Text style={requirementTextStyle}>{requirement.label}</Text>
+            </View>
+          ))}
+        </View>
+      )}
     </View>
   );
 };

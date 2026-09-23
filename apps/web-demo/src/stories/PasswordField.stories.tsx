@@ -1,13 +1,13 @@
-import type { TPasswordFieldSize, TPasswordFieldVisibility } from '@dsm/shared';
+import type { TPasswordFieldSize, TPasswordStrength } from '@dsm/shared';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement, ReactNode } from 'react';
 import { useState } from 'react';
+import { fn } from 'storybook/test';
 
 import { PlatformPasswordField } from './PlatformPasswordField';
 import type { IPlatformPasswordFieldProps, TPlatform } from './PlatformPasswordField';
 
 const SIZES: TPasswordFieldSize[] = ['sm', 'md', 'lg'];
-const VISIBILITIES: TPasswordFieldVisibility[] = ['visible', 'hidden'];
 
 /**
  * `PlatformPasswordField` is controlled, so the story holds its own state to
@@ -17,7 +17,7 @@ const Controlled = (props: IPlatformPasswordFieldProps): ReactElement => {
   const [value, setValue] = useState(props.value);
   return (
     <div style={{ width: 320 }}>
-      <PlatformPasswordField {...props} onValueChange={setValue} value={value} />
+      <PlatformPasswordField {...props} onChangeText={setValue} value={value} />
     </div>
   );
 };
@@ -34,15 +34,13 @@ const ControlledComparison = ({
   args: IPlatformPasswordFieldProps;
   platform: TPlatform;
 }): ReactElement => {
-  const [visibility, setVisibility] = useState<TPasswordFieldVisibility>('hidden');
+  const [visible, setVisible] = useState(false);
   const [value, setValue] = useState(args.value);
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 320 }}>
-      <Group title={`parent state: visibility = "${visibility}"`}>
+      <Group title={`parent state: visible = ${visible}`}>
         <button
-          onClick={() =>
-            setVisibility((current) => (current === 'visible' ? 'hidden' : 'visible'))
-          }
+          onClick={() => setVisible((current) => !current)}
           type="button"
         >
           Toggle from the parent
@@ -52,21 +50,21 @@ const ControlledComparison = ({
         <PlatformPasswordField
           {...args}
           label="Controlada"
-          onValueChange={setValue}
-          onVisibilityChange={setVisibility}
+          onChangeText={setValue}
+          onToggleVisible={() => setVisible((v) => !v)}
           platform={platform}
           value={value}
-          visibility={visibility}
+          visible={visible}
         />
       </Group>
       <Group title="without it — the field owns it, and drifts from the label above">
         <PlatformPasswordField
           {...args}
           label="No controlada"
-          onValueChange={setValue}
+          onChangeText={setValue}
           platform={platform}
           value={value}
-          visibility={visibility}
+          visible={visible}
         />
       </Group>
     </div>
@@ -128,16 +126,15 @@ const meta = {
         'with the TextField a form usually puts next to it.',
       table: { category: 'Appearance', defaultValue: { summary: 'md' } },
     },
-    visibility: {
-      control: 'inline-radio',
-      options: VISIBILITIES,
+    visible: {
+      control: 'boolean',
       description:
         'Whether the value is revealed. Drives the input’s `type` and the action’s label. The ' +
         'component owns the state — the action toggles it — but passing a new value here overrides ' +
         'it, so the control below works.',
       table: { category: 'Appearance', defaultValue: { summary: 'hidden' } },
     },
-    onVisibilityChange: {
+    onToggleVisible: {
       description:
         'Called with the next visibility when the reveal action is pressed. **Providing it makes ' +
         'the field controlled**: the action stops updating the component’s own state, so nothing ' +
@@ -148,31 +145,46 @@ const meta = {
     // --- Feedback -----------------------------------------------------------
     helperText: {
       control: 'text',
-      description: 'Rendered below the field when `showHelper` is `true`. Ignored while `errorMessage` is set.',
+      description: 'Rendered below the field. Its presence is the switch; `error` replaces it.',
       table: { category: 'Feedback' },
     },
-    showHelper: {
-      control: 'boolean',
-      description: 'Whether the helper slot renders at all — independent of either text being set.',
-      table: { category: 'Feedback', defaultValue: { summary: 'true' } },
+    strength: {
+      control: 'inline-radio',
+      options: [undefined, 'weak', 'acceptable', 'good', 'strong'],
+      description:
+        'How strong the password is. **Its presence draws the meter.** The component does not ' +
+        'judge — bDS has no written rule for what counts as weak or strong, and says so: ' +
+        '*"sin esto los cuatro niveles son decorativos"*.',
+      table: { category: 'Content' },
     },
-    errorMessage: {
+    requirements: {
+      control: 'object',
+      description:
+        'What the password has to satisfy. **Its presence draws the list.** Figma has three ' +
+        'states per row — `pending · met · failed` — and the signature has a boolean, so a rule ' +
+        'that was tried and broken reads the same as one not yet attempted.',
+      table: { category: 'Content' },
+    },
+    capsLock: {
+      control: 'boolean',
+      description:
+        '**Web only**: *"en móvil no existe Bloq Mayús"*. Detecting it is the caller’s job — ' +
+        '`event.getModifierState(\'CapsLock\')` — because the field does not listen to keys it ' +
+        'does not own.',
+      table: { category: 'State', defaultValue: { summary: 'false' } },
+    },
+    error: {
       control: 'text',
       description: 'Replaces `helperText` and puts the field in its error state.',
       table: { category: 'Feedback' },
     },
-    isInvalid: {
-      control: 'boolean',
-      description: 'Error state without a message.',
-      table: { category: 'Feedback', defaultValue: { summary: 'false' } },
-    },
     // --- State --------------------------------------------------------------
-    isDisabled: {
+    disabled: {
       control: 'boolean',
       description: 'Blocks interaction and applies the disabled styling.',
       table: { category: 'State', defaultValue: { summary: 'false' } },
     },
-    isReadOnly: {
+    readOnly: {
       control: 'boolean',
       description: 'Shows the value but prevents editing.',
       table: { category: 'State', defaultValue: { summary: 'false' } },
@@ -183,7 +195,7 @@ const meta = {
       description: 'Maps to `data-testid` on web and to the native `testID` on mobile.',
       table: { category: 'Other' },
     },
-    onValueChange: {
+    onChangeText: {
       description: 'Mapped to `onChange` on web and to `onChangeText` on mobile.',
       table: { category: 'Other' },
     },
@@ -192,6 +204,9 @@ const meta = {
   args: {
     label: 'Contraseña',
     value: 'MiClave2026',
+    // Required by the contract, so it has to be here: without it `StoryObj`
+    // treats every story as missing an argument and rejects even `{}`.
+    onChangeText: fn(),
   },
   render: (args, { globals }) => (
     <Controlled {...args} platform={globals.platform as TPlatform} />
@@ -227,11 +242,11 @@ export const Reveal: TStory = {
     const platform = globals.platform as TPlatform;
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-        <Group title='visibility="hidden" (the default) — the action reads "Mostrar"'>
-          <Controlled {...args} platform={platform} testID="pf-hidden" visibility="hidden" />
+        <Group title='visible={false} (the default) — the action reads "Mostrar"'>
+          <Controlled {...args} platform={platform} testID="pf-hidden" visible={false} />
         </Group>
-        <Group title='visibility="visible" — the action reads "Ocultar"'>
-          <Controlled {...args} platform={platform} testID="pf-visible" visibility="visible" />
+        <Group title='visible={true} — the action reads "Ocultar"'>
+          <Controlled {...args} platform={platform} testID="pf-visible" visible={true} />
         </Group>
         <Group title="empty — no action at all, there is nothing to reveal">
           <Controlled {...args} platform={platform} value="" />
@@ -254,13 +269,13 @@ export const States: TStory = {
           <Controlled {...args} platform={platform} />
         </Group>
         <Group title="error">
-          <Controlled {...args} errorMessage="Mínimo 8 caracteres" platform={platform} showHelper />
+          <Controlled {...args} error="Mínimo 8 caracteres" platform={platform} />
         </Group>
         <Group title="readonly">
-          <Controlled {...args} isReadOnly platform={platform} />
+          <Controlled {...args} readOnly platform={platform} />
         </Group>
         <Group title="disabled">
-          <Controlled {...args} isDisabled platform={platform} />
+          <Controlled {...args} disabled platform={platform} />
         </Group>
       </div>
     );
@@ -280,4 +295,99 @@ export const ControlledVisibility: TStory = {
     const platform = globals.platform as TPlatform;
     return <ControlledComparison args={args} platform={platform} />;
   },
+};
+
+/**
+ * What the Figma frame actually shows, and what this component was missing
+ * until now: **the meter and the requirements list**.
+ *
+ * Type in the field and watch both react. The rule bDS gives for the list is
+ * about timing rather than looks — *"mostrá qué se pide mientras escribe, no
+ * después de fallar"* — which is why they are visible from the first keystroke
+ * and not after a failed submit.
+ *
+ * **The level is the caller's call.** bDS has no written criterion for weak,
+ * acceptable, good or strong, and registers that gap itself: without it *"los
+ * cuatro niveles son decorativos"*. The rule below belongs to this story, not
+ * to the system.
+ */
+export const StrengthAndRequirements: TStory = {
+  args: {
+    strength: "good"
+  },
+
+  render: function Render(args, { globals }) {
+    const platform = globals.platform as TPlatform;
+    const [value, setValue] = useState('Contra');
+    const strength: TPasswordStrength =
+      value.length >= 12 && /[A-Z]/.test(value) && /[0-9]/.test(value)
+        ? 'strong'
+        : value.length >= 10
+          ? 'good'
+          : value.length >= 8
+            ? 'acceptable'
+            : 'weak';
+    return (
+      <div style={{ width: 380 }}>
+        <PlatformPasswordField
+          {...args}
+          label="Contraseña"
+          onChangeText={setValue}
+          platform={platform}
+          requirements={[
+            { label: '12 caracteres de largo', met: value.length >= 12 },
+            { label: 'Al menos una mayúscula', met: /[A-Z]/.test(value) },
+            { label: 'Al menos un número', met: /[0-9]/.test(value) },
+          ]}
+          strength={strength}
+          testID="pf-full"
+          value={value}
+        />
+      </div>
+    );
+  }
+};
+
+/**
+ * The four levels side by side.
+ *
+ * The bar is a real `ProgressBar` with its header off — which is what Figma
+ * instances too, measured: `bar` is a header plus a track, and the fill is 25,
+ * 50, 75 or 100 per cent. The word above it is the field's own, because it
+ * carries a colour the bar's header could not give it.
+ */
+export const StrengthLevels: TStory = {
+  render: function Render(args, { globals }) {
+    const platform = globals.platform as TPlatform;
+    const niveles: TPasswordStrength[] = ['weak', 'acceptable', 'good', 'strong'];
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 24, width: 380 }}>
+        {niveles.map((nivel) => (
+          <Group key={nivel} title={nivel}>
+            <PlatformPasswordField
+              {...args}
+              label="Contraseña"
+              onChangeText={() => {}}
+              platform={platform}
+              strength={nivel}
+              testID={`pf-strength-${nivel}`}
+              value="Secreta123"
+            />
+          </Group>
+        ))}
+      </div>
+    );
+  },
+};
+
+/**
+ * The Caps Lock warning, **web only** — on `native` nothing renders, which is
+ * the point: *"en móvil no existe Bloq Mayús: la prop no aplica y el aviso no
+ * se monta"*.
+ *
+ * It is a live region, because it appears while someone is typing and nothing
+ * else would announce it.
+ */
+export const CapsLock: TStory = {
+  args: { capsLock: true, value: 'Secreta123' },
 };

@@ -1,7 +1,10 @@
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
 import { fromThemeSources, themeSources } from '../themeSource/themes';
 import type { TThemeSourceKey } from '../themeSource/themes';
-import type { TPasswordFieldSize } from '../types/atoms/passwordField.types';
+import type {
+  TPasswordFieldSize,
+  TPasswordStrength,
+} from '../types/atoms/passwordField.types';
 
 /** Container colours, keyed by the state that drives them. */
 export interface IPasswordFieldContainerColorTokens {
@@ -47,11 +50,51 @@ export interface IPasswordFieldHelperColorTokens extends IPasswordFieldLabelColo
  * The reveal action is **not** here: it is a LinkButton, and it carries its own
  * `color.component.linkbutton.*` tokens. Figma binds it that way too.
  */
+/**
+ * Colours of the strength meter.
+ *
+ * **The bar's four fills are the ProgressBar's own co-tokens**, measured on
+ * `PasswordStrength` rather than guessed: the meter reads
+ * `component/progressbar/fill/*` and `component/progressbar/track/bg`
+ * directly. That is also why `size/bar/height/sm` is not a co-token anywhere —
+ * bDS says it plainly on the ProgressBar: *"lo comparte el medidor de
+ * PasswordStrength, así que es un rol compartido y no una medida privada"*.
+ *
+ * The **word** above the bar has its own colours, which are the field's and do
+ * not match the fills: weak reads `#88122c` against a `#b22c42` bar, because
+ * one is text on a surface and the other is a shape.
+ */
+export interface IPasswordStrengthColorTokens {
+  track: string;
+  fill: Record<TPasswordStrength, string>;
+  text: Record<TPasswordStrength, string>;
+}
+
+/** Colours of one requirement row and of the list's heading. */
+export interface IPasswordRequirementColorTokens {
+  title: string;
+  text: string;
+  /**
+   * `requirement/text-failed`, which **nothing reads today**: the signature has
+   * `met: boolean` and Figma has three states. Kept so the day the third one
+   * lands the colour is already here.
+   */
+  textFailed: string;
+  iconPending: string;
+  iconMet: string;
+  iconFailed: string;
+  iconDisabled: string;
+}
+
 export interface IPasswordFieldColorTokens {
   container: IPasswordFieldContainerColorTokens;
   label: IPasswordFieldLabelColorTokens;
   value: IPasswordFieldValueColorTokens;
   helper: IPasswordFieldHelperColorTokens;
+  strength: IPasswordStrengthColorTokens;
+  requirement: IPasswordRequirementColorTokens;
+  /** The Caps Lock warning's chip. Web only — *"en móvil no existe Bloq Mayús"*. */
+  capsLock: { background: string; backgroundDisabled: string };
 }
 
 /** Metrics that change with `size`. */
@@ -90,6 +133,20 @@ export interface IPasswordFieldDimensionTokens {
   actionGap: number;
   /** Padding above the helper slot. */
   helperGap: number;
+  /** Height of the strength bar — `size/bar/height/sm` (4), shared with the ProgressBar. */
+  strengthBarHeight: number;
+  /** `radius/pill` on the strength bar. */
+  strengthBarRadius: number;
+  /** Between the strength word and its bar, `space/stack/xs`. */
+  strengthGap: number;
+  /** Icon of a requirement row, `size/icon/sm` (16). */
+  requirementIconSize: number;
+  /** Between a requirement's icon and its text, `space/inline/sm` (8). */
+  requirementGap: number;
+  /** Between the requirement rows, `space/stack/xs`. */
+  requirementRowGap: number;
+  /** Between the field and each block below it — the meter, the list. `space/stack/sm`. */
+  blockGap: number;
   /**
    * Minimum touch target for the reveal action.
    *
@@ -134,6 +191,11 @@ export interface IPasswordFieldTypographyTokens {
   label: IPasswordFieldTypographyRole;
   /** The value, and the placeholder when the label stands in for one. */
   value: IPasswordFieldTypographyRole;
+  /**
+   * `text/caption/md/default` — 12 / 400. The strength word, the requirements
+   * heading and each requirement row all read it.
+   */
+  caption: IPasswordFieldTypographyRole;
 }
 
 /** Every token a PasswordField needs, resolved for a single theme. */
@@ -163,6 +225,10 @@ const readPasswordFieldTokens = (key: TThemeSourceKey): IPasswordFieldTokens => 
     readThemeToken(color, `color.component.passwordfield.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
 
+  const progressAt = (path: string): string =>
+    readThemeToken(color, `color.component.progressbar.${path}`);
+
+  const captionSize = dimensionAt('font.size.caption.md');
   const labelSize = dimensionAt('font.size.label.sm');
   const valueSize = dimensionAt('font.size.body.md');
 
@@ -195,6 +261,36 @@ const readPasswordFieldTokens = (key: TThemeSourceKey): IPasswordFieldTokens => 
         error: colorAt('helper.text-error'),
         disabled: colorAt('helper.text-disabled'),
       },
+      strength: {
+        // Straight from the ProgressBar's group, which is what the component
+        // binds — not a copy of its values.
+        track: progressAt('track.bg'),
+        fill: {
+          weak: progressAt('fill.danger'),
+          acceptable: progressAt('fill.warning'),
+          good: progressAt('fill.brand'),
+          strong: progressAt('fill.success'),
+        },
+        text: {
+          weak: colorAt('strength.text-weak'),
+          acceptable: colorAt('strength.text-acceptable'),
+          good: colorAt('strength.text-good'),
+          strong: colorAt('strength.text-strong'),
+        },
+      },
+      requirement: {
+        title: colorAt('requirements.text-title'),
+        text: colorAt('requirement.text-default'),
+        textFailed: colorAt('requirement.text-failed'),
+        iconPending: colorAt('requirement.icon-pending'),
+        iconMet: colorAt('requirement.icon-met'),
+        iconFailed: colorAt('requirement.icon-failed'),
+        iconDisabled: colorAt('requirement.icon-disabled'),
+      },
+      capsLock: {
+        background: colorAt('capslock.bg-default'),
+        backgroundDisabled: colorAt('capslock.bg-disabled'),
+      },
     },
     size: {
       sm: { height: dimensionAt('size.control.height.sm') },
@@ -209,6 +305,13 @@ const readPasswordFieldTokens = (key: TThemeSourceKey): IPasswordFieldTokens => 
       focusRingOffset: dimensionAt('focus.ring.offset'),
       actionGap: dimensionAt('space.inline.sm'),
       helperGap: dimensionAt('space.stack.xs'),
+      strengthBarHeight: dimensionAt('size.bar.height.sm'),
+      strengthBarRadius: dimensionAt('radius.pill'),
+      strengthGap: dimensionAt('space.stack.xs'),
+      requirementIconSize: dimensionAt('size.icon.sm'),
+      requirementGap: dimensionAt('space.inline.sm'),
+      requirementRowGap: dimensionAt('space.stack.xs'),
+      blockGap: dimensionAt('space.stack.sm'),
       minTouchTarget: dimensionAt('size.target.min'),
     },
     typography: {
@@ -221,6 +324,12 @@ const readPasswordFieldTokens = (key: TThemeSourceKey): IPasswordFieldTokens => 
       value: {
         fontWeight: String(dimensionAt('font.weight.regular')),
         fontSize: valueSize,
+        lineHeightRatio: VALUE_LINE_HEIGHT_RATIO,
+        letterSpacing: 0,
+      },
+      caption: {
+        fontWeight: String(dimensionAt('font.weight.regular')),
+        fontSize: captionSize,
         lineHeightRatio: VALUE_LINE_HEIGHT_RATIO,
         letterSpacing: 0,
       },

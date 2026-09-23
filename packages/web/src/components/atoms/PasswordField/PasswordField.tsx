@@ -1,11 +1,35 @@
-import { PASSWORD_FIELD_ACTION_LABEL } from '@dsm/shared';
-import type { TPasswordFieldVisibility } from '@dsm/shared';
+import {
+  PASSWORD_FIELD_ACTION_LABEL,
+  PASSWORD_REQUIREMENTS_TITLE,
+  PASSWORD_STRENGTH_LABEL,
+  PASSWORD_STRENGTH_STATUS,
+  PASSWORD_STRENGTH_VALUE,
+} from '@dsm/shared';
 import { useId, useState } from 'react';
 import type { FocusEvent, ReactElement } from 'react';
 
+import { IconCapsLock, IconCheckCircle, IconCircle } from '../../../icons';
 import { LinkButton } from '../LinkButton';
+import { ProgressBar } from '../ProgressBar';
 import type { IPasswordFieldProps } from './PasswordField.types';
 import { usePasswordField } from './usePasswordField';
+
+/**
+ * Visually hidden but present for a screen reader. Clipped rather than
+ * `display: none`, which would take it out of the accessibility tree with the
+ * pixels.
+ */
+const CLIPPED = {
+  border: 0,
+  clip: 'rect(0 0 0 0)',
+  height: 1,
+  margin: -1,
+  overflow: 'hidden',
+  padding: 0,
+  position: 'absolute',
+  whiteSpace: 'nowrap',
+  width: 1,
+} as const;
 
 /**
  * Web PasswordField — a password input revealed by a **text action**, not an
@@ -27,47 +51,50 @@ import { usePasswordField } from './usePasswordField';
  * @example
  * ```tsx
  * const [value, setValue] = useState('');
- * <PasswordField label="Contraseña" value={value} onChange={(e) => setValue(e.target.value)} />
- * <PasswordField label="Nueva contraseña" value={value} onChange={onChange} autoComplete="new-password" />
+ * <PasswordField label="Contraseña" onChangeText={setValue} value={value} />
+ * <PasswordField autoComplete="new-password" label="Nueva contraseña" onChangeText={setValue} value={value} />
  * ```
  */
 export const PasswordField = (props: IPasswordFieldProps): ReactElement => {
   const {
     value,
     label,
-    onChange,
+    onChangeText,
     onFocus,
     onBlur,
     name,
     autoComplete = 'current-password',
-    visibility = 'hidden',
-    onVisibilityChange,
+    capsLock = false,
+    strength,
+    requirements,
+    visible = false,
+    onToggleVisible,
     testID,
   } = props;
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-  // Controlled when the caller passes a handler: from then on `visibility` is
-  // the single source of truth and the action only reports the next value.
-  // Without it the component owns the state, and a *new* `visibility` still
-  // overrides whatever the action last set.
-  const isControlled = onVisibilityChange !== undefined;
-  const [internalIsVisible, setInternalIsVisible] = useState(visibility === 'visible');
-  const [lastVisibility, setLastVisibility] = useState(visibility);
-  if (!isControlled && visibility !== lastVisibility) {
+  // Controlled when the caller passes a handler: from then on `visible` is the
+  // single source of truth and the action only reports that it was pressed.
+  // Without it the component owns the state, and a *new* `visible` still
+  // overrides whatever the action last set. bDS leaves this undecided; both is
+  // the answer that costs nothing.
+  const isControlled = onToggleVisible !== undefined;
+  const [internalIsVisible, setInternalIsVisible] = useState(visible);
+  const [lastVisible, setLastVisible] = useState(visible);
+  if (!isControlled && visible !== lastVisible) {
     // Adjusting state during render rather than in an effect: React re-runs the
     // render before committing, so there is no frame with the stale value.
-    setLastVisibility(visibility);
-    setInternalIsVisible(visibility === 'visible');
+    setLastVisible(visible);
+    setInternalIsVisible(visible);
   }
-  const isVisible = isControlled ? visibility === 'visible' : internalIsVisible;
+  const isVisible = isControlled ? visible : internalIsVisible;
 
   const handleToggleVisibility = (): void => {
-    const next: TPasswordFieldVisibility = isVisible ? 'hidden' : 'visible';
     if (isControlled) {
-      onVisibilityChange(next);
+      onToggleVisible();
       return;
     }
-    setInternalIsVisible(next === 'visible');
+    setInternalIsVisible((current) => !current);
   };
   const {
     wrapperStyle,
@@ -77,15 +104,24 @@ export const PasswordField = (props: IPasswordFieldProps): ReactElement => {
     inputStyle,
     actionSlotStyle,
     helperStyle,
-    isDisabled,
-    isReadOnly,
+    disabled,
+    readOnly,
     isInvalid,
     showFloatingLabel,
     showAction,
     actionSize,
     displayedHelperText,
+    capsLockStyle,
+    blockStyle,
+    strengthWordStyle,
+    requirementsTitleStyle,
+    requirementListStyle,
+    requirementRowStyle,
+    requirementTextStyle,
+    requirementIconColor,
   } = usePasswordField({ ...props, isHovered, isFocused });
   const inputId = useId();
+  const requirementsId = `${inputId}-requirements`;
   const helperId = `${inputId}-helper`;
 
   const handleFocus = (event: FocusEvent<HTMLInputElement>): void => {
@@ -116,14 +152,14 @@ export const PasswordField = (props: IPasswordFieldProps): ReactElement => {
             autoComplete={autoComplete}
             className="dsm-input"
             data-testid={testID}
-            disabled={isDisabled}
+            disabled={disabled}
             id={inputId}
             name={name}
             onBlur={handleBlur}
-            onChange={onChange}
+            onChange={(event) => onChangeText(event.target.value)}
             onFocus={handleFocus}
             placeholder={showFloatingLabel ? undefined : label}
-            readOnly={isReadOnly}
+            readOnly={readOnly}
             style={inputStyle}
             // The browser does the masking. Never substitute characters in the
             // value to fake it — that breaks selection, paste and managers.
@@ -131,10 +167,20 @@ export const PasswordField = (props: IPasswordFieldProps): ReactElement => {
             value={value}
           />
         </div>
+        {capsLock ? (
+          // A live region, because it appears while someone is typing and
+          // nothing else would announce it: *"el aviso de Bloq Mayús va como
+          // región viva"*. The glyph is frozen in Figma — no size, no colour,
+          // no choice.
+          <span aria-live="polite" style={capsLockStyle}>
+            <IconCapsLock size="sm" />
+            <span style={CLIPPED}>Bloq Mayús activado</span>
+          </span>
+        ) : null}
         {showAction ? (
           <div style={actionSlotStyle}>
             <LinkButton
-              isDisabled={isDisabled}
+              isDisabled={disabled}
               label={PASSWORD_FIELD_ACTION_LABEL[isVisible ? 'visible' : 'hidden']}
               onClick={handleToggleVisibility}
               size={actionSize}
@@ -156,6 +202,55 @@ export const PasswordField = (props: IPasswordFieldProps): ReactElement => {
           {displayedHelperText}
         </span>
       ) : null}
+      {strength === undefined ? null : (
+        <div style={blockStyle}>
+          {/* The word is the information and it carries its own colour, which
+              the bar's header could not give it. */}
+          <span style={strengthWordStyle}>{PASSWORD_STRENGTH_LABEL[strength]}</span>
+          {/* A real ProgressBar, because that is what Figma instances here —
+              measured: `bar` is a header plus a track, and the fill is 25, 50,
+              75 or 100 per cent of it. Its header is off; the word above is
+              this component's. */}
+          <ProgressBar
+            label={`Fuerza de la contraseña: ${PASSWORD_STRENGTH_LABEL[strength]}`}
+            showHeader={false}
+            size="sm"
+            status={PASSWORD_STRENGTH_STATUS[strength]}
+            testID={testID ? `${testID}-strength` : undefined}
+            value={PASSWORD_STRENGTH_VALUE[strength]}
+          />
+        </div>
+      )}
+      {requirements === undefined ? null : (
+        <div style={blockStyle}>
+          <span id={requirementsId} style={requirementsTitleStyle}>
+            {PASSWORD_REQUIREMENTS_TITLE}
+          </span>
+          <ul aria-labelledby={requirementsId} style={requirementListStyle}>
+            {requirements.map((requirement) => (
+              <li key={requirement.label} style={requirementRowStyle}>
+                {/* The glyph is decoration; the state travels as text, because
+                    *"la lista tiene que anunciar cuáles se cumplieron, no solo
+                    pintarlos de verde"*. */}
+                <span
+                  aria-hidden="true"
+                  style={{ color: requirementIconColor(requirement.met), display: 'inline-flex' }}
+                >
+                  {requirement.met ? (
+                    <IconCheckCircle size="sm" />
+                  ) : (
+                    <IconCircle size="sm" />
+                  )}
+                </span>
+                <span style={requirementTextStyle}>
+                  {requirement.label}
+                  <span style={CLIPPED}>{requirement.met ? ' — cumplido' : ' — pendiente'}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

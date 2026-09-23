@@ -7,8 +7,6 @@ import type { IPasswordFieldBaseProps } from '@dsm/shared';
  * mobile-specific handlers and `autoComplete`.
  */
 export interface IPasswordFieldProps extends IPasswordFieldBaseProps {
-  /** Called with the new value on every keystroke. */
-  onChangeText?: (value: string) => void;
   onFocus?: () => void;
   onBlur?: () => void;
   /**

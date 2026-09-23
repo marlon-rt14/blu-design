@@ -25,8 +25,8 @@ interface IUsePasswordFieldResult {
   helperStyle: StyleProp<TextStyle>;
   /** Colour for `TextInput`'s `placeholderTextColor` — not expressible through `style`. */
   placeholderTextColor: string;
-  isDisabled: boolean;
-  isReadOnly: boolean;
+  disabled: boolean;
+  readOnly: boolean;
   isInvalid: boolean;
   /** Resolved state, exposed so stories and tests can assert on it. */
   state: TPasswordFieldState;
@@ -36,6 +36,19 @@ interface IUsePasswordFieldResult {
   showAction: boolean;
   /** The action's own size: `sm` mirrors the field, everything else is `md`. */
   actionSize: 'sm' | 'md';
+  /** Wraps the meter and the requirements under the field. */
+  blockStyle: StyleProp<ViewStyle>;
+  /** The strength word, coloured by level. */
+  strengthWordStyle: StyleProp<TextStyle>;
+  /** The requirements heading. */
+  requirementsTitleStyle: StyleProp<TextStyle>;
+  /** One requirement row. */
+  requirementRowStyle: StyleProp<ViewStyle>;
+  /** A requirement's text. */
+  requirementTextStyle: StyleProp<TextStyle>;
+  /** Icon colour by whether the requirement is met. */
+  requirementIconColor: (met: boolean) => string;
+  /** `error` if there is one, else `helperText`; `undefined` when neither. */
   displayedHelperText: string | undefined;
 }
 
@@ -52,22 +65,23 @@ interface IUsePasswordFieldResult {
 export const usePasswordField = ({
   value,
   size = 'md',
-  isDisabled = false,
-  isReadOnly = false,
-  isInvalid = false,
-  errorMessage,
+  disabled = false,
+  readOnly = false,
+  strength,
+  error,
   helperText,
-  showHelper = true,
   isFocused,
 }: IUsePasswordFieldParams): IUsePasswordFieldResult => {
   const mode = useThemeMode();
   const tokens = passwordFieldTokens[mode];
-  const hasError = isInvalid || Boolean(errorMessage);
+  // The message *is* the error state: bDS forbids a red field with nothing
+  // to read — *"el error lo comunica el mensaje, no el color"*.
+  const hasError = error !== undefined && error !== '';
   const hasValue = value.length > 0;
 
-  const state: TPasswordFieldState = isDisabled
+  const state: TPasswordFieldState = disabled
     ? 'disabled'
-    : isReadOnly
+    : readOnly
       ? 'readonly'
       : hasError
         ? 'error'
@@ -95,9 +109,9 @@ export const usePasswordField = ({
         ? tokens.colors.container.backgroundReadOnly
         : tokens.colors.container.background;
 
-  const valueColor = isDisabled
+  const valueColor = disabled
     ? tokens.colors.value.disabled
-    : isReadOnly
+    : readOnly
       ? tokens.colors.value.readOnly
       : hasValue
         ? tokens.colors.value.filled
@@ -121,7 +135,7 @@ export const usePasswordField = ({
       borderWidth: tokens.dimension.borderWidth,
       borderColor,
       backgroundColor,
-      ...(isFocused && !isDisabled && !isReadOnly
+      ...(isFocused && !disabled && !readOnly
         ? {
             outlineWidth: tokens.dimension.focusRingSpread,
             outlineOffset: tokens.dimension.focusRingOffset,
@@ -137,7 +151,7 @@ export const usePasswordField = ({
       fontSize: label.fontSize,
       lineHeight: label.fontSize * label.lineHeightRatio,
       letterSpacing: label.letterSpacing,
-      color: isDisabled ? tokens.colors.label.disabled : tokens.colors.label.default,
+      color: disabled ? tokens.colors.label.disabled : tokens.colors.label.default,
     },
     inputStyle: {
       padding: 0,
@@ -161,22 +175,60 @@ export const usePasswordField = ({
       fontFamily: resolveMulishFontFamily(label.fontWeight),
       fontSize: label.fontSize,
       lineHeight: label.fontSize * label.lineHeightRatio,
-      color: isDisabled
+      color: disabled
         ? tokens.colors.helper.disabled
         : hasError
           ? tokens.colors.helper.error
           : tokens.colors.helper.default,
     },
-    placeholderTextColor: isDisabled
+    placeholderTextColor: disabled
       ? tokens.colors.value.disabled
       : tokens.colors.value.placeholder,
-    isDisabled,
-    isReadOnly,
+    disabled,
+    readOnly,
     isInvalid: hasError,
     state,
     showFloatingLabel: size !== 'sm' && hasValue,
     showAction: hasValue,
     actionSize: size === 'sm' ? 'sm' : 'md',
-    displayedHelperText: showHelper ? errorMessage ?? helperText : undefined,
+    blockStyle: {
+      gap: tokens.dimension.strengthGap,
+      marginTop: tokens.dimension.blockGap,
+    },
+    strengthWordStyle: {
+      color:
+        strength === undefined ? tokens.colors.helper.default : tokens.colors.strength.text[strength],
+      fontFamily: resolveMulishFontFamily(tokens.typography.caption.fontWeight),
+      fontSize: tokens.typography.caption.fontSize,
+      lineHeight: tokens.typography.caption.fontSize * tokens.typography.caption.lineHeightRatio,
+    },
+    requirementsTitleStyle: {
+      color: tokens.colors.requirement.title,
+      fontFamily: resolveMulishFontFamily(tokens.typography.caption.fontWeight),
+      fontSize: tokens.typography.caption.fontSize,
+      lineHeight: tokens.typography.caption.fontSize * tokens.typography.caption.lineHeightRatio,
+      marginBottom: tokens.dimension.requirementRowGap,
+    },
+    requirementRowStyle: {
+      alignItems: 'center',
+      columnGap: tokens.dimension.requirementGap,
+      flexDirection: 'row',
+    },
+    requirementTextStyle: {
+      color: tokens.colors.requirement.text,
+      flexShrink: 1,
+      fontFamily: resolveMulishFontFamily(tokens.typography.caption.fontWeight),
+      fontSize: tokens.typography.caption.fontSize,
+      lineHeight: tokens.typography.caption.fontSize * tokens.typography.caption.lineHeightRatio,
+    },
+    // Only two of the four states are reachable: the signature has a boolean.
+    requirementIconColor: (met: boolean): string =>
+      disabled
+        ? tokens.colors.requirement.iconDisabled
+        : met
+          ? tokens.colors.requirement.iconMet
+          : tokens.colors.requirement.iconPending,
+    // The presence of the text renders the line; there is no separate switch.
+    displayedHelperText: error ?? helperText,
   };
 };

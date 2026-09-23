@@ -1,18 +1,18 @@
 import { PasswordField as NativePasswordField } from '@dsm/mobile';
 import type { IPasswordFieldBaseProps } from '@dsm/shared';
 import { PasswordField as WebPasswordField } from '@dsm/web';
-import type { ChangeEvent, ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
 /** Which implementation to render. Mirrors the `platform` toolbar global. */
 export type TPlatform = 'web' | 'native';
 
-/**
- * Props of {@link PlatformPasswordField}: the shared contract plus a single
- * platform-neutral change handler.
- */
+/** Props of {@link PlatformPasswordField}: the shared contract plus the platform switch. */
 export interface IPlatformPasswordFieldProps extends IPasswordFieldBaseProps {
-  /** Fired with the new value on every keystroke, on either platform. */
-  onValueChange?: (value: string) => void;
+  /**
+   * Whether Caps Lock is on. **Web only** — *"en móvil no existe Bloq Mayús"* —
+   * so the native branch drops it rather than pretending.
+   */
+  capsLock?: boolean;
   /**
    * Implementation to render. Stories pass the `platform` toolbar global here.
    *
@@ -22,23 +22,21 @@ export interface IPlatformPasswordFieldProps extends IPasswordFieldBaseProps {
 }
 
 /**
- * Renders either the web or the React Native PasswordField from the same shared
- * props, mapping `onValueChange` to whichever handler the platform expects
- * (`onChange` on web, `onChangeText` on mobile).
+ * Renders either the web or the React Native PasswordField from the same props.
+ *
+ * `onChangeText` is now in the shared contract, so there is nothing to map —
+ * the one asymmetry left is `capsLock`, which only web has.
  *
  * `autoComplete` is left at each platform's default rather than exposed here:
  * it is not part of the shared contract, and the story has no form to autofill.
  */
 export const PlatformPasswordField = ({
-  onValueChange,
+  capsLock = false,
   platform = 'web',
   ...props
 }: IPlatformPasswordFieldProps): ReactElement =>
   platform === 'native' ? (
-    <NativePasswordField {...props} onChangeText={onValueChange} />
+    <NativePasswordField {...props} />
   ) : (
-    <WebPasswordField
-      {...props}
-      onChange={(event: ChangeEvent<HTMLInputElement>) => onValueChange?.(event.target.value)}
-    />
+    <WebPasswordField {...props} capsLock={capsLock} />
   );
