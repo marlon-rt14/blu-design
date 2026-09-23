@@ -25,6 +25,7 @@ export * from './choiceItem.tokens';
 export * from './listItem.tokens';
 export * from './menu.tokens';
 export * from './popover.tokens';
+export * from './progressStepper.tokens';
 export * from './radio.tokens';
 export * from './radioGroup.tokens';
 export * from './select.tokens';

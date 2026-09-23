@@ -206,7 +206,9 @@ export const useCoachmark = ({
     cardStyle: {
       position: 'relative',
       flexDirection: 'column',
+      gap: dimension.blockGap,
       width: '100%',
+      padding: dimension.padding,
       overflow: 'hidden',
       borderRadius: dimension.borderRadius,
       borderWidth: dimension.borderWidth,
@@ -218,9 +220,13 @@ export const useCoachmark = ({
         `0 ${dimension.overlayShadowNearY}px ${dimension.overlayShadowNearBlur}px ${colors.overlayShadowNear}`,
       ].join(', '),
     },
+    // Live Figma (`137:20132`): media is inset by container padding, not full-bleed —
+    // clips with the same surface radius as the card.
     mediaWrapStyle: {
       position: 'relative',
       width: '100%',
+      overflow: 'hidden',
+      borderRadius: dimension.borderRadius,
       backgroundColor: colors.media,
     },
     mediaDismissStyle: {
@@ -232,7 +238,8 @@ export const useCoachmark = ({
     contentStyle: {
       flexDirection: 'column',
       gap: dimension.blockGap,
-      padding: dimension.padding,
+      width: '100%',
+      minWidth: 0,
     },
     textBlockStyle: {
       flexDirection: 'column',
