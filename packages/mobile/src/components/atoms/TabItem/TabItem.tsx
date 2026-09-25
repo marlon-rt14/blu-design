@@ -26,12 +26,10 @@ import { useTabItem } from './useTabItem';
  */
 export const TabItem = (props: ITabItemProps): ReactElement => {
   const {
-    label = 'Label',
+    label,
     isSelected = false,
-    showLeadingIcon = false,
     leadingIcon,
-    showBadge = false,
-    badge = '9',
+    badge,
     onPress,
     testID,
   } = props;
@@ -67,11 +65,11 @@ export const TabItem = (props: ITabItemProps): ReactElement => {
       {overlayStyle ? <View style={[tabItemStyles.overlay, overlayStyle]} /> : null}
       <View style={tabItemStyles.content}>
         <View style={[tabItemStyles.labelRow, labelRowStyle]}>
-          {showLeadingIcon ? (
+          {leadingIcon ? (
             <View style={tabItemStyles.icon}>{tintNode(leadingIcon, iconColor)}</View>
           ) : null}
           <Text style={labelStyle}>{label}</Text>
-          {showBadge ? (
+          {badge !== undefined ? (
             <View style={[tabItemStyles.badge, badgeStyle]}>
               <Text style={badgeLabelStyle}>{badge}</Text>
             </View>

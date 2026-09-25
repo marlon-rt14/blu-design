@@ -160,9 +160,13 @@ can't resolve props inherited from another package.
 
 - Interfaces prefixed `I` (`IButtonProps`), type aliases prefixed `T` (`TButtonVariant`).
 - Component files/folders: `PascalCase`. Everything else: `camelCase`.
-- Boolean props prefixed `is` (`isDisabled`) — except the Figma-driven `show*` visibility flags
-  (`showHelper`, `showCounter`, `showAction`, …), which are independent booleans, never inferred from
-  whether the related content prop happens to be set.
+- Boolean props prefixed `is` (`isDisabled`). The Figma-driven `show*` visibility flags are being
+  retired component by component as each one's **dev contract** is honoured: the contracts say *"la
+  presencia del nombre sustituye al booleano"*, so a slot renders because its content was passed, not
+  because a boolean was flipped. TextField, ListItem, Tag, Chip and Tabs are already on that rule (and
+  their `isDisabled`/`isReadOnly` became `disabled`/`readOnly` with it); the components that still have
+  `show*` and `is*` keep them until their own contract is read. The exception that survives on purpose
+  is a boolean with no content to infer from — `ListItem`'s `divider`, `ProgressBar`'s `showHeader`.
 - CSS classes prefixed `dsm-`, BEM modifiers (`dsm-button--primary`) — legacy `Button` only; new
   components have no CSS files beyond the shared `pseudo.css` placeholder seam.
 - Web and mobile share **types and token values only**, never styles or presentation logic — each

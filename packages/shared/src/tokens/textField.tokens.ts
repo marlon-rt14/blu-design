@@ -64,8 +64,8 @@ export interface ITextFieldSizeTokens {
   /** Floor of the container's height — see `ITextFieldDimensionTokens.paddingHorizontal` for why this isn't a fixed height. */
   minHeight: number;
   /**
-   * Top/bottom padding. Zero at `small` and `medium` — those sizes center
-   * their single line of content on `minHeight` alone; only `large` (which
+   * Top/bottom padding. Zero at `sm` and `md` — those sizes center
+   * their single line of content on `minHeight` alone; only `lg` (which
    * fits a floating label above the value) adds any.
    */
   paddingVertical: number;
@@ -107,7 +107,7 @@ export type ITextFieldTypographyRole = IThemeTypographyValue;
  * the Style Dictionary export, only as the primitives they're built from.
  */
 export interface ITextFieldTypographyTokens {
-  /** The floating label — only ever shown at `medium` and `large` once there is a value. */
+  /** The floating label — only ever shown at `md` and `lg` once there is a value. */
   label: ITextFieldTypographyRole;
   /** The value the user types or sees, and the placeholder role `label` plays while empty. */
   content: ITextFieldTypographyRole;
@@ -124,8 +124,8 @@ export interface ITextFieldTokens {
   dimension: ITextFieldDimensionTokens;
   typography: ITextFieldTypographyTokens;
   /**
-   * Inline icon size (prefix/suffix slots), unitless. `large` steps up to
-   * `size.icon.md` (24) while `small`/`medium` share `size.icon.sm` (16) —
+   * Inline icon size (prefix/suffix slots), unitless. `lg` steps up to
+   * `size.icon.md` (24) while `sm`/`md` share `size.icon.sm` (16) —
    * confirmed against Figma's own instance-swap binding per size.
    */
   iconSize: Record<TTextFieldSize, number>;
@@ -196,19 +196,19 @@ const readTextFieldTokens = (key: TThemeSourceKey): ITextFieldTokens => {
       },
       focusRingGap: readThemeToken(color, 'color.color.canvas.surface.primary'),
     },
-    // `small` has no dedicated `size.field.height.*` entry — it shares
+    // `sm` has no dedicated `size.field.height.*` entry — it shares
     // `size.control.height.sm` (32) with the small button, a pairing
     // Supernova's own token description calls out explicitly.
     sizes: {
-      small: {
+      sm: {
         minHeight: dimensionAt('size.control.height.sm'),
         paddingVertical: 0,
       },
-      medium: {
+      md: {
         minHeight: dimensionAt('size.field.height.md'),
         paddingVertical: 0,
       },
-      large: {
+      lg: {
         minHeight: dimensionAt('size.field.height.lg'),
         paddingVertical: dimensionAt('space.inset.xs'),
       },
@@ -230,9 +230,9 @@ const readTextFieldTokens = (key: TThemeSourceKey): ITextFieldTokens => {
       counter: composedTypographyAt('font.size.caption.md', 'font.weight.regular', 'font.line-height.normal'),
     },
     iconSize: {
-      small: dimensionAt('size.icon.sm'),
-      medium: dimensionAt('size.icon.sm'),
-      large: dimensionAt('size.icon.md'),
+      sm: dimensionAt('size.icon.sm'),
+      md: dimensionAt('size.icon.sm'),
+      lg: dimensionAt('size.icon.md'),
     },
   };
 };

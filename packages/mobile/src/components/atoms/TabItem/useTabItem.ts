@@ -67,7 +67,7 @@ export const useTabItem = ({
   size = 'lg',
   layout = 'scrollable',
   isSelected = false,
-  isDisabled = false,
+  disabled: isDisabled = false,
   isPressed,
   measuredWidth,
 }: IUseTabItemParams): IUseTabItemResult => {

@@ -255,9 +255,7 @@ const App = () => {
                     key={metodoOpcion.id}
                     label={metodoOpcion.id}
                     onPress={() => setMetodo(metodoOpcion.id)}
-                    showDescription
                     showDivider={index < METODOS.length - 1}
-                    showTrailingText
                     testID={`choice-${metodoOpcion.id}`}
                     trailingText={metodoOpcion.cuota}
                   />
@@ -554,19 +552,19 @@ const App = () => {
                   FlatList a nivel de pantalla. */}
               <View style={styles.cardFieldStack}>
                 <ListGroup header="Hoy" testID="listgroup-hoy">
-                  <ListItem description="Hoy, 10:24" label="Transferencia a Ana" showDescription showTrailingText trailingText="$1.250,00" />
-                  <ListItem description="Hoy, 09:02" label="Pago de servicios" showDescription showTrailingText trailingText="$320,00" />
-                  <ListItem description="Ayer, 18:41" label="Recarga de celular" showDescription showTrailingText trailingText="$15,00" />
+                  <ListItem description="Hoy, 10:24" label="Transferencia a Ana" trailingText="$1.250,00" />
+                  <ListItem description="Hoy, 09:02" label="Pago de servicios" trailingText="$320,00" />
+                  <ListItem description="Ayer, 18:41" label="Recarga de celular" trailingText="$15,00" />
                 </ListGroup>
                 <ListGroup testID="listgroup-ajustes">
-                  <ListItem icon={<IconUser01 size="md" />} label="Datos personales" leadingContent="icon" />
-                  <ListItem icon={<IconLock01 size="md" />} label="Seguridad" leadingContent="icon" />
-                  <ListItem icon={<IconInfoCircle size="md" />} label="Ayuda" leadingContent="icon" />
+                  <ListItem leading={{ icon: <IconUser01 size="md" /> }} label="Datos personales" />
+                  <ListItem leading={{ icon: <IconLock01 size="md" /> }} label="Seguridad" />
+                  <ListItem leading={{ icon: <IconInfoCircle size="md" /> }} label="Ayuda" />
                 </ListGroup>
                 {/* Con una sola fila el divisor se apaga, porque esa fila
                     tambien es la ultima. */}
                 <ListGroup header="Una sola fila" testID="listgroup-una">
-                  <ListItem description="Hoy, 10:24" label="Transferencia a Ana" showDescription showTrailingText trailingText="$1.250,00" />
+                  <ListItem description="Hoy, 10:24" label="Transferencia a Ana" trailingText="$1.250,00" />
                 </ListGroup>
               </View>
             </View>
@@ -775,7 +773,6 @@ const App = () => {
                   icon={<IconImage01 size="lg" />}
                   isChecked={selectedChoice === 'monthly'}
                   onValueChange={() => setSelectedChoice('monthly')}
-                  showDescription
                   testID="choicebox-monthly"
                   title="Plan mensual"
                 />
@@ -784,7 +781,6 @@ const App = () => {
                   icon={<IconImage01 size="lg" />}
                   isChecked={selectedChoice === 'annual'}
                   onValueChange={() => setSelectedChoice('annual')}
-                  showDescription
                   testID="choicebox-annual"
                   title="Plan anual"
                 />
@@ -792,7 +788,6 @@ const App = () => {
                   description="Esta opcion no esta disponible ahora."
                   icon={<IconImage01 size="lg" />}
                   isDisabled
-                  showDescription
                   testID="choicebox-disabled"
                   title="Plan empresarial"
                 />
@@ -808,7 +803,6 @@ const App = () => {
                     icon={<IconImage01 size="lg" />}
                     isChecked={selectedTile === 'sms'}
                     onValueChange={() => setSelectedTile('sms')}
-                    showDescription
                     testID="choicebox-tile-sms"
                     title="Mensaje de texto"
                     variant="tile"
@@ -820,7 +814,6 @@ const App = () => {
                     icon={<IconImage01 size="lg" />}
                     isChecked={selectedTile === 'email'}
                     onValueChange={() => setSelectedTile('email')}
-                    showDescription
                     testID="choicebox-tile-email"
                     title="Correo"
                     variant="tile"
@@ -838,7 +831,6 @@ const App = () => {
                     isChecked={selectedCompact === installments}
                     key={installments}
                     onValueChange={() => setSelectedCompact(installments)}
-                    showDescription
                     testID={`choicebox-compact-${installments}`}
                     title={`${installments} cuotas`}
                     variant="compact"
@@ -887,36 +879,30 @@ const App = () => {
             <View style={styles.section}>
               <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>LISTITEM · LEADING</Text>
               <ListItem label="Sin leading" testID="listitem-none" />
-              <ListItem icon={<IconUser01 size="md" />} label="Con icono" leadingContent="icon" testID="listitem-icon" />
-              <ListItem avatarInitials="JG" label="Con avatar" leadingContent="avatar" testID="listitem-avatar" />
+              <ListItem leading={{ icon: <IconUser01 size="md" /> }} label="Con icono" testID="listitem-icon" />
+              <ListItem leading={{ avatar: { initials: 'JG' } }} label="Con avatar" testID="listitem-avatar" />
 
               <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
                 LISTITEM · SIZE
               </Text>
-              <ListItem avatarInitials="JG" label="Tamaño sm" leadingContent="avatar" size="sm" testID="listitem-size-sm" />
-              <ListItem avatarInitials="JG" label="Tamaño md" leadingContent="avatar" size="md" testID="listitem-size-md" />
+              <ListItem leading={{ avatar: { initials: 'JG' } }} label="Tamaño sm" size="sm" testID="listitem-size-sm" />
+              <ListItem leading={{ avatar: { initials: 'JG' } }} label="Tamaño md" size="md" testID="listitem-size-md" />
 
               <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
                 LISTITEM · CONTENIDO
               </Text>
               <ListItem
-                avatarInitials="JG"
+                leading={{ avatar: { initials: 'JG' } }}
                 description="Hoy, 14:32"
                 label="Envío a Juan García"
-                leadingContent="avatar"
-                showDescription
-                showDivider
-                showTrailingText
+                divider
                 testID="listitem-content-1"
                 trailingText="$1.250,00"
               />
               <ListItem
-                avatarInitials="MP"
+                leading={{ avatar: { initials: 'MP' } }}
                 description="Ayer, 09:10"
                 label="Pago de servicios"
-                leadingContent="avatar"
-                showDescription
-                showTrailingText
                 testID="listitem-content-2"
                 trailingText="$430,00"
               />
@@ -925,19 +911,16 @@ const App = () => {
                 LISTITEM · INTERACTIVO / TRAILING / DISABLED
               </Text>
               <ListItem
-                icon={<IconUser01 size="md" />}
+                leading={{ icon: <IconUser01 size="md" /> }}
                 label="Ver todos los contactos"
-                leadingContent="icon"
                 onPress={handlePress}
-                showTrailing
                 testID="listitem-interactive"
                 trailing={<IconChevronRight color="secondary" size="sm" />}
               />
               <ListItem
-                avatarInitials="RS"
-                isDisabled
+                leading={{ avatar: { initials: 'RS' } }}
+                disabled
                 label="Cuenta suspendida"
-                leadingContent="avatar"
                 testID="listitem-disabled"
               />
             </View>
@@ -956,12 +939,11 @@ const App = () => {
               <View style={styles.row}>
                 <Tag label="Tamaño sm" size="sm" testID="tag-size-sm" />
                 <Tag label="Tamaño xs" size="xs" testID="tag-size-xs" />
-                <Tag icon={<IconCheckCircle size="sm" />} label="Verificado" palette="success" showLeadingIcon testID="tag-icon" />
+                <Tag label="Verificado" leadingIcon={<IconCheckCircle size="sm" />} palette="success" testID="tag-icon" />
                 <Tag
                   appearance="outline"
                   label="Chip removible"
                   onRemove={handlePress}
-                  showRemove
                   testID="tag-remove"
                 />
               </View>
@@ -969,7 +951,7 @@ const App = () => {
               <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
                 TAGGROUP
               </Text>
-              <TagGroup overflowLabel="+2" showOverflow tags={CITIES} testID="tag-group" />
+              <TagGroup max={2} tags={CITIES} testID="tag-group" />
             </View>
 
             <View style={styles.section}>

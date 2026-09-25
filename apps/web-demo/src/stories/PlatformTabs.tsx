@@ -1,31 +1,27 @@
-import { TabItem as NativeTabItem, Tabs as NativeTabs } from '@dsm/mobile';
-import type { ITabsBaseProps } from '@dsm/shared';
-import { TabItem as WebTabItem, Tabs as WebTabs } from '@dsm/web';
-import { createElement } from 'react';
+import { Tabs as NativeTabs } from '@dsm/mobile';
+import type { ITabDef, ITabsBaseProps } from '@dsm/shared';
+import { Tabs as WebTabs } from '@dsm/web';
 import type { ReactElement } from 'react';
 
 import type { TIconExportName } from './iconNames';
-import { NATIVE_ICONS, WEB_ICONS } from './iconRegistry';
+import { iconNode } from './iconNode';
 
 /** Which implementation to render. Mirrors the `platform` toolbar global. */
 export type TPlatform = 'web' | 'native';
 
-/** One item the wrapper will build — not a Figma `showItemN` toggle. */
-export interface IPlatformTab {
-  label: string;
-  showLeadingIcon?: boolean;
-  /** The glyph by export name — a control cannot hand over a node. */
+/**
+ * One tab as a story writes it: the glyph by export name, not as a node.
+ *
+ * The only difference from the real {@link ITabDef} — a Storybook control
+ * cannot hand over an element.
+ */
+export interface IPlatformTab extends Omit<ITabDef, 'leadingIcon'> {
   leadingIcon?: TIconExportName;
-  showBadge?: boolean;
-  badge?: string;
-  isDisabled?: boolean;
 }
 
-/** Props of {@link PlatformTabs}: the shared contract plus the story's own knobs. */
-export interface IPlatformTabsProps extends ITabsBaseProps {
-  items?: IPlatformTab[];
-  selected?: string;
-  onSelect?: (label: string) => void;
+/** Props of {@link PlatformTabs}: the shared contract with story-shaped tabs. */
+export interface IPlatformTabsProps extends Omit<ITabsBaseProps, 'tabs'> {
+  tabs: IPlatformTab[];
   /**
    * Implementation to render.
    *
@@ -34,73 +30,22 @@ export interface IPlatformTabsProps extends ITabsBaseProps {
   platform?: TPlatform;
 }
 
-const DEFAULT_ITEMS: IPlatformTab[] = [{ label: 'Tab 1' }, { label: 'Tab 2' }, { label: 'Tab 3' }];
-
 /**
- * Renders either the web or the React Native Tabs bar with matching items.
+ * Renders either the web or the React Native Tabs bar from the same props.
  *
- * They have to come from the same platform as the bar, which is why this
- * builds them rather than taking children: a web TabItem inside the native
- * bar would not render at all.
- *
- * Figma's `showItem3`–`showItem6` are instance-visibility toggles on a
- * 6-slot master. Code uses `items` (min 2, max 6).
+ * Almost nothing to bridge since the bar took the contract's shape: both
+ * platforms speak `tabs`, `value` and `onChange`. What is left is the glyph,
+ * which has to come from the matching package — tabs draw theirs at
+ * `size/icon/sm` (16) at both steps.
  */
-export const PlatformTabs = ({
-  items = DEFAULT_ITEMS,
-  selected,
-  onSelect,
-  platform = 'web',
-  size = 'lg',
-  ...props
-}: IPlatformTabsProps): ReactElement => {
-  const chosen = selected ?? items[0]?.label;
-
-  if (platform === 'native') {
-    return (
-      <NativeTabs {...props} size={size}>
-        {items.map((item) => (
-          <NativeTabItem
-            badge={item.badge}
-            isDisabled={item.isDisabled}
-            isSelected={chosen === item.label}
-            key={item.label}
-            label={item.label}
-            leadingIcon={
-              item.leadingIcon === undefined
-                ? undefined
-                : createElement(NATIVE_ICONS[item.leadingIcon], { size: 'sm' })
-            }
-            onPress={() => onSelect?.(item.label)}
-            showBadge={item.showBadge}
-            showLeadingIcon={item.showLeadingIcon}
-            size={size}
-          />
-        ))}
-      </NativeTabs>
-    );
-  }
-
-  return (
-    <WebTabs {...props} size={size}>
-      {items.map((item) => (
-        <WebTabItem
-          badge={item.badge}
-          isDisabled={item.isDisabled}
-          isSelected={chosen === item.label}
-          key={item.label}
-          label={item.label}
-          leadingIcon={
-            item.leadingIcon === undefined
-              ? undefined
-              : createElement(WEB_ICONS[item.leadingIcon], { size: 'sm' })
-          }
-          onChange={() => onSelect?.(item.label)}
-          showBadge={item.showBadge}
-          showLeadingIcon={item.showLeadingIcon}
-          size={size}
-        />
-      ))}
-    </WebTabs>
+export const PlatformTabs = ({ tabs, platform = 'web', ...props }: IPlatformTabsProps): ReactElement => {
+  const resolved: ITabDef[] = tabs.map((tab) => ({
+    ...tab,
+    leadingIcon: iconNode(tab.leadingIcon, platform, 'sm'),
+  }));
+  return platform === 'native' ? (
+    <NativeTabs {...props} tabs={resolved} />
+  ) : (
+    <WebTabs {...props} tabs={resolved} />
   );
 };

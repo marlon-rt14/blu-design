@@ -18,24 +18,27 @@ import { useListItem } from './useListItem';
  * `trailing` renders inert on purpose: bDS classifies ListItem as having one
  * target, and a pressable Icon/Badge/Tag/IconButton in this slot would create
  * a second one.
+ *
+ * @example
+ * ```tsx
+ * <ListItem
+ *   description="Hoy, 14:32"
+ *   label="Envío a Juan García"
+ *   leading={{ avatar: { initials: 'JG' } }}
+ *   onPress={() => open(id)}
+ *   trailingText="$1.250,00"
+ * />
+ * ```
  */
 export const ListItem = ({ onPress, ...props }: IListItemProps): ReactElement => {
   const {
     label,
-    leadingContent = 'none',
-    icon,
-    avatarType = 'initials',
-    avatarInitials,
-    avatarImageUrl,
-    avatarTone = 'brand',
+    leading,
     size = 'md',
-    showDescription = false,
     description,
-    showTrailingText = false,
     trailingText,
-    showTrailing = false,
     trailing,
-    isDisabled = false,
+    disabled = false,
     testID,
   } = props;
 
@@ -48,20 +51,20 @@ export const ListItem = ({ onPress, ...props }: IListItemProps): ReactElement =>
 
   const content = (
     <>
-      {leadingContent === 'icon' ? (
-        <View style={leadingStyle}>{tintNode(icon, iconColor)}</View>
-      ) : leadingContent === 'avatar' ? (
+      {leading?.icon !== undefined ? (
+        <View style={leadingStyle}>{tintNode(leading.icon, iconColor)}</View>
+      ) : leading?.avatar !== undefined ? (
         <View style={leadingStyle}>
-          <Avatar imageUrl={avatarImageUrl} initials={avatarInitials} size={size} tone={avatarTone} type={avatarType} />
+          <Avatar {...leading.avatar} size={size} />
         </View>
       ) : null}
       <View style={contentStyle}>
         <Text style={titleStyle}>{label}</Text>
-        {showDescription && description ? <Text style={descriptionStyle}>{description}</Text> : null}
+        {description ? <Text style={descriptionStyle}>{description}</Text> : null}
         {dividerStyle ? <View style={dividerStyle} /> : null}
       </View>
-      {showTrailingText && trailingText ? <Text style={trailingTextStyle}>{trailingText}</Text> : null}
-      {showTrailing && trailing ? (
+      {trailingText ? <Text style={trailingTextStyle}>{trailingText}</Text> : null}
+      {trailing ? (
         <View importantForAccessibility="no-hide-descendants" pointerEvents="none">
           {trailing}
         </View>
@@ -81,8 +84,8 @@ export const ListItem = ({ onPress, ...props }: IListItemProps): ReactElement =>
     <Pressable
       accessibilityLabel={label}
       accessibilityRole="button"
-      accessibilityState={{ disabled: isDisabled }}
-      disabled={isDisabled}
+      accessibilityState={{ disabled }}
+      disabled={disabled}
       onBlur={() => setIsFocused(false)}
       onFocus={() => setIsFocused(true)}
       onPress={onPress}

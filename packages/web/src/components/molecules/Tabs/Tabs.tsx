@@ -1,7 +1,6 @@
-import { Children, cloneElement, isValidElement } from 'react';
 import type { KeyboardEvent, ReactElement } from 'react';
 
-import type { ITabItemProps } from '../../atoms/TabItem';
+import { TabItem } from '../../atoms/TabItem';
 import type { ITabsProps } from './Tabs.types';
 import { useTabs } from './useTabs';
 
@@ -9,34 +8,33 @@ import { useTabs } from './useTabs';
  * Web Tabs — the tab bar: 2–6 TabItems plus the bottom divider the
  * selected indicator sits on.
  *
- * `role="tablist"`. Arrow keys move between enabled tabs (and activate
- * them); Tab leaves the bar. `showItem3`–`showItem6` are not an API —
- * pass children. `showDivider` is an independent boolean, default `true`.
+ * `role="tablist"`. Arrow keys move between enabled tabs (and activate them);
+ * Tab leaves the bar.
  *
- * Canvas width 375 is Figma's "a sangre" frame, not a code max-width.
- * The bar fills its parent. No TabPanel — Figma does not ship one.
+ * **The selection is not marked tab by tab**: there is one `value` and each
+ * tab compares its `key` against it, so two active tabs is not a state this
+ * API can express. `TabItem` is rendered from here and is not meant to be
+ * used on its own — the bar is what fills in `isSelected`, `layout`, `size`
+ * and the roving `tabIndex`.
+ *
+ * Canvas width 375 is Figma's "a sangre" frame, not a code max-width. The bar
+ * fills its parent. No TabPanel — Figma does not ship one.
  *
  * @example
  * ```tsx
- * <Tabs>
- *   <TabItem isSelected={tab === 'one'} label="Tab 1" onChange={() => setTab('one')} />
- *   <TabItem label="Tab 2" onChange={() => setTab('two')} />
- *   <TabItem label="Tab 3" onChange={() => setTab('three')} />
- * </Tabs>
+ * <Tabs
+ *   onChange={setTab}
+ *   tabs={[
+ *     { key: 'movimientos', label: 'Movimientos' },
+ *     { key: 'pendientes', label: 'Pendientes', badge: 9 },
+ *   ]}
+ *   value={tab}
+ * />
  * ```
  */
 export const Tabs = (props: ITabsProps): ReactElement => {
-  const { children, layout = 'scrollable', size = 'lg', showDivider = true, testID } = props;
+  const { tabs, value, onChange, layout = 'scrollable', size = 'lg', divider = true, testID } = props;
   const { rootStyle, listStyle, dividerStyle } = useTabs(props);
-
-  const items = Children.map(children, (child) => {
-    if (!isValidElement<ITabItemProps>(child)) return child;
-    return cloneElement(child, {
-      layout: child.props.layout ?? layout,
-      size: child.props.size ?? size,
-      tabIndex: child.props.isSelected ? 0 : -1,
-    });
-  });
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>): void => {
     const { key } = event;
@@ -78,9 +76,24 @@ export const Tabs = (props: ITabsProps): ReactElement => {
 
   return (
     <div data-testid={testID} style={rootStyle}>
-      {showDivider ? <div aria-hidden style={dividerStyle} /> : null}
+      {divider ? <div aria-hidden style={dividerStyle} /> : null}
       <div onKeyDown={handleKeyDown} role="tablist" style={listStyle}>
-        {items}
+        {tabs.map((tab) => (
+          <TabItem
+            badge={tab.badge}
+            disabled={tab.disabled}
+            isSelected={tab.key === value}
+            key={tab.key}
+            label={tab.label}
+            layout={layout}
+            leadingIcon={tab.leadingIcon}
+            onChange={() => onChange(tab.key)}
+            size={size}
+            // Roving tabindex: only the active tab is reachable with Tab, and
+            // the arrow keys move between the rest.
+            tabIndex={tab.key === value ? 0 : -1}
+          />
+        ))}
       </div>
     </div>
   );

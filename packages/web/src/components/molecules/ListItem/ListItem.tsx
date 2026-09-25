@@ -21,13 +21,10 @@ import { useListItem } from './useListItem';
  * @example
  * ```tsx
  * <ListItem
- *   avatarInitials="JG"
  *   description="Hoy, 14:32"
  *   label="Envío a Juan García"
- *   leadingContent="avatar"
+ *   leading={{ avatar: { initials: 'JG' } }}
  *   onClick={() => open(id)}
- *   showDescription
- *   showTrailingText
  *   trailingText="$1.250,00"
  * />
  * ```
@@ -35,20 +32,12 @@ import { useListItem } from './useListItem';
 export const ListItem = (props: IListItemProps): ReactElement => {
   const {
     label,
-    leadingContent = 'none',
-    icon,
-    avatarType = 'initials',
-    avatarInitials,
-    avatarImageUrl,
-    avatarTone = 'brand',
+    leading,
     size = 'md',
-    showDescription = false,
     description,
-    showTrailingText = false,
     trailingText,
-    showTrailing = false,
     trailing,
-    isDisabled = false,
+    disabled = false,
     testID,
     onClick,
   } = props;
@@ -62,12 +51,12 @@ export const ListItem = (props: IListItemProps): ReactElement => {
     useListItem({ ...props, isInteractive, isHovered, isPressed, isFocusVisible });
 
   const handleClick = (event: MouseEvent<HTMLDivElement>): void => {
-    if (!isInteractive || isDisabled) return;
+    if (!isInteractive || disabled) return;
     onClick?.(event);
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>): void => {
-    if (!isInteractive || isDisabled) return;
+    if (!isInteractive || disabled) return;
     if (event.key === ' ' || event.key === 'Enter') {
       event.preventDefault();
       onClick?.(event as unknown as MouseEvent<HTMLDivElement>);
@@ -83,7 +72,7 @@ export const ListItem = (props: IListItemProps): ReactElement => {
 
   return (
     <div
-      aria-disabled={isInteractive && isDisabled ? true : undefined}
+      aria-disabled={isInteractive && disabled ? true : undefined}
       data-testid={testID}
       onBlur={isInteractive ? handleBlur : undefined}
       onClick={isInteractive ? handleClick : undefined}
@@ -102,28 +91,22 @@ export const ListItem = (props: IListItemProps): ReactElement => {
       onPointerUp={isInteractive ? () => setIsPressed(false) : undefined}
       role={isInteractive ? 'button' : undefined}
       style={rowStyle}
-      tabIndex={isInteractive ? (isDisabled ? -1 : 0) : undefined}
+      tabIndex={isInteractive ? (disabled ? -1 : 0) : undefined}
     >
-      {leadingContent === 'icon' ? (
-        <span style={{ ...leadingStyle, color: iconColor }}>{icon}</span>
-      ) : leadingContent === 'avatar' ? (
+      {leading?.icon !== undefined ? (
+        <span style={{ ...leadingStyle, color: iconColor }}>{leading.icon}</span>
+      ) : leading?.avatar !== undefined ? (
         <span style={leadingStyle}>
-          <Avatar
-            imageUrl={avatarImageUrl}
-            initials={avatarInitials}
-            size={size}
-            tone={avatarTone}
-            type={avatarType}
-          />
+          <Avatar {...leading.avatar} size={size} />
         </span>
       ) : null}
       <span style={contentStyle}>
         <span style={titleStyle}>{label}</span>
-        {showDescription && description ? <span style={descriptionStyle}>{description}</span> : null}
+        {description ? <span style={descriptionStyle}>{description}</span> : null}
         {dividerStyle ? <span style={dividerStyle} /> : null}
       </span>
-      {showTrailingText && trailingText ? <span style={trailingTextStyle}>{trailingText}</span> : null}
-      {showTrailing && trailing ? (
+      {trailingText ? <span style={trailingTextStyle}>{trailingText}</span> : null}
+      {trailing ? (
         <span aria-hidden="true" style={{ pointerEvents: 'none' }}>
           {trailing}
         </span>

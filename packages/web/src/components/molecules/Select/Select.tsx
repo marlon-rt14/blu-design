@@ -296,10 +296,8 @@ export const Select = (props: ISelectProps): ReactElement => {
                       }}
                     >
                       <ListItem
-                        icon={option.icon}
                         label={option.label}
-                        leadingContent={option.icon ? 'icon' : 'none'}
-                        showTrailing={isSelected}
+                        leading={option.icon === undefined ? undefined : { icon: option.icon }}
                         trailing={isSelected ? <IconCheck color="brand" size="sm" /> : null}
                       />
                     </li>

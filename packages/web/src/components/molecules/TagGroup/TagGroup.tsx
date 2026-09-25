@@ -12,23 +12,27 @@ import { useTagGroup } from './useTagGroup';
  * break the height `size/field/height/*` promises.
  *
  * **Does not decide how many fit** — that is the width of whatever contains
- * it. Pass however many already fit in `tags`, and set `showOverflow` for the
- * rest: the trailing "+N" tile carries no remove control, since a counter is
- * not a selection.
+ * it. Pass every tag and cap the visible ones with `max`: the rest collapse
+ * into a trailing "+N" tile that carries no remove control, since a counter is
+ * not a selection. The N is counted, never written.
  */
 export const TagGroup = (props: ITagGroupProps): ReactElement => {
-  const { tags, size = 'sm', showOverflow = false, overflowLabel = '+3', overflowAccessibilityLabel, testID } = props;
+  const { tags, size = 'sm', max, testID } = props;
   const { rowStyle, overflowStyle, overflowTextStyle } = useTagGroup(props);
+  const visible = max === undefined ? tags : tags.slice(0, max);
+  const hidden = tags.length - visible.length;
 
   return (
     <div data-testid={testID} style={rowStyle}>
-      {tags.map((tag, index) => (
+      {visible.map((tag, index) => (
         <Tag key={index} {...tag} size={size} />
       ))}
-      {showOverflow ? (
-        <span aria-label={overflowAccessibilityLabel ?? overflowLabel} role="img" style={overflowStyle}>
+      {hidden > 0 ? (
+        // The accessible name spells the count out: a bare "+3" tells a
+        // screen reader nothing, and the number is counted, never passed in.
+        <span aria-label={`${hidden} etiquetas más`} role="img" style={overflowStyle}>
           <span aria-hidden="true" style={overflowTextStyle}>
-            {overflowLabel}
+            {`+${hidden}`}
           </span>
         </span>
       ) : null}

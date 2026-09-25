@@ -16,14 +16,14 @@ import { useTag } from './useTag';
  * never selectable.
  */
 export const Tag = (props: ITagProps): ReactElement => {
-  const { label, showLeadingIcon = false, icon, showRemove = false, onRemove, testID } = props;
+  const { label, leadingIcon, onRemove, testID } = props;
   const { rootStyle, labelStyle, iconColor, removeButtonStyle } = useTag(props);
 
   return (
     <View style={rootStyle} testID={testID}>
-      {showLeadingIcon && icon ? tintNode(icon, iconColor) : null}
+      {leadingIcon ? tintNode(leadingIcon, iconColor) : null}
       <Text style={labelStyle}>{label}</Text>
-      {showRemove ? (
+      {onRemove ? (
         <Pressable accessibilityLabel={`Quitar ${label}`} accessibilityRole="button" onPress={onRemove} style={removeButtonStyle}>
           <IconX size="xs" tintColor={iconColor} />
         </Pressable>

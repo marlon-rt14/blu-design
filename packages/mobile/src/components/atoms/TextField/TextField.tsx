@@ -14,7 +14,7 @@ import { useTextField } from './useTextField';
  *
  * `label` lives inside the same bordered box as the value — it fills
  * `TextInput`'s `placeholder` while empty, and floats above the value once
- * there is one (never at `size='small'`; see `useTextField`'s
+ * there is one (never at `size='sm'`; see `useTextField`'s
  * `showFloatingLabel`). There is no separate `placeholder` prop.
  *
  * Focus is tracked locally (`TextInput` has no `:focus` pseudo-class) and fed
@@ -25,23 +25,20 @@ import { useTextField } from './useTextField';
  * @example
  * ```tsx
  * const [value, setValue] = useState('');
- * <TextField label="Email" value={value} onChangeText={setValue} />
- * <TextField label="Email" value={value} onChangeText={setValue} errorMessage="Invalid email" />
- * <TextField label="Account" value="1234 5678" isReadOnly />
+ * <TextField label="Correo" onChangeText={setValue} value={value} />
+ * <TextField error="Correo inválido" label="Correo" onChangeText={setValue} value={value} />
+ * <TextField label="Cuenta" onChangeText={noop} readOnly value="1234 5678" />
  * ```
  */
 export const TextField = ({
-  onChangeText,
   onFocus,
   onBlur,
   keyboardType = 'default',
   isSecure = false,
-  prefixIcon,
-  suffixIcon,
-  showPrefixText = false,
-  showSuffixText = false,
-  showPrefixIcon = false,
-  showSuffixIcon = false,
+  leadingIcon,
+  trailingIcon,
+  leadingText,
+  trailingText,
   ...props
 }: ITextFieldProps): ReactElement => {
   const [isFocused, setIsFocused] = useState(false);
@@ -76,10 +73,10 @@ export const TextField = ({
             <View style={contentStyle}>
               {showFloatingLabel && props.label ? <Text style={labelStyle}>{props.label}</Text> : null}
               <View style={inputRowStyle}>
-                {showPrefixIcon ? (
-                  <View style={iconStyle}>{tintNode(prefixIcon, iconColor)}</View>
+                {leadingIcon ? (
+                  <View style={iconStyle}>{tintNode(leadingIcon, iconColor)}</View>
                 ) : null}
-                {showPrefixText && props.prefix ? <Text style={affixStyle}>{props.prefix}</Text> : null}
+                {leadingText ? <Text style={affixStyle}>{leadingText}</Text> : null}
                 <TextInput
                   accessibilityLabel={props.label}
                   accessibilityState={{ disabled: isDisabled }}
@@ -90,20 +87,20 @@ export const TextField = ({
                     setIsFocused(false);
                     onBlur?.();
                   }}
-                  onChangeText={onChangeText}
+                  onChangeText={props.onChangeText}
                   onFocus={() => {
                     setIsFocused(true);
                     onFocus?.();
                   }}
-                  placeholder={showFloatingLabel ? undefined : props.label}
+                  placeholder={showFloatingLabel ? props.placeholder : props.label}
                   placeholderTextColor={placeholderTextColor}
                   secureTextEntry={isSecure}
                   style={[textFieldStyles.input, inputStyle]}
                   testID={props.testID}
                   value={props.value}
                 />
-                {showSuffixText && props.suffix ? <Text style={affixStyle}>{props.suffix}</Text> : null}
-                {showSuffixIcon ? <View style={iconStyle}>{tintNode(suffixIcon, iconColor)}</View> : null}
+                {trailingText ? <Text style={affixStyle}>{trailingText}</Text> : null}
+                {trailingIcon ? <View style={iconStyle}>{tintNode(trailingIcon, iconColor)}</View> : null}
               </View>
             </View>
           </View>

@@ -9,8 +9,8 @@ import { iconNode } from './iconNode';
 export type TPlatform = 'web' | 'native';
 
 /** One tag as a story writes it: the glyph by export name, not as a node. */
-export interface IPlatformTagGroupItem extends Omit<ITagGroupItem, 'icon'> {
-  icon?: TIconExportName;
+export interface IPlatformTagGroupItem extends Omit<ITagGroupItem, 'leadingIcon'> {
+  leadingIcon?: TIconExportName;
 }
 
 export interface IPlatformTagGroupProps extends Omit<ITagGroupBaseProps, 'tags'> {
@@ -24,7 +24,10 @@ export const PlatformTagGroup = ({
   ...props
 }: IPlatformTagGroupProps): ReactElement => {
   const size = props.size ?? 'sm';
-  const resolved = tags.map((item) => ({ ...item, icon: iconNode(item.icon, platform, size) }));
+  const resolved = tags.map((item) => ({
+    ...item,
+    leadingIcon: iconNode(item.leadingIcon, platform, size),
+  }));
   return platform === 'native' ? (
     <NativeTagGroup {...props} tags={resolved} />
   ) : (

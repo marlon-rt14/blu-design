@@ -37,8 +37,8 @@ import type { ReactNode } from 'react';
  * @example
  * ```tsx
  * <ListGroup header="Hoy">
- *   <ListItem label="Transferencia" trailingText="$1.250,00" showTrailingText />
- *   <ListItem label="Pago de servicios" trailingText="$320,00" showTrailingText />
+ *   <ListItem label="Transferencia" trailingText="$1.250,00" />
+ *   <ListItem label="Pago de servicios" trailingText="$320,00" />
  * </ListGroup>
  * ```
  */

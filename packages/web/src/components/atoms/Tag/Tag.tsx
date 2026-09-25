@@ -14,14 +14,14 @@ import { useTag } from './useTag';
  * never selectable.
  */
 export const Tag = (props: ITagProps): ReactElement => {
-  const { label, showLeadingIcon = false, icon, showRemove = false, onRemove, testID } = props;
+  const { label, leadingIcon, onRemove, testID } = props;
   const { rootStyle, iconWrapperStyle, labelStyle, removeButtonStyle, removeIconWrapperStyle } = useTag(props);
 
   return (
     <span data-testid={testID} style={rootStyle}>
-      {showLeadingIcon && icon ? <span style={iconWrapperStyle}>{icon}</span> : null}
+      {leadingIcon ? <span style={iconWrapperStyle}>{leadingIcon}</span> : null}
       <span style={labelStyle}>{label}</span>
-      {showRemove ? (
+      {onRemove ? (
         <button
           aria-label={`Quitar ${label}`}
           onClick={onRemove}

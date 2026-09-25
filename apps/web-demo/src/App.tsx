@@ -590,22 +590,22 @@ const App = () => {
               filete, y una linea dibujada por el grupo no podria saberlo. */}
           <div style={{ display: "flex", flexDirection: "column", gap: 24, maxWidth: 375 }}>
             <ListGroup header="Hoy" testID="listgroup-hoy">
-              <ListItem description="Hoy, 10:24" label="Transferencia a Ana" showDescription showTrailingText trailingText="$1.250,00" />
-              <ListItem description="Hoy, 09:02" label="Pago de servicios" showDescription showTrailingText trailingText="$320,00" />
-              <ListItem description="Ayer, 18:41" label="Recarga de celular" showDescription showTrailingText trailingText="$15,00" />
+              <ListItem description="Hoy, 10:24" label="Transferencia a Ana" trailingText="$1.250,00" />
+              <ListItem description="Hoy, 09:02" label="Pago de servicios" trailingText="$320,00" />
+              <ListItem description="Ayer, 18:41" label="Recarga de celular" trailingText="$15,00" />
             </ListGroup>
             {/* El encabezado no existe en Figma: esta en la firma del contrato
                 y no en el archivo. Se implementa leyendo la capa semantica y va
                 arriba de la tarjeta; las dos son decisiones, no mediciones. */}
             <ListGroup testID="listgroup-ajustes">
-              <ListItem icon={<IconUser01 size="md" />} label="Datos personales" leadingContent="icon" />
-              <ListItem icon={<IconLock01 size="md" />} label="Seguridad" leadingContent="icon" />
-              <ListItem icon={<IconInfoCircle size="md" />} label="Ayuda" leadingContent="icon" />
+              <ListItem leading={{ icon: <IconUser01 size="md" /> }} label="Datos personales" />
+              <ListItem leading={{ icon: <IconLock01 size="md" /> }} label="Seguridad" />
+              <ListItem leading={{ icon: <IconInfoCircle size="md" /> }} label="Ayuda" />
             </ListGroup>
             {/* Con una sola fila el divisor se apaga, porque esa fila tambien
                 es la ultima. */}
             <ListGroup header="Una sola fila" testID="listgroup-una">
-              <ListItem description="Hoy, 10:24" label="Transferencia a Ana" showDescription showTrailingText trailingText="$1.250,00" />
+              <ListItem description="Hoy, 10:24" label="Transferencia a Ana" trailingText="$1.250,00" />
             </ListGroup>
           </div>
         </section>

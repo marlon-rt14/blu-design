@@ -3,10 +3,8 @@ import type { ITagBaseProps } from '@dsm/shared';
 /**
  * Props of the web Tag.
  *
- * `onRemove` is declared here rather than in the shared contract, which stays
- * free of event handlers — same convention as every other component's.
+ * Nothing to add: the contract's six props are all platform-agnostic, and
+ * `onRemove` is in the shared base, where the contract puts it — its presence
+ * is what draws the ×.
  */
-export interface ITagProps extends ITagBaseProps {
-  /** Fired when the remove control is activated. */
-  onRemove?: () => void;
-}
+export type ITagProps = ITagBaseProps;

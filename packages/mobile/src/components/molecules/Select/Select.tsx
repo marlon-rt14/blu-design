@@ -156,12 +156,10 @@ export const Select = (props: ISelectProps): ReactElement => {
                   const isSelected = option.value === value;
                   return (
                     <ListItem
-                      icon={option.icon}
                       key={option.value}
                       label={option.label}
-                      leadingContent={option.icon ? 'icon' : 'none'}
+                      leading={option.icon === undefined ? undefined : { icon: option.icon }}
                       onPress={() => commit(option.value)}
-                      showTrailing={isSelected}
                       trailing={isSelected ? <IconCheck color="brand" size="sm" /> : null}
                     />
                   );
