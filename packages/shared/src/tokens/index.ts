@@ -1,5 +1,6 @@
 export * from './alert.tokens';
 export * from './avatar.tokens';
+export * from './badge.tokens';
 export * from './button.tokens';
 export * from './buttonGroup.tokens';
 export * from './callout.tokens';

@@ -1,6 +1,7 @@
 export * from './Alert';
 export * from './Avatar';
 export * from './AvatarIndicator';
+export * from './Badge';
 export * from './Button';
 export * from './Callout';
 export * from './CardField';
