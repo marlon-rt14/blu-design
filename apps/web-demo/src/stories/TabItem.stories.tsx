@@ -1,8 +1,9 @@
-import type { TIconName, TTabSize } from '@dsm/shared';
+import type { TTabSize } from '@dsm/shared';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement, ReactNode } from 'react';
 import { fn } from 'storybook/test';
 
+import type { TIconExportName } from './iconNames';
 import { PlatformTabItem } from './PlatformTabItem';
 import type { IPlatformTabItemProps, TPlatform } from './PlatformTabItem';
 
@@ -15,7 +16,7 @@ const Group = ({ title, children }: { title: string; children: ReactNode }): Rea
   </div>
 );
 
-const ICONS: TIconName[] = ['user', 'search', 'star', 'flag'];
+const ICONS: TIconExportName[] = ['IconUser01', 'IconSearchMd', 'IconStar01', 'IconFlag01'];
 
 const meta = {
   title: 'Atoms/TabItem',
@@ -53,8 +54,11 @@ const meta = {
     leadingIcon: {
       control: 'select',
       options: ICONS,
-      description: 'Instance-swap. Only visible when `showLeadingIcon` is on. Default `user`.',
-      table: { category: 'Content', defaultValue: { summary: 'user' } },
+      description:
+        'The glyph, by export name — the real prop is a `ReactNode` the caller imports ' +
+        'from its section. Only rendered when `showLeadingIcon` is on, and there is no ' +
+        'default any more: Figma\'s `icon/user` went with the name.',
+      table: { category: 'Content' },
     },
     showBadge: {
       control: 'boolean',

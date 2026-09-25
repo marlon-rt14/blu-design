@@ -309,9 +309,11 @@ plataformas; lo único en espera es el arte de las banderas.
   `CountryFlag`: solo cambió lo que dibuja `flags/`, que era exactamente el
   propósito de esa carpeta.
 - **El Menu ya está** (de Joel) y es el que usa la versión web. Lo que faltaba
-  para poder usarlo era el slot: `leading` era un `TIconName`, o sea los 31
-  glifos del sistema, y una bandera no es un glifo. Se ensanchó a
-  `leadingContent?: ReactNode` con permiso de Marlon. La firma de la doc de
+  para poder usarlo era el slot: `leading` era un nombre de glifo, o sea el set
+  del sistema, y una bandera no es un glifo. Se ensanchó a
+  `leadingContent?: ReactNode` con permiso de Marlon — y en 2026-09-24 ese
+  cambio se volvió la regla: `TIconName` se eliminó y **todos** los slots de
+  icono son `ReactNode`. La firma de la doc de
   desarrollo del Menu dice `IconName`; conviene corregirla, porque el slot de
   Figma ya aceptaba Flag/Avatar/MerchantAvatar y era la doc la que iba más
   angosta que el diseño y que el uso.

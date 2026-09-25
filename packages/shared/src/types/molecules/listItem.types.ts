@@ -1,5 +1,6 @@
+import type { ReactNode } from 'react';
+
 import type { TAvatarTone, TAvatarType } from '../atoms/avatar.types';
-import type { TIconName } from '../atoms/icon.types';
 
 /**
  * What renders at the start of the row.
@@ -45,16 +46,32 @@ export type TListItemState = 'default' | 'hover' | 'pressed' | 'focus' | 'disabl
  * a prop this component exposes.
  *
  * `trailing` (an Icon, Badge, Tag or IconButton in Figma's own instance-swap)
- * is declared per platform rather than here, since the shared contract stays
- * free of `ReactNode` — see each platform's `IListItemProps`.
+ * is declared per platform rather than here, because what may go in it differs
+ * by platform — see each platform's `IListItemProps`. The `icon` slot below is
+ * a `ReactNode` and shared, which this contract used to avoid on principle;
+ * Menu's own `leadingContent` broke that rule first, for the same reason.
  */
 export interface IListItemBaseProps {
   /** The row's primary line. */
   label: string;
   /** @defaultValue `'none'` */
   leadingContent?: TListItemLeadingContent;
-  /** Glyph shown when `leadingContent='icon'`. @defaultValue `'user'` */
-  icon?: TIconName;
+  /**
+   * Glyph shown when `leadingContent='icon'`.
+   *
+   * **A node, not a name**, so there is no default glyph any more: the row used
+   * to fall back to `icon/user`, and nothing can stand in for artwork the
+   * caller has to import itself. Setting `leadingContent='icon'` without this
+   * leaves the column empty.
+   *
+   * Size it to the row: ListItem's own `size` steps share their names with
+   * Icon's, so `size` on the glyph is the row's `size`.
+   *
+   * ```tsx
+   * <ListItem icon={<IconUser01 size="md" />} label="Marlon" leadingContent="icon" />
+   * ```
+   */
+  icon?: ReactNode;
   /** What the leading Avatar shows when `leadingContent='avatar'`. @defaultValue `'initials'` */
   avatarType?: TAvatarType;
   /** Shown when `avatarType='initials'`. */

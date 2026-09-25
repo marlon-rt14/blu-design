@@ -2,7 +2,8 @@ import type { TCountryCode } from '@dsm/shared';
 import type { ReactElement } from 'react';
 import { FlatList, Modal, Pressable, Text, TextInput, View } from 'react-native';
 
-import { IconChevronDown, IconSearch } from '../../../icons';
+import { IconChevronDown } from '../../../icons/arrows';
+import { IconSearchMd } from '../../../icons/general';
 import { CountryFlag } from './CountryFlag';
 import type { IPhoneFieldProps } from './PhoneField.types';
 import { usePhoneField } from './usePhoneField';
@@ -160,7 +161,7 @@ export const PhoneField = (props: IPhoneFieldProps): ReactElement => {
           <Pressable onPress={(event) => event.stopPropagation()} style={sheetStyle}>
             <Text style={sheetHeaderStyle}>{label}</Text>
             <View style={searchWrapperStyle}>
-              <IconSearch color="secondary" size="sm" />
+              <IconSearchMd color="secondary" size="sm" />
               <TextInput
                 accessibilityLabel="Buscar país o código"
                 onChangeText={setSearch}

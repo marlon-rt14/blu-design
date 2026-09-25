@@ -1,5 +1,6 @@
+import type { ReactNode } from 'react';
+
 import type { TAvatarSize, TAvatarTone, TAvatarType } from '../atoms/avatar.types';
-import type { TIconName } from '../atoms/icon.types';
 
 /**
  * One person or entity inside an AvatarGroup.
@@ -11,7 +12,19 @@ export interface IAvatarGroupItem {
   /** @defaultValue `'initials'` */
   type?: TAvatarType;
   initials?: string;
-  icon?: TIconName;
+  /**
+   * Glyph shown when `type='icon'`. No default: it used to fall back to
+   * `icon/user`, and a node cannot be conjured.
+   *
+   * **A node, not a name.** The library publishes 1170 glyphs across 19
+   * sections and no name-to-component registry, so the caller imports the one
+   * it wants and passes it in:
+   *
+   * ```tsx
+   * icon: <IconUser01 size="md" />, // from '@dsm/web/icons/users'
+   * ```
+   */
+  icon?: ReactNode;
   imageUrl?: string;
   accessibilityLabel?: string;
   /** @defaultValue `'brand'` */

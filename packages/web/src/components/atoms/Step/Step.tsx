@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react';
 
-import { IconAlertTriangle, IconCheck, IconX } from '../../../icons';
+import { IconAlertTriangle } from '../../../icons/alerts-feedback';
+import { IconCheck, IconX } from '../../../icons/general';
 import { StepConnector } from '../StepConnector';
 import type { IStepProps } from './Step.types';
 import { useStep } from './useStep';

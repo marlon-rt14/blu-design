@@ -6,7 +6,20 @@ import type { ReactElement } from 'react';
 import { useState } from 'react';
 import { useArgs } from 'storybook/preview-api';
 
+import type { TIconExportName } from './iconNames';
+import { iconNode } from './iconNode';
+
 const SIZES: TChipSize[] = ['sm', 'xs'];
+
+/**
+ * What the controls panel edits.
+ *
+ * `leadingIcon` is a `ReactNode` on the real component — the caller imports the
+ * glyph from its section — and a control can only hand over a string, so the
+ * story takes the export name and `render` builds the element. This is web-only
+ * unlike most stories: Chip has no `Platform*` bridge, so the swap happens here.
+ */
+type TChipStoryProps = Omit<IChipProps, 'leadingIcon'> & { leadingIcon?: TIconExportName };
 
 const FILTERS = ['Todos', 'Activos', 'Pendientes', 'Archivados'];
 
@@ -58,7 +71,12 @@ const meta = {
   argTypes: {
     label: { control: 'text', table: { category: 'Content' } },
     selected: { control: 'boolean', table: { category: 'State', defaultValue: { summary: 'false' } } },
-    leadingIcon: { control: 'select', options: ['store', 'user', 'check'], table: { category: 'Content' } },
+    leadingIcon: {
+      control: 'select',
+      options: ['IconStore', 'IconUser01', 'IconCheck'],
+      description: 'The glyph, by export name — the real prop is a `ReactNode`.',
+      table: { category: 'Content' },
+    },
     size: {
       control: 'inline-radio',
       options: SIZES,
@@ -75,15 +93,21 @@ const meta = {
     size: 'sm',
     disabled: false,
   },
-  render: (args) => {
+  render: ({ leadingIcon, ...args }) => {
     const [, updateArgs] = useArgs();
-    return <Chip {...args} onToggle={(selected) => updateArgs({ selected })} />;
+    return (
+      <Chip
+        {...args}
+        leadingIcon={iconNode(leadingIcon, 'web', args.size ?? 'sm')}
+        onToggle={(selected) => updateArgs({ selected })}
+      />
+    );
   },
-} satisfies Meta<IChipProps>;
+} satisfies Meta<TChipStoryProps>;
 
 export default meta;
 
-type TStory = StoryObj<IChipProps>;
+type TStory = StoryObj<TChipStoryProps>;
 
 export const Playground: TStory = {};
 
@@ -102,12 +126,14 @@ export const Sizes: TStory = {
 };
 
 export const WithLeadingIcon: TStory = {
-  args: { leadingIcon: 'store', selected: true },
+  args: { leadingIcon: 'IconStore', selected: true },
 };
 
 export const Removable: TStory = {
   args: { selected: true },
-  render: (args) => <RemovableChip {...args} />,
+  render: ({ leadingIcon, ...args }) => (
+    <RemovableChip {...args} leadingIcon={iconNode(leadingIcon, 'web', args.size ?? 'sm')} />
+  ),
 };
 
 export const Disabled: TStory = {

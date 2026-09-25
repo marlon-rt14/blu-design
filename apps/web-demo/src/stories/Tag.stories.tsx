@@ -58,7 +58,12 @@ const meta = {
       table: { category: 'Appearance', defaultValue: { summary: 'sm' } },
     },
     showLeadingIcon: { control: 'boolean', table: { category: 'Content', defaultValue: { summary: 'false' } } },
-    icon: { control: 'select', options: ['check-circle', 'store', 'user'], table: { category: 'Content' } },
+    icon: {
+      control: 'select',
+      options: ['IconCheckCircle', 'IconStore', 'IconUser01'],
+      description: 'The glyph, by export name — the real prop is a `ReactNode`.',
+      table: { category: 'Content' },
+    },
     showRemove: { control: 'boolean', table: { category: 'Content', defaultValue: { summary: 'false' } } },
     testID: { table: { disable: true } },
     onRemove: { table: { disable: true } },
@@ -70,7 +75,7 @@ const meta = {
     palette: 'neutral',
     size: 'sm',
     showLeadingIcon: false,
-    icon: 'check-circle',
+    icon: 'IconCheckCircle',
     showRemove: false,
   },
   render: (args, { globals }) => <PlatformTag {...args} platform={globals['platform'] as TPlatform} />,
@@ -113,7 +118,7 @@ export const Sizes: TStory = {
 };
 
 export const WithLeadingIcon: TStory = {
-  args: { showLeadingIcon: true, icon: 'check-circle', palette: 'success' },
+  args: { showLeadingIcon: true, icon: 'IconCheckCircle', palette: 'success' },
 };
 
 export const ComboboxChip: TStory = {

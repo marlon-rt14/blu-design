@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { ReactElement } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
-import { TabIcon } from './TabIcon';
+import { tintNode } from '../Icon';
 import { tabItemStyles } from './TabItem.styles';
 import type { ITabItemProps } from './TabItem.types';
 import { useTabItem } from './useTabItem';
@@ -29,7 +29,7 @@ export const TabItem = (props: ITabItemProps): ReactElement => {
     label = 'Label',
     isSelected = false,
     showLeadingIcon = false,
-    leadingIcon = 'user',
+    leadingIcon,
     showBadge = false,
     badge = '9',
     onPress,
@@ -68,9 +68,7 @@ export const TabItem = (props: ITabItemProps): ReactElement => {
       <View style={tabItemStyles.content}>
         <View style={[tabItemStyles.labelRow, labelRowStyle]}>
           {showLeadingIcon ? (
-            <View style={tabItemStyles.icon}>
-              <TabIcon name={leadingIcon} size="sm" tintColor={iconColor} />
-            </View>
+            <View style={tabItemStyles.icon}>{tintNode(leadingIcon, iconColor)}</View>
           ) : null}
           <Text style={labelStyle}>{label}</Text>
           {showBadge ? (

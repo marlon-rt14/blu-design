@@ -9,7 +9,8 @@ import { useState } from 'react';
 import type { ReactElement } from 'react';
 import { Text, TextInput, View } from 'react-native';
 
-import { IconCheckCircle, IconCircle } from '../../../icons';
+import { IconCheckCircle } from '../../../icons/general';
+import { IconCircle } from '../../../icons/shapes';
 import { LinkButton } from '../LinkButton';
 import { ProgressBar } from '../ProgressBar';
 import { passwordFieldStyles } from './PasswordField.styles';

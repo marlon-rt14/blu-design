@@ -1,4 +1,4 @@
-import type { TIconName } from './icon.types';
+import type { ReactNode } from 'react';
 
 /**
  * Physical size, largest first — shares its names with Tag's own `sm`/`xs`
@@ -33,8 +33,22 @@ export interface IChipBaseProps {
   label: string;
   /** Whether the filter is active. Controlled — there is no internal state. */
   selected: boolean;
-  /** Glyph before the label. Its presence turns the leading icon slot on — no separate boolean. */
-  leadingIcon?: TIconName;
+  /**
+   * Glyph before the label. Its presence turns the leading icon slot on — no
+   * separate boolean.
+   *
+   * **A node, not a name.** The library publishes 1170 glyphs across 19
+   * sections and no name-to-component registry, so the caller imports the one
+   * it wants and passes it in:
+   *
+   * ```tsx
+   * Chip's `sm`/`xs` steps share their names with Icon's, so the glyph's
+   * `size` is the chip's.
+   *
+   * <Chip label="Aprobado" leadingIcon={<IconCheck size="sm" />} selected />
+   * ```
+   */
+  leadingIcon?: ReactNode;
   /** @defaultValue `'sm'` */
   size?: TChipSize;
   /** @defaultValue `false` */

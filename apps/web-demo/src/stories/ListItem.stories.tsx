@@ -1,5 +1,5 @@
 import type { TListItemLeadingContent, TListItemSize } from '@dsm/shared';
-import { IconChevronRight } from '@dsm/web/icons';
+import { IconChevronRight } from '@dsm/web/icons/arrows';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement, ReactNode } from 'react';
 
@@ -34,7 +34,14 @@ const meta = {
       options: LEADING_CONTENTS,
       table: { category: 'Appearance', defaultValue: { summary: 'none' } },
     },
-    icon: { control: 'select', options: ['user', 'store', 'image'], table: { category: 'Content' } },
+    icon: {
+      control: 'select',
+      options: ['IconUser01', 'IconStore', 'IconImage01'],
+      description:
+        'The glyph, by export name — the real prop is a `ReactNode`. Shown when ' +
+        "`leadingContent='icon'`, and with no default any more.",
+      table: { category: 'Content' },
+    },
     avatarInitials: { control: 'text', table: { category: 'Content' } },
     size: {
       control: 'inline-radio',
@@ -56,7 +63,7 @@ const meta = {
   args: {
     label: 'Título del elemento',
     leadingContent: 'none',
-    icon: 'user',
+    icon: 'IconUser01',
     avatarInitials: 'JG',
     size: 'md',
     showDescription: false,
@@ -88,7 +95,7 @@ export const LeadingContent: TStory = {
         {LEADING_CONTENTS.map((leadingContent) => (
           <PlatformListItem
             avatarInitials="JG"
-            icon="user"
+            icon="IconUser01"
             key={leadingContent}
             label="Título del elemento"
             leadingContent={leadingContent}

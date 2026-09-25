@@ -1,30 +1,9 @@
 import { useId, useState } from 'react';
 import type { FocusEvent, ReactElement } from 'react';
 
-import type { TIconSize, TTextFieldSize } from '@dsm/shared';
 
-import { FieldIcon } from './FieldIcon';
 import type { ITextFieldProps } from './TextField.types';
 import { useTextField } from './useTextField';
-
-/**
- * Maps TextField `size` onto Icon `size`. Live Figma: sm+md fields bind
- * `size.icon.sm` (16); lg binds `size.icon.md` (24). Exhaustive so a new
- * `TTextFieldSize` fails the build until mapped.
- */
-const iconSizeForField = (size: TTextFieldSize): TIconSize => {
-  switch (size) {
-    case 'small':
-    case 'medium':
-      return 'sm';
-    case 'large':
-      return 'md';
-    default: {
-      const _exhaustive: never = size;
-      return _exhaustive;
-    }
-  }
-};
 
 /**
  * Web TextField — a single-line text input with a label, helper/error text
@@ -63,8 +42,8 @@ export const TextField = (props: ITextFieldProps): ReactElement => {
     testID,
     prefix,
     suffix,
-    prefixIcon = 'search',
-    suffixIcon = 'search',
+    prefixIcon,
+    suffixIcon,
     showPrefixText = false,
     showSuffixText = false,
     showPrefixIcon = false,
@@ -94,7 +73,6 @@ export const TextField = (props: ITextFieldProps): ReactElement => {
   const inputId = useId();
   const footerId = `${inputId}-footer`;
   const hasFooter = Boolean(displayedHelperText) || Boolean(counterText);
-  const iconSize = iconSizeForField(props.size ?? 'medium');
 
   const handleMouseEnter = (): void => setIsHovered(true);
   const handleMouseLeave = (): void => setIsHovered(false);
@@ -118,13 +96,10 @@ export const TextField = (props: ITextFieldProps): ReactElement => {
           ) : null}
           <div style={inputRowStyle}>
             {showPrefixIcon ? (
-              <span style={iconStyle}>
-                <FieldIcon
-                  color={isDisabled ? 'disabled' : 'secondary'}
-                  name={prefixIcon}
-                  size={iconSize}
-                />
-              </span>
+              // The box and the `color` live on the wrapper, so a glyph sized
+              // by the caller still lands on the field's grid and still follows
+              // the disabled state through `currentColor`.
+              <span style={iconStyle}>{prefixIcon}</span>
             ) : null}
             {showPrefixText && prefix ? <span style={affixStyle}>{prefix}</span> : null}
             <input
@@ -146,15 +121,7 @@ export const TextField = (props: ITextFieldProps): ReactElement => {
               value={value}
             />
             {showSuffixText && suffix ? <span style={affixStyle}>{suffix}</span> : null}
-            {showSuffixIcon ? (
-              <span style={iconStyle}>
-                <FieldIcon
-                  color={isDisabled ? 'disabled' : 'secondary'}
-                  name={suffixIcon}
-                  size={iconSize}
-                />
-              </span>
-            ) : null}
+            {showSuffixIcon ? <span style={iconStyle}>{suffixIcon}</span> : null}
           </div>
         </div>
       </div>

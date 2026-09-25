@@ -1,14 +1,10 @@
-import type { TIconSize, TTagSize } from '@dsm/shared';
 import type { ReactElement } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
-import { FieldIcon } from '../TextField/FieldIcon';
-import { IconX } from '../../../icons';
+import { tintNode } from '../Icon';
+import { IconX } from '../../../icons/general';
 import type { ITagProps } from './Tag.types';
 import { useTag } from './useTag';
-
-/** Tag's own `sm`/`xs` steps share their names with Icon's — no mapping needed. */
-const toIconSize = (size: TTagSize): TIconSize => size;
 
 /**
  * Mobile Tag — a label that is read: what type something is, or what state
@@ -20,12 +16,12 @@ const toIconSize = (size: TTagSize): TIconSize => size;
  * never selectable.
  */
 export const Tag = (props: ITagProps): ReactElement => {
-  const { label, size = 'sm', showLeadingIcon = false, icon, showRemove = false, onRemove, testID } = props;
+  const { label, showLeadingIcon = false, icon, showRemove = false, onRemove, testID } = props;
   const { rootStyle, labelStyle, iconColor, removeButtonStyle } = useTag(props);
 
   return (
     <View style={rootStyle} testID={testID}>
-      {showLeadingIcon && icon ? <FieldIcon name={icon} size={toIconSize(size)} tintColor={iconColor} /> : null}
+      {showLeadingIcon && icon ? tintNode(icon, iconColor) : null}
       <Text style={labelStyle}>{label}</Text>
       {showRemove ? (
         <Pressable accessibilityLabel={`Quitar ${label}`} accessibilityRole="button" onPress={onRemove} style={removeButtonStyle}>

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { ReactElement } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
-import { IconCheck, IconMinus } from '../../../icons';
+import { IconCheck, IconMinus } from '../../../icons/general';
 import type { ICheckboxProps } from './Checkbox.types';
 import { useCheckbox } from './useCheckbox';
 

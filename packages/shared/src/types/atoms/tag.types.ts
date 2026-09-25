@@ -1,4 +1,4 @@
-import type { TIconName } from './icon.types';
+import type { ReactNode } from 'react';
 
 /**
  * Visual weight, heaviest to lightest — same order as Button's.
@@ -74,8 +74,19 @@ export interface ITagBaseProps {
    * @defaultValue `false`
    */
   showLeadingIcon?: boolean;
-  /** Shown when `showLeadingIcon` is true. */
-  icon?: TIconName;
+  /**
+   * Shown when `showLeadingIcon` is true. Size it to match the tag — 16 at
+   * `sm`, 12 at `xs` — since the node carries its own `size`.
+   *
+   * **A node, not a name.** The library publishes 1170 glyphs across 19
+   * sections and no name-to-component registry, so the caller imports the one
+   * it wants and passes it in:
+   *
+   * ```tsx
+   * <Tag icon={<IconCheck size="sm" />} label="Aprobado" showLeadingIcon />
+   * ```
+   */
+  icon?: ReactNode;
   /**
    * Turns on the remove control — what makes a Tag the input chip of a
    * Combobox. The glyph sits in a 24×24 target (WCAG 2.5.8's floor for a

@@ -1,12 +1,13 @@
-import type { ITagGroupItem, TTagSize } from '@dsm/shared';
+import type { TTagSize } from '@dsm/shared';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { PlatformTagGroup } from './PlatformTagGroup';
+import type { IPlatformTagGroupItem } from './PlatformTagGroup';
 import type { IPlatformTagGroupProps, TPlatform } from './PlatformTagGroup';
 
 const SIZES: TTagSize[] = ['sm', 'xs'];
 
-const CITIES: ITagGroupItem[] = [
+const CITIES: IPlatformTagGroupItem[] = [
   { label: 'Quito' },
   { label: 'Manta' },
   { label: 'Cuenca' },

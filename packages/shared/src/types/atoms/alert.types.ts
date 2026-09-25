@@ -1,4 +1,3 @@
-import type { TIconName } from './icon.types';
 
 /**
  * Semantic status of the Alert. Matches Figma's `status` variant axis
@@ -11,8 +10,16 @@ import type { TIconName } from './icon.types';
  */
 export type TAlertStatus = 'danger' | 'warning' | 'success' | 'info' | 'neutral';
 
-/** Glyphs Alert is allowed to paint — a closed subset of {@link TIconName}. */
-export type TAlertStatusIcon = Extract<TIconName, 'alert-circle' | 'alert-triangle' | 'check-circle' | 'info'>;
+/**
+ * Glyphs Alert is allowed to paint, by their bDS name.
+ *
+ * Still a name rather than a node, unlike every consumer-facing icon slot in
+ * the system: **this one is not a slot.** The glyph is locked per status so
+ * that shape and colour carry the meaning together, and each platform resolves
+ * these four names to its own components. A closed union keeps that resolution
+ * exhaustive — add a status and the compiler asks for its glyph.
+ */
+export type TAlertStatusIcon = 'alert-circle' | 'alert-triangle' | 'check-circle' | 'info-circle';
 
 /**
  * Where the Alert sits. Matches Figma's `placement` axis.
@@ -28,8 +35,8 @@ export const ALERT_STATUS_ICON: Record<TAlertStatus, TAlertStatusIcon> = {
   danger: 'alert-circle',
   warning: 'alert-triangle',
   success: 'check-circle',
-  info: 'info',
-  neutral: 'info',
+  info: 'info-circle',
+  neutral: 'info-circle',
 };
 
 /**

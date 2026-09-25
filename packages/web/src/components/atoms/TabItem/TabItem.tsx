@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import type { FocusEvent, ReactElement } from 'react';
 
-import { TabIcon } from './TabIcon';
 import type { ITabItemProps } from './TabItem.types';
 import { useTabItem } from './useTabItem';
 
@@ -14,8 +13,8 @@ import { useTabItem } from './useTabItem';
  * carries inactive vs active.
  *
  * `showLeadingIcon` and `showBadge` are independent booleans — never inferred
- * from content. Glyph default is `user`. Badge is painted locally (Badge is
- * not shipped).
+ * from content. The glyph has no default: `leadingIcon` is a node the caller
+ * imports from its section. Badge is painted locally (Badge is not shipped).
  *
  * @example
  * ```tsx
@@ -28,7 +27,7 @@ export const TabItem = (props: ITabItemProps): ReactElement => {
     label = 'Label',
     isSelected = false,
     showLeadingIcon = false,
-    leadingIcon = 'user',
+    leadingIcon,
     showBadge = false,
     badge = '9',
     onChange,
@@ -80,9 +79,9 @@ export const TabItem = (props: ITabItemProps): ReactElement => {
       <span style={contentStyle}>
         <span style={labelRowStyle}>
           {showLeadingIcon ? (
-            <span style={iconStyle}>
-              <TabIcon name={leadingIcon} size="sm" />
-            </span>
+            // `iconStyle` carries the tab's icon colour, which a system
+            // glyph picks up through `currentColor`.
+            <span style={iconStyle}>{leadingIcon}</span>
           ) : null}
           <span style={labelStyle}>{label}</span>
           {showBadge ? (

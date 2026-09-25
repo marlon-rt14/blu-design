@@ -10,13 +10,8 @@ import {
   type TSnackbarStatusIcon,
 } from '@dsm/shared';
 
-import {
-  IconAlertCircle,
-  IconAlertTriangle,
-  IconCheckCircle,
-  IconInfo,
-  IconX,
-} from '../../../icons';
+import { IconAlertCircle, IconAlertTriangle } from '../../../icons/alerts-feedback';
+import { IconCheckCircle, IconInfoCircle, IconX } from '../../../icons/general';
 import type { TIconProps } from '../Icon';
 import { LinkButton } from '../LinkButton';
 import type { ISnackbarProps } from './Snackbar.types';
@@ -26,7 +21,7 @@ const STATUS_ICON_COMPONENT: Record<TSnackbarStatusIcon, (props: TIconProps) => 
   'alert-circle': IconAlertCircle,
   'alert-triangle': IconAlertTriangle,
   'check-circle': IconCheckCircle,
-  info: IconInfo,
+  'info-circle': IconInfoCircle,
 };
 
 const iconColorOf = (status: TSnackbarStatus): TIconColor => {

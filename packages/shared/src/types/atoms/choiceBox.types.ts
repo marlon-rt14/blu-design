@@ -1,4 +1,4 @@
-import type { TIconName } from './icon.types';
+import type { ReactNode } from 'react';
 
 /**
  * ChoiceBox layout. `row` (default) puts media + text + control in a line;
@@ -19,8 +19,19 @@ export type TChoiceBoxVariant = 'row' | 'tile' | 'compact';
 export interface IChoiceBoxBaseProps {
   /** Layout variant. */
   variant?: TChoiceBoxVariant;
-  /** Glyph rendered in the media slot. Hidden unless `showMedia` is true. */
-  icon?: TIconName;
+  /**
+   * Glyph rendered in the media slot. Hidden unless `showMedia` is true, and
+   * dropped entirely by the `compact` variant.
+   *
+   * **A node, not a name.** The library publishes 1170 glyphs across 19
+   * sections and no name-to-component registry, so the caller imports the one
+   * it wants and passes it in:
+   *
+   * ```tsx
+   * <ChoiceBox icon={<IconCreditCard01 size="md" />} showMedia title="Tarjeta" />
+   * ```
+   */
+  icon?: ReactNode;
   /** Title displayed inside the choice box. */
   title: string;
   /** Optional supporting description below the title. */

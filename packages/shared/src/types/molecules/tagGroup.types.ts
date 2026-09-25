@@ -1,4 +1,5 @@
-import type { TIconName } from '../atoms/icon.types';
+import type { ReactNode } from 'react';
+
 import type { TTagAppearance, TTagPalette, TTagSize } from '../atoms/tag.types';
 
 /**
@@ -15,7 +16,20 @@ export interface ITagGroupItem {
   palette?: TTagPalette;
   /** @defaultValue `false` */
   showLeadingIcon?: boolean;
-  icon?: TIconName;
+  /**
+   * Glyph before the label. Rendered only when `showLeadingIcon` is on —
+   * unlike most slots in the system, presence alone does not turn it on here,
+   * because the boolean is a real property of the Figma component.
+   *
+   * **A node, not a name.** The library publishes 1170 glyphs across 19
+   * sections and no name-to-component registry, so the caller imports the one
+   * it wants and passes it in:
+   *
+   * ```tsx
+   * icon: <IconCheck size="sm" />, // from '@dsm/web/icons/general'
+   * ```
+   */
+  icon?: ReactNode;
 }
 
 /**

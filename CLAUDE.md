@@ -183,5 +183,7 @@ can't resolve props inherited from another package.
   `apps/web-demo/vite.config.ts` uses `resolve.dedupe` for the same reason.
 - `packages/web/src/styles/tokens.css` manually mirrors `@dsm/shared` tokens (CSS can't import from TS)
   — update both places when a token changes.
-- Path aliases (`@dsm/shared`, `@dsm/web`, `@dsm/web/icons`, `@dsm/mobile`, `@dsm/mobile/icons`) are
-  declared once in `tsconfig.base.json` and consumed by every project's `tsconfig.json`.
+- Path aliases (`@dsm/shared`, `@dsm/web`, `@dsm/web/icons/*`, `@dsm/mobile`, `@dsm/mobile/icons/*`)
+  are declared once in `tsconfig.base.json` and consumed by every project's `tsconfig.json`. The
+  icon subpaths are wildcards: there is **one entry point per section** (`@dsm/web/icons/layout`),
+  19 of them, and no barrel over them — see `scripts/generate-icons.mjs`.

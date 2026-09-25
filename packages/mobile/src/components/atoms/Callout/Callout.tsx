@@ -2,7 +2,7 @@ import { cloneElement, isValidElement } from 'react';
 import type { ReactElement, ReactNode } from 'react';
 import { Text, View } from 'react-native';
 
-import { IconX } from '../../../icons';
+import { IconX } from '../../../icons/general';
 import { IconButton } from '../IconButton';
 import type { TIconProps } from '../Icon';
 import { LinkButton } from '../LinkButton';
@@ -35,7 +35,7 @@ const tintedIcon = (icon: ReactNode, tintColor: string): ReactNode =>
  * <Callout
  *   action={{ label: 'Activar cashback', onPress: activate }}
  *   body="Recibe el 2% de tus compras en supermercados, directo en tu estado de cuenta."
- *   icon={<IconCreditCard />}
+ *   icon={<IconCreditCard01 />}
  *   title="Tu tarjeta ahora tiene cashback"
  * />
  * ```

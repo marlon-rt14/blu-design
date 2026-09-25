@@ -2,7 +2,7 @@ import { COACHMARK_DISMISS_LABEL, resolveCoachmarkActionLabel } from '@dsm/share
 import { FloatingFocusManager, FloatingPortal } from '@floating-ui/react';
 import type { ReactElement } from 'react';
 
-import { IconX } from '../../../icons';
+import { IconX } from '../../../icons/general';
 import { Button } from '../../atoms/Button';
 import { IconButton } from '../../atoms/IconButton';
 import { Image } from '../../atoms/Image';

@@ -5,7 +5,8 @@ import { Image as RNImage, View } from 'react-native';
 import { resolveImageStatus } from '@dsm/shared';
 import type { TImageLoadPhase } from '@dsm/shared';
 
-import { IconAlertTriangle, IconImage } from '../../../icons';
+import { IconAlertTriangle } from '../../../icons/alerts-feedback';
+import { IconImage01 } from '../../../icons/images';
 import type { IImageProps } from './Image.types';
 import { useImage } from './useImage';
 
@@ -62,7 +63,7 @@ export const Image = (props: IImageProps): ReactElement => {
           <View style={sheenStyle} />
         </View>
       ) : null}
-      {showEmptyIcon ? <IconImage color="tertiary" size="lg" /> : null}
+      {showEmptyIcon ? <IconImage01 color="tertiary" size="lg" /> : null}
       {showErrorIcon ? <IconAlertTriangle color="secondary" size="lg" /> : null}
     </View>
   );

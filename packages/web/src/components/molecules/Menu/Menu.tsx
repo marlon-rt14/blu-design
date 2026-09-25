@@ -3,7 +3,7 @@ import type { CSSProperties } from 'react';
 import { useEffect, useId, useRef, useState } from 'react';
 import type { KeyboardEvent, ReactElement } from 'react';
 
-import { IconCheck } from '../../../icons';
+import { IconCheck } from '../../../icons/general';
 import type { IMenuProps } from './Menu.types';
 import { useMenu } from './useMenu';
 

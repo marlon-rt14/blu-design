@@ -1,15 +1,11 @@
-import type { TIconSize, TListItemSize } from '@dsm/shared';
 import { useState } from 'react';
 import type { ReactElement } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
+import { tintNode } from '../../atoms/Icon';
 import { Avatar } from '../../atoms/Avatar';
-import { FieldIcon } from '../../atoms/TextField/FieldIcon';
 import type { IListItemProps } from './ListItem.types';
 import { useListItem } from './useListItem';
-
-/** ListItem's `size` shares its names with Icon's and Avatar's own steps — no mapping needed. */
-const toIconSize = (size: TListItemSize): TIconSize => size;
 
 /**
  * Mobile ListItem — the row of a list: a transaction, a contact, a product.
@@ -27,7 +23,7 @@ export const ListItem = ({ onPress, ...props }: IListItemProps): ReactElement =>
   const {
     label,
     leadingContent = 'none',
-    icon = 'user',
+    icon,
     avatarType = 'initials',
     avatarInitials,
     avatarImageUrl,
@@ -53,9 +49,7 @@ export const ListItem = ({ onPress, ...props }: IListItemProps): ReactElement =>
   const content = (
     <>
       {leadingContent === 'icon' ? (
-        <View style={leadingStyle}>
-          <FieldIcon name={icon} size={toIconSize(size)} tintColor={iconColor} />
-        </View>
+        <View style={leadingStyle}>{tintNode(icon, iconColor)}</View>
       ) : leadingContent === 'avatar' ? (
         <View style={leadingStyle}>
           <Avatar imageUrl={avatarImageUrl} initials={avatarInitials} size={size} tone={avatarTone} type={avatarType} />

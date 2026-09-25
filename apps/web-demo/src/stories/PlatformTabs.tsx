@@ -1,7 +1,11 @@
 import { TabItem as NativeTabItem, Tabs as NativeTabs } from '@dsm/mobile';
-import type { ITabsBaseProps, TIconName } from '@dsm/shared';
+import type { ITabsBaseProps } from '@dsm/shared';
 import { TabItem as WebTabItem, Tabs as WebTabs } from '@dsm/web';
+import { createElement } from 'react';
 import type { ReactElement } from 'react';
+
+import type { TIconExportName } from './iconNames';
+import { NATIVE_ICONS, WEB_ICONS } from './iconRegistry';
 
 /** Which implementation to render. Mirrors the `platform` toolbar global. */
 export type TPlatform = 'web' | 'native';
@@ -10,7 +14,8 @@ export type TPlatform = 'web' | 'native';
 export interface IPlatformTab {
   label: string;
   showLeadingIcon?: boolean;
-  leadingIcon?: TIconName;
+  /** The glyph by export name — a control cannot hand over a node. */
+  leadingIcon?: TIconExportName;
   showBadge?: boolean;
   badge?: string;
   isDisabled?: boolean;
@@ -61,7 +66,11 @@ export const PlatformTabs = ({
             isSelected={chosen === item.label}
             key={item.label}
             label={item.label}
-            leadingIcon={item.leadingIcon}
+            leadingIcon={
+              item.leadingIcon === undefined
+                ? undefined
+                : createElement(NATIVE_ICONS[item.leadingIcon], { size: 'sm' })
+            }
             onPress={() => onSelect?.(item.label)}
             showBadge={item.showBadge}
             showLeadingIcon={item.showLeadingIcon}
@@ -81,7 +90,11 @@ export const PlatformTabs = ({
           isSelected={chosen === item.label}
           key={item.label}
           label={item.label}
-          leadingIcon={item.leadingIcon}
+          leadingIcon={
+            item.leadingIcon === undefined
+              ? undefined
+              : createElement(WEB_ICONS[item.leadingIcon], { size: 'sm' })
+          }
           onChange={() => onSelect?.(item.label)}
           showBadge={item.showBadge}
           showLeadingIcon={item.showLeadingIcon}

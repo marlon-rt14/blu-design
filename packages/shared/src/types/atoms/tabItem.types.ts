@@ -1,4 +1,4 @@
-import type { TIconName } from './icon.types';
+import type { ReactNode } from 'react';
 
 /**
  * Physical size of a Tab item. Matches Figma's `size` axis.
@@ -43,12 +43,17 @@ export interface ITabItemBaseProps {
    */
   showLeadingIcon?: boolean;
   /**
-   * Instance-swap of the leading glyph. Only visible when `showLeadingIcon`
-   * is on. Figma default: `icon/user`.
+   * The leading glyph. Only rendered when `showLeadingIcon` is on.
    *
-   * @defaultValue `'user'`
+   * **A node, not a name**, so Figma's own default of `icon/user` does not
+   * survive: the library publishes 1170 glyphs across 19 sections and no
+   * name-to-component registry, so the caller imports the one it wants.
+   *
+   * ```tsx
+   * <TabItem label="Movimientos" leadingIcon={<IconUser01 size="sm" />} showLeadingIcon />
+   * ```
    */
-  leadingIcon?: TIconName;
+  leadingIcon?: ReactNode;
   /**
    * @defaultValue `false`
    */

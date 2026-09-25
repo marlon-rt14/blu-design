@@ -41,16 +41,12 @@ import { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
-import {
-  IconAlertTriangle,
-  IconArrowUpRight,
-  IconCheckCircle,
-  IconChevronRight,
-  IconImage,
-  IconPlus,
-  IconSearch,
-  IconTrash,
-} from '@dsm/mobile/icons';
+import { IconAlertTriangle } from '@dsm/mobile/icons/alerts-feedback';
+import { IconArrowUpRight, IconChevronRight } from '@dsm/mobile/icons/arrows';
+import { IconCheckCircle, IconInfoCircle, IconPlus, IconSearchMd, IconTrash01 } from '@dsm/mobile/icons/general';
+import { IconLock01 } from '@dsm/mobile/icons/security';
+import { IconUser01 } from '@dsm/mobile/icons/users';
+import { IconImage01 } from '@dsm/mobile/icons/images';
 
 const METODOS = [
   { id: 'Débito', detalle: 'Se debita al instante', cuota: '$ 1.200' },
@@ -163,7 +159,7 @@ const FilasSobreSuperficie = ({ onPress }: { onPress: () => void }) => {
           {(['sm', 'md', 'lg'] as const).map(size => (
             <IconButton
               appearance={appearance}
-              icon={IconTrash}
+              icon={IconTrash01}
               key={size}
               label="Eliminar"
               onPress={onPress}
@@ -174,7 +170,7 @@ const FilasSobreSuperficie = ({ onPress }: { onPress: () => void }) => {
           <IconButton
             appearance={appearance}
             disabled
-            icon={IconTrash}
+            icon={IconTrash01}
             label="Eliminar"
             onPress={onPress}
             testID={`ib-${appearance}-disabled`}
@@ -345,7 +341,7 @@ const App = () => {
                   {(['xs', 'sm', 'md', 'lg'] as const).map(size => (
                     <IconButton
                       appearance={appearance}
-                      icon={IconTrash}
+                      icon={IconTrash01}
                       key={size}
                       label="Eliminar"
                       onPress={handlePress}
@@ -356,7 +352,7 @@ const App = () => {
                   <IconButton
                     appearance={appearance}
                     disabled
-                    icon={IconTrash}
+                    icon={IconTrash01}
                     label="Eliminar"
                     onPress={handlePress}
                     testID={`ib-${appearance}-disabled`}
@@ -563,9 +559,9 @@ const App = () => {
                   <ListItem description="Ayer, 18:41" label="Recarga de celular" showDescription showTrailingText trailingText="$15,00" />
                 </ListGroup>
                 <ListGroup testID="listgroup-ajustes">
-                  <ListItem icon="user" label="Datos personales" leadingContent="icon" />
-                  <ListItem icon="lock" label="Seguridad" leadingContent="icon" />
-                  <ListItem icon="info" label="Ayuda" leadingContent="icon" />
+                  <ListItem icon={<IconUser01 size="md" />} label="Datos personales" leadingContent="icon" />
+                  <ListItem icon={<IconLock01 size="md" />} label="Seguridad" leadingContent="icon" />
+                  <ListItem icon={<IconInfoCircle size="md" />} label="Ayuda" leadingContent="icon" />
                 </ListGroup>
                 {/* Con una sola fila el divisor se apaga, porque esa fila
                     tambien es la ultima. */}
@@ -762,7 +758,7 @@ const App = () => {
                   <Button
                     isDisabled
                     label="disabled"
-                    leadingIcon={IconTrash}
+                    leadingIcon={IconTrash01}
                     onPress={handlePress}
                     testID={`button-${variant}-icon-disabled`}
                     variant={variant}
@@ -776,7 +772,7 @@ const App = () => {
               <View style={styles.choiceBoxList}>
                 <ChoiceBox
                   description="Facturacion mensual, sin permanencia."
-                  icon="image"
+                  icon={<IconImage01 size="lg" />}
                   isChecked={selectedChoice === 'monthly'}
                   onValueChange={() => setSelectedChoice('monthly')}
                   showDescription
@@ -785,7 +781,7 @@ const App = () => {
                 />
                 <ChoiceBox
                   description="Ahorra un 20% con el pago anual."
-                  icon="image"
+                  icon={<IconImage01 size="lg" />}
                   isChecked={selectedChoice === 'annual'}
                   onValueChange={() => setSelectedChoice('annual')}
                   showDescription
@@ -794,7 +790,7 @@ const App = () => {
                 />
                 <ChoiceBox
                   description="Esta opcion no esta disponible ahora."
-                  icon="image"
+                  icon={<IconImage01 size="lg" />}
                   isDisabled
                   showDescription
                   testID="choicebox-disabled"
@@ -809,7 +805,7 @@ const App = () => {
                 <View style={styles.choiceBoxTileCell}>
                   <ChoiceBox
                     description="Al ****6760"
-                    icon="image"
+                    icon={<IconImage01 size="lg" />}
                     isChecked={selectedTile === 'sms'}
                     onValueChange={() => setSelectedTile('sms')}
                     showDescription
@@ -821,7 +817,7 @@ const App = () => {
                 <View style={styles.choiceBoxTileCell}>
                   <ChoiceBox
                     description="A j****@mail.com"
-                    icon="image"
+                    icon={<IconImage01 size="lg" />}
                     isChecked={selectedTile === 'email'}
                     onValueChange={() => setSelectedTile('email')}
                     showDescription
@@ -855,7 +851,7 @@ const App = () => {
               <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>AVATAR</Text>
               <View style={styles.row}>
                 <Avatar initials="JG" testID="avatar-initials" />
-                <Avatar icon="user" testID="avatar-icon" type="icon" />
+                <Avatar icon={<IconUser01 size="sm" />} testID="avatar-icon" type="icon" />
                 <Avatar imageUrl="https://i.pravatar.cc/160" testID="avatar-image" type="image" />
                 <Avatar imageUrl="https://i.pravatar.cc/160" testID="avatar-logo" type="logo" />
               </View>
@@ -891,7 +887,7 @@ const App = () => {
             <View style={styles.section}>
               <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>LISTITEM · LEADING</Text>
               <ListItem label="Sin leading" testID="listitem-none" />
-              <ListItem icon="user" label="Con icono" leadingContent="icon" testID="listitem-icon" />
+              <ListItem icon={<IconUser01 size="md" />} label="Con icono" leadingContent="icon" testID="listitem-icon" />
               <ListItem avatarInitials="JG" label="Con avatar" leadingContent="avatar" testID="listitem-avatar" />
 
               <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
@@ -929,7 +925,7 @@ const App = () => {
                 LISTITEM · INTERACTIVO / TRAILING / DISABLED
               </Text>
               <ListItem
-                icon="user"
+                icon={<IconUser01 size="md" />}
                 label="Ver todos los contactos"
                 leadingContent="icon"
                 onPress={handlePress}
@@ -960,7 +956,7 @@ const App = () => {
               <View style={styles.row}>
                 <Tag label="Tamaño sm" size="sm" testID="tag-size-sm" />
                 <Tag label="Tamaño xs" size="xs" testID="tag-size-xs" />
-                <Tag icon="check-circle" label="Verificado" palette="success" showLeadingIcon testID="tag-icon" />
+                <Tag icon={<IconCheckCircle size="sm" />} label="Verificado" palette="success" showLeadingIcon testID="tag-icon" />
                 <Tag
                   appearance="outline"
                   label="Chip removible"
@@ -1014,19 +1010,19 @@ const App = () => {
               </Text>
               <Text style={[styles.subtitle, { fontFamily: regularFont }]}>
                 Los 31 glifos de bDS salen ya montados de @dsm/mobile/icons:
-                &lt;IconTrash size="lg" color="danger" /&gt;. Cada uno es un
+                &lt;IconTrash01 size="lg" color="danger" /&gt;. Cada uno es un
                 Icon con sus paths adentro, asi que fija la caja desde
                 size/icon/* y resuelve el color del tema.
               </Text>
 
-              <IconImage size="lg" />
+              <IconImage01 size="lg" />
 
               {/* Los 6 pasos. El label es el valor que resuelve el token, no un
                   width escrito a mano. */}
               <View style={[styles.row, styles.iconRow]}>
                 {ICON_SIZES.map(([size, px]) => (
                   <View key={size} style={styles.iconCell}>
-                    <IconImage size={size} testID={`icon-size-${size}`} />
+                    <IconImage01 size={size} testID={`icon-size-${size}`} />
                     <Text
                       style={[styles.iconLabel, { fontFamily: regularFont }]}
                     >
@@ -1078,11 +1074,11 @@ const App = () => {
                 {(
                   [
                     ['plus', IconPlus],
-                    ['search', IconSearch],
-                    ['trash', IconTrash],
+                    ['search', IconSearchMd],
+                    ['trash', IconTrash01],
                     ['check-circle', IconCheckCircle],
                     ['alert-triangle', IconAlertTriangle],
-                    ['image', IconImage],
+                    ['image', IconImage01],
                   ] as const
                 ).map(([name, IconComponent]) => (
                   <View key={name} style={styles.iconCell}>

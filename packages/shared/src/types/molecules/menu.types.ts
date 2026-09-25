@@ -30,15 +30,18 @@ export interface IMenuOption {
    * Whatever goes before the label. Its presence turns the leading slot on — no
    * separate boolean.
    *
-   * **A node, not an icon name.** It started as a `TIconName`, which limited the
-   * slot to the 31 system glyphs and left no way to put artwork in a row — a
+   * **A node, not an icon name.** It started as a glyph name, which limited the
+   * slot to the system's own set and left no way to put artwork in a row — a
    * country flag, a card-brand logo, an avatar. Widened for the PhoneField's
    * country selector, where each row carries its country's flag and those are
    * third-party artwork that must not be tinted by the theme, so they can never
    * be system glyphs.
    *
    * A glyph is still the common case and costs one element:
-   * `leadingContent: <IconFlag size="sm" />`.
+   * `leadingContent: <IconFlag01 size="sm" />`.
+   *
+   * This is now how every icon slot in the system works — `TIconName` is gone
+   * and the names went with it — but this one was first.
    *
    * **Not to be confused with `ListItem`'s `leadingContent`**, which is an enum
    * — `'none' | 'icon' | 'avatar'` — naming *what kind* of thing the slot holds.

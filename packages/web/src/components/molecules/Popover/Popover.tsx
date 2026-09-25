@@ -2,7 +2,7 @@ import { POPOVER_DISMISS_LABEL } from '@dsm/shared';
 import { FloatingFocusManager, FloatingPortal } from '@floating-ui/react';
 import type { ReactElement } from 'react';
 
-import { IconX } from '../../../icons';
+import { IconX } from '../../../icons/general';
 import { IconButton } from '../../atoms/IconButton';
 import type { IPopoverProps } from './Popover.types';
 import { usePopover } from './usePopover';

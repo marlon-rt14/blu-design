@@ -3,13 +3,18 @@ import { useState } from 'react';
 import type { ReactElement } from 'react';
 import { Modal, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 
-import { FieldIcon } from '../../atoms/TextField/FieldIcon';
-import { IconCheck, IconChevronDown, IconSearch } from '../../../icons';
+import { IconChevronDown } from '../../../icons/arrows';
+import { IconCheck, IconSearchMd } from '../../../icons/general';
+import { tintNode } from '../../atoms/Icon';
 import { ListItem } from '../ListItem';
 import type { ISelectProps } from './Select.types';
 import { useSelect } from './useSelect';
 
-/** Select's field steps map onto Icon's the same way TextField's do: sm/md share `sm`, lg steps to `md`. */
+/**
+ * Select's own fixed glyphs — the chevron and the search field inside the menu —
+ * map onto Icon's steps the same way TextField's do: sm/md share `sm`, lg steps
+ * to `md`. It is not used for `leadingIcon`, which is a node the caller sizes.
+ */
 const iconSizeForField = (size: TSelectSize): TIconSize => (size === 'lg' ? 'md' : 'sm');
 
 /**
@@ -111,7 +116,7 @@ export const Select = (props: ISelectProps): ReactElement => {
         style={fieldStyle}
         testID={testID}
       >
-        {leadingIcon ? <FieldIcon color={disabled ? 'disabled' : 'secondary'} name={leadingIcon} size={iconSizeForField(size)} tintColor={iconColor} /> : null}
+        {tintNode(leadingIcon, iconColor)}
         <View style={contentStyle}>
           {showFloatingLabel ? <Text style={labelStyle}>{label}</Text> : null}
           <Text numberOfLines={1} style={valueStyle}>
@@ -132,7 +137,7 @@ export const Select = (props: ISelectProps): ReactElement => {
             <Text style={sheetHeaderStyle}>{label}</Text>
             {isSearchable ? (
               <View style={searchWrapperStyle}>
-                <IconSearch size={iconSizeForField(size)} tintColor={iconColor} />
+                <IconSearchMd size={iconSizeForField(size)} tintColor={iconColor} />
                 <TextInput
                   accessibilityLabel={`Buscar en ${label}`}
                   onChangeText={setSearchQuery}

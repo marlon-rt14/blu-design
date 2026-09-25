@@ -1,14 +1,9 @@
-import type { TIconSize, TListItemSize } from '@dsm/shared';
 import { useState } from 'react';
 import type { FocusEvent, KeyboardEvent, MouseEvent, ReactElement } from 'react';
 
 import { Avatar } from '../../atoms/Avatar';
-import { FieldIcon } from '../../atoms/TextField/FieldIcon';
 import type { IListItemProps } from './ListItem.types';
 import { useListItem } from './useListItem';
-
-/** ListItem's `size` shares its names with Icon's and Avatar's own steps — no mapping needed. */
-const toIconSize = (size: TListItemSize): TIconSize => size;
 
 /**
  * Web ListItem — the row of a list: a transaction, a contact, a product.
@@ -41,7 +36,7 @@ export const ListItem = (props: IListItemProps): ReactElement => {
   const {
     label,
     leadingContent = 'none',
-    icon = 'user',
+    icon,
     avatarType = 'initials',
     avatarInitials,
     avatarImageUrl,
@@ -110,9 +105,7 @@ export const ListItem = (props: IListItemProps): ReactElement => {
       tabIndex={isInteractive ? (isDisabled ? -1 : 0) : undefined}
     >
       {leadingContent === 'icon' ? (
-        <span style={{ ...leadingStyle, color: iconColor }}>
-          <FieldIcon name={icon} size={toIconSize(size)} />
-        </span>
+        <span style={{ ...leadingStyle, color: iconColor }}>{icon}</span>
       ) : leadingContent === 'avatar' ? (
         <span style={leadingStyle}>
           <Avatar

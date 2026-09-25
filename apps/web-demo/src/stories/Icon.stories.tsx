@@ -3,7 +3,8 @@ import type { TIconColor, TIconSize } from '@dsm/shared';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 
-import { ICON_NAMES, toFigmaName } from './iconNames';
+import { ICON_NAMES, iconSection, toFigmaName } from './iconNames';
+import { ICON_SECTIONS } from './iconRegistry';
 import { PlatformIcon } from './PlatformIcon';
 import type { IPlatformIconProps, TPlatform } from './PlatformIcon';
 import { themeFromGlobals } from './themeGlobals';
@@ -77,7 +78,7 @@ const meta = {
           '**The wrapper every icon in the system passes through** — it is not the drawing. ' +
           'It fixes the box from `size/icon/*` and resolves the colour; the paths enter as ' +
           'children. You almost never use it directly: the 31 glyphs bDS publishes come ' +
-          'pre-built as `IconTrash`, `IconPlus`… from `@dsm/web/icons` and ' +
+          'pre-built as `IconTrash01`, `IconPlus`… from `@dsm/web/icons` and ' +
           '`@dsm/mobile/icons`.\n\n' +
           '`size` defaults to `sm` (16) — bDS calls it *"el tamaño por defecto del sistema"*, ' +
           'against the `2xs` the Figma properties table reports. `color` is **optional and ' +
@@ -94,7 +95,7 @@ const meta = {
       options: ICON_NAMES,
       description:
         'Which glyph. **Not a real prop** — each glyph is its own component, so this picks ' +
-        'which one to import. `<IconTrash size="lg" />`, not `<Icon name="trash" />`.',
+        'which one to import. `<IconTrash01 size="lg" />`, not `<Icon name="trash" />`.',
       table: { category: 'Story' },
     },
     size: {
@@ -141,7 +142,7 @@ const meta = {
     platform: { table: { disable: true } },
   },
   args: {
-    name: 'IconTrash',
+    name: 'IconTrash01',
   },
   render: (args, { globals }) => (
     <PlatformIcon {...args} platform={globals.platform as TPlatform} />
@@ -156,27 +157,49 @@ type TStory = StoryObj<typeof meta>;
 export const Playground: TStory = {};
 
 /**
- * All 31 glyphs the library exports, with the bDS name each one came from.
+ * All 1170 glyphs the library exports, **grouped by the section you import them
+ * from** — that is the part a name alone does not tell you.
  *
- * This is the list to shop from: the export name is what you import. Flip the
- * **Platform** dropdown and the same set renders through react-native-svg.
+ * This is the list to shop from: the heading is the entry point, and the export
+ * name under each glyph is what you write. Flip the **Platform** dropdown and
+ * the same set renders through react-native-svg.
  */
 export const Gallery: TStory = {
+  args: {
+    size: "xl"
+  },
+
   render: (args, { globals }) => (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20, justifyContent: 'center' }}>
-      {ICON_NAMES.map((name) => (
-        <Cell key={name}>
-          <PlatformIcon
-            {...args}
-            name={name}
-            platform={globals.platform as TPlatform}
-            size="lg"
-          />
-          <Caption>{toFigmaName(name)}</Caption>
-        </Cell>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+      {ICON_SECTIONS.map((section) => (
+        <section key={section.slug}>
+          <h3 style={{ fontSize: 14, margin: '0 0 4px' }}>
+            {section.title} <span style={{ opacity: 0.5, fontWeight: 400 }}>({section.count})</span>
+          </h3>
+          <code style={{ fontSize: 11, opacity: 0.6 }}>
+            {`import { … } from '@dsm/web/icons/${section.slug}'`}
+          </code>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20, marginTop: 12 }}>
+            {ICON_NAMES.filter((name) => iconSection(name) === section.slug).map((name) => (
+              <Cell key={name}>
+                <PlatformIcon
+                  {...args}
+                  name={name}
+                  platform={globals.platform as TPlatform}
+                  size="lg"
+                />
+                {/* The bDS name on hover: it is derivable from the export name, so it
+                    would be noise printed 1170 times, but it is the link to Figma. */}
+                <Caption>
+                  <span title={toFigmaName(name)}>{name}</span>
+                </Caption>
+              </Cell>
+            ))}
+          </div>
+        </section>
       ))}
     </div>
-  ),
+  )
 };
 
 /**
@@ -260,7 +283,7 @@ export const OnSurfaces: TStory = {
               <PlatformIcon
                 {...args}
                 color={role}
-                name="IconInfo"
+                name="IconInfoCircle"
                 platform={globals.platform as TPlatform}
                 size="lg"
               />
@@ -298,7 +321,7 @@ export const Inheritance: TStory = {
           >
             <PlatformIcon {...args} name="IconPlus" platform={platform} size="md" />
             inherits {color}
-            <PlatformIcon {...args} name="IconTrash" platform={platform} size="md" />
+            <PlatformIcon {...args} name="IconTrash01" platform={platform} size="md" />
           </span>
         ))}
         <span style={{ fontSize: 12, opacity: 0.6 }}>

@@ -1,4 +1,4 @@
-import type { TIconName } from '../atoms/icon.types';
+import type { ReactNode } from 'react';
 
 /**
  * Physical size of the field. Shares its height steps with TextField's own:
@@ -18,7 +18,19 @@ export type TSelectSize = 'sm' | 'md' | 'lg';
 export interface ISelectOption {
   value: string;
   label: string;
-  icon?: TIconName;
+  /**
+   * Glyph before the row's label. Its presence turns the slot on — no
+   * separate boolean.
+   *
+   * **A node, not a name.** The library publishes 1170 glyphs across 19
+   * sections and no name-to-component registry, so the caller imports the one
+   * it wants and passes it in:
+   *
+   * ```tsx
+   * icon: <IconStore size="sm" />, // from '@dsm/web/icons/finance-ecommerce'
+   * ```
+   */
+  icon?: ReactNode;
 }
 
 /**
@@ -54,8 +66,22 @@ export interface ISelectBaseProps {
   size?: TSelectSize;
   /** Shown as the field's placeholder text while `value` is unset. */
   placeholder?: string;
-  /** Glyph before the value. Its presence turns the leading icon slot on — no separate boolean. */
-  leadingIcon?: TIconName;
+  /**
+   * Glyph before the value. Its presence turns the leading icon slot on — no
+   * separate boolean.
+   *
+   * **A node, not a name.** The library publishes 1170 glyphs across 19
+   * sections and no name-to-component registry, so the caller imports the one
+   * it wants and passes it in:
+   *
+   * ```tsx
+   * **Size it to the field**, the same steps the chevron still uses: `sm` and
+   * `md` bind `size/icon/sm` (16), `lg` binds `size/icon/md` (24).
+   *
+   * leadingIcon={<IconSearchMd size="sm" />}
+   * ```
+   */
+  leadingIcon?: ReactNode;
   /** Shown below the field. Ignored while `error` is set. */
   helperText?: string;
   /** Shown below the field instead of `helperText`, and puts the field in its error state. Its presence is what turns error on — no separate boolean. */

@@ -3,7 +3,7 @@ import { useEffect, useId, useRef } from 'react';
 // hands back below, and React's synthetic one would shadow it.
 import type { KeyboardEvent as IReactKeyboardEvent, ReactElement } from 'react';
 
-import { IconChevronDown } from '../../../icons';
+import { IconChevronDown } from '../../../icons/arrows';
 import { Menu } from '../../molecules/Menu';
 import { CountryFlag } from './CountryFlag';
 import type { IPhoneFieldProps } from './PhoneField.types';

@@ -7,7 +7,7 @@
   "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./icons": "./src/icons/index.tsx"
+    "./icons/*": "./src/icons/*.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

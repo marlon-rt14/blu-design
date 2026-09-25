@@ -3,7 +3,7 @@ import { cloneElement, isValidElement } from 'react';
 import type { ReactElement } from 'react';
 import { Modal, Pressable, Text, View } from 'react-native';
 
-import { IconX } from '../../../icons';
+import { IconX } from '../../../icons/general';
 import { IconButton } from '../../atoms/IconButton';
 import { LinkButton } from '../../atoms/LinkButton';
 import type { ITooltipProps } from './Tooltip.types';
@@ -26,7 +26,7 @@ import { useTooltip } from './useTooltip';
  * @example
  * ```tsx
  * <Tooltip body="Se envía a tu correo">
- *   <IconButton icon={IconInfo} label="Más información" onPress={noop} />
+ *   <IconButton icon={IconInfoCircle} label="Más información" onPress={noop} />
  * </Tooltip>
  * ```
  */

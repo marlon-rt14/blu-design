@@ -3,7 +3,7 @@ import type { ReactElement } from 'react';
 import { Modal, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import type { ViewStyle } from 'react-native';
 
-import { IconX } from '../../../icons';
+import { IconX } from '../../../icons/general';
 import { Button } from '../../atoms/Button';
 import { IconButton } from '../../atoms/IconButton';
 import { Image } from '../../atoms/Image';

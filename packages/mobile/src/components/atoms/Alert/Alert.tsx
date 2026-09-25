@@ -4,7 +4,8 @@ import { Pressable, Text, View } from 'react-native';
 
 import { ALERT_STATUS_ICON, type TAlertStatus } from '@dsm/shared';
 
-import { IconAlertCircle, IconAlertTriangle, IconCheckCircle, IconInfo, IconX } from '../../../icons';
+import { IconAlertCircle, IconAlertTriangle } from '../../../icons/alerts-feedback';
+import { IconCheckCircle, IconInfoCircle, IconX } from '../../../icons/general';
 import type { TIconProps } from '../Icon';
 import { LinkButton } from '../LinkButton';
 import type { IAlertProps } from './Alert.types';
@@ -19,8 +20,8 @@ const statusIcon = (status: TAlertStatus): ((props: TIconProps) => ReactElement)
       return IconAlertTriangle;
     case 'check-circle':
       return IconCheckCircle;
-    case 'info':
-      return IconInfo;
+    case 'info-circle':
+      return IconInfoCircle;
     default: {
       const _exhaustive: never = name;
       return _exhaustive;

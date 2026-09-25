@@ -1,4 +1,3 @@
-import type { TIconName } from './icon.types';
 
 /**
  * Semantic status of the Snackbar. Matches Figma's `status` variant axis
@@ -11,12 +10,17 @@ import type { TIconName } from './icon.types';
  */
 export type TSnackbarStatus = 'info' | 'success' | 'warning' | 'danger';
 
-/** Glyphs Snackbar is allowed to paint — a closed subset of {@link TIconName}. */
-export type TSnackbarStatusIcon = Extract<TIconName, 'alert-circle' | 'alert-triangle' | 'check-circle' | 'info'>;
+/**
+ * Glyphs Snackbar is allowed to paint, by their bDS name.
+ *
+ * A name rather than a node for the same reason {@link TAlertStatusIcon} is:
+ * the glyph is locked per status and is never a slot the caller can reach.
+ */
+export type TSnackbarStatusIcon = 'alert-circle' | 'alert-triangle' | 'check-circle' | 'info-circle';
 
 /** Glyph locked to each status — host picks it, consumers cannot swap. */
 export const SNACKBAR_STATUS_ICON: Record<TSnackbarStatus, TSnackbarStatusIcon> = {
-  info: 'info',
+  info: 'info-circle',
   success: 'check-circle',
   warning: 'alert-triangle',
   danger: 'alert-circle',

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ChangeEvent, FocusEvent, ReactElement } from 'react';
 
-import { IconCheck, IconMinus } from '../../../icons';
+import { IconCheck, IconMinus } from '../../../icons/general';
 import type { ICheckboxProps } from './Checkbox.types';
 import { useCheckbox } from './useCheckbox';
 

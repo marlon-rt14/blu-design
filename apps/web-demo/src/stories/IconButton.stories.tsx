@@ -155,7 +155,7 @@ const meta = {
       options: ICON_NAMES,
       description:
         'The glyph. **Required** — an IconButton with nothing in it is not anything. The real ' +
-        'prop takes the component (`icon={IconTrash}`); this control passes a name because ' +
+        'prop takes the component (`icon={IconTrash01}`); this control passes a name because ' +
         'Storybook can only hand over a string.',
       table: { category: 'Content' },
     },
@@ -204,7 +204,7 @@ const meta = {
     platform: { table: { disable: true } },
   },
   args: {
-    icon: 'IconTrash',
+    icon: 'IconTrash01',
     label: 'Eliminar',
     // Required by the contract, so the meta has to supply one or every story
     // would need its own. `fn()` also logs it in the Actions panel.

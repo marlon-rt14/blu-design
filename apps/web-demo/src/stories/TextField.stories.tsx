@@ -3,12 +3,22 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement, ReactNode } from 'react';
 import { useState } from 'react';
 
-import { ICON_NAMES, toFigmaName } from './iconNames';
+import { ICON_NAMES } from './iconNames';
 import { PlatformTextField } from './PlatformTextField';
 import type { IPlatformTextFieldProps, TPlatform } from './PlatformTextField';
 
 const SIZES: TTextFieldSize[] = ['small', 'medium', 'large'];
-const GLYPHS = ICON_NAMES.map((name) => toFigmaName(name).replace(/^icon\//, ''));
+/**
+ * The glyphs the affix controls offer — by export name, since that is what the
+ * bridge resolves. All 1170 in one `select` is unusable, so this is the handful
+ * a field actually reaches for; `ICON_NAMES` is still the source of truth for
+ * the gallery.
+ */
+const GLYPHS = ICON_NAMES.filter((name) =>
+  ['IconSearchMd', 'IconImage01', 'IconX', 'IconXCircle', 'IconEye', 'IconEyeOff', 'IconLock01', 'IconCreditCard01'].includes(
+    name,
+  ),
+);
 
 /** Lays several fields out in a column, so labels and helper text stay readable. */
 const Column = ({ children }: { children: ReactNode }): ReactElement => (
@@ -81,7 +91,9 @@ const meta = {
       control: 'select',
       options: GLYPHS,
       description:
-        'InstanceSwap glyph (`TIconName`). Renders `IconSearch`, `IconImage`, … from `@dsm/{web,mobile}/icons`. Default `search`.',
+        'The prefix glyph, **by export name** — the real prop is a `ReactNode` the ' +
+        'caller imports from its section (`@dsm/web/icons/general`, …). No default ' +
+        'any more: Figma\'s `icon/search` went with the names.',
       table: { category: 'Affixes', defaultValue: { summary: 'search' } },
     },
     suffix: {
@@ -283,7 +295,7 @@ export const WithHelperAndCounter: TStory = {
 /**
  * `prefix` / `suffix` / icons live in `inputRow` *under* the floating label
  * (Figma `content` → `label` + `inputRow`), not beside it. Glyphs are the
- * published set (`IconSearch`, `IconImage`, …), default `search`.
+ * published set (`IconSearchMd`, `IconImage01`, …), default `search`.
  */
 export const WithAffixes: TStory = {
   args: {
@@ -295,9 +307,9 @@ export const WithAffixes: TStory = {
     suffix: 'USD',
     showSuffixText: true,
     showPrefixIcon: true,
-    prefixIcon: 'search',
+    prefixIcon: 'IconSearchMd',
     showSuffixIcon: true,
-    suffixIcon: 'search',
+    suffixIcon: 'IconSearchMd',
   },
 };
 
@@ -307,8 +319,8 @@ export const WithIcons: TStory = {
     label: 'Search',
     value: '',
     showPrefixIcon: true,
-    prefixIcon: 'search',
+    prefixIcon: 'IconSearchMd',
     showSuffixIcon: true,
-    suffixIcon: 'x',
+    suffixIcon: 'IconX',
   },
 };

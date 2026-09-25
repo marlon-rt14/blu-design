@@ -1,4 +1,4 @@
-import type { TIconName } from './icon.types';
+import type { ReactNode } from 'react';
 
 /**
  * Physical size of a TextField.
@@ -104,13 +104,21 @@ export interface ITextFieldBaseProps {
   /** Whether `prefix` renders. @defaultValue `false` */
   showPrefixText?: boolean;
   /**
-   * Glyph rendered before the value when `showPrefixIcon` is `true`. Figma
-   * InstanceSwap → `TIconName` (the published set: `search`, `image`, …).
-   * Default is `search` — Figma's own default prefix for TextField.
+   * Glyph rendered before the value when `showPrefixIcon` is `true`.
    *
-   * @defaultValue `'search'`
+   * **A node, not a name.** Figma's InstanceSwap defaulted to `icon/search`
+   * and that default is gone with it: the library publishes 1170 glyphs across
+   * 19 sections and no name-to-component registry, so `showPrefixIcon` with
+   * nothing here renders an empty slot.
+   *
+   * **Size it to the field**, which the component used to do: `small` and
+   * `medium` bind `size/icon/sm` (16), `large` binds `size/icon/md` (24).
+   *
+   * ```tsx
+   * <TextField label="Buscar" prefixIcon={<IconSearchMd size="sm" />} showPrefixIcon />
+   * ```
    */
-  prefixIcon?: TIconName;
+  prefixIcon?: ReactNode;
   /** Whether the icon slot before the value renders. @defaultValue `false` */
   showPrefixIcon?: boolean;
   /**
@@ -123,11 +131,10 @@ export interface ITextFieldBaseProps {
   showSuffixText?: boolean;
   /**
    * Glyph rendered after the value when `showSuffixIcon` is `true`. Same
-   * InstanceSwap contract as `prefixIcon`.
-   *
-   * @defaultValue `'search'`
+   * contract as {@link ITextFieldBaseProps.prefixIcon} — a node, and no
+   * default.
    */
-  suffixIcon?: TIconName;
+  suffixIcon?: ReactNode;
   /** Whether the icon slot after the value renders. @defaultValue `false` */
   showSuffixIcon?: boolean;
   /**

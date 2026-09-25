@@ -2,31 +2,11 @@ import { useState } from 'react';
 import type { ReactElement } from 'react';
 import { Text, TextInput, View } from 'react-native';
 
-import type { TIconSize, TTextFieldSize } from '@dsm/shared';
 
-import { FieldIcon } from './FieldIcon';
 import { textFieldStyles } from './TextField.styles';
 import type { ITextFieldProps } from './TextField.types';
+import { tintNode } from '../Icon';
 import { useTextField } from './useTextField';
-
-/**
- * Maps TextField `size` onto Icon `size`. Live Figma: sm+md fields bind
- * `size.icon.sm` (16); lg binds `size.icon.md` (24). Exhaustive so a new
- * `TTextFieldSize` fails the build until mapped.
- */
-const iconSizeForField = (size: TTextFieldSize): TIconSize => {
-  switch (size) {
-    case 'small':
-    case 'medium':
-      return 'sm';
-    case 'large':
-      return 'md';
-    default: {
-      const _exhaustive: never = size;
-      return _exhaustive;
-    }
-  }
-};
 
 /**
  * React Native TextField — a single-line text input with a label, helper/error
@@ -56,8 +36,8 @@ export const TextField = ({
   onBlur,
   keyboardType = 'default',
   isSecure = false,
-  prefixIcon = 'search',
-  suffixIcon = 'search',
+  prefixIcon,
+  suffixIcon,
   showPrefixText = false,
   showSuffixText = false,
   showPrefixIcon = false,
@@ -75,6 +55,7 @@ export const TextField = ({
     labelStyle,
     affixStyle,
     iconStyle,
+    iconColor,
     helperStyle,
     counterStyle,
     placeholderTextColor,
@@ -86,7 +67,6 @@ export const TextField = ({
     counterText,
   } = useTextField({ ...props, isFocused });
   const hasFooter = Boolean(displayedHelperText) || Boolean(counterText);
-  const iconSize = iconSizeForField(props.size ?? 'medium');
 
   return (
     <View style={textFieldStyles.wrapper}>
@@ -97,13 +77,7 @@ export const TextField = ({
               {showFloatingLabel && props.label ? <Text style={labelStyle}>{props.label}</Text> : null}
               <View style={inputRowStyle}>
                 {showPrefixIcon ? (
-                  <View style={iconStyle}>
-                    <FieldIcon
-                      color={isDisabled ? 'disabled' : 'secondary'}
-                      name={prefixIcon}
-                      size={iconSize}
-                    />
-                  </View>
+                  <View style={iconStyle}>{tintNode(prefixIcon, iconColor)}</View>
                 ) : null}
                 {showPrefixText && props.prefix ? <Text style={affixStyle}>{props.prefix}</Text> : null}
                 <TextInput
@@ -129,15 +103,7 @@ export const TextField = ({
                   value={props.value}
                 />
                 {showSuffixText && props.suffix ? <Text style={affixStyle}>{props.suffix}</Text> : null}
-                {showSuffixIcon ? (
-                  <View style={iconStyle}>
-                    <FieldIcon
-                      color={isDisabled ? 'disabled' : 'secondary'}
-                      name={suffixIcon}
-                      size={iconSize}
-                    />
-                  </View>
-                ) : null}
+                {showSuffixIcon ? <View style={iconStyle}>{tintNode(suffixIcon, iconColor)}</View> : null}
               </View>
             </View>
           </View>
