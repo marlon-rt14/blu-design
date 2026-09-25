@@ -58,27 +58,27 @@
         "regular_1": {
           "value": "400px",
           "type": "dimension",
-          "description": "Peso 400. El cuerpo de texto, las etiquetas default y los caption default. Es el peso de lectura del sistema."
+          "description": "Peso 400. El cuerpo de texto, las etiquetas default y los caption default. Es el peso de lectura del sistema. Desde el 25-sep-2026 solo lo consume text/code/md (IBM Plex Mono): los text/* regulares toman el peso de platform/font/style/regular, por plataforma."
         },
         "medium_1": {
           "value": "500px",
           "type": "dimension",
-          "description": "Peso 500. Hoy no lo usa ningún estilo de texto publicado; queda disponible para la escala. Antes de usarlo, revisar si el caso no pide semibold o extrabold."
+          "description": "Peso 500. Hoy no lo usa ningún estilo de texto publicado; queda disponible para la escala. Antes de usarlo, revisar si el caso no pide semibold o extrabold. Correccion 25-sep-2026: si tiene consumidores, text/code/sm y text/code/xs (IBM Plex Mono)."
         },
         "semibold_1": {
           "value": "600px",
           "type": "dimension",
-          "description": "Peso 600. Lo usan los estilos text/link/*: sin subrayado, Medium contra Regular no se distingue al tamaño de lectura, y semibold sí."
+          "description": "Peso 600. Lo usan los estilos text/link/*: sin subrayado, Medium contra Regular no se distingue al tamaño de lectura, y semibold sí. Desde el 25-sep-2026 ningun text style lo consume: el peso de los text/* sale de platform/font/style/* (por nombre y por plataforma). Se mantiene porque desarrollo puede estar consumiendolo; no se borra sin confirmarlo con desarrollo."
         },
         "bold_1": {
           "value": "700px",
           "type": "dimension",
-          "description": "Peso 700. Sostiene solo a text/unit/{md,sm}. Es el peso con menos uso del sistema: antes de sumarle un estilo, evaluar si corresponde extrabold."
+          "description": "Peso 700. Sostiene solo a text/unit/{md,sm}. Es el peso con menos uso del sistema: antes de sumarle un estilo, evaluar si corresponde extrabold. Desde el 25-sep-2026 ningun text style lo consume: el peso de los text/* sale de platform/font/style/* (por nombre y por plataforma). Se mantiene porque desarrollo puede estar consumiendolo; no se borra sin confirmarlo con desarrollo."
         },
         "extrabold_1": {
           "value": "800px",
           "type": "dimension",
-          "description": "Peso 800 — el más alto del sistema. Reservado para display/* y heading/lg; no usar por debajo de 20 px."
+          "description": "Peso 800 — el más alto del sistema. Reservado para display/* y heading/lg; no usar por debajo de 20 px. Desde el 25-sep-2026 ningun text style lo consume: el peso de los text/* sale de platform/font/style/* (por nombre y por plataforma). Se mantiene porque desarrollo puede estar consumiendolo; no se borra sin confirmarlo con desarrollo."
         }
       },
       "size": {
@@ -1695,27 +1695,68 @@
             "description": "Co-token de choicebox. Hueco derecho reservado para el control en layout=row: 48 = space/inset/lg (16) + ancho del control (16) + space/inline/lg (16). El control va posicionado absoluto contra el borde, asi que este padding es lo que evita que el texto se le meta debajo. NO es un space/inset/3xl: coincide en 48 por ahora, pero significa otra cosa. Si cambia el tamano del control o el gap, hay que recalcular este token."
           }
         }
+      },
+      "sheet": {
+        "radius": {
+          "value": "24px",
+          "type": "dimension",
+          "description": "Co-token de sheet. Radio de las dos esquinas SUPERIORES de la hoja. Las de abajo van en 0: la hoja nace del borde de la pantalla. Aliasea radius/surface/lg (2xl en las tres densidades)."
+        },
+        "padding": {
+          "value": "16px",
+          "type": "dimension",
+          "description": "Co-token de sheet. Inset del contenido de la hoja. 16 en compact, 24 en regular y expanded."
+        },
+        "gap": {
+          "header": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Co-token de sheet. Separacion entre el titulo y la bajada del encabezado."
+          },
+          "content": {
+            "value": "16px",
+            "type": "dimension",
+            "description": "Co-token de sheet. Separacion entre el encabezado y el contenido."
+          }
+        },
+        "handle": {
+          "width": {
+            "value": "32px",
+            "type": "dimension",
+            "description": "Co-token de sheet. Ancho de la barra de arrastre. Mismo valor en las tres densidades: es un affordance de gesto, no escala con la densidad."
+          },
+          "height": {
+            "value": "4px",
+            "type": "dimension",
+            "description": "Co-token de sheet. Alto de la barra de arrastre."
+          },
+          "target": {
+            "value": "48px",
+            "type": "dimension",
+            "description": "Co-token de sheet. Alto del area tactil alrededor del handle. La barra mide 4: el area que responde al gesto es de 48, sin agrandar la barra visible. Es el mismo criterio que el hitSlop de las X de 24."
+          }
+        }
       }
     },
     "platform": {
       "radius": {
         "sm": {
-          "value": "4px",
+          "value": "8px",
           "type": "dimension",
           "description": "Radio chico por plataforma: 8 en iOS y Android, 4 en web. Native redondea más que web a propósito — es la convención de cada sistema, no una preferencia."
         },
         "md": {
-          "value": "8px",
+          "value": "12px",
           "type": "dimension",
           "description": "Radio medio por plataforma: 12 en iOS y Android, 8 en web. Es el radio de un control o un campo."
         },
         "lg": {
-          "value": "12px",
+          "value": "16px",
           "type": "dimension",
           "description": "Radio grande por plataforma: 16 en iOS y Android, 12 en web. Es el radio de una superficie: tarjeta, hoja, popover."
         },
         "xl": {
-          "value": "16px",
+          "value": "20px",
           "type": "dimension",
           "description": "iOS card 20 · M3 extra large 28"
         },
@@ -1727,12 +1768,12 @@
       },
       "segment": {
         "track-padding": {
-          "value": "4px",
+          "value": "2px",
           "type": "dimension",
           "description": "Padding del track del control segmentado. Medido del kit iOS 27: 2. Material 3 no tiene track, va en 0. El valor web es el que ya tenia Core, asi que web no cambia."
         },
         "gap": {
-          "value": "0px",
+          "value": "4px",
           "type": "dimension",
           "description": "Separacion entre segmentos. Medido del kit iOS 27: 4 (las pildoras NO van pegadas). Material 3 usa -1 para que los bordes contiguos se solapen. Web 0, como Core hoy."
         },
@@ -1753,79 +1794,36 @@
         }
       },
       "type": {
-        "display": {
-          "size": {
-            "value": "36px",
-            "type": "dimension",
-            "description": "iOS Large Title · M3 displaySmall"
-          },
-          "line-height": {
-            "value": "44px",
-            "type": "dimension",
-            "description": "iOS Large Title · M3 displaySmall"
-          }
-        },
-        "headline": {
-          "size": {
-            "value": "30px",
-            "type": "dimension",
-            "description": "iOS Title 1 · M3 headlineMedium"
-          },
-          "line-height": {
-            "value": "38px",
-            "type": "dimension",
-            "description": "iOS Title 1 · M3 headlineMedium"
-          }
-        },
         "title": {
-          "size": {
-            "value": "24px",
+          "line-height-pct": {
+            "value": "127px",
             "type": "dimension",
-            "description": "iOS Title 2 · M3 headlineSmall"
+            "description": "Interlineado de title en PORCENTAJE, para desarrollo. NO se bindea en Figma: al bindear una variable numerica a lineHeight, Figma la interpreta en PIXELES y no en porcentaje (medido el 22-sep: un titulo con el token en 127 salio de 127 px de alto). En Figma el porcentaje va fijo en el text style; en codigo se usa este token, que es lo correcto en CSS y en React Native."
           },
-          "line-height": {
-            "value": "32px",
+          "size": {
+            "value": "22px",
             "type": "dimension",
             "description": "iOS Title 2 · M3 headlineSmall"
-          }
-        },
-        "subtitle": {
-          "size": {
-            "value": "20px",
-            "type": "dimension",
-            "description": "iOS Title 3 · M3 titleLarge"
           },
           "line-height": {
             "value": "28px",
             "type": "dimension",
-            "description": "iOS Title 3 · M3 titleLarge"
-          }
-        },
-        "body-strong": {
-          "size": {
-            "value": "16px",
-            "type": "dimension",
-            "description": "iOS Headline · M3 titleMedium — mismo tamano que body, cambia el peso"
-          },
-          "line-height": {
-            "value": "24px",
-            "type": "dimension",
-            "description": "iOS Headline · M3 titleMedium — mismo tamano que body, cambia el peso"
-          },
-          "weight": {
-            "value": "500px",
-            "type": "dimension",
-            "description": "Peso del rol body-strong, NUMERICO. Mismo tamano que body: la diferencia entre los dos ES el peso. iOS Headline 17 Semibold, Material titleMedium 16 Medium, ambos medidos de sus kits."
+            "description": "iOS Title 2 · M3 headlineSmall"
           }
         },
         "body": {
+          "line-height-pct": {
+            "value": "129px",
+            "type": "dimension",
+            "description": "Interlineado de body en PORCENTAJE, para desarrollo. NO se bindea en Figma: al bindear una variable numerica a lineHeight, Figma la interpreta en PIXELES y no en porcentaje (medido el 22-sep: un titulo con el token en 127 salio de 127 px de alto). En Figma el porcentaje va fijo en el text style; en codigo se usa este token, que es lo correcto en CSS y en React Native."
+          },
           "size": {
-            "value": "16px",
+            "value": "17px",
             "type": "dimension",
             "description": "iOS Body · M3 bodyLarge"
           },
           "line-height": {
-            "value": "24px",
+            "value": "22px",
             "type": "dimension",
             "description": "iOS Body · M3 bodyLarge"
           },
@@ -1835,36 +1833,56 @@
             "description": "Peso del rol body, NUMERICO. Regular en las tres."
           }
         },
-        "body-sm": {
-          "size": {
-            "value": "14px",
+        "body-strong": {
+          "line-height-pct": {
+            "value": "129px",
             "type": "dimension",
-            "description": "iOS Subhead · M3 bodyMedium"
+            "description": "Interlineado de body-strong en PORCENTAJE, para desarrollo. NO se bindea en Figma: al bindear una variable numerica a lineHeight, Figma la interpreta en PIXELES y no en porcentaje (medido el 22-sep: un titulo con el token en 127 salio de 127 px de alto). En Figma el porcentaje va fijo en el text style; en codigo se usa este token, que es lo correcto en CSS y en React Native."
+          },
+          "size": {
+            "value": "17px",
+            "type": "dimension",
+            "description": "iOS Headline · M3 titleMedium — mismo tamano que body, cambia el peso"
           },
           "line-height": {
-            "value": "20px",
+            "value": "22px",
             "type": "dimension",
-            "description": "iOS Subhead · M3 bodyMedium"
+            "description": "iOS Headline · M3 titleMedium — mismo tamano que body, cambia el peso"
+          },
+          "weight": {
+            "value": "600px",
+            "type": "dimension",
+            "description": "Peso del rol body-strong, NUMERICO. Mismo tamano que body: la diferencia entre los dos ES el peso. iOS Headline 17 Semibold, Material titleMedium 16 Medium, ambos medidos de sus kits."
           }
         },
         "label": {
+          "line-height-pct": {
+            "value": "138px",
+            "type": "dimension",
+            "description": "Interlineado de label en PORCENTAJE, para desarrollo. NO se bindea en Figma: al bindear una variable numerica a lineHeight, Figma la interpreta en PIXELES y no en porcentaje (medido el 22-sep: un titulo con el token en 127 salio de 127 px de alto). En Figma el porcentaje va fijo en el text style; en codigo se usa este token, que es lo correcto en CSS y en React Native."
+          },
           "size": {
-            "value": "14px",
+            "value": "13px",
             "type": "dimension",
             "description": "iOS Footnote · M3 labelLarge — texto de botones y tabs"
           },
           "line-height": {
-            "value": "20px",
+            "value": "18px",
             "type": "dimension",
             "description": "iOS Footnote · M3 labelLarge — texto de botones y tabs"
           },
           "weight": {
-            "value": "500px",
+            "value": "600px",
             "type": "dimension",
             "description": "Peso del rol label, NUMERICO. Core enlaza fontWeight (FLOAT), no fontStyle, y ~3000 bindings vivos ya usan ese patron. El numero no tiene el problema de grafias: 500 es 500 en SF Pro, Roboto y Mulish. iOS Semibold es convencion de LABEL DE CONTROL, no el peso del estilo Footnote (Regular). Para escribir fontName en un script usar platform/font/style/*, que es otro mecanismo."
           }
         },
         "caption": {
+          "line-height-pct": {
+            "value": "133px",
+            "type": "dimension",
+            "description": "Interlineado de caption en PORCENTAJE, para desarrollo. NO se bindea en Figma: al bindear una variable numerica a lineHeight, Figma la interpreta en PIXELES y no en porcentaje (medido el 22-sep: un titulo con el token en 127 salio de 127 px de alto). En Figma el porcentaje va fijo en el text style; en codigo se usa este token, que es lo correcto en CSS y en React Native."
+          },
           "size": {
             "value": "12px",
             "type": "dimension",
@@ -1875,28 +1893,76 @@
             "type": "dimension",
             "description": "iOS Caption 1 · M3 bodySmall. OJO: NO mapea a labelMedium aunque ambos midan 12/16. caption es texto corrido (leyenda, nota al pie) y va Regular; labelMedium es label de CONTROL y va Medium. Si algo rotula un control, consume el rol label, no caption."
           }
+        },
+        "display": {
+          "size": {
+            "value": "34px",
+            "type": "dimension",
+            "description": "iOS Large Title · M3 displaySmall"
+          },
+          "line-height": {
+            "value": "41px",
+            "type": "dimension",
+            "description": "iOS Large Title · M3 displaySmall"
+          }
+        },
+        "headline": {
+          "size": {
+            "value": "28px",
+            "type": "dimension",
+            "description": "iOS Title 1 · M3 headlineMedium"
+          },
+          "line-height": {
+            "value": "34px",
+            "type": "dimension",
+            "description": "iOS Title 1 · M3 headlineMedium"
+          }
+        },
+        "subtitle": {
+          "size": {
+            "value": "20px",
+            "type": "dimension",
+            "description": "iOS Title 3 · M3 titleLarge"
+          },
+          "line-height": {
+            "value": "25px",
+            "type": "dimension",
+            "description": "iOS Title 3 · M3 titleLarge"
+          }
+        },
+        "body-sm": {
+          "size": {
+            "value": "15px",
+            "type": "dimension",
+            "description": "iOS Subhead · M3 bodyMedium"
+          },
+          "line-height": {
+            "value": "20px",
+            "type": "dimension",
+            "description": "iOS Subhead · M3 bodyMedium"
+          }
         }
       },
       "spacing": {
         "screen-margin": {
-          "value": "24px",
+          "value": "16px",
           "type": "dimension",
           "description": "Margen lateral de pantalla que exige el OS."
         },
         "section-gap": {
-          "value": "32px",
+          "value": "20px",
           "type": "dimension",
           "description": "Separación entre secciones de una pantalla: 20 en iOS, 24 en Android, 32 en web. Crece con el tamaño típico del viewport."
         },
         "item-gap": {
-          "value": "16px",
+          "value": "12px",
           "type": "dimension",
           "description": "Separación entre elementos de una misma sección: 12 en iOS, 16 en Android y web. Es el aire de adentro de un bloque, no el de entre bloques."
         }
       },
       "target": {
         "min": {
-          "value": "40px",
+          "value": "44px",
           "type": "dimension",
           "description": "Area tactil minima. iOS 44pt · Android 48dp · web 40px. Nunca bajar de aqui aunque el glifo sea mas chico."
         }
