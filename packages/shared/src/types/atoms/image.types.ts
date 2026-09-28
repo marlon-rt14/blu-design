@@ -18,7 +18,7 @@ export type TImageRadius = 'none' | 'sm' | 'md';
  *
  * - `default` — bitmap painted
  * - `loading` — skeleton sheen while the resource travels
- * - `empty` — no `src` assigned (dashed border + IconImage)
+ * - `empty` — no `src` assigned (dashed border + IconImage01)
  * - `error` — load failed (solid border + IconAlertTriangle)
  */
 export type TImageStatus = 'default' | 'loading' | 'empty' | 'error';

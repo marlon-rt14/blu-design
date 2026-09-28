@@ -89,7 +89,7 @@ export interface ITooltipLink {
  * @example
  * ```tsx
  * <Tooltip body="Se envía a tu correo">
- *   <IconButton icon={IconInfo} label="Más información" onPress={noop} />
+ *   <IconButton icon={IconInfoCircle} label="Más información" onPress={noop} />
  * </Tooltip>
  *
  * <Tooltip

@@ -23,7 +23,7 @@ import { useIconButton } from './useIconButton';
  * @example
  * ```tsx
  * <IconButton icon={IconTrash01} label="Eliminar" onPress={remove} />
- * <IconButton appearance="veil" icon={IconX} label="Cerrar aviso" onPress={close} size="sm" />
+ * <IconButton appearance="veil" icon={IconXClose} label="Cerrar aviso" onPress={close} size="sm" />
  * ```
  */
 export const IconButton = (props: IIconButtonProps): ReactElement => {

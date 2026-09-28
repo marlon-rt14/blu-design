@@ -15,13 +15,19 @@ export type TSnackbarStatus = 'info' | 'success' | 'warning' | 'danger';
  *
  * A name rather than a node for the same reason {@link TAlertStatusIcon} is:
  * the glyph is locked per status and is never a slot the caller can reach.
+ *
+ * **`success` is a bare `check` here and a `check-circle` in Alert**, which
+ * looks like a slip and is not: the two contracts spell their own mapping out
+ * and they differ. The Snackbar is *"check para success"*; the Alert is
+ * *"check-circle para success"*. The bar is small and already a shape, so the
+ * glyph does not need a second one around it.
  */
-export type TSnackbarStatusIcon = 'alert-circle' | 'alert-triangle' | 'check-circle' | 'info-circle';
+export type TSnackbarStatusIcon = 'alert-circle' | 'alert-triangle' | 'check' | 'info-circle';
 
 /** Glyph locked to each status — host picks it, consumers cannot swap. */
 export const SNACKBAR_STATUS_ICON: Record<TSnackbarStatus, TSnackbarStatusIcon> = {
   info: 'info-circle',
-  success: 'check-circle',
+  success: 'check',
   warning: 'alert-triangle',
   danger: 'alert-circle',
 };

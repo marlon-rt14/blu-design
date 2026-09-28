@@ -3,7 +3,7 @@ import type { ReactElement } from 'react';
 import { Modal, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import type { ViewStyle } from 'react-native';
 
-import { IconX } from '../../../icons/general';
+import { IconXClose } from '../../../icons/general';
 import { Button } from '../../atoms/Button';
 import { IconButton } from '../../atoms/IconButton';
 import { Image } from '../../atoms/Image';
@@ -131,7 +131,7 @@ export const Coachmark = (props: ICoachmarkProps): ReactElement => {
     showDismiss && !dismissOnMedia ? (
       <IconButton
         appearance={dismissAppearance}
-        icon={IconX}
+        icon={IconXClose}
         label={dismissAccessibilityLabel}
         onPress={handleDismiss}
         size="xs"
@@ -165,7 +165,7 @@ export const Coachmark = (props: ICoachmarkProps): ReactElement => {
                 <View style={mediaDismissStyle}>
                   <IconButton
                     appearance="on-media"
-                    icon={IconX}
+                    icon={IconXClose}
                     label={dismissAccessibilityLabel}
                     onPress={handleDismiss}
                     size="xs"

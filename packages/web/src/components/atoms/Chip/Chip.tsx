@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { ReactElement } from 'react';
 
-import { IconX } from '../../../icons/general';
+import { IconXClose } from '../../../icons/general';
 import type { IChipProps } from './Chip.types';
 import { useChip } from './useChip';
 
@@ -65,7 +65,7 @@ export const Chip = (props: IChipProps): ReactElement => {
           }}
           style={removeWrapperStyle}
         >
-          <IconX size="xs" />
+          <IconXClose size="xs" />
         </span>
       ) : null}
     </button>

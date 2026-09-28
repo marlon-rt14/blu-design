@@ -3,7 +3,7 @@ import { cloneElement, isValidElement } from 'react';
 import type { ReactElement } from 'react';
 import { Modal, Pressable, Text, View } from 'react-native';
 
-import { IconX } from '../../../icons/general';
+import { IconXClose } from '../../../icons/general';
 import { IconButton } from '../../atoms/IconButton';
 import { LinkButton } from '../../atoms/LinkButton';
 import type { ITooltipProps } from './Tooltip.types';
@@ -111,7 +111,7 @@ export const Tooltip = (props: ITooltipProps): ReactElement => {
             {showDismiss ? (
               <IconButton
                 appearance="on-inverse"
-                icon={IconX}
+                icon={IconXClose}
                 label={TOOLTIP_DISMISS_LABEL}
                 onPress={handleDismiss}
                 size="xs"

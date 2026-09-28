@@ -4,7 +4,7 @@ import type { FocusEvent, ReactElement } from 'react';
 import { ALERT_STATUS_ICON, type TAlertStatus } from '@dsm/shared';
 
 import { IconAlertCircle, IconAlertTriangle } from '../../../icons/alerts-feedback';
-import { IconCheckCircle, IconInfoCircle, IconX } from '../../../icons/general';
+import { IconCheckCircle, IconInfoCircle, IconXClose } from '../../../icons/general';
 import type { TIconProps } from '../Icon';
 import { LinkButton } from '../LinkButton';
 import type { IAlertProps } from './Alert.types';
@@ -120,7 +120,7 @@ export const Alert = (props: IAlertProps): ReactElement => {
           type="button"
         >
           <span style={dismissVisualStyle}>
-            <IconX color="primary" size="sm" />
+            <IconXClose color="primary" size="sm" />
           </span>
         </button>
       ) : null}

@@ -2,7 +2,7 @@ import type { ReactElement } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
 import { tintNode } from '../Icon';
-import { IconX } from '../../../icons/general';
+import { IconXClose } from '../../../icons/general';
 import type { ITagProps } from './Tag.types';
 import { useTag } from './useTag';
 
@@ -25,7 +25,7 @@ export const Tag = (props: ITagProps): ReactElement => {
       <Text style={labelStyle}>{label}</Text>
       {onRemove ? (
         <Pressable accessibilityLabel={`Quitar ${label}`} accessibilityRole="button" onPress={onRemove} style={removeButtonStyle}>
-          <IconX size="xs" tintColor={iconColor} />
+          <IconXClose size="xs" tintColor={iconColor} />
         </Pressable>
       ) : null}
     </View>

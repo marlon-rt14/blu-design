@@ -2,7 +2,7 @@ import { TOOLTIP_DISMISS_LABEL } from '@dsm/shared';
 import { FloatingPortal } from '@floating-ui/react';
 import type { ReactElement } from 'react';
 
-import { IconX } from '../../../icons/general';
+import { IconXClose } from '../../../icons/general';
 import { IconButton } from '../../atoms/IconButton';
 import { LinkButton } from '../../atoms/LinkButton';
 import type { ITooltipProps } from './Tooltip.types';
@@ -94,7 +94,7 @@ export const Tooltip = (props: ITooltipProps): ReactElement => {
             {showDismiss ? (
               <IconButton
                 appearance="on-inverse"
-                icon={IconX}
+                icon={IconXClose}
                 label={TOOLTIP_DISMISS_LABEL}
                 onPress={onDismiss ?? (() => {})}
                 size="xs"

@@ -72,8 +72,8 @@ export type TIconButtonSize = 'xs' | 'sm' | 'md' | 'lg';
  *
  * @example
  * ```tsx
- * <IconButton icon={IconTrash} label="Eliminar" onPress={remove} />
- * <IconButton appearance="veil" icon={IconX} label="Cerrar aviso" onPress={close} size="sm" />
+ * <IconButton icon={IconTrash01} label="Eliminar" onPress={remove} />
+ * <IconButton appearance="veil" icon={IconXClose} label="Cerrar aviso" onPress={close} size="sm" />
  * ```
  */
 export interface IIconButtonBaseProps {

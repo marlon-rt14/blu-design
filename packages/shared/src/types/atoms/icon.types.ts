@@ -118,7 +118,7 @@ export type TIconColor =
  * does not ship — which is the same thing the library does internally:
  *
  * ```tsx
- * const IconTrash = (props: TIconProps) => (
+ * const IconTrash01 = (props: TIconProps) => (
  *   <Icon {...props}>
  *     <path d="M3 6H5H21" />
  *   </Icon>

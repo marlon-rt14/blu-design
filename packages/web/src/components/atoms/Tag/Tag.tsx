@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 
-import { IconX } from '../../../icons/general';
+import { IconXClose } from '../../../icons/general';
 import type { ITagProps } from './Tag.types';
 import { useTag } from './useTag';
 
@@ -29,7 +29,7 @@ export const Tag = (props: ITagProps): ReactElement => {
           type="button"
         >
           <span style={removeIconWrapperStyle}>
-            <IconX size="xs" />
+            <IconXClose size="xs" />
           </span>
         </button>
       ) : null}

@@ -2,7 +2,7 @@ import type { ReactElement } from 'react';
 import { Text, View } from 'react-native';
 
 import { IconAlertTriangle } from '../../../icons/alerts-feedback';
-import { IconCheck, IconX } from '../../../icons/general';
+import { IconCheck, IconXClose } from '../../../icons/general';
 import { StepConnector } from '../StepConnector';
 import type { IStepProps } from './Step.types';
 import { useStep } from './useStep';
@@ -45,7 +45,7 @@ export const Step = (props: IStepProps): ReactElement => {
     isVertical,
   } = useStep(props);
 
-  let Glyph: typeof IconCheck | typeof IconAlertTriangle | typeof IconX | null = null;
+  let Glyph: typeof IconCheck | typeof IconAlertTriangle | typeof IconXClose | null = null;
   switch (status) {
     case 'done':
       Glyph = IconCheck;
@@ -54,7 +54,7 @@ export const Step = (props: IStepProps): ReactElement => {
       Glyph = IconAlertTriangle;
       break;
     case 'error':
-      Glyph = IconX;
+      Glyph = IconXClose;
       break;
     case 'pending':
     case 'active':

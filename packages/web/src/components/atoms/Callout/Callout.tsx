@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 
-import { IconX } from '../../../icons/general';
+import { IconXClose } from '../../../icons/general';
 import { IconButton } from '../IconButton';
 import { LinkButton } from '../LinkButton';
 import type { ICalloutProps } from './Callout.types';
@@ -55,7 +55,7 @@ export const Callout = (props: ICalloutProps): ReactElement => {
         <div style={dismissWrapStyle}>
           <IconButton
             appearance="veil"
-            icon={IconX}
+            icon={IconXClose}
             label={dismissAccessibilityLabel}
             onPress={onDismiss}
             size="xs"

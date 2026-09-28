@@ -47,7 +47,7 @@ export interface ICalloutAction {
  * ```tsx
  * <Callout
  *   body="Recibe el 2% de tus compras en supermercados, directo en tu estado de cuenta."
- *   icon={<IconCreditCard />}
+ *   icon={<IconCreditCard01 />}
  *   title="Tu tarjeta ahora tiene cashback"
  * />
  * ```
@@ -68,7 +68,7 @@ export interface ICalloutBaseProps {
    */
   palette?: TCalloutPalette;
   /**
-   * The glyph. A system icon element (e.g. `<IconCreditCard />`), already sized by
+   * The glyph. A system icon element (e.g. `<IconCreditCard01 />`), already sized by
    * the caller — Callout fixes its own box to `component.callout.icon.size`
    * (24) and colours it from `component.callout.{palette}.icon`, but cannot
    * force a size onto an opaque node. Decorative by default (`aria-hidden`);

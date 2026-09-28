@@ -2,7 +2,7 @@ import { cloneElement, isValidElement } from 'react';
 import type { ReactElement, ReactNode } from 'react';
 import { Text, View } from 'react-native';
 
-import { IconX } from '../../../icons/general';
+import { IconXClose } from '../../../icons/general';
 import { IconButton } from '../IconButton';
 import type { TIconProps } from '../Icon';
 import { LinkButton } from '../LinkButton';
@@ -67,7 +67,7 @@ export const Callout = (props: ICalloutProps): ReactElement => {
         <View style={dismissWrapStyle}>
           <IconButton
             appearance="veil"
-            icon={IconX}
+            icon={IconXClose}
             label={dismissAccessibilityLabel}
             onPress={onDismiss}
             size="xs"
