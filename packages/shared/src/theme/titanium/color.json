@@ -6107,7 +6107,31 @@
         "handle": {
           "value": "#b3bacf",
           "type": "color",
-          "description": "Co-token de sheet. Capa de re-tematización: su destino cambia según el modo porque no existe rol semántico para esta decisión. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          "description": "Co-token de sheet. Barra de arrastre del bottom sheet. Capa de re-tematizacion: su destino cambia por modo porque no hay rol semantico para esta decision. Corregido el 22-sep: en dark y mc-dark apuntaba a dark/neutral/700, el MISMO valor que canvas/surface/elevated, asi que el handle era invisible (1,00 y 1,33). Ahora la escalera oscura es 2,26 · 3,00 · 4,39, creciente como la clara (1,94 · 2,61 · 3,79). Es un affordance, no un objeto grafico esencial: por eso Standard queda bajo 3:1 y los modos de accesibilidad lo superan. Estaba oculto de publicacion (el unico component/* de la coleccion), asi que no llegaba a los archivos que construyen componentes: corregido el 22-sep."
+        },
+        "surface": {
+          "bg": {
+            "value": "#ffffff",
+            "type": "color",
+            "description": "Co-token de sheet. Fondo de la hoja. Aliasea color/canvas/surface/elevated: la hoja flota sobre la pagina, no es la pagina. Texto primario encima: 14,15 en light y nunca menos de 6,89 en los seis modos."
+          }
+        },
+        "header": {
+          "title": {
+            "value": "#232b3d",
+            "type": "color",
+            "description": "Co-token de sheet. Titulo del encabezado de la hoja."
+          },
+          "description": {
+            "value": "#434959",
+            "type": "color",
+            "description": "Co-token de sheet. Bajada opcional del encabezado, debajo del titulo. Nunca menos de 6,28 sobre el fondo de la hoja."
+          }
+        },
+        "divider": {
+          "value": "#ced4e3",
+          "type": "color",
+          "description": "Co-token de sheet. Separador entre el encabezado y el contenido. Se muestra solo cuando el contenido scrollea: es lo que evita que el texto parezca cortado al pasar por debajo del encabezado."
         }
       },
       "skeleton": {
@@ -6126,17 +6150,17 @@
         "track": {
           "value": "#e5e8f1",
           "type": "color",
-          "description": "Co-token de scrollbar. Capa de re-tematización: su destino cambia según el modo porque no existe rol semántico para esta decisión. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          "description": "Co-token de scrollbar. Canal por el que corre el pulgar. Corregido el 22-sep: en hc-dark usaba dark/neutral/500, el mismo valor que el pulgar. Vuelve a dark/neutral/600 para mantener la polaridad de los otros dos modos oscuros: track oscuro, pulgar claro."
         },
         "thumb-default": {
-          "value": "#b3bacf",
-          "type": "color",
-          "description": "Co-token de scrollbar. Capa de re-tematización: su destino cambia según el modo porque no existe rol semántico para esta decisión. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
-        },
-        "thumb-hover": {
           "value": "#7c8396",
           "type": "color",
-          "description": "Co-token de scrollbar. Capa de re-tematización: su destino cambia según el modo porque no existe rol semántico para esta decisión. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          "description": "Co-token de scrollbar. Pulgar en reposo. Capa de re-tematizacion: su destino cambia por modo porque no hay rol semantico para esta decision. Corregido el 22-sep: no llegaba a 3:1 contra el track en ningun modo claro y en hc-dark valia exactamente lo mismo que el track (1,00). El pulgar es un control, no decoracion: 1.4.11 pide 3:1."
+        },
+        "thumb-hover": {
+          "value": "#5f6677",
+          "type": "color",
+          "description": "Co-token de scrollbar. Pulgar con el puntero encima. Corregido el 22-sep: en los tres modos oscuros el hover OSCURECIA el pulgar, igual que en claro, pero en la rampa oscura eso lo acerca al track en vez de alejarlo, asi que interactuar lo hacia menos visible (2,97 en reposo y 1,51 en hover). En oscuro el pulgar se aclara; en claro se oscurece."
         }
       },
       "avatar": {

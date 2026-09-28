@@ -24,9 +24,9 @@
           "description": "Familia tipografica del sistema de Android. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — quien lo consume es 5. Platform/platform/font/family en modo android. Roboto mide y renderiza bien del lado agente. Sus pesos se escriben 'SemiBold' con B mayuscula — SF Pro usa 'Semibold' junto."
         },
         "text": {
-          "value": "Mulish",
+          "value": "SF Pro",
           "type": "string",
-          "description": "Familia de texto del sistema. Alias de Mulish en los tres modos de densidad: la densidad cambia tamaños, no la fuente. Los estilos de texto la consumen desde acá, nunca desde el primitivo."
+          "description": "Familia de texto del sistema. Desde el 25-sep-2026 es alias de platform/font/family en los tres modos de densidad: la familia la decide el modo de 5. Platform (iOS SF Pro, Android Roboto, web Mulish), no la densidad. La densidad cambia tamanos, no la fuente. Los 37 estilos text/* que no son code la consumen desde aca, nunca desde el primitivo. Antes del 25-sep era alias fijo de Mulish."
         },
         "mono_1": {
           "value": "IBM Plex Mono",
@@ -81,7 +81,7 @@
     },
     "platform": {
       "variant": {
-        "value": "Web",
+        "value": "iOS",
         "type": "string",
         "description": "Se enlaza a la propiedad variant \"Platform\" de los componentes duales. El valor debe coincidir CARACTER POR CARACTER con el nombre de la opcion del variant (\"iOS\" no es \"ios\"). Si no coincide, la instancia se queda en su variant anterior sin dar error."
       },
@@ -90,7 +90,7 @@
           "regular": {
             "value": "Regular",
             "type": "string",
-            "description": "Nombre del corte regular tal como lo pide cada plataforma. Igual en las tres hoy; existe para que iOS o Android puedan apuntar a un nombre de familia distinto sin tocar los estilos."
+            "description": "Nombre del corte regular tal como lo pide cada plataforma. Igual en las tres. Desde el 25-sep-2026 lo consumen los 10 estilos text/* regulares (body/*/default, caption/*/default, label/*/default, amount/md, amount/sm)."
           },
           "medium": {
             "value": "Medium",
@@ -98,20 +98,25 @@
             "description": "Nombre del corte medium por plataforma. Igual en las tres hoy; el token existe para absorber una divergencia futura sin renombrar estilos."
           },
           "semibold": {
-            "value": "SemiBold",
+            "value": "Semibold",
             "type": "string",
             "description": "NO ES UN TYPO — no lo uniformes, rompe loadFontAsync en iOS. Cada familia tiene UNA sola grafia y no acepta la otra. Verificado contra listAvailableFontsAsync: SF Pro tiene \"Semibold\" y NO tiene \"SemiBold\"; Roboto tiene \"SemiBold\" y NO tiene \"Semibold\"; Mulish tiene \"SemiBold\" y NO tiene \"Semibold\". Por eso ios usa \"Semibold\" junto y android/web usan \"SemiBold\" con B mayuscula. Nunca escribas el peso a mano: consumi este token."
           },
           "bold": {
             "value": "Bold",
             "type": "string",
-            "description": "Nombre del corte bold por plataforma. Igual en las tres hoy; el token existe para absorber una divergencia futura sin renombrar estilos."
+            "description": "Nombre del corte bold por plataforma. Igual en las tres. Desde el 25-sep-2026 lo consumen text/unit/md y text/unit/sm, que en la marca van en Bold."
+          },
+          "emphasis": {
+            "value": "Semibold",
+            "type": "string",
+            "description": "Nombre del estilo de fuente para el enfasis, por rol y no por peso. iOS enfatiza con Semibold, Android con Medium y web con ExtraBold, que es el enfasis de la marca en Mulish. Desde el 25-sep-2026 lo consumen los 25 estilos text/* de enfasis (display, heading, title, */strong, label/*/strong, link, overline, amount/hero, amount/lg, otp): el peso de esos estilos sale de aca, por NOMBRE y no por numero, porque con numero Figma reporta SF Pro 600 como Regular. Ojo con la grafia: SF Pro escribe Semibold y Roboto y Mulish SemiBold. Antes del 25-sep web valia Medium."
           }
         },
         "family": {
-          "value": "Mulish",
+          "value": "SF Pro",
           "type": "string",
-          "description": "Web hace alias a font/family/mulish (marca). iOS y Android son constantes del sistema operativo. OJO: SF Pro solo mide bien en maquinas con la fuente instalada; el render de Figma no la mide."
+          "description": "Familia tipografica por plataforma: iOS SF Pro, Android Roboto, web Mulish (la marca). Desde el 25-sep-2026 la consumen los 37 estilos text/* (todos menos code/*) a traves de font/family/text: elegir el modo de 5. Platform en un frame cambia la familia de todo su texto. OJO: SF Pro no viene con Figma; quien abra un frame en modo ios sin la fuente instalada la ve como faltante."
         }
       }
     }
