@@ -142,11 +142,23 @@ every Figma state; (7) `pnpm typecheck && pnpm lint && pnpm build-storybook`.
 For any real component build (new component, new variant/size/state, new token wiring), read
 `.cursor/skills/developing-design-system-components/SKILL.md` first — it is the canonical, much more
 detailed checklist: a hard-stop MCP gate (Figma is the primary design reference, Supernova is scoped to
-property/variant enumeration only, Figma wins on any disagreement), the Dev/contrato-de-desarrollo frame
-convention, and a long list of real shipped bugs/gotchas per component (floating-label rules, focus-ring
-geometry, `show*` boolean props that must stay independent of content, `lineHeight` unit traps, etc.).
+property/variant enumeration only, Figma wins on any disagreement), and a long list of real shipped
+bugs/gotchas per component (floating-label rules, focus-ring geometry, `lineHeight` unit traps, etc.).
 Don't re-derive those from scratch — that file exists precisely because they weren't obvious the first
 time.
+
+Three rules from it that decide the shape of a new component, so they are worth knowing before you
+open it:
+
+- **The `«Name» · Dev` frame is the contract.** Its section `01 · Firma de código` is what the frame
+  itself calls *"lo que desarrollo copia"* — copy it whole, names and shape. The practical
+  consequence is the `show*` note above: a slot renders because its content was passed.
+- **Every glyph goes through our own `Icon`.** It owns the box (`size/icon/*`), the colour
+  (`color/icon/*`) and the `0 0 24 24` grid; a published glyph *is* an `Icon` with its paths inside.
+  Never hand-roll an `<svg>`, never resize one with `width`/`height`.
+- **An icon that arrives through a prop is a `ReactNode`.** `TIconName` was deleted: a name needs a
+  registry, a registry references all 1170 glyphs, and that defeats the per-section entry points.
+  The caller imports the glyph and passes the element.
 
 ### Storybook
 

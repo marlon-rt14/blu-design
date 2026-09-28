@@ -5,8 +5,11 @@ description: >-
   monorepo: spec it against the Figma MCP ("BDS3 - Core components") and
   Supernova's property/variant data, consume tokens via fromThemeSources /
   TThemeSourceKey (brand × mode × layout), and ship Storybook stories for both
-  platforms. Use when adding a component under packages/web or packages/mobile,
-  adding a size/variant/state, or wiring tokens after a theme sync.
+  platforms. Copy the component's `«Name» · Dev` firma whole — it is the contract, which means
+  presence-based slots instead of `show*` booleans — render every glyph through our own `Icon`
+  imported from its section (`@dsm/web/icons/general`, never a barrel), and type any icon that
+  arrives through a prop as `ReactNode`. Use when adding a component under packages/web or
+  packages/mobile, adding a size/variant/state, or wiring tokens after a theme sync.
 ---
 
 # Developing design system components
@@ -35,11 +38,21 @@ Copy this checklist and work through it in order:
        Cross-check component properties/variants against Supernova
        (sn_get_figma_component_detail / sn_get_component_property_list) — see "Design reference"
        below.
-- [ ] 1. Contract: src/types/atoms/<name>.types.ts in @dsm/shared (I<Name>BaseProps, no event handlers).
-       Check the component's OWN variant axes — don't copy another component's size/state shape.
-       Prefer the Dev firma for public prop names/defaults; keep Figma `show*` / independent
-       booleans when the team has chosen partial (Alert/Snackbar/Checkbox style) unless the
-       user asks for Dev-full.
+- [ ] 1. Contract: src/types/atoms/<name>.types.ts in @dsm/shared (I<Name>BaseProps).
+       **The Dev firma IS the contract — copy it whole, names and shape.** It is the section
+       the frame itself calls "lo que desarrollo copia". Check the component's OWN variant axes;
+       don't copy another component's size/state shape.
+       Three rules that fall out of it, and that the older components in this repo predate:
+         · **No `show*` booleans.** The contracts are unanimous — *"la presencia del nombre
+           sustituye al booleano"*. A slot renders because its content was passed. The only
+           boolean that survives is one with no content to infer from (ListItem's `divider`:
+           a row cannot know it is the last of its group).
+         · **`disabled` / `readOnly`, not `isDisabled` / `isReadOnly`**, where the firma says so.
+         · **Icon slots are `ReactNode`** — see "Icons" below. Never a name, never a union of names.
+       Handlers live here when the firma names them (`onChangeText`, `onToggle`, `onRemove`), and
+       keep each platform's own name only where the platform owns it (`onClick` web / `onPress`
+       mobile). Components not yet migrated still carry `show*` and `is*`: leave them until their
+       own contract is read — the retirement is component by component, never a blanket rename.
 - [ ] 2. Tokens: src/tokens/<name>.tokens.ts in @dsm/shared — `fromThemeSources(read)` →
        `Record<TThemeSourceKey, I<Name>Tokens>`. Reader takes `key: TThemeSourceKey`, reads
        `themeSources[key]` via `readThemeToken` / `readThemeDimension` / `readThemeTypography`.
@@ -76,8 +89,8 @@ Figma: <URL(s) — una por estado/variante si el nodo default no las cubre todas
 Notas: <opcional — ej. "usa el mismo patrón de focus ring que TextField">
 ```
 
-Everything else — pixel-perfect fidelity to the live Figma node, full 1:1 property/variant parity
-with Figma+Supernova (including independent `show*` booleans, never inferred from content), zero
+Everything else — pixel-perfect fidelity to the live Figma node, the Dev firma copied whole
+(which means presence-based slots, not `show*` booleans), zero
 hardcoded values, no invented placeholder icons, both platforms, stories per state, and the
 `pnpm typecheck && pnpm lint && pnpm build-storybook` gate — is this skill's job, not the prompt's.
 If Figma and Supernova disagree, Figma wins (see "Design reference" below) — surface the
@@ -108,10 +121,23 @@ one:
   docs frame also has (or is getting) a sibling Dev frame with the code firma, public props table,
   nested-instance notes, platform diffs, tokens/a11y, and open divergences. Find it via
   `get_metadata` on the page (`name` ends with `· Dev`) — e.g. Image `1020:118882`, Alert
-  `1012:77661`, Checkbox `1018:101870`. Treat that frame as part of the contract: surface
-  Dev-vs-Figma gaps before coding; do not invent prop names that contradict the firma. When Dev
-  and the live component set disagree, call it out — historically we ship **partial** (Figma
-  `show*` / independent axes) unless the user asks for Dev-full.
+  `1012:77661`, Checkbox `1018:101870`. Treat that frame as **the** contract, not a second
+  opinion: its section `01 · Firma de código` is what the frame itself calls *"lo que desarrollo
+  copia"*.
+
+  **This reversed on 2026-09-28.** We used to ship *partial* — keeping Figma's `show*` and
+  independent axes — and treat the Dev firma as a suggestion. Six components were then aligned
+  firma-first (TextField, ListItem, Tag, Chip, Tabs, PasswordField, commit `17f5cf1`) and the
+  reason the contracts give is the same in all six: a Figma master needs a boolean to be able to
+  *draw* an empty slot; code does not, because a slot with nothing in it simply is not rendered.
+  Two whole variant axes retire with those booleans — `isFilled`, always derivable from `value`,
+  and `validation`, which becomes the presence of an `error` message.
+
+  So: when Dev and the live component set disagree, **the firma wins on the API** and the live
+  node wins on pixels and on which axes exist. Surface the gap either way; never invent a prop
+  name that contradicts the firma. Read section `07 · Divergencias y decisiones abiertas` too and
+  add anything still open to `docs/pendientes-diseno.md` — that file is for what code cannot close
+  on its own, and **nothing implemented goes in it**.
 - **Supernova MCP is now scoped to component properties/configuration, not the design reference.**
   Use `sn_get_figma_component_detail` (variants + Figma component property definitions as JSON) and
   `sn_get_component_property_list` (property IDs, code names, option sets) to get the structured list
@@ -305,36 +331,92 @@ bDS themes are **three Figma variable collections**, not a single light/dark swi
 - **Counter string formats differ per component — don't unify them without checking Figma.**
   `TextField` renders `"n / max"` (spaces around the slash); `TextArea` renders `"n/max"` (no
   spaces). Copy the exact format from the component's own Figma spec, not from a sibling component.
-- **`showHelper` / `showCounter` are real, independent boolean props — not derived from whether
-  `helperText`/`errorMessage`/`maxLength` happen to be set.** Both `TextField` and `TextArea` shipped
-  once inferring footer visibility from content presence alone (`helperText ? show : hide`); Figma's
-  own component (confirmed via `get_design_context` — `showHelper`, `showCounter` show up as their own
-  boolean props, both defaulting to `false` even when `helperText`/`counter` have non-empty default
-  text) toggles each independently of content, so a consumer can hold `helperText` ready and flip
-  visibility without clearing it. Neither is switched on automatically by `errorMessage`/`isInvalid`/
-  `maxLength` either — pairing `errorMessage` with `showHelper: true` for WCAG 1.4.1 is on the
-  consumer, exactly like Figma itself; see the `ErrorState` stories on both components.
-- **`TextField`'s prefix/suffix affixes are two independent pairs of slots, each with its own
-  `show*` flag.** Figma's props: `prefix`/`suffix` (plain text) gated by `showPrefixText`/
-  `showSuffixText`, and separate `prefixIcon`/`suffixIcon` slots gated by `showPrefixIcon`/
-  `showSuffixIcon` — text and icon on the same side can be on, off, or mixed independently. The affix
-  text color is its own token group (`color.component.textfield.affix.*`), distinct from `value`'s.
-  Icon slots are a Figma InstanceSwap, not opaque `ReactNode`: `prefixIcon` / `suffixIcon` live on
-  `ITextFieldBaseProps` as `TIconName` (default `'search'` — Figma's own default prefix), and each
-  platform renders the published glyph (`IconSearch`, `IconImage`, …) from `@dsm/{web,mobile}/icons`
-  via a local map in `FieldIcon.tsx`. Do **not** put that registry in the icons entry point — it
-  exists to stay tree-shakeable; TextField has to reference the set because it is the swap host.
-  Size: `small`/`medium` → Icon `sm` (16); `large` → Icon `md` (24). **Never `lg` (32) inside a
-  field** — bDS: *"Si lo estás usando dentro de un control, el tamaño está mal."* Colour role
-  `secondary` (aliases `textfield.icon.icon-default`) / `disabled`. Anatomy (live `3:1124` lg filled,
-  `3:1058` md filled): the bordered `container` holds a `content` *column* — floating `label`
-  full-width on top, then `inputRow` underneath as a horizontal flex of
-  `[prefixIcon, prefix, value, suffix, suffixIcon]`. Affixes are NOT siblings of the label; they sit
-  on the value line. Empty/placeholder (no float) is just `inputRow`. Don't put icons beside the
-  floating label. **`TextArea` has no icon slots — don't add them there.**
-- **Icon glyphs are `IconTrash` / `IconImage` / `IconSearch`, not `<Icon name="…">`.** `Icon` is the
-  wrapper (box + colour); the drawing is a child. Import from `@dsm/web/icons` or `@dsm/mobile/icons`.
-  Default size is `sm`. `react-native-svg` is a peer of `@dsm/mobile`.
+- **The footer is presence-based, and this flipped twice — read the note.** `TextField` first
+  shipped inferring visibility from content, then was changed to Figma's independent `showHelper` /
+  `showCounter` booleans, and the Dev contract has now settled it back: `helperText`, `error` and
+  `counter` render because they were passed. `error`'s presence is also the error state — there is
+  no `isInvalid`, because *"el error lo comunica el mensaje, no el color"* and a red field with
+  nothing to read is exactly what that forbids. `counter` is `{ current, max }`, two numbers the
+  component formats, **not** Figma's free-text string and **not** derived from `maxLength` — the
+  contract asks for that divergence to be signed *"o el exporter va a intentar mapear una cadena"*.
+  `maxLength` stays a platform prop, because blocking input and counting are different jobs.
+  **`TextArea` has not been migrated** and still carries `showHelper` / `showCounter`; leave it
+  until its own contract is read.
+- **Icons: always through our `Icon`, always imported from a section, always a `ReactNode` in a
+  prop.** Three separate rules, and all three are easy to get wrong.
+
+  1. **`Icon` is the wrapper and it is not optional.** It owns the box (`size/icon/*`, the `2xs…xl`
+     ramp: 8 · 12 · 16 · 24 · 32 · 40, default `sm`) and the colour (`color/icon/*` via
+     `TIconColor`), and it fixes the `viewBox` at `0 0 24 24`, the grid bDS draws on. A published
+     glyph *is* an `Icon` with its paths already inside — that is the whole shape of them:
+
+     ```tsx
+     export const IconTrash01 = (props: TIconProps) => (
+       <Icon {...props}>
+         <path d="…" />   // <Path/> from react-native-svg on mobile
+       </Icon>
+     );
+     ```
+
+     So: never hand-roll an `<svg>`/`<Svg>` in a component, and never resize a glyph with
+     `width`/`height` — there is no escape hatch on purpose, because in Figma resizing an instance
+     breaks the variable binding and the icon stops following its token. Reach for `Icon` directly
+     only for artwork the library does not ship. `react-native-svg` is a peer of `@dsm/mobile`.
+
+  2. **The entry point is the section, and there is no barrel.** 1170 glyphs across 19 sections,
+     generated from `bDS - Icons` (`WlAjbUHE4M3YeoDwvnRwix`):
+
+     ```tsx
+     import { IconTrash01 } from '@dsm/web/icons/general';
+     import { IconWallet02 } from '@dsm/mobile/icons/finance-ecommerce';
+     ```
+
+     Sections: `alerts-feedback` · `arrows` · `charts` · `communication` · `development` ·
+     `editor` · `education` · `files` · `finance-ecommerce` · `general` · `images` · `layout` ·
+     `maps-travel` · `media-devices` · `security` · `shapes` · `time` · `users` · `weather`.
+     `@dsm/{web,mobile}/icons` **does not exist** — don't add a barrel over the 19 and don't
+     re-export them from a component. Measured reason: Rolldown shakes per glyph, **Metro shakes
+     per section**, so a barrel is one import away from putting 2.3 MB of path data in a mobile
+     bundle. Names are `Icon` + PascalCase of the bDS name, numeric suffix included
+     (`align-bottom-01` → `IconAlignBottom01`). Browse them in Storybook: `Atoms/Icon` → *Gallery*,
+     grouped by section, with the import line per group. Regenerate with
+     `node scripts/fetch-figma-icons.mjs && node scripts/generate-icons.mjs` (needs
+     `FIGMA_API_KEY`); the modules are generated — never edit them by hand.
+
+  3. **An icon that arrives through a prop is a `ReactNode`. Always.** `TIconName` existed and was
+     deleted: a name needs a name→component registry, a registry references all 1170 glyphs, and
+     that defeats the per-section split. So the caller imports the glyph and passes the element:
+
+     ```ts
+     leadingIcon?: ReactNode;   // in I<Name>BaseProps, in @dsm/shared
+     ```
+     ```tsx
+     <TextField label="Buscar" leadingIcon={<IconSearchMd size="sm" />} />
+     ```
+
+     `@dsm/shared` importing `import type { ReactNode } from 'react'` is fine and already the norm.
+     Three consequences to plan for:
+     · **No default glyph is possible.** Figma's instance-swap defaults (`icon/user`,
+       `icon/search`) do not survive; document that the slot is empty without a node.
+     · **The caller sizes it**, so put the component's own mapping in the prop's JSDoc — e.g.
+       TextField: `sm`/`md` → `size/icon/sm` (16), `lg` → `size/icon/md` (24).
+       **Never `lg` (32) inside a control** — bDS: *"Si lo estás usando dentro de un control, el
+       tamaño está mal."*
+     · **Colour: web gets it free, mobile does not.** Put the resolved colour on the wrapper and a
+       system glyph inherits it through `currentColor`; React Native has no such thing, so use
+       `tintNode(node, iconColor)` from `@dsm/mobile/src/components/atoms/Icon` — it clones in
+       `tintColor` only when the caller did not set one. Without it a tab's glyph stays grey when
+       the tab is selected.
+
+     **A glyph the component owns is not a slot** and stays ours: the check of a Checkbox, the ×
+     of a Chip or Tag, the status glyph of Alert and Snackbar, the chevron of a Select. Import it
+     directly and do not expose a prop for it — nobody should be able to replace it by mistake.
+     Those are the only places a *name* still appears in a shared contract (`ALERT_STATUS_ICON`,
+     `SNACKBAR_STATUS_ICON`), because the platform resolves it and the caller never can.
+
+  4. **Watch out: a `string` is a valid `ReactNode`.** `icon="user"` compiles and renders the word
+     *"user"* on screen, with typecheck, lint and build all green. After widening any slot to
+     `ReactNode`, check the render — count `<svg>` per story — instead of trusting the compiler.
 - **Switch has no label of its own. SwitchItem is the list row.** Figma: "Switch suelto no existe
   como pieza de pantalla." Apple HIG iOS: use switch style only in a list row; the row content is the
   accessible name; outside a list, use a toggle *button*, not a labelled switch. Do not add a `label`
@@ -364,10 +446,11 @@ bDS themes are **three Figma variable collections**, not a single light/dark swi
   the input's DOM `indeterminate` property, not a third enum. Live size map
   (node, not the description's blanket "minHeight 48"): `sm` 16 box / 12 mark /
   32 row (`size.control.height.sm`); `md` 24 / 16 / 48 (`size.target.min`). **Property
-  default is `md`** (Figma/Supernova + Dev frame) — not `sm`. Keep partial API:
-  `isChecked` + `isIndeterminate` + `showLabel` (Figma axes) — do **not** collapse
-  to Dev's `checked: boolean | 'indeterminate'` or presence-based `label` unless
-  asked. Dev docs say checked+indeterminate is "impossible"; live set description
+  default is `md`** (Figma/Supernova + Dev frame) — not `sm`. **Shipped before the
+  firma-first rule and not migrated yet**: its API is still the Figma axes,
+  `isChecked` + `isIndeterminate` + `showLabel`, rather than Dev's
+  `checked: boolean | 'indeterminate'` and presence-based `label`. Leave it there
+  until someone reads its contract on purpose; don't half-migrate it in passing. Dev docs say checked+indeterminate is "impossible"; live set description
   says the four combos are valid and indeterminate wins the paint — Figma wins.
   Marks
   are `IconCheck` / `IconMinus` with `color="fixed.white"` (Figma: not on-brand —
@@ -387,7 +470,7 @@ bDS themes are **three Figma variable collections**, not a single light/dark swi
   fill stretches). Dev firma listed only cover|contain; `fill` added for
   CSS/RN parity (web `object-fit: fill`, RN `resizeMode: stretch`). `status` is a Figma VARIANT but **not for callers** —
   derive from load (`empty` / `loading` / `error` / `default`); optional
-  override only for stories. Empty = dashed border + `IconImage` `lg`
+  override only for stories. Empty = dashed border + `IconImage01` `lg`
   `tertiary`; error = solid border + `IconAlertTriangle` `lg` `secondary`;
   loading = skeleton sheen (`component/skeleton/{bg,highlight}`, 26% band,
   respect reduce-motion). Default has **no** border. On **error**, paint
@@ -402,9 +485,10 @@ bDS themes are **three Figma variable collections**, not a single light/dark swi
   (that's Snackbar). Axes: **`status`** (danger/warning/success/info/neutral,
   default **danger**) × `placement` (page/section/inline, default **page**).
   Set description may still say `tone` in prose; property + Supernova + Dev
-  frame use `status`. Keep partial API: `showTitle` / `showAction` /
-  `showDismiss` + `actionLabel` / `onAction` / `onDismiss` — do **not** switch
-  to Dev presence-based `title` / `action` / `onDismiss`-only. Properties (8,
+  frame use `status`. **Shipped before the firma-first rule and not migrated
+  yet**: still `showTitle` / `showAction` / `showDismiss` + `actionLabel` /
+  `onAction` / `onDismiss`, where Dev wants presence-based `title` / `action` /
+  `onDismiss`-only. Leave it until someone reads its contract on purpose. Properties (8,
   Figma + Supernova): those two axes plus `showTitle` (true), `title`, `body`,
   `showIcon` (true), `showAction` (false), `showDismiss` (false). The last
   two are independent booleans even though the 15 published variants
@@ -448,8 +532,9 @@ bDS themes are **three Figma variable collections**, not a single light/dark swi
   **`media`** (none|image) × **`placement`** (13 Floating UI values) ×
   **`sequence`** (single|multi) → 52 variants. `media` is an axis because
   dismiss flips IconButton `veil` → `on-media` over the photo; a boolean
-  cannot change appearance. Keep partial API: `showTitle` / `showAction` /
-  `showDismiss` / `showBack` + handlers. `showTitle` only applies with
+  cannot change appearance. **Shipped before the firma-first rule and not
+  migrated yet**: still `showTitle` / `showAction` / `showDismiss` / `showBack`
+  + handlers. `showTitle` only applies with
   `media=image` (without image the title is mandatory for `aria-labelledby`).
   `showBack` is a no-op on `single`.   Host-controlled **`isOpen`** — never
   hover. Esc closes always; outside press closes `single`, not `multi`.
@@ -482,13 +567,21 @@ bDS themes are **three Figma variable collections**, not a single light/dark swi
   is named **Tab item** (`97:14033`); search still lists `Tab`. Public
   name is `TabItem`. Live selected axis is **`isSelected`** (Supernova's
   import still says `selected` — Figma wins). **`size` default is `lg`**
-  (Figma / Supernova / Dev frame) — not `md`. Dev frame wants
-  `tabs[]` + `value` + `onChange(key)` + `divider`; we keep the partial
-  RadioGroup-like API (`children` + `isSelected`/`onChange` per item +
-  `showDivider`) — same `show*` pattern as Alert/Snackbar. `showLeadingIcon` /
-  `showBadge` are independent booleans; glyph default `user`; badge count
-  default `"9"`, painted locally from `color.component.badge.*` (Badge
-  is not shipped). ExtraBold at **every** state — live nodes use
+  (Figma / Supernova / Dev frame) — not `md`.
+  **The bar takes its tabs as data, which is the Dev shape**: `tabs: ITabDef[]`
+  + `value` + `onChange(key)` + `divider`, shipped in `17f5cf1`. It used to
+  take `children` with `isSelected` per item; it does not any more, and
+  **`TabItem` is no longer exported** — three of its props (`isSelected`,
+  `layout`, `size`) are ones only the bar can fill in. The selection is not
+  marked tab by tab: *"no se marca pestaña por pestaña: sale del valor"*, so
+  `isSelected` is derived from `tab.key === value` and two active tabs is not a
+  state the API can express. `ITabDef` is
+  `{ key, label, leadingIcon?: ReactNode, badge?: number, disabled? }` —
+  `badge` is a **number**, because it is a count. There is no
+  `showLeadingIcon` / `showBadge` and no default glyph. The badge is still
+  painted locally from `color.component.badge.*`; **`Badge` shipped in
+  `f9e534f`**, so that is now worth revisiting rather than a stated gap — and
+  the JSDoc still claims it is not shipped. ExtraBold at **every** state — live nodes use
   `text/label/{md,lg}/strong` even unselected; colour carries inactive vs
   active (`component.tabs.label.text-{active,inactive,disabled}`).
   Indicator hugs the **content** column, not the full tab — fitted tabs
@@ -497,13 +590,14 @@ bDS themes are **three Figma variable collections**, not a single light/dark swi
   `radius/control/sm`, behind content. Focus is Switch's flush ring
   (`spread` − `offset`, no gap), not TextField's offset two-tone.
   Figma's `showItem3`–`showItem6` are 6-slot master toggles — **do not
-  ship as API**; code uses `children` (min 2, max 6). `showDivider`
-  stays a real boolean, default true. Canvas 375 is "a sangre", not a
+  ship as API**; *"en código es un arreglo"* (2 to 6 entries). `divider`
+  stays a real boolean, default true: there is no content to infer it from.
+  Canvas 375 is "a sangre", not a
   max-width. No TabPanel. Arrow keys move between enabled tabs; Tab
   leaves the bar. One shared token file `tabs.tokens.ts` (both
   components use `color.component.tabs`).
 - **Every component's own variant axes are its own — don't generalize.** `TextField` has a `size`
-  axis (`small`/`medium`/`large`, matching Figma's `sm`/`md`/`lg`) and an `icon` color group;
+  axis (`sm`/`md`/`lg`) and an `icon` color group;
   `TextArea` has neither — a single `state` axis, no size, no icon slot. Confirm the axes with
   `get_design_context` on the live node before writing the shared types file, every time — see
   "Design reference" above for why Supernova's own record isn't always enough on its own.
@@ -513,10 +607,10 @@ bDS themes are **three Figma variable collections**, not a single light/dark swi
   MCP access in this workspace (neither was reachable this session) — sourced entirely from the
   `Chip · contrato de desarrollo` PDF plus the real `color.component.chip.*` / `dimension.*` JSON
   leaves; flagged to the user rather than silently skipping the MCP gate above. `leadingIcon`'s
-  presence alone turns its slot on (no separate `showLeadingIcon`, unlike Tag) — the Dev firma is
-  explicit about this being a divergence from Tag's own pattern, so don't copy Tag's boolean here.
-  Same for the remove control: its existence is decided by whether the platform prop `onRemove` is
-  set, not a `showRemove` boolean — "sin handler no hay equis" (no handler, no ×). **The × is an
+  presence alone turns its slot on, and **Tag now works the same way**: Chip's firma called this a
+  divergence from Tag, and the 2026-09-28 alignment closed the gap by retiring Tag's
+  `showLeadingIcon` too. Same for the remove control on both: its existence is decided by whether
+  `onRemove` is set, never a `showRemove` boolean — *"una equis que no quita nada es una trampa"*. **The × is an
   icon inside the chip, not a nested IconButton** — Dev's own open-decisions section (§07) says so
   explicitly: no focus stop, no dedicated hit target, own by design (an anatomy change for design
   to make, not something to invent a fix for in code). Implemented as a plain `<span onClick>` with
@@ -643,7 +737,16 @@ bDS themes are **three Figma variable collections**, not a single light/dark swi
 
 ## Conventions (quick reference — full list in README)
 
-- `I` prefix for interfaces, `T` prefix for type aliases, `is` prefix for boolean props.
+- `I` prefix for interfaces, `T` prefix for type aliases, `is` prefix for boolean props — **except
+  where the Dev firma names them otherwise**, which it usually does: `disabled`, `readOnly`,
+  `selected`, `divider`. The firma wins on public prop names. Internal flags keep the `is` prefix
+  (`isInteractive`, `isFocusVisible`, and the `isDisabled` a hook aliases on the way in).
+- **No `show*` visibility booleans in a new component.** The content's presence is the switch. The
+  only exception is a boolean with nothing to infer from — ListItem's `divider`, ProgressBar's
+  `showHeader`. Components built before their contract was read still have them; they are retired
+  one component at a time, never in a blanket rename.
+- **Icon props are `ReactNode`.** See "Icons" in the gotchas — this is the rule with the most ways
+  to get it subtly wrong.
 - CSS classes: `dsm-` prefix (`dsm-input`, used only for the `::placeholder` seam — see "Tokens"
   above; `Button`'s legacy CSS still uses BEM modifiers like `dsm-button--primary`).
 - Web and mobile share **types and token values only** — never share styles or presentation logic;
