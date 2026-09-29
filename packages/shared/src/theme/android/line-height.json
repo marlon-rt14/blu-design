@@ -1,0 +1,182 @@
+{
+  "_comment": "This file was generated automatically by Supernova.io and should not be changed manually. To modify the format or content of this file, please contact your design system team.",
+  "line-height": {
+    "font": {
+      "line-height": {
+        "tight": {
+          "value": "120px",
+          "type": "lineHeight",
+          "description": "Interlineado del 120%. Va en PORCENTAJE, adimensional, para sobrevivir al 200% de font scale del sistema. OJO: bindear esto a un nodo de texto en Figma lo aplica como PIXELES; por eso los estilos de texto lo llevan como literal y esta variable es la fuente de verdad para el exporter. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "snug": {
+          "value": "135px",
+          "type": "lineHeight",
+          "description": "Interlineado del 135%. Va en PORCENTAJE, adimensional, para sobrevivir al 200% de font scale del sistema. OJO: bindear esto a un nodo de texto en Figma lo aplica como PIXELES; por eso los estilos de texto lo llevan como literal y esta variable es la fuente de verdad para el exporter. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "normal": {
+          "value": "150px",
+          "type": "lineHeight",
+          "description": "Interlineado del 150%. Va en PORCENTAJE, adimensional, para sobrevivir al 200% de font scale del sistema. OJO: bindear esto a un nodo de texto en Figma lo aplica como PIXELES; por eso los estilos de texto lo llevan como literal y esta variable es la fuente de verdad para el exporter. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "relaxed": {
+          "value": "170px",
+          "type": "lineHeight",
+          "description": "Interlineado del 170%. Va en PORCENTAJE, adimensional, para sobrevivir al 200% de font scale del sistema. OJO: bindear esto a un nodo de texto en Figma lo aplica como PIXELES; por eso los estilos de texto lo llevan como literal y esta variable es la fuente de verdad para el exporter. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "tight_1": {
+          "value": "120px",
+          "type": "lineHeight",
+          "description": "Interlineado 120 %. Para display y amount grandes, donde el tamaño ya separa las líneas y un interlineado mayor rompe el bloque."
+        },
+        "snug_1": {
+          "value": "135px",
+          "type": "lineHeight",
+          "description": "Interlineado 135 %. Para títulos medianos y para las filas de monto, donde hay una o dos líneas."
+        },
+        "normal_1": {
+          "value": "150px",
+          "type": "lineHeight",
+          "description": "Interlineado 150 %. El de lectura: body y label. Es el valor por defecto de un párrafo."
+        },
+        "relaxed_1": {
+          "value": "170px",
+          "type": "lineHeight",
+          "description": "Interlineado 170 %. Para bloques largos de texto legal o de ayuda, donde se lee corrido y conviene más aire."
+        }
+      }
+    },
+    "platform": {
+      "type": {
+        "title": {
+          "line-height-pct": {
+            "value": "133px",
+            "type": "lineHeight",
+            "description": "Interlineado de title en PORCENTAJE, para desarrollo. NO se bindea en Figma: al bindear una variable numerica a lineHeight, Figma la interpreta en PIXELES y no en porcentaje (medido el 22-sep: un titulo con el token en 127 salio de 127 px de alto). En Figma el porcentaje va fijo en el text style; en codigo se usa este token, que es lo correcto en CSS y en React Native."
+          },
+          "line-height": {
+            "value": "32px",
+            "type": "lineHeight",
+            "description": "iOS Title 2 · M3 headlineSmall"
+          }
+        },
+        "body": {
+          "line-height-pct": {
+            "value": "150px",
+            "type": "lineHeight",
+            "description": "Interlineado de body en PORCENTAJE, para desarrollo. NO se bindea en Figma: al bindear una variable numerica a lineHeight, Figma la interpreta en PIXELES y no en porcentaje (medido el 22-sep: un titulo con el token en 127 salio de 127 px de alto). En Figma el porcentaje va fijo en el text style; en codigo se usa este token, que es lo correcto en CSS y en React Native."
+          },
+          "line-height": {
+            "value": "24px",
+            "type": "lineHeight",
+            "description": "iOS Body · M3 bodyLarge"
+          }
+        },
+        "body-strong": {
+          "line-height-pct": {
+            "value": "150px",
+            "type": "lineHeight",
+            "description": "Interlineado de body-strong en PORCENTAJE, para desarrollo. NO se bindea en Figma: al bindear una variable numerica a lineHeight, Figma la interpreta en PIXELES y no en porcentaje (medido el 22-sep: un titulo con el token en 127 salio de 127 px de alto). En Figma el porcentaje va fijo en el text style; en codigo se usa este token, que es lo correcto en CSS y en React Native."
+          },
+          "line-height": {
+            "value": "24px",
+            "type": "lineHeight",
+            "description": "iOS Headline · M3 titleMedium — mismo tamano que body, cambia el peso"
+          }
+        },
+        "label": {
+          "line-height-pct": {
+            "value": "143px",
+            "type": "lineHeight",
+            "description": "Interlineado de label en PORCENTAJE, para desarrollo. NO se bindea en Figma: al bindear una variable numerica a lineHeight, Figma la interpreta en PIXELES y no en porcentaje (medido el 22-sep: un titulo con el token en 127 salio de 127 px de alto). En Figma el porcentaje va fijo en el text style; en codigo se usa este token, que es lo correcto en CSS y en React Native."
+          },
+          "line-height": {
+            "value": "20px",
+            "type": "lineHeight",
+            "description": "iOS Footnote · M3 labelLarge — texto de botones y tabs"
+          }
+        },
+        "caption": {
+          "line-height-pct": {
+            "value": "133px",
+            "type": "lineHeight",
+            "description": "Interlineado de caption en PORCENTAJE, para desarrollo. NO se bindea en Figma: al bindear una variable numerica a lineHeight, Figma la interpreta en PIXELES y no en porcentaje (medido el 22-sep: un titulo con el token en 127 salio de 127 px de alto). En Figma el porcentaje va fijo en el text style; en codigo se usa este token, que es lo correcto en CSS y en React Native."
+          },
+          "line-height": {
+            "value": "16px",
+            "type": "lineHeight",
+            "description": "iOS Caption 1 · M3 bodySmall. OJO: NO mapea a labelMedium aunque ambos midan 12/16. caption es texto corrido (leyenda, nota al pie) y va Regular; labelMedium es label de CONTROL y va Medium. Si algo rotula un control, consume el rol label, no caption."
+          }
+        },
+        "display": {
+          "line-height": {
+            "value": "44px",
+            "type": "lineHeight",
+            "description": "iOS Large Title · M3 displaySmall"
+          }
+        },
+        "headline": {
+          "line-height": {
+            "value": "36px",
+            "type": "lineHeight",
+            "description": "iOS Title 1 · M3 headlineMedium"
+          }
+        },
+        "subtitle": {
+          "line-height": {
+            "value": "28px",
+            "type": "lineHeight",
+            "description": "iOS Title 3 · M3 titleLarge"
+          }
+        },
+        "body-sm": {
+          "line-height": {
+            "value": "20px",
+            "type": "lineHeight",
+            "description": "iOS Subhead · M3 bodyMedium"
+          }
+        }
+      },
+      "navbar": {
+        "title": {
+          "line-height": {
+            "value": "28px",
+            "type": "lineHeight",
+            "description": "Interlineado del título estándar. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 22. Android: 28. Web: 28."
+          }
+        },
+        "large-title": {
+          "line-height": {
+            "value": "36px",
+            "type": "lineHeight",
+            "description": "Interlineado del título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 41. Android: 36. Web: 38."
+          }
+        }
+      },
+      "tabbar": {
+        "label": {
+          "line-height": {
+            "value": "16px",
+            "type": "lineHeight",
+            "description": "Interlineado de la etiqueta. iOS: 12. Android: 16. Web: 16. Barra de pestañas (TabBar, librería Platforms)."
+          }
+        }
+      },
+      "dialog": {
+        "title": {
+          "line-height": {
+            "value": "32px",
+            "type": "lineHeight",
+            "description": "Interlineado del título. iOS: 22. Android: 32. Web: 28. Dialog (librería Platforms)."
+          }
+        },
+        "message": {
+          "line-height": {
+            "value": "20px",
+            "type": "lineHeight",
+            "description": "Interlineado del mensaje. iOS: 22. Android: 20. Web: 24. Dialog (librería Platforms)."
+          }
+        }
+      }
+    }
+  }
+}

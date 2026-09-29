@@ -1,0 +1,77 @@
+{
+  "_comment": "This file was generated automatically by Supernova.io and should not be changed manually. To modify the format or content of this file, please contact your design system team.",
+  "font-weight": {
+    "platform": {
+      "font": {
+        "style": {
+          "regular": {
+            "value": "400",
+            "type": "fontWeight",
+            "description": "Nombre del corte regular tal como lo pide cada plataforma. Igual en las tres. Desde el 25-sep-2026 lo consumen los 10 estilos text/* regulares (body/*/default, caption/*/default, label/*/default, amount/md, amount/sm)."
+          },
+          "medium": {
+            "value": "500",
+            "type": "fontWeight",
+            "description": "Nombre del corte medium por plataforma. Igual en las tres hoy; el token existe para absorber una divergencia futura sin renombrar estilos."
+          },
+          "semibold": {
+            "value": "600",
+            "type": "fontWeight",
+            "description": "NO ES UN TYPO — no lo uniformes, rompe loadFontAsync en iOS. Cada familia tiene UNA sola grafia y no acepta la otra. Verificado contra listAvailableFontsAsync: SF Pro tiene \"Semibold\" y NO tiene \"SemiBold\"; Roboto tiene \"SemiBold\" y NO tiene \"Semibold\"; Mulish tiene \"SemiBold\" y NO tiene \"Semibold\". Por eso ios usa \"Semibold\" junto y android/web usan \"SemiBold\" con B mayuscula. Nunca escribas el peso a mano: consumi este token."
+          },
+          "bold": {
+            "value": "700",
+            "type": "fontWeight",
+            "description": "Nombre del corte bold por plataforma. Igual en las tres. Desde el 25-sep-2026 lo consumen text/unit/md y text/unit/sm, que en la marca van en Bold."
+          },
+          "emphasis": {
+            "value": "500",
+            "type": "fontWeight",
+            "description": "Nombre del estilo de fuente para el enfasis, por rol y no por peso. iOS enfatiza con Semibold, Android con Medium y web con ExtraBold, que es el enfasis de la marca en Mulish. Desde el 25-sep-2026 lo consumen los 25 estilos text/* de enfasis (display, heading, title, */strong, label/*/strong, link, overline, amount/hero, amount/lg, otp): el peso de esos estilos sale de aca, por NOMBRE y no por numero, porque con numero Figma reporta SF Pro 600 como Regular. Ojo con la grafia: SF Pro escribe Semibold y Roboto y Mulish SemiBold. Antes del 25-sep web valia Medium."
+          }
+        }
+      },
+      "navbar": {
+        "title": {
+          "style": {
+            "value": "400",
+            "type": "fontWeight",
+            "description": "Peso del título estándar. Barra de navegación superior (NavigationBar, librería Platforms). iOS: Semibold. Android: Regular (M3). Web: SemiBold. Aliasea platform/font/style/*: no escribas el peso a mano."
+          }
+        },
+        "large-title": {
+          "style": {
+            "value": "400",
+            "type": "fontWeight",
+            "description": "Peso del título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: Bold. Android: Regular (M3). Web: Bold."
+          }
+        }
+      },
+      "tabbar": {
+        "label": {
+          "style": {
+            "value": "500",
+            "type": "fontWeight",
+            "description": "Peso de la etiqueta. iOS: Semibold. Android: Medium. Web: SemiBold. Aliasea platform/font/style/*. Barra de pestañas (TabBar, librería Platforms)."
+          }
+        }
+      },
+      "dialog": {
+        "title": {
+          "style": {
+            "value": "400",
+            "type": "fontWeight",
+            "description": "Peso del título. iOS: Semibold. Android: Regular (headline de Material 3). Web: SemiBold. Dialog (librería Platforms)."
+          }
+        },
+        "action": {
+          "label-style": {
+            "value": "500",
+            "type": "fontWeight",
+            "description": "Peso de la etiqueta del botón. iOS: Semibold. Android y web: Medium. Dialog (librería Platforms)."
+          }
+        }
+      }
+    }
+  }
+}
