@@ -2,7 +2,7 @@ import { choiceItemTokens } from '@dsm/shared';
 import type { TChoiceItemState } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { IChoiceItemProps } from './ChoiceItem.types';
 
 /** Params of {@link useChoiceItem}: the props plus the live interaction state. */
@@ -56,7 +56,7 @@ export const useChoiceItem = ({
         : 'default';
 
   const stateColors = colors.state[state];
-  const font = resolveMulishFontFamily(typography.label.fontWeight);
+  const weight = resolveFontWeight(typography.label.fontWeight);
 
   return {
     rowStyle: {
@@ -95,11 +95,11 @@ export const useChoiceItem = ({
       minWidth: 0,
     },
     // See @dsm/mobile's TextField useTextField for why fontWeight never
-    // accompanies fontFamily here — same Android font-resolver constraint.
+    // selects the cut: the family is the system one.
     labelStyle: {
       width: '100%',
       color: stateColors.label,
-      fontFamily: font,
+      fontWeight: weight,
       fontSize: typography.label.fontSize[size],
       // React Native takes lineHeight in pixels, so the ratio is applied here.
       lineHeight: typography.label.fontSize[size] * typography.label.lineHeightRatio,
@@ -107,14 +107,14 @@ export const useChoiceItem = ({
     descriptionStyle: {
       width: '100%',
       color: stateColors.description,
-      fontFamily: font,
+      fontWeight: weight,
       fontSize: typography.description.fontSize,
       lineHeight: typography.description.fontSize * typography.description.lineHeightRatio,
     },
     trailingStyle: {
       flexShrink: 0,
       color: stateColors.trailing,
-      fontFamily: font,
+      fontWeight: weight,
       fontSize: typography.trailing.fontSize,
       lineHeight: typography.trailing.fontSize * typography.trailing.lineHeightRatio,
     },

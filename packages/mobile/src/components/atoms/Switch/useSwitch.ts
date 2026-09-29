@@ -1,7 +1,7 @@
 import { switchTokens } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { ISwitchProps } from './Switch.types';
 
 /** Params of {@link useSwitch}: the Switch props plus the live press state. */
@@ -105,7 +105,7 @@ export const useSwitch = ({
       : tokens.colors.label.off;
 
   const labelStyle: StyleProp<TextStyle> = {
-    fontFamily: resolveMulishFontFamily(tokens.typography.fontWeight),
+    fontWeight: resolveFontWeight(tokens.typography.fontWeight),
     fontSize: tokens.typography.fontSize,
     lineHeight: tokens.typography.lineHeight,
     letterSpacing: tokens.letterSpacing,

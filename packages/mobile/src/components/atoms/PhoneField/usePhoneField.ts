@@ -11,7 +11,7 @@ import type { TCountryCode } from '@dsm/shared';
 import { useMemo, useState } from 'react';
 import type { StyleProp, TextInputProps, TextStyle, ViewStyle } from 'react-native';
 
-import { useFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { IPhoneFieldProps } from './PhoneField.types';
 
 /** Everything the native PhoneField needs to render. */
@@ -87,9 +87,9 @@ export const usePhoneField = ({
 }: IPhoneFieldProps): IUsePhoneFieldResult => {
   const mode = useThemeMode();
   const { colors, size: sizes, dimension, typography } = phoneFieldTokens[mode];
-  const labelFont = useFontFamily(typography.label.fontWeight);
-  const valueFont = useFontFamily(typography.value.fontWeight);
-  const helperFont = useFontFamily(typography.helper.fontWeight);
+  const labelWeight = resolveFontWeight(typography.label.fontWeight);
+  const valueWeight = resolveFontWeight(typography.value.fontWeight);
+  const helperWeight = resolveFontWeight(typography.helper.fontWeight);
 
   const [isFocused, setIsFocused] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -130,7 +130,7 @@ export const usePhoneField = ({
     },
     labelStyle: {
       color: disabled ? colors.label.disabled : colors.label.default,
-      fontFamily: labelFont,
+      fontWeight: labelWeight,
       fontSize: typography.label.fontSize,
       letterSpacing: typography.label.letterSpacing,
       // Pixels, not a ratio: `lineHeight` is a multiplier in CSS and an absolute
@@ -144,7 +144,7 @@ export const usePhoneField = ({
           ? colors.value.filled
           : colors.value.placeholder,
       flex: 1,
-      fontFamily: valueFont,
+      fontWeight: valueWeight,
       fontSize: typography.value.fontSize,
       lineHeight: typography.value.fontSize * typography.value.lineHeightRatio,
       // A `TextInput` ships with its own padding on Android; the field's box is
@@ -157,7 +157,7 @@ export const usePhoneField = ({
         : hasError
           ? colors.helper.error
           : colors.helper.default,
-      fontFamily: helperFont,
+      fontWeight: helperWeight,
       fontSize: typography.helper.fontSize,
       lineHeight: typography.helper.fontSize * typography.helper.lineHeightRatio,
       marginTop: dimension.helperGap,
@@ -178,7 +178,7 @@ export const usePhoneField = ({
         : hasValue
           ? colors.prefix.dialCodeFilled
           : colors.prefix.dialCode,
-      fontFamily: valueFont,
+      fontWeight: valueWeight,
       fontSize: typography.value.fontSize,
       lineHeight: typography.value.fontSize * typography.value.lineHeightRatio,
     },
@@ -219,7 +219,7 @@ export const usePhoneField = ({
     },
     sheetHeaderStyle: {
       color: colors.label.default,
-      fontFamily: labelFont,
+      fontWeight: labelWeight,
       fontSize: typography.label.fontSize,
       lineHeight: typography.label.fontSize * typography.label.lineHeightRatio,
       padding: metrics.paddingHorizontal,
@@ -236,7 +236,7 @@ export const usePhoneField = ({
     searchInputStyle: {
       color: colors.value.filled,
       flex: 1,
-      fontFamily: valueFont,
+      fontWeight: valueWeight,
       fontSize: typography.value.fontSize,
       lineHeight: typography.value.fontSize * typography.value.lineHeightRatio,
       padding: 0,
@@ -252,19 +252,19 @@ export const usePhoneField = ({
     rowLabelStyle: {
       color: colors.value.filled,
       flex: 1,
-      fontFamily: valueFont,
+      fontWeight: valueWeight,
       fontSize: typography.value.fontSize,
       lineHeight: typography.value.fontSize * typography.value.lineHeightRatio,
     },
     rowDialCodeStyle: {
       color: colors.prefix.dialCode,
-      fontFamily: valueFont,
+      fontWeight: valueWeight,
       fontSize: typography.value.fontSize,
       lineHeight: typography.value.fontSize * typography.value.lineHeightRatio,
     },
     emptyStyle: {
       color: colors.helper.default,
-      fontFamily: helperFont,
+      fontWeight: helperWeight,
       fontSize: typography.helper.fontSize,
       lineHeight: typography.helper.fontSize * typography.helper.lineHeightRatio,
       padding: metrics.paddingHorizontal,

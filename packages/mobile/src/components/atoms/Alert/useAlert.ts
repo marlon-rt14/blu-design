@@ -2,7 +2,7 @@ import { alertTokens } from '@dsm/shared';
 import type { TAlertPlacement, TAlertStatus, TTokensOf } from '@dsm/shared';
 import type { Insets, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { IAlertProps } from './Alert.types';
 
 interface IUseAlertParams extends IAlertProps {
@@ -131,14 +131,14 @@ export const useAlert = ({
   };
 
   const titleStyle: StyleProp<TextStyle> = {
-    fontFamily: resolveMulishFontFamily(sizeTokens.title.fontWeight),
+    fontWeight: resolveFontWeight(sizeTokens.title.fontWeight),
     fontSize: sizeTokens.title.fontSize,
     lineHeight: sizeTokens.title.lineHeight,
     color: tokens.colors.title,
   };
 
   const bodyStyle: StyleProp<TextStyle> = {
-    fontFamily: resolveMulishFontFamily(sizeTokens.body.fontWeight),
+    fontWeight: resolveFontWeight(sizeTokens.body.fontWeight),
     fontSize: sizeTokens.body.fontSize,
     lineHeight: sizeTokens.body.lineHeight,
     color: tokens.colors.body,

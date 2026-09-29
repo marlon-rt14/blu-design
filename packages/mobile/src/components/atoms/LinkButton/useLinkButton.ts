@@ -2,7 +2,7 @@ import { linkButtonTokens } from '@dsm/shared';
 import type { TLinkButtonState } from '@dsm/shared';
 import type { Insets, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { ILinkButtonProps } from './LinkButton.types';
 
 /** Params of {@link useLinkButton}: the props plus the live interaction state. */
@@ -90,9 +90,9 @@ export const useLinkButton = ({
   };
 
   // See @dsm/mobile's TextField useTextField for why fontWeight never
-  // accompanies fontFamily here — same Android font-resolver constraint.
+  // selects the cut: the family is the system one.
   const labelStyle: StyleProp<TextStyle> = {
-    fontFamily: resolveMulishFontFamily(tokens.typography.fontWeight),
+    fontWeight: resolveFontWeight(tokens.typography.fontWeight),
     fontSize: tokens.typography.fontSize[size],
     // React Native takes lineHeight in pixels, so the ratio is applied here.
     // On web the same value goes in unmultiplied, as a CSS ratio.

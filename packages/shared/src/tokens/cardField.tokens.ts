@@ -2,6 +2,7 @@ import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
 import { fromThemeSources, themeSources } from '../themeSource/themes';
 import type { TThemeSourceKey } from '../themeSource/themes';
 import type { TCardFieldSize } from '../types/atoms/cardField.types';
+import { baseFontFamily } from './theme.tokens';
 
 /** Container colours, keyed by the state that drives them. */
 export interface ICardFieldContainerColorTokens {
@@ -190,7 +191,7 @@ const HELPER_LINE_HEIGHT_RATIO = 1.35;
 const LABEL_LETTER_SPACING_RATIO = 0.02;
 
 const readCardFieldTokens = (key: TThemeSourceKey): ICardFieldTokens => {
-  const { color, dimension, string } = themeSources[key];
+  const { color, dimension } = themeSources[key];
   const fieldAt = (path: string): string =>
     readThemeToken(color, `color.component.cardfield.${path}`);
   const dimensionAt = (path: string): number => readThemeDimension(dimension, `dimension.${path}`);
@@ -280,7 +281,7 @@ const readCardFieldTokens = (key: TThemeSourceKey): ICardFieldTokens => {
         letterSpacing: 0,
       },
     },
-    fontFamily: readThemeToken(string, 'string.platform.font.family'),
+    fontFamily: baseFontFamily,
   };
 };
 

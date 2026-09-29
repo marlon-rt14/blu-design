@@ -1,7 +1,7 @@
 import { tagTokens, TAG_LINE_HEIGHT_RATIO } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { ITagProps } from './Tag.types';
 
 interface IUseTagResult {
@@ -25,7 +25,7 @@ export const useTag = ({
   const tokens = tagTokens[mode];
   const colors = tokens.colors.palettes[palette][appearance];
   const sizeTokens = tokens.dimension.sizes[size];
-  const font = resolveMulishFontFamily(tokens.dimension.fontWeight);
+  const weight = resolveFontWeight(tokens.dimension.fontWeight);
 
   return {
     rootStyle: {
@@ -42,7 +42,7 @@ export const useTag = ({
     },
     labelStyle: {
       color: colors.text,
-      fontFamily: font,
+      fontWeight: weight,
       fontSize: sizeTokens.fontSize,
       lineHeight: sizeTokens.fontSize * TAG_LINE_HEIGHT_RATIO,
     },

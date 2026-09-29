@@ -1,7 +1,7 @@
 import { textFieldTokens } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { ITextFieldProps } from './TextField.types';
 
 /** Params of {@link useTextField}: the TextField props plus the live focus state. */
@@ -158,7 +158,7 @@ export const useTextField = ({
 
   const affixColor = isDisabled ? colors.affix.disabled : colors.affix.default;
   const affixStyle: StyleProp<TextStyle> = {
-    fontFamily: resolveMulishFontFamily(tokens.typography.content.fontWeight),
+    fontWeight: resolveFontWeight(tokens.typography.content.fontWeight),
     fontSize: tokens.typography.content.fontSize,
     lineHeight: tokens.typography.content.lineHeight,
     color: affixColor,
@@ -172,23 +172,23 @@ export const useTextField = ({
     justifyContent: 'center',
   };
 
-  // No numeric `fontWeight` alongside `fontFamily`: each Mulish-*.ttf is
+  // No numeric `fontWeight` alongside `fontFamily`: each face is
   // already a single static weight (see theme/font.ts), and Android's font
   // resolver tries to append a "_bold"/"_italic" suffix onto the filename
   // when `fontWeight`/`fontStyle` is set, which would look for a file like
-  // "Mulish-SemiBold_bold.ttf" that doesn't exist and silently fall back to
+  // "SFProText-Semibold_bold" that doesn't exist and silently fall back to
   // the system font. The weight is already baked into which file we picked.
   const inputStyle: StyleProp<TextStyle> = {
     flex: 1,
     minWidth: 0,
-    fontFamily: resolveMulishFontFamily(tokens.typography.content.fontWeight),
+    fontWeight: resolveFontWeight(tokens.typography.content.fontWeight),
     fontSize: tokens.typography.content.fontSize,
     lineHeight: tokens.typography.content.lineHeight,
     color: valueColor,
   };
 
   const labelStyle: StyleProp<TextStyle> = {
-    fontFamily: resolveMulishFontFamily(tokens.typography.label.fontWeight),
+    fontWeight: resolveFontWeight(tokens.typography.label.fontWeight),
     fontSize: tokens.typography.label.fontSize,
     lineHeight: tokens.typography.label.lineHeight,
     letterSpacing: FLOATING_LABEL_LETTER_SPACING,
@@ -203,7 +203,7 @@ export const useTextField = ({
   const helperStyle: StyleProp<TextStyle> = {
     flex: 1,
     paddingTop: tokens.dimension.footerSlotGap,
-    fontFamily: resolveMulishFontFamily(tokens.typography.helper.fontWeight),
+    fontWeight: resolveFontWeight(tokens.typography.helper.fontWeight),
     fontSize: tokens.typography.helper.fontSize,
     lineHeight: tokens.typography.helper.lineHeight,
     color: helperColor,
@@ -217,7 +217,7 @@ export const useTextField = ({
   const counterStyle: StyleProp<TextStyle> = {
     paddingTop: tokens.dimension.footerSlotGap,
     paddingLeft: tokens.dimension.footerInlineGap,
-    fontFamily: resolveMulishFontFamily(tokens.typography.counter.fontWeight),
+    fontWeight: resolveFontWeight(tokens.typography.counter.fontWeight),
     fontSize: tokens.typography.counter.fontSize,
     lineHeight: tokens.typography.counter.lineHeight,
     color: counterColor,

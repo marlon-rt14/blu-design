@@ -149,7 +149,6 @@ export const useStep = ({
   };
 
   const labelStyle: TextStyle = {
-    fontFamily: typography.fontFamily,
     fontWeight: typography.fontWeight as TextStyle['fontWeight'],
     fontSize: typography.fontSize,
     lineHeight: typography.lineHeight,
@@ -159,7 +158,6 @@ export const useStep = ({
   };
 
   const secondaryStyle: TextStyle = {
-    fontFamily: secondary.fontFamily,
     fontWeight: secondary.fontWeight as TextStyle['fontWeight'],
     fontSize: secondary.fontSize,
     lineHeight: secondary.lineHeight,
@@ -169,7 +167,6 @@ export const useStep = ({
   };
 
   const numberStyle: TextStyle = {
-    fontFamily: number.fontFamily,
     fontWeight: number.fontWeight as TextStyle['fontWeight'],
     fontSize: number.fontSize,
     lineHeight: number.lineHeight,

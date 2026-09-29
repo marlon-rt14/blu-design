@@ -2,6 +2,7 @@ import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
 import { fromThemeSources, themeSources } from '../themeSource/themes';
 import type { TThemeSourceKey } from '../themeSource/themes';
 import type { TProgressBarSize, TProgressStatus } from '../types/atoms/progressBar.types';
+import { baseFontFamily } from './theme.tokens';
 
 /** Colours of the track, the five fills and the two header texts. */
 export interface IProgressBarColorTokens {
@@ -128,7 +129,7 @@ const readProgressBarTokens = (key: TThemeSourceKey): IProgressBarTokens => {
       duration: dimensionAt('motion.duration.normal'),
       easing: readThemeToken(string, 'string.motion.easing.standard'),
     },
-    fontFamily: readThemeToken(string, 'string.platform.font.family'),
+    fontFamily: baseFontFamily,
   };
 };
 

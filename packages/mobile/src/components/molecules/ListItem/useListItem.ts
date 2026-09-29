@@ -2,7 +2,7 @@ import { listItemTokens } from '@dsm/shared';
 import type { TListItemState } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { IListItemProps } from './ListItem.types';
 
 /** Params of {@link useListItem}: the props plus the live interaction state. */
@@ -46,8 +46,8 @@ export const useListItem = ({
 }: IUseListItemParams): IUseListItemResult => {
   const mode = useThemeMode();
   const { colors, dimension, typography } = listItemTokens[mode];
-  const titleFont = resolveMulishFontFamily(typography.title.fontWeight);
-  const trailingTextFont = resolveMulishFontFamily(typography.trailingText.fontWeight);
+  const titleWeight = resolveFontWeight(typography.title.fontWeight);
+  const trailingTextWeight = resolveFontWeight(typography.trailingText.fontWeight);
 
   const state: TListItemState = isDisabled
     ? 'disabled'
@@ -93,21 +93,21 @@ export const useListItem = ({
     titleStyle: {
       width: '100%',
       color: stateColors.title,
-      fontFamily: titleFont,
+      fontWeight: titleWeight,
       fontSize: typography.title.fontSize[size],
       lineHeight: typography.title.fontSize[size] * typography.title.lineHeightRatio,
     },
     descriptionStyle: {
       width: '100%',
       color: stateColors.description,
-      fontFamily: titleFont,
+      fontWeight: titleWeight,
       fontSize: typography.description.fontSize,
       lineHeight: typography.description.fontSize * typography.description.lineHeightRatio,
     },
     trailingTextStyle: {
       flexShrink: 0,
       color: stateColors.trailing,
-      fontFamily: trailingTextFont,
+      fontWeight: trailingTextWeight,
       fontSize: typography.trailingText.fontSize,
       lineHeight: typography.trailingText.fontSize * typography.trailingText.lineHeightRatio,
     },

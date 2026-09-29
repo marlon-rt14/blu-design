@@ -2,7 +2,7 @@ import { radioTokens } from '@dsm/shared';
 import type { TRadioState } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { IRadioProps } from './Radio.types';
 
 /** Params of {@link useRadio}: the props plus the live interaction state. */
@@ -93,9 +93,9 @@ export const useRadio = ({
             backgroundColor: colors.dot,
           },
     // See @dsm/mobile's TextField useTextField for why fontWeight never
-    // accompanies fontFamily here — same Android font-resolver constraint.
+    // selects the cut: the family is the system one.
     labelStyle: {
-      fontFamily: resolveMulishFontFamily(typography.fontWeight),
+      fontWeight: resolveFontWeight(typography.fontWeight),
       fontSize: typography.fontSize[size],
       lineHeight: typography.fontSize[size] * typography.lineHeightRatio,
       color: colors.label,
