@@ -670,19 +670,51 @@ bDS themes are **three Figma variable collections**, not a single light/dark swi
 - **`usePrefersReducedMotion()` replaces a `@media` query.** With inline `transition` strings built in
   JS, there's no `@media (prefers-reduced-motion: reduce)` rule to hide behind — call this hook (from
   `@dsm/web`'s `theme/`) and set `transition: 'none'` when it's `true`.
-- **Mulish is loaded on both platforms — via completely different mechanisms, both behind
-  `BluProvider`.** Web: `@dsm/web`'s `theme/font.ts` self-hosts it with `@fontsource/mulish`
-  (per-weight CSS imports, pulled in by importing `BluProvider`) — use the plain package, NOT
-  `@fontsource-variable/mulish`, whose `@font-face` registers as `"Mulish Variable"` and silently
-  won't match the `"Mulish"` family every token specifies. Importing `@dsm/web` alone, without
-  rendering `<BluProvider>`, no longer loads any font. Mobile: bare RN needs a linked native font file
-  per weight (`packages/mobile/assets/fonts/Mulish-*.ttf`) — resolve the right one with
-  `resolveMulishFontFamily(fontWeight)` (aliased as `useFontFamily` in `@dsm/mobile`'s `theme/index.ts`
-  for symmetry with web's hook of the same name), and do NOT also set a numeric `fontWeight` alongside
-  it (Android's font resolver will hunt for a nonexistent suffixed file like
-  `Mulish-SemiBold_bold.ttf` and silently fall back to the system font). A new weight needs a new
-  instanced `.ttf` — see README "Theming & tokens" for how the existing ones were generated with
-  `fonttools varLib.instancer`.
+- **The typeface is per platform, and on mobile you must NOT set a font family at all.**
+  bDS asks for the brand face on the web and each platform's own in its app:
+  **web Mulish, iOS SF Pro, Android Roboto**. SF Pro *is* the iOS system font and Roboto *is*
+  Android's, so **leaving `fontFamily` unset is what selects them** — `@dsm/mobile` ships no font
+  files, links nothing, and licenses nothing.
+
+  ```ts
+  // mobile — the family is the system's, so only the weight is set
+  labelStyle = {
+    fontWeight: resolveFontWeight(tokens.typography.label.fontWeight),
+    fontSize: tokens.typography.label.fontSize,
+  };
+  ```
+
+  **Never write `fontFamily` in a `@dsm/mobile` style.** Not a literal, not a token, not
+  `baseFontFamily` — that one is web's Mulish and would override the system face on a device with
+  a family the phone does not have. There is nothing to import: `resolveFontWeight` from
+  `@dsm/mobile`'s `theme/` is the whole API, and it only passes the token weight through with the
+  right type.
+
+  **The weight is load-bearing now, and this inverted on 2026-09-29.** While mobile bundled Mulish,
+  each `.ttf` was its own family (`Mulish-SemiBold`), the weight travelled inside the family name,
+  and setting a numeric `fontWeight` was forbidden — Android would hunt for
+  `Mulish-SemiBold_bold.ttf` and silently fall back. With the system font it is the opposite: one
+  family, and the weight is the only thing that selects a cut, so it **has** to be set and has to
+  be the real number from `dimension.font.weight.*`. If you find an old comment saying not to set
+  `fontWeight`, it predates this and is wrong.
+
+  Web is unchanged and still Mulish: `@dsm/web`'s `theme/font.ts` self-hosts it with
+  `@fontsource/mulish` (per-weight CSS imports, pulled in by importing `BluProvider`) — use the
+  plain package, NOT `@fontsource-variable/mulish`, whose `@font-face` registers as
+  `"Mulish Variable"` and silently won't match the `"Mulish"` family. Importing `@dsm/web` alone,
+  without rendering `<BluProvider>`, loads no font.
+
+  **Do not read the family from `string.platform.font.family`.** It is not "the design system's
+  typeface" — it is the typeface of *whichever platform the export was generated for*, and it
+  changes: a Supernova sync flipped it from `"Mulish"` to `"SF Pro"` and broke all 32 web
+  components in one go, each asking the browser for a family it does not have. `baseFontFamily`
+  reads `string.font.family.mulish`, which names the family instead of the platform.
+
+  **Both failures here are invisible**, which is why they are worth this much text: on iOS the
+  system font *is* SF Pro and on Android it *is* Roboto, so a style that names a family which does
+  not resolve looks almost right — every weight just collapses to regular. Check the render, not
+  the types. `apps/react-native-demo/__tests__/fontWeight.test.tsx` asserts the pair that catches
+  it: no `fontFamily`, and more than one `fontWeight`.
 - **Accessibility parity with `Button`:** on mobile, set `accessibilityState={{ disabled: ... }}`
   and `accessibilityLabel` on the interactive element (RN has no DOM `label[for]`, so proximity to
   a `<Text>` label does not create a programmatic association). On web, error/alert text gets

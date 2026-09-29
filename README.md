@@ -100,9 +100,11 @@ Themes are **three axes** (brand × mode × layout), composed into
 return plain style objects. `useResolvedTheme()` when you need axes / `isExact`. Type a single
 theme's bag with `TTokensOf<typeof xTokens>`.
 
-**Font**: `string.platform.font.family` (`"Mulish"`) is documented in Supernova as a **web-only**
-alias — iOS/Android are "meant" to use their OS system font — but the product decision is to brand
-both platforms with Mulish, so both actually load it, through each platform's own `BluProvider`:
+**Font**: one typeface per platform — **web Mulish, iOS SF Pro, Android Roboto**. This is what
+Supernova documented all along: `string.platform.font.family` is a **web-only** alias, and
+iOS/Android are meant to use their OS system font. A product decision had overridden that and
+branded both platforms with Mulish; it was reverted on 2026-09-29, so the code and the
+documentation agree again.
 
 - **Web**: `packages/web/src/theme/font.ts` self-hosts Mulish via `@fontsource/mulish` (imported
   per-weight — `400.css` through `800.css` — as a side effect of importing that module, which
@@ -111,32 +113,41 @@ both platforms with Mulish, so both actually load it, through each platform's ow
   the `"Mulish"` family every typography token specifies — a real bug that shipped once. Importing
   `@dsm/web` alone (without rendering `BluProvider`) no longer loads any font or global CSS beyond the
   legacy `Button` tokens — apps must render `<BluProvider>` at their root to get Mulish.
-- **Mobile**: bare React Native has no CSS cascade and no runtime font-loading API — a font must be a
-  linked native asset, one static file per weight (RN cannot pick a weight out of a single variable
-  font file the way CSS can). `packages/mobile/assets/fonts/Mulish-{Regular,Medium,SemiBold,Bold,ExtraBold}.ttf`
-  are Google's official variable `Mulish[wght].ttf` (OFL-licensed) instanced per weight with
-  `fonttools varLib.instancer`, then renamed so filename, family name **and** PostScript name are all
-  the same string (`Mulish-<Weight>`) — iOS resolves fonts by PostScript name, Android by filename, so
-  every field has to agree for one `fontFamily` string to work on both.
 
-  Each consuming app links these fonts into its native projects once — `apps/react-native-demo` is
-  already linked; redo this if `@dsm/mobile`'s font set changes:
+  `useFontFamily(fontWeight)` from `@dsm/web`'s `theme/` returns `"Mulish, sans-serif"`; it ignores
+  the weight, since one `@font-face` family covers all five. It reads `baseFontFamily`, which reads
+  **`string.font.family.mulish`** — the token that names the family. Deliberately *not*
+  `string.platform.font.family`: that one names whichever platform the export was generated for, and
+  when a Supernova sync flipped it from `"Mulish"` to `"SF Pro"` all 32 web components silently asked
+  the browser for a font it does not have.
 
-  ```bash
-  pnpm --filter <app> add -D react-native-asset   # already a devDependency of ReactNativeDemo
-  # react-native.config.js: assets: ['<relative-path-to>/packages/mobile/assets/fonts']
-  npx react-native-asset
+- **Mobile ships no font files, and sets no font family.** SF Pro *is* the iOS system font and
+  Roboto *is* Android's, so leaving `fontFamily` unset is what selects them. Nothing to bundle,
+  nothing to link with `react-native-asset`, nothing to license, and the face follows the OS instead
+  of freezing at whatever release was downloaded.
+
+  What carries the design instead is the **weight**, and this is the part that inverted. While
+  mobile bundled Mulish, each `.ttf` was its own family (`Mulish-SemiBold`), so the weight lived in
+  the family name and a numeric `fontWeight` was forbidden — Android would hunt for a nonexistent
+  `Mulish-SemiBold_bold.ttf` and fall back silently. Now there is one family and the weight is the
+  only thing that selects a cut:
+
+  ```ts
+  import { resolveFontWeight } from '@dsm/mobile';
+
+  labelStyle = {
+    fontWeight: resolveFontWeight(tokens.typography.label.fontWeight),
+    fontSize: tokens.typography.label.fontSize,
+  };
   ```
 
-  This is a one-time native build step, same spirit as `pod install` — `BluProvider` is JS-only and
-  cannot inject a font file into the native project for you.
+  **Never write `fontFamily` in a `@dsm/mobile` style** — not a literal, not `baseFontFamily` (that
+  is web's Mulish). Both mistakes are invisible on a device: the system font is already the right
+  one, so a family that fails to resolve just flattens every weight to regular.
+  `apps/react-native-demo/__tests__/fontWeight.test.tsx` asserts the pair that catches it.
 
-- **Both platforms** expose a `useFontFamily(fontWeight)` hook from their `theme/` module, for one
-  shared seam even though the implementations differ completely: web's ignores the weight (a single
-  `@font-face` family already covers every weight) and returns `"Mulish, sans-serif"`; mobile's is an
-  alias for `resolveMulishFontFamily`, mapping the weight to the exact linked `.ttf`. Component hooks
-  call this instead of hand-building a font stack, so a future rebrand only touches this one function
-  per platform.
+  Android interpolates the full 100–900 range from API 28 on; below that the system snaps to regular
+  or bold and a 500 and a 600 look alike. `minSdk` is above that line.
 
 **`BluProvider`** is the root wrapper every consuming app renders once —
 `<BluProvider><App /></BluProvider>` — on **both** platforms:

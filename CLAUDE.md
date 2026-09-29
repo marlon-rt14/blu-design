@@ -90,7 +90,7 @@ never import the JSON or hand-roll a literal value directly in a component or `.
   by mode) and re-exporting `Record<TThemeSourceKey, I<Name>Tokens>`, nesting any size/state variant
   axis *inside* each entry. See `textField.tokens.ts` / `textArea.tokens.ts`.
 - `packages/shared/src/tokens/theme.tokens.ts` — page-level root tokens (`pageColorTokens`) plus
-  `baseFontFamily` (`"Mulish"`).
+  `baseFontFamily` (`"Mulish"`, **web only** — see "Font" below).
 - Legacy hand-rolled tokens (`colors.ts`, `spacing.ts`, …) are frozen, kept only for `Button` (which
   predates this pipeline). Never add new tokens there.
 
@@ -110,12 +110,18 @@ equivalent) — `TextField`/`TextArea` apply the shared `dsm-input` class and se
 `--dsm-input-placeholder-color` inline; see `packages/web/src/styles/pseudo.css`. Extend that file for
 a new component's pseudo-selector needs rather than adding a new CSS file.
 
-**Font**: Mulish, loaded differently per platform, both behind `BluProvider` (root wrapper every app
-renders once — sets theme mode, and on web also paints root `backgroundColor`/`color`/`fontFamily` from
-`pageColorTokens`). Web self-hosts via `@fontsource/mulish` (plain package, not the `-variable` one —
-the variable build registers as `"Mulish Variable"` and silently breaks token matching). Mobile links a
-static `.ttf` per weight (`packages/mobile/assets/fonts/`) as a native asset — `useFontFamily(weight)`
-resolves the right file. See `README.md` "Theming & tokens" for the full native-linking steps.
+**Font**: per platform — **web Mulish, iOS SF Pro, Android Roboto**. Web self-hosts Mulish via
+`@fontsource/mulish`, pulled in by `BluProvider` (plain package, not the `-variable` one — the
+variable build registers as `"Mulish Variable"` and silently breaks token matching).
+
+**Mobile sets no font family at all, on purpose.** SF Pro is the iOS system font and Roboto is
+Android's, so leaving `fontFamily` unset is what selects them: `@dsm/mobile` ships no font files,
+links no native assets, and licenses nothing. **Never write `fontFamily` in a `@dsm/mobile` style**
+— not a literal and not `baseFontFamily`, which is web's Mulish. The weight carries everything
+there: `fontWeight: resolveFontWeight(tokens.typography.<slot>.fontWeight)`, read from
+`dimension.font.weight.*` like any other token. Setting a family that does not resolve, or omitting
+the weight, both look almost right on a device — every cut collapses to regular — so check the
+render, not the types.
 
 ### Adding a component
 
