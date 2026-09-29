@@ -225,12 +225,12 @@
             "description": "Texto corrido destacado. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
           },
           "md": {
-            "value": "16px",
+            "value": "17px",
             "type": "dimension",
             "description": "TEXTO CORRIDO BASE. 16px. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
           },
           "sm": {
-            "value": "14px",
+            "value": "15px",
             "type": "dimension",
             "description": "Texto corrido secundario y tablas densas. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
           }
@@ -605,9 +605,9 @@
           "description": "Canaleta entre columnas, retícula densa. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
         },
         "md": {
-          "value": "20px",
+          "value": "24px",
           "type": "dimension",
-          "description": "CANALETA BASE entre columnas. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
+          "description": "CANALETA BASE entre columnas: 16 · 24 · 24. Es la canaleta de grid/layout. Varia con la densidad: '4. Layout' es el eje de geometria (compact para telefono, regular para tablet, expanded para escritorio). Nunca usar el primitivo crudo en un componente."
         },
         "lg": {
           "value": "32px",
@@ -683,6 +683,23 @@
         "value": "9999px",
         "type": "dimension",
         "description": "Radio de esquina de 9999px. Los componentes usan radius/control, surface, field, tile, action o pill de 4. Layout, que dicen QUE se redondea, no cuanto. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "focus": {
+        "sm": {
+          "value": "6px",
+          "type": "dimension",
+          "description": "Radio de anillo de foco exterior: radio de control 4 + desplazamiento 2. Solo para anillos de foco, no es un paso de la escala."
+        },
+        "md": {
+          "value": "10px",
+          "type": "dimension",
+          "description": "Radio de anillo de foco exterior: radio 8 + desplazamiento 2 (chip en Android). Solo para anillos de foco."
+        },
+        "lg": {
+          "value": "14px",
+          "type": "dimension",
+          "description": "Radio de anillo de foco exterior: radio 12 + desplazamiento 2 (botón y campos). Solo para anillos de foco."
+        }
       }
     },
     "opacity": {
@@ -941,7 +958,7 @@
         "short_1": {
           "value": "4000px",
           "type": "dimension",
-          "description": "Cuanto se queda en pantalla un mensaje efimero SIN accion: una confirmacion que el usuario no necesita responder. 4 s desde que entra. Mismo valor en los tres modos a proposito: la permanencia no depende de la densidad. NO es duracion de animacion: la entrada y la salida del elemento son motion/duration/short + motion/easing/enter|exit. Reduce Motion apaga el movimiento, nunca este contador: el tiempo de lectura no es movimiento."
+          "description": "Cuanto se queda en pantalla un mensaje efimero SIN accion: una confirmacion que el usuario no necesita responder. 4 s desde que entra. Mismo valor en los tres modos a proposito: la permanencia no depende de la densidad. NO es duracion de animacion: la entrada y la salida del elemento son motion/duration/short + motion/easing/enter|exit. Reduce Motion apaga el movimiento, nunca este contador: el tiempo de lectura no es movimiento. Hoy el Snackbar no lo consume: desde el 29-sep dura motion/dwell/default (6 s) sin acción, para que alcance a leerse con varias barras en pila (SnackbarStack)."
         },
         "default_1": {
           "value": "6000px",
@@ -966,6 +983,15 @@
         "type": "dimension",
         "description": "Dimension de 4px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
       },
+      "5": {
+        "value": "5px",
+        "type": "dimension"
+      },
+      "6": {
+        "value": "6px",
+        "type": "dimension",
+        "description": "Medida del Slider (kits iOS 27 y Material 3)."
+      },
       "8": {
         "value": "8px",
         "type": "dimension",
@@ -980,6 +1006,11 @@
         "value": "12px",
         "type": "dimension",
         "description": "Dimension de 12px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "14": {
+        "value": "14px",
+        "type": "dimension",
+        "description": "Dimension de 14px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
       },
       "16": {
         "value": "16px",
@@ -1056,15 +1087,72 @@
         "type": "dimension",
         "description": "Dimension de 48px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
       },
+      "52": {
+        "value": "52px",
+        "type": "dimension",
+        "description": "Dimension de 52px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "54": {
+        "value": "54px",
+        "type": "dimension"
+      },
       "56": {
         "value": "56px",
         "type": "dimension",
         "description": "Dimension de 56px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
       },
+      "57": {
+        "value": "57px",
+        "type": "dimension",
+        "description": "Medida del Slider (kits iOS 27 y Material 3)."
+      },
+      "58": {
+        "value": "58px",
+        "type": "dimension",
+        "description": "Medida del Slider (kits iOS 27 y Material 3)."
+      },
+      "60": {
+        "value": "60px",
+        "type": "dimension",
+        "description": "Medida del Slider (kits iOS 27 y Material 3)."
+      },
+      "62": {
+        "value": "62px",
+        "type": "dimension"
+      },
+      "64": {
+        "value": "64px",
+        "type": "dimension",
+        "description": "Dimension de 64px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "84": {
+        "value": "84px",
+        "type": "dimension"
+      },
+      "108": {
+        "value": "108px",
+        "type": "dimension"
+      },
+      "118": {
+        "value": "118px",
+        "type": "dimension"
+      },
+      "134": {
+        "value": "134px",
+        "type": "dimension"
+      },
       "160": {
         "value": "160px",
         "type": "dimension",
         "description": "Paso de tamaño 160. Primer uso: ancho mínimo del CTA de EmptyState en layout=page."
+      },
+      "300": {
+        "value": "300px",
+        "type": "dimension"
+      },
+      "312": {
+        "value": "312px",
+        "type": "dimension"
       },
       "control": {
         "height": {
@@ -1561,7 +1649,7 @@
         "radius": {
           "value": "9999px",
           "type": "dimension",
-          "description": "Co-token de searchfield. Capa de indirección: aliasea radius/pill sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          "description": "Co-token de searchfield. Radio del contenedor y del velo de hover. Aliasea platform/radius/search: web 12 · iOS cápsula · Android full."
         },
         "icon": {
           "size": {
@@ -1576,6 +1664,11 @@
               "description": "Co-token de searchfield. Capa de indirección: aliasea size/icon/sm sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
             }
           }
+        },
+        "radius-focus": {
+          "value": "9999px",
+          "type": "dimension",
+          "description": "Co-token de searchfield. Radio del anillo de foco: aliasea platform/radius/focus/search (14 · pastilla · 6)."
         }
       },
       "expansion": {
@@ -1723,7 +1816,7 @@
           "width": {
             "value": "32px",
             "type": "dimension",
-            "description": "Co-token de sheet. Ancho de la barra de arrastre. Mismo valor en las tres densidades: es un affordance de gesto, no escala con la densidad."
+            "description": "Co-token de sheet. Ancho de la barra de arrastre. Mismo valor en las tres densidades: es un affordance de gesto, no escala con la densidad. El Sheet de Platforms lo usa en Android y web a través de platform/sheet/handle/width."
           },
           "height": {
             "value": "4px",
@@ -1735,6 +1828,46 @@
             "type": "dimension",
             "description": "Co-token de sheet. Alto del area tactil alrededor del handle. La barra mide 4: el area que responde al gesto es de 48, sin agrandar la barra visible. Es el mismo criterio que el hitSlop de las X de 24."
           }
+        }
+      },
+      "snackbar": {
+        "stack": {
+          "behind-1": {
+            "value": "72px",
+            "type": "dimension",
+            "description": "Co-token de snackbar. Opacidad de la barra que queda justo detrás de la más nueva en la pila colapsada (SnackbarStack expanded=false): 72 %. Es lo que hace que se lea como «detrás» en los seis modos —en light aclara la barra oscura, en dark apaga la clara— sin tocar su color. Solo asoma space/stack/sm por arriba y se angosta space/inline/sm por lado. Al expandir la pila vuelve a 100 %."
+          },
+          "behind-2": {
+            "value": "48px",
+            "type": "dimension",
+            "description": "Co-token de snackbar. Opacidad de la tercera barra, la más vieja, en la pila colapsada (SnackbarStack expanded=false): 48 %. Un escalón más atrás que behind-1. Asoma space/stack/sm sobre la de adelante y se angosta 2 × space/inline/sm por lado. La pila muestra 3 como máximo: una cuarta saca a la más vieja. Al expandir vuelve a 100 %."
+          }
+        }
+      },
+      "checkbox": {
+        "radius": {
+          "box": {
+            "value": "4px",
+            "type": "dimension",
+            "description": "Co-token de checkbox. Radio de la caja. Aliasea platform/radius/control: 4 en iOS y web, 2 en Android. Separado de radius/control/sm para que solo el Checkbox siga a la plataforma: Menu, Tabs y el resto se quedan en 4. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "focus": {
+            "value": "6px",
+            "type": "dimension",
+            "description": "Co-token de checkbox. Radio del anillo de foco: caja + 2. Aliasea platform/radius/focus/control: 6 en iOS y web, 4 en Android."
+          }
+        }
+      },
+      "chip": {
+        "radius": {
+          "value": "9999px",
+          "type": "dimension",
+          "description": "Co-token de chip. Radio del contenedor y del velo. Aliasea platform/radius/chip: pastilla en web e iOS, 8 en Android. Separado de radius/pill para que Tag, Badge y Avatar no cambien."
+        },
+        "radius-focus": {
+          "value": "9999px",
+          "type": "dimension",
+          "description": "Co-token de chip. Radio del anillo de foco: aliasea platform/radius/focus/chip (pastilla · 10 · pastilla)."
         }
       }
     },
@@ -1764,6 +1897,68 @@
           "value": "999px",
           "type": "dimension",
           "description": "Pastilla. 999 en las tres plataformas: no divergen porque un borde totalmente redondeado se ve igual en todas."
+        },
+        "field-compact": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "Radio de TextArea y dígitos del OTPField: 12 en las tres plataformas. Nunca pastilla. Lo consume radius/field/sm."
+        },
+        "field": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "Radio del campo de una línea (TextField, Password, Card, Phone, Select, Combobox). 12 en iOS, Android y web: rectángulo redondeado de marca (decisión de Jetto, 26-sep: Android igual que web). La búsqueda va en platform/radius/search. Lo consume radius/field/md."
+        },
+        "action": {
+          "value": "9999px",
+          "type": "dimension",
+          "description": "Radio del botón con texto. iOS: cápsula (nativo: en iOS 26 y 27 los botones con borde son cápsula por defecto en todos los tamaños, igual que los campos de una línea). Android: 12 (Material permite remapear el botón a medium). Web: 12, la forma de marca. Lo consume radius/action."
+        },
+        "focus": {
+          "field": {
+            "value": "14px",
+            "type": "dimension",
+            "description": "Anillo de foco del campo de una línea: 14 en las tres plataformas (border-radius/focus/lg). Lo consume radius/focus/field."
+          },
+          "action": {
+            "value": "9999px",
+            "type": "dimension",
+            "description": "Anillo de foco del botón: platform/radius/action + 2. iOS pastilla (una cápsula desplazada sigue siendo cápsula), Android 14, web 14. Lo consume radius/focus/action."
+          },
+          "control": {
+            "value": "6px",
+            "type": "dimension",
+            "description": "Anillo de foco del Checkbox: platform/radius/control + 2 (focus/ring/offset). Valor literal a propósito. Lo consume component/checkbox/radius/focus."
+          },
+          "field-compact": {
+            "value": "14px",
+            "type": "dimension",
+            "description": "Anillo de foco de TextArea y OTPField: 14 en las tres plataformas (border-radius/focus/lg). Lo consume radius/focus/field-compact."
+          },
+          "search": {
+            "value": "9999px",
+            "type": "dimension",
+            "description": "Anillo de foco del SearchField: platform/radius/search + 2. Pastilla en iOS y Android, 14 en web. Lo consume component/searchfield/radius-focus."
+          },
+          "chip": {
+            "value": "9999px",
+            "type": "dimension",
+            "description": "Anillo de foco del Chip: platform/radius/chip + 2. Pastilla en iOS y web, 10 en Android. Valor literal a propósito. Lo consume component/chip/radius-focus."
+          }
+        },
+        "search": {
+          "value": "9999px",
+          "type": "dimension",
+          "description": "Radio del SearchField. iOS: cápsula (búsqueda nativa sobre glass, kit iOS 27: 44/48 de alto en cápsula). Android: full (Material 3: search bar 56 de alto, corner full). Web: 12, familia de campos (decisión del 26-sep). Lo consume component/searchfield/radius."
+        },
+        "control": {
+          "value": "4px",
+          "type": "dimension",
+          "description": "Radio de la caja del Checkbox por plataforma. iOS: 4 (iOS 27 no tiene checkbox; se conserva el de marca). Android: 2 (Material 3, CheckboxTokens). Web: 4. Lo consume component/checkbox/radius/box."
+        },
+        "chip": {
+          "value": "9999px",
+          "type": "dimension",
+          "description": "Radio del Chip. iOS: cápsula (iOS no tiene chip; se sigue la convención de cápsula de sus controles). Android: 8 (Material 3: assist, filter, input y suggestion chips en corner small). Web: pastilla, la forma de marca. Lo consume component/chip/radius."
         }
       },
       "segment": {
@@ -1777,11 +1972,6 @@
           "type": "dimension",
           "description": "Separacion entre segmentos. Medido del kit iOS 27: 4 (las pildoras NO van pegadas). Material 3 usa -1 para que los bordes contiguos se solapen. Web 0, como Core hoy."
         },
-        "inner-radius": {
-          "value": "9999px",
-          "type": "dimension",
-          "description": "Radio de las esquinas INTERIORES de un segmento (las que dan a un segmento vecino). En iOS y web cada segmento es una pildora completa; en Material 3 van conectados y solo las puntas del grupo son redondas. Las esquinas exteriores usan platform/radius/full."
-        },
         "border-width": {
           "value": "0px",
           "type": "dimension",
@@ -1791,6 +1981,16 @@
           "value": "0px",
           "type": "dimension",
           "description": "Padding vertical DEL SEGMENTO (no del track) que agranda el area tactil sin agrandar lo visible. Material 3: 4 arriba y 4 abajo convierten un container de 40 en un target de 48. iOS no lo usa: su area tactil es el segmento visible."
+        },
+        "inner-radius": {
+          "value": "9999px",
+          "type": "dimension",
+          "description": "Radio de las esquinas INTERIORES de un segmento (las que dan a un segmento vecino). En iOS y web cada segmento es una pildora completa; en Material 3 van conectados y solo las puntas del grupo son redondas. Las esquinas exteriores usan platform/radius/full."
+        },
+        "height": {
+          "value": "32px",
+          "type": "dimension",
+          "description": "Alto del SegmentedControl. iOS: 32, el alto por defecto de UISegmentedControl. Android: 40, segmented button de Material 3 (área tocable 48 con platform/segment/touch-padding). Web: 40."
         }
       },
       "type": {
@@ -1894,6 +2094,18 @@
             "description": "iOS Caption 1 · M3 bodySmall. OJO: NO mapea a labelMedium aunque ambos midan 12/16. caption es texto corrido (leyenda, nota al pie) y va Regular; labelMedium es label de CONTROL y va Medium. Si algo rotula un control, consume el rol label, no caption."
           }
         },
+        "body-sm": {
+          "size": {
+            "value": "15px",
+            "type": "dimension",
+            "description": "iOS Subhead · M3 bodyMedium"
+          },
+          "line-height": {
+            "value": "20px",
+            "type": "dimension",
+            "description": "iOS Subhead · M3 bodyMedium"
+          }
+        },
         "display": {
           "size": {
             "value": "34px",
@@ -1929,18 +2141,13 @@
             "type": "dimension",
             "description": "iOS Title 3 · M3 titleLarge"
           }
-        },
-        "body-sm": {
-          "size": {
-            "value": "15px",
-            "type": "dimension",
-            "description": "iOS Subhead · M3 bodyMedium"
-          },
-          "line-height": {
-            "value": "20px",
-            "type": "dimension",
-            "description": "iOS Subhead · M3 bodyMedium"
-          }
+        }
+      },
+      "field": {
+        "height": {
+          "value": "52px",
+          "type": "dimension",
+          "description": "Alto de fila de un campo por plataforma. iOS 52 (fila de lista de Apple, iOS 26+), Android 56 (Material 3 outlined), Web 56."
         }
       },
       "spacing": {
@@ -1965,6 +2172,472 @@
           "value": "44px",
           "type": "dimension",
           "description": "Area tactil minima. iOS 44pt · Android 48dp · web 40px. Nunca bajar de aqui aunque el glifo sea mas chico."
+        }
+      },
+      "switch": {
+        "track-width": {
+          "value": "64px",
+          "type": "dimension",
+          "description": "Ancho del track del Switch md. iOS 27: 64 (kit de Apple). Android: 52 (Material 3). Web: 56, el diseño original."
+        },
+        "track-height": {
+          "value": "28px",
+          "type": "dimension",
+          "description": "Alto del track del Switch md. iOS 27: 28. Android y web: 32."
+        },
+        "padding-off": {
+          "value": "2px",
+          "type": "dimension",
+          "description": "Padding del track del Switch md apagado. En Android es 8 porque el knob apagado mide 16 y queda centrado en 32."
+        },
+        "padding-on": {
+          "value": "2px",
+          "type": "dimension",
+          "description": "Padding del track del Switch md prendido."
+        },
+        "thumb-width-off": {
+          "value": "38px",
+          "type": "dimension",
+          "description": "Ancho del knob del Switch md apagado. iOS 27: cápsula de 38. Android: 16 (Material 3 achica el knob apagado). Web: 24."
+        },
+        "thumb-width-on": {
+          "value": "38px",
+          "type": "dimension",
+          "description": "Ancho del knob del Switch md prendido."
+        },
+        "thumb-height-off": {
+          "value": "24px",
+          "type": "dimension",
+          "description": "Alto del knob del Switch md apagado."
+        },
+        "thumb-height-on": {
+          "value": "24px",
+          "type": "dimension",
+          "description": "Alto del knob del Switch md prendido."
+        },
+        "border-width-off": {
+          "value": "1px",
+          "type": "dimension",
+          "description": "Borde del track del Switch apagado. iOS y web: 1; Android: 2 (outline de Material 3). Desde la 0.29 existe en las tres: sin él el apagado daba 1,0 a 1,24:1 contra la superficie (WCAG 1.4.11). El color, component/switch/track/border-off, da 4,39 a 9,23."
+        }
+      },
+      "checkbox": {
+        "box-size": {
+          "value": "24px",
+          "type": "dimension",
+          "description": "Caja del Checkbox md. Android: 18 (Material 3). iOS no tiene checkbox nativo: queda el de marca, 24."
+        },
+        "mark-size": {
+          "value": "16px",
+          "type": "dimension",
+          "description": "Glifo de check dentro de la caja del Checkbox md."
+        }
+      },
+      "radio": {
+        "box-size": {
+          "value": "24px",
+          "type": "dimension",
+          "description": "Círculo del Radio md. Android: 20 (Material 3). iOS no tiene radio nativo: queda el de marca, 24."
+        },
+        "dot-size": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "Punto del Radio md seleccionado."
+        }
+      },
+      "tabs": {
+        "indicator-height": {
+          "value": "2px",
+          "type": "dimension",
+          "description": "Grosor del indicador de la pestaña activa. Android: 3 (Material 3). iOS y web: 2."
+        }
+      },
+      "status-bar": {
+        "height": {
+          "value": "62px",
+          "type": "dimension",
+          "description": "Alto de la barra de estado. iOS: 62 (kit iOS 27, iPhone 17 Pro, con la isla dinámica). Android: 40 (Android UI Kit, con la cámara perforada). Web: 62, Safari en iPhone muestra la barra de estado de iOS. En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma. La barra de navegación empieza debajo (platform/navbar/*)."
+        }
+      },
+      "safe-area": {
+        "top": {
+          "value": "62px",
+          "type": "dimension",
+          "description": "Safe area superior. iOS: 62. Android: 40. Web: 62 (Safari en iPhone). En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma."
+        },
+        "bottom": {
+          "value": "34px",
+          "type": "dimension",
+          "description": "Safe area inferior. iOS: 34 (home indicator). Android: 24 (navegación por gestos; con 3 botones son 48). Web: 118, la barra de Safari de iOS 27 (84) más el home indicator (34). En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma."
+        }
+      },
+      "system-nav": {
+        "handle-width": {
+          "value": "134px",
+          "type": "dimension",
+          "description": "Ancho del home indicator de iOS y de Safari en iPhone (134) y de la barra de gestos de Android (108). En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma."
+        },
+        "handle-height": {
+          "value": "5px",
+          "type": "dimension",
+          "description": "Alto del home indicator de iOS (5) y de la barra de gestos de Android (4). En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma."
+        }
+      },
+      "browser": {
+        "toolbar-height": {
+          "value": "0px",
+          "type": "dimension",
+          "description": "Alto de la barra de Safari de iOS 27 (botón atrás, cápsula de dirección y más), sobre el home indicator. Solo existe en web. En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma."
+        },
+        "control-size": {
+          "value": "0px",
+          "type": "dimension",
+          "description": "Alto de la cápsula de dirección y de los botones de la barra de Safari de iOS 27 (48, kit iOS 27 · Toolbar - Bottom). Solo existe en web."
+        }
+      },
+      "navbar": {
+        "row-height": {
+          "value": "44px",
+          "type": "dimension",
+          "description": "Alto de la fila de controles. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 44, las cápsulas de vidrio del kit iOS 27. Android: 64, top app bar de Material 3. Web: 64, header de la app. La TabBar tiene sus propias medidas (platform/tabbar/*)."
+        },
+        "padding-x": {
+          "value": "16px",
+          "type": "dimension",
+          "description": "Margen lateral de la fila de controles. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 16 (kit iOS 27). Android: 4, el área tocable de 48 ya trae su aire (M3). Web: 24."
+        },
+        "padding-bottom": {
+          "value": "10px",
+          "type": "dimension",
+          "description": "Aire debajo de la barra estándar. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 10 (kit iOS 27, 44 + 10 = 54). Android y web: 0."
+        },
+        "gap": {
+          "value": "10px",
+          "type": "dimension",
+          "description": "Separación entre la fila de controles y el título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 10 (kit iOS 27). Android: 0, el título medio de M3 empieza justo debajo de la fila de 64. Web: 8."
+        },
+        "large": {
+          "padding-x": {
+            "value": "16px",
+            "type": "dimension",
+            "description": "Margen lateral del título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 16. Android: 16 (M3 medium). Web: 24."
+          },
+          "padding-bottom": {
+            "value": "10px",
+            "type": "dimension",
+            "description": "Aire debajo del título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 10 (44 + 10 + 41 + 10 = 105). Android: 12 (64 + 36 + 12 = 112, M3 medium). Web: 16."
+          }
+        },
+        "control": {
+          "padding": {
+            "value": "4px",
+            "type": "dimension",
+            "description": "Relleno interno de la cápsula de vidrio que agrupa las acciones. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 4 (36 + 4 + 4 = 44, kit iOS 27). Android y web no tienen cápsula: 0."
+          },
+          "gap": {
+            "value": "0px",
+            "type": "dimension",
+            "description": "Separación entre acciones. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 0, dentro de la cápsula los botones de 36 van juntos. Android: 0, áreas tocables de 48 contiguas (M3). Web: 8."
+          },
+          "size": {
+            "value": "36px",
+            "type": "dimension",
+            "description": "Área tocable de cada acción. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 36 dentro de la cápsula de 44 (kit iOS 27). Android: 48 (M3). Web: 40."
+          }
+        },
+        "title": {
+          "size": {
+            "value": "17px",
+            "type": "dimension",
+            "description": "Tamaño del título estándar. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 17, centrado (kit iOS 27). Android: 22, title large de M3, a la izquierda. Web: 18."
+          },
+          "line-height": {
+            "value": "22px",
+            "type": "dimension",
+            "description": "Interlineado del título estándar. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 22. Android: 28. Web: 28."
+          }
+        },
+        "large-title": {
+          "size": {
+            "value": "34px",
+            "type": "dimension",
+            "description": "Tamaño del título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 34, large title (kit iOS 27). Android: 28, medium top app bar (M3). Web: 30."
+          },
+          "line-height": {
+            "value": "41px",
+            "type": "dimension",
+            "description": "Interlineado del título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 41. Android: 36. Web: 38."
+          }
+        }
+      },
+      "tabbar": {
+        "height": {
+          "value": "62px",
+          "type": "dimension",
+          "description": "Alto de la barra. iOS: 62, la cápsula Liquid Glass del kit iOS 27 (54 + 4 + 4). Android: 64, navigation bar de Material 3 Expressive. Web: 64, barra inferior. Barra de pestañas (TabBar, librería Platforms)."
+        },
+        "padding": {
+          "value": "4px",
+          "type": "dimension",
+          "description": "Relleno de la cápsula alrededor de las pestañas. iOS: 4 (kit iOS 27). Android y web no tienen cápsula: 0. Barra de pestañas (TabBar, librería Platforms)."
+        },
+        "margin-x": {
+          "value": "20px",
+          "type": "dimension",
+          "description": "Margen lateral. iOS: 20, la cápsula flota (kit iOS 27: 25 menos los 4 del vidrio, redondeado a la escala). Android y web: 0, la barra ocupa todo el ancho. Barra de pestañas (TabBar, librería Platforms)."
+        },
+        "margin-top": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "Aire sobre la cápsula. iOS: 12 (kit iOS 27: 16 menos los 4 del vidrio). Android y web: 0. Barra de pestañas (TabBar, librería Platforms)."
+        },
+        "margin-bottom": {
+          "value": "20px",
+          "type": "dimension",
+          "description": "Aire debajo de la cápsula, sobre el home indicator. iOS: 20 (kit iOS 27). Android y web: 0, debajo va la navegación del sistema. Barra de pestañas (TabBar, librería Platforms)."
+        },
+        "gap": {
+          "value": "8px",
+          "type": "dimension",
+          "description": "iOS: separación entre la cápsula y el botón aparte: 8, lo que se ve en el kit iOS 27 (16 entre los botones menos los 4 del vidrio de cada lado). Android y web: aire entre el botón flotante y la barra (16, Material 3). Barra de pestañas (TabBar, librería Platforms)."
+        },
+        "item": {
+          "padding-x": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Relleno lateral de cada pestaña. iOS: 8 (kit iOS 27). Android y web: 0, las pestañas reparten el ancho. Barra de pestañas (TabBar, librería Platforms)."
+          },
+          "gap": {
+            "value": "2px",
+            "type": "dimension",
+            "description": "Separación entre icono y etiqueta. iOS: 2 (kit iOS 27: 1 más el aire del símbolo). Android y web: 4 (Material 3). Barra de pestañas (TabBar, librería Platforms)."
+          }
+        },
+        "indicator": {
+          "width": {
+            "value": "28px",
+            "type": "dimension",
+            "description": "Ancho del contenedor del icono. iOS: 28 (kit iOS 27). Android: 56, el indicador de la pestaña activa de Material 3. Web: 56. Barra de pestañas (TabBar, librería Platforms)."
+          },
+          "height": {
+            "value": "28px",
+            "type": "dimension",
+            "description": "Alto del contenedor del icono. iOS: 28. Android: 32, indicador de Material 3. Web: 32. Barra de pestañas (TabBar, librería Platforms)."
+          }
+        },
+        "label": {
+          "size": {
+            "value": "10px",
+            "type": "dimension",
+            "description": "Tamaño de la etiqueta. iOS: 10 Semibold (kit iOS 27). Android: 12 Medium (Material 3). Web: 12. Barra de pestañas (TabBar, librería Platforms)."
+          },
+          "line-height": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Interlineado de la etiqueta. iOS: 12. Android: 16. Web: 16. Barra de pestañas (TabBar, librería Platforms)."
+          }
+        },
+        "accessory": {
+          "size": {
+            "value": "62px",
+            "type": "dimension",
+            "description": "Botón aparte con el logo. iOS: 62, círculo de vidrio junto a la cápsula (rol separado del kit iOS 27). Android: 56, FAB de Material 3 sobre la barra. Web: 56. Barra de pestañas (TabBar, librería Platforms)."
+          },
+          "radius": {
+            "value": "9999px",
+            "type": "dimension",
+            "description": "Radio del botón aparte. iOS: círculo. Android: 16, FAB de Material 3. Web: círculo. Barra de pestañas (TabBar, librería Platforms)."
+          },
+          "margin-x": {
+            "value": "0px",
+            "type": "dimension",
+            "description": "Margen derecho del botón flotante. iOS: 0, va en la misma fila que la cápsula. Android y web: 16 (Material 3). Barra de pestañas (TabBar, librería Platforms)."
+          }
+        },
+        "minimized": {
+          "size": {
+            "value": "48px",
+            "type": "dimension",
+            "description": "iOS minimizada: diámetro de la pestaña activa y del botón aparte (kit iOS 27: 40 más el vidrio). Android y web no la usan: la barra se esconde. Barra de pestañas (TabBar, librería Platforms)."
+          },
+          "margin-x": {
+            "value": "28px",
+            "type": "dimension",
+            "description": "iOS minimizada: margen lateral (kit iOS 27). Barra de pestañas (TabBar, librería Platforms)."
+          },
+          "margin-bottom": {
+            "value": "28px",
+            "type": "dimension",
+            "description": "iOS minimizada: aire debajo (kit iOS 27). Barra de pestañas (TabBar, librería Platforms)."
+          }
+        }
+      },
+      "slider": {
+        "height": {
+          "value": "44px",
+          "type": "dimension",
+          "description": "Alto del control (área tocable). iOS: 44. Android: 44, alto de la manija de Material 3. Web: 40. Slider (librería Core)."
+        },
+        "track-height": {
+          "value": "6px",
+          "type": "dimension",
+          "description": "Alto de la pista. iOS: 6 (kit iOS 27). Android: 16, pista de Material 3 Expressive (xsmall). Web: 4. Slider (librería Core)."
+        },
+        "track-inner-radius": {
+          "value": "9999px",
+          "type": "dimension",
+          "description": "Radio de las puntas de la pista junto a la manija. iOS y web: pastilla. Android: 2, las puntas internas de Material 3 (las externas van en pastilla). Slider (librería Core)."
+        },
+        "thumb-width": {
+          "value": "38px",
+          "type": "dimension",
+          "description": "Ancho de la perilla. iOS: 38, cápsula del kit iOS 27. Android: 4, la manija vertical de Material 3. Web: 20, círculo. Slider (librería Core)."
+        },
+        "thumb-height": {
+          "value": "24px",
+          "type": "dimension",
+          "description": "Alto de la perilla. iOS: 24. Android: 44. Web: 20. Slider (librería Core)."
+        },
+        "thumb-width-pressed": {
+          "value": "57px",
+          "type": "dimension",
+          "description": "Ancho de la perilla presionada. iOS: 57, crece y pasa a Liquid Glass (kit iOS 27). Android: 2, la manija se afina (Material 3). Web: 24. Slider (librería Core)."
+        },
+        "thumb-height-pressed": {
+          "value": "38px",
+          "type": "dimension",
+          "description": "Alto de la perilla presionada. iOS: 38. Android: 44. Web: 24. Slider (librería Core)."
+        },
+        "thumb-gap": {
+          "value": "0px",
+          "type": "dimension",
+          "description": "Aire entre la manija y la pista a cada lado. Android: 6 (Material 3). iOS y web: 0, la perilla va encima de la pista. Slider (librería Core)."
+        },
+        "stop-size": {
+          "value": "4px",
+          "type": "dimension",
+          "description": "Diámetro de las marcas (stops). 4 en las tres plataformas. Slider (librería Core)."
+        },
+        "gap": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "Separación entre los iconos de mínimo y máximo y la pista. iOS: 12 (kit iOS 27). Android: 8. Web: 12. Slider (librería Core)."
+        }
+      },
+      "sheet": {
+        "radius": {
+          "value": "38px",
+          "type": "dimension",
+          "description": "Radio de las esquinas superiores de la hoja. iOS: 38, concéntrico con la pantalla (kit iOS 27). Android: 28 (Material 3, bottom sheet). Web: component/sheet/radius. Sheet (librería Platforms)."
+        },
+        "floating": {
+          "radius-bottom": {
+            "value": "58px",
+            "type": "dimension",
+            "description": "Radio de las esquinas inferiores cuando la hoja flota (detent medium). iOS: 58, sigue la curva de la pantalla (kit iOS 27, Liquid Glass). Android y web: 0, la hoja nace del borde. Sheet (librería Platforms)."
+          },
+          "inset": {
+            "value": "6px",
+            "type": "dimension",
+            "description": "Separación de la hoja a los bordes cuando flota (detent medium). iOS: 6 (kit iOS 27). Android y web: 0. Sheet (librería Platforms)."
+          }
+        },
+        "handle": {
+          "width": {
+            "value": "60px",
+            "type": "dimension",
+            "description": "Ancho del asa. iOS: 60 (grabber del kit iOS 27). Android y web: component/sheet/handle/width (32, Material 3). Sheet (librería Platforms)."
+          },
+          "padding-top": {
+            "value": "6px",
+            "type": "dimension",
+            "description": "Aire sobre el asa. iOS: 6 (kit iOS 27). Android y web: 16 (Material 3: encabezado de 36 con el asa al centro). Sheet (librería Platforms)."
+          }
+        },
+        "stack": {
+          "offset": {
+            "value": "10px",
+            "type": "dimension",
+            "description": "Cuánto baja la hoja de adelante sobre la de atrás cuando se apilan (detent stacked). iOS: 10 (kit iOS 27, Large Stacked). Android y web: 0, no apilan: la segunda hoja reemplaza a la primera. Sheet (librería Platforms)."
+          },
+          "inset": {
+            "value": "16px",
+            "type": "dimension",
+            "description": "Cuánto se angosta la hoja de atrás a cada lado cuando se apilan. iOS: 16 (kit iOS 27). Android y web: 0. Sheet (librería Platforms)."
+          }
+        }
+      },
+      "dialog": {
+        "width": {
+          "value": "300px",
+          "type": "dimension",
+          "description": "Ancho de la tarjeta. iOS: 300 (kit iOS 27, Alerts y Action Sheets). Android y web: 312 (Material 3, basic dialog). Dialog (librería Platforms)."
+        },
+        "radius": {
+          "value": "34px",
+          "type": "dimension",
+          "description": "Radio de la tarjeta. iOS: 34 (Liquid Glass). Android: 28 (Material 3). Web: radius/surface/lg. Dialog (librería Platforms)."
+        },
+        "padding": {
+          "value": "14px",
+          "type": "dimension",
+          "description": "Padding de la tarjeta. iOS: 14. Android y web: 24. Dialog (librería Platforms)."
+        },
+        "content-inset": {
+          "value": "8px",
+          "type": "dimension",
+          "description": "Aire extra alrededor del título y el mensaje. iOS: 8 (el texto va más adentro que los botones). Android y web: 0. Dialog (librería Platforms)."
+        },
+        "content-gap": {
+          "value": "10px",
+          "type": "dimension",
+          "description": "Separación entre título y mensaje. iOS: 10. Android y web: 16. Dialog (librería Platforms)."
+        },
+        "section-gap": {
+          "value": "24px",
+          "type": "dimension",
+          "description": "Separación entre el texto y los botones: 24 en las tres. Dialog (librería Platforms)."
+        },
+        "action": {
+          "height": {
+            "value": "48px",
+            "type": "dimension",
+            "description": "Alto visible del botón. iOS: cápsula de 48. Android y web: 40 (el área tocable llega a 48). Dialog (librería Platforms)."
+          },
+          "gap": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Separación entre botones: 8 en las tres. Dialog (librería Platforms)."
+          },
+          "label-size": {
+            "value": "17px",
+            "type": "dimension",
+            "description": "Etiqueta del botón. iOS: 17 Semibold. Android y web: 14 Medium (label large de Material 3). Dialog (librería Platforms)."
+          }
+        },
+        "title": {
+          "size": {
+            "value": "17px",
+            "type": "dimension",
+            "description": "Título. iOS: 17 (Semibold). Android: 24 (headline small). Web: 20. Dialog (librería Platforms)."
+          },
+          "line-height": {
+            "value": "22px",
+            "type": "dimension",
+            "description": "Interlineado del título. iOS: 22. Android: 32. Web: 28. Dialog (librería Platforms)."
+          }
+        },
+        "message": {
+          "size": {
+            "value": "17px",
+            "type": "dimension",
+            "description": "Mensaje. iOS: 17. Android: 14 (supporting text). Web: 16. Dialog (librería Platforms)."
+          },
+          "line-height": {
+            "value": "22px",
+            "type": "dimension",
+            "description": "Interlineado del mensaje. iOS: 22. Android: 20. Web: 24. Dialog (librería Platforms)."
+          }
         }
       }
     },
@@ -2026,25 +2699,30 @@
     },
     "radius": {
       "focus": {
-        "control": {
-          "value": "6px",
-          "type": "dimension",
-          "description": "Radio del anillo de foco. Valor derivado: radio del control + focus/ring/offset (2). No es un paso de la escala; existe para que el anillo quede paralelo al control en las esquinas (equivale a outline-offset en CSS)."
-        },
-        "field": {
-          "value": "14px",
-          "type": "dimension",
-          "description": "Radio del anillo de foco. Valor derivado: radio del control + focus/ring/offset (2). No es un paso de la escala; existe para que el anillo quede paralelo al control en las esquinas (equivale a outline-offset en CSS)."
-        },
-        "action": {
-          "value": "14px",
-          "type": "dimension",
-          "description": "Radio del anillo de foco. Valor derivado: radio del control + focus/ring/offset (2). No es un paso de la escala; existe para que el anillo quede paralelo al control en las esquinas (equivale a outline-offset en CSS)."
-        },
         "surface": {
           "value": "26px",
           "type": "dimension",
           "description": "Radio del anillo de foco. Valor derivado: radio del control + focus/ring/offset (2). No es un paso de la escala; existe para que el anillo quede paralelo al control en las esquinas (equivale a outline-offset en CSS)."
+        },
+        "control": {
+          "value": "6px",
+          "type": "dimension",
+          "description": "Anillo de foco de las filas de Menu: radius/control/sm (4) + focus/ring/offset (2) = 6. Valor literal a propósito: no es un paso de la escala. El Checkbox usa component/checkbox/radius/focus."
+        },
+        "field": {
+          "value": "14px",
+          "type": "dimension",
+          "description": "Anillo de foco de los campos de una línea: aliasea platform/radius/focus/field (14 en las tres plataformas)."
+        },
+        "action": {
+          "value": "9999px",
+          "type": "dimension",
+          "description": "Anillo de foco del Button: radius/action + focus/ring/offset (2). Aliasea platform/radius/focus/action (web 14 · iOS pastilla · Android 14)."
+        },
+        "field-compact": {
+          "value": "14px",
+          "type": "dimension",
+          "description": "Anillo de foco de TextArea y OTPField: radius/field/sm + 2. Aliasea platform/radius/focus/field-compact (14 · 14 · 6)."
         }
       },
       "control": {
@@ -2056,7 +2734,7 @@
         "sm": {
           "value": "4px",
           "type": "dimension",
-          "description": "Radio de control pequeno: checkbox, chip, tag, badge cuadrado. 4px. Para CAMPOS usar radius/field/*, para BOTONES radius/action."
+          "description": "Radio de control pequeño: filas de Menu, velo de Tabs, capsLock de PasswordField y anillos de anclas sin curva (LinkButton, ChoiceItem, SwitchItem). 4 px, igual en todas las plataformas. El Checkbox NO lo usa: tiene component/checkbox/radius/* porque sigue a la plataforma."
         }
       },
       "surface": {
@@ -2090,23 +2768,156 @@
         "sm": {
           "value": "12px",
           "type": "dimension",
-          "description": "Radio de campo compacto: 16 sobre 44 de alto."
+          "description": "Radio del campo multilínea o de caja fija: TextArea y dígitos del OTPField. Aliasea platform/radius/field-compact (web 12 · iOS 12 · Android 4). No es pastilla en ninguna plataforma. Su anillo va en radius/focus/field-compact."
         },
         "md": {
           "value": "12px",
           "type": "dimension",
-          "description": "RADIO DE CAMPO BASE: 24 sobre 56 de alto. NO es pildora: a 56 la pildora seria 28, asi que queda un tramo recto en el medio y la forma se lee como decision y no como accidente. PADDING MINIMO: space/inset/lg. Con padding menor que el radio el texto se ve apretado contra la curva. En campos multilinea la curva se nota mas: revisar el textarea antes de darlo por bueno."
+          "description": "Radio del campo de una línea: TextField, PasswordField, CardField, PhoneField, Select y Combobox, con su velo de hover. Aliasea platform/radius/field: 12 en las tres plataformas. SearchField usa component/searchfield/radius; TextArea y OTP, radius/field/sm."
         }
       },
       "action": {
-        "value": "12px",
+        "value": "9999px",
         "type": "dimension",
         "icon": {
           "value": "9999px",
           "type": "dimension",
-          "description": "Radio de acciones circulares (IconButton, FAB). Independiente de radius/action para permitir que los botones con label usen 12px sin afectar las acciones de icono."
+          "description": "Radio de acciones circulares: IconButton (y con él NumericStepper y el botón de limpiar del SearchField). Pastilla en las tres plataformas: iOS y Material 3 dibujan el botón de icono circular. Separado de radius/pill para poder cambiar la forma del IconButton sin mover Tag, Avatar ni Badge."
         },
-        "description": "RADIO DE BOTON: pildora. Se usa el centinela de pildora y NO un valor fijo, para que se adapte solo si cambia la altura del control (hoy 44/44/48, o sea pildora 22/22/24). PADDING MINIMO: space/inset/lg, y mas en botones anchos. NO usar en campos de texto: complica el texto largo, los grupos de controles y los textarea."
+        "description": "Radio del botón con texto. Aliasea platform/radius/action: web 12 · iOS cápsula · Android 12. No cambia por densidad. NO usar en campos: para eso radius/field/*. El IconButton usa radius/action/icon."
+      }
+    },
+    "viewport": {
+      "0": {
+        "value": "0px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 0px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "360": {
+        "value": "360px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 360px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "390": {
+        "value": "390px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 390px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "440": {
+        "value": "440px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 440px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "600": {
+        "value": "600px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 600px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "768": {
+        "value": "768px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 768px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "800": {
+        "value": "800px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 800px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "834": {
+        "value": "834px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 834px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "844": {
+        "value": "844px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 844px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "900": {
+        "value": "900px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 900px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "956": {
+        "value": "956px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 956px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "1024": {
+        "value": "1024px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 1024px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "1080": {
+        "value": "1080px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 1080px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "1194": {
+        "value": "1194px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 1194px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "1440": {
+        "value": "1440px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 1440px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "1920": {
+        "value": "1920px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 1920px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "width": {
+        "min": {
+          "value": "768px",
+          "type": "dimension",
+          "description": "Ancho MÍNIMO del tier, para verificar el extremo chico. compact 360 = piso de Android (no 375). regular 768 = no hay datos de tablets más chicas. expanded 1024. Se bindea al W del frame raíz de una pantalla de prueba; el tier sale del modo de Layout del frame."
+        },
+        "base": {
+          "value": "768px",
+          "type": "dimension",
+          "description": "Ancho BASE de diseño del tier: sobre este se diseña. compact 390 = iOS y Android comparten 390–393 (~55 % de usuarios, GA4 may–ago 2026). Se bindea al W del frame raíz; al cambiar el modo de Layout el frame cambia de tamaño junto con la densidad. Solo Figma: en código el ancho lo da el dispositivo."
+        },
+        "max": {
+          "value": "834px",
+          "type": "dimension",
+          "description": "Ancho MÁXIMO del tier, para verificar el extremo grande. compact 440 = iPhone Pro Max actual. regular 834 = iPad Pro 11. expanded 1920 = escritorio Full HD."
+        }
+      },
+      "height": {
+        "min": {
+          "value": "1024px",
+          "type": "dimension",
+          "description": "Alto que acompaña a viewport/width/min (360×800 · 768×1024 · 1024×768). Solo para pantallas de alto fijo: las pantallas con scroll quedan en Hug."
+        },
+        "base": {
+          "value": "1024px",
+          "type": "dimension",
+          "description": "Alto que acompaña a viewport/width/base (390×844 · 768×1024 · 1440×900). Solo para pantallas de alto fijo: las pantallas con scroll quedan en Hug."
+        },
+        "max": {
+          "value": "1194px",
+          "type": "dimension",
+          "description": "Alto que acompaña a viewport/width/max (440×956 · 834×1194 · 1920×1080). Solo para pantallas de alto fijo: las pantallas con scroll quedan en Hug."
+        }
+      }
+    },
+    "columns": {
+      "4": {
+        "value": "4px",
+        "type": "dimension",
+        "description": "Cantidad de columnas 4. Primitivo: se consume a través de grid/columns en '4. Layout'."
+      },
+      "8": {
+        "value": "8px",
+        "type": "dimension",
+        "description": "Cantidad de columnas 8. Primitivo: se consume a través de grid/columns en '4. Layout'."
+      },
+      "12": {
+        "value": "12px",
+        "type": "dimension",
+        "description": "Cantidad de columnas 12. Primitivo: se consume a través de grid/columns en '4. Layout'."
       }
     },
     "border": {
@@ -2136,6 +2947,25 @@
           "type": "dimension",
           "description": "Grosor de borde de control que necesita mas presencia que el filete de 1px: la caja de Checkbox y Radio. 2px normal, 3px en alto contraste, misma escalada que border/width/default. No usar border/width/indicator para esto: ese token nombra la barra que marca lo elegido (Tab activo, fila seleccionada), no el borde de un control."
         }
+      }
+    },
+    "breakpoint": {
+      "min": {
+        "value": "600px",
+        "type": "dimension",
+        "description": "Límite inferior del tier, en px/dp: compact 0–599 · regular 600–1023 · expanded ≥1024. Es el contrato para código: la app lee el ancho de ventana (useWindowDimensions) y elige el modo de Layout con estos umbrales. No se bindea en Figma."
+      }
+    },
+    "grid": {
+      "columns": {
+        "value": "8px",
+        "type": "dimension",
+        "description": "Columnas de la grilla del tier: 4 · 8 · 12. Lo consume el grid style grid/layout; en código es el número de columnas del layout de pantalla."
+      },
+      "margin": {
+        "value": "24px",
+        "type": "dimension",
+        "description": "Margen lateral de pantalla: 16 · 24 · 32. Es el margen de grid/layout y el padding horizontal del contenedor raíz de una pantalla. Única fuente del margen de pantalla (reemplaza a platform/spacing/screen-margin, borrado el 26-sep)."
       }
     }
   }

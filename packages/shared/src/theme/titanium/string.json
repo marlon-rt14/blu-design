@@ -81,9 +81,9 @@
     },
     "platform": {
       "variant": {
-        "value": "iOS",
+        "value": "ios",
         "type": "string",
-        "description": "Se enlaza a la propiedad variant \"Platform\" de los componentes duales. El valor debe coincidir CARACTER POR CARACTER con el nombre de la opcion del variant (\"iOS\" no es \"ios\"). Si no coincide, la instancia se queda en su variant anterior sin dar error."
+        "description": "Se enlaza a la propiedad variant \"platform\" de los componentes duales. Valores: ios · android · web, en minúscula como el resto del vocabulario. El valor debe coincidir caracter por caracter con la opción del variant (\"iOS\" no es \"ios\"): si no coincide, la instancia se queda en su variant anterior sin dar error. La plataforma se cambia con el modo de esta colección, nunca eligiendo la propiedad a mano. Controles de Core (Switch, Checkbox, Radio, Tabs, Calendar) toman sus medidas de platform/<componente>/* desde la 0.28."
       },
       "font": {
         "style": {
@@ -117,6 +117,54 @@
           "value": "SF Pro",
           "type": "string",
           "description": "Familia tipografica por plataforma: iOS SF Pro, Android Roboto, web Mulish (la marca). Desde el 25-sep-2026 la consumen los 37 estilos text/* (todos menos code/*) a traves de font/family/text: elegir el modo de 5. Platform en un frame cambia la familia de todo su texto. OJO: SF Pro no viene con Figma; quien abra un frame en modo ios sin la fuente instalada la ve como faltante."
+        }
+      },
+      "calendar": {
+        "placement": {
+          "value": "end",
+          "type": "string",
+          "description": "Valor del eje placement de .Calendar. iOS y Android: end (mes a la izquierda, flechas a la derecha, como sus calendarios nativos). Web: sides."
+        }
+      },
+      "navbar": {
+        "title": {
+          "style": {
+            "value": "Semibold",
+            "type": "string",
+            "description": "Peso del título estándar. Barra de navegación superior (NavigationBar, librería Platforms). iOS: Semibold. Android: Regular (M3). Web: SemiBold. Aliasea platform/font/style/*: no escribas el peso a mano."
+          }
+        },
+        "large-title": {
+          "style": {
+            "value": "Bold",
+            "type": "string",
+            "description": "Peso del título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: Bold. Android: Regular (M3). Web: Bold."
+          }
+        }
+      },
+      "tabbar": {
+        "label": {
+          "style": {
+            "value": "Semibold",
+            "type": "string",
+            "description": "Peso de la etiqueta. iOS: Semibold. Android: Medium. Web: SemiBold. Aliasea platform/font/style/*. Barra de pestañas (TabBar, librería Platforms)."
+          }
+        }
+      },
+      "dialog": {
+        "title": {
+          "style": {
+            "value": "Semibold",
+            "type": "string",
+            "description": "Peso del título. iOS: Semibold. Android: Regular (headline de Material 3). Web: SemiBold. Dialog (librería Platforms)."
+          }
+        },
+        "action": {
+          "label-style": {
+            "value": "Semibold",
+            "type": "string",
+            "description": "Peso de la etiqueta del botón. iOS: Semibold. Android y web: Medium. Dialog (librería Platforms)."
+          }
         }
       }
     }
