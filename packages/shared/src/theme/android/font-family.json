@@ -1,0 +1,48 @@
+{
+  "_comment": "This file was generated automatically by Supernova.io and should not be changed manually. To modify the format or content of this file, please contact your design system team.",
+  "font-family": {
+    "font": {
+      "family": {
+        "mulish": {
+          "value": "Mulish",
+          "type": "fontFamily",
+          "description": "Familia tipografica Mulish. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "mono": {
+          "value": "IBM Plex Mono",
+          "type": "fontFamily",
+          "description": "Familia tipografica IBM Plex Mono. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "sf-pro": {
+          "value": "SF Pro",
+          "type": "fontFamily",
+          "description": "Familia tipografica del sistema de iOS. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — quien lo consume es 5. Platform/platform/font/family en modo ios. OJO: el render de Figma del lado agente NO mide SF Pro: los textos salen con width 0 y desaparecen dentro de auto-layout, sin tirar error. Guardar el nombre aca es inofensivo (es dato, no se renderiza); el riesgo aparece al bindear el fontFamily de un texto real. Sus pesos se escriben 'Semibold' junto — Roboto usa 'SemiBold'."
+        },
+        "roboto": {
+          "value": "Roboto",
+          "type": "fontFamily",
+          "description": "Familia tipografica del sistema de Android. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — quien lo consume es 5. Platform/platform/font/family en modo android. Roboto mide y renderiza bien del lado agente. Sus pesos se escriben 'SemiBold' con B mayuscula — SF Pro usa 'Semibold' junto."
+        },
+        "text": {
+          "value": "Roboto",
+          "type": "fontFamily",
+          "description": "Familia de texto del sistema. Desde el 25-sep-2026 es alias de platform/font/family en los tres modos de densidad: la familia la decide el modo de 5. Platform (iOS SF Pro, Android Roboto, web Mulish), no la densidad. La densidad cambia tamanos, no la fuente. Los 37 estilos text/* que no son code la consumen desde aca, nunca desde el primitivo. Antes del 25-sep era alias fijo de Mulish."
+        },
+        "mono_1": {
+          "value": "IBM Plex Mono",
+          "type": "fontFamily",
+          "description": "Familia monoespaciada, IBM Plex Mono. Solo para los estilos text/code/*: importes de un extracto, identificadores, fragmentos de código. Nunca para texto corrido."
+        }
+      }
+    },
+    "platform": {
+      "font": {
+        "family": {
+          "value": "Roboto",
+          "type": "fontFamily",
+          "description": "Familia tipografica por plataforma: iOS SF Pro, Android Roboto, web Mulish (la marca). Desde el 25-sep-2026 la consumen los 37 estilos text/* (todos menos code/*) a traves de font/family/text: elegir el modo de 5. Platform en un frame cambia la familia de todo su texto. OJO: SF Pro no viene con Figma; quien abra un frame en modo ios sin la fuente instalada la ve como faltante."
+        }
+      }
+    }
+  }
+}
