@@ -100,7 +100,8 @@ Themes are **three axes** (brand × mode × layout), composed into
 return plain style objects. `useResolvedTheme()` when you need axes / `isExact`. Type a single
 theme's bag with `TTokensOf<typeof xTokens>`.
 
-**Font**: one typeface per platform — **web Mulish, iOS SF Pro, Android Roboto**. This is what
+**Font**: one typeface per platform — **web Mulish, iOS SF Pro, and on Android the
+device's own system font, which on stock is Roboto**. This is what
 Supernova documented all along: `string.platform.font.family` is a **web-only** alias, and
 iOS/Android are meant to use their OS system font. A product decision had overridden that and
 branded both platforms with Mulish; it was reverted on 2026-09-29, so the code and the
@@ -148,6 +149,16 @@ documentation agree again.
 
   Android interpolates the full 100–900 range from API 28 on; below that the system snaps to regular
   or bold and a 500 and a 600 look alike. `minSdk` is above that line.
+
+  **On Android the system font is the OEM's to choose.** `/system/etc/fonts.xml`
+  maps the `sans-serif` family, and it ships with the OS image: stock Android and
+  Pixel point it at Roboto — verified on the emulator, and at the variable file,
+  which is what makes the whole 100–900 range interpolate — but a Samsung can map
+  it to One UI Sans and some skins let the user change it outright. So the promise
+  is **"the device's system font"**, which is Roboto on stock, not "Roboto
+  everywhere". That is the intended behaviour and not a gap to close: a phone
+  looking like its own phone is the point of using the system face. iOS has no
+  such variance — Apple does not let the system font be replaced.
 
 **`BluProvider`** is the root wrapper every consuming app renders once —
 `<BluProvider><App /></BluProvider>` — on **both** platforms:

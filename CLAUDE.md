@@ -110,7 +110,9 @@ equivalent) — `TextField`/`TextArea` apply the shared `dsm-input` class and se
 `--dsm-input-placeholder-color` inline; see `packages/web/src/styles/pseudo.css`. Extend that file for
 a new component's pseudo-selector needs rather than adding a new CSS file.
 
-**Font**: per platform — **web Mulish, iOS SF Pro, Android Roboto**. Web self-hosts Mulish via
+**Font**: per platform — **web Mulish, iOS SF Pro, and on Android the device's own system
+font, which on stock is Roboto** (an OEM maps the `sans-serif` family itself, so a Samsung may
+show One UI Sans — that is the intended native behaviour, not a gap). Web self-hosts Mulish via
 `@fontsource/mulish`, pulled in by `BluProvider` (plain package, not the `-variable` one — the
 variable build registers as `"Mulish Variable"` and silently breaks token matching).
 

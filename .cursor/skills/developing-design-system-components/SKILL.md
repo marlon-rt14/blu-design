@@ -671,10 +671,16 @@ bDS themes are **three Figma variable collections**, not a single light/dark swi
   JS, there's no `@media (prefers-reduced-motion: reduce)` rule to hide behind — call this hook (from
   `@dsm/web`'s `theme/`) and set `transition: 'none'` when it's `true`.
 - **The typeface is per platform, and on mobile you must NOT set a font family at all.**
-  bDS asks for the brand face on the web and each platform's own in its app:
-  **web Mulish, iOS SF Pro, Android Roboto**. SF Pro *is* the iOS system font and Roboto *is*
-  Android's, so **leaving `fontFamily` unset is what selects them** — `@dsm/mobile` ships no font
-  files, links nothing, and licenses nothing.
+  bDS asks for the brand face on the web and each platform's own in its app: **web Mulish, iOS SF
+  Pro, and on Android the device's own system font, which on stock is Roboto.** SF Pro *is* the iOS
+  system font and Roboto *is* stock Android's, so **leaving `fontFamily` unset is what selects
+  them** — `@dsm/mobile` ships no font files, links nothing, and licenses nothing.
+
+  Say it that way rather than "Android Roboto": `/system/etc/fonts.xml` maps the `sans-serif`
+  family and ships with the OS image, so a Samsung can point it at One UI Sans and some skins let
+  the user change it. Verified on a Pixel emulator that stock maps it to Roboto's variable file,
+  which is also what makes 100–900 interpolate. A phone looking like its own phone is the point of
+  using the system face, so this is the intended behaviour, not a gap. iOS has no such variance.
 
   ```ts
   // mobile — the family is the system's, so only the weight is set

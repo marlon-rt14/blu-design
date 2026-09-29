@@ -6,8 +6,16 @@ import type { TextStyle } from 'react-native';
  *
  * **There is no font family to resolve on mobile, on purpose.** Leaving
  * `fontFamily` unset hands the text to each platform's own system typeface,
- * which is exactly what bDS asks for: **SF Pro on iOS, Roboto on Android**.
- * They are the system fonts, so there is nothing to ship and nothing to link.
+ * which is exactly what bDS asks for: **SF Pro on iOS, and on Android whatever
+ * the device maps `sans-serif` to — Roboto on stock.** They are the system
+ * fonts, so there is nothing to ship and nothing to link.
+ *
+ * That Android wording is deliberate. `/system/etc/fonts.xml` ships with the OS
+ * image, so an OEM can point `sans-serif` at its own face — One UI Sans on a
+ * Samsung — and some skins let the reader change it. A phone looking like its
+ * own phone is the point of using the system face, so this is the behaviour we
+ * want, not a gap. iOS has no such variance: Apple does not allow the system
+ * font to be replaced.
  * Only web carries a typeface of its own — Mulish — and it has its own
  * `useFontFamily` in `@dsm/web/theme/font.ts`.
  *
@@ -39,9 +47,11 @@ import type { TextStyle } from 'react-native';
  * only where it lands in the style changed.
  *
  * One platform caveat, declared rather than worked around: Android renders the
- * full 100–900 range from API 28 on. Below that the system snaps to regular or
- * bold, so a 500 and a 600 look the same. Our `minSdk` is above that line;
- * if it ever drops, this is the note to come back to.
+ * full 100–900 range from API 28 on — stock maps `sans-serif` to Roboto's
+ * *variable* file, which is what lets the weights interpolate rather than snap.
+ * Below API 28 the system falls back to regular or bold, so a 500 and a 600
+ * look the same. Our `minSdk` is above that line; if it ever drops, this is the
+ * note to come back to.
  *
  * @example
  * ```ts
