@@ -10,13 +10,8 @@ import {
   type TSnackbarStatusIcon,
 } from '@dsm/shared';
 
-import {
-  IconAlertCircle,
-  IconAlertTriangle,
-  IconCheckCircle,
-  IconInfo,
-  IconX,
-} from '../../../icons';
+import { IconAlertCircle, IconAlertTriangle } from '../../../icons/alerts-feedback';
+import { IconCheck, IconInfoCircle, IconXClose } from '../../../icons/general';
 import type { TIconProps } from '../Icon';
 import { LinkButton } from '../LinkButton';
 import type { ISnackbarProps } from './Snackbar.types';
@@ -25,8 +20,8 @@ import { useSnackbar } from './useSnackbar';
 const STATUS_ICON_COMPONENT: Record<TSnackbarStatusIcon, (props: TIconProps) => ReactElement> = {
   'alert-circle': IconAlertCircle,
   'alert-triangle': IconAlertTriangle,
-  'check-circle': IconCheckCircle,
-  info: IconInfo,
+  check: IconCheck,
+  'info-circle': IconInfoCircle,
 };
 
 const iconColorOf = (status: TSnackbarStatus): TIconColor => {
@@ -150,7 +145,7 @@ export const Snackbar = (props: ISnackbarProps): ReactElement => {
               style={dismissHitStyle}
             >
               <View style={dismissVisualStyle}>
-                <IconX color="inverse" size="sm" />
+                <IconXClose color="inverse" size="sm" />
               </View>
             </Pressable>
           ) : null}

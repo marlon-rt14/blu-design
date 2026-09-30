@@ -2,7 +2,7 @@ import { tabsTokens } from '@dsm/shared';
 import type { TTabSize, TTabsLayout, TTokensOf } from '@dsm/shared';
 import type { Insets, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { ITabItemProps } from './TabItem.types';
 
 type TTabChrome = 'active' | 'inactive' | 'disabled';
@@ -67,7 +67,7 @@ export const useTabItem = ({
   size = 'lg',
   layout = 'scrollable',
   isSelected = false,
-  isDisabled = false,
+  disabled: isDisabled = false,
   isPressed,
   measuredWidth,
 }: IUseTabItemParams): IUseTabItemResult => {
@@ -111,7 +111,7 @@ export const useTabItem = ({
   };
 
   const labelStyle: TextStyle = {
-    fontFamily: resolveMulishFontFamily(sizeTokens.label.fontWeight),
+    fontWeight: resolveFontWeight(sizeTokens.label.fontWeight),
     fontSize: sizeTokens.label.fontSize,
     lineHeight: sizeTokens.label.lineHeight,
     color:
@@ -131,7 +131,7 @@ export const useTabItem = ({
   };
 
   const badgeLabelStyle: TextStyle = {
-    fontFamily: resolveMulishFontFamily(tokens.badge.fontWeight),
+    fontWeight: resolveFontWeight(tokens.badge.fontWeight),
     fontSize: tokens.badge.fontSize,
     lineHeight: tokens.badge.lineHeight,
     letterSpacing: dimension.badgeLetterSpacing,

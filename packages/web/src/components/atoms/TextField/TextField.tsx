@@ -1,30 +1,9 @@
 import { useId, useState } from 'react';
 import type { FocusEvent, ReactElement } from 'react';
 
-import type { TIconSize, TTextFieldSize } from '@dsm/shared';
 
-import { FieldIcon } from './FieldIcon';
 import type { ITextFieldProps } from './TextField.types';
 import { useTextField } from './useTextField';
-
-/**
- * Maps TextField `size` onto Icon `size`. Live Figma: sm+md fields bind
- * `size.icon.sm` (16); lg binds `size.icon.md` (24). Exhaustive so a new
- * `TTextFieldSize` fails the build until mapped.
- */
-const iconSizeForField = (size: TTextFieldSize): TIconSize => {
-  switch (size) {
-    case 'small':
-    case 'medium':
-      return 'sm';
-    case 'large':
-      return 'md';
-    default: {
-      const _exhaustive: never = size;
-      return _exhaustive;
-    }
-  }
-};
 
 /**
  * Web TextField — a single-line text input with a label, helper/error text
@@ -32,8 +11,10 @@ const iconSizeForField = (size: TTextFieldSize): TIconSize => {
  *
  * `label` lives inside the same bordered box as the value — it acts as the
  * `<input>`'s `placeholder` while empty, and floats above the value once
- * there is one (never at `size='small'`; see `useTextField`'s
- * `showFloatingLabel`). There is no separate `placeholder` prop.
+ * there is one (never at `size='sm'`; see `useTextField`'s
+ * `showFloatingLabel`). `placeholder` only shows once the label has floated —
+ * while it has not, the label *is* the placeholder, because a placeholder that
+ * disappears leaves the field without a name.
  *
  * Renders a real `<input>`, so native keyboard, autofill and form semantics
  * come for free. Every style comes from `useTextField`, resolved from the
@@ -45,30 +26,27 @@ const iconSizeForField = (size: TTextFieldSize): TIconSize => {
  * @example
  * ```tsx
  * const [value, setValue] = useState('');
- * <TextField label="Email" value={value} onChange={(e) => setValue(e.target.value)} />
- * <TextField label="Email" value={value} onChange={onChange} errorMessage="Invalid email" />
- * <TextField label="Account" value="1234 5678" isReadOnly />
+ * <TextField label="Correo" onChangeText={setValue} value={value} />
+ * <TextField error="Correo inválido" label="Correo" onChangeText={setValue} value={value} />
+ * <TextField label="Cuenta" onChangeText={noop} readOnly value="1234 5678" />
  * ```
  */
 export const TextField = (props: ITextFieldProps): ReactElement => {
   const {
     value,
     label,
-    onChange,
+    placeholder,
+    onChangeText,
     onFocus,
     onBlur,
     type = 'text',
     name,
     maxLength,
     testID,
-    prefix,
-    suffix,
-    prefixIcon = 'search',
-    suffixIcon = 'search',
-    showPrefixText = false,
-    showSuffixText = false,
-    showPrefixIcon = false,
-    showSuffixIcon = false,
+    leadingText,
+    trailingText,
+    leadingIcon,
+    trailingIcon,
   } = props;
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -94,7 +72,6 @@ export const TextField = (props: ITextFieldProps): ReactElement => {
   const inputId = useId();
   const footerId = `${inputId}-footer`;
   const hasFooter = Boolean(displayedHelperText) || Boolean(counterText);
-  const iconSize = iconSizeForField(props.size ?? 'medium');
 
   const handleMouseEnter = (): void => setIsHovered(true);
   const handleMouseLeave = (): void => setIsHovered(false);
@@ -117,16 +94,13 @@ export const TextField = (props: ITextFieldProps): ReactElement => {
             </label>
           ) : null}
           <div style={inputRowStyle}>
-            {showPrefixIcon ? (
-              <span style={iconStyle}>
-                <FieldIcon
-                  color={isDisabled ? 'disabled' : 'secondary'}
-                  name={prefixIcon}
-                  size={iconSize}
-                />
-              </span>
+            {leadingIcon ? (
+              // The box and the `color` live on the wrapper, so a glyph sized
+              // by the caller still lands on the field's grid and still follows
+              // the disabled state through `currentColor`.
+              <span style={iconStyle}>{leadingIcon}</span>
             ) : null}
-            {showPrefixText && prefix ? <span style={affixStyle}>{prefix}</span> : null}
+            {leadingText ? <span style={affixStyle}>{leadingText}</span> : null}
             <input
               aria-describedby={hasFooter ? footerId : undefined}
               aria-invalid={isInvalid}
@@ -137,24 +111,16 @@ export const TextField = (props: ITextFieldProps): ReactElement => {
               maxLength={maxLength}
               name={name}
               onBlur={handleBlur}
-              onChange={onChange}
+              onChange={(event) => onChangeText(event.target.value)}
               onFocus={handleFocus}
-              placeholder={showFloatingLabel ? undefined : label}
+              placeholder={showFloatingLabel ? placeholder : label}
               readOnly={isReadOnly}
               style={inputStyle}
               type={type}
               value={value}
             />
-            {showSuffixText && suffix ? <span style={affixStyle}>{suffix}</span> : null}
-            {showSuffixIcon ? (
-              <span style={iconStyle}>
-                <FieldIcon
-                  color={isDisabled ? 'disabled' : 'secondary'}
-                  name={suffixIcon}
-                  size={iconSize}
-                />
-              </span>
-            ) : null}
+            {trailingText ? <span style={affixStyle}>{trailingText}</span> : null}
+            {trailingIcon ? <span style={iconStyle}>{trailingIcon}</span> : null}
           </div>
         </div>
       </div>

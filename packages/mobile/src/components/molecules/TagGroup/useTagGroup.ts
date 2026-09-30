@@ -1,7 +1,7 @@
 import { tagTokens, TAG_LINE_HEIGHT_RATIO } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { ITagGroupProps } from './TagGroup.types';
 
 interface IUseTagGroupResult {
@@ -16,7 +16,7 @@ export const useTagGroup = ({ size = 'sm' }: ITagGroupProps): IUseTagGroupResult
   const sizeTokens = tokens.dimension.sizes[size];
   // Neutral/outline reads as a counter rather than another labelled tone.
   const colors = tokens.colors.palettes.neutral.outline;
-  const font = resolveMulishFontFamily(tokens.dimension.fontWeight);
+  const weight = resolveFontWeight(tokens.dimension.fontWeight);
 
   const rowStyle: StyleProp<ViewStyle> = {
     flexDirection: 'row',
@@ -39,7 +39,7 @@ export const useTagGroup = ({ size = 'sm' }: ITagGroupProps): IUseTagGroupResult
 
   const overflowTextStyle: StyleProp<TextStyle> = {
     color: colors.text,
-    fontFamily: font,
+    fontWeight: weight,
     fontSize: sizeTokens.fontSize,
     lineHeight: sizeTokens.fontSize * TAG_LINE_HEIGHT_RATIO,
   };

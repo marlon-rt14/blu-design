@@ -57,12 +57,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>UIAppFonts</key>
-	<array>
-		<string>Mulish-Regular.ttf</string>
-		<string>Mulish-Bold.ttf</string>
-		<string>Mulish-ExtraBold.ttf</string>
-		<string>Mulish-Medium.ttf</string>
-		<string>Mulish-SemiBold.ttf</string>
-	</array>
+	<array/>
 </dict>
 </plist>

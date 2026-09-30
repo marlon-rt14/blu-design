@@ -1,7 +1,7 @@
 import { listGroupTokens } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { useFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { IListGroupProps } from './ListGroup.types';
 
 /** Everything the native ListGroup needs to render. */
@@ -24,7 +24,7 @@ interface IUseListGroupResult {
 export const useListGroup = (_props: IListGroupProps): IUseListGroupResult => {
   const mode = useThemeMode();
   const { colors, dimension, typography } = listGroupTokens[mode];
-  const headerFont = useFontFamily(typography.header.fontWeight);
+  const headerWeight = resolveFontWeight(typography.header.fontWeight);
 
   return {
     listStyle: {
@@ -39,7 +39,7 @@ export const useListGroup = (_props: IListGroupProps): IUseListGroupResult => {
     },
     headerStyle: {
       color: colors.header,
-      fontFamily: headerFont,
+      fontWeight: headerWeight,
       fontSize: typography.header.fontSize,
       letterSpacing: typography.header.letterSpacing,
       // Pixels, not a ratio: `lineHeight` is a multiplier in CSS and an

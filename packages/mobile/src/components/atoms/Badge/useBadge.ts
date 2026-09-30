@@ -1,7 +1,7 @@
 import { badgeTokens } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { useFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { IBadgeProps } from './Badge.types';
 
 interface IUseBadgeResult {
@@ -17,7 +17,7 @@ export const useBadge = ({ type = 'count', status = 'neutral' }: IBadgeProps): I
   const mode = useThemeMode();
   const { colors, dimension, text } = badgeTokens[mode];
   const statusColors = colors.statuses[status];
-  const fontFamily = useFontFamily(text.fontWeight);
+  const fontWeight = resolveFontWeight(text.fontWeight);
 
   const isDot = type === 'dot';
 
@@ -33,7 +33,7 @@ export const useBadge = ({ type = 'count', status = 'neutral' }: IBadgeProps): I
       backgroundColor: statusColors.bg,
     },
     textStyle: {
-      fontFamily,
+      fontWeight,
       fontSize: text.fontSize,
       lineHeight: text.lineHeight,
       color: statusColors.text,

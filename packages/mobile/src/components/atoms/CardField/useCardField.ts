@@ -3,7 +3,7 @@ import type { TCardBrand, TCardFieldPart } from '@dsm/shared';
 import { useState } from 'react';
 import type { StyleProp, TextInputProps, TextStyle, ViewStyle } from 'react-native';
 
-import { useFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { ICardFieldProps } from './CardField.types';
 
 /**
@@ -63,8 +63,8 @@ export const useCardField = (props: ICardFieldProps): IUseCardFieldResult => {
 
   const mode = useThemeMode();
   const { colors, size: sizes, dimension, typography } = cardFieldTokens[mode];
-  const labelFont = useFontFamily(typography.label.fontWeight);
-  const valueFont = useFontFamily(typography.value.fontWeight);
+  const labelWeight = resolveFontWeight(typography.label.fontWeight);
+  const valueWeight = resolveFontWeight(typography.value.fontWeight);
   const [isFocused, setIsFocused] = useState(false);
 
   const rules = CARD_FIELD_PART_RULES[part];
@@ -109,7 +109,7 @@ export const useCardField = (props: ICardFieldProps): IUseCardFieldResult => {
     labelStyle: {
       color: disabled ? colors.label.disabled : colors.label.default,
       display: isFloating ? 'flex' : 'none',
-      fontFamily: labelFont,
+      fontWeight: labelWeight,
       fontSize: typography.label.fontSize,
       letterSpacing: typography.label.letterSpacing,
       // Pixels, not a ratio: `lineHeight` is a multiplier in CSS and an absolute
@@ -125,7 +125,7 @@ export const useCardField = (props: ICardFieldProps): IUseCardFieldResult => {
             ? colors.value.filled
             : colors.value.placeholder,
       flex: 1,
-      fontFamily: valueFont,
+      fontWeight: valueWeight,
       fontSize: typography.value.fontSize,
       lineHeight: typography.value.fontSize * typography.value.lineHeightRatio,
       // A `TextInput` ships with platform padding that would push the value off
@@ -138,7 +138,7 @@ export const useCardField = (props: ICardFieldProps): IUseCardFieldResult => {
         : hasError
           ? colors.helper.error
           : colors.helper.default,
-      fontFamily: valueFont,
+      fontWeight: valueWeight,
       fontSize: typography.helper.fontSize,
       lineHeight: typography.helper.fontSize * typography.helper.lineHeightRatio,
       marginTop: dimension.helperGap,

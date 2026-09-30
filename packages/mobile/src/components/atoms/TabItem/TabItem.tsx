@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { ReactElement } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
-import { TabIcon } from './TabIcon';
+import { tintNode } from '../Icon';
 import { tabItemStyles } from './TabItem.styles';
 import type { ITabItemProps } from './TabItem.types';
 import { useTabItem } from './useTabItem';
@@ -26,12 +26,10 @@ import { useTabItem } from './useTabItem';
  */
 export const TabItem = (props: ITabItemProps): ReactElement => {
   const {
-    label = 'Label',
+    label,
     isSelected = false,
-    showLeadingIcon = false,
-    leadingIcon = 'user',
-    showBadge = false,
-    badge = '9',
+    leadingIcon,
+    badge,
     onPress,
     testID,
   } = props;
@@ -67,13 +65,11 @@ export const TabItem = (props: ITabItemProps): ReactElement => {
       {overlayStyle ? <View style={[tabItemStyles.overlay, overlayStyle]} /> : null}
       <View style={tabItemStyles.content}>
         <View style={[tabItemStyles.labelRow, labelRowStyle]}>
-          {showLeadingIcon ? (
-            <View style={tabItemStyles.icon}>
-              <TabIcon name={leadingIcon} size="sm" tintColor={iconColor} />
-            </View>
+          {leadingIcon ? (
+            <View style={tabItemStyles.icon}>{tintNode(leadingIcon, iconColor)}</View>
           ) : null}
           <Text style={labelStyle}>{label}</Text>
-          {showBadge ? (
+          {badge !== undefined ? (
             <View style={[tabItemStyles.badge, badgeStyle]}>
               <Text style={badgeLabelStyle}>{badge}</Text>
             </View>

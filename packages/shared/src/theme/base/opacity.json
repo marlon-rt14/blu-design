@@ -1,0 +1,28 @@
+{
+  "_comment": "This file was generated automatically by Supernova.io and should not be changed manually. To modify the format or content of this file, please contact your design system team.",
+  "opacity": {
+    "opacity": {
+      "disabled": {
+        "value": "60px",
+        "type": "opacity",
+        "description": "Opacidad de elementos decorativos que no se pueden apagar con un token de color en estado disabled — logos de franquicia, imágenes, ilustraciones. Texto e iconografía monocroma usan color/*/disabled. Mismo valor en los seis modos. Escala 0–100: Figma bindea opacity en porcentaje; el export a CSS divide por 100."
+      }
+    },
+    "component": {
+      "snackbar": {
+        "stack": {
+          "behind-1": {
+            "value": "72px",
+            "type": "opacity",
+            "description": "Co-token de snackbar. Opacidad de la barra que queda justo detrás de la más nueva en la pila colapsada (SnackbarStack expanded=false): 72 %. Es lo que hace que se lea como «detrás» en los seis modos —en light aclara la barra oscura, en dark apaga la clara— sin tocar su color. Solo asoma space/stack/sm por arriba y se angosta space/inline/sm por lado. Al expandir la pila vuelve a 100 %."
+          },
+          "behind-2": {
+            "value": "48px",
+            "type": "opacity",
+            "description": "Co-token de snackbar. Opacidad de la tercera barra, la más vieja, en la pila colapsada (SnackbarStack expanded=false): 48 %. Un escalón más atrás que behind-1. Asoma space/stack/sm sobre la de adelante y se angosta 2 × space/inline/sm por lado. La pila muestra 3 como máximo: una cuarta saca a la más vieja. Al expandir vuelve a 100 %."
+          }
+        }
+      }
+    }
+  }
+}

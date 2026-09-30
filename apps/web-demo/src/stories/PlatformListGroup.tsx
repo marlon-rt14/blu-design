@@ -54,8 +54,6 @@ export const PlatformListGroup = ({
             description={row.description}
             key={row.label}
             label={row.label}
-            showDescription={row.description !== undefined}
-            showTrailingText={row.trailingText !== undefined}
             trailingText={row.trailingText}
           />
         ))}
@@ -69,8 +67,6 @@ export const PlatformListGroup = ({
           description={row.description}
           key={row.label}
           label={row.label}
-          showDescription={row.description !== undefined}
-          showTrailingText={row.trailingText !== undefined}
           trailingText={row.trailingText}
         />
       ))}

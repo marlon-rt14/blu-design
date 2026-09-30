@@ -1,6 +1,11 @@
-pluginManagement { includeBuild("../node_modules/@react-native/gradle-plugin") }
+// `nodeLinker: hoisted` in pnpm-workspace.yaml puts every dependency in the
+// repo root, not in this app, so the two paths below climb to it. The RN
+// template ships `../node_modules`, which is right for a standalone app and
+// wrong for a workspace — and it fails at plugin resolution, before Gradle
+// prints anything useful about why.
+pluginManagement { includeBuild("../../../node_modules/@react-native/gradle-plugin") }
 plugins { id("com.facebook.react.settings") }
 extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autolinkLibrariesFromCommand() }
 rootProject.name = 'ReactNativeDemo'
 include ':app'
-includeBuild('../node_modules/@react-native/gradle-plugin')
+includeBuild('../../../node_modules/@react-native/gradle-plugin')

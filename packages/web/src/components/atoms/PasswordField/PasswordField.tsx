@@ -8,7 +8,9 @@ import {
 import { useId, useState } from 'react';
 import type { FocusEvent, ReactElement } from 'react';
 
-import { IconCapsLock, IconCheckCircle, IconCircle } from '../../../icons';
+import { IconCapsLock } from '../../../icons/editor';
+import { IconCheckCircle } from '../../../icons/general';
+import { IconCircle } from '../../../icons/shapes';
 import { LinkButton } from '../LinkButton';
 import { ProgressBar } from '../ProgressBar';
 import type { IPasswordFieldProps } from './PasswordField.types';

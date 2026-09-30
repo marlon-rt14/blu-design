@@ -2,7 +2,7 @@ import { checkboxTokens } from '@dsm/shared';
 import type { TCheckboxSize, TIconSize } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { ICheckboxProps } from './Checkbox.types';
 
 interface IUseCheckboxParams extends ICheckboxProps {
@@ -110,7 +110,7 @@ export const useCheckbox = ({
   };
 
   const labelStyle: StyleProp<TextStyle> = {
-    fontFamily: resolveMulishFontFamily(sizeTokens.label.fontWeight),
+    fontWeight: resolveFontWeight(sizeTokens.label.fontWeight),
     fontSize: sizeTokens.label.fontSize,
     lineHeight: sizeTokens.label.lineHeight,
     color: isDisabled ? tokens.colors.label.disabled : tokens.colors.label.default,

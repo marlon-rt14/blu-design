@@ -2,11 +2,11 @@ import type { IIconBaseProps } from '@dsm/shared';
 import type { ReactNode } from 'react';
 
 /**
- * Props of every icon component in `@dsm/web/icons` — the shared contract with
+ * Props of every icon component in `@dsm/web/icons/<section>` — the shared contract with
  * no children, since each of those already has its own drawing inside.
  *
  * ```tsx
- * <IconTrash size="lg" color="danger" />
+ * <IconTrash01 size="lg" color="danger" />
  * ```
  *
  * Also the right type for an icon you add yourself: take `TIconProps`, spread

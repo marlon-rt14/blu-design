@@ -47,18 +47,18 @@ interface IUseTextFieldResult {
   isDisabled: boolean;
   /** Normalized read-only flag, safe to hand straight to the `<input>`. */
   isReadOnly: boolean;
-  /** Whether the field is in its invalid state — `isInvalid` or a set `errorMessage`. */
+  /** Whether the field is in its error state — derived from `error` being set. */
   isInvalid: boolean;
   /**
    * Whether to render the floating `label` element above the value. `label`
-   * only ever floats once there's a value, and never at `size='small'` — see
+   * only ever floats once there's a value, and never at `size='sm'` — see
    * `TTextFieldSize`. When this is `false`, `label` is the `<input>`'s
    * `placeholder` instead.
    */
   showFloatingLabel: boolean;
-  /** `errorMessage` or `helperText` when `showHelper` is `true` and either is set; `undefined` otherwise. */
+  /** `error` if set, else `helperText`; `undefined` when neither is. */
   displayedHelperText: string | undefined;
-  /** `"n / max"` when `showCounter` is `true` and `maxLength` is set; `undefined` otherwise. */
+  /** `"n / max"` when `counter` was passed; `undefined` otherwise. */
   counterText: string | undefined;
 }
 
@@ -80,16 +80,13 @@ const FLOATING_LABEL_LETTER_SPACING = '0.24px';
  * @returns The resolved styles, normalized flags, and the text to render below the field.
  */
 export const useTextField = ({
-  size = 'medium',
-  isDisabled = false,
-  isReadOnly = false,
-  isInvalid = false,
-  errorMessage,
+  size = 'md',
+  disabled = false,
+  readOnly = false,
+  error,
   helperText,
-  showHelper = false,
-  showCounter = false,
+  counter,
   value,
-  maxLength,
   isHovered,
   isFocused,
 }: IUseTextFieldParams): IUseTextFieldResult => {
@@ -97,10 +94,12 @@ export const useTextField = ({
   const tokens = textFieldTokens[mode];
   const fontFamily = useFontFamily(tokens.typography.content.fontWeight);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const hasError = isInvalid || Boolean(errorMessage);
+  const isDisabled = disabled;
+  const isReadOnly = readOnly;
+  const hasError = error !== undefined;
   const hasValue = value.length > 0;
   const sizeTokens = tokens.sizes[size];
-  const showFloatingLabel = hasValue && size !== 'small';
+  const showFloatingLabel = hasValue && size !== 'sm';
 
   // Focus never recolors the container's own border — Figma's "focus" variant
   // keeps `border-default` and draws a separate ring outside the box instead
@@ -303,7 +302,9 @@ export const useTextField = ({
     isReadOnly,
     isInvalid: hasError,
     showFloatingLabel,
-    displayedHelperText: showHelper ? errorMessage ?? helperText : undefined,
-    counterText: showCounter && maxLength !== undefined ? `${value.length} / ${maxLength}` : undefined,
+    // Presence is the switch, not a boolean: the error message replaces the
+    // helper while it is set, and the counter exists only if it was passed.
+    displayedHelperText: error ?? helperText,
+    counterText: counter === undefined ? undefined : `${counter.current} / ${counter.max}`,
   };
 };

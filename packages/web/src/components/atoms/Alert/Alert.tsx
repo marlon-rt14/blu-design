@@ -3,7 +3,8 @@ import type { FocusEvent, ReactElement } from 'react';
 
 import { ALERT_STATUS_ICON, type TAlertStatus } from '@dsm/shared';
 
-import { IconAlertCircle, IconAlertTriangle, IconCheckCircle, IconInfo, IconX } from '../../../icons';
+import { IconAlertCircle, IconAlertTriangle } from '../../../icons/alerts-feedback';
+import { IconCheckCircle, IconInfoCircle, IconXClose } from '../../../icons/general';
 import type { TIconProps } from '../Icon';
 import { LinkButton } from '../LinkButton';
 import type { IAlertProps } from './Alert.types';
@@ -18,8 +19,8 @@ const statusIcon = (status: TAlertStatus): ((props: TIconProps) => ReactElement)
       return IconAlertTriangle;
     case 'check-circle':
       return IconCheckCircle;
-    case 'info':
-      return IconInfo;
+    case 'info-circle':
+      return IconInfoCircle;
     default: {
       const _exhaustive: never = name;
       return _exhaustive;
@@ -119,7 +120,7 @@ export const Alert = (props: IAlertProps): ReactElement => {
           type="button"
         >
           <span style={dismissVisualStyle}>
-            <IconX color="primary" size="sm" />
+            <IconXClose color="primary" size="sm" />
           </span>
         </button>
       ) : null}

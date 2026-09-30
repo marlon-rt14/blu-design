@@ -1,15 +1,11 @@
-import type { TIconSize, TListItemSize } from '@dsm/shared';
 import { useState } from 'react';
 import type { ReactElement } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
+import { tintNode } from '../../atoms/Icon';
 import { Avatar } from '../../atoms/Avatar';
-import { FieldIcon } from '../../atoms/TextField/FieldIcon';
 import type { IListItemProps } from './ListItem.types';
 import { useListItem } from './useListItem';
-
-/** ListItem's `size` shares its names with Icon's and Avatar's own steps — no mapping needed. */
-const toIconSize = (size: TListItemSize): TIconSize => size;
 
 /**
  * Mobile ListItem — the row of a list: a transaction, a contact, a product.
@@ -22,24 +18,27 @@ const toIconSize = (size: TListItemSize): TIconSize => size;
  * `trailing` renders inert on purpose: bDS classifies ListItem as having one
  * target, and a pressable Icon/Badge/Tag/IconButton in this slot would create
  * a second one.
+ *
+ * @example
+ * ```tsx
+ * <ListItem
+ *   description="Hoy, 14:32"
+ *   label="Envío a Juan García"
+ *   leading={{ avatar: { initials: 'JG' } }}
+ *   onPress={() => open(id)}
+ *   trailingText="$1.250,00"
+ * />
+ * ```
  */
 export const ListItem = ({ onPress, ...props }: IListItemProps): ReactElement => {
   const {
     label,
-    leadingContent = 'none',
-    icon = 'user',
-    avatarType = 'initials',
-    avatarInitials,
-    avatarImageUrl,
-    avatarTone = 'brand',
+    leading,
     size = 'md',
-    showDescription = false,
     description,
-    showTrailingText = false,
     trailingText,
-    showTrailing = false,
     trailing,
-    isDisabled = false,
+    disabled = false,
     testID,
   } = props;
 
@@ -52,22 +51,20 @@ export const ListItem = ({ onPress, ...props }: IListItemProps): ReactElement =>
 
   const content = (
     <>
-      {leadingContent === 'icon' ? (
+      {leading?.icon !== undefined ? (
+        <View style={leadingStyle}>{tintNode(leading.icon, iconColor)}</View>
+      ) : leading?.avatar !== undefined ? (
         <View style={leadingStyle}>
-          <FieldIcon name={icon} size={toIconSize(size)} tintColor={iconColor} />
-        </View>
-      ) : leadingContent === 'avatar' ? (
-        <View style={leadingStyle}>
-          <Avatar imageUrl={avatarImageUrl} initials={avatarInitials} size={size} tone={avatarTone} type={avatarType} />
+          <Avatar {...leading.avatar} size={size} />
         </View>
       ) : null}
       <View style={contentStyle}>
         <Text style={titleStyle}>{label}</Text>
-        {showDescription && description ? <Text style={descriptionStyle}>{description}</Text> : null}
+        {description ? <Text style={descriptionStyle}>{description}</Text> : null}
         {dividerStyle ? <View style={dividerStyle} /> : null}
       </View>
-      {showTrailingText && trailingText ? <Text style={trailingTextStyle}>{trailingText}</Text> : null}
-      {showTrailing && trailing ? (
+      {trailingText ? <Text style={trailingTextStyle}>{trailingText}</Text> : null}
+      {trailing ? (
         <View importantForAccessibility="no-hide-descendants" pointerEvents="none">
           {trailing}
         </View>
@@ -87,8 +84,8 @@ export const ListItem = ({ onPress, ...props }: IListItemProps): ReactElement =>
     <Pressable
       accessibilityLabel={label}
       accessibilityRole="button"
-      accessibilityState={{ disabled: isDisabled }}
-      disabled={isDisabled}
+      accessibilityState={{ disabled }}
+      disabled={disabled}
       onBlur={() => setIsFocused(false)}
       onFocus={() => setIsFocused(true)}
       onPress={onPress}

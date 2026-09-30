@@ -2,13 +2,17 @@ import type { TIconSize, TSelectSize } from '@dsm/shared';
 import { useEffect, useId, useRef, useState } from 'react';
 import type { KeyboardEvent, ReactElement } from 'react';
 
-import { FieldIcon } from '../../atoms/TextField/FieldIcon';
-import { IconCheck, IconChevronDown, IconSearch } from '../../../icons';
+import { IconChevronDown } from '../../../icons/arrows';
+import { IconCheck, IconSearchMd } from '../../../icons/general';
 import { ListItem } from '../ListItem';
 import type { ISelectProps } from './Select.types';
 import { useSelect } from './useSelect';
 
-/** Select's field steps map onto Icon's the same way TextField's do: sm/md share `sm`, lg steps to `md`. */
+/**
+ * Select's own fixed glyphs — the chevron and the search field inside the menu —
+ * map onto Icon's steps the same way TextField's do: sm/md share `sm`, lg steps
+ * to `md`. It is not used for `leadingIcon`, which is a node the caller sizes.
+ */
 const iconSizeForField = (size: TSelectSize): TIconSize => (size === 'lg' ? 'md' : 'sm');
 
 /**
@@ -241,9 +245,7 @@ export const Select = (props: ISelectProps): ReactElement => {
         tabIndex={disabled ? -1 : 0}
       >
         {leadingIcon ? (
-          <span style={iconStyle}>
-            <FieldIcon color={disabled ? 'disabled' : 'secondary'} name={leadingIcon} size={iconSizeForField(size)} />
-          </span>
+          <span style={iconStyle}>{leadingIcon}</span>
         ) : null}
         <span style={contentStyle}>
           {showFloatingLabel ? <span style={labelStyle}>{label}</span> : null}
@@ -259,7 +261,7 @@ export const Select = (props: ISelectProps): ReactElement => {
             {isSearchable ? (
               <div style={searchWrapperStyle}>
                 <span style={iconStyle}>
-                  <IconSearch color="secondary" size={iconSizeForField(size)} />
+                  <IconSearchMd color="secondary" size={iconSizeForField(size)} />
                 </span>
                 <input
                   aria-controls={listboxId}
@@ -294,10 +296,8 @@ export const Select = (props: ISelectProps): ReactElement => {
                       }}
                     >
                       <ListItem
-                        icon={option.icon}
                         label={option.label}
-                        leadingContent={option.icon ? 'icon' : 'none'}
-                        showTrailing={isSelected}
+                        leading={option.icon === undefined ? undefined : { icon: option.icon }}
                         trailing={isSelected ? <IconCheck color="brand" size="sm" /> : null}
                       />
                     </li>

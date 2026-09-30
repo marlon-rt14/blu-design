@@ -30,7 +30,12 @@ const meta = {
   },
   argTypes: {
     title: { control: 'text', table: { category: 'Content' } },
-    icon: { control: 'select', options: ['image', 'check-circle', 'star', 'user'], table: { category: 'Content' } },
+    icon: {
+      control: 'select',
+      options: ['IconImage01', 'IconCheckCircle', 'IconStar01', 'IconUser01'],
+      description: 'The glyph, by export name — the real prop is a `ReactNode`.',
+      table: { category: 'Content' },
+    },
     variant: {
       control: 'inline-radio',
       options: ['row', 'tile', 'compact'],
@@ -66,7 +71,7 @@ const meta = {
   },
   args: {
     variant: 'row',
-    icon: 'image',
+    icon: 'IconImage01',
     title: 'Plan mensual',
     description: 'Cambia o cancela cuando quieras.',
     showDescription: true,

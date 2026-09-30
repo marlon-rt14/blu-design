@@ -1,46 +1,65 @@
-/**
- * Maps a numeric font-weight token (as read from `theme/{base,dark}/typography.json`
- * via `readThemeTypography`) to the exact static Mulish font file `@dsm/mobile`
- * ships in `assets/fonts/`.
- *
- * React Native cannot select a weight out of a single variable font file the
- * way CSS `font-weight` does — each weight needs its own linked font file,
- * and both platforms resolve it by this exact string: Android by filename,
- * iOS by the font's PostScript name. Every `Mulish-*.ttf` in `assets/fonts/`
- * was renamed so its filename, family name and PostScript name are all this
- * same string, specifically so one value works on both platforms.
- *
- * These files must be linked into the consuming app's native projects once
- * (`npx react-native-asset` from the app, after `@dsm/mobile` is installed —
- * see README "Theming & tokens"). `BluProvider` cannot do this for you: bare
- * React Native has no way to load a font file at JS runtime, only at build
- * time via the native project.
- */
-const MULISH_FONT_FAMILY_BY_WEIGHT: Record<string, string> = {
-  '400': 'Mulish-Regular',
-  '500': 'Mulish-Medium',
-  '600': 'Mulish-SemiBold',
-  '700': 'Mulish-Bold',
-  '800': 'Mulish-ExtraBold',
-};
+import type { TextStyle } from 'react-native';
 
 /**
- * Resolves a typography token's `fontWeight` (e.g. `"600"`) to the Mulish
- * font file that renders it. Throws on an unknown weight instead of silently
- * falling back — a weight with no matching file means a new one needs
- * instancing into `assets/fonts/`, not a silently wrong render.
+ * The weight a typography token asks for, in the shape React Native's
+ * `TextStyle` wants.
  *
- * Re-exported as `useFontFamily` from `theme/index.ts` for API symmetry with
- * `@dsm/web`'s hook of the same name — that one actually does need the
- * `use` prefix (it reads a value out of `@dsm/shared`'s tokens), this one is
- * a pure function, kept under its original name here.
+ * **There is no font family to resolve on mobile, on purpose.** Leaving
+ * `fontFamily` unset hands the text to each platform's own system typeface,
+ * which is exactly what bDS asks for: **SF Pro on iOS, and on Android whatever
+ * the device maps `sans-serif` to — Roboto on stock.** They are the system
+ * fonts, so there is nothing to ship and nothing to link.
+ *
+ * That Android wording is deliberate. `/system/etc/fonts.xml` ships with the OS
+ * image, so an OEM can point `sans-serif` at its own face — One UI Sans on a
+ * Samsung — and some skins let the reader change it. A phone looking like its
+ * own phone is the point of using the system face, so this is the behaviour we
+ * want, not a gap. iOS has no such variance: Apple does not allow the system
+ * font to be replaced.
+ * Only web carries a typeface of its own — Mulish — and it has its own
+ * `useFontFamily` in `@dsm/web/theme/font.ts`.
+ *
+ * Four things follow from not bundling them, and they are the reason this is
+ * the better shape rather than just the cheaper one:
+ *
+ * - **Nothing to license.** SF Pro's licence covers designing and developing
+ *   for Apple platforms; redistributing the files inside a library is a
+ *   different question, and now it never has to be asked.
+ * - **Nothing to link.** No `npx react-native-asset` step for a consuming app,
+ *   and no 60 MB of SF Pro riding along inside an Android APK that cannot use
+ *   it — which is what happened when we did bundle them.
+ * - **Always the current cut.** The system font ships with the OS and follows
+ *   it; a bundled copy freezes at whatever release we happened to download.
+ * - **It respects the reader.** Dynamic Type and the system's own font
+ *   settings apply, which a bundled face only partly honours.
+ *
+ * ### Why the weight became numeric again
+ *
+ * While the faces were bundled, each one was its own family — `SFProText-Bold`
+ * — so the weight travelled inside the family name and **no numeric
+ * `fontWeight` was ever set**, on purpose: setting one made React Native look
+ * for a bolder cut of an already-bold face.
+ *
+ * With the system font that inverts. There is one family and the weight is the
+ * only thing that selects a cut, so it has to be set and it has to be the real
+ * number. Every one of the 61 call sites reads it from the same place it
+ * always did — `dimension.font.weight.*` — so the value is still the token's;
+ * only where it lands in the style changed.
+ *
+ * One platform caveat, declared rather than worked around: Android renders the
+ * full 100–900 range from API 28 on — stock maps `sans-serif` to Roboto's
+ * *variable* file, which is what lets the weights interpolate rather than snap.
+ * Below API 28 the system falls back to regular or bold, so a 500 and a 600
+ * look the same. Our `minSdk` is above that line; if it ever drops, this is the
+ * note to come back to.
+ *
+ * @example
+ * ```ts
+ * labelStyle = {
+ *   fontWeight: resolveFontWeight(tokens.typography.label.fontWeight),
+ *   fontSize: tokens.typography.label.fontSize,
+ * };
+ * ```
  */
-export const resolveMulishFontFamily = (fontWeight: string): string => {
-  const family = MULISH_FONT_FAMILY_BY_WEIGHT[fontWeight];
-  if (!family) {
-    throw new Error(
-      `No Mulish font file for weight "${fontWeight}". Instance it into packages/mobile/assets/fonts/ and add it to MULISH_FONT_FAMILY_BY_WEIGHT.`,
-    );
-  }
-  return family;
-};
+export const resolveFontWeight = (fontWeight: string): TextStyle['fontWeight'] =>
+  fontWeight as TextStyle['fontWeight'];

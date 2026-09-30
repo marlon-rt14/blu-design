@@ -1,12 +1,13 @@
-import type { IAvatarGroupItem, TAvatarSize } from '@dsm/shared';
+import type { TAvatarSize } from '@dsm/shared';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { PlatformAvatarGroup } from './PlatformAvatarGroup';
+import type { IPlatformAvatarGroupItem } from './PlatformAvatarGroup';
 import type { IPlatformAvatarGroupProps, TPlatform } from './PlatformAvatarGroup';
 
 const SIZES: TAvatarSize[] = ['xs', 'sm', 'md', 'lg'];
 
-const TEAM: IAvatarGroupItem[] = [
+const TEAM: IPlatformAvatarGroupItem[] = [
   { initials: 'JG', tone: 'sky' },
   { initials: 'MP', tone: 'teal' },
   { initials: 'AL', tone: 'lime' },

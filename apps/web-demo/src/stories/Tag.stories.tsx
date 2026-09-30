@@ -1,5 +1,6 @@
 import type { TTagAppearance, TTagPalette, TTagSize } from '@dsm/shared';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { fn } from 'storybook/test';
 import type { ReactElement, ReactNode } from 'react';
 
 import { PlatformTag } from './PlatformTag';
@@ -57,11 +58,21 @@ const meta = {
       options: SIZES,
       table: { category: 'Appearance', defaultValue: { summary: 'sm' } },
     },
-    showLeadingIcon: { control: 'boolean', table: { category: 'Content', defaultValue: { summary: 'false' } } },
-    icon: { control: 'select', options: ['check-circle', 'store', 'user'], table: { category: 'Content' } },
-    showRemove: { control: 'boolean', table: { category: 'Content', defaultValue: { summary: 'false' } } },
+    leadingIcon: {
+      control: 'select',
+      options: [undefined, 'IconCheckCircle', 'IconStore', 'IconUser01'],
+      description:
+        'The glyph, by export name — the real prop is a `ReactNode`, and its ' +
+        'presence is what turns the slot on. There is no `showLeadingIcon`.',
+      table: { category: 'Content' },
+    },
+    onRemove: {
+      description:
+        'Its presence is what draws the ×. There is no `showRemove`: a × that ' +
+        'removes nothing is a trap.',
+      table: { category: 'Content' },
+    },
     testID: { table: { disable: true } },
-    onRemove: { table: { disable: true } },
     platform: { table: { disable: true } },
   },
   args: {
@@ -69,9 +80,6 @@ const meta = {
     appearance: 'soft',
     palette: 'neutral',
     size: 'sm',
-    showLeadingIcon: false,
-    icon: 'check-circle',
-    showRemove: false,
   },
   render: (args, { globals }) => <PlatformTag {...args} platform={globals['platform'] as TPlatform} />,
 } satisfies Meta<IPlatformTagProps>;
@@ -113,11 +121,11 @@ export const Sizes: TStory = {
 };
 
 export const WithLeadingIcon: TStory = {
-  args: { showLeadingIcon: true, icon: 'check-circle', palette: 'success' },
+  args: { leadingIcon: 'IconCheckCircle', palette: 'success' },
 };
 
 export const ComboboxChip: TStory = {
-  args: { appearance: 'outline', palette: 'neutral', showRemove: true },
+  args: { appearance: 'outline', palette: 'neutral', onRemove: fn() },
 };
 
 export const StatusPalette: TStory = {

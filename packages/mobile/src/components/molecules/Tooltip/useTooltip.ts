@@ -9,7 +9,7 @@ import { useRef, useState } from 'react';
 import type { ComponentRef, MutableRefObject, Ref } from 'react';
 import type { StyleProp, TextStyle, View, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { ITooltipProps } from './Tooltip.types';
 
 /** What a ref to a `View` actually points at on React Native 0.87. */
@@ -166,14 +166,14 @@ export const useTooltip = ({
     // box. See TOOLTIP_TITLE_BODY_GAP.
     contentStyle: { flex: 1, minWidth: 0 },
     titleStyle: {
-      // `fontFamily` carries the weight on this platform; never both.
-      fontFamily: resolveMulishFontFamily(typography.title.fontWeight),
+      // The system font takes the weight as a number, not as a family.
+      fontWeight: resolveFontWeight(typography.title.fontWeight),
       fontSize: typography.title.fontSize,
       lineHeight: typography.title.fontSize * typography.title.lineHeightRatio,
       color: colors.title,
     },
     bodyStyle: {
-      fontFamily: resolveMulishFontFamily(typography.body.fontWeight),
+      fontWeight: resolveFontWeight(typography.body.fontWeight),
       fontSize: typography.body.fontSize,
       lineHeight: typography.body.fontSize * typography.body.lineHeightRatio,
       color: colors.body,

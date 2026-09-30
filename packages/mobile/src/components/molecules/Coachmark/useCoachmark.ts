@@ -11,7 +11,7 @@ import { useEffect, useRef } from 'react';
 import type { ComponentRef, MutableRefObject, Ref } from 'react';
 import type { StyleProp, TextStyle, View, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { ICoachmarkProps } from './Coachmark.types';
 
 /** What a ref to a `View` actually points at on React Native 0.87. */
@@ -256,13 +256,13 @@ export const useCoachmark = ({
     titleStyle: {
       flex: 1,
       minWidth: 0,
-      fontFamily: resolveMulishFontFamily(titleType.fontWeight),
+      fontWeight: resolveFontWeight(titleType.fontWeight),
       fontSize: titleType.fontSize,
       lineHeight: titleType.lineHeight,
       color: colors.title,
     },
     bodyStyle: {
-      fontFamily: resolveMulishFontFamily(bodyType.fontWeight),
+      fontWeight: resolveFontWeight(bodyType.fontWeight),
       fontSize: bodyType.fontSize,
       lineHeight: bodyType.lineHeight,
       color: colors.body,
@@ -276,7 +276,7 @@ export const useCoachmark = ({
       width: '100%',
     },
     stepStyle: {
-      fontFamily: resolveMulishFontFamily(stepType.fontWeight),
+      fontWeight: resolveFontWeight(stepType.fontWeight),
       fontSize: stepType.fontSize,
       lineHeight: stepType.lineHeight,
       color: colors.step,

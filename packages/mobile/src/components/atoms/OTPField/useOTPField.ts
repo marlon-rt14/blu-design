@@ -1,7 +1,7 @@
 import { otpFieldTokens } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { IOTPFieldProps } from './OTPField.types';
 
 /** Params of {@link useOTPField}: the props plus the live focus state. */
@@ -126,8 +126,8 @@ export const useOTPField = ({
           }
         : undefined,
     digitStyle: {
-      // `fontFamily` carries the weight on this platform; never both.
-      fontFamily: resolveMulishFontFamily(typography.digit.fontWeight),
+      // The system font takes the weight as a number, not as a family.
+      fontWeight: resolveFontWeight(typography.digit.fontWeight),
       fontSize: typography.digit.fontSize,
       // Pixels here, a ratio in CSS.
       lineHeight: typography.digit.fontSize * typography.digit.lineHeightRatio,
@@ -160,7 +160,7 @@ export const useOTPField = ({
       paddingTop: dimension.helperGap,
       // Centred, measured against Figma: the ink centres on the row's centre.
       textAlign: 'center',
-      fontFamily: resolveMulishFontFamily(typography.helper.fontWeight),
+      fontWeight: resolveFontWeight(typography.helper.fontWeight),
       fontSize: typography.helper.fontSize,
       lineHeight: typography.helper.fontSize * typography.helper.lineHeightRatio,
       color: isDisabled

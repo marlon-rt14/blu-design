@@ -1,5 +1,5 @@
 import type { TBadgeStatus, TBadgeType } from '@dsm/shared';
-import { IconUser } from '@dsm/web/icons';
+import { IconUser01 } from '@dsm/web/icons/users';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties, ReactElement } from 'react';
 
@@ -15,7 +15,7 @@ const anchorBadgeStyle: CSSProperties = { position: 'absolute', top: -4, right: 
 /** Badge doesn't position itself — this is the caller's own corner-anchor pattern. */
 const AnchoredDemo = (props: IPlatformBadgeProps): ReactElement => (
   <span style={anchorWrapStyle}>
-    <IconUser size="lg" />
+    <IconUser01 size="lg" />
     <span style={anchorBadgeStyle}>
       <PlatformBadge {...props} />
     </span>

@@ -25,7 +25,9 @@ export * from './Skeleton';
 export * from './Step';
 export * from './StepConnector';
 export * from './Switch';
-export * from './TabItem';
+// TabItem is not exported: the dev contract gives the page one public
+// signature, `Tabs`, which renders the tabs from `ITabDef[]`. A TabItem on
+// its own has no way to know its `isSelected`, `layout` or `size`.
 export * from './Tag';
 export * from './TextArea';
 export * from './TextField';

@@ -1,4 +1,4 @@
-import type { TIconName } from './icon.types';
+import type { ReactNode } from 'react';
 
 /**
  * Visual weight, heaviest to lightest — same order as Button's.
@@ -40,7 +40,7 @@ export type TTagPalette =
  * Changing size swaps the typography and the padding too — `label/md` +
  * `inset/sm` against `label/sm` + `inset/xs` — not just the height.
  */
-export type TTagSize = 'sm' | 'xs';
+export type TTagSize = 'xs' | 'sm';
 
 /**
  * Platform-agnostic contract for the Tag.
@@ -52,7 +52,7 @@ export type TTagSize = 'sm' | 'xs';
  * described an interaction this component does not offer, and eight of those
  * variants were identical copies of `default`.
  *
- * The Combobox's own input chip is still a Tag — `showRemove`, `appearance='outline'`,
+ * The Combobox's own input chip is still a Tag — `onRemove`, `appearance='outline'`,
  * `palette='neutral'` — removable but never selectable.
  */
 export interface ITagBaseProps {
@@ -68,22 +68,23 @@ export interface ITagBaseProps {
   /** @defaultValue `'sm'` */
   size?: TTagSize;
   /**
-   * Glyph before the label — 16 at `sm`, 12 at `xs`. Painted with the same
-   * token as the label, so it follows `palette` and the theme alone.
+   * Glyph before the label — 16 at `sm`, 12 at `xs`. Its presence turns the
+   * slot on; there is no `showLeadingIcon`.
    *
-   * @defaultValue `false`
+   * **A node, not a name.** The library publishes 1170 glyphs across 19
+   * sections and no name-to-component registry, so the caller imports the one
+   * it wants. Tag's steps share their names with Icon's, so the glyph's `size`
+   * is the tag's. It is painted with the same token as the label, so it
+   * follows `palette` and the theme on its own.
    */
-  showLeadingIcon?: boolean;
-  /** Shown when `showLeadingIcon` is true. */
-  icon?: TIconName;
+  leadingIcon?: ReactNode;
   /**
-   * Turns on the remove control — what makes a Tag the input chip of a
-   * Combobox. The glyph sits in a 24×24 target (WCAG 2.5.8's floor for a
-   * target nested inside another), which is why the tag grows 28 (24 of
-   * target plus 4 of gap) once this is on.
+   * Called when the remove control is activated. **Its presence draws the ×**
+   * — there is no `showRemove`, because a × that removes nothing is a trap.
    *
-   * @defaultValue `false`
+   * This is the rule Chip already followed; the two now agree.
    */
-  showRemove?: boolean;
+  onRemove?: () => void;
+  /** Stable identifier for tests. */
   testID?: string;
 }

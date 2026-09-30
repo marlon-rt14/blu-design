@@ -1,7 +1,7 @@
 import { textAreaTokens } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { ITextAreaProps } from './TextArea.types';
 
 /** Params of {@link useTextArea}: the TextArea props plus the live focus state and line count. */
@@ -124,11 +124,11 @@ export const useTextArea = ({
   };
 
   // See @dsm/mobile's TextField useTextField for why fontWeight never
-  // accompanies fontFamily here — same Android font-resolver constraint.
+  // selects the cut: the family is the system one.
   const inputStyle: StyleProp<TextStyle> = {
     padding: 0,
     margin: 0,
-    fontFamily: resolveMulishFontFamily(tokens.typography.content.fontWeight),
+    fontWeight: resolveFontWeight(tokens.typography.content.fontWeight),
     fontSize: tokens.typography.content.fontSize,
     lineHeight: tokens.typography.content.lineHeight,
     color: valueColor,
@@ -136,7 +136,7 @@ export const useTextArea = ({
   };
 
   const labelStyle: StyleProp<TextStyle> = {
-    fontFamily: resolveMulishFontFamily(tokens.typography.label.fontWeight),
+    fontWeight: resolveFontWeight(tokens.typography.label.fontWeight),
     fontSize: tokens.typography.label.fontSize,
     lineHeight: tokens.typography.label.lineHeight,
     // Figma's label/sm/strong text style tracks 0.24px — see the same
@@ -153,7 +153,7 @@ export const useTextArea = ({
   const helperStyle: StyleProp<TextStyle> = {
     flex: 1,
     paddingTop: tokens.dimension.footerSlotGap,
-    fontFamily: resolveMulishFontFamily(tokens.typography.helper.fontWeight),
+    fontWeight: resolveFontWeight(tokens.typography.helper.fontWeight),
     fontSize: tokens.typography.helper.fontSize,
     lineHeight: tokens.typography.helper.lineHeight,
     color: helperColor,
@@ -164,7 +164,7 @@ export const useTextArea = ({
   const counterStyle: StyleProp<TextStyle> = {
     paddingTop: tokens.dimension.footerSlotGap,
     paddingLeft: tokens.dimension.footerInlineGap,
-    fontFamily: resolveMulishFontFamily(tokens.typography.counter.fontWeight),
+    fontWeight: resolveFontWeight(tokens.typography.counter.fontWeight),
     fontSize: tokens.typography.counter.fontSize,
     lineHeight: tokens.typography.counter.lineHeight,
     color: helperColor,

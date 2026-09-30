@@ -1,7 +1,10 @@
 import type { ITagBaseProps } from '@dsm/shared';
 
-/** Props of the mobile Tag — no platform-specific additions needed. */
-export interface ITagProps extends ITagBaseProps {
-  /** Fired when the remove control is activated. */
-  onRemove?: () => void;
-}
+/**
+ * Props of the mobile Tag.
+ *
+ * Nothing to add: the contract's six props are all platform-agnostic, and
+ * `onRemove` is in the shared base, where the contract puts it — its presence
+ * is what draws the ×.
+ */
+export type ITagProps = ITagBaseProps;

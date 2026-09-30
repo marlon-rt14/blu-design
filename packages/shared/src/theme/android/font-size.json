@@ -1,0 +1,367 @@
+{
+  "_comment": "This file was generated automatically by Supernova.io and should not be changed manually. To modify the format or content of this file, please contact your design system team.",
+  "font-size": {
+    "font": {
+      "size": {
+        "50": {
+          "value": "10px",
+          "type": "fontSize",
+          "description": "Tamano de fuente de 10px. Escalon crudo de la escala tipografica. Los componentes usan font/size/{display,heading,title,body,label,caption} de 4. Layout, que elige el escalon segun el viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "100": {
+          "value": "11px",
+          "type": "fontSize",
+          "description": "Tamano de fuente de 11px. Escalon crudo de la escala tipografica. Los componentes usan font/size/{display,heading,title,body,label,caption} de 4. Layout, que elige el escalon segun el viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "200": {
+          "value": "12px",
+          "type": "fontSize",
+          "description": "Tamano de fuente de 12px. Escalon crudo de la escala tipografica. Los componentes usan font/size/{display,heading,title,body,label,caption} de 4. Layout, que elige el escalon segun el viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "250": {
+          "value": "13px",
+          "type": "fontSize",
+          "description": "iOS Footnote"
+        },
+        "300": {
+          "value": "14px",
+          "type": "fontSize",
+          "description": "Tamano de fuente de 14px. Escalon crudo de la escala tipografica. Los componentes usan font/size/{display,heading,title,body,label,caption} de 4. Layout, que elige el escalon segun el viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "350": {
+          "value": "15px",
+          "type": "fontSize",
+          "description": "iOS Subhead"
+        },
+        "400": {
+          "value": "16px",
+          "type": "fontSize",
+          "description": "Tamano de fuente de 16px. Escalon crudo de la escala tipografica. Los componentes usan font/size/{display,heading,title,body,label,caption} de 4. Layout, que elige el escalon segun el viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "450": {
+          "value": "17px",
+          "type": "fontSize",
+          "description": "iOS Body / Headline"
+        },
+        "500": {
+          "value": "18px",
+          "type": "fontSize",
+          "description": "Tamano de fuente de 18px. Escalon crudo de la escala tipografica. Los componentes usan font/size/{display,heading,title,body,label,caption} de 4. Layout, que elige el escalon segun el viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "600": {
+          "value": "20px",
+          "type": "fontSize",
+          "description": "Tamano de fuente de 20px. Escalon crudo de la escala tipografica. Los componentes usan font/size/{display,heading,title,body,label,caption} de 4. Layout, que elige el escalon segun el viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "650": {
+          "value": "22px",
+          "type": "fontSize",
+          "description": "iOS Title 2"
+        },
+        "700": {
+          "value": "24px",
+          "type": "fontSize",
+          "description": "Tamano de fuente de 24px. Escalon crudo de la escala tipografica. Los componentes usan font/size/{display,heading,title,body,label,caption} de 4. Layout, que elige el escalon segun el viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "750": {
+          "value": "28px",
+          "type": "fontSize",
+          "description": "iOS Title 1 / M3 headlineMedium"
+        },
+        "800": {
+          "value": "30px",
+          "type": "fontSize",
+          "description": "Tamano de fuente de 30px. Escalon crudo de la escala tipografica. Los componentes usan font/size/{display,heading,title,body,label,caption} de 4. Layout, que elige el escalon segun el viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "850": {
+          "value": "34px",
+          "type": "fontSize",
+          "description": "iOS Large Title"
+        },
+        "900": {
+          "value": "36px",
+          "type": "fontSize",
+          "description": "Tamano de fuente de 36px. Escalon crudo de la escala tipografica. Los componentes usan font/size/{display,heading,title,body,label,caption} de 4. Layout, que elige el escalon segun el viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "1000": {
+          "value": "48px",
+          "type": "fontSize",
+          "description": "Tamano de fuente de 48px. Escalon crudo de la escala tipografica. Los componentes usan font/size/{display,heading,title,body,label,caption} de 4. Layout, que elige el escalon segun el viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "display": {
+          "lg": {
+            "value": "30px",
+            "type": "fontSize",
+            "description": "Titular expresivo mayor: onboarding, pantallas de exito, marketing. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
+          },
+          "md": {
+            "value": "24px",
+            "type": "fontSize",
+            "description": "Titular expresivo medio. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
+          },
+          "sm": {
+            "value": "20px",
+            "type": "fontSize",
+            "description": "Titular expresivo menor. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
+          }
+        },
+        "heading": {
+          "lg": {
+            "value": "24px",
+            "type": "fontSize",
+            "description": "Titulo de pantalla. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
+          },
+          "md": {
+            "value": "20px",
+            "type": "fontSize",
+            "description": "Titulo de seccion. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
+          },
+          "sm": {
+            "value": "18px",
+            "type": "fontSize",
+            "description": "Subtitulo de seccion. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
+          }
+        },
+        "title": {
+          "lg": {
+            "value": "18px",
+            "type": "fontSize",
+            "description": "Titulo de card. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
+          },
+          "md": {
+            "value": "16px",
+            "type": "fontSize",
+            "description": "Titulo de fila o de bloque. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
+          },
+          "sm": {
+            "value": "14px",
+            "type": "fontSize",
+            "description": "Titulo compacto. RESPONSIVE: cambia con el modo de viewport. Un titular de 36px es enorme en 375px de ancho y chico en 1440px, por eso la parte expresiva es fluida."
+          }
+        },
+        "body": {
+          "lg": {
+            "value": "18px",
+            "type": "fontSize",
+            "description": "Texto corrido destacado. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
+          },
+          "md": {
+            "value": "16px",
+            "type": "fontSize",
+            "description": "TEXTO CORRIDO BASE. 16px. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
+          },
+          "sm": {
+            "value": "14px",
+            "type": "fontSize",
+            "description": "Texto corrido secundario y tablas densas. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
+          }
+        },
+        "label": {
+          "lg": {
+            "value": "16px",
+            "type": "fontSize",
+            "description": "Etiqueta de boton grande. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
+          },
+          "md": {
+            "value": "14px",
+            "type": "fontSize",
+            "description": "Etiqueta de formulario y de boton. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
+          },
+          "sm": {
+            "value": "12px",
+            "type": "fontSize",
+            "description": "Etiqueta compacta. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
+          }
+        },
+        "caption": {
+          "md": {
+            "value": "12px",
+            "type": "fontSize",
+            "description": "Ayudas, timestamps, texto legal. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
+          },
+          "sm": {
+            "value": "10px",
+            "type": "fontSize",
+            "description": "Ayudas, timestamps, texto legal. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
+          }
+        },
+        "overline": {
+          "value": "11px",
+          "type": "fontSize",
+          "description": "Micro-etiqueta en mayusculas. 11px: solo decorativa o de agrupacion, NUNCA el unico indicador de un estado. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
+        },
+        "amount": {
+          "hero": {
+            "value": "30px",
+            "type": "fontSize",
+            "description": "Saldo principal de la pantalla de inicio. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea). TABULAR: Mulish tiene los diez digitos con ancho identico (0.60 em) en los cuatro pesos, medido, asi que las columnas alinean sin activar ninguna feature OpenType. REGLA DURA: los importes negativos usan el signo menos U+2212 (menos), NUNCA el guion U+002D: el guion mide 44 frente a 60 del mas y desalinea 17 unidades por fila. Para rellenar cifras de largo distinto usar FIGURE SPACE U+2007, que mide 60. El signo nunca se comunica solo con color (WCAG 1.4.1)."
+          },
+          "lg": {
+            "value": "24px",
+            "type": "fontSize",
+            "description": "Saldo de tarjeta o de producto. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea). TABULAR: Mulish tiene los diez digitos con ancho identico (0.60 em) en los cuatro pesos, medido, asi que las columnas alinean sin activar ninguna feature OpenType. REGLA DURA: los importes negativos usan el signo menos U+2212 (menos), NUNCA el guion U+002D: el guion mide 44 frente a 60 del mas y desalinea 17 unidades por fila. Para rellenar cifras de largo distinto usar FIGURE SPACE U+2007, que mide 60. El signo nunca se comunica solo con color (WCAG 1.4.1)."
+          },
+          "md": {
+            "value": "16px",
+            "type": "fontSize",
+            "description": "Importe en fila de movimiento. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea). TABULAR: Mulish tiene los diez digitos con ancho identico (0.60 em) en los cuatro pesos, medido, asi que las columnas alinean sin activar ninguna feature OpenType. REGLA DURA: los importes negativos usan el signo menos U+2212 (menos), NUNCA el guion U+002D: el guion mide 44 frente a 60 del mas y desalinea 17 unidades por fila. Para rellenar cifras de largo distinto usar FIGURE SPACE U+2007, que mide 60. El signo nunca se comunica solo con color (WCAG 1.4.1)."
+          },
+          "sm": {
+            "value": "14px",
+            "type": "fontSize",
+            "description": "Importe secundario: comision, subtotal. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea). TABULAR: Mulish tiene los diez digitos con ancho identico (0.60 em) en los cuatro pesos, medido, asi que las columnas alinean sin activar ninguna feature OpenType. REGLA DURA: los importes negativos usan el signo menos U+2212 (menos), NUNCA el guion U+002D: el guion mide 44 frente a 60 del mas y desalinea 17 unidades por fila. Para rellenar cifras de largo distinto usar FIGURE SPACE U+2007, que mide 60. El signo nunca se comunica solo con color (WCAG 1.4.1)."
+          }
+        },
+        "unit": {
+          "md": {
+            "value": "14px",
+            "type": "fontSize",
+            "description": "Unidad que acompana a un numero: %, pts, millas, dias. Un paso menor y peso menor que la cifra. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
+          },
+          "sm": {
+            "value": "12px",
+            "type": "fontSize",
+            "description": "Unidad compacta. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea)."
+          }
+        },
+        "code": {
+          "md": {
+            "value": "16px",
+            "type": "fontSize",
+            "description": "IBAN, numero de cuenta, referencia. Requiere tracking wider. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea). Usa cifras tabulares y tracking abierto; nunca tabular en texto corrido."
+          },
+          "sm": {
+            "value": "14px",
+            "type": "fontSize",
+            "description": "Codigo compacto. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea). Usa cifras tabulares y tracking abierto; nunca tabular en texto corrido."
+          },
+          "xs": {
+            "value": "12px",
+            "type": "fontSize",
+            "description": "Tamano del rol text/code/xs. Alias del mismo primitivo que label/sm (12): la etiqueta de token va SIEMPRE un escalon por debajo del nombre humano, para que el nombre lea primero y el token sea la referencia tecnica."
+          }
+        },
+        "otp": {
+          "value": "24px",
+          "type": "fontSize",
+          "description": "Codigo de un solo uso. Tracking muy abierto y cifras separadas. NO RESPONSIVE: mismo valor en los tres modos, a proposito. Cambiar el cuerpo entre breakpoints rompe la consistencia de lectura y descuadra el calculo de longitud de linea (45-75 caracteres por linea). Usa cifras tabulares y tracking abierto; nunca tabular en texto corrido."
+        }
+      }
+    },
+    "platform": {
+      "type": {
+        "body": {
+          "size": {
+            "value": "16px",
+            "type": "fontSize",
+            "description": "iOS Body · M3 bodyLarge"
+          }
+        },
+        "body-sm": {
+          "size": {
+            "value": "14px",
+            "type": "fontSize",
+            "description": "iOS Subhead · M3 bodyMedium"
+          }
+        },
+        "display": {
+          "size": {
+            "value": "36px",
+            "type": "fontSize",
+            "description": "iOS Large Title · M3 displaySmall"
+          }
+        },
+        "headline": {
+          "size": {
+            "value": "28px",
+            "type": "fontSize",
+            "description": "iOS Title 1 · M3 headlineMedium"
+          }
+        },
+        "title": {
+          "size": {
+            "value": "24px",
+            "type": "fontSize",
+            "description": "iOS Title 2 · M3 headlineSmall"
+          }
+        },
+        "subtitle": {
+          "size": {
+            "value": "22px",
+            "type": "fontSize",
+            "description": "iOS Title 3 · M3 titleLarge"
+          }
+        },
+        "body-strong": {
+          "size": {
+            "value": "16px",
+            "type": "fontSize",
+            "description": "iOS Headline · M3 titleMedium — mismo tamano que body, cambia el peso"
+          }
+        },
+        "label": {
+          "size": {
+            "value": "14px",
+            "type": "fontSize",
+            "description": "iOS Footnote · M3 labelLarge — texto de botones y tabs"
+          }
+        },
+        "caption": {
+          "size": {
+            "value": "12px",
+            "type": "fontSize",
+            "description": "iOS Caption 1 · M3 bodySmall. OJO: NO mapea a labelMedium aunque ambos midan 12/16. caption es texto corrido (leyenda, nota al pie) y va Regular; labelMedium es label de CONTROL y va Medium. Si algo rotula un control, consume el rol label, no caption."
+          }
+        }
+      },
+      "navbar": {
+        "title": {
+          "size": {
+            "value": "22px",
+            "type": "fontSize",
+            "description": "Tamaño del título estándar. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 17, centrado (kit iOS 27). Android: 22, title large de M3, a la izquierda. Web: 18."
+          }
+        },
+        "large-title": {
+          "size": {
+            "value": "28px",
+            "type": "fontSize",
+            "description": "Tamaño del título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 34, large title (kit iOS 27). Android: 28, medium top app bar (M3). Web: 30."
+          }
+        }
+      },
+      "tabbar": {
+        "label": {
+          "size": {
+            "value": "12px",
+            "type": "fontSize",
+            "description": "Tamaño de la etiqueta. iOS: 10 Semibold (kit iOS 27). Android: 12 Medium (Material 3). Web: 12. Barra de pestañas (TabBar, librería Platforms)."
+          }
+        }
+      },
+      "dialog": {
+        "title": {
+          "size": {
+            "value": "24px",
+            "type": "fontSize",
+            "description": "Título. iOS: 17 (Semibold). Android: 24 (headline small). Web: 20. Dialog (librería Platforms)."
+          }
+        },
+        "message": {
+          "size": {
+            "value": "14px",
+            "type": "fontSize",
+            "description": "Mensaje. iOS: 17. Android: 14 (supporting text). Web: 16. Dialog (librería Platforms)."
+          }
+        },
+        "action": {
+          "label-size": {
+            "value": "14px",
+            "type": "fontSize",
+            "description": "Etiqueta del botón. iOS: 17 Semibold. Android y web: 14 Medium (label large de Material 3). Dialog (librería Platforms)."
+          }
+        }
+      }
+    }
+  }
+}

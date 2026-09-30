@@ -20,7 +20,7 @@ import { VisaMark } from './VisaMark';
  * American Express while `TCardBrand` does not. That decision should surface as a type error, not
  * as a wrong pixel.
  *
- * Same shape as `FieldIcon`'s `FIELD_ICONS` map, which is this repo's canonical
+ * Same shape the TextField's deleted `FIELD_ICONS` map had — this repo's canonical
  * way of turning a union into a component: `as const satisfies Record<…>` keeps
  * the literal types while still demanding every key.
  *

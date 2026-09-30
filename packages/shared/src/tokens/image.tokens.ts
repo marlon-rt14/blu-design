@@ -11,7 +11,7 @@ export interface IImageSurfaceColorTokens {
 }
 
 export interface IImageIconColorTokens {
-  /** Empty-state IconImage — `component/image/icon/icon-placeholder`. */
+  /** Empty-state IconImage01 — `component/image/icon/icon-placeholder`. */
   placeholder: string;
   /** Error-state IconAlertTriangle — `component/image/icon/icon-default`. */
   default: string;

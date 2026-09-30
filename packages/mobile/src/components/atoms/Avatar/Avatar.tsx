@@ -1,32 +1,11 @@
-import type { TAvatarSize, TAvatarType, TIconSize } from '@dsm/shared';
+import type { TAvatarType } from '@dsm/shared';
 import type { ReactElement } from 'react';
 import { Image, Text, View } from 'react-native';
 
+import { tintNode } from '../Icon';
 import { AvatarIndicator } from '../AvatarIndicator';
-import { FieldIcon } from '../TextField/FieldIcon';
 import type { IAvatarProps } from './Avatar.types';
 import { useAvatar } from './useAvatar';
-
-/**
- * Avatar's own glyph scale (12/16/20/28) doesn't land on every one of Icon's
- * steps — nearest fit, same approach TextField uses for its affix icons.
- */
-const iconSizeForAvatar = (size: TAvatarSize): TIconSize => {
-  switch (size) {
-    case 'xs':
-      return 'xs';
-    case 'sm':
-      return 'sm';
-    case 'md':
-      return 'md';
-    case 'lg':
-      return 'lg';
-    default: {
-      const _exhaustive: never = size;
-      return _exhaustive;
-    }
-  }
-};
 
 /** Person: photo -> initials -> icon. Entity: logo -> initials -> icon. */
 const resolveType = (type: TAvatarType, imageUrl: string | undefined, initials: string | undefined): TAvatarType => {
@@ -49,7 +28,7 @@ export const Avatar = (props: IAvatarProps): ReactElement => {
   const {
     type = 'initials',
     initials,
-    icon = 'user',
+    icon,
     imageUrl,
     accessibilityLabel,
     size = 'md',
@@ -82,7 +61,7 @@ export const Avatar = (props: IAvatarProps): ReactElement => {
             <Image resizeMode="contain" source={{ uri: imageUrl }} style={logoImageStyle} />
           </View>
         ) : resolvedType === 'icon' ? (
-          <FieldIcon name={icon} size={iconSizeForAvatar(size)} tintColor={iconColor} />
+          tintNode(icon, iconColor)
         ) : (
           <Text style={initialsStyle}>{initials}</Text>
         )}

@@ -3,7 +3,6 @@ import type { ReactElement } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
 import { Checkbox } from '../Checkbox';
-import { FieldIcon } from '../TextField/FieldIcon';
 import type { IChoiceBoxProps } from './ChoiceBox.types';
 import { useChoiceBox } from './useChoiceBox';
 
@@ -66,14 +65,14 @@ export const ChoiceBox = (props: IChoiceBoxProps): ReactElement => {
         {variant === 'tile' ? (
           <>
             <View style={headerRowStyle}>
-              {displayIcon ? <FieldIcon color={isDisabled ? 'disabled' : 'primary'} name={displayIcon} size="lg" /> : null}
+              {displayIcon}
               {control ? <View style={{ marginLeft: 'auto' }}>{control}</View> : null}
             </View>
             {content}
           </>
         ) : (
           <>
-            {displayIcon ? <FieldIcon color={isDisabled ? 'disabled' : 'primary'} name={displayIcon} size="lg" /> : null}
+            {displayIcon}
             {content}
             {control}
           </>

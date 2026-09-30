@@ -90,7 +90,7 @@ never import the JSON or hand-roll a literal value directly in a component or `.
   by mode) and re-exporting `Record<TThemeSourceKey, I<Name>Tokens>`, nesting any size/state variant
   axis *inside* each entry. See `textField.tokens.ts` / `textArea.tokens.ts`.
 - `packages/shared/src/tokens/theme.tokens.ts` — page-level root tokens (`pageColorTokens`) plus
-  `baseFontFamily` (`"Mulish"`).
+  `baseFontFamily` (`"Mulish"`, **web only** — see "Font" below).
 - Legacy hand-rolled tokens (`colors.ts`, `spacing.ts`, …) are frozen, kept only for `Button` (which
   predates this pipeline). Never add new tokens there.
 
@@ -110,12 +110,20 @@ equivalent) — `TextField`/`TextArea` apply the shared `dsm-input` class and se
 `--dsm-input-placeholder-color` inline; see `packages/web/src/styles/pseudo.css`. Extend that file for
 a new component's pseudo-selector needs rather than adding a new CSS file.
 
-**Font**: Mulish, loaded differently per platform, both behind `BluProvider` (root wrapper every app
-renders once — sets theme mode, and on web also paints root `backgroundColor`/`color`/`fontFamily` from
-`pageColorTokens`). Web self-hosts via `@fontsource/mulish` (plain package, not the `-variable` one —
-the variable build registers as `"Mulish Variable"` and silently breaks token matching). Mobile links a
-static `.ttf` per weight (`packages/mobile/assets/fonts/`) as a native asset — `useFontFamily(weight)`
-resolves the right file. See `README.md` "Theming & tokens" for the full native-linking steps.
+**Font**: per platform — **web Mulish, iOS SF Pro, and on Android the device's own system
+font, which on stock is Roboto** (an OEM maps the `sans-serif` family itself, so a Samsung may
+show One UI Sans — that is the intended native behaviour, not a gap). Web self-hosts Mulish via
+`@fontsource/mulish`, pulled in by `BluProvider` (plain package, not the `-variable` one — the
+variable build registers as `"Mulish Variable"` and silently breaks token matching).
+
+**Mobile sets no font family at all, on purpose.** SF Pro is the iOS system font and Roboto is
+Android's, so leaving `fontFamily` unset is what selects them: `@dsm/mobile` ships no font files,
+links no native assets, and licenses nothing. **Never write `fontFamily` in a `@dsm/mobile` style**
+— not a literal and not `baseFontFamily`, which is web's Mulish. The weight carries everything
+there: `fontWeight: resolveFontWeight(tokens.typography.<slot>.fontWeight)`, read from
+`dimension.font.weight.*` like any other token. Setting a family that does not resolve, or omitting
+the weight, both look almost right on a device — every cut collapses to regular — so check the
+render, not the types.
 
 ### Adding a component
 
@@ -142,11 +150,23 @@ every Figma state; (7) `pnpm typecheck && pnpm lint && pnpm build-storybook`.
 For any real component build (new component, new variant/size/state, new token wiring), read
 `.cursor/skills/developing-design-system-components/SKILL.md` first — it is the canonical, much more
 detailed checklist: a hard-stop MCP gate (Figma is the primary design reference, Supernova is scoped to
-property/variant enumeration only, Figma wins on any disagreement), the Dev/contrato-de-desarrollo frame
-convention, and a long list of real shipped bugs/gotchas per component (floating-label rules, focus-ring
-geometry, `show*` boolean props that must stay independent of content, `lineHeight` unit traps, etc.).
+property/variant enumeration only, Figma wins on any disagreement), and a long list of real shipped
+bugs/gotchas per component (floating-label rules, focus-ring geometry, `lineHeight` unit traps, etc.).
 Don't re-derive those from scratch — that file exists precisely because they weren't obvious the first
 time.
+
+Three rules from it that decide the shape of a new component, so they are worth knowing before you
+open it:
+
+- **The `«Name» · Dev` frame is the contract.** Its section `01 · Firma de código` is what the frame
+  itself calls *"lo que desarrollo copia"* — copy it whole, names and shape. The practical
+  consequence is the `show*` note above: a slot renders because its content was passed.
+- **Every glyph goes through our own `Icon`.** It owns the box (`size/icon/*`), the colour
+  (`color/icon/*`) and the `0 0 24 24` grid; a published glyph *is* an `Icon` with its paths inside.
+  Never hand-roll an `<svg>`, never resize one with `width`/`height`.
+- **An icon that arrives through a prop is a `ReactNode`.** `TIconName` was deleted: a name needs a
+  registry, a registry references all 1170 glyphs, and that defeats the per-section entry points.
+  The caller imports the glyph and passes the element.
 
 ### Storybook
 
@@ -160,9 +180,13 @@ can't resolve props inherited from another package.
 
 - Interfaces prefixed `I` (`IButtonProps`), type aliases prefixed `T` (`TButtonVariant`).
 - Component files/folders: `PascalCase`. Everything else: `camelCase`.
-- Boolean props prefixed `is` (`isDisabled`) — except the Figma-driven `show*` visibility flags
-  (`showHelper`, `showCounter`, `showAction`, …), which are independent booleans, never inferred from
-  whether the related content prop happens to be set.
+- Boolean props prefixed `is` (`isDisabled`). The Figma-driven `show*` visibility flags are being
+  retired component by component as each one's **dev contract** is honoured: the contracts say *"la
+  presencia del nombre sustituye al booleano"*, so a slot renders because its content was passed, not
+  because a boolean was flipped. TextField, ListItem, Tag, Chip and Tabs are already on that rule (and
+  their `isDisabled`/`isReadOnly` became `disabled`/`readOnly` with it); the components that still have
+  `show*` and `is*` keep them until their own contract is read. The exception that survives on purpose
+  is a boolean with no content to infer from — `ListItem`'s `divider`, `ProgressBar`'s `showHeader`.
 - CSS classes prefixed `dsm-`, BEM modifiers (`dsm-button--primary`) — legacy `Button` only; new
   components have no CSS files beyond the shared `pseudo.css` placeholder seam.
 - Web and mobile share **types and token values only**, never styles or presentation logic — each
@@ -183,5 +207,7 @@ can't resolve props inherited from another package.
   `apps/web-demo/vite.config.ts` uses `resolve.dedupe` for the same reason.
 - `packages/web/src/styles/tokens.css` manually mirrors `@dsm/shared` tokens (CSS can't import from TS)
   — update both places when a token changes.
-- Path aliases (`@dsm/shared`, `@dsm/web`, `@dsm/web/icons`, `@dsm/mobile`, `@dsm/mobile/icons`) are
-  declared once in `tsconfig.base.json` and consumed by every project's `tsconfig.json`.
+- Path aliases (`@dsm/shared`, `@dsm/web`, `@dsm/web/icons/*`, `@dsm/mobile`, `@dsm/mobile/icons/*`)
+  are declared once in `tsconfig.base.json` and consumed by every project's `tsconfig.json`. The
+  icon subpaths are wildcards: there is **one entry point per section** (`@dsm/web/icons/layout`),
+  19 of them, and no barrel over them — see `scripts/generate-icons.mjs`.

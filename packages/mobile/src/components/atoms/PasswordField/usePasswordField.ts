@@ -2,7 +2,7 @@ import { passwordFieldTokens } from '@dsm/shared';
 import type { TPasswordFieldState } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { IPasswordFieldProps } from './PasswordField.types';
 
 /** Params of {@link usePasswordField}: the props plus the live focus state. */
@@ -145,9 +145,9 @@ export const usePasswordField = ({
         : {}),
     },
     // See @dsm/mobile's TextField useTextField for why fontWeight never
-    // accompanies fontFamily here — same Android font-resolver constraint.
+    // selects the cut: the family is the system one.
     labelStyle: {
-      fontFamily: resolveMulishFontFamily(label.fontWeight),
+      fontWeight: resolveFontWeight(label.fontWeight),
       fontSize: label.fontSize,
       lineHeight: label.fontSize * label.lineHeightRatio,
       letterSpacing: label.letterSpacing,
@@ -156,7 +156,7 @@ export const usePasswordField = ({
     inputStyle: {
       padding: 0,
       margin: 0,
-      fontFamily: resolveMulishFontFamily(valueType.fontWeight),
+      fontWeight: resolveFontWeight(valueType.fontWeight),
       fontSize: valueType.fontSize,
       lineHeight: valueType.fontSize * valueType.lineHeightRatio,
       color: valueColor,
@@ -172,7 +172,7 @@ export const usePasswordField = ({
     },
     helperStyle: {
       paddingTop: tokens.dimension.helperGap,
-      fontFamily: resolveMulishFontFamily(label.fontWeight),
+      fontWeight: resolveFontWeight(label.fontWeight),
       fontSize: label.fontSize,
       lineHeight: label.fontSize * label.lineHeightRatio,
       color: disabled
@@ -198,13 +198,13 @@ export const usePasswordField = ({
     strengthWordStyle: {
       color:
         strength === undefined ? tokens.colors.helper.default : tokens.colors.strength.text[strength],
-      fontFamily: resolveMulishFontFamily(tokens.typography.caption.fontWeight),
+      fontWeight: resolveFontWeight(tokens.typography.caption.fontWeight),
       fontSize: tokens.typography.caption.fontSize,
       lineHeight: tokens.typography.caption.fontSize * tokens.typography.caption.lineHeightRatio,
     },
     requirementsTitleStyle: {
       color: tokens.colors.requirement.title,
-      fontFamily: resolveMulishFontFamily(tokens.typography.caption.fontWeight),
+      fontWeight: resolveFontWeight(tokens.typography.caption.fontWeight),
       fontSize: tokens.typography.caption.fontSize,
       lineHeight: tokens.typography.caption.fontSize * tokens.typography.caption.lineHeightRatio,
       marginBottom: tokens.dimension.requirementRowGap,
@@ -217,7 +217,7 @@ export const usePasswordField = ({
     requirementTextStyle: {
       color: tokens.colors.requirement.text,
       flexShrink: 1,
-      fontFamily: resolveMulishFontFamily(tokens.typography.caption.fontWeight),
+      fontWeight: resolveFontWeight(tokens.typography.caption.fontWeight),
       fontSize: tokens.typography.caption.fontSize,
       lineHeight: tokens.typography.caption.fontSize * tokens.typography.caption.lineHeightRatio,
     },
