@@ -108,6 +108,14 @@ If Figma and Supernova disagree, Figma wins (see "Design reference" below) — s
 discrepancy before writing code instead of silently picking one. Add any new non-obvious gotcha to
 "Known gotchas" below once the component ships.
 
+## Ask for the token path
+
+**If you do not know where a token lives, ask until someone gives you the path.** Not a
+guess, and not a row left half-filled in the props-to-tokens table: insist on the exact
+token path or address from the dev who knows, and implement with that. A leaf read from
+the wrong place looks right until it is rendered — `radius/action` returned a real number
+for weeks while being the iOS one, and the web Button was a pill because of it.
+
 ## Ask Jetto
 
 **Anything unclear about the design or about Figma goes to Jetto.** Do not close the gap by

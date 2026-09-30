@@ -13,7 +13,7 @@ Tres columnas cargan todo el peso:
   por fila: lo decide el eje**, y una fila solo pasa a ✅ cuando alguien la cruza a mano
   contra Figma.
 
-## Las 15 reglas
+## Las 16 reglas
 
 Lo que sigue en el documento las desarrolla. Esta lista es el índice.
 
@@ -53,7 +53,10 @@ Lo que sigue en el documento las desarrolla. Esta lista es el índice.
 
 14. **Cuando la descripción y el valor se contradicen, manda el valor.** `radius/action`
     decía "píldora" valiendo 12; `font/size/body/md` dice "16px" valiendo 17.
-15. **Compilar no es ejecutar.** `typecheck` y `build-storybook` pueden estar verdes con
+15. **Si no sabes dónde vive un token, pregunta hasta que te den la ruta.** No se
+    resuelve adivinando ni dejando la fila a medias: se insiste al dev por la ruta o la
+    dirección exacta del token, y con eso se implementa.
+16. **Compilar no es ejecutar.** `typecheck` y `build-storybook` pueden estar verdes con
     el paquete muerto — la prueba es **evaluar** `@dsm/shared`, que resuelve todas las
     rutas de token al importarse.
 
@@ -115,7 +118,7 @@ a ser `PLATAFORMA` aunque la colección diga otra cosa.
 |---|---|---|
 | ❌ | **incompleto.** El eje no está cableado, así que no hay forma de producir el valor correcto desde código | todas las de `TEMA` y `PLATAFORMA` |
 | ⚠️ | **implementado, sin revisar.** Se lee un token y sale un valor, pero **nadie lo ha cruzado a mano con el de Figma**: puede funcionar o no | todas las de `LAYOUT` y `FIJO` |
-| ✅ | revisado a mano contra Figma y coincide | **2 de 12** |
+| ✅ | revisado a mano contra Figma y coincide | **4 de 12** |
 | 🔍 | el eje no está identificado todavía | — |
 
 Por eso `TEMA` y `PLATAFORMA` van en ❌ de entrada: los cruces marca × tema no se
@@ -200,10 +203,10 @@ Ambos son `variant=primary · appearance=fill · size=lg · state=default`.
 |---|---|---|---|---|---|---|
 | `fills` | `component/button/primary/bg-default` | `color/fill/action/primary/default` | 3. Semantic | **TEMA (marca+semantic)** | ❌ | — |
 | `rectangleCornerRadii` (4 esquinas) | `radius/action` | **`platform/radius/action`** | 4. Layout | **PLATAFORMA** | ❌ | — |
-| `paddingLeft` · `paddingRight` | `space/inset/xl` | primitivo (sin nombrar) | 4. Layout | LAYOUT | ⚠️ | Cambia con la densidad y solo hemos mirado `compact`. `regular` y `expanded` nunca se probaron. |
-| `size.y` | `size/control/height/lg` | primitivo (sin nombrar) | 4. Layout | FIJO | ⚠️ | Lee el token y da 56, igual que Figma. Solo falta confirmarlo en los otros tamaños. |
-| `itemSpacing` | `space/inline/sm` | primitivo (sin nombrar) | 4. Layout | FIJO | ⚠️ | Lee el token y da 8, igual que Figma. Solo falta confirmarlo. |
-| `minWidth` | `size/control/minWidth` | primitivo (sin nombrar) | 4. Layout | FIJO | ⚠️ | Lee el token y da 64, igual que Figma. Solo falta confirmarlo. |
+| `paddingLeft` · `paddingRight` | `space/inset/{sm,md,lg,xl}` | primitivo (sin nombrar) | 4. Layout | LAYOUT | ⚠️ | • Los cuatro tamaños cuadran con Figma en `compact`: 8 · 12 · 16 · 24 **✓**<br>• En `regular` y `expanded` crece hasta 32 y 40, y eso no se ha visto |
+| `size.y` | `size/control/height/{xs,sm,md,lg}` | primitivo (sin nombrar) | 4. Layout | LAYOUT | ⚠️ | • Los cuatro tamaños cuadran con Figma: 24 · 32 · 44 · 56 **✓**<br>• Las 18 variantes del set dan lo mismo **✓**<br>• `sm` y `md` crecen en `expanded` (36 y 48) y eso no se ha visto |
+| `itemSpacing` | `space/inline/sm` | primitivo (sin nombrar) | 4. Layout | FIJO | ✅ | • Da 8 en los cuatro tamaños y en las 18 variantes, igual que Figma **✓**<br>• El token es el mismo en las 18 carpetas **✓** |
+| `minWidth` | `size/control/minWidth` | primitivo (sin nombrar) | 4. Layout | FIJO | ✅ | • Da 64 en los cuatro tamaños y en las 18 variantes, igual que Figma **✓**<br>• El token es el mismo en las 18 carpetas **✓** |
 
 ### Capa `label`
 

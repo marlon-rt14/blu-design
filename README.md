@@ -240,6 +240,12 @@ Two things that file settles and that you should not re-derive:
 - **Both families still carry the brand and semantic themes.** Platform is a fourth axis
   on top, not a replacement.
 
+**If you do not know where a token lives, ask until someone gives you the path.** Not a
+guess, and not a row left half-filled: insist on the exact token path or address from the
+dev who knows, and implement with that. A leaf read from the wrong place looks right
+until it is rendered — `radius/action` returned a real number for weeks while being the
+iOS one.
+
 **Anything unclear about the design or about Figma goes to Jetto.** Do not close the gap
 by inventing a row or by quoting a description you cannot find — the Button's icon
 mapping was justified for a month with a sentence that exists in no export and in no
