@@ -1,3 +1,4 @@
+export * from './accordion.tokens';
 export * from './alert.tokens';
 export * from './avatar.tokens';
 export * from './badge.tokens';

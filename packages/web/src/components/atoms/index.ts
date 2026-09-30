@@ -1,3 +1,4 @@
+export * from './AccordionItem';
 export * from './Alert';
 export * from './Avatar';
 export * from './AvatarIndicator';

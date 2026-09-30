@@ -23,6 +23,7 @@ export * from './atoms/tabItem.types';
 export * from './atoms/tag.types';
 export * from './atoms/textArea.types';
 export * from './atoms/textField.types';
+export * from './molecules/accordion.types';
 export * from './molecules/avatarGroup.types';
 export * from './molecules/buttonGroup.types';
 export * from './molecules/checkboxGroup.types';
