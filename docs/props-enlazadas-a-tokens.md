@@ -19,9 +19,11 @@ Lo que sigue en el documento las desarrolla. Esta lista es el índice.
 
 **Qué es un componente de plataforma**
 
-1. Hay **componentes de plataforma y componentes que no**. Los de plataforma llevan
-   plataforma **y además** los temas; los que no, solo los temas.
-2. **No se declara a dedo: lo es si alguna de sus filas dice `PLATAFORMA`.**
+1. Hay **nativos e híbridos**. Los nativos cambian de anatomía según el SO; los híbridos
+   tienen una sola forma y siguen la plataforma solo por tokens. Los dos llevan **además**
+   los temas de marca y semantic.
+2. **La lista de los 14 nativos es de diseño, no se elige a dedo.** Y un nativo tiene por
+   fuerza props de eje `PLATAFORMA`, pero tenerlas no lo vuelve nativo.
 3. **Primero se marca, después se arregla.** Nada de código antes de tener la fila medida.
 
 **Cómo se anota una fila**
@@ -55,18 +57,35 @@ Lo que sigue en el documento las desarrolla. Esta lista es el índice.
     el paquete muerto — la prueba es **evaluar** `@dsm/shared`, que resuelve todas las
     rutas de token al importarse.
 
-## Por qué el eje importa ahora
+## Nativos e híbridos
 
-Desde el **30-sep-2026** el export trae `5. Platform`: carpetas `web`, `ios` y
-`android`. Eso parte el catálogo en dos clases de componente:
+Desde el **30-sep-2026** el export trae `5. Platform`: carpetas `web`, `ios` y `android`.
+Diseño ya partió el catálogo, y **la lista es suya, no nuestra** — está en el frame
+`Nativos e híbridos` (`1694:37`, página `Components` `1692:240824`):
 
-- **Componentes de plataforma** — tienen al menos una prop de eje `PLATAFORMA`. Se ven
-  distinto en iOS, Android y web. **Y además** llevan los temas de marca y semantic,
-  como todos.
-- **Componentes de un solo aspecto** — ninguna prop de eje `PLATAFORMA`. Solo temas.
+[figma.com/design/DOUsaQf0fK7hybeS0n74gb/bDS---Core-components?node-id=1694-37](https://www.figma.com/design/DOUsaQf0fK7hybeS0n74gb/bDS---Core-components?node-id=1692-240824&p=f&m=dev)
 
-Un componente no se declara de plataforma a dedo: **lo es si alguna de sus filas dice
-`PLATAFORMA`**. Esta tabla es lo que lo determina.
+- **Nativos — 14.** *Cambian de anatomía.* Se redibujan con los controles que el usuario
+  ya conoce de su teléfono. Llevan el eje `platform` atado a `platform/variant`.
+  - **FORMS**: TextField · TextArea · PasswordField · CardField · OTPField · PhoneField ·
+    Select · Combobox · SearchField · NumericStepper
+  - **SELECTION**: SegmentedControl · Slider · Switch · Calendar
+- **Híbridos — 41.** *Una sola forma.* Misma anatomía en las tres plataformas; siguen la
+  plataforma **solo a través de los tokens**: tipografía, alturas mínimas de toque, color
+  y radios. Son marca y contenido, no controles del sistema.
+
+Los dos grupos llevan **además** los temas de marca y semantic, como todo el catálogo.
+
+El criterio de diseño para decidirlo, textual: va nativo si *"es un control del sistema:
+escribir, elegir, activar, deslizar, cargar"*, si *"teclado, foco, selector o gestos se
+comportan distinto en cada sistema operativo"*, o si *"se ve ajeno a la plataforma, se
+siente roto o poco confiable"*. Va híbrido si *"es marca o contenido"* y *"basta con que
+la tipografía, el tamaño de toque y el color sigan el modo"*.
+
+**Un nativo tiene por fuerza props de eje `PLATAFORMA`. Pero tenerlas no lo vuelve
+nativo** — el Button es híbrido y tiene dos, porque un híbrido sí afina radios y
+tipografía por plataforma. Lo que separa a las dos familias es si cambia **la anatomía**,
+y eso lo dice la lista de Figma.
 
 ## La trampa: la colección de Figma no es el eje
 
@@ -142,6 +161,10 @@ node_modules/.bin/esbuild ./entry.ts --bundle --platform=node --format=cjs \
 
 `fileKey` = `DOUsaQf0fK7hybeS0n74gb` (`BDS3 - Core components`).
 
+**Dudas de diseño o de Figma: se le preguntan a Jetto.** No se resuelven inventando una
+fila ni citando una descripción que no se encuentra — eso ya nos costó el mapeo del
+icono del Button.
+
 Al leer el nodo, dos campos valen oro:
 
 - **`boundVariables`** — el enlace propiedad → variable. Es el dato duro; el nombre de
@@ -156,9 +179,11 @@ Al leer el nodo, dos campos valen oro:
 
 ---
 
-## Button — **componente de plataforma**
+## Button — **híbrido**, con dos props de plataforma
 
-Lo es por una sola fila: `rectangleCornerRadii`. Todo lo demás es tema, layout o fijo.
+No está en la lista de nativos: su anatomía es la misma en las tres plataformas. Pero
+sigue la plataforma en dos filas — `rectangleCornerRadii` y `fontFamily` — que es
+exactamente lo que se espera de un híbrido. Todo lo demás es tema, layout o fijo.
 
 Medido sobre dos nodos hermanos de la sección `06 · Marca × tema × plataforma`
 (frame `Button · Plataformas`, `1507:65184`):

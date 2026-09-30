@@ -31,6 +31,17 @@ Copy this checklist and work through it in order:
        auth failures — **stop**. Do not implement from memory, cached screenshots,
        or Supernova alone. Tell the user which MCP failed and how to reconnect
        (Figma plugin auth / Supernova MCP). Only continue once both pass again.
+- [ ] -0.5. Props-to-tokens gate: open `docs/props-enlazadas-a-tokens.md` and read this
+       component's section. If it has one, its ⚠️/❌ rows are work already scoped — read
+       them before writing a spec. **If it has no section, create it**, following the 15
+       rules at the top of that file (the method is written out, endpoints included).
+       Two things that file settles, so don't re-derive them: **native vs hybrid is
+       design's call** — the 14 natives are listed in the Figma frame `Nativos e híbridos`
+       (`1694:37`), everything else is hybrid (one anatomy, platform only through tokens);
+       and a native necessarily has `PLATAFORMA` rows, but **having them does not make a
+       component native** (Button is hybrid and has two). Both families still carry the
+       brand and semantic themes — platform is a fourth axis on top.
+       When you confirm or correct a row, update the file in the same commit.
 - [ ] 0. Spec: Figma MCP directly on "BDS3 - Core components" (search_design_system, then
        get_design_context / get_metadata / get_screenshot) — the primary design reference.
        **Always locate and read the sibling `«Component» · Dev` / `«Component» · contrato de
@@ -96,6 +107,14 @@ hardcoded values, no invented placeholder icons, both platforms, stories per sta
 If Figma and Supernova disagree, Figma wins (see "Design reference" below) — surface the
 discrepancy before writing code instead of silently picking one. Add any new non-obvious gotcha to
 "Known gotchas" below once the component ships.
+
+## Ask Jetto
+
+**Anything unclear about the design or about Figma goes to Jetto.** Do not close the gap by
+inventing a row in the props-to-tokens table, and do not quote a description you cannot
+find: the Button's icon mapping was justified for a month with *"porque la escala no tiene
+un paso de 20"*, a sentence that exists in no export — current or pre-sync — and in no
+Supernova page. It was wrong in two of the four sizes.
 
 ## Design reference — Figma MCP first, Supernova for properties
 

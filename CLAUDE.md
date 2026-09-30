@@ -147,6 +147,9 @@ handlers, check the component's *own* Figma variant axes rather than copying a s
 platform's event handler (e.g. `onAction` → `onClick`/`onPress`) plus `<Name>.stories.tsx` covering
 every Figma state; (7) `pnpm typecheck && pnpm lint && pnpm build-storybook`.
 
+**Step 0, before any of that: `docs/props-enlazadas-a-tokens.md`.** It is a gate, not a
+reference — see "The props-to-tokens table is a gate" below.
+
 For any real component build (new component, new variant/size/state, new token wiring), read
 `.cursor/skills/developing-design-system-components/SKILL.md` first — it is the canonical, much more
 detailed checklist: a hard-stop MCP gate (Figma is the primary design reference, Supernova is scoped to
@@ -167,6 +170,40 @@ open it:
 - **An icon that arrives through a prop is a `ReactNode`.** `TIconName` was deleted: a name needs a
   registry, a registry references all 1170 glyphs, and that defeats the per-section entry points.
   The caller imports the glyph and passes the element.
+
+### The props-to-tokens table is a gate, not a reference
+
+**Before building a new component or touching an existing one, open
+`docs/props-enlazadas-a-tokens.md` and read that component's section.** It records, per
+Figma node property, which variable it binds, which axis actually moves it, and how far
+our code is from producing the right value. It exists because none of that is guessable:
+`radius/action` lives in the `4. Layout` collection and moves with **platform**, and the
+Button's icon step was a hand-written value that had been wrong in two of four sizes
+since the day it was written.
+
+- **The component has a section** → read its rows first. A ⚠️ or ❌ there is work already
+  scoped; do not rediscover it, and do not build on top of it without saying so.
+- **It does not have a section** → **create it**, following the 15 rules at the top of
+  that file. Measuring one component takes minutes and the method is written out step by
+  step, endpoints included.
+- **You confirm or correct a row** → update the file in the same commit. Rule 13. A table
+  that claims green while the code is wrong is worse than no table.
+
+Two things that file settles and that you should not re-derive:
+
+- **Native vs hybrid is design's call, not ours.** The 14 native components — the ones
+  that redraw per OS — are listed in the Figma frame `Nativos e híbridos` (`1694:37`).
+  Everything else is hybrid: one anatomy, and platform enters only through tokens
+  (typography, touch target, colour, radii). A native component necessarily has
+  `PLATAFORMA` rows; **having them does not make a component native** — Button is hybrid
+  and has two.
+- **Both families still carry the brand and semantic themes.** Platform is a fourth axis
+  on top, not a replacement.
+
+**Anything unclear about the design or about Figma goes to Jetto.** Do not close the gap
+by inventing a row or by quoting a description you cannot find — the Button's icon
+mapping was justified for a month with a sentence that exists in no export and in no
+Supernova page.
 
 ### Storybook
 
