@@ -1,7 +1,7 @@
 import { searchFieldTokens } from '@dsm/shared';
 import type { Insets, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { ISearchFieldProps } from './SearchField.types';
 
 /** Params of {@link useSearchField}: props plus the live focus state. No hover. */
@@ -32,7 +32,7 @@ export const useSearchField = ({
   const tokens = searchFieldTokens[mode];
   const sizeTokens = tokens.sizes[size];
   const type = tokens.typography[size];
-  const fontFamily = resolveMulishFontFamily(type.fontWeight);
+  const fontWeight = resolveFontWeight(type.fontWeight);
 
   const backgroundColor = isDisabled
     ? tokens.colors.container.backgroundDisabled
@@ -69,7 +69,7 @@ export const useSearchField = ({
     borderWidth: 0,
     backgroundColor: 'transparent',
     color: valueColor,
-    fontFamily,
+    fontWeight,
     fontSize: type.fontSize,
     lineHeight: type.lineHeight,
     outlineWidth: 0,

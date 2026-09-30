@@ -1,7 +1,7 @@
 import { useId, useLayoutEffect, useRef, useState } from 'react';
 import type { FocusEvent, ReactElement } from 'react';
 
-import { IconChevronDown } from '../../../icons';
+import { IconChevronDown } from '../../../icons/arrows';
 import type { IAccordionItemProps } from './AccordionItem.types';
 import { useAccordionItem } from './useAccordionItem';
 

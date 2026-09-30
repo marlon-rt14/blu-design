@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { ReactElement } from 'react';
 import { Pressable, TextInput, View } from 'react-native';
 
-import { IconSearch, IconXCircle } from '../../../icons';
+import { IconSearchSm, IconXCircle } from '../../../icons/general';
 import type { ISearchFieldProps } from './SearchField.types';
 import { useSearchField } from './useSearchField';
 
@@ -51,7 +51,7 @@ export const SearchField = ({
 
   return (
     <View style={fieldStyle}>
-      <IconSearch size="sm" tintColor={iconColor} />
+      <IconSearchSm size="sm" tintColor={iconColor} />
       <TextInput
         style={inputStyle}
         value={value}

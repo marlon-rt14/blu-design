@@ -47,3 +47,4 @@ export * from './atoms/progressBar.types';
 export * from './atoms/step.types';
 export * from './atoms/stepConnector.types';
 export * from './molecules/progressStepper.types';
+export * from './molecules/snackbarStack.types';

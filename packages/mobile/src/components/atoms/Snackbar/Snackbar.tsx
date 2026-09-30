@@ -46,20 +46,22 @@ const StatusGlyph = ({ status }: { status: TSnackbarStatus }): ReactElement => {
   return <Glyph color={iconColorOf(status)} size="md" />;
 };
 
-export const Snackbar = (props: ISnackbarProps): ReactElement => {
+/** Accessible name of the close control. Not a prop — the firma has no label slot. */
+const DISMISS_LABEL = 'Cerrar';
+
+export const Snackbar = (props: ISnackbarProps): ReactElement | null => {
   const {
     status = 'info',
-    message = 'Se guardó el cambio en tu tarjeta',
+    message,
     showIcon = true,
-    showAction = true,
-    actionLabel = 'Deshacer',
-    showDismiss = false,
-    dismissAccessibilityLabel = 'Cerrar',
+    action,
     duration,
-    onAction,
+    paused = false,
     onDismiss,
+    onExpire,
     testID,
   } = props;
+  const [isClosed, setIsClosed] = useState(false);
   const [isDismissPressed, setIsDismissPressed] = useState(false);
   const [isDismissFocused, setIsDismissFocused] = useState(false);
   const {
@@ -77,16 +79,34 @@ export const Snackbar = (props: ISnackbarProps): ReactElement => {
   } = useSnackbar({ ...props, isDismissPressed, isDismissFocused });
 
   const onDismissRef = useRef(onDismiss);
+  const onExpireRef = useRef(onExpire);
   useEffect(() => {
     onDismissRef.current = onDismiss;
+    onExpireRef.current = onExpire;
   });
-  // Timer starts on mount and does not restart (Figma: dwell from mount).
+  const close = (): void => {
+    setIsClosed(true);
+    onExpireRef.current?.();
+    onDismissRef.current?.();
+  };
+
+  const remainingRef = useRef<number | null>(null);
+
+  // Dwell starts on mount and does not restart when props change. `paused`
+  // freezes whatever is left (SnackbarStack, while expanded).
   useEffect(() => {
-    const ms = resolveSnackbarDurationMs(duration, showAction);
-    const id = setTimeout(() => onDismissRef.current?.(), ms);
-    return () => clearTimeout(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only dwell
-  }, []);
+    if (paused) {
+      return;
+    }
+    const ms = remainingRef.current ?? resolveSnackbarDurationMs(duration, action != null);
+    const started = Date.now();
+    const id = setTimeout(close, ms);
+    return () => {
+      clearTimeout(id);
+      remainingRef.current = Math.max(0, ms - (Date.now() - started));
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- dwell is mount-scoped; only pause toggles it
+  }, [paused]);
 
   const panHandlers = useMemo(
     () =>
@@ -95,14 +115,21 @@ export const Snackbar = (props: ISnackbarProps): ReactElement => {
           gesture.dy > swipeCapture && gesture.dy > Math.abs(gesture.dx),
         onPanResponderRelease: (_event, gesture) => {
           if (gesture.dy >= swipeThreshold) {
-            onDismiss?.();
+            close();
           }
         },
       }).panHandlers,
-    [onDismiss, swipeCapture, swipeThreshold],
+    [swipeCapture, swipeThreshold],
   );
 
-  const showActions = showAction || showDismiss;
+  if (isClosed) {
+    return null;
+  }
+
+  // One trailing slot. Action and the × never render together — Figma hides
+  // whichever isn't the case (`102:12292` vs `102:12356`).
+  const showDismiss = onDismiss != null && action == null;
+  const showActions = action != null || showDismiss;
 
   return (
     <View
@@ -124,22 +151,22 @@ export const Snackbar = (props: ISnackbarProps): ReactElement => {
       </View>
       {showActions ? (
         <View style={actionsStyle}>
-          {showAction ? (
+          {action ? (
             <LinkButton
               appearance="on-inverse"
-              label={actionLabel}
-              onPress={onAction}
+              label={action.label}
+              onPress={action.onPress}
               size="sm"
             />
           ) : null}
           {showDismiss ? (
             <Pressable
-              accessibilityLabel={dismissAccessibilityLabel}
+              accessibilityLabel={DISMISS_LABEL}
               accessibilityRole="button"
               hitSlop={dismissHitSlop}
               onBlur={() => setIsDismissFocused(false)}
               onFocus={() => setIsDismissFocused(true)}
-              onPress={onDismiss}
+              onPress={close}
               onPressIn={() => setIsDismissPressed(true)}
               onPressOut={() => setIsDismissPressed(false)}
               style={dismissHitStyle}

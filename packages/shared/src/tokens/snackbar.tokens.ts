@@ -54,13 +54,21 @@ export interface ISnackbarDimensionTokens {
   zIndex: number;
   /** Vertical dy before the pan claims the gesture — `space/inline/sm`. */
   swipeCapture: number;
+  /** How much of a bar behind the front one stays visible — `space/stack/sm`. */
+  stackPeek: number;
+  /** How much each level behind narrows, per side — `space/inline/sm`. */
+  stackInset: number;
+  /** `component/snackbar/stack/behind-1`, exported on a 0–100 scale. */
+  stackBehind1: number;
+  /** `component/snackbar/stack/behind-2`, exported on a 0–100 scale. */
+  stackBehind2: number;
   /**
    * Autoclose without action — layout alias of `motion/dwell/default`
    * (`default_1` in the Token Studio export).
    */
   dwellDefaultMs: number;
   /**
-   * Autoclose with `showAction` — layout alias of `motion/dwell/long`
+   * Autoclose when `action` is set — layout alias of `motion/dwell/long`
    * (`long_1` in the Token Studio export).
    */
   dwellLongMs: number;
@@ -123,6 +131,11 @@ const readSnackbarTokens = (key: TThemeSourceKey): ISnackbarTokens => {
       maxWidth: SNACKBAR_MAX_WIDTH_PX,
       zIndex: dimensionAt('z.toast_1'),
       swipeCapture: dimensionAt('space.inline.sm'),
+      stackPeek: dimensionAt('space.stack.sm'),
+      stackInset: dimensionAt('space.inline.sm'),
+      // The export stores opacity as a percent with a `px` suffix. CSS wants 0–1.
+      stackBehind1: dimensionAt('component.snackbar.stack.behind-1') / 100,
+      stackBehind2: dimensionAt('component.snackbar.stack.behind-2') / 100,
       // Layout aliases (`*_1`) — same ms as primitives `motion.dwell.{default,long}`.
       dwellDefaultMs: dimensionAt('motion.dwell.default_1'),
       dwellLongMs: dimensionAt('motion.dwell.long_1'),
@@ -140,13 +153,13 @@ export const snackbarTokens = fromThemeSources(readSnackbarTokens);
 
 /**
  * Resolves autoclose dwell. Explicit `duration` wins; otherwise
- * `motion/dwell/long` when `showAction`, else `motion/dwell/default`.
- * Same across modes — dwell is not density-dependent.
+ * `motion/dwell/long` when `hasAction`, else `motion/dwell/default` (6 s / 10 s,
+ * decision 3, 29-sep). Same across modes — dwell is not density-dependent.
  */
-export const resolveSnackbarDurationMs = (duration: number | undefined, showAction: boolean): number => {
+export const resolveSnackbarDurationMs = (duration: number | undefined, hasAction: boolean): number => {
   const { dwellDefaultMs, dwellLongMs } = snackbarTokens[DEFAULT_THEME_SOURCE_KEY].dimension;
   if (duration != null) {
     return duration;
   }
-  return showAction ? dwellLongMs : dwellDefaultMs;
+  return hasAction ? dwellLongMs : dwellDefaultMs;
 };

@@ -1,7 +1,7 @@
 import { accordionTokens } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { useFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { IAccordionItemProps } from './AccordionItem.types';
 
 interface IUseAccordionItemParams extends IAccordionItemProps {
@@ -34,8 +34,8 @@ export const useAccordionItem = ({
   const mode = useThemeMode();
   const { colors, dimension, title: titleType, content: contentType } = accordionTokens[mode];
   const appearanceColors = colors.appearances[appearance];
-  const titleFontFamily = useFontFamily(titleType.fontWeight);
-  const contentFontFamily = useFontFamily(contentType.fontWeight);
+  const titleFontWeight = resolveFontWeight(titleType.fontWeight);
+  const contentFontWeight = resolveFontWeight(contentType.fontWeight);
 
   const headerBackground = disabled
     ? 'transparent'
@@ -69,7 +69,7 @@ export const useAccordionItem = ({
     iconColor: disabled ? appearanceColors.iconDisabled : appearanceColors.icon,
     titleStyle: {
       flex: 1,
-      fontFamily: titleFontFamily,
+      fontWeight: titleFontWeight,
       fontSize: titleType.fontSize,
       lineHeight: titleType.lineHeight,
       color: disabled ? appearanceColors.titleDisabled : appearanceColors.title,
@@ -81,7 +81,7 @@ export const useAccordionItem = ({
       paddingBottom: dimension.contentPaddingBottom,
     },
     contentStyle: {
-      fontFamily: contentFontFamily,
+      fontWeight: contentFontWeight,
       fontSize: contentType.fontSize,
       lineHeight: contentType.lineHeight,
       color: appearanceColors.content,

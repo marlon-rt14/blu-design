@@ -45,22 +45,24 @@ const StatusGlyph = ({ status }: { status: TSnackbarStatus }): ReactElement => {
   return <Glyph color={iconColorOf(status)} size="md" />;
 };
 
-export const Snackbar = (props: ISnackbarProps): ReactElement => {
+/** Accessible name of the close control. Not a prop — the firma has no label slot. */
+const DISMISS_LABEL = 'Cerrar';
+
+export const Snackbar = (props: ISnackbarProps): ReactElement | null => {
   const {
     status = 'info',
-    message = 'Se guardó el cambio en tu tarjeta',
+    message,
     showIcon = true,
-    showAction = true,
-    actionLabel = 'Deshacer',
-    showDismiss = false,
-    dismissAccessibilityLabel = 'Cerrar',
+    action,
     duration,
-    onAction,
+    paused = false,
     onDismiss,
+    onExpire,
     onFocus,
     onBlur,
     testID,
   } = props;
+  const [isClosed, setIsClosed] = useState(false);
   const [isDismissHovered, setIsDismissHovered] = useState(false);
   const [isDismissPressed, setIsDismissPressed] = useState(false);
   const [isDismissFocusVisible, setIsDismissFocusVisible] = useState(false);
@@ -82,16 +84,34 @@ export const Snackbar = (props: ISnackbarProps): ReactElement => {
   });
 
   const onDismissRef = useRef(onDismiss);
+  const onExpireRef = useRef(onExpire);
   useEffect(() => {
     onDismissRef.current = onDismiss;
+    onExpireRef.current = onExpire;
   });
-  // Timer starts on mount and does not restart (Figma: dwell from mount).
+  const close = (): void => {
+    setIsClosed(true);
+    onExpireRef.current?.();
+    onDismissRef.current?.();
+  };
+
+  const remainingRef = useRef<number | null>(null);
+
+  // Dwell starts on mount and does not restart when props change. `paused`
+  // freezes whatever is left (SnackbarStack, while expanded).
   useEffect(() => {
-    const ms = resolveSnackbarDurationMs(duration, showAction);
-    const id = window.setTimeout(() => onDismissRef.current?.(), ms);
-    return () => window.clearTimeout(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only dwell
-  }, []);
+    if (paused) {
+      return;
+    }
+    const ms = remainingRef.current ?? resolveSnackbarDurationMs(duration, action != null);
+    const started = Date.now();
+    const id = window.setTimeout(close, ms);
+    return () => {
+      window.clearTimeout(id);
+      remainingRef.current = Math.max(0, ms - (Date.now() - started));
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- dwell is mount-scoped; only pause toggles it
+  }, [paused]);
 
   const swipeStartY = useRef<number | null>(null);
 
@@ -108,7 +128,7 @@ export const Snackbar = (props: ISnackbarProps): ReactElement => {
       return;
     }
     if (event.clientY - startY >= swipeThreshold) {
-      onDismiss?.();
+      close();
     }
   };
 
@@ -121,7 +141,14 @@ export const Snackbar = (props: ISnackbarProps): ReactElement => {
     onBlur?.(event);
   };
 
-  const showActions = showAction || showDismiss;
+  if (isClosed) {
+    return null;
+  }
+
+  // One trailing slot. Action and the × never render together — Figma hides
+  // whichever isn't the case (`102:12292` vs `102:12356`).
+  const showDismiss = onDismiss != null && action == null;
+  const showActions = action != null || showDismiss;
 
   return (
     <div
@@ -143,20 +170,20 @@ export const Snackbar = (props: ISnackbarProps): ReactElement => {
       </div>
       {showActions ? (
         <div style={actionsStyle}>
-          {showAction ? (
+          {action ? (
             <LinkButton
               appearance="on-inverse"
-              label={actionLabel}
-              onClick={onAction}
+              label={action.label}
+              onClick={action.onPress}
               size="sm"
               underline={false}
             />
           ) : null}
           {showDismiss ? (
             <button
-              aria-label={dismissAccessibilityLabel}
+              aria-label={DISMISS_LABEL}
               onBlur={handleDismissBlur}
-              onClick={onDismiss}
+              onClick={close}
               onFocus={handleDismissFocus}
               onMouseEnter={() => setIsDismissHovered(true)}
               onMouseLeave={() => {

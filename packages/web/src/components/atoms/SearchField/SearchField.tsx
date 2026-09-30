@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { KeyboardEvent, ReactElement } from 'react';
 
-import { IconSearch, IconX } from '../../../icons';
+import { IconSearchSm, IconX } from '../../../icons/general';
 import { IconButton } from '../IconButton';
 import type { ISearchFieldProps } from './SearchField.types';
 import { useSearchField } from './useSearchField';
@@ -64,7 +64,7 @@ export const SearchField = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       <span style={iconStyle} aria-hidden>
-        <IconSearch size="sm" />
+        <IconSearchSm size="sm" />
       </span>
       <input
         className="dsm-input"
