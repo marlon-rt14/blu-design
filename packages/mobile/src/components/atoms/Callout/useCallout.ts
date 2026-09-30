@@ -1,7 +1,7 @@
 import { calloutTokens } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { useFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { ICalloutProps } from './Callout.types';
 
 interface IUseCalloutResult {
@@ -27,8 +27,8 @@ export const useCallout = ({ palette = 'brand' }: ICalloutProps): IUseCalloutRes
   const mode = useThemeMode();
   const { colors, dimension, title: titleType, body: bodyType } = calloutTokens[mode];
   const paletteColors = colors.palettes[palette];
-  const titleFontFamily = useFontFamily(titleType.fontWeight);
-  const bodyFontFamily = useFontFamily(bodyType.fontWeight);
+  const titleWeight = resolveFontWeight(titleType.fontWeight);
+  const bodyWeight = resolveFontWeight(bodyType.fontWeight);
 
   return {
     rootStyle: {
@@ -57,13 +57,13 @@ export const useCallout = ({ palette = 'brand' }: ICalloutProps): IUseCalloutRes
       minWidth: 0,
     },
     titleStyle: {
-      fontFamily: titleFontFamily,
+      fontWeight: titleWeight,
       fontSize: titleType.fontSize,
       lineHeight: titleType.lineHeight,
       color: paletteColors.title,
     },
     bodyStyle: {
-      fontFamily: bodyFontFamily,
+      fontWeight: bodyWeight,
       fontSize: bodyType.fontSize,
       lineHeight: bodyType.lineHeight,
       color: paletteColors.body,

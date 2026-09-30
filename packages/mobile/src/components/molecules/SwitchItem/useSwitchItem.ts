@@ -1,7 +1,7 @@
 import { switchItemTokens } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { ISwitchItemProps } from './SwitchItem.types';
 
 /** Params of {@link useSwitchItem}: the props plus the live press state. */
@@ -66,14 +66,14 @@ export const useSwitchItem = ({
   };
 
   const labelStyle: StyleProp<TextStyle> = {
-    fontFamily: resolveMulishFontFamily(tokens.typography.label.fontWeight),
+    fontWeight: resolveFontWeight(tokens.typography.label.fontWeight),
     fontSize: tokens.typography.label.fontSize,
     lineHeight: tokens.typography.label.lineHeight,
     color: isDisabled ? tokens.colors.label.disabled : tokens.colors.label.default,
   };
 
   const descriptionStyle: StyleProp<TextStyle> = {
-    fontFamily: resolveMulishFontFamily(tokens.typography.description.fontWeight),
+    fontWeight: resolveFontWeight(tokens.typography.description.fontWeight),
     fontSize: tokens.typography.description.fontSize,
     lineHeight: tokens.typography.description.lineHeight,
     color: isDisabled ? tokens.colors.description.disabled : tokens.colors.description.default,

@@ -1,3 +1,4 @@
+export * from './Accordion';
 export * from './AvatarGroup';
 export * from './ButtonGroup';
 export * from './CheckboxGroup';

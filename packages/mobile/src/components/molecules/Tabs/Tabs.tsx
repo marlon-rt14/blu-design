@@ -1,8 +1,7 @@
-import { Children, cloneElement, isValidElement } from 'react';
 import type { ReactElement } from 'react';
 import { ScrollView, View } from 'react-native';
 
-import type { ITabItemProps } from '../../atoms/TabItem';
+import { TabItem } from '../../atoms/TabItem';
 import type { ITabsProps } from './Tabs.types';
 import { useTabs } from './useTabs';
 
@@ -10,36 +9,49 @@ import { useTabs } from './useTabs';
  * React Native Tabs — the tab bar: 2–6 TabItems plus the bottom divider
  * the selected indicator sits on.
  *
- * `accessibilityRole="tablist"`. `showItem3`–`showItem6` are not an API —
- * pass children. `showDivider` is an independent boolean, default `true`.
- * Scrollable uses a horizontal `ScrollView`; fitted splits the width.
+ * `accessibilityRole="tablist"`. Scrollable uses a horizontal `ScrollView`;
+ * fitted splits the width.
+ *
+ * **The selection is not marked tab by tab**: there is one `value` and each
+ * tab compares its `key` against it. `TabItem` is rendered from here and is
+ * not meant to be used on its own.
+ *
  * Canvas width 375 is Figma's frame, not a code max-width. No TabPanel.
  *
  * @example
  * ```tsx
- * <Tabs>
- *   <TabItem isSelected={tab === 'one'} label="Tab 1" onPress={() => setTab('one')} />
- *   <TabItem label="Tab 2" onPress={() => setTab('two')} />
- *   <TabItem label="Tab 3" onPress={() => setTab('three')} />
- * </Tabs>
+ * <Tabs
+ *   onChange={setTab}
+ *   tabs={[
+ *     { key: 'movimientos', label: 'Movimientos' },
+ *     { key: 'pendientes', label: 'Pendientes', badge: 9 },
+ *   ]}
+ *   value={tab}
+ * />
  * ```
  */
 export const Tabs = (props: ITabsProps): ReactElement => {
-  const { children, layout = 'scrollable', size = 'lg', showDivider = true, testID } = props;
+  const { tabs, value, onChange, layout = 'scrollable', size = 'lg', divider = true, testID } = props;
   const { rootStyle, listStyle, scrollViewStyle, scrollContentStyle, dividerStyle, isScrollable } =
     useTabs(props);
 
-  const items = Children.map(children, (child) => {
-    if (!isValidElement<ITabItemProps>(child)) return child;
-    return cloneElement(child, {
-      layout: child.props.layout ?? layout,
-      size: child.props.size ?? size,
-    });
-  });
+  const items = tabs.map((tab) => (
+    <TabItem
+      badge={tab.badge}
+      disabled={tab.disabled}
+      isSelected={tab.key === value}
+      key={tab.key}
+      label={tab.label}
+      layout={layout}
+      leadingIcon={tab.leadingIcon}
+      onPress={() => onChange(tab.key)}
+      size={size}
+    />
+  ));
 
   return (
     <View accessibilityRole="tablist" style={rootStyle} testID={testID}>
-      {showDivider ? <View style={dividerStyle} /> : null}
+      {divider ? <View style={dividerStyle} /> : null}
       {isScrollable ? (
         <ScrollView
           contentContainerStyle={scrollContentStyle}

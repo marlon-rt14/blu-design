@@ -90,52 +90,6 @@ export type TIconColor =
   | 'action.on-scene.default';
 
 /**
- * Every glyph name in the library, exactly as bDS names it in Figma
- * (`icon/alert-triangle` -> `'alert-triangle'`).
- *
- * 31 of them, one component each in `@dsm/web/icons` and `@dsm/mobile/icons`
- * (`IconAlertTriangle`). The written documentation says 28 — it predates
- * `caps-lock`, `circle` and `star`, all added later.
- *
- * Exported for the case the components cannot cover: a name arriving at runtime,
- * from an API or a CMS. Map it to a component yourself — the library ships no
- * name-to-component registry, because one would reference all 31 and defeat
- * tree-shaking.
- */
-export type TIconName =
-  | 'alert-circle'
-  | 'alert-triangle'
-  | 'arrow-right'
-  | 'arrow-up-right'
-  | 'caps-lock'
-  | 'check'
-  | 'check-circle'
-  | 'chevron-down'
-  | 'chevron-left'
-  | 'chevron-right'
-  | 'chevron-up'
-  | 'chevrons-right'
-  | 'circle'
-  | 'credit-card'
-  | 'dots'
-  | 'eye'
-  | 'eye-off'
-  | 'flag'
-  | 'image'
-  | 'info'
-  | 'lock'
-  | 'minus'
-  | 'placeholder'
-  | 'plus'
-  | 'search'
-  | 'star'
-  | 'store'
-  | 'trash'
-  | 'user'
-  | 'x'
-  | 'x-circle';
-
-/**
  * Platform-agnostic contract shared by the `Icon` container and by every icon
  * component built on it.
  *
@@ -145,19 +99,26 @@ export type TIconName =
  * *"NO ES ICON CONTAINER NI AVATAR"*: the name is `Icon`, and the avatar's glyph
  * is out of scope because it scales with `component/avatar/size/glyph/*`.
  *
- * The 31 published glyphs come pre-built, one component each, from
- * `@dsm/web/icons` and `@dsm/mobile/icons`:
+ * The published collection comes pre-built, one component per glyph, **grouped
+ * by section** — 1170 of them across 19 sections, and the section is the entry
+ * point:
  *
  * ```tsx
- * <IconTrash size="lg" color="danger" />
+ * import { IconTrash01 } from '@dsm/web/icons/general';
+ *
+ * <IconTrash01 color="danger" size="lg" />
  * ```
+ *
+ * One section per module rather than one barrel over all of it: the artwork is
+ * ~2.3 MB of path data and Metro does no tree-shaking, so a single barrel would
+ * be one import away from landing whole in an app's bundle.
  *
  * Each of those *is* an `Icon` with its paths already inside, so it takes this
  * same set of props. Reach for `Icon` directly only to add artwork the library
  * does not ship — which is the same thing the library does internally:
  *
  * ```tsx
- * const IconTrash = (props: TIconProps) => (
+ * const IconTrash01 = (props: TIconProps) => (
  *   <Icon {...props}>
  *     <path d="M3 6H5H21" />
  *   </Icon>

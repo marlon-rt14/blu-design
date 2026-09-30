@@ -6,7 +6,7 @@ import { useListGroup } from './useListGroup';
 
 /** What the group sets on each row, and the only thing it touches. */
 interface IRowWithDivider {
-  showDivider?: boolean;
+  divider?: boolean;
 }
 
 /**
@@ -39,8 +39,8 @@ interface IRowWithDivider {
  * @example
  * ```tsx
  * <ListGroup header="Hoy">
- *   <ListItem label="Transferencia" showTrailingText trailingText="$1.250,00" />
- *   <ListItem label="Pago de servicios" showTrailingText trailingText="$320,00" />
+ *   <ListItem label="Transferencia" trailingText="$1.250,00" />
+ *   <ListItem label="Pago de servicios" trailingText="$320,00" />
  * </ListGroup>
  * ```
  */
@@ -67,7 +67,7 @@ export const ListGroup = (props: IListGroupProps): ReactElement => {
       <ul aria-labelledby={header === undefined ? undefined : headerId} style={listStyle}>
         {rows.map((row, index) => (
           <li key={row.key}>
-            {cloneElement(row, { showDivider: dividers && index !== lastIndex })}
+            {cloneElement(row, { divider: dividers && index !== lastIndex })}
           </li>
         ))}
       </ul>

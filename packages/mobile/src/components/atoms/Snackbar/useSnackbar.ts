@@ -2,7 +2,7 @@ import { snackbarTokens } from '@dsm/shared';
 import type { TSnackbarStatus, TTokensOf } from '@dsm/shared';
 import type { Insets, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { ISnackbarProps } from './Snackbar.types';
 
 interface IUseSnackbarParams extends ISnackbarProps {
@@ -95,7 +95,7 @@ export const useSnackbar = ({
   const messageStyle: StyleProp<TextStyle> = {
     flex: 1,
     minWidth: 0,
-    fontFamily: resolveMulishFontFamily(message.fontWeight),
+    fontWeight: resolveFontWeight(message.fontWeight),
     fontSize: message.fontSize,
     lineHeight: message.lineHeight,
     color: colors.text,

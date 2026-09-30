@@ -1,11 +1,10 @@
 import { IconButton as NativeIconButton } from '@dsm/mobile';
-import * as MobileIcons from '@dsm/mobile/icons';
 import type { IIconButtonBaseProps } from '@dsm/shared';
 import { IconButton as WebIconButton } from '@dsm/web';
-import * as WebIcons from '@dsm/web/icons';
 import type { ReactElement } from 'react';
 
 import type { TIconExportName } from './iconNames';
+import { NATIVE_ICONS, WEB_ICONS } from './iconRegistry';
 
 /** Which implementation to render. Mirrors the `platform` toolbar global. */
 export type TPlatform = 'web' | 'native';
@@ -15,7 +14,7 @@ export interface IPlatformIconButtonProps extends IIconButtonBaseProps {
   /**
    * The glyph, **by export name** rather than by component.
    *
-   * The real prop takes the component itself — `icon={IconTrash}` — but a
+   * The real prop takes the component itself — `icon={IconTrash01}` — but a
    * Storybook control can only hand over a string, so the story picks the
    * platform's version here.
    */
@@ -42,7 +41,7 @@ export const PlatformIconButton = ({
   ...props
 }: IPlatformIconButtonProps): ReactElement =>
   platform === 'native' ? (
-    <NativeIconButton {...props} icon={MobileIcons[icon]} />
+    <NativeIconButton {...props} icon={NATIVE_ICONS[icon]} />
   ) : (
-    <WebIconButton {...props} icon={WebIcons[icon]} />
+    <WebIconButton {...props} icon={WEB_ICONS[icon]} />
   );

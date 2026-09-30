@@ -1,5 +1,5 @@
 import type { TCalloutPalette } from '@dsm/shared';
-import { IconCreditCard } from '@dsm/web/icons';
+import { IconCreditCard01 } from '@dsm/web/icons/finance-ecommerce';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 
@@ -65,7 +65,7 @@ const meta = {
   },
   args: {
     body: 'Recibe el 2% de tus compras en supermercados, directo en tu estado de cuenta.',
-    icon: <IconCreditCard />,
+    icon: <IconCreditCard01 />,
     title: 'Tu tarjeta ahora tiene cashback',
     testID: 'callout',
   },

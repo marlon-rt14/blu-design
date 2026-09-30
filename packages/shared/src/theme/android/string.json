@@ -1,0 +1,63 @@
+{
+  "_comment": "This file was generated automatically by Supernova.io and should not be changed manually. To modify the format or content of this file, please contact your design system team.",
+  "string": {
+    "motion": {
+      "easing": {
+        "standard": {
+          "value": "cubic-bezier(0.2, 0, 0, 1)",
+          "type": "string",
+          "description": "Curva de aceleracion cubic-bezier(0.2, 0, 0, 1). standard para cambios dentro de la pantalla, enter para lo que aparece, exit para lo que se va, emphasized para lo que quiere atencion. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "enter": {
+          "value": "cubic-bezier(0, 0, 0, 1)",
+          "type": "string",
+          "description": "Curva de aceleracion cubic-bezier(0, 0, 0, 1). standard para cambios dentro de la pantalla, enter para lo que aparece, exit para lo que se va, emphasized para lo que quiere atencion. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "exit": {
+          "value": "cubic-bezier(0.3, 0, 1, 1)",
+          "type": "string",
+          "description": "Curva de aceleracion cubic-bezier(0.3, 0, 1, 1). standard para cambios dentro de la pantalla, enter para lo que aparece, exit para lo que se va, emphasized para lo que quiere atencion. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "emphasized": {
+          "value": "cubic-bezier(0.3, 0, 0, 1)",
+          "type": "string",
+          "description": "Curva de aceleracion cubic-bezier(0.3, 0, 0, 1). standard para cambios dentro de la pantalla, enter para lo que aparece, exit para lo que se va, emphasized para lo que quiere atencion. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "standard_1": {
+          "value": "cubic-bezier(0.2, 0, 0, 1)",
+          "type": "string",
+          "description": "Movimiento general dentro de la pantalla. El exporter lo traduce a Easing de RN o a CSS."
+        },
+        "enter_1": {
+          "value": "cubic-bezier(0, 0, 0, 1)",
+          "type": "string",
+          "description": "Algo que aparece: desacelera al llegar. El exporter lo traduce a Easing de RN o a CSS."
+        },
+        "exit_1": {
+          "value": "cubic-bezier(0.3, 0, 1, 1)",
+          "type": "string",
+          "description": "Algo que desaparece: acelera al salir. El exporter lo traduce a Easing de RN o a CSS."
+        },
+        "emphasized_1": {
+          "value": "cubic-bezier(0.3, 0, 0, 1)",
+          "type": "string",
+          "description": "Transiciones de pantalla y momentos destacados. El exporter lo traduce a Easing de RN o a CSS."
+        }
+      }
+    },
+    "platform": {
+      "variant": {
+        "value": "android",
+        "type": "string",
+        "description": "Se enlaza a la propiedad variant \"platform\" de los componentes duales. Valores: ios · android · web, en minúscula como el resto del vocabulario. El valor debe coincidir caracter por caracter con la opción del variant (\"iOS\" no es \"ios\"): si no coincide, la instancia se queda en su variant anterior sin dar error. La plataforma se cambia con el modo de esta colección, nunca eligiendo la propiedad a mano. Controles de Core (Switch, Checkbox, Radio, Tabs, Calendar) toman sus medidas de platform/<componente>/* desde la 0.28."
+      },
+      "calendar": {
+        "placement": {
+          "value": "end",
+          "type": "string",
+          "description": "Valor del eje placement de .Calendar. iOS y Android: end (mes a la izquierda, flechas a la derecha, como sus calendarios nativos). Web: sides."
+        }
+      }
+    }
+  }
+}

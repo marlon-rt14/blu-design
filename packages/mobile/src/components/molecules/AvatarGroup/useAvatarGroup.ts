@@ -1,7 +1,7 @@
 import { avatarTokens } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { useFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { IAvatarGroupProps } from './AvatarGroup.types';
 
 interface IUseAvatarGroupResult {
@@ -17,7 +17,7 @@ export const useAvatarGroup = ({ size = 'md' }: IAvatarGroupProps): IUseAvatarGr
   const mode = useThemeMode();
   const tokens = avatarTokens[mode];
   const sizeTokens = tokens.dimension.sizes[size];
-  const fontFamily = useFontFamily(tokens.dimension.initialsFontWeight);
+  const fontWeight = resolveFontWeight(tokens.dimension.initialsFontWeight);
   const { diameter } = sizeTokens;
 
   const rowStyle: StyleProp<ViewStyle> = {
@@ -48,7 +48,7 @@ export const useAvatarGroup = ({ size = 'md' }: IAvatarGroupProps): IUseAvatarGr
   };
 
   const overflowTextStyle: StyleProp<TextStyle> = {
-    fontFamily,
+    fontWeight,
     fontSize: tokens.dimension.initialsFontSize[size],
     color: tokens.colors.overflowText,
   };

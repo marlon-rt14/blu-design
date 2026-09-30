@@ -1,43 +1,110 @@
+import type { ReactNode } from 'react';
+
 import type { TTabSize } from '../atoms/tabItem.types';
 
 export type { TTabSize };
 
 /**
- * How the bar distributes its Tab items. Matches Figma's `layout` axis.
+ * How the bar distributes its width.
  *
- * - `scrollable`: each tab hugs its label; the bar scrolls if it overflows.
- * - `fitted`: tabs split the width equally. Indicator still hugs content.
- *
- * @defaultValue `'scrollable'`
+ * `fitted` splits it evenly between the tabs; `scrollable` lets them keep
+ * their natural width and overflow sideways.
  */
 export type TTabsLayout = 'scrollable' | 'fitted';
 
 /**
- * Shared Tabs contract. The tab **bar**: 2–6 Tab items plus the bottom
- * divider the selected indicator sits on.
+ * One tab, as data.
  *
- * Figma's `showItem3`–`showItem6` are instance-visibility toggles on a
- * 6-slot master. Code uses `children` (min 2, max 6). `showDivider`
- * stays a real independent boolean, default `true`.
+ * The bar takes an array of these rather than children, which is the
+ * contract's own shape. Figma turns the count on with four booleans
+ * (`showItem3`–`showItem6`) on a six-slot master; *"en código es un
+ * arreglo"*.
+ */
+export interface ITabDef {
+  /**
+   * Identifies the tab. It is what {@link ITabsBaseProps.value} holds and
+   * what {@link ITabsBaseProps.onChange} hands back — never the index, so
+   * reordering the array cannot silently change the selection.
+   */
+  key: string;
+  /** The tab's text. */
+  label: string;
+  /**
+   * Glyph before the label. Its presence turns the slot on.
+   *
+   * **A node, not a name**, sized to the bar: tabs draw their glyph at
+   * `size/icon/sm` (16) at both steps.
+   */
+  leadingIcon?: ReactNode;
+  /**
+   * Count on the tab's Badge. Its presence turns the badge on.
+   *
+   * A number, not a string: it is a count, and the component formats it.
+   */
+  badge?: number;
+  /**
+   * Blocks this tab. It stays in the reading order and is announced as
+   * disabled — arrow keys skip it, they do not remove it.
+   *
+   * @defaultValue `false`
+   */
+  disabled?: boolean;
+}
+
+/**
+ * Platform-agnostic contract for the Tabs bar.
  *
- * `isSelected` / `state` do **not** live here — they go on each TabItem.
- * A bar with no selected tab is a usage error.
+ * **The selection is not marked tab by tab.** There is one `value` — the key
+ * of the active tab — and each tab compares itself against it. The contract
+ * is explicit: *"no se marca pestaña por pestaña: sale del valor"*. That is
+ * what makes two active tabs, or none, impossible to write.
+ *
+ * Tabs are data, not children. `TabItem` still exists as the thing that draws
+ * one, but it is internal: it takes `isSelected`, `layout` and `size` from
+ * the bar, and nothing else fills those in correctly.
+ *
+ * There is no TabPanel — Figma does not ship one, so neither does this.
+ *
+ * @example
+ * ```tsx
+ * const [tab, setTab] = useState('movimientos');
+ *
+ * <Tabs
+ *   onChange={setTab}
+ *   tabs={[
+ *     { key: 'movimientos', label: 'Movimientos' },
+ *     { key: 'pendientes', label: 'Pendientes', badge: 9 },
+ *   ]}
+ *   value={tab}
+ * />
+ * ```
  */
 export interface ITabsBaseProps {
+  /** The tabs, left to right. Two to six — beyond that the bar stops being one. */
+  tabs: ITabDef[];
+  /** The `key` of the active tab. */
+  value: string;
+  /** Called with the `key` of the tab that was picked. */
+  onChange: (key: string) => void;
   /**
+   * How the bar distributes its width.
+   *
    * @defaultValue `'scrollable'`
    */
   layout?: TTabsLayout;
   /**
-   * Must match the Tab items inside. Figma / Supernova / Dev frame default
-   * is `lg` (56) — not `md`.
+   * Physical size. Propagates to every tab.
    *
    * @defaultValue `'lg'`
    */
   size?: TTabSize;
   /**
+   * The line under the bar — which is also the line the selected indicator
+   * sits on.
+   *
    * @defaultValue `true`
    */
-  showDivider?: boolean;
+  divider?: boolean;
+  /** Stable identifier for tests. */
   testID?: string;
 }

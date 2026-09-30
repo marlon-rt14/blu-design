@@ -1,0 +1,1580 @@
+{
+  "_comment": "This file was generated automatically by Supernova.io and should not be changed manually. To modify the format or content of this file, please contact your design system team.",
+  "dimension": {
+    "font": {
+      "weight": {
+        "regular": {
+          "value": "400px",
+          "type": "dimension",
+          "description": "Peso tipografico 400. Mulish tiene los cinco pesos; IBM Plex Mono solo regular y medium. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "medium": {
+          "value": "500px",
+          "type": "dimension",
+          "description": "Peso tipografico 500. Mulish tiene los cinco pesos; IBM Plex Mono solo regular y medium. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "semibold": {
+          "value": "600px",
+          "type": "dimension",
+          "description": "Peso tipografico 600. Mulish tiene los cinco pesos; IBM Plex Mono solo regular y medium. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "bold": {
+          "value": "700px",
+          "type": "dimension",
+          "description": "Peso tipografico 700. Mulish tiene los cinco pesos; IBM Plex Mono solo regular y medium. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "extrabold": {
+          "value": "800px",
+          "type": "dimension",
+          "description": "Peso tipografico 800. Mulish tiene los cinco pesos; IBM Plex Mono solo regular y medium. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "regular_1": {
+          "value": "400px",
+          "type": "dimension",
+          "description": "Peso 400. El cuerpo de texto, las etiquetas default y los caption default. Es el peso de lectura del sistema. Desde el 25-sep-2026 solo lo consume text/code/md (IBM Plex Mono): los text/* regulares toman el peso de platform/font/style/regular, por plataforma."
+        },
+        "medium_1": {
+          "value": "500px",
+          "type": "dimension",
+          "description": "Peso 500. Hoy no lo usa ningún estilo de texto publicado; queda disponible para la escala. Antes de usarlo, revisar si el caso no pide semibold o extrabold. Correccion 25-sep-2026: si tiene consumidores, text/code/sm y text/code/xs (IBM Plex Mono)."
+        },
+        "semibold_1": {
+          "value": "600px",
+          "type": "dimension",
+          "description": "Peso 600. Lo usan los estilos text/link/*: sin subrayado, Medium contra Regular no se distingue al tamaño de lectura, y semibold sí. Desde el 25-sep-2026 ningun text style lo consume: el peso de los text/* sale de platform/font/style/* (por nombre y por plataforma). Se mantiene porque desarrollo puede estar consumiendolo; no se borra sin confirmarlo con desarrollo."
+        },
+        "bold_1": {
+          "value": "700px",
+          "type": "dimension",
+          "description": "Peso 700. Sostiene solo a text/unit/{md,sm}. Es el peso con menos uso del sistema: antes de sumarle un estilo, evaluar si corresponde extrabold. Desde el 25-sep-2026 ningun text style lo consume: el peso de los text/* sale de platform/font/style/* (por nombre y por plataforma). Se mantiene porque desarrollo puede estar consumiendolo; no se borra sin confirmarlo con desarrollo."
+        },
+        "extrabold_1": {
+          "value": "800px",
+          "type": "dimension",
+          "description": "Peso 800 — el más alto del sistema. Reservado para display/* y heading/lg; no usar por debajo de 20 px. Desde el 25-sep-2026 ningun text style lo consume: el peso de los text/* sale de platform/font/style/* (por nombre y por plataforma). Se mantiene porque desarrollo puede estar consumiendolo; no se borra sin confirmarlo con desarrollo."
+        }
+      }
+    },
+    "space": {
+      "2": {
+        "value": "2px",
+        "type": "dimension",
+        "description": "2px de espacio. Escalon crudo. Los componentes usan space/inset (adentro), stack (vertical), inline (horizontal) o gutter (entre columnas) de 4. Layout, que ademas varian por viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "4": {
+        "value": "4px",
+        "type": "dimension",
+        "description": "4px de espacio. Escalon crudo. Los componentes usan space/inset (adentro), stack (vertical), inline (horizontal) o gutter (entre columnas) de 4. Layout, que ademas varian por viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "8": {
+        "value": "8px",
+        "type": "dimension",
+        "description": "8px de espacio. Escalon crudo. Los componentes usan space/inset (adentro), stack (vertical), inline (horizontal) o gutter (entre columnas) de 4. Layout, que ademas varian por viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "12": {
+        "value": "12px",
+        "type": "dimension",
+        "description": "12px de espacio. Escalon crudo. Los componentes usan space/inset (adentro), stack (vertical), inline (horizontal) o gutter (entre columnas) de 4. Layout, que ademas varian por viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "16": {
+        "value": "16px",
+        "type": "dimension",
+        "description": "16px de espacio. Escalon crudo. Los componentes usan space/inset (adentro), stack (vertical), inline (horizontal) o gutter (entre columnas) de 4. Layout, que ademas varian por viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "20": {
+        "value": "20px",
+        "type": "dimension",
+        "description": "20px de espacio. Escalon crudo. Los componentes usan space/inset (adentro), stack (vertical), inline (horizontal) o gutter (entre columnas) de 4. Layout, que ademas varian por viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "24": {
+        "value": "24px",
+        "type": "dimension",
+        "description": "24px de espacio. Escalon crudo. Los componentes usan space/inset (adentro), stack (vertical), inline (horizontal) o gutter (entre columnas) de 4. Layout, que ademas varian por viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "32": {
+        "value": "32px",
+        "type": "dimension",
+        "description": "32px de espacio. Escalon crudo. Los componentes usan space/inset (adentro), stack (vertical), inline (horizontal) o gutter (entre columnas) de 4. Layout, que ademas varian por viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "40": {
+        "value": "40px",
+        "type": "dimension",
+        "description": "40px de espacio. Escalon crudo. Los componentes usan space/inset (adentro), stack (vertical), inline (horizontal) o gutter (entre columnas) de 4. Layout, que ademas varian por viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "48": {
+        "value": "48px",
+        "type": "dimension",
+        "description": "48px de espacio. Escalon crudo. Los componentes usan space/inset (adentro), stack (vertical), inline (horizontal) o gutter (entre columnas) de 4. Layout, que ademas varian por viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "64": {
+        "value": "64px",
+        "type": "dimension",
+        "description": "64px de espacio. Escalon crudo. Los componentes usan space/inset (adentro), stack (vertical), inline (horizontal) o gutter (entre columnas) de 4. Layout, que ademas varian por viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "72": {
+        "value": "72px",
+        "type": "dimension",
+        "description": "72 px. Paso de la escala de 8 entre 64 y 80."
+      },
+      "80": {
+        "value": "80px",
+        "type": "dimension",
+        "description": "80px de espacio. Escalon crudo. Los componentes usan space/inset (adentro), stack (vertical), inline (horizontal) o gutter (entre columnas) de 4. Layout, que ademas varian por viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "96": {
+        "value": "96px",
+        "type": "dimension",
+        "description": "96px de espacio. Escalon crudo. Los componentes usan space/inset (adentro), stack (vertical), inline (horizontal) o gutter (entre columnas) de 4. Layout, que ademas varian por viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "none": {
+        "value": "0px",
+        "type": "dimension",
+        "description": "0px de espacio. Escalon crudo. Los componentes usan space/inset (adentro), stack (vertical), inline (horizontal) o gutter (entre columnas) de 4. Layout, que ademas varian por viewport. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      }
+    },
+    "opacity": {
+      "4": {
+        "value": "4px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "6": {
+        "value": "6px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "8": {
+        "value": "8px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "10": {
+        "value": "10px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "12": {
+        "value": "12px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "16": {
+        "value": "16px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "20": {
+        "value": "20px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "24": {
+        "value": "24px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "30": {
+        "value": "30px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "32": {
+        "value": "32px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "40": {
+        "value": "40px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "48": {
+        "value": "48px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "50": {
+        "value": "50px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "56": {
+        "value": "56px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "60": {
+        "value": "60px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "64": {
+        "value": "64px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "70": {
+        "value": "70px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "72": {
+        "value": "72px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "80": {
+        "value": "80px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "90": {
+        "value": "90px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "100": {
+        "value": "100px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      },
+      "none": {
+        "value": "0px",
+        "type": "dimension",
+        "description": "Escala 0–100. Figma bindea el campo opacity en porcentaje: un valor 0–1 acá se renderiza como 0–1%. El export a CSS debe dividir por 100."
+      }
+    },
+    "z": {
+      "dropdown": {
+        "value": "1100px",
+        "type": "dimension",
+        "description": "Nivel de apilado 1100. La escala deja 100 de hueco entre niveles para poder meter capas intermedias sin renumerar todo. Orden: sticky 1000 < dropdown 1100 < popover 1200 < overlay 1300 < modal 1400 < toast 1500 < tooltip 1600. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "sticky": {
+        "value": "1000px",
+        "type": "dimension",
+        "description": "Nivel de apilado 1000. La escala deja 100 de hueco entre niveles para poder meter capas intermedias sin renumerar todo. Orden: sticky 1000 < dropdown 1100 < popover 1200 < overlay 1300 < modal 1400 < toast 1500 < tooltip 1600. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "overlay": {
+        "value": "1300px",
+        "type": "dimension",
+        "description": "Nivel de apilado 1300. La escala deja 100 de hueco entre niveles para poder meter capas intermedias sin renumerar todo. Orden: sticky 1000 < dropdown 1100 < popover 1200 < overlay 1300 < modal 1400 < toast 1500 < tooltip 1600. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "modal": {
+        "value": "1400px",
+        "type": "dimension",
+        "description": "Nivel de apilado 1400. La escala deja 100 de hueco entre niveles para poder meter capas intermedias sin renumerar todo. Orden: sticky 1000 < dropdown 1100 < popover 1200 < overlay 1300 < modal 1400 < toast 1500 < tooltip 1600. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "toast": {
+        "value": "1500px",
+        "type": "dimension",
+        "description": "Nivel de apilado 1500. La escala deja 100 de hueco entre niveles para poder meter capas intermedias sin renumerar todo. Orden: sticky 1000 < dropdown 1100 < popover 1200 < overlay 1300 < modal 1400 < toast 1500 < tooltip 1600. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "tooltip": {
+        "value": "1600px",
+        "type": "dimension",
+        "description": "Nivel de apilado 1600. La escala deja 100 de hueco entre niveles para poder meter capas intermedias sin renumerar todo. Orden: sticky 1000 < dropdown 1100 < popover 1200 < overlay 1300 < modal 1400 < toast 1500 < tooltip 1600. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "popover": {
+        "value": "1200px",
+        "type": "dimension",
+        "description": "Nivel de apilado 1200. La escala deja 100 de hueco entre niveles para poder meter capas intermedias sin renumerar todo. Orden: sticky 1000 < dropdown 1100 < popover 1200 < overlay 1300 < modal 1400 < toast 1500 < tooltip 1600. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "dropdown_1": {
+        "value": "1100px",
+        "type": "dimension",
+        "description": "Select, menu, autocomplete. Mismo valor en los tres modos a proposito: no depende de la densidad. El ORDEN es lo que importa, no el numero. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
+      },
+      "sticky_1": {
+        "value": "1000px",
+        "type": "dimension",
+        "description": "Cabeceras y barras fijas. Es la capa más baja del stack: todo lo anclado (dropdown, popover) y todo lo modal pasa por encima. Mismo valor en los tres modos a propósito: no depende de la densidad."
+      },
+      "overlay_1": {
+        "value": "1300px",
+        "type": "dimension",
+        "description": "Scrim de modal y de hoja. Mismo valor en los tres modos a proposito: no depende de la densidad. El ORDEN es lo que importa, no el numero. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
+      },
+      "modal_1": {
+        "value": "1400px",
+        "type": "dimension",
+        "description": "Dialogo y bottom sheet. Mismo valor en los tres modos a proposito: no depende de la densidad. El ORDEN es lo que importa, no el numero. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
+      },
+      "toast_1": {
+        "value": "1500px",
+        "type": "dimension",
+        "description": "Notificaciones efimeras: SIEMPRE sobre el modal. Mismo valor en los tres modos a proposito: no depende de la densidad. El ORDEN es lo que importa, no el numero. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
+      },
+      "tooltip_1": {
+        "value": "1600px",
+        "type": "dimension",
+        "description": "Lo mas alto del sistema. Mismo valor en los tres modos a proposito: no depende de la densidad. El ORDEN es lo que importa, no el numero. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
+      },
+      "popover_1": {
+        "value": "1200px",
+        "type": "dimension",
+        "description": "Menu de Select y Combobox, Coachmark y cualquier superficie anclada a un control. Por encima de z/sticky y z/dropdown: un menú abierto desde una cabecera fija se dibuja delante de ella. Mismo valor en los tres modos a propósito."
+      }
+    },
+    "motion": {
+      "duration": {
+        "instant": {
+          "value": "0px",
+          "type": "dimension",
+          "description": "Duracion de 0ms. Escala de movimiento: instant 0 para cambios sin transicion, fast 100 para microinteracciones, normal 200 por defecto, moderate 300 para entradas, slow 400 para transiciones de pantalla. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "fast": {
+          "value": "100px",
+          "type": "dimension",
+          "description": "Duracion de 100ms. Escala de movimiento: instant 0 para cambios sin transicion, fast 100 para microinteracciones, normal 200 por defecto, moderate 300 para entradas, slow 400 para transiciones de pantalla. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "normal": {
+          "value": "200px",
+          "type": "dimension",
+          "description": "Duracion de 200ms. Escala de movimiento: instant 0 para cambios sin transicion, fast 100 para microinteracciones, normal 200 por defecto, moderate 300 para entradas, slow 400 para transiciones de pantalla. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "moderate": {
+          "value": "300px",
+          "type": "dimension",
+          "description": "Duracion de 300ms. Escala de movimiento: instant 0 para cambios sin transicion, fast 100 para microinteracciones, normal 200 por defecto, moderate 300 para entradas, slow 400 para transiciones de pantalla. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "slow": {
+          "value": "400px",
+          "type": "dimension",
+          "description": "Duracion de 400ms. Escala de movimiento: instant 0 para cambios sin transicion, fast 100 para microinteracciones, normal 200 por defecto, moderate 300 para entradas, slow 400 para transiciones de pantalla. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "micro": {
+          "value": "100px",
+          "type": "dimension",
+          "description": "Feedback tactil inmediato: pressed, hover. Mismo valor en los tres modos a proposito: no depende de la densidad. Con Reduce Motion del sistema activo pasa a 0 en runtime (WCAG 2.3.3). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
+        },
+        "short": {
+          "value": "200px",
+          "type": "dimension",
+          "description": "DURACION BASE: toggles, cambios de estado. Mismo valor en los tres modos a proposito: no depende de la densidad. Con Reduce Motion del sistema activo pasa a 0 en runtime (WCAG 2.3.3). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
+        },
+        "medium": {
+          "value": "300px",
+          "type": "dimension",
+          "description": "Hojas, expansion, acordeon. Mismo valor en los tres modos a proposito: no depende de la densidad. Con Reduce Motion del sistema activo pasa a 0 en runtime (WCAG 2.3.3). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
+        },
+        "long": {
+          "value": "400px",
+          "type": "dimension",
+          "description": "Transiciones de pantalla. Mismo valor en los tres modos a proposito: no depende de la densidad. Con Reduce Motion del sistema activo pasa a 0 en runtime (WCAG 2.3.3). Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
+        }
+      },
+      "dwell": {
+        "short": {
+          "value": "4000px",
+          "type": "dimension",
+          "description": "Permanencia de 4000ms (4 s). Escala de permanencia: short 4000 para confirmaciones sin accion, default 6000 por defecto, long 10000 cuando el mensaje trae una accion. NO es duracion de animacion: eso es motion/duration/*. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 4. Layout, que resuelven hasta aca."
+        },
+        "default": {
+          "value": "6000px",
+          "type": "dimension",
+          "description": "Permanencia de 6000ms (6 s). Escala de permanencia: short 4000 para confirmaciones sin accion, default 6000 por defecto, long 10000 cuando el mensaje trae una accion. NO es duracion de animacion: eso es motion/duration/*. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 4. Layout, que resuelven hasta aca."
+        },
+        "long": {
+          "value": "10000px",
+          "type": "dimension",
+          "description": "Permanencia de 10000ms (10 s). Escala de permanencia: short 4000 para confirmaciones sin accion, default 6000 por defecto, long 10000 cuando el mensaje trae una accion. NO es duracion de animacion: eso es motion/duration/*. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 4. Layout, que resuelven hasta aca."
+        },
+        "short_1": {
+          "value": "4000px",
+          "type": "dimension",
+          "description": "Cuanto se queda en pantalla un mensaje efimero SIN accion: una confirmacion que el usuario no necesita responder. 4 s desde que entra. Mismo valor en los tres modos a proposito: la permanencia no depende de la densidad. NO es duracion de animacion: la entrada y la salida del elemento son motion/duration/short + motion/easing/enter|exit. Reduce Motion apaga el movimiento, nunca este contador: el tiempo de lectura no es movimiento. Hoy el Snackbar no lo consume: desde el 29-sep dura motion/dwell/default (6 s) sin acción, para que alcance a leerse con varias barras en pila (SnackbarStack)."
+        },
+        "default_1": {
+          "value": "6000px",
+          "type": "dimension",
+          "description": "PERMANENCIA BASE de lo efimero: es el valor del Snackbar. 6 s desde que entra; el contador arranca al montar y no se reinicia. Mismo valor en los tres modos a proposito: la permanencia no depende de la densidad. NO es duracion de animacion: la entrada y la salida del elemento son motion/duration/short + motion/easing/enter|exit. Reduce Motion apaga el movimiento, nunca este contador: el tiempo de lectura no es movimiento."
+        },
+        "long_1": {
+          "value": "10000px",
+          "type": "dimension",
+          "description": "Para un mensaje efimero CON accion: el usuario tiene que leer, decidir y llegar al control. 10 s. WCAG 2.2.1 — si el tiempo no alcanza para usar la accion, el patron correcto es Alert, no alargar este token. Mismo valor en los tres modos a proposito: la permanencia no depende de la densidad. NO es duracion de animacion: la entrada y la salida del elemento son motion/duration/short + motion/easing/enter|exit. Reduce Motion apaga el movimiento, nunca este contador: el tiempo de lectura no es movimiento."
+        }
+      }
+    },
+    "elevation": {
+      "raised": {
+        "shadow": {
+          "near-blur": {
+            "value": "3px",
+            "type": "dimension",
+            "description": "Desenfoque de la sombra cercana de raised. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
+          },
+          "near-y": {
+            "value": "1px",
+            "type": "dimension",
+            "description": "Desplazamiento vertical de la sombra cercana de raised. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
+          },
+          "far-blur": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Desenfoque de la sombra lejana de raised. Cero en dark: la capa esta apagada. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
+          },
+          "far-y": {
+            "value": "4px",
+            "type": "dimension",
+            "description": "Desplazamiento vertical de la sombra lejana de raised. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
+          }
+        }
+      },
+      "overlay": {
+        "shadow": {
+          "near-blur": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Desenfoque de la sombra cercana de overlay. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
+          },
+          "near-y": {
+            "value": "4px",
+            "type": "dimension",
+            "description": "Desplazamiento vertical de la sombra cercana de overlay. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
+          },
+          "far-blur": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Desenfoque de la sombra lejana de overlay. Cero en dark: la capa esta apagada. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
+          },
+          "far-y": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Desplazamiento vertical de la sombra lejana de overlay. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
+          }
+        }
+      }
+    },
+    "focus": {
+      "ring": {
+        "offset": {
+          "value": "1px",
+          "type": "dimension",
+          "description": "Separacion entre el borde del control y el anillo de foco. 1 desde el 14-ago (antes 2): con 2 el anillo quedaba demasiado despegado y la franja intermedia, que se pinta con canvas/surface/primary, se notaba como un halo cuando el control no estaba sobre una superficie blanca. VALOR DERIVADO AGUAS ABAJO: focus/ring/spread = offset + border/width/focus. Si se cambia este numero hay que recalcular el spread a mano, porque Figma no hace aritmetica entre variables."
+        },
+        "spread": {
+          "value": "3px",
+          "type": "dimension",
+          "description": "Spread de la capa azul del anillo de foco. NO es un valor libre: es focus/ring/offset + border/width/focus. El grosor visible del azul es spread menos offset, o sea exactamente border/width/focus (2 en light y dark, 3 en los modos hc). Si cambia cualquiera de los dos de los que depende, hay que recalcular este a mano."
+        }
+      }
+    },
+    "component": {
+      "avatar": {
+        "size": {
+          "overlap": {
+            "xs": {
+              "value": "-6px",
+              "type": "dimension",
+              "description": "Co-token de avatar. Capa de indirección: aliasea un rol sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            },
+            "sm": {
+              "value": "-8px",
+              "type": "dimension",
+              "description": "Co-token de avatar. Capa de indirección: aliasea un rol sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            },
+            "md": {
+              "value": "-10px",
+              "type": "dimension",
+              "description": "Co-token de avatar. Capa de indirección: aliasea un rol sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            },
+            "lg": {
+              "value": "-14px",
+              "type": "dimension",
+              "description": "Co-token de avatar. Capa de indirección: aliasea un rol sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            }
+          },
+          "xs": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Co-token de avatar. Capa de indirección: aliasea size/24 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "sm": {
+            "value": "32px",
+            "type": "dimension",
+            "description": "Co-token de avatar. Capa de indirección: aliasea size/32 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "md": {
+            "value": "40px",
+            "type": "dimension",
+            "description": "Co-token de avatar. Capa de indirección: aliasea size/40 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "lg": {
+            "value": "56px",
+            "type": "dimension",
+            "description": "Co-token de avatar. Capa de indirección: aliasea size/56 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "glyph": {
+            "xs": {
+              "value": "12px",
+              "type": "dimension",
+              "description": "Co-token de avatar. Capa de indirección: aliasea size/12 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            },
+            "sm": {
+              "value": "16px",
+              "type": "dimension",
+              "description": "Co-token de avatar. Capa de indirección: aliasea size/16 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            },
+            "md": {
+              "value": "20px",
+              "type": "dimension",
+              "description": "Co-token de avatar. Capa de indirección: aliasea size/20 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            },
+            "lg": {
+              "value": "28px",
+              "type": "dimension",
+              "description": "Co-token de avatar. Capa de indirección: aliasea size/28 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            }
+          },
+          "indicator": {
+            "xs": {
+              "value": "8px",
+              "type": "dimension",
+              "description": "Co-token de avatar. Capa de indirección: aliasea size/8 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            },
+            "sm": {
+              "value": "10px",
+              "type": "dimension",
+              "description": "Co-token de avatar. Capa de indirección: aliasea size/10 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            },
+            "md": {
+              "value": "12px",
+              "type": "dimension",
+              "description": "Co-token de avatar. Capa de indirección: aliasea size/12 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            },
+            "lg": {
+              "value": "16px",
+              "type": "dimension",
+              "description": "Co-token de avatar. Capa de indirección: aliasea size/16 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            }
+          },
+          "logo": {
+            "xs": {
+              "value": "16px",
+              "type": "dimension",
+              "description": "Co-token de avatar. Capa de indirección: aliasea size/16 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            },
+            "sm": {
+              "value": "20px",
+              "type": "dimension",
+              "description": "Co-token de avatar. Capa de indirección: aliasea size/20 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            },
+            "md": {
+              "value": "28px",
+              "type": "dimension",
+              "description": "Co-token de avatar. Capa de indirección: aliasea size/28 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            },
+            "lg": {
+              "value": "40px",
+              "type": "dimension",
+              "description": "Co-token de avatar. Capa de indirección: aliasea size/40 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            }
+          }
+        }
+      },
+      "scrollbar": {
+        "width": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "Co-token de scrollbar. Capa de indirección: aliasea size/12 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        }
+      },
+      "merchantavatar": {
+        "radius": {
+          "xs": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Co-token de merchantavatar. Capa de indirección: aliasea border-radius/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "sm": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Co-token de merchantavatar. Capa de indirección: aliasea border-radius/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "md": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Co-token de merchantavatar. Capa de indirección: aliasea border-radius/lg sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "lg": {
+            "value": "16px",
+            "type": "dimension",
+            "description": "Co-token de merchantavatar. Capa de indirección: aliasea border-radius/xl sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        }
+      },
+      "phonefield": {
+        "divider": {
+          "height": {
+            "value": "16px",
+            "type": "dimension",
+            "description": "Co-token de phonefield. Alto del separador vertical entre el prefijo y el valor: 16, la misma altura que la bandera y el chevron que tiene al lado, no los 24 de la fila. Aliasea size/16. Mismo valor en los tres modos: el separador no se comprime por densidad porque los glifos que acompaña tampoco. NO usar size/icon/sm para esto: coinciden hoy, pero uno es tamaño de icono y el otro alto de separador, y si la escala de iconos cambia el separador no tiene por qué seguirla."
+          }
+        }
+      },
+      "accordion": {
+        "header": {
+          "min-height": {
+            "sm": {
+              "value": "48px",
+              "type": "dimension",
+              "description": "Co-token de accordion. Capa de indirección: aliasea size/target/min sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            },
+            "lg": {
+              "value": "56px",
+              "type": "dimension",
+              "description": "Co-token de accordion. Capa de indirección: aliasea size/control/height/lg sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            }
+          },
+          "padding-x": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Co-token de accordion. Capa de indirección: aliasea space/inset/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "padding-y": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Co-token de accordion. Capa de indirección: aliasea space/inset/sm sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "gap": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Co-token de accordion. Capa de indirección: aliasea space/inline/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "content": {
+          "padding-top": {
+            "value": "4px",
+            "type": "dimension",
+            "description": "Co-token de accordion. Capa de indirección: aliasea space/stack/xs sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "padding-bottom": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Co-token de accordion. Capa de indirección: aliasea space/stack/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "icon": {
+          "size": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Co-token de accordion. Capa de indirección: aliasea size/icon/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "chevron": {
+          "size": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Co-token de accordion. Capa de indirección: aliasea size/icon/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        }
+      },
+      "alert": {
+        "radius": {
+          "page": {
+            "value": "0px",
+            "type": "dimension",
+            "description": "Co-token de alert. Capa de indirección: aliasea border-radius/none sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje. El aviso de página va a sangre completa, pegado al borde de la pantalla bajo la barra superior: sin radio, como la referencia de eBay (page notice)."
+          },
+          "section": {
+            "value": "16px",
+            "type": "dimension",
+            "description": "Co-token de alert. Capa de indirección: aliasea radius/surface/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "inline": {
+            "value": "16px",
+            "type": "dimension",
+            "description": "Co-token de alert. Capa de indirección: aliasea radius/surface/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        }
+      },
+      "callout": {
+        "radius": {
+          "value": "16px",
+          "type": "dimension",
+          "description": "Co-token de callout. Capa de indirección: aliasea radius/surface/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        },
+        "padding": {
+          "value": "16px",
+          "type": "dimension",
+          "description": "Co-token de callout. Capa de indirección: aliasea space/inset/lg sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        },
+        "gap": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "Co-token de callout. Capa de indirección: aliasea space/inline/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        },
+        "icon": {
+          "size": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Co-token de callout. Capa de indirección: aliasea size/icon/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        }
+      },
+      "emptystate": {
+        "padding": {
+          "value": "24px",
+          "type": "dimension",
+          "description": "Co-token de emptystate. Capa de indirección: aliasea space/inset/xl sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        },
+        "gap": {
+          "graphic": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Co-token de emptystate. Capa de indirección: aliasea space/stack/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "text": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Co-token de emptystate. Capa de indirección: aliasea space/stack/sm sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "action": {
+            "value": "16px",
+            "type": "dimension",
+            "description": "Co-token de emptystate. Capa de indirección: aliasea space/stack/lg sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "actions": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Co-token de emptystate. Capa de indirección: aliasea space/inline/md sin re-tematizar. Separa la acción principal de la secundaria: apiladas en page, una al lado de la otra en inline. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "icon": {
+          "size": {
+            "value": "40px",
+            "type": "dimension",
+            "description": "Co-token de emptystate. Capa de indirección: aliasea size/icon/xl sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "action": {
+          "min-width": {
+            "value": "160px",
+            "type": "dimension",
+            "description": "Co-token de emptystate. Ancho mínimo del CTA en layout=page: el botón va en hug y crece con la etiqueta, pero no baja de 160 para que una etiqueta corta no quede apretada en el centro de la pantalla. Aliasea size/160. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        }
+      },
+      "searchfield": {
+        "height": {
+          "md": {
+            "value": "44px",
+            "type": "dimension",
+            "description": "Co-token de searchfield. Capa de indirección: aliasea size/field/height/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "sm": {
+            "value": "32px",
+            "type": "dimension",
+            "description": "Co-token de searchfield. Capa de indirección: aliasea size/control/height/sm sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "padding-x": {
+          "md": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Co-token de searchfield. Capa de indirección: aliasea space/inset/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "sm": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Co-token de searchfield. Capa de indirección: aliasea space/inset/sm sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "gap": {
+          "value": "8px",
+          "type": "dimension",
+          "description": "Co-token de searchfield. Capa de indirección: aliasea space/inline/sm sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        },
+        "radius": {
+          "value": "9999px",
+          "type": "dimension",
+          "description": "Co-token de searchfield. Radio del contenedor y del velo de hover. Aliasea platform/radius/search: web 12 · iOS cápsula · Android full."
+        },
+        "icon": {
+          "size": {
+            "md": {
+              "value": "24px",
+              "type": "dimension",
+              "description": "Co-token de searchfield. Capa de indirección: aliasea size/icon/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            },
+            "sm": {
+              "value": "16px",
+              "type": "dimension",
+              "description": "Co-token de searchfield. Capa de indirección: aliasea size/icon/sm sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+            }
+          }
+        },
+        "radius-focus": {
+          "value": "9999px",
+          "type": "dimension",
+          "description": "Co-token de searchfield. Radio del anillo de foco: aliasea platform/radius/focus/search (14 · pastilla · 6)."
+        }
+      },
+      "expansion": {
+        "gap": {
+          "value": "8px",
+          "type": "dimension",
+          "description": "Co-token de expansion. Capa de indirección: aliasea space/stack/sm sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        }
+      },
+      "numericstepper": {
+        "gap": {
+          "value": "8px",
+          "type": "dimension",
+          "description": "Co-token de numericstepper. Capa de indirección: aliasea space/inline/sm sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        },
+        "value": {
+          "min-width": {
+            "value": "40px",
+            "type": "dimension",
+            "description": "Co-token de numericstepper. Capa de indirección: aliasea size/40 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        }
+      },
+      "pageindicator": {
+        "dot": {
+          "size": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Co-token de pageindicator. Capa de indirección: aliasea size/8 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "width-active": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Co-token de pageindicator. Capa de indirección: aliasea size/24 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "gap": {
+          "value": "4px",
+          "type": "dimension",
+          "description": "Co-token de pageindicator. Capa de indirección: aliasea space/inline/xs sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        },
+        "radius": {
+          "value": "9999px",
+          "type": "dimension",
+          "description": "Co-token de pageindicator. Capa de indirección: aliasea radius/pill sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        }
+      },
+      "carousel": {
+        "gap": {
+          "items": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Co-token de carousel. Capa de indirección: aliasea space/inline/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "indicator": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Co-token de carousel. Capa de indirección: aliasea space/stack/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "padding-x": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "Co-token de carousel. Capa de indirección: aliasea space/inset/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        }
+      },
+      "calendar": {
+        "day": {
+          "size": {
+            "value": "48px",
+            "type": "dimension",
+            "description": "Co-token de calendar. Capa de indirección: aliasea size/target/min sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "selection-size": {
+            "value": "32px",
+            "type": "dimension",
+            "description": "Co-token de calendar. Capa de indirección: aliasea size/control/height/sm sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "indicator-size": {
+            "value": "4px",
+            "type": "dimension",
+            "description": "Co-token de calendar. Capa de indirección: aliasea size/4 sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "padding": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "Co-token de calendar. Capa de indirección: aliasea space/inset/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        },
+        "gap": {
+          "header": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Co-token de calendar. Capa de indirección: aliasea space/stack/md sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "radius": {
+          "value": "9999px",
+          "type": "dimension",
+          "description": "Co-token de calendar. Capa de indirección: aliasea radius/pill sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+        }
+      },
+      "tip": {
+        "pointer": {
+          "offset": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Co-token compartido de Tooltip y Coachmark: la padding del lado de la punta, que reserva el lugar donde se apoya el TipPointer (posición absoluta, 10 de alto con 2 de solapamiento). Fijo en 8 en las tres densidades porque la punta no cambia de tamaño. Reemplaza el enlace directo al primitivo space/8."
+          }
+        }
+      },
+      "choicebox": {
+        "row": {
+          "padding-right": {
+            "value": "48px",
+            "type": "dimension",
+            "description": "Co-token de choicebox. Hueco derecho reservado para el control en layout=row: 48 = space/inset/lg (16) + ancho del control (16) + space/inline/lg (16). El control va posicionado absoluto contra el borde, asi que este padding es lo que evita que el texto se le meta debajo. NO es un space/inset/3xl: coincide en 48 por ahora, pero significa otra cosa. Si cambia el tamano del control o el gap, hay que recalcular este token."
+          }
+        }
+      },
+      "sheet": {
+        "radius": {
+          "value": "24px",
+          "type": "dimension",
+          "description": "Co-token de sheet. Radio de las dos esquinas SUPERIORES de la hoja. Las de abajo van en 0: la hoja nace del borde de la pantalla. Aliasea radius/surface/lg (2xl en las tres densidades)."
+        },
+        "padding": {
+          "value": "16px",
+          "type": "dimension",
+          "description": "Co-token de sheet. Inset del contenido de la hoja. 16 en compact, 24 en regular y expanded."
+        },
+        "gap": {
+          "header": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Co-token de sheet. Separacion entre el titulo y la bajada del encabezado."
+          },
+          "content": {
+            "value": "16px",
+            "type": "dimension",
+            "description": "Co-token de sheet. Separacion entre el encabezado y el contenido."
+          }
+        },
+        "handle": {
+          "width": {
+            "value": "32px",
+            "type": "dimension",
+            "description": "Co-token de sheet. Ancho de la barra de arrastre. Mismo valor en las tres densidades: es un affordance de gesto, no escala con la densidad. El Sheet de Platforms lo usa en Android y web a través de platform/sheet/handle/width."
+          },
+          "height": {
+            "value": "4px",
+            "type": "dimension",
+            "description": "Co-token de sheet. Alto de la barra de arrastre."
+          },
+          "target": {
+            "value": "48px",
+            "type": "dimension",
+            "description": "Co-token de sheet. Alto del area tactil alrededor del handle. La barra mide 4: el area que responde al gesto es de 48, sin agrandar la barra visible. Es el mismo criterio que el hitSlop de las X de 24."
+          }
+        }
+      },
+      "checkbox": {
+        "radius": {
+          "box": {
+            "value": "2px",
+            "type": "dimension",
+            "description": "Co-token de checkbox. Radio de la caja. Aliasea platform/radius/control: 4 en iOS y web, 2 en Android. Separado de radius/control/sm para que solo el Checkbox siga a la plataforma: Menu, Tabs y el resto se quedan en 4. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "focus": {
+            "value": "4px",
+            "type": "dimension",
+            "description": "Co-token de checkbox. Radio del anillo de foco: caja + 2. Aliasea platform/radius/focus/control: 6 en iOS y web, 4 en Android."
+          }
+        }
+      },
+      "chip": {
+        "radius": {
+          "value": "8px",
+          "type": "dimension",
+          "description": "Co-token de chip. Radio del contenedor y del velo. Aliasea platform/radius/chip: pastilla en web e iOS, 8 en Android. Separado de radius/pill para que Tag, Badge y Avatar no cambien."
+        },
+        "radius-focus": {
+          "value": "10px",
+          "type": "dimension",
+          "description": "Co-token de chip. Radio del anillo de foco: aliasea platform/radius/focus/chip (pastilla · 10 · pastilla)."
+        }
+      }
+    },
+    "platform": {
+      "radius": {
+        "sm": {
+          "value": "8px",
+          "type": "dimension",
+          "description": "Radio chico por plataforma: 8 en iOS y Android, 4 en web. Native redondea más que web a propósito — es la convención de cada sistema, no una preferencia."
+        },
+        "md": {
+          "value": "12px",
+          "type": "dimension",
+          "description": "Radio medio por plataforma: 12 en iOS y Android, 8 en web. Es el radio de un control o un campo."
+        },
+        "lg": {
+          "value": "16px",
+          "type": "dimension",
+          "description": "Radio grande por plataforma: 16 en iOS y Android, 12 en web. Es el radio de una superficie: tarjeta, hoja, popover."
+        },
+        "xl": {
+          "value": "20px",
+          "type": "dimension",
+          "description": "iOS card 20 · M3 extra large 28"
+        },
+        "full": {
+          "value": "999px",
+          "type": "dimension",
+          "description": "Pastilla. 999 en las tres plataformas: no divergen porque un borde totalmente redondeado se ve igual en todas."
+        }
+      },
+      "spacing": {
+        "screen-margin": {
+          "value": "16px",
+          "type": "dimension",
+          "description": "Margen lateral de pantalla que exige el OS."
+        }
+      },
+      "type": {
+        "label": {
+          "weight": {
+            "value": "500px",
+            "type": "dimension",
+            "description": "Peso del rol label, NUMERICO. Core enlaza fontWeight (FLOAT), no fontStyle, y ~3000 bindings vivos ya usan ese patron. El numero no tiene el problema de grafias: 500 es 500 en SF Pro, Roboto y Mulish. iOS Semibold es convencion de LABEL DE CONTROL, no el peso del estilo Footnote (Regular). Para escribir fontName en un script usar platform/font/style/*, que es otro mecanismo."
+          }
+        },
+        "body-strong": {
+          "weight": {
+            "value": "500px",
+            "type": "dimension",
+            "description": "Peso del rol body-strong, NUMERICO. Mismo tamano que body: la diferencia entre los dos ES el peso. iOS Headline 17 Semibold, Material titleMedium 16 Medium, ambos medidos de sus kits."
+          }
+        },
+        "body": {
+          "weight": {
+            "value": "400px",
+            "type": "dimension",
+            "description": "Peso del rol body, NUMERICO. Regular en las tres."
+          }
+        }
+      },
+      "switch": {
+        "track-width": {
+          "value": "52px",
+          "type": "dimension",
+          "description": "Ancho del track del Switch md. iOS 27: 64 (kit de Apple). Android: 52 (Material 3). Web: 56, el diseño original."
+        },
+        "track-height": {
+          "value": "32px",
+          "type": "dimension",
+          "description": "Alto del track del Switch md. iOS 27: 28. Android y web: 32."
+        },
+        "padding-off": {
+          "value": "8px",
+          "type": "dimension",
+          "description": "Padding del track del Switch md apagado. En Android es 8 porque el knob apagado mide 16 y queda centrado en 32."
+        },
+        "padding-on": {
+          "value": "4px",
+          "type": "dimension",
+          "description": "Padding del track del Switch md prendido."
+        },
+        "thumb-width-off": {
+          "value": "16px",
+          "type": "dimension",
+          "description": "Ancho del knob del Switch md apagado. iOS 27: cápsula de 38. Android: 16 (Material 3 achica el knob apagado). Web: 24."
+        },
+        "thumb-width-on": {
+          "value": "24px",
+          "type": "dimension",
+          "description": "Ancho del knob del Switch md prendido."
+        },
+        "thumb-height-off": {
+          "value": "16px",
+          "type": "dimension",
+          "description": "Alto del knob del Switch md apagado."
+        },
+        "thumb-height-on": {
+          "value": "24px",
+          "type": "dimension",
+          "description": "Alto del knob del Switch md prendido."
+        },
+        "border-width-off": {
+          "value": "2px",
+          "type": "dimension",
+          "description": "Borde del track del Switch apagado. iOS y web: 1; Android: 2 (outline de Material 3). Desde la 0.29 existe en las tres: sin él el apagado daba 1,0 a 1,24:1 contra la superficie (WCAG 1.4.11). El color, component/switch/track/border-off, da 4,39 a 9,23."
+        }
+      },
+      "checkbox": {
+        "box-size": {
+          "value": "18px",
+          "type": "dimension",
+          "description": "Caja del Checkbox md. Android: 18 (Material 3). iOS no tiene checkbox nativo: queda el de marca, 24."
+        },
+        "mark-size": {
+          "value": "14px",
+          "type": "dimension",
+          "description": "Glifo de check dentro de la caja del Checkbox md."
+        }
+      },
+      "radio": {
+        "box-size": {
+          "value": "20px",
+          "type": "dimension",
+          "description": "Círculo del Radio md. Android: 20 (Material 3). iOS no tiene radio nativo: queda el de marca, 24."
+        },
+        "dot-size": {
+          "value": "10px",
+          "type": "dimension",
+          "description": "Punto del Radio md seleccionado."
+        }
+      },
+      "tabs": {
+        "indicator-height": {
+          "value": "3px",
+          "type": "dimension",
+          "description": "Grosor del indicador de la pestaña activa. Android: 3 (Material 3). iOS y web: 2."
+        }
+      },
+      "segment": {
+        "height": {
+          "value": "40px",
+          "type": "dimension",
+          "description": "Alto del SegmentedControl. iOS: 32, el alto por defecto de UISegmentedControl. Android: 40, segmented button de Material 3 (área tocable 48 con platform/segment/touch-padding). Web: 40."
+        }
+      },
+      "status-bar": {
+        "height": {
+          "value": "40px",
+          "type": "dimension",
+          "description": "Alto de la barra de estado. iOS: 62 (kit iOS 27, iPhone 17 Pro, con la isla dinámica). Android: 40 (Android UI Kit, con la cámara perforada). Web: 62, Safari en iPhone muestra la barra de estado de iOS. En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma. La barra de navegación empieza debajo (platform/navbar/*)."
+        }
+      },
+      "safe-area": {
+        "top": {
+          "value": "40px",
+          "type": "dimension",
+          "description": "Safe area superior. iOS: 62. Android: 40. Web: 62 (Safari en iPhone). En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma."
+        },
+        "bottom": {
+          "value": "24px",
+          "type": "dimension",
+          "description": "Safe area inferior. iOS: 34 (home indicator). Android: 24 (navegación por gestos; con 3 botones son 48). Web: 118, la barra de Safari de iOS 27 (84) más el home indicator (34). En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma."
+        }
+      },
+      "system-nav": {
+        "handle-width": {
+          "value": "108px",
+          "type": "dimension",
+          "description": "Ancho del home indicator de iOS y de Safari en iPhone (134) y de la barra de gestos de Android (108). En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma."
+        },
+        "handle-height": {
+          "value": "4px",
+          "type": "dimension",
+          "description": "Alto del home indicator de iOS (5) y de la barra de gestos de Android (4). En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma."
+        }
+      },
+      "browser": {
+        "toolbar-height": {
+          "value": "0px",
+          "type": "dimension",
+          "description": "Alto de la barra de Safari de iOS 27 (botón atrás, cápsula de dirección y más), sobre el home indicator. Solo existe en web. En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma."
+        },
+        "control-size": {
+          "value": "0px",
+          "type": "dimension",
+          "description": "Alto de la cápsula de dirección y de los botones de la barra de Safari de iOS 27 (48, kit iOS 27 · Toolbar - Bottom). Solo existe en web."
+        }
+      },
+      "navbar": {
+        "row-height": {
+          "value": "64px",
+          "type": "dimension",
+          "description": "Alto de la fila de controles. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 44, las cápsulas de vidrio del kit iOS 27. Android: 64, top app bar de Material 3. Web: 64, header de la app. La TabBar tiene sus propias medidas (platform/tabbar/*)."
+        },
+        "padding-x": {
+          "value": "4px",
+          "type": "dimension",
+          "description": "Margen lateral de la fila de controles. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 16 (kit iOS 27). Android: 4, el área tocable de 48 ya trae su aire (M3). Web: 24."
+        },
+        "padding-bottom": {
+          "value": "0px",
+          "type": "dimension",
+          "description": "Aire debajo de la barra estándar. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 10 (kit iOS 27, 44 + 10 = 54). Android y web: 0."
+        },
+        "gap": {
+          "value": "0px",
+          "type": "dimension",
+          "description": "Separación entre la fila de controles y el título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 10 (kit iOS 27). Android: 0, el título medio de M3 empieza justo debajo de la fila de 64. Web: 8."
+        },
+        "large": {
+          "padding-x": {
+            "value": "16px",
+            "type": "dimension",
+            "description": "Margen lateral del título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 16. Android: 16 (M3 medium). Web: 24."
+          },
+          "padding-bottom": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Aire debajo del título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 10 (44 + 10 + 41 + 10 = 105). Android: 12 (64 + 36 + 12 = 112, M3 medium). Web: 16."
+          }
+        },
+        "control": {
+          "padding": {
+            "value": "0px",
+            "type": "dimension",
+            "description": "Relleno interno de la cápsula de vidrio que agrupa las acciones. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 4 (36 + 4 + 4 = 44, kit iOS 27). Android y web no tienen cápsula: 0."
+          },
+          "gap": {
+            "value": "0px",
+            "type": "dimension",
+            "description": "Separación entre acciones. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 0, dentro de la cápsula los botones de 36 van juntos. Android: 0, áreas tocables de 48 contiguas (M3). Web: 8."
+          },
+          "size": {
+            "value": "48px",
+            "type": "dimension",
+            "description": "Área tocable de cada acción. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 36 dentro de la cápsula de 44 (kit iOS 27). Android: 48 (M3). Web: 40."
+          }
+        }
+      },
+      "tabbar": {
+        "height": {
+          "value": "64px",
+          "type": "dimension",
+          "description": "Alto de la barra. iOS: 62, la cápsula Liquid Glass del kit iOS 27 (54 + 4 + 4). Android: 64, navigation bar de Material 3 Expressive. Web: 64, barra inferior. Barra de pestañas (TabBar, librería Platforms)."
+        },
+        "padding": {
+          "value": "0px",
+          "type": "dimension",
+          "description": "Relleno de la cápsula alrededor de las pestañas. iOS: 4 (kit iOS 27). Android y web no tienen cápsula: 0. Barra de pestañas (TabBar, librería Platforms)."
+        },
+        "margin-x": {
+          "value": "0px",
+          "type": "dimension",
+          "description": "Margen lateral. iOS: 20, la cápsula flota (kit iOS 27: 25 menos los 4 del vidrio, redondeado a la escala). Android y web: 0, la barra ocupa todo el ancho. Barra de pestañas (TabBar, librería Platforms)."
+        },
+        "margin-top": {
+          "value": "0px",
+          "type": "dimension",
+          "description": "Aire sobre la cápsula. iOS: 12 (kit iOS 27: 16 menos los 4 del vidrio). Android y web: 0. Barra de pestañas (TabBar, librería Platforms)."
+        },
+        "margin-bottom": {
+          "value": "0px",
+          "type": "dimension",
+          "description": "Aire debajo de la cápsula, sobre el home indicator. iOS: 20 (kit iOS 27). Android y web: 0, debajo va la navegación del sistema. Barra de pestañas (TabBar, librería Platforms)."
+        },
+        "gap": {
+          "value": "16px",
+          "type": "dimension",
+          "description": "iOS: separación entre la cápsula y el botón aparte: 8, lo que se ve en el kit iOS 27 (16 entre los botones menos los 4 del vidrio de cada lado). Android y web: aire entre el botón flotante y la barra (16, Material 3). Barra de pestañas (TabBar, librería Platforms)."
+        },
+        "item": {
+          "padding-x": {
+            "value": "0px",
+            "type": "dimension",
+            "description": "Relleno lateral de cada pestaña. iOS: 8 (kit iOS 27). Android y web: 0, las pestañas reparten el ancho. Barra de pestañas (TabBar, librería Platforms)."
+          },
+          "gap": {
+            "value": "4px",
+            "type": "dimension",
+            "description": "Separación entre icono y etiqueta. iOS: 2 (kit iOS 27: 1 más el aire del símbolo). Android y web: 4 (Material 3). Barra de pestañas (TabBar, librería Platforms)."
+          }
+        },
+        "indicator": {
+          "width": {
+            "value": "56px",
+            "type": "dimension",
+            "description": "Ancho del contenedor del icono. iOS: 28 (kit iOS 27). Android: 56, el indicador de la pestaña activa de Material 3. Web: 56. Barra de pestañas (TabBar, librería Platforms)."
+          },
+          "height": {
+            "value": "32px",
+            "type": "dimension",
+            "description": "Alto del contenedor del icono. iOS: 28. Android: 32, indicador de Material 3. Web: 32. Barra de pestañas (TabBar, librería Platforms)."
+          }
+        },
+        "accessory": {
+          "size": {
+            "value": "56px",
+            "type": "dimension",
+            "description": "Botón aparte con el logo. iOS: 62, círculo de vidrio junto a la cápsula (rol separado del kit iOS 27). Android: 56, FAB de Material 3 sobre la barra. Web: 56. Barra de pestañas (TabBar, librería Platforms)."
+          },
+          "margin-x": {
+            "value": "16px",
+            "type": "dimension",
+            "description": "Margen derecho del botón flotante. iOS: 0, va en la misma fila que la cápsula. Android y web: 16 (Material 3). Barra de pestañas (TabBar, librería Platforms)."
+          }
+        },
+        "minimized": {
+          "size": {
+            "value": "48px",
+            "type": "dimension",
+            "description": "iOS minimizada: diámetro de la pestaña activa y del botón aparte (kit iOS 27: 40 más el vidrio). Android y web no la usan: la barra se esconde. Barra de pestañas (TabBar, librería Platforms)."
+          },
+          "margin-x": {
+            "value": "0px",
+            "type": "dimension",
+            "description": "iOS minimizada: margen lateral (kit iOS 27). Barra de pestañas (TabBar, librería Platforms)."
+          },
+          "margin-bottom": {
+            "value": "0px",
+            "type": "dimension",
+            "description": "iOS minimizada: aire debajo (kit iOS 27). Barra de pestañas (TabBar, librería Platforms)."
+          }
+        }
+      },
+      "slider": {
+        "height": {
+          "value": "44px",
+          "type": "dimension",
+          "description": "Alto del control (área tocable). iOS: 44. Android: 44, alto de la manija de Material 3. Web: 40. Slider (librería Core)."
+        },
+        "track-height": {
+          "value": "16px",
+          "type": "dimension",
+          "description": "Alto de la pista. iOS: 6 (kit iOS 27). Android: 16, pista de Material 3 Expressive (xsmall). Web: 4. Slider (librería Core)."
+        },
+        "thumb-width": {
+          "value": "4px",
+          "type": "dimension",
+          "description": "Ancho de la perilla. iOS: 38, cápsula del kit iOS 27. Android: 4, la manija vertical de Material 3. Web: 20, círculo. Slider (librería Core)."
+        },
+        "thumb-height": {
+          "value": "44px",
+          "type": "dimension",
+          "description": "Alto de la perilla. iOS: 24. Android: 44. Web: 20. Slider (librería Core)."
+        },
+        "thumb-width-pressed": {
+          "value": "2px",
+          "type": "dimension",
+          "description": "Ancho de la perilla presionada. iOS: 57, crece y pasa a Liquid Glass (kit iOS 27). Android: 2, la manija se afina (Material 3). Web: 24. Slider (librería Core)."
+        },
+        "thumb-height-pressed": {
+          "value": "44px",
+          "type": "dimension",
+          "description": "Alto de la perilla presionada. iOS: 38. Android: 44. Web: 24. Slider (librería Core)."
+        },
+        "thumb-gap": {
+          "value": "6px",
+          "type": "dimension",
+          "description": "Aire entre la manija y la pista a cada lado. Android: 6 (Material 3). iOS y web: 0, la perilla va encima de la pista. Slider (librería Core)."
+        },
+        "stop-size": {
+          "value": "4px",
+          "type": "dimension",
+          "description": "Diámetro de las marcas (stops). 4 en las tres plataformas. Slider (librería Core)."
+        },
+        "gap": {
+          "value": "8px",
+          "type": "dimension",
+          "description": "Separación entre los iconos de mínimo y máximo y la pista. iOS: 12 (kit iOS 27). Android: 8. Web: 12. Slider (librería Core)."
+        }
+      },
+      "sheet": {
+        "floating": {
+          "inset": {
+            "value": "0px",
+            "type": "dimension",
+            "description": "Separación de la hoja a los bordes cuando flota (detent medium). iOS: 6 (kit iOS 27). Android y web: 0. Sheet (librería Platforms)."
+          }
+        },
+        "handle": {
+          "padding-top": {
+            "value": "16px",
+            "type": "dimension",
+            "description": "Aire sobre el asa. iOS: 6 (kit iOS 27). Android y web: 16 (Material 3: encabezado de 36 con el asa al centro). Sheet (librería Platforms)."
+          }
+        },
+        "stack": {
+          "offset": {
+            "value": "0px",
+            "type": "dimension",
+            "description": "Cuánto baja la hoja de adelante sobre la de atrás cuando se apilan (detent stacked). iOS: 10 (kit iOS 27, Large Stacked). Android y web: 0, no apilan: la segunda hoja reemplaza a la primera. Sheet (librería Platforms)."
+          },
+          "inset": {
+            "value": "0px",
+            "type": "dimension",
+            "description": "Cuánto se angosta la hoja de atrás a cada lado cuando se apilan. iOS: 16 (kit iOS 27). Android y web: 0. Sheet (librería Platforms)."
+          }
+        }
+      },
+      "dialog": {
+        "padding": {
+          "value": "24px",
+          "type": "dimension",
+          "description": "Padding de la tarjeta. iOS: 14. Android y web: 24. Dialog (librería Platforms)."
+        },
+        "content-inset": {
+          "value": "0px",
+          "type": "dimension",
+          "description": "Aire extra alrededor del título y el mensaje. iOS: 8 (el texto va más adentro que los botones). Android y web: 0. Dialog (librería Platforms)."
+        }
+      }
+    },
+    "chart": {
+      "marker": {
+        "size": {
+          "sm": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Punto de scatter y marcador de leyenda en su tamaño chico."
+          },
+          "md": {
+            "value": "10px",
+            "type": "dimension",
+            "description": "Marcador de serie sobre la línea, y punto de scatter destacado."
+          }
+        }
+      }
+    },
+    "viewport": {
+      "0": {
+        "value": "0px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 0px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "360": {
+        "value": "360px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 360px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "390": {
+        "value": "390px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 390px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "440": {
+        "value": "440px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 440px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "600": {
+        "value": "600px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 600px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "768": {
+        "value": "768px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 768px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "800": {
+        "value": "800px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 800px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "834": {
+        "value": "834px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 834px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "844": {
+        "value": "844px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 844px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "900": {
+        "value": "900px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 900px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "956": {
+        "value": "956px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 956px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "1024": {
+        "value": "1024px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 1024px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "1080": {
+        "value": "1080px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 1080px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "1194": {
+        "value": "1194px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 1194px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "1440": {
+        "value": "1440px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 1440px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      },
+      "1920": {
+        "value": "1920px",
+        "type": "dimension",
+        "description": "Tamaño de pantalla 1920px. Primitivo: no se bindea directo, se consume a través de viewport/* y breakpoint/min en '4. Layout'."
+      }
+    },
+    "columns": {
+      "4": {
+        "value": "4px",
+        "type": "dimension",
+        "description": "Cantidad de columnas 4. Primitivo: se consume a través de grid/columns en '4. Layout'."
+      },
+      "8": {
+        "value": "8px",
+        "type": "dimension",
+        "description": "Cantidad de columnas 8. Primitivo: se consume a través de grid/columns en '4. Layout'."
+      },
+      "12": {
+        "value": "12px",
+        "type": "dimension",
+        "description": "Cantidad de columnas 12. Primitivo: se consume a través de grid/columns en '4. Layout'."
+      }
+    },
+    "size": {
+      "6": {
+        "value": "6px",
+        "type": "dimension",
+        "description": "Medida del Slider (kits iOS 27 y Material 3)."
+      },
+      "57": {
+        "value": "57px",
+        "type": "dimension",
+        "description": "Medida del Slider (kits iOS 27 y Material 3)."
+      },
+      "58": {
+        "value": "58px",
+        "type": "dimension",
+        "description": "Medida del Slider (kits iOS 27 y Material 3)."
+      },
+      "60": {
+        "value": "60px",
+        "type": "dimension",
+        "description": "Medida del Slider (kits iOS 27 y Material 3)."
+      },
+      "300": {
+        "value": "300px",
+        "type": "dimension"
+      },
+      "312": {
+        "value": "312px",
+        "type": "dimension"
+      }
+    },
+    "border": {
+      "width": {
+        "indicator": {
+          "value": "2px",
+          "type": "dimension",
+          "description": "Grosor de la barra que marca lo elegido: el indicador activo de Tab y el indicador de seleccion de las filas. 2px normal, 3px en alto contraste, igual que el resto de la familia border/width. No usar border/width/focus para esto: foco y seleccion son dos señales distintas y tienen que poder cambiar de grosor por separado. Valor definido en los 4 modos."
+        }
+      }
+    },
+    "breakpoint": {
+      "min": {
+        "value": "0px",
+        "type": "dimension",
+        "description": "Límite inferior del tier, en px/dp: compact 0–599 · regular 600–1023 · expanded ≥1024. Es el contrato para código: la app lee el ancho de ventana (useWindowDimensions) y elige el modo de Layout con estos umbrales. No se bindea en Figma."
+      }
+    },
+    "grid": {
+      "columns": {
+        "value": "4px",
+        "type": "dimension",
+        "description": "Columnas de la grilla del tier: 4 · 8 · 12. Lo consume el grid style grid/layout; en código es el número de columnas del layout de pantalla."
+      }
+    }
+  }
+}

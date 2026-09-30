@@ -1,12 +1,17 @@
-import type { TListItemLeadingContent, TListItemSize } from '@dsm/shared';
-import { IconChevronRight } from '@dsm/web/icons';
+import type { TListItemSize } from '@dsm/shared';
+import { IconChevronRight } from '@dsm/web/icons/arrows';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement, ReactNode } from 'react';
 
 import { PlatformListItem } from './PlatformListItem';
 import type { IPlatformListItemProps, TPlatform } from './PlatformListItem';
 
-const LEADING_CONTENTS: TListItemLeadingContent[] = ['none', 'icon', 'avatar'];
+/** The three shapes of `leading`, as the bridge's two controls express them. */
+const LEADINGS = [
+  { key: 'none', label: 'Sin leading' },
+  { key: 'icon', label: 'Con icono', icon: 'IconUser01' as const },
+  { key: 'avatar', label: 'Con avatar', avatarInitials: 'JG' },
+];
 const SIZES: TListItemSize[] = ['sm', 'md'];
 
 const Column = ({ children }: { children: ReactNode }): ReactElement => (
@@ -29,25 +34,41 @@ const meta = {
   },
   argTypes: {
     label: { control: 'text', table: { category: 'Content' } },
-    leadingContent: {
-      control: 'inline-radio',
-      options: LEADING_CONTENTS,
-      table: { category: 'Appearance', defaultValue: { summary: 'none' } },
+    icon: {
+      control: 'select',
+      options: [undefined, 'IconUser01', 'IconStore', 'IconImage01'],
+      description:
+        'The leading glyph, by export name. The real prop is ' +
+        '`leading: { icon } | { avatar }` — a union, so a row cannot have both, ' +
+        'and a control can only pass strings. Setting this wins over `avatarInitials`.',
+      table: { category: 'Content' },
     },
-    icon: { control: 'select', options: ['user', 'store', 'image'], table: { category: 'Content' } },
-    avatarInitials: { control: 'text', table: { category: 'Content' } },
+    avatarInitials: {
+      control: 'text',
+      description: 'Takes the avatar branch of `leading`. Ignored while `icon` is set.',
+      table: { category: 'Content' },
+    },
     size: {
       control: 'inline-radio',
       options: SIZES,
       table: { category: 'Appearance', defaultValue: { summary: 'md' } },
     },
-    showDescription: { control: 'boolean', table: { category: 'Content', defaultValue: { summary: 'false' } } },
-    description: { control: 'text', table: { category: 'Content' } },
-    showTrailingText: { control: 'boolean', table: { category: 'Content', defaultValue: { summary: 'false' } } },
-    trailingText: { control: 'text', table: { category: 'Content' } },
-    showTrailing: { control: 'boolean', table: { category: 'Content', defaultValue: { summary: 'false' } } },
-    showDivider: { control: 'boolean', table: { category: 'Content', defaultValue: { summary: 'false' } } },
-    isDisabled: { control: 'boolean', table: { category: 'State', defaultValue: { summary: 'false' } } },
+    description: {
+      control: 'text',
+      description: 'Its presence turns the slot on — there is no `showDescription`.',
+      table: { category: 'Content' },
+    },
+    trailingText: {
+      control: 'text',
+      description: 'Its presence turns the slot on — there is no `showTrailingText`.',
+      table: { category: 'Content' },
+    },
+    divider: {
+      control: 'boolean',
+      description: 'The one boolean the contract keeps: a row cannot know it is the last of its group.',
+      table: { category: 'Content', defaultValue: { summary: 'false' } },
+    },
+    disabled: { control: 'boolean', table: { category: 'State', defaultValue: { summary: 'false' } } },
     testID: { table: { disable: true } },
     trailing: { table: { disable: true } },
     onAction: { table: { disable: true } },
@@ -55,17 +76,9 @@ const meta = {
   },
   args: {
     label: 'Título del elemento',
-    leadingContent: 'none',
-    icon: 'user',
-    avatarInitials: 'JG',
     size: 'md',
-    showDescription: false,
-    description: 'Descripción secundaria',
-    showTrailingText: false,
-    trailingText: '$1.250,00',
-    showTrailing: false,
-    showDivider: false,
-    isDisabled: false,
+    divider: false,
+    disabled: false,
   },
   render: (args, { globals }) => (
     <Column>
@@ -85,13 +98,12 @@ export const LeadingContent: TStory = {
     const platform = globals['platform'] as TPlatform;
     return (
       <Column>
-        {LEADING_CONTENTS.map((leadingContent) => (
+        {LEADINGS.map((leading) => (
           <PlatformListItem
-            avatarInitials="JG"
-            icon="user"
-            key={leadingContent}
-            label="Título del elemento"
-            leadingContent={leadingContent}
+            avatarInitials={leading.avatarInitials}
+            icon={leading.icon}
+            key={leading.key}
+            label={leading.label}
             platform={platform}
           />
         ))}
@@ -106,7 +118,7 @@ export const Sizes: TStory = {
     return (
       <Column>
         {SIZES.map((size) => (
-          <PlatformListItem avatarInitials="JG" key={size} label="Título del elemento" leadingContent="avatar" platform={platform} size={size} />
+          <PlatformListItem avatarInitials="JG" key={size} label="Título del elemento" platform={platform} size={size} />
         ))}
       </Column>
     );
@@ -115,9 +127,9 @@ export const Sizes: TStory = {
 
 export const WithDescriptionAndTrailingText: TStory = {
   args: {
-    leadingContent: 'avatar',
-    showDescription: true,
-    showTrailingText: true,
+    avatarInitials: 'JG',
+    description: 'Descripción secundaria',
+    trailingText: '$1.250,00',
   },
 };
 
@@ -127,11 +139,10 @@ export const WithTrailingIcon: TStory = {
     return (
       <Column>
         <PlatformListItem
+          icon="IconUser01"
           label="Ver todos los contactos"
-          leadingContent="icon"
           onAction={() => undefined}
           platform={platform}
-          showTrailing
           trailing={<IconChevronRight color="secondary" size="sm" />}
         />
       </Column>
@@ -144,15 +155,15 @@ export const WithDivider: TStory = {
     const platform = globals['platform'] as TPlatform;
     return (
       <Column>
-        <PlatformListItem label="Envío a Juan García" leadingContent="avatar" avatarInitials="JG" platform={platform} showDivider />
-        <PlatformListItem label="Pago de servicios" leadingContent="avatar" avatarInitials="MP" platform={platform} />
+        <PlatformListItem avatarInitials="JG" divider label="Envío a Juan García" platform={platform} />
+        <PlatformListItem avatarInitials="MP" label="Pago de servicios" platform={platform} />
       </Column>
     );
   },
 };
 
 export const Interactive: TStory = {
-  args: { leadingContent: 'avatar' },
+  args: { avatarInitials: 'JG' },
   render: (args, { globals }) => (
     <Column>
       <PlatformListItem {...args} onAction={() => undefined} platform={globals['platform'] as TPlatform} />
@@ -161,7 +172,7 @@ export const Interactive: TStory = {
 };
 
 export const Disabled: TStory = {
-  args: { leadingContent: 'avatar', isDisabled: true },
+  args: { avatarInitials: 'JG', disabled: true },
   render: (args, { globals }) => (
     <Column>
       <PlatformListItem {...args} onAction={() => undefined} platform={globals['platform'] as TPlatform} />

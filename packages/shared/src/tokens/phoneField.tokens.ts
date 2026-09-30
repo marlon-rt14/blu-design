@@ -2,6 +2,7 @@ import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
 import { fromThemeSources, themeSources } from '../themeSource/themes';
 import type { TThemeSourceKey } from '../themeSource/themes';
 import type { TPhoneFieldSize } from '../types/atoms/phoneField.types';
+import { baseFontFamily } from './theme.tokens';
 
 /** Container colours, keyed by the state that drives them. */
 export interface IPhoneFieldContainerColorTokens {
@@ -222,7 +223,7 @@ const HELPER_LINE_HEIGHT_RATIO = 1.35;
 const LABEL_LETTER_SPACING_RATIO = 0.02;
 
 const readPhoneFieldTokens = (key: TThemeSourceKey): IPhoneFieldTokens => {
-  const { color, dimension, string } = themeSources[key];
+  const { color, dimension } = themeSources[key];
   const fieldAt = (path: string): string =>
     readThemeToken(color, `color.component.phonefield.${path}`);
   const colorAt = (path: string): string => readThemeToken(color, `color.${path}`);
@@ -335,7 +336,7 @@ const readPhoneFieldTokens = (key: TThemeSourceKey): IPhoneFieldTokens => {
         letterSpacing: 0,
       },
     },
-    fontFamily: readThemeToken(string, 'string.platform.font.family'),
+    fontFamily: baseFontFamily,
   };
 };
 

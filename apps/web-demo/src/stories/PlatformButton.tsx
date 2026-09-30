@@ -1,11 +1,10 @@
 import { Button as NativeButton } from '@dsm/mobile';
-import * as MobileIcons from '@dsm/mobile/icons';
 import type { IButtonBaseProps } from '@dsm/shared';
 import { Button as WebButton } from '@dsm/web';
-import * as WebIcons from '@dsm/web/icons';
 import type { ReactElement } from 'react';
 
 import type { TIconExportName } from './iconNames';
+import { NATIVE_ICONS, WEB_ICONS } from './iconRegistry';
 
 /** Which implementation to render. Mirrors the `platform` toolbar global. */
 export type TPlatform = 'web' | 'native';
@@ -59,9 +58,9 @@ export const PlatformButton = ({
     return (
       <NativeButton
         {...props}
-        leadingIcon={leadingIcon ? MobileIcons[leadingIcon] : undefined}
+        leadingIcon={leadingIcon ? NATIVE_ICONS[leadingIcon] : undefined}
         onPress={onAction}
-        trailingIcon={trailingIcon ? MobileIcons[trailingIcon] : undefined}
+        trailingIcon={trailingIcon ? NATIVE_ICONS[trailingIcon] : undefined}
       />
     );
   }
@@ -69,9 +68,9 @@ export const PlatformButton = ({
   return (
     <WebButton
       {...props}
-      leadingIcon={leadingIcon ? WebIcons[leadingIcon] : undefined}
+      leadingIcon={leadingIcon ? WEB_ICONS[leadingIcon] : undefined}
       onClick={onAction}
-      trailingIcon={trailingIcon ? WebIcons[trailingIcon] : undefined}
+      trailingIcon={trailingIcon ? WEB_ICONS[trailingIcon] : undefined}
     />
   );
 };

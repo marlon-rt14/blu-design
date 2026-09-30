@@ -33,7 +33,14 @@ const meta = {
       table: { category: 'Content', defaultValue: { summary: 'initials' } },
     },
     initials: { control: 'text', table: { category: 'Content' } },
-    icon: { control: 'select', options: ['user', 'store', 'image'], table: { category: 'Content' } },
+    icon: {
+      control: 'select',
+      options: ['IconUser01', 'IconStore', 'IconImage01'],
+      description:
+        'The glyph, by export name — the real prop is a `ReactNode`. No default any ' +
+        'more: `icon/user` went with the names.',
+      table: { category: 'Content' },
+    },
     imageUrl: { control: 'text', table: { category: 'Content' } },
     accessibilityLabel: { control: 'text', table: { category: 'Content' } },
     tone: {
@@ -59,7 +66,7 @@ const meta = {
   args: {
     type: 'initials',
     initials: 'JG',
-    icon: 'user',
+    icon: 'IconUser01',
     tone: 'brand',
     size: 'md',
     showRing: false,
@@ -81,7 +88,7 @@ export const Types: TStory = {
     return (
       <Row>
         <PlatformAvatar initials="JG" platform={platform} type="initials" />
-        <PlatformAvatar icon="user" platform={platform} type="icon" />
+        <PlatformAvatar icon="IconUser01" platform={platform} type="icon" />
         <PlatformAvatar imageUrl="https://i.pravatar.cc/160" platform={platform} type="image" />
         <PlatformAvatar imageUrl="https://i.pravatar.cc/160" platform={platform} tone="brand" type="logo" />
       </Row>

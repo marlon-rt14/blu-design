@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 
-import { IconX } from '../../../icons';
+import { IconXClose } from '../../../icons/general';
 import { IconButton } from '../IconButton';
 import { LinkButton } from '../LinkButton';
 import type { ICalloutProps } from './Callout.types';
@@ -21,7 +21,7 @@ import { useCallout } from './useCallout';
  * <Callout
  *   action={{ label: 'Activar cashback', onPress: activate }}
  *   body="Recibe el 2% de tus compras en supermercados, directo en tu estado de cuenta."
- *   icon={<IconCreditCard />}
+ *   icon={<IconCreditCard01 />}
  *   title="Tu tarjeta ahora tiene cashback"
  * />
  * ```
@@ -55,7 +55,7 @@ export const Callout = (props: ICalloutProps): ReactElement => {
         <div style={dismissWrapStyle}>
           <IconButton
             appearance="veil"
-            icon={IconX}
+            icon={IconXClose}
             label={dismissAccessibilityLabel}
             onPress={onDismiss}
             size="xs"

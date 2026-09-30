@@ -13,15 +13,15 @@ import { useIcon } from './useIcon';
  * it is given:
  *
  * ```tsx
- * export const IconTrash = (props: TIconProps) => (
+ * export const IconTrash01 = (props: TIconProps) => (
  *   <Icon {...props}>
  *     <Path d="M3 6H5H21" />
  *   </Icon>
  * );
  * ```
  *
- * That is exactly how the 31 published glyphs in `@dsm/mobile/icons` are built,
- * so most screens never touch this component directly — they use `IconTrash` and
+ * That is exactly how the 1170 published glyphs in `@dsm/mobile/icons/<section>` are built,
+ * so most screens never touch this component directly — they use `IconTrash01` and
  * friends. Reach for it to add artwork the library does not ship.
  *
  * The `viewBox` is fixed at `0 0 24 24`, the grid bDS authors on, and the size is

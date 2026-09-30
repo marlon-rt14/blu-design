@@ -1,15 +1,16 @@
-import type { ISelectOption, TSelectSize } from '@dsm/shared';
+import type { TSelectSize } from '@dsm/shared';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement } from 'react';
 import { useState } from 'react';
 import { useArgs } from 'storybook/preview-api';
 
 import { PlatformSelect } from './PlatformSelect';
+import type { IPlatformSelectOption } from './PlatformSelect';
 import type { IPlatformSelectProps, TPlatform } from './PlatformSelect';
 
 const SIZES: TSelectSize[] = ['sm', 'md', 'lg'];
 
-const COUNTRIES: ISelectOption[] = [
+const COUNTRIES: IPlatformSelectOption[] = [
   { value: 'ec', label: 'Ecuador' },
   { value: 'pe', label: 'Perú' },
   { value: 'co', label: 'Colombia' },
@@ -17,7 +18,7 @@ const COUNTRIES: ISelectOption[] = [
   { value: 'ar', label: 'Argentina' },
 ];
 
-const MANY_COUNTRIES: ISelectOption[] = [
+const MANY_COUNTRIES: IPlatformSelectOption[] = [
   ...COUNTRIES,
   { value: 'cl', label: 'Chile' },
   { value: 'uy', label: 'Uruguay' },
@@ -29,10 +30,10 @@ const MANY_COUNTRIES: ISelectOption[] = [
   { value: 'es', label: 'España' },
 ];
 
-const PAYMENT_METHODS: ISelectOption[] = [
-  { value: 'debit', label: 'Débito', icon: 'credit-card' },
-  { value: 'credit', label: 'Crédito', icon: 'credit-card' },
-  { value: 'transfer', label: 'Transferencia', icon: 'arrow-right' },
+const PAYMENT_METHODS: IPlatformSelectOption[] = [
+  { value: 'debit', label: 'Débito', icon: 'IconCreditCard01' },
+  { value: 'credit', label: 'Crédito', icon: 'IconCreditCard01' },
+  { value: 'transfer', label: 'Transferencia', icon: 'IconArrowRight' },
 ];
 
 const IsolatedSelect = (props: Omit<IPlatformSelectProps, 'onChange'>): ReactElement => {
@@ -64,7 +65,12 @@ const meta = {
       table: { category: 'Appearance', defaultValue: { summary: 'md' } },
     },
     placeholder: { control: 'text', table: { category: 'Content' } },
-    leadingIcon: { control: 'select', options: ['search', 'user', 'store'], table: { category: 'Content' } },
+    leadingIcon: {
+      control: 'select',
+      options: ['IconSearchMd', 'IconUser01', 'IconStore'],
+      description: 'The glyph, by export name — the real prop is a `ReactNode`.',
+      table: { category: 'Content' },
+    },
     helperText: { control: 'text', table: { category: 'Content' } },
     error: { control: 'text', table: { category: 'State' } },
     readOnly: { control: 'boolean', table: { category: 'State', defaultValue: { summary: 'false' } } },
@@ -120,7 +126,7 @@ export const WithLeadingIconAndOptionIcons: TStory = {
   args: {
     label: 'Método de pago',
     options: PAYMENT_METHODS,
-    leadingIcon: 'store',
+    leadingIcon: 'IconStore',
     placeholder: 'Elegí un método',
     helperText: undefined,
   },

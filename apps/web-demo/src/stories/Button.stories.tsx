@@ -283,7 +283,7 @@ export const Icons: TStory = {
             {...args}
             isDisabled
             label="Disabled"
-            leadingIcon="IconTrash"
+            leadingIcon="IconTrash01"
             platform={platform}
           />
         </div>

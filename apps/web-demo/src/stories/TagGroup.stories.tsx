@@ -1,12 +1,13 @@
-import type { ITagGroupItem, TTagSize } from '@dsm/shared';
+import type { TTagSize } from '@dsm/shared';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { PlatformTagGroup } from './PlatformTagGroup';
+import type { IPlatformTagGroupItem } from './PlatformTagGroup';
 import type { IPlatformTagGroupProps, TPlatform } from './PlatformTagGroup';
 
 const SIZES: TTagSize[] = ['sm', 'xs'];
 
-const CITIES: ITagGroupItem[] = [
+const CITIES: IPlatformTagGroupItem[] = [
   { label: 'Quito' },
   { label: 'Manta' },
   { label: 'Cuenca' },
@@ -35,16 +36,19 @@ const meta = {
       options: SIZES,
       table: { category: 'Appearance', defaultValue: { summary: 'sm' } },
     },
-    showOverflow: { control: 'boolean', table: { category: 'Content', defaultValue: { summary: 'false' } } },
-    overflowLabel: { control: 'text', table: { category: 'Content', defaultValue: { summary: '+3' } } },
+    max: {
+      control: 'number',
+      description:
+        'How many tags render before the rest collapse into "+N". The N is ' +
+        'counted, never written — which is why there is no `overflowLabel`.',
+      table: { category: 'Content' },
+    },
     testID: { table: { disable: true } },
     platform: { table: { disable: true } },
   },
   args: {
     tags: CITIES,
     size: 'sm',
-    showOverflow: false,
-    overflowLabel: '+3',
   },
   render: (args, { globals }) => <PlatformTagGroup {...args} platform={globals['platform'] as TPlatform} />,
 } satisfies Meta<IPlatformTagGroupProps>;
@@ -71,8 +75,5 @@ export const Sizes: TStory = {
 export const WithOverflow: TStory = {
   args: {
     tags: CITIES,
-    showOverflow: true,
-    overflowLabel: '+2',
-    overflowAccessibilityLabel: 'Ver 2 ciudades más',
   },
 };

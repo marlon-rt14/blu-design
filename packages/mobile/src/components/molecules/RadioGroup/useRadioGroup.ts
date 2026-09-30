@@ -1,7 +1,7 @@
 import { radioGroupTokens } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { IRadioGroupProps } from './RadioGroup.types';
 
 /** Styles the RadioGroup needs to render. */
@@ -34,13 +34,13 @@ export const useRadioGroup = ({
   return {
     groupStyle: { alignItems: 'flex-start' },
     // See @dsm/mobile's TextField useTextField for why fontWeight never
-    // accompanies fontFamily here — same Android font-resolver constraint.
+    // selects the cut: the family is the system one.
     legendStyle: {
       width: '100%',
       paddingHorizontal: inset,
       paddingBottom: dimension.legendGap,
       color: colors.legend,
-      fontFamily: resolveMulishFontFamily(typography.legend.fontWeight),
+      fontWeight: resolveFontWeight(typography.legend.fontWeight),
       fontSize: typography.legend.fontSize,
       // React Native takes lineHeight in pixels, so the ratio is applied here.
       lineHeight: typography.legend.fontSize * typography.legend.lineHeightRatio,
@@ -52,7 +52,7 @@ export const useRadioGroup = ({
       paddingHorizontal: inset,
       paddingTop: dimension.helperGap,
       color: isInvalid ? colors.helperError : colors.helper,
-      fontFamily: resolveMulishFontFamily(typography.helper.fontWeight),
+      fontWeight: resolveFontWeight(typography.helper.fontWeight),
       fontSize: typography.helper.fontSize,
       lineHeight: typography.helper.fontSize * typography.helper.lineHeightRatio,
     },

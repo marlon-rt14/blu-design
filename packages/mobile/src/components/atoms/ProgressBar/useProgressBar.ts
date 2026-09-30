@@ -1,7 +1,7 @@
 import { progressBarTokens } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { useFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { IProgressBarProps } from './ProgressBar.types';
 
 /** Everything the native ProgressBar needs to render. */
@@ -46,8 +46,8 @@ export const useProgressBar = ({
 }: IProgressBarProps): IUseProgressBarResult => {
   const mode = useThemeMode();
   const { colors, dimension, typography, motion } = progressBarTokens[mode];
-  const labelFont = useFontFamily(typography.label.fontWeight);
-  const valueFont = useFontFamily(typography.value.fontWeight);
+  const labelWeight = resolveFontWeight(typography.label.fontWeight);
+  const valueWeight = resolveFontWeight(typography.value.fontWeight);
 
   const height = dimension.height[size];
   const clamped = Math.min(100, Math.max(0, value));
@@ -92,7 +92,7 @@ export const useProgressBar = ({
     labelStyle: {
       color: colors.label,
       flexShrink: 1,
-      fontFamily: labelFont,
+      fontWeight: labelWeight,
       fontSize: typography.label.fontSize,
       // Pixels, not a ratio: `lineHeight` is a multiplier in CSS and an
       // absolute length on this platform.
@@ -100,7 +100,7 @@ export const useProgressBar = ({
     },
     valueStyle: {
       color: colors.value,
-      fontFamily: valueFont,
+      fontWeight: valueWeight,
       fontSize: typography.value.fontSize,
       lineHeight: typography.value.fontSize * typography.value.lineHeightRatio,
     },

@@ -1,7 +1,7 @@
 import { choiceBoxTokens } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { IChoiceBoxProps } from './ChoiceBox.types';
 
 interface IUseChoiceBoxParams extends IChoiceBoxProps {
@@ -98,14 +98,14 @@ export const useChoiceBox = ({
   };
 
   const titleStyle: StyleProp<TextStyle> = {
-    fontFamily: resolveMulishFontFamily(tokens.typography.title.fontWeight),
+    fontWeight: resolveFontWeight(tokens.typography.title.fontWeight),
     fontSize: tokens.typography.title.fontSize,
     lineHeight: tokens.typography.title.lineHeight,
     color: isDisabled ? tokens.colors.title.disabled : tokens.colors.title.default,
   };
 
   const descriptionStyle: StyleProp<TextStyle> = {
-    fontFamily: resolveMulishFontFamily(tokens.typography.description.fontWeight),
+    fontWeight: resolveFontWeight(tokens.typography.description.fontWeight),
     fontSize: tokens.typography.description.fontSize,
     lineHeight: tokens.typography.description.lineHeight,
     color: isDisabled ? tokens.colors.description.disabled : tokens.colors.description.default,

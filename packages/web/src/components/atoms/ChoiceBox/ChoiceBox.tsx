@@ -2,7 +2,6 @@ import { useState } from 'react';
 import type { FocusEvent, KeyboardEvent, ReactElement } from 'react';
 
 import { Checkbox } from '../Checkbox';
-import { FieldIcon } from '../TextField/FieldIcon';
 import type { IChoiceBoxProps } from './ChoiceBox.types';
 import { useChoiceBox } from './useChoiceBox';
 
@@ -103,14 +102,14 @@ export const ChoiceBox = (props: IChoiceBoxProps): ReactElement => {
         {variant === 'tile' ? (
           <>
             <span style={headerRowStyle}>
-              {displayIcon ? <FieldIcon color={isDisabled ? 'disabled' : 'primary'} name={displayIcon} size="lg" /> : null}
+              {displayIcon}
               {control ? <span style={{ marginInlineStart: 'auto' }}>{control}</span> : null}
             </span>
             {content}
           </>
         ) : (
           <>
-            {displayIcon ? <FieldIcon color={isDisabled ? 'disabled' : 'primary'} name={displayIcon} size="lg" /> : null}
+            {displayIcon}
             {content}
             {control}
           </>

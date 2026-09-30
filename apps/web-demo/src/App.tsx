@@ -3,7 +3,12 @@ import { readThemeToken, themeSources } from "@dsm/shared";
 import type { TButtonAppearance, TButtonSize, TButtonVariant, TIconColor, TIconSize, TPasswordFieldSize, TPasswordStrength } from "@dsm/shared";
 import { useState } from "react";
 
-import { IconAlertTriangle, IconArrowUpRight, IconCheckCircle, IconChevronRight, IconImage, IconPlus, IconSearch, IconTrash } from "@dsm/web/icons";
+import { IconAlertTriangle } from "@dsm/web/icons/alerts-feedback";
+import { IconArrowUpRight, IconChevronRight } from "@dsm/web/icons/arrows";
+import { IconCheckCircle, IconInfoCircle, IconPlus, IconSearchMd, IconTrash01 } from "@dsm/web/icons/general";
+import { IconLock01 } from "@dsm/web/icons/security";
+import { IconUser01 } from "@dsm/web/icons/users";
+import { IconImage01 } from "@dsm/web/icons/images";
 import "./App.css";
 
 // Un numero real por marca, para que el selector cambie EL NUMERO y no la
@@ -72,9 +77,9 @@ const FilasSobreSuperficie = ({ onPress }: { onPress: () => void }) => {
       {filas.map(([appearance, fondo]) => (
         <div key={appearance} style={{ alignItems: "center", background: fondo, borderRadius: 8, display: "flex", gap: 12, padding: 12 }}>
           {(["sm", "md", "lg"] as const).map((size) => (
-            <IconButton appearance={appearance} icon={IconTrash} key={size} label="Eliminar" onPress={onPress} size={size} testID={`ib-${appearance}-${size}`} />
+            <IconButton appearance={appearance} icon={IconTrash01} key={size} label="Eliminar" onPress={onPress} size={size} testID={`ib-${appearance}-${size}`} />
           ))}
-          <IconButton appearance={appearance} disabled icon={IconTrash} label="Eliminar" onPress={() => {}} testID={`ib-${appearance}-disabled`} />
+          <IconButton appearance={appearance} disabled icon={IconTrash01} label="Eliminar" onPress={() => {}} testID={`ib-${appearance}-disabled`} />
         </div>
       ))}
     </div>
@@ -200,7 +205,7 @@ const App = () => {
                 <Button key={size} label={size} leadingIcon={IconPlus} onClick={handleClick} size={size} testID={`button-${variant}-icon-${size}`} trailingIcon={IconChevronRight} variant={variant} />
               ))}
               <Button label="Salir" onClick={handleClick} testID={`button-${variant}-trailing`} trailingIcon={IconArrowUpRight} variant={variant} />
-              <Button isDisabled label="disabled" leadingIcon={IconTrash} onClick={handleClick} testID={`button-${variant}-icon-disabled`} variant={variant} />
+              <Button isDisabled label="disabled" leadingIcon={IconTrash01} onClick={handleClick} testID={`button-${variant}-icon-disabled`} variant={variant} />
             </div>
           </section>
         ))}
@@ -208,14 +213,14 @@ const App = () => {
         <section className="demo__section">
           <h2 className="demo__section-title">Icon</h2>
           <p className="demo__subtitle">
-            El envoltorio por el que pasa todo icono del sistema. Los 31 glifos de bDS salen ya montados de <code>@dsm/web/icons</code>: <code>&lt;IconTrash size="lg" color="danger" /&gt;</code>. Cada uno es un <code>Icon</code> con sus paths adentro, así que fija la caja desde <code>size/icon/*</code> y resuelve el color del tema.
+            El envoltorio por el que pasa todo icono del sistema. Los 31 glifos de bDS salen ya montados de <code>@dsm/web/icons</code>: <code>&lt;IconTrash01 size="lg" color="danger" /&gt;</code>. Cada uno es un <code>Icon</code> con sus paths adentro, así que fija la caja desde <code>size/icon/*</code> y resuelve el color del tema.
           </p>
 
           {/* Los 6 pasos. El label es el valor que resuelve el token, no un width escrito a mano. */}
           <div className="demo__row" style={{ alignItems: "flex-end", gap: 24 }}>
             {ICON_SIZES.map(([size, px]) => (
               <div key={size} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
-                <IconImage size={size} testID={`icon-size-${size}`} />
+                <IconImage01 size={size} testID={`icon-size-${size}`} />
                 <span style={{ fontSize: 12, opacity: 0.65 }}>
                   {size} · {px}px
                 </span>
@@ -233,7 +238,7 @@ const App = () => {
               <span key={color} style={{ color, display: "inline-flex", alignItems: "center", gap: 8, fontSize: 14 }}>
                 <IconPlus size="md" />
                 hereda {color}
-                <IconTrash size="md" />
+                <IconTrash01 size="md" />
               </span>
             ))}
           </div>
@@ -254,11 +259,11 @@ const App = () => {
             {(
               [
                 ["plus", IconPlus],
-                ["search", IconSearch],
-                ["trash", IconTrash],
+                ["search", IconSearchMd],
+                ["trash", IconTrash01],
                 ["check-circle", IconCheckCircle],
                 ["alert-triangle", IconAlertTriangle],
-                ["image", IconImage],
+                ["image", IconImage01],
               ] as const
             ).map(([name, IconComponent]) => (
               <div key={name} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
@@ -585,22 +590,22 @@ const App = () => {
               filete, y una linea dibujada por el grupo no podria saberlo. */}
           <div style={{ display: "flex", flexDirection: "column", gap: 24, maxWidth: 375 }}>
             <ListGroup header="Hoy" testID="listgroup-hoy">
-              <ListItem description="Hoy, 10:24" label="Transferencia a Ana" showDescription showTrailingText trailingText="$1.250,00" />
-              <ListItem description="Hoy, 09:02" label="Pago de servicios" showDescription showTrailingText trailingText="$320,00" />
-              <ListItem description="Ayer, 18:41" label="Recarga de celular" showDescription showTrailingText trailingText="$15,00" />
+              <ListItem description="Hoy, 10:24" label="Transferencia a Ana" trailingText="$1.250,00" />
+              <ListItem description="Hoy, 09:02" label="Pago de servicios" trailingText="$320,00" />
+              <ListItem description="Ayer, 18:41" label="Recarga de celular" trailingText="$15,00" />
             </ListGroup>
             {/* El encabezado no existe en Figma: esta en la firma del contrato
                 y no en el archivo. Se implementa leyendo la capa semantica y va
                 arriba de la tarjeta; las dos son decisiones, no mediciones. */}
             <ListGroup testID="listgroup-ajustes">
-              <ListItem icon="user" label="Datos personales" leadingContent="icon" />
-              <ListItem icon="lock" label="Seguridad" leadingContent="icon" />
-              <ListItem icon="info" label="Ayuda" leadingContent="icon" />
+              <ListItem leading={{ icon: <IconUser01 size="md" /> }} label="Datos personales" />
+              <ListItem leading={{ icon: <IconLock01 size="md" /> }} label="Seguridad" />
+              <ListItem leading={{ icon: <IconInfoCircle size="md" /> }} label="Ayuda" />
             </ListGroup>
             {/* Con una sola fila el divisor se apaga, porque esa fila tambien
                 es la ultima. */}
             <ListGroup header="Una sola fila" testID="listgroup-una">
-              <ListItem description="Hoy, 10:24" label="Transferencia a Ana" showDescription showTrailingText trailingText="$1.250,00" />
+              <ListItem description="Hoy, 10:24" label="Transferencia a Ana" trailingText="$1.250,00" />
             </ListGroup>
           </div>
         </section>
@@ -711,9 +716,9 @@ const App = () => {
               <div key={appearance} style={{ alignItems: "center", display: "flex", gap: 12 }}>
                 <span className="demo__counter">{appearance}</span>
                 {(["xs", "sm", "md", "lg"] as const).map((size) => (
-                  <IconButton appearance={appearance} icon={IconTrash} key={size} label="Eliminar" onPress={() => setClicks((n) => n + 1)} size={size} testID={`ib-${appearance}-${size}`} />
+                  <IconButton appearance={appearance} icon={IconTrash01} key={size} label="Eliminar" onPress={() => setClicks((n) => n + 1)} size={size} testID={`ib-${appearance}-${size}`} />
                 ))}
-                <IconButton appearance={appearance} disabled icon={IconTrash} label="Eliminar" onPress={() => {}} testID={`ib-${appearance}-disabled`} />
+                <IconButton appearance={appearance} disabled icon={IconTrash01} label="Eliminar" onPress={() => {}} testID={`ib-${appearance}-disabled`} />
               </div>
             ))}
           </div>

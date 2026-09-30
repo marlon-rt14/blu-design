@@ -2,7 +2,7 @@ import { buttonTokens } from '@dsm/shared';
 import type { IButtonSurfaceColorTokens, TButtonState, TIconSize, TTokensOf } from '@dsm/shared';
 import type { Insets, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { IButtonProps } from './Button.types';
 
 /** Params of {@link useButton}: the Button props plus the live interaction state. */
@@ -156,9 +156,9 @@ export const useButton = ({
   };
 
   // See @dsm/mobile's TextField useTextField for why fontWeight never
-  // accompanies fontFamily here — same Android font-resolver constraint.
+  // selects the cut: the family is the system one.
   const labelStyle: StyleProp<TextStyle> = {
-    fontFamily: resolveMulishFontFamily(tokens.typography.fontWeight),
+    fontWeight: resolveFontWeight(tokens.typography.fontWeight),
     fontSize: tokens.typography.fontSize[size],
     color: isDisabled ? surface.labelDisabled : surface.label,
   };

@@ -1,4 +1,5 @@
-import type { TIconName } from './icon.types';
+import type { ReactNode } from 'react';
+
 import type { TAvatarStatus } from './avatarIndicator.types';
 
 /**
@@ -53,8 +54,27 @@ export interface IAvatarBaseProps {
   type?: TAvatarType;
   /** Shown when `type='initials'`. Two letters is the practical maximum. */
   initials?: string;
-  /** Glyph shown when `type='icon'` (or as the final fallback). @defaultValue `'user'` */
-  icon?: TIconName;
+  /**
+   * Glyph shown when `type='icon'`, and the final fallback when `initials` is
+   * missing too.
+   *
+   * **A node, not a name**, which costs the default: `icon/user` used to stand
+   * in, and an avatar with `type='icon'` and nothing here now renders an empty
+   * shape. The glyph scales with `component/avatar/size/glyph/*`, so size it to
+   * the avatar.
+   *
+   * **Size it to the avatar, one step for one step** — `size="md"` avatar,
+   * `size="md"` glyph. That is what the component applied before this became a
+   * node, and it is not a clean fit: the avatar's own scale is
+   * `component/avatar/size/glyph/*` = 12 · 16 · 20 · 28 and `size/icon/*` has
+   * no 20 or 28, so `md` and `lg` overshoot to 24 and 32. Nothing in the ramp
+   * is closer.
+   *
+   * ```tsx
+   * <Avatar icon={<IconUser01 size="md" />} type="icon" />
+   * ```
+   */
+  icon?: ReactNode;
   /** Image source for `type='image'` (a photo, cover-fit) or `type='logo'` (fit, inside a square). */
   imageUrl?: string;
   /** Describes who/what the avatar represents, for assistive tech. */

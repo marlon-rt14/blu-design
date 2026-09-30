@@ -3,7 +3,7 @@ import type { FocusEvent, ReactElement } from 'react';
 
 import { useCheckbox } from '../../atoms/Checkbox/useCheckbox';
 import { useRadio } from '../../atoms/Radio/useRadio';
-import { IconCheck, IconMinus } from '../../../icons';
+import { IconCheck, IconMinus } from '../../../icons/general';
 import type { IChoiceItemProps } from './ChoiceItem.types';
 import { useChoiceItem } from './useChoiceItem';
 

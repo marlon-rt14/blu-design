@@ -8,20 +8,22 @@ import type { IPlatformTab, IPlatformTabsProps, TPlatform } from './PlatformTabs
 const SIZES: TTabSize[] = ['md', 'lg'];
 const LAYOUTS: TTabsLayout[] = ['scrollable', 'fitted'];
 
-const DEFAULT_ITEMS: IPlatformTab[] = [{ label: 'Tab 1' }, { label: 'Tab 2' }, { label: 'Tab 3' }];
+const THREE: IPlatformTab[] = [
+  { key: 'one', label: 'Tab 1' },
+  { key: 'two', label: 'Tab 2' },
+  { key: 'three', label: 'Tab 3' },
+];
 
 const FIVE: IPlatformTab[] = [
-  { label: 'Tab 1' },
-  { label: 'Tab 2' },
-  { label: 'Tab 3' },
-  { label: 'Tab 4' },
-  { label: 'Tab 5' },
+  ...THREE,
+  { key: 'four', label: 'Tab 4' },
+  { key: 'five', label: 'Tab 5' },
 ];
 
 const BANDEJA: IPlatformTab[] = [
-  { label: 'Bandeja', showLeadingIcon: true },
-  { label: 'Pendientes', showBadge: true, badge: '9' },
-  { label: 'Enviados' },
+  { key: 'bandeja', label: 'Bandeja', leadingIcon: 'IconInbox01' },
+  { key: 'pendientes', label: 'Pendientes', badge: 9 },
+  { key: 'enviados', label: 'Enviados' },
 ];
 
 const meta = {
@@ -32,12 +34,14 @@ const meta = {
     docs: {
       description: {
         component:
-          'The tab **bar**: 2–6 TabItems plus the bottom divider the selected indicator ' +
-          'sits on. `layout` is scrollable (default, each tab hugs its label) or fitted ' +
-          '(equal split; indicator still hugs content). Figma\'s `showItem3`–`showItem6` ' +
-          'are not an API — pass children. `showDivider` is independent, default true. ' +
-          'Canvas 375 is Figma\'s frame, not a code max-width. No TabPanel. Arrow keys move ' +
-          'between tabs; Tab leaves the bar.',
+          'The tab **bar**, and the page\'s only public component: the tabs are data in ' +
+          '`tabs`, not children, and `TabItem` is internal. The selection is not marked ' +
+          'tab by tab either — there is one `value` holding the active `key`, which is why ' +
+          'two active tabs is not a state this API can express. `layout` is scrollable ' +
+          '(default, each tab hugs its label) or fitted (equal split; the indicator still ' +
+          'hugs the content). `divider` is independent, default true. Canvas 375 is Figma\'s ' +
+          'frame, not a code max-width. No TabPanel. Arrow keys move between tabs; Tab ' +
+          'leaves the bar.',
       },
     },
   },
@@ -50,28 +54,28 @@ const meta = {
     size: {
       control: 'inline-radio',
       options: SIZES,
-      description: 'Must match the TabItems inside.',
+      description: 'Propagates to every tab.',
       table: { category: 'Appearance', defaultValue: { summary: 'lg' } },
     },
-    showDivider: {
+    divider: {
       control: 'boolean',
+      description: 'The line under the bar — also the one the indicator sits on.',
       table: { category: 'Appearance', defaultValue: { summary: 'true' } },
     },
-    items: { table: { disable: true } },
-    selected: { table: { disable: true } },
-    onSelect: { table: { disable: true } },
+    tabs: { table: { disable: true } },
+    value: { table: { disable: true } },
+    onChange: { table: { disable: true } },
     platform: { table: { disable: true } },
   },
-  args: {},
+  args: { tabs: THREE, value: 'one', onChange: () => undefined },
   render: function Render(args, { globals }) {
-    const [selected, setSelected] = useState(DEFAULT_ITEMS[0]?.label);
+    const [value, setValue] = useState('one');
     return (
       <PlatformTabs
         {...args}
-        items={DEFAULT_ITEMS}
-        onSelect={setSelected}
+        onChange={setValue}
         platform={globals.platform as TPlatform}
-        selected={selected}
+        value={value}
       />
     );
   },
@@ -83,7 +87,7 @@ type TStory = StoryObj<typeof meta>;
 /** Every prop editable from the controls panel. First tab selected. */
 export const Playground: TStory = {};
 
-/** Fitted splits the width equally. Indicator still hugs each label. */
+/** Fitted splits the width equally. The indicator still hugs each label. */
 export const Fitted: TStory = {
   args: { layout: 'fitted' },
 };
@@ -91,18 +95,17 @@ export const Fitted: TStory = {
 /** Both sizes. Height follows `size/control/height/{md,lg}`. */
 export const Sizes: TStory = {
   render: function Render(args, { globals }) {
-    const [selected, setSelected] = useState('Tab 1');
+    const [value, setValue] = useState('one');
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
         {SIZES.map((size) => (
           <PlatformTabs
             {...args}
             key={size}
-            items={DEFAULT_ITEMS}
-            onSelect={setSelected}
+            onChange={setValue}
             platform={globals.platform as TPlatform}
-            selected={selected}
             size={size}
+            value={value}
           />
         ))}
       </div>
@@ -110,60 +113,39 @@ export const Sizes: TStory = {
   },
 };
 
-/** `showDivider` is independent. Off leaves only the selected indicator. */
+/** `divider` is independent. Off leaves only the selected indicator. */
 export const WithoutDivider: TStory = {
-  args: { showDivider: false },
+  args: { divider: false },
 };
 
-/** Five items. Figma caps the master at 6; code uses children. */
-export const FiveItems: TStory = {
-  render: function Render(args, { globals }) {
-    const [selected, setSelected] = useState(FIVE[0]?.label);
-    return (
-      <PlatformTabs
-        {...args}
-        items={FIVE}
-        onSelect={setSelected}
-        platform={globals.platform as TPlatform}
-        selected={selected}
-      />
-    );
-  },
+/** Five tabs. Figma caps the master at six; the array has no such limit. */
+export const FiveTabs: TStory = {
+  args: { tabs: FIVE },
 };
 
-/** Live example `97:18871`: Bandeja (icon + selected), Pendientes + badge 9, Enviados. */
+/**
+ * Live example `97:18871`: Bandeja with a glyph, Pendientes with a badge of 9,
+ * Enviados plain. The badge is a **number** — it is a count, and the component
+ * formats it.
+ */
 export const WithIconAndBadge: TStory = {
+  args: { tabs: BANDEJA, value: 'bandeja' },
   render: function Render(args, { globals }) {
-    const [selected, setSelected] = useState(BANDEJA[0]?.label);
+    const [value, setValue] = useState('bandeja');
     return (
       <PlatformTabs
         {...args}
-        items={BANDEJA}
-        onSelect={setSelected}
+        onChange={setValue}
         platform={globals.platform as TPlatform}
-        selected={selected}
+        value={value}
       />
     );
   },
 };
 
-/** A disabled tab is skipped by the arrow keys. */
+/** A disabled tab stays in the reading order and is skipped by the arrow keys. */
 export const WithDisabled: TStory = {
-  render: function Render(args, { globals }) {
-    const items: IPlatformTab[] = [
-      { label: 'Tab 1' },
-      { label: 'Tab 2', isDisabled: true },
-      { label: 'Tab 3' },
-    ];
-    const [selected, setSelected] = useState(items[0]?.label);
-    return (
-      <PlatformTabs
-        {...args}
-        items={items}
-        onSelect={setSelected}
-        platform={globals.platform as TPlatform}
-        selected={selected}
-      />
-    );
+  args: {
+    tabs: [THREE[0]!, { key: 'two', label: 'Tab 2', disabled: true }, THREE[2]!],
   },
 };

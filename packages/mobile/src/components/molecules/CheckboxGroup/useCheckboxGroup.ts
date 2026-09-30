@@ -1,7 +1,7 @@
 import { checkboxGroupTokens } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { ICheckboxGroupProps } from './CheckboxGroup.types';
 
 /** Styles the CheckboxGroup needs to render. */
@@ -22,7 +22,7 @@ interface IUseCheckboxGroupResult {
  * the helper text.
  *
  * Do not set `fontWeight` next to `fontFamily` — Android would look for a
- * suffixed Mulish file and fall back to the system font.
+ * suffixed face that does not exist and fall back to the system font.
  */
 export const useCheckboxGroup = ({
   size = 'sm',
@@ -39,7 +39,7 @@ export const useCheckboxGroup = ({
       paddingHorizontal: inset,
       paddingBottom: dimension.legendGap,
       color: colors.legend,
-      fontFamily: resolveMulishFontFamily(typography.legend.fontWeight),
+      fontWeight: resolveFontWeight(typography.legend.fontWeight),
       fontSize: typography.legend.fontSize,
       lineHeight: typography.legend.fontSize * typography.legend.lineHeightRatio,
       letterSpacing: typography.legend.letterSpacing,
@@ -50,7 +50,7 @@ export const useCheckboxGroup = ({
       paddingHorizontal: inset,
       paddingTop: dimension.helperGap,
       color: isInvalid ? colors.helperError : colors.helper,
-      fontFamily: resolveMulishFontFamily(typography.helper.fontWeight),
+      fontWeight: resolveFontWeight(typography.helper.fontWeight),
       fontSize: typography.helper.fontSize,
       lineHeight: typography.helper.fontSize * typography.helper.lineHeightRatio,
     },

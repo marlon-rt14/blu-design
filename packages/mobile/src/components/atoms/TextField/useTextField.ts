@@ -1,7 +1,7 @@
 import { textFieldTokens } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { ITextFieldProps } from './TextField.types';
 
 /** Params of {@link useTextField}: the TextField props plus the live focus state. */
@@ -39,18 +39,18 @@ interface IUseTextFieldResult {
   isDisabled: boolean;
   /** Normalized read-only flag, safe to hand straight to `TextInput`'s `editable`. */
   isReadOnly: boolean;
-  /** `true` when `isInvalid` or `errorMessage` is set. Drives the error-state footer announcement. */
+  /** `true` when `error` is set. Drives the error-state footer announcement. */
   isInvalid: boolean;
   /**
    * Whether to render the floating `label` element above the value. `label`
-   * only ever floats once there's a value, and never at `size='small'` — see
+   * only ever floats once there's a value, and never at `size='sm'` — see
    * `TTextFieldSize`. When this is `false`, `label` is `TextInput`'s
    * `placeholder` instead.
    */
   showFloatingLabel: boolean;
-  /** `errorMessage` or `helperText` when `showHelper` is `true` and either is set; `undefined` otherwise. */
+  /** `error` if set, else `helperText`; `undefined` when neither is. */
   displayedHelperText: string | undefined;
-  /** `"n / max"` when `showCounter` is `true` and `maxLength` is set; `undefined` otherwise. */
+  /** `"n / max"` when `counter` was passed; `undefined` otherwise. */
   counterText: string | undefined;
 }
 
@@ -71,25 +71,24 @@ const FLOATING_LABEL_LETTER_SPACING = 0.24;
  * @returns The resolved styles, normalized flags, and the text to render below the field.
  */
 export const useTextField = ({
-  size = 'medium',
-  isDisabled = false,
-  isReadOnly = false,
-  isInvalid = false,
-  errorMessage,
+  size = 'md',
+  disabled = false,
+  readOnly = false,
+  error,
   helperText,
-  showHelper = false,
-  showCounter = false,
+  counter,
   value,
-  maxLength,
   isFocused,
 }: IUseTextFieldParams): IUseTextFieldResult => {
   const mode = useThemeMode();
   const tokens = textFieldTokens[mode];
   const colors = tokens.colors;
   const sizeTokens = tokens.sizes[size];
-  const hasError = isInvalid || Boolean(errorMessage);
+  const isDisabled = disabled;
+  const isReadOnly = readOnly;
+  const hasError = error !== undefined;
   const hasValue = value.length > 0;
-  const showFloatingLabel = hasValue && size !== 'small';
+  const showFloatingLabel = hasValue && size !== 'sm';
 
   // Focus never recolors the container's own border — Figma's "focus" variant
   // keeps `border-default` and draws a separate ring outside the box instead
@@ -159,7 +158,7 @@ export const useTextField = ({
 
   const affixColor = isDisabled ? colors.affix.disabled : colors.affix.default;
   const affixStyle: StyleProp<TextStyle> = {
-    fontFamily: resolveMulishFontFamily(tokens.typography.content.fontWeight),
+    fontWeight: resolveFontWeight(tokens.typography.content.fontWeight),
     fontSize: tokens.typography.content.fontSize,
     lineHeight: tokens.typography.content.lineHeight,
     color: affixColor,
@@ -173,23 +172,23 @@ export const useTextField = ({
     justifyContent: 'center',
   };
 
-  // No numeric `fontWeight` alongside `fontFamily`: each Mulish-*.ttf is
+  // No numeric `fontWeight` alongside `fontFamily`: each face is
   // already a single static weight (see theme/font.ts), and Android's font
   // resolver tries to append a "_bold"/"_italic" suffix onto the filename
   // when `fontWeight`/`fontStyle` is set, which would look for a file like
-  // "Mulish-SemiBold_bold.ttf" that doesn't exist and silently fall back to
+  // "SFProText-Semibold_bold" that doesn't exist and silently fall back to
   // the system font. The weight is already baked into which file we picked.
   const inputStyle: StyleProp<TextStyle> = {
     flex: 1,
     minWidth: 0,
-    fontFamily: resolveMulishFontFamily(tokens.typography.content.fontWeight),
+    fontWeight: resolveFontWeight(tokens.typography.content.fontWeight),
     fontSize: tokens.typography.content.fontSize,
     lineHeight: tokens.typography.content.lineHeight,
     color: valueColor,
   };
 
   const labelStyle: StyleProp<TextStyle> = {
-    fontFamily: resolveMulishFontFamily(tokens.typography.label.fontWeight),
+    fontWeight: resolveFontWeight(tokens.typography.label.fontWeight),
     fontSize: tokens.typography.label.fontSize,
     lineHeight: tokens.typography.label.lineHeight,
     letterSpacing: FLOATING_LABEL_LETTER_SPACING,
@@ -204,7 +203,7 @@ export const useTextField = ({
   const helperStyle: StyleProp<TextStyle> = {
     flex: 1,
     paddingTop: tokens.dimension.footerSlotGap,
-    fontFamily: resolveMulishFontFamily(tokens.typography.helper.fontWeight),
+    fontWeight: resolveFontWeight(tokens.typography.helper.fontWeight),
     fontSize: tokens.typography.helper.fontSize,
     lineHeight: tokens.typography.helper.lineHeight,
     color: helperColor,
@@ -218,7 +217,7 @@ export const useTextField = ({
   const counterStyle: StyleProp<TextStyle> = {
     paddingTop: tokens.dimension.footerSlotGap,
     paddingLeft: tokens.dimension.footerInlineGap,
-    fontFamily: resolveMulishFontFamily(tokens.typography.counter.fontWeight),
+    fontWeight: resolveFontWeight(tokens.typography.counter.fontWeight),
     fontSize: tokens.typography.counter.fontSize,
     lineHeight: tokens.typography.counter.lineHeight,
     color: counterColor,
@@ -243,7 +242,9 @@ export const useTextField = ({
     isReadOnly,
     isInvalid: hasError,
     showFloatingLabel,
-    displayedHelperText: showHelper ? errorMessage ?? helperText : undefined,
-    counterText: showCounter && maxLength !== undefined ? `${value.length} / ${maxLength}` : undefined,
+    // Presence is the switch, not a boolean: the error message replaces the
+    // helper while it is set, and the counter exists only if it was passed.
+    displayedHelperText: error ?? helperText,
+    counterText: counter === undefined ? undefined : `${counter.current} / ${counter.max}`,
   };
 };

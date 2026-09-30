@@ -3,12 +3,30 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement, ReactNode } from 'react';
 import { useState } from 'react';
 
-import { ICON_NAMES, toFigmaName } from './iconNames';
+import { ICON_NAMES } from './iconNames';
 import { PlatformTextField } from './PlatformTextField';
 import type { IPlatformTextFieldProps, TPlatform } from './PlatformTextField';
 
-const SIZES: TTextFieldSize[] = ['small', 'medium', 'large'];
-const GLYPHS = ICON_NAMES.map((name) => toFigmaName(name).replace(/^icon\//, ''));
+const SIZES: TTextFieldSize[] = ['sm', 'md', 'lg'];
+
+/**
+ * The glyphs the affix controls offer — by export name, since that is what the
+ * bridge resolves. All 1170 in one `select` is unusable, so this is the handful
+ * a field actually reaches for; `ICON_NAMES` is still the source of truth for
+ * the gallery.
+ */
+const GLYPHS = ICON_NAMES.filter((name) =>
+  [
+    'IconSearchMd',
+    'IconImage01',
+    'IconXClose',
+    'IconXCircle',
+    'IconEye',
+    'IconEyeOff',
+    'IconLock01',
+    'IconCreditCard01',
+  ].includes(name),
+);
 
 /** Lays several fields out in a column, so labels and helper text stay readable. */
 const Column = ({ children }: { children: ReactNode }): ReactElement => (
@@ -23,7 +41,7 @@ const Column = ({ children }: { children: ReactNode }): ReactElement => (
  */
 const ControlledPlatformTextField = (props: IPlatformTextFieldProps): ReactElement => {
   const [value, setValue] = useState(props.value);
-  return <PlatformTextField {...props} value={value} onValueChange={setValue} />;
+  return <PlatformTextField {...props} onChangeText={setValue} value={value} />;
 };
 
 /**
@@ -42,12 +60,14 @@ const meta = {
     docs: {
       description: {
         component:
-          'Use the **Platform** dropdown to switch between the React implementation ' +
-          '(`@dsm/web`) and the React Native one (`@dsm/mobile`), and the **Theme** ' +
-          'dropdown to preview light and dark. Both implementations take the same ' +
-          'props and read the same `theme/base` (light) and `theme/dark` token export ' +
-          'from `@dsm/shared` — web through CSS custom properties, mobile through ' +
-          '`useThemeMode()`.',
+          'The pattern every field in the file follows, which is why this one is worth ' +
+          'reading first. **Nothing here is a visibility boolean**: Figma has six ' +
+          '(`showLeadingIcon`, `showLeadingText`, `showTrailingIcon`, `showTrailingText`, ' +
+          '`showHelper`, `showCounter`) and none survive — the presence of the content is ' +
+          'the switch. `isFilled` is derived from `value`, and `validation` became `error`: ' +
+          'if there is a message, the field is in error, because *"el error lo comunica el ' +
+          'mensaje, no el color"*. Use the **Platform** dropdown to switch between ' +
+          '`@dsm/web` and `@dsm/mobile`, and **Theme** to preview light and dark.',
       },
     },
   },
@@ -56,99 +76,80 @@ const meta = {
     label: {
       control: 'text',
       description:
-        'Acts as the placeholder while the field is empty, and floats above the value once ' +
-        "there is one — except at `size='small'`, where it never floats. There is no " +
-        'separate `placeholder` prop.',
+        'Required — it is the accessible name. Acts as the placeholder while the field is ' +
+        "empty and floats to the edge once there is a value, except at `size='sm'`, where " +
+        'it never floats.',
       table: { category: 'Content' },
     },
-    // --- Affixes: prefix/suffix text and icon slots -------------------------
-    prefix: {
+    placeholder: {
       control: 'text',
-      description: 'Text rendered before the value, when `showPrefixText` is `true`.',
-      table: { category: 'Affixes' },
-    },
-    showPrefixText: {
-      control: 'boolean',
-      description: 'Whether `prefix` renders.',
-      table: { category: 'Affixes', defaultValue: { summary: 'false' } },
-    },
-    showPrefixIcon: {
-      control: 'boolean',
-      description: 'Whether the prefix Icon renders. Gated independently of `prefix` / `showPrefixText`.',
-      table: { category: 'Affixes', defaultValue: { summary: 'false' } },
-    },
-    prefixIcon: {
-      control: 'select',
-      options: GLYPHS,
       description:
-        'InstanceSwap glyph (`TIconName`). Renders `IconSearch`, `IconImage`, … from `@dsm/{web,mobile}/icons`. Default `search`.',
-      table: { category: 'Affixes', defaultValue: { summary: 'search' } },
+        'Shown in the value\'s place only once the label has floated. **Does not exist in ' +
+        'Figma** — there the placeholder and the value are the same text node.',
+      table: { category: 'Content' },
     },
-    suffix: {
+    // --- Affixes: leading/trailing text and icon slots ----------------------
+    leadingText: {
       control: 'text',
-      description: 'Text rendered after the value, when `showSuffixText` is `true`.',
+      description:
+        'A symbol or prefix: `$`, `+593`. Its presence turns the slot on, and it does not ' +
+        'coexist with `leadingIcon` — the contract leaves open that this ought to be a ' +
+        'union rather than two optionals.',
       table: { category: 'Affixes' },
     },
-    showSuffixText: {
-      control: 'boolean',
-      description: 'Whether `suffix` renders.',
-      table: { category: 'Affixes', defaultValue: { summary: 'false' } },
-    },
-    showSuffixIcon: {
-      control: 'boolean',
-      description: 'Whether the suffix Icon renders — independent of `suffix` / `showSuffixText`.',
-      table: { category: 'Affixes', defaultValue: { summary: 'false' } },
-    },
-    suffixIcon: {
+    leadingIcon: {
       control: 'select',
-      options: GLYPHS,
-      description: 'InstanceSwap glyph for the suffix slot — same contract as `prefixIcon`.',
-      table: { category: 'Affixes', defaultValue: { summary: 'search' } },
+      options: [undefined, ...GLYPHS],
+      description:
+        'The leading glyph, **by export name** — the real prop is a `ReactNode` the caller ' +
+        "imports from its section. No default any more: Figma's `icon/search` went with " +
+        'the names.',
+      table: { category: 'Affixes' },
     },
-    // --- Feedback: helper text, error state and the character counter ------
+    trailingText: {
+      control: 'text',
+      description: 'A unit: `USD`, `kg`. Its presence turns the slot on.',
+      table: { category: 'Affixes' },
+    },
+    trailingIcon: {
+      control: 'select',
+      options: [undefined, ...GLYPHS],
+      description: 'Same contract as `leadingIcon`.',
+      table: { category: 'Affixes' },
+    },
+    // --- Footer -------------------------------------------------------------
     helperText: {
       control: 'text',
-      description: 'Rendered below the field when `showHelper` is `true`. Ignored while `errorMessage` is set.',
-      table: { category: 'Feedback' },
+      description: 'Its presence renders the helper line. Replaced by `error` while that is set.',
+      table: { category: 'Footer' },
     },
-    showHelper: {
-      control: 'boolean',
-      description: 'Whether `helperText` / `errorMessage` renders at all — independent of either being set.',
-      table: { category: 'Feedback', defaultValue: { summary: 'false' } },
-    },
-    errorMessage: {
+    error: {
       control: 'text',
-      description: 'Rendered below the field instead of `helperText` (when `showHelper` is `true`), styled as an error.',
-      table: { category: 'Feedback' },
+      description:
+        '**Its presence puts the field in the error state.** There is no `isInvalid`: a red ' +
+        'field with nothing to read is exactly what the rule forbids.',
+      table: { category: 'Footer' },
     },
-    isInvalid: {
-      control: 'boolean',
-      description: 'Applies the invalid styling without necessarily showing a message.',
-      table: { category: 'Feedback', defaultValue: { summary: 'false' } },
+    counter: {
+      control: 'object',
+      description:
+        'Its presence renders the `"n / max"` line, and the component formats it. Two ' +
+        "numbers rather than Figma's free text — a divergence the contract asks to be " +
+        'signed rather than mapped.',
+      table: { category: 'Footer' },
     },
-    maxLength: {
-      control: 'number',
-      description: 'Used to compute the `"n / max"` counter text — see `showCounter` for whether it renders.',
-      table: { category: 'Feedback' },
-    },
-    showCounter: {
-      control: 'boolean',
-      description: 'Whether the `"n / max"` counter renders at all — independent of `maxLength` being set.',
-      table: { category: 'Feedback', defaultValue: { summary: 'false' } },
-    },
-    // --- State: size and interaction-blocking flags -------------------------
+    // --- Appearance & state -------------------------------------------------
     size: {
       control: 'inline-radio',
       options: SIZES,
-      description: 'Drives height, corner radius and horizontal padding.',
-      table: { category: 'State', defaultValue: { summary: 'medium' } },
+      table: { category: 'Appearance', defaultValue: { summary: 'md' } },
     },
-    isDisabled: {
+    disabled: {
       control: 'boolean',
       description: 'Blocks interaction and applies the disabled styling.',
       table: { category: 'State', defaultValue: { summary: 'false' } },
     },
-    isReadOnly: {
+    readOnly: {
       control: 'boolean',
       description: 'Shows the value but blocks editing.',
       table: { category: 'State', defaultValue: { summary: 'false' } },
@@ -159,8 +160,9 @@ const meta = {
       description: 'Maps to `data-testid` on web and to the native `testID` on mobile.',
       table: { category: 'Testing & events' },
     },
-    onValueChange: {
-      description: 'Mapped to `onChange` on web and to `onChangeText` on mobile.',
+    onChangeText: {
+      description:
+        'In the shared contract on both platforms — web unwraps the DOM event for it.',
       table: { category: 'Testing & events' },
     },
     // Owned by ControlledPlatformTextField, not by the controls panel — see above.
@@ -169,13 +171,8 @@ const meta = {
     platform: { table: { disable: true } },
   },
   args: {
-    label: 'Email',
+    label: 'Correo',
     value: '',
-    // Not `showCounter`/`showHelper` themselves (those default to Figma's own
-    // `false`) — just enough content ready so flipping either on in the
-    // Playground immediately shows something, instead of an empty footer.
-    maxLength: 60,
-    helperText: "We'll never share your email.",
   },
   render: (args, { globals }) => (
     <ControlledPlatformTextField {...args} platform={globals['platform'] as TPlatform} />
@@ -191,17 +188,17 @@ export const Playground: TStory = {};
 
 /** With helper text guiding the user before any validation has run. */
 export const WithHelperText: TStory = {
-  args: { helperText: "We'll never share your email.", showHelper: true },
+  args: { helperText: 'Nunca compartimos tu correo.' },
 };
 
 /**
- * Invalid state with a message. The border and helper text switch to the
- * error colour. `showHelper: true` is required here — Figma has no separate
- * "always show on error" behaviour; a red border alone fails WCAG 1.4.1, so
- * pairing `errorMessage` with `showHelper` is on the consumer, not automatic.
+ * The error state, which is just a message: setting `error` recolours the
+ * border and replaces the helper line. There is no flag to pair it with — a
+ * red border alone fails WCAG 1.4.1, so the contract removed the way to ask
+ * for one.
  */
 export const ErrorState: TStory = {
-  args: { value: 'not-an-email', errorMessage: 'Enter a valid email address.', showHelper: true },
+  args: { value: 'no-es-un-correo', error: 'Escribe un correo válido.' },
 };
 
 /** The three sizes side by side, so the metric scale is easy to compare. */
@@ -222,11 +219,11 @@ export const Sizes: TStory = {
 };
 
 /**
- * `label` doubles as the placeholder while `value` is empty, and floats
- * above the value once there is one — except at `size='small'`, where it
- * never floats and the value simply replaces it. Compare the three sizes
- * empty (label as placeholder) against filled (label floats at `medium`
- * and `large`, stays put at `small`).
+ * `label` doubles as the placeholder while `value` is empty, and floats to the
+ * edge of the field once there is one — except at `size='sm'`, where it never
+ * floats and the value simply replaces it. Compare the three sizes empty
+ * (label as placeholder) against filled (label floats at `md` and `lg`, stays
+ * put at `sm`).
  */
 export const FloatingLabel: TStory = {
   render: (_args, { globals }) => (
@@ -235,6 +232,7 @@ export const FloatingLabel: TStory = {
         <ControlledPlatformTextField
           key={`${size}-empty`}
           label={size}
+          onChangeText={() => undefined}
           platform={globals['platform'] as TPlatform}
           size={size}
           value=""
@@ -244,6 +242,7 @@ export const FloatingLabel: TStory = {
         <ControlledPlatformTextField
           key={`${size}-filled`}
           label={size}
+          onChangeText={() => undefined}
           platform={globals['platform'] as TPlatform}
           size={size}
           value="Valor ingresado"
@@ -255,60 +254,54 @@ export const FloatingLabel: TStory = {
 
 /** Blocks interaction entirely — the handler must not fire in this state. */
 export const Disabled: TStory = {
-  args: { value: 'Locked value', isDisabled: true },
+  args: { value: 'Valor bloqueado', disabled: true },
 };
 
 /** Shows a value the user cannot edit through this control — a different look from disabled. */
 export const ReadOnly: TStory = {
-  args: { label: 'Account number', value: '1234 5678 9012', isReadOnly: true },
+  args: { label: 'Número de cuenta', value: '1234 5678 9012', readOnly: true },
 };
 
-/** With a `maxLength` and `showCounter: true`, rendering the `"n / max"` counter below the field. */
+/** `counter` renders the `"n / max"` line. Passing it is the only way to get one. */
 export const WithCounter: TStory = {
-  args: { label: 'Bio', value: 'Building the Blu design system.', maxLength: 120, showCounter: true },
+  args: {
+    label: 'Bio',
+    value: 'Construyendo el design system de Blu.',
+    counter: { current: 37, max: 120 },
+  },
 };
 
-/** `showHelper` and `showCounter` toggle independently — both can be on at once. */
+/** Helper and counter are independent — both render when both are passed. */
 export const WithHelperAndCounter: TStory = {
   args: {
     label: 'Bio',
-    value: 'Building the Blu design system.',
-    maxLength: 120,
-    helperText: 'Keep it short and specific.',
-    showHelper: true,
-    showCounter: true,
+    value: 'Construyendo el design system de Blu.',
+    counter: { current: 37, max: 120 },
+    helperText: 'Breve y concreto.',
   },
 };
 
 /**
- * `prefix` / `suffix` / icons live in `inputRow` *under* the floating label
- * (Figma `content` → `label` + `inputRow`), not beside it. Glyphs are the
- * published set (`IconSearch`, `IconImage`, …), default `search`.
+ * The affixes live in `inputRow` *under* the floating label (Figma `content` →
+ * `label` + `inputRow`), not beside it. Text on one side, glyph on the other:
+ * the contract says a leading icon and a leading text do not coexist.
  */
 export const WithAffixes: TStory = {
   args: {
-    label: 'Amount',
+    label: 'Monto',
     value: '250',
-    size: 'large',
-    prefix: '$',
-    showPrefixText: true,
-    suffix: 'USD',
-    showSuffixText: true,
-    showPrefixIcon: true,
-    prefixIcon: 'search',
-    showSuffixIcon: true,
-    suffixIcon: 'search',
+    size: 'lg',
+    leadingText: '$',
+    trailingText: 'USD',
   },
 };
 
-/** Empty field: no float, so the prefix icon sits on the placeholder line. */
+/** Empty field: no float, so the leading glyph sits on the placeholder line. */
 export const WithIcons: TStory = {
   args: {
-    label: 'Search',
+    label: 'Buscar',
     value: '',
-    showPrefixIcon: true,
-    prefixIcon: 'search',
-    showSuffixIcon: true,
-    suffixIcon: 'x',
+    leadingIcon: 'IconSearchMd',
+    trailingIcon: 'IconXClose',
   },
 };

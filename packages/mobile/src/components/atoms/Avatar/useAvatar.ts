@@ -1,7 +1,7 @@
 import { avatarTokens } from '@dsm/shared';
 import type { ImageStyle, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { useFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { IAvatarProps } from './Avatar.types';
 
 interface IUseAvatarResult {
@@ -31,7 +31,7 @@ export const useAvatar = ({
   const tokens = avatarTokens[mode];
   const toneColors = tokens.colors.tones[tone];
   const sizeTokens = tokens.dimension.sizes[size];
-  const fontFamily = useFontFamily(tokens.dimension.initialsFontWeight);
+  const fontWeight = resolveFontWeight(tokens.dimension.initialsFontWeight);
   const { diameter } = sizeTokens;
 
   // Two layers on purpose: the circle clips its content (photo/logo/initials),
@@ -65,7 +65,7 @@ export const useAvatar = ({
     : undefined;
 
   const initialsStyle: StyleProp<TextStyle> = {
-    fontFamily,
+    fontWeight,
     fontSize: tokens.dimension.initialsFontSize[size],
     color: toneColors.text,
   };

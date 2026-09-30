@@ -38,8 +38,8 @@ interface IUseListItemResult {
  */
 export const useListItem = ({
   size = 'md',
-  isDisabled = false,
-  showDivider = false,
+  disabled: isDisabled = false,
+  divider: showDivider = false,
   isInteractive,
   isHovered,
   isPressed,

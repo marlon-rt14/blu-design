@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import type { FocusEvent, ReactElement } from 'react';
 
-import { TabIcon } from './TabIcon';
 import type { ITabItemProps } from './TabItem.types';
 import { useTabItem } from './useTabItem';
 
@@ -13,9 +12,13 @@ import { useTabItem } from './useTabItem';
  * content column, not the full tab width. ExtraBold at every state; colour
  * carries inactive vs active.
  *
- * `showLeadingIcon` and `showBadge` are independent booleans — never inferred
- * from content. Glyph default is `user`. Badge is painted locally (Badge is
- * not shipped).
+ * The glyph and the badge turn on by being there — no `show*` booleans, the
+ * rule the contract applies to every slot in the file. Badge is painted
+ * locally (the Badge component is not shipped).
+ *
+ * **Internal**: `Tabs` renders it from an `ITabDef` and fills in `isSelected`,
+ * `layout`, `size` and the roving `tabIndex`. Nothing else fills those in
+ * correctly.
  *
  * @example
  * ```tsx
@@ -25,12 +28,10 @@ import { useTabItem } from './useTabItem';
  */
 export const TabItem = (props: ITabItemProps): ReactElement => {
   const {
-    label = 'Label',
+    label,
     isSelected = false,
-    showLeadingIcon = false,
-    leadingIcon = 'user',
-    showBadge = false,
-    badge = '9',
+    leadingIcon,
+    badge,
     onChange,
     tabIndex,
     testID,
@@ -79,13 +80,13 @@ export const TabItem = (props: ITabItemProps): ReactElement => {
       {overlayStyle ? <span style={overlayStyle} /> : null}
       <span style={contentStyle}>
         <span style={labelRowStyle}>
-          {showLeadingIcon ? (
-            <span style={iconStyle}>
-              <TabIcon name={leadingIcon} size="sm" />
-            </span>
+          {leadingIcon ? (
+            // `iconStyle` carries the tab's icon colour, which a system
+            // glyph picks up through `currentColor`.
+            <span style={iconStyle}>{leadingIcon}</span>
           ) : null}
           <span style={labelStyle}>{label}</span>
-          {showBadge ? (
+          {badge !== undefined ? (
             <span style={badgeStyle}>
               <span style={badgeLabelStyle}>{badge}</span>
             </span>

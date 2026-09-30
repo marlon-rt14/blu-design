@@ -1,0 +1,336 @@
+{
+  "_comment": "This file was generated automatically by Supernova.io and should not be changed manually. To modify the format or content of this file, please contact your design system team.",
+  "size": {
+    "size": {
+      "2": {
+        "value": "2px",
+        "type": "size",
+        "description": "Dimension de 2px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "4": {
+        "value": "4px",
+        "type": "size",
+        "description": "Dimension de 4px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "5": {
+        "value": "5px",
+        "type": "size"
+      },
+      "8": {
+        "value": "8px",
+        "type": "size",
+        "description": "Dimension de 8px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "10": {
+        "value": "10px",
+        "type": "size",
+        "description": "Dimension de 10px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "12": {
+        "value": "12px",
+        "type": "size",
+        "description": "Dimension de 12px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "14": {
+        "value": "14px",
+        "type": "size",
+        "description": "Dimension de 14px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "16": {
+        "value": "16px",
+        "type": "size",
+        "description": "Dimension de 16px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "18": {
+        "value": "18px",
+        "type": "size",
+        "description": "line-height iOS Footnote"
+      },
+      "20": {
+        "value": "20px",
+        "type": "size",
+        "description": "Dimension de 20px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "22": {
+        "value": "22px",
+        "type": "size",
+        "description": "line-height iOS Body"
+      },
+      "24": {
+        "value": "24px",
+        "type": "size",
+        "description": "Dimension de 24px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "25": {
+        "value": "25px",
+        "type": "size",
+        "description": "line-height iOS Title 3"
+      },
+      "28": {
+        "value": "28px",
+        "type": "size",
+        "description": "Dimension de 28px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "32": {
+        "value": "32px",
+        "type": "size",
+        "description": "Dimension de 32px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "34": {
+        "value": "34px",
+        "type": "size",
+        "description": "line-height iOS Title 1"
+      },
+      "36": {
+        "value": "36px",
+        "type": "size",
+        "description": "Dimension de 36px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "38": {
+        "value": "38px",
+        "type": "size",
+        "description": "line-height headline web"
+      },
+      "40": {
+        "value": "40px",
+        "type": "size",
+        "description": "Dimension de 40px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "41": {
+        "value": "41px",
+        "type": "size",
+        "description": "line-height iOS Large Title"
+      },
+      "44": {
+        "value": "44px",
+        "type": "size",
+        "description": "Dimension de 44px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "48": {
+        "value": "48px",
+        "type": "size",
+        "description": "Dimension de 48px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "52": {
+        "value": "52px",
+        "type": "size",
+        "description": "Dimension de 52px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "54": {
+        "value": "54px",
+        "type": "size"
+      },
+      "56": {
+        "value": "56px",
+        "type": "size",
+        "description": "Dimension de 56px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "62": {
+        "value": "62px",
+        "type": "size"
+      },
+      "64": {
+        "value": "64px",
+        "type": "size",
+        "description": "Dimension de 64px. Escalon crudo de alto y ancho. Los componentes usan size/control, field, icon, avatar, target o bar de 4. Layout. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "84": {
+        "value": "84px",
+        "type": "size"
+      },
+      "108": {
+        "value": "108px",
+        "type": "size"
+      },
+      "118": {
+        "value": "118px",
+        "type": "size"
+      },
+      "134": {
+        "value": "134px",
+        "type": "size"
+      },
+      "160": {
+        "value": "160px",
+        "type": "size",
+        "description": "Paso de tamaño 160. Primer uso: ancho mínimo del CTA de EmptyState en layout=page."
+      },
+      "control": {
+        "height": {
+          "sm": {
+            "value": "32px",
+            "type": "size",
+            "description": "Altura del control compacto: 32. La usan tanto el boton sm como el campo compacto de una sola linea, porque las dos escalas comparten numero desde el 14-ago. El campo compacto NO tiene etiqueta flotante: la etiqueta vive como placeholder dentro del valor. A partir de md (44) el campo si la lleva."
+          },
+          "lg": {
+            "value": "56px",
+            "type": "size",
+            "description": "Control destacado: CTA principal. Mismo valor en los tres modos a proposito: no depende de la densidad. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
+          },
+          "md": {
+            "value": "44px",
+            "type": "size",
+            "description": "ALTURA DE CONTROL BASE. 44 en compact (minimo tocable de iOS) y 48 en expanded (minimo de Android y comodo con mouse). Varia con la densidad. Nunca usar el primitivo crudo."
+          },
+          "xs": {
+            "value": "24px",
+            "type": "size",
+            "description": "Altura del control mas compacto: 24. Para acciones densas dentro de una fila o una tabla, no para acciones principales. AVISO: queda muy por debajo de size/target/min (48), asi que en tactil necesita hitSlop si o si. La escala de altura de control es xs 24 / sm 32 / md 44 / lg 56, y coincide numero a numero con size/field/height a partir de md."
+          }
+        },
+        "min-width": {
+          "value": "64px",
+          "type": "size",
+          "description": "Ancho minimo de un boton: 64px. Evita que un boton con etiqueta corta (Ok, Si) se colapse a un cuadrado y pierda su lectura de accion."
+        }
+      },
+      "field": {
+        "height": {
+          "md": {
+            "value": "44px",
+            "type": "size",
+            "description": "Altura del campo mediano: 44. Mismo numero que size/control/height/md. Es el campo de una sola linea, sin etiqueta flotante: la etiqueta vive como placeholder."
+          },
+          "lg": {
+            "value": "56px",
+            "type": "size",
+            "description": "Altura del campo grande: 56. Mismo numero que size/control/height/lg, para que un boton lg y un campo lg midan igual cuando van en la misma fila."
+          }
+        }
+      },
+      "icon": {
+        "xs": {
+          "value": "12px",
+          "type": "size",
+          "description": "Icono 12px: decoracion unicamente. 12px es MUY CHICO para comunicar: reservado a decoracion, NUNCA como unico indicador de un estado. EL AREA TOCABLE NO SE DERIVA DE ESTE TOKEN: un icon-button de 24 sigue necesitando size/target/min (48). Si se derivara del icono, todos los icon-buttons del sistema quedarian bajo el minimo de accesibilidad. Mismo valor en los tres modos: el tamano de icono no se comprime por densidad."
+        },
+        "sm": {
+          "value": "16px",
+          "type": "size",
+          "description": "Icono 16px: icono acompanando texto en linea. EL AREA TOCABLE NO SE DERIVA DE ESTE TOKEN: un icon-button de 24 sigue necesitando size/target/min (48). Si se derivara del icono, todos los icon-buttons del sistema quedarian bajo el minimo de accesibilidad. Mismo valor en los tres modos: el tamano de icono no se comprime por densidad."
+        },
+        "md": {
+          "value": "24px",
+          "type": "size",
+          "description": "Icono 24px: ICONO BASE: botones, listas, barras. Se fija en 24 (el doc original decia '20/24', que no es un token: un token no puede tener dos valores). EL AREA TOCABLE NO SE DERIVA DE ESTE TOKEN: un icon-button de 24 sigue necesitando size/target/min (48). Si se derivara del icono, todos los icon-buttons del sistema quedarian bajo el minimo de accesibilidad. Mismo valor en los tres modos: el tamano de icono no se comprime por densidad."
+        },
+        "lg": {
+          "value": "32px",
+          "type": "size",
+          "description": "Icono 32px: icono destacado. EL AREA TOCABLE NO SE DERIVA DE ESTE TOKEN: un icon-button de 24 sigue necesitando size/target/min (48). Si se derivara del icono, todos los icon-buttons del sistema quedarian bajo el minimo de accesibilidad. Mismo valor en los tres modos: el tamano de icono no se comprime por densidad."
+        },
+        "xl": {
+          "value": "40px",
+          "type": "size",
+          "description": "Icono 40px: icono de ilustracion o estado vacio. EL AREA TOCABLE NO SE DERIVA DE ESTE TOKEN: un icon-button de 24 sigue necesitando size/target/min (48). Si se derivara del icono, todos los icon-buttons del sistema quedarian bajo el minimo de accesibilidad. Mismo valor en los tres modos: el tamano de icono no se comprime por densidad."
+        },
+        "2xs": {
+          "value": "8px",
+          "type": "size",
+          "description": "El escalon mas chico de la escala de iconos: 8. Existe porque la escala arrancaba en 12 y el punto del Radio en size=sm mide la mitad de su caja (caja 16 -> punto 8). El punto del Radio en md ya estaba ligado a size/icon/xs, asi que la escala de iconos es la que el sistema ya usa para esto. Constante en los tres breakpoints, igual que el resto de la escala."
+        }
+      },
+      "target": {
+        "min": {
+          "value": "48px",
+          "type": "size",
+          "description": "AREA TOCABLE MINIMA: 48px. Cumple iOS (44) y Android (48) a la vez. NO se deriva del tamano del icono ni de la altura visual del control: un boton de icono de 24px dibuja 24 pero debe ocupar 48 de area tocable. Vive en '4. Layout' porque es geometria: no cambia con el tema. Mismo valor en los tres modos: el minimo de accesibilidad no se comprime por densidad."
+        }
+      },
+      "bar": {
+        "height": {
+          "lg": {
+            "value": "12px",
+            "type": "size",
+            "description": "Alto de una barra de progreso. COMPARTIDO A PROPOSITO, no es privado de ProgressBar: el medidor de PasswordStrength usa size/bar/height/sm. Por eso vive en la escala generica y no como co-token component/progressbar/*, a diferencia de component/avatar/size o component/scrollbar/width, que si son de un solo componente. Si aparece un tercer consumidor -un Slider, un Meter- entra aca sin crear nada nuevo."
+          },
+          "md": {
+            "value": "8px",
+            "type": "size",
+            "description": "Alto de una barra de progreso. COMPARTIDO A PROPOSITO, no es privado de ProgressBar: el medidor de PasswordStrength usa size/bar/height/sm. Por eso vive en la escala generica y no como co-token component/progressbar/*, a diferencia de component/avatar/size o component/scrollbar/width, que si son de un solo componente. Si aparece un tercer consumidor -un Slider, un Meter- entra aca sin crear nada nuevo."
+          },
+          "sm": {
+            "value": "4px",
+            "type": "size",
+            "description": "Alto de una barra de progreso. COMPARTIDO A PROPOSITO, no es privado de ProgressBar: el medidor de PasswordStrength usa size/bar/height/sm. Por eso vive en la escala generica y no como co-token component/progressbar/*, a diferencia de component/avatar/size o component/scrollbar/width, que si son de un solo componente. Si aparece un tercer consumidor -un Slider, un Meter- entra aca sin crear nada nuevo."
+          }
+        }
+      }
+    },
+    "platform": {
+      "field": {
+        "height": {
+          "value": "56px",
+          "type": "size",
+          "description": "Alto de fila de un campo por plataforma. iOS 52 (fila de lista de Apple, iOS 26+), Android 56 (Material 3 outlined), Web 56."
+        }
+      },
+      "target": {
+        "min": {
+          "value": "48px",
+          "type": "size",
+          "description": "Area tactil minima. iOS 44pt · Android 48dp · web 40px. Nunca bajar de aqui aunque el glifo sea mas chico."
+        }
+      },
+      "sheet": {
+        "handle": {
+          "width": {
+            "value": "32px",
+            "type": "size",
+            "description": "Ancho del asa. iOS: 60 (grabber del kit iOS 27). Android y web: component/sheet/handle/width (32, Material 3). Sheet (librería Platforms)."
+          }
+        }
+      },
+      "dialog": {
+        "width": {
+          "value": "312px",
+          "type": "size",
+          "description": "Ancho de la tarjeta. iOS: 300 (kit iOS 27, Alerts y Action Sheets). Android y web: 312 (Material 3, basic dialog). Dialog (librería Platforms)."
+        },
+        "action": {
+          "height": {
+            "value": "40px",
+            "type": "size",
+            "description": "Alto visible del botón. iOS: cápsula de 48. Android y web: 40 (el área tocable llega a 48). Dialog (librería Platforms)."
+          }
+        }
+      }
+    },
+    "viewport": {
+      "width": {
+        "min": {
+          "value": "360px",
+          "type": "size",
+          "description": "Ancho MÍNIMO del tier, para verificar el extremo chico. compact 360 = piso de Android (no 375). regular 768 = no hay datos de tablets más chicas. expanded 1024. Se bindea al W del frame raíz de una pantalla de prueba; el tier sale del modo de Layout del frame."
+        },
+        "base": {
+          "value": "390px",
+          "type": "size",
+          "description": "Ancho BASE de diseño del tier: sobre este se diseña. compact 390 = iOS y Android comparten 390–393 (~55 % de usuarios, GA4 may–ago 2026). Se bindea al W del frame raíz; al cambiar el modo de Layout el frame cambia de tamaño junto con la densidad. Solo Figma: en código el ancho lo da el dispositivo."
+        },
+        "max": {
+          "value": "440px",
+          "type": "size",
+          "description": "Ancho MÁXIMO del tier, para verificar el extremo grande. compact 440 = iPhone Pro Max actual. regular 834 = iPad Pro 11. expanded 1920 = escritorio Full HD."
+        }
+      },
+      "height": {
+        "min": {
+          "value": "800px",
+          "type": "size",
+          "description": "Alto que acompaña a viewport/width/min (360×800 · 768×1024 · 1024×768). Solo para pantallas de alto fijo: las pantallas con scroll quedan en Hug."
+        },
+        "base": {
+          "value": "844px",
+          "type": "size",
+          "description": "Alto que acompaña a viewport/width/base (390×844 · 768×1024 · 1440×900). Solo para pantallas de alto fijo: las pantallas con scroll quedan en Hug."
+        },
+        "max": {
+          "value": "956px",
+          "type": "size",
+          "description": "Alto que acompaña a viewport/width/max (440×956 · 834×1194 · 1920×1080). Solo para pantallas de alto fijo: las pantallas con scroll quedan en Hug."
+        }
+      }
+    }
+  }
+}

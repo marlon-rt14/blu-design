@@ -1,20 +1,38 @@
 import clubmilesColor from '../theme/clubmiles/color.json';
 import darkColor from '../theme/dark/color.json';
-import darkDimension from '../theme/dark/dimension.json';
+import darkDimensionFile from '../theme/dark/dimension.json';
 import discoverColor from '../theme/discover/color.json';
-import expandedDimension from '../theme/expanded/dimension.json';
+import expandedDimensionFile from '../theme/expanded/dimension.json';
+import expandedFontSize from '../theme/expanded/font-size.json';
+import expandedSize from '../theme/expanded/size.json';
+import expandedSpace from '../theme/expanded/space.json';
 import grandtableColor from '../theme/grandtable/color.json';
 import hcdarkColor from '../theme/hcdark/color.json';
-import hcdarkDimension from '../theme/hcdark/dimension.json';
+import hcdarkDimensionFile from '../theme/hcdark/dimension.json';
+import hclightBorderWidth from '../theme/hclight/border-width.json';
 import hclightColor from '../theme/hclight/color.json';
-import hclightDimension from '../theme/hclight/dimension.json';
+import hclightDimensionFile from '../theme/hclight/dimension.json';
+import lightBorderRadius from '../theme/light/border-radius.json';
+import lightBorderWidth from '../theme/light/border-width.json';
 import lightColor from '../theme/light/color.json';
-import lightDimension from '../theme/light/dimension.json';
-import lightString from '../theme/light/string.json';
+import lightDimensionFile from '../theme/light/dimension.json';
+import lightFontFamily from '../theme/light/font-family.json';
+import lightFontSize from '../theme/light/font-size.json';
+import lightFontWeight from '../theme/light/font-weight.json';
+import lightLetterSpacing from '../theme/light/letter-spacing.json';
+import lightLineHeight from '../theme/light/line-height.json';
+import lightOpacity from '../theme/light/opacity.json';
+import lightSize from '../theme/light/size.json';
+import lightSpace from '../theme/light/space.json';
+import lightStringFile from '../theme/light/string.json';
 import lightTypography from '../theme/light/typography.json';
 import mcdarkColor from '../theme/mcdark/color.json';
 import mclightColor from '../theme/mclight/color.json';
-import regularDimension from '../theme/regular/dimension.json';
+import regularBorderRadius from '../theme/regular/border-radius.json';
+import regularDimensionFile from '../theme/regular/dimension.json';
+import regularFontSize from '../theme/regular/font-size.json';
+import regularSize from '../theme/regular/size.json';
+import regularSpace from '../theme/regular/space.json';
 import titaniumColor from '../theme/titanium/color.json';
 
 /**
@@ -110,7 +128,22 @@ export type TThemeColorSource =
  */
 export type TThemeSourceKey = `${TThemeColorSource}@${TThemeLayout}`;
 
-/** The four Style-Dictionary-categorized token files Supernova exports per theme. */
+/**
+ * The four token trees a theme is read through.
+ *
+ * Four **trees**, no longer four files: the sync of 2026-09-29 split the export
+ * into 14 files per folder, one per Style Dictionary category. Nine groups left
+ * `dimension.json` for files of their own — `size`, `space`, `border-radius`,
+ * `border-width`, `font-size`, `line-height`, `letter-spacing`, `font-weight`
+ * and `opacity` — and `font/family` left `string.json`. {@link dimensionTree}
+ * and {@link lightString} put them back together, so a token path keeps naming
+ * the token and not the file it happens to ship in.
+ *
+ * Reassembling rather than renaming is deliberate: the alternative was a
+ * category prefix per read (`size.size.control.height.lg`), which would have
+ * rewritten 58 of the 90 paths across 46 `*.tokens.ts` files and tied every one
+ * of them to how the exporter chooses to shard its output next time.
+ */
 export interface IThemeSource {
   color: unknown;
   dimension: unknown;
@@ -118,26 +151,190 @@ export interface IThemeSource {
   string: unknown;
 }
 
+type TTokenNode = { readonly [segment: string]: unknown };
+
+/**
+ * A node is a token once it carries a scalar `value`. Deeper objects are groups.
+ *
+ * Checked on `value` rather than on depth because the tree is not uniform —
+ * `border/width/default` sits three levels down and `space/inset/md` four.
+ */
+const isTokenLeaf = (node: unknown): node is { value: unknown } =>
+  typeof node === 'object' &&
+  node !== null &&
+  'value' in node &&
+  typeof (node as { value: unknown }).value !== 'object';
+
+/**
+ * Unwraps the single category object a Supernova file wraps its tokens in.
+ *
+ * Every exported file is `{ "_comment": …, "<category>": { … } }`, and the
+ * category is named after the **file**, not after the tokens: `size.json` holds
+ * `size.size.control.*` and `border-radius.json` holds
+ * `border-radius.radius.action`. Dropping that outer key is what lets the pieces
+ * merge back into one tree.
+ */
+const categoryBody = (file: unknown): TTokenNode => {
+  const body = Object.entries(file as TTokenNode).find(([segment]) => segment !== '_comment')?.[1];
+  return (body ?? {}) as TTokenNode;
+};
+
+/**
+ * Deep-merges token groups, leaf by leaf.
+ *
+ * Has to be deep, not a spread: five separate files contribute a `font` group
+ * (`font.weight` from `dimension.json`, `font.size` from `font-size.json`,
+ * `font.family`, `font.line-height`, `font.letter-spacing`), and several
+ * contribute `platform` and `chart`. Measured across all 15 folders before
+ * relying on it: **no leaf is declared twice**, so the merge has no winner to
+ * pick and the order of the files does not matter.
+ */
+const mergeTokenGroups = (
+  into: Record<string, unknown>,
+  from: TTokenNode,
+): Record<string, unknown> => {
+  for (const [segment, node] of Object.entries(from)) {
+    const existing = into[segment];
+    const bothGroups =
+      typeof existing === 'object' &&
+      existing !== null &&
+      !isTokenLeaf(existing) &&
+      typeof node === 'object' &&
+      node !== null &&
+      !isTokenLeaf(node);
+    into[segment] = bothGroups
+      ? mergeTokenGroups({ ...(existing as Record<string, unknown>) }, node as TTokenNode)
+      : node;
+  }
+  return into;
+};
+
+/** Merges several exported files into one tree rooted at `root`. */
+const categoryTree = (root: string, files: readonly unknown[]): unknown => ({
+  [root]: files.reduce<Record<string, unknown>>(
+    (merged, file) => mergeTokenGroups(merged, categoryBody(file)),
+    {},
+  ),
+});
+
+/**
+ * Rebuilds the one `dimension` tree every `*.tokens.ts` reads.
+ *
+ * Only six of the ten files vary across folders, which is why the other four
+ * are captured here instead of being parameters: `font-weight`,
+ * `letter-spacing`, `line-height` and `opacity` are byte-identical in all 15
+ * folders.
+ */
+const dimensionTree = (
+  dimension: unknown,
+  borderRadius: unknown,
+  borderWidth: unknown,
+  fontSize: unknown,
+  size: unknown,
+  space: unknown,
+): unknown =>
+  categoryTree('dimension', [
+    dimension,
+    borderRadius,
+    borderWidth,
+    fontSize,
+    size,
+    space,
+    lightFontWeight,
+    lightLetterSpacing,
+    lightLineHeight,
+    lightOpacity,
+  ]);
+
+/**
+ * The six distinct dimension trees, and the folders each one covers.
+ *
+ * Still six after the split, and the same six: the extra files vary along axes
+ * the folders already encode — `border-radius`, `font-size`, `size` and `space`
+ * move with **layout** (only `regular` and `expanded` differ), `border-width`
+ * moves with **mode** (only the two `hc-*` differ), and `border-radius` is one
+ * file for both non-default layouts.
+ */
+const lightDimension = dimensionTree(
+  lightDimensionFile,
+  lightBorderRadius,
+  lightBorderWidth,
+  lightFontSize,
+  lightSize,
+  lightSpace,
+);
+const darkDimension = dimensionTree(
+  darkDimensionFile,
+  lightBorderRadius,
+  lightBorderWidth,
+  lightFontSize,
+  lightSize,
+  lightSpace,
+);
+const hclightDimension = dimensionTree(
+  hclightDimensionFile,
+  lightBorderRadius,
+  hclightBorderWidth,
+  lightFontSize,
+  lightSize,
+  lightSpace,
+);
+const hcdarkDimension = dimensionTree(
+  hcdarkDimensionFile,
+  lightBorderRadius,
+  hclightBorderWidth,
+  lightFontSize,
+  lightSize,
+  lightSpace,
+);
+const regularDimension = dimensionTree(
+  regularDimensionFile,
+  regularBorderRadius,
+  lightBorderWidth,
+  regularFontSize,
+  regularSize,
+  regularSpace,
+);
+const expandedDimension = dimensionTree(
+  expandedDimensionFile,
+  regularBorderRadius,
+  lightBorderWidth,
+  expandedFontSize,
+  expandedSize,
+  expandedSpace,
+);
+
+/**
+ * The `string` tree: the export's own `string.json` plus `font-family.json`.
+ *
+ * `font/family/*` is a string token that the split moved into a file of its
+ * own. It belongs here rather than in {@link dimensionTree} — a family name is
+ * not a measurement — and it is what {@link DEFAULT_THEME_SOURCE_KEY} reads
+ * `string.font.family.mulish` out of.
+ */
+const lightString = categoryTree('string', [lightStringFile, lightFontFamily]);
+
 /**
  * The colour and dimension files each colour source contributes.
  *
- * **Deduplicated on purpose.** The export ships 15 folders — 60 files, 14.8 MB —
- * and many are byte-identical:
+ * **Deduplicated on purpose.** The export ships 15 folders — 210 files, 18 MB —
+ * and most are byte-identical:
  *
- * - `base`, `blu`, `light` and `compact` are identical in **all four** files, so
+ * - `base`, `blu`, `light` and `compact` are identical in **every** file, so
  *   `light` is the only one imported. `base` was the old name for it, `blu` is
  *   the default brand and `compact` the default layout, so by definition all
  *   three are what `light` already resolves to. `compact` arriving as its own
  *   folder is in fact how the default of that axis was confirmed.
- * - `typography.json` and `string.json` are identical across all 15 folders, so
- *   they are imported once.
+ * - `typography.json`, `string.json`, `font-family.json`, `font-weight.json`,
+ *   `letter-spacing.json`, `line-height.json` and `opacity.json` are identical
+ *   across all 15 folders, so they are imported once.
  * - `mc-light` shares `light`'s dimensions and `mc-dark` shares `dark`'s; the
  *   brands share `light`'s outright.
  *
- * That takes the import set from 60 files to 18, and the JSON in the bundle from
- * 14.8 MB to 9.2 MB. It is still far more than the 2.0 MB two themes cost, which
- * is why lazy loading is a tracked follow-up: these are static imports, so the
- * bundler includes every one of them whether a screen uses it or not.
+ * That takes the import set from 210 files to 36, and the JSON in the bundle
+ * from 18 MB to 10.1 MB. It is still far more than the 2.0 MB two themes cost,
+ * which is why lazy loading is a tracked follow-up: these are static imports, so
+ * the bundler includes every one of them whether a screen uses it or not.
  */
 const COLOR_SOURCES: Record<TThemeColorSource, { color: unknown; dimension: unknown }> = {
   light: { color: lightColor, dimension: lightDimension },
@@ -158,20 +355,6 @@ const LAYOUT_DIMENSIONS: Record<TThemeLayout, unknown> = {
   regular: regularDimension,
   expanded: expandedDimension,
 };
-
-type TTokenNode = { readonly [segment: string]: unknown };
-
-/**
- * A node is a token once it carries a scalar `value`. Deeper objects are groups.
- *
- * Checked on `value` rather than on depth because the tree is not uniform —
- * `border/width/default` sits three levels down and `space/inset/md` four.
- */
-const isTokenLeaf = (node: unknown): node is { value: unknown } =>
-  typeof node === 'object' &&
-  node !== null &&
-  'value' in node &&
-  typeof (node as { value: unknown }).value !== 'object';
 
 /**
  * Builds the dimension tree for one colour source and one layout.

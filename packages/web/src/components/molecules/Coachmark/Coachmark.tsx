@@ -2,7 +2,7 @@ import { COACHMARK_DISMISS_LABEL, resolveCoachmarkActionLabel } from '@dsm/share
 import { FloatingFocusManager, FloatingPortal } from '@floating-ui/react';
 import type { ReactElement } from 'react';
 
-import { IconX } from '../../../icons';
+import { IconXClose } from '../../../icons/general';
 import { Button } from '../../atoms/Button';
 import { IconButton } from '../../atoms/IconButton';
 import { Image } from '../../atoms/Image';
@@ -112,7 +112,7 @@ export const Coachmark = (props: ICoachmarkProps): ReactElement => {
     showDismiss && !dismissOnMedia ? (
       <IconButton
         appearance={dismissAppearance}
-        icon={IconX}
+        icon={IconXClose}
         label={dismissAccessibilityLabel}
         onPress={handleDismiss}
         size="xs"
@@ -147,7 +147,7 @@ export const Coachmark = (props: ICoachmarkProps): ReactElement => {
                       <div style={mediaDismissStyle}>
                         <IconButton
                           appearance="on-media"
-                          icon={IconX}
+                          icon={IconXClose}
                           label={dismissAccessibilityLabel}
                           onPress={handleDismiss}
                           size="xs"

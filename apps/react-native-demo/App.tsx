@@ -22,7 +22,7 @@ import {
   Tag,
   TagGroup,
   Tooltip,
-  useFontFamily,
+  resolveFontWeight,
   useThemeMode,
 } from '@dsm/mobile';
 import { colors, readThemeToken, spacing, themeSources, typography } from '@dsm/shared';
@@ -41,16 +41,12 @@ import { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
-import {
-  IconAlertTriangle,
-  IconArrowUpRight,
-  IconCheckCircle,
-  IconChevronRight,
-  IconImage,
-  IconPlus,
-  IconSearch,
-  IconTrash,
-} from '@dsm/mobile/icons';
+import { IconAlertTriangle } from '@dsm/mobile/icons/alerts-feedback';
+import { IconArrowUpRight, IconChevronRight } from '@dsm/mobile/icons/arrows';
+import { IconCheckCircle, IconInfoCircle, IconPlus, IconSearchMd, IconTrash01 } from '@dsm/mobile/icons/general';
+import { IconLock01 } from '@dsm/mobile/icons/security';
+import { IconUser01 } from '@dsm/mobile/icons/users';
+import { IconImage01 } from '@dsm/mobile/icons/images';
 
 const METODOS = [
   { id: 'Débito', detalle: 'Se debita al instante', cuota: '$ 1.200' },
@@ -137,7 +133,7 @@ const CITIES: ITagGroupItem[] = [
  *
  * Componente aparte y no un bloque dentro de `App` porque necesita
  * `useThemeMode`, que es un hook de contexto: `App` monta el `BluProvider`, así
- * que el hook tiene que correr por debajo. (`useFontFamily` sí se puede llamar
+ * que el hook tiene que correr por debajo. (`resolveFontWeight` sí se puede llamar
  * arriba porque en esta plataforma es una función pura.)
  *
  * `on-scene` y `on-media` van con un color fijo — la escena de marca es oscura
@@ -163,7 +159,7 @@ const FilasSobreSuperficie = ({ onPress }: { onPress: () => void }) => {
           {(['sm', 'md', 'lg'] as const).map(size => (
             <IconButton
               appearance={appearance}
-              icon={IconTrash}
+              icon={IconTrash01}
               key={size}
               label="Eliminar"
               onPress={onPress}
@@ -174,7 +170,7 @@ const FilasSobreSuperficie = ({ onPress }: { onPress: () => void }) => {
           <IconButton
             appearance={appearance}
             disabled
-            icon={IconTrash}
+            icon={IconTrash01}
             label="Eliminar"
             onPress={onPress}
             testID={`ib-${appearance}-disabled`}
@@ -206,12 +202,16 @@ const App = () => {
   const [cardCvv, setCardCvv] = useState('123');
   const [phone, setPhone] = useState('99 123 4567');
   const handlePress = () => setPresses(current => current + 1);
-  // fontWeight isn't set alongside fontFamily below — each Mulish-*.ttf is
+  // fontWeight isn't set alongside fontFamily below — each face is
   // already a single static weight, same constraint as @dsm/mobile's own
   // components (see TextField's useTextField).
-  const regularFont = useFontFamily(typography.fontWeights.regular);
-  const mediumFont = useFontFamily(typography.fontWeights.medium);
-  const semiboldFont = useFontFamily(typography.fontWeights.semibold);
+  //
+  // The size is the second argument because on iOS it picks the optical cut:
+  // SF Pro Text below 20, Display at 20 and above. `styles.title` is 24, so it
+  // is the only one here that lands on Display.
+  const regularWeight = resolveFontWeight(typography.fontWeights.regular);
+  const mediumWeight = resolveFontWeight(typography.fontWeights.medium);
+  const semiboldWeight = resolveFontWeight(typography.fontWeights.semibold);
   const [checked, setChecked] = useState(false);
   // Guarda el id de la opción elegida, que es lo que un grupo de radios necesita.
   const [metodo, setMetodo] = useState('Débito');
@@ -223,23 +223,23 @@ const App = () => {
       <SafeAreaProvider>
         <SafeAreaView style={styles.safeArea}>
           <ScrollView contentContainerStyle={styles.content}>
-            <Text style={[styles.title, { fontFamily: semiboldFont }]}>
+            <Text style={[styles.title, { fontWeight: semiboldWeight }]}>
               @dsm/mobile · demo
             </Text>
-            <Text style={[styles.subtitle, { fontFamily: regularFont }]}>
+            <Text style={[styles.subtitle, { fontWeight: regularWeight }]}>
               El mismo Button del design system, consumido desde una app React
               Native. Resuelve tokens de bDS para el tema activo.
             </Text>
 
             <Text
-              style={[styles.counter, { fontFamily: mediumFont }]}
+              style={[styles.counter, { fontWeight: mediumWeight }]}
               testID="press-counter"
             >
               Presses: {presses}
             </Text>
 
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight }]}>
                 RadioGroup · ChoiceItem
               </Text>
               {/* La combinación que muestra Figma: el grupo aporta la leyenda y
@@ -259,9 +259,7 @@ const App = () => {
                     key={metodoOpcion.id}
                     label={metodoOpcion.id}
                     onPress={() => setMetodo(metodoOpcion.id)}
-                    showDescription
                     showDivider={index < METODOS.length - 1}
-                    showTrailingText
                     testID={`choice-${metodoOpcion.id}`}
                     trailingText={metodoOpcion.cuota}
                   />
@@ -281,7 +279,7 @@ const App = () => {
             </View>
 
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight }]}>
                 Radio
               </Text>
               {/* El Radio suelto sigue existiendo como átomo, para cuando no
@@ -296,7 +294,7 @@ const App = () => {
             </View>
 
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight }]}>
                 Tooltip
               </Text>
               {/* El Tooltip ENVUELVE a su disparador. Acá se abre
@@ -326,7 +324,7 @@ const App = () => {
             </View>
 
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight }]}>
                 IconButton
               </Text>
               {/* La misma acción que el Button pero sin etiqueta, así que
@@ -339,13 +337,13 @@ const App = () => {
                   poner quien lo aloja. */}
               {(['brand', 'neutral', 'ghost', 'veil'] as const).map(appearance => (
                 <View key={appearance} style={styles.row}>
-                  <Text style={[styles.subtitle, { fontFamily: regularFont }]}>
+                  <Text style={[styles.subtitle, { fontWeight: regularWeight }]}>
                     {appearance}
                   </Text>
                   {(['xs', 'sm', 'md', 'lg'] as const).map(size => (
                     <IconButton
                       appearance={appearance}
-                      icon={IconTrash}
+                      icon={IconTrash01}
                       key={size}
                       label="Eliminar"
                       onPress={handlePress}
@@ -356,7 +354,7 @@ const App = () => {
                   <IconButton
                     appearance={appearance}
                     disabled
-                    icon={IconTrash}
+                    icon={IconTrash01}
                     label="Eliminar"
                     onPress={handlePress}
                     testID={`ib-${appearance}-disabled`}
@@ -369,7 +367,7 @@ const App = () => {
             </View>
 
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight }]}>
                 Card
               </Text>
               {/* Una superficie y nada más: fondo, radio y recorte. No es
@@ -388,7 +386,7 @@ const App = () => {
               {(['flat', 'raised'] as const).map(elevation =>
                 (['none', 'md'] as const).map(padding => (
                   <View key={`${elevation}-${padding}`} style={styles.cardCell}>
-                    <Text style={[styles.subtitle, { fontFamily: regularFont }]}>
+                    <Text style={[styles.subtitle, { fontWeight: regularWeight }]}>
                       {elevation} · padding {padding}
                     </Text>
                     <Card
@@ -399,7 +397,7 @@ const App = () => {
                       {/* Sin radio propio: con padding none el recorte de la
                           tarjeta es lo único que le redondea las esquinas. */}
                       <View style={styles.cardFiller}>
-                        <Text style={[styles.cardFillerText, { fontFamily: regularFont }]}>
+                        <Text style={[styles.cardFillerText, { fontWeight: regularWeight }]}>
                           {elevation} / {padding}
                         </Text>
                       </View>
@@ -410,7 +408,7 @@ const App = () => {
             </View>
 
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight }]}>
                 CardField
               </Text>
               {/* Los tres campos de una tarjeta. `part` decide cuál, y con eso
@@ -485,7 +483,7 @@ const App = () => {
             </View>
 
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight }]}>
                 PhoneField
               </Text>
               {/* EL SELECTOR ES UN EJE, no un dado: `leadingContent` es
@@ -539,7 +537,7 @@ const App = () => {
             </View>
 
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight }]}>
                 ListGroup
               </Text>
               {/* La tarjeta de una pantalla de ajustes: superficie, radio y
@@ -558,25 +556,25 @@ const App = () => {
                   FlatList a nivel de pantalla. */}
               <View style={styles.cardFieldStack}>
                 <ListGroup header="Hoy" testID="listgroup-hoy">
-                  <ListItem description="Hoy, 10:24" label="Transferencia a Ana" showDescription showTrailingText trailingText="$1.250,00" />
-                  <ListItem description="Hoy, 09:02" label="Pago de servicios" showDescription showTrailingText trailingText="$320,00" />
-                  <ListItem description="Ayer, 18:41" label="Recarga de celular" showDescription showTrailingText trailingText="$15,00" />
+                  <ListItem description="Hoy, 10:24" label="Transferencia a Ana" trailingText="$1.250,00" />
+                  <ListItem description="Hoy, 09:02" label="Pago de servicios" trailingText="$320,00" />
+                  <ListItem description="Ayer, 18:41" label="Recarga de celular" trailingText="$15,00" />
                 </ListGroup>
                 <ListGroup testID="listgroup-ajustes">
-                  <ListItem icon="user" label="Datos personales" leadingContent="icon" />
-                  <ListItem icon="lock" label="Seguridad" leadingContent="icon" />
-                  <ListItem icon="info" label="Ayuda" leadingContent="icon" />
+                  <ListItem leading={{ icon: <IconUser01 size="md" /> }} label="Datos personales" />
+                  <ListItem leading={{ icon: <IconLock01 size="md" /> }} label="Seguridad" />
+                  <ListItem leading={{ icon: <IconInfoCircle size="md" /> }} label="Ayuda" />
                 </ListGroup>
                 {/* Con una sola fila el divisor se apaga, porque esa fila
                     tambien es la ultima. */}
                 <ListGroup header="Una sola fila" testID="listgroup-una">
-                  <ListItem description="Hoy, 10:24" label="Transferencia a Ana" showDescription showTrailingText trailingText="$1.250,00" />
+                  <ListItem description="Hoy, 10:24" label="Transferencia a Ana" trailingText="$1.250,00" />
                 </ListGroup>
               </View>
             </View>
 
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight }]}>
                 ProgressBar
               </Text>
               {/* Dice cuanto se avanzo de algo que tiene principio y fin.
@@ -611,7 +609,7 @@ const App = () => {
             </View>
 
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight }]}>
                 Divider
               </Text>
               {/* Una línea decorativa y nada más: dos props, sin children, sin
@@ -633,7 +631,7 @@ const App = () => {
                   divisor no reemplaza a un encabezado". */}
               {(['subtle', 'default', 'strong'] as const).map(appearance => (
                 <View key={appearance} style={styles.dividerCell}>
-                  <Text style={[styles.subtitle, { fontFamily: regularFont }]}>
+                  <Text style={[styles.subtitle, { fontWeight: regularWeight }]}>
                     horizontal · {appearance}
                   </Text>
                   <Divider appearance={appearance} testID={`divider-${appearance}`} />
@@ -642,20 +640,20 @@ const App = () => {
               {/* La vertical no lleva alto propio: se estira a la fila. Esta
                   fila no declara alto y la línea igual se ve, porque el hook usa
                   alignSelf stretch. */}
-              <Text style={[styles.subtitle, { fontFamily: regularFont }]}>
+              <Text style={[styles.subtitle, { fontWeight: regularWeight }]}>
                 vertical, en una fila sin alto propio
               </Text>
               <View style={styles.dividerRow}>
-                <Text style={[styles.dividerLabel, { fontFamily: regularFont }]}>Débito</Text>
+                <Text style={[styles.dividerLabel, { fontWeight: regularWeight }]}>Débito</Text>
                 <Divider orientation="vertical" testID="divider-inline-1" />
-                <Text style={[styles.dividerLabel, { fontFamily: regularFont }]}>Crédito</Text>
+                <Text style={[styles.dividerLabel, { fontWeight: regularWeight }]}>Crédito</Text>
                 <Divider orientation="vertical" testID="divider-inline-2" />
-                <Text style={[styles.dividerLabel, { fontFamily: regularFont }]}>Transferencia</Text>
+                <Text style={[styles.dividerLabel, { fontWeight: regularWeight }]}>Transferencia</Text>
               </View>
             </View>
 
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight }]}>
                 OTPField
               </Text>
               {/* Las cajas son presentación: debajo hay UN TextInput, no seis.
@@ -665,7 +663,7 @@ const App = () => {
 
                   Tocá cualquier caja: el foco va al input único, y el anillo
                   salta a la primera vacía mientras escribís. */}
-              <Text style={[styles.counter, { fontFamily: mediumFont }]} testID="otp-value">
+              <Text style={[styles.counter, { fontWeight: mediumWeight }]} testID="otp-value">
                 Código: {code || '(vacío)'}
               </Text>
               <OTPField
@@ -701,7 +699,7 @@ const App = () => {
             {VARIANTS.map(variant => (
               <View key={variant} style={styles.section}>
                 <Text
-                  style={[styles.sectionTitle, { fontFamily: regularFont }]}
+                  style={[styles.sectionTitle, { fontWeight: regularWeight }]}
                 >
                   {variant.toUpperCase()}
                 </Text>
@@ -762,7 +760,7 @@ const App = () => {
                   <Button
                     isDisabled
                     label="disabled"
-                    leadingIcon={IconTrash}
+                    leadingIcon={IconTrash01}
                     onPress={handlePress}
                     testID={`button-${variant}-icon-disabled`}
                     variant={variant}
@@ -772,47 +770,43 @@ const App = () => {
             ))}
 
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>CHOICEBOX</Text>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight }]}>CHOICEBOX</Text>
               <View style={styles.choiceBoxList}>
                 <ChoiceBox
                   description="Facturacion mensual, sin permanencia."
-                  icon="image"
+                  icon={<IconImage01 size="lg" />}
                   isChecked={selectedChoice === 'monthly'}
                   onValueChange={() => setSelectedChoice('monthly')}
-                  showDescription
                   testID="choicebox-monthly"
                   title="Plan mensual"
                 />
                 <ChoiceBox
                   description="Ahorra un 20% con el pago anual."
-                  icon="image"
+                  icon={<IconImage01 size="lg" />}
                   isChecked={selectedChoice === 'annual'}
                   onValueChange={() => setSelectedChoice('annual')}
-                  showDescription
                   testID="choicebox-annual"
                   title="Plan anual"
                 />
                 <ChoiceBox
                   description="Esta opcion no esta disponible ahora."
-                  icon="image"
+                  icon={<IconImage01 size="lg" />}
                   isDisabled
-                  showDescription
                   testID="choicebox-disabled"
                   title="Plan empresarial"
                 />
               </View>
 
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight, marginTop: spacing.md }]}>
                 CHOICEBOX · TILE
               </Text>
               <View style={styles.choiceBoxTileGrid}>
                 <View style={styles.choiceBoxTileCell}>
                   <ChoiceBox
                     description="Al ****6760"
-                    icon="image"
+                    icon={<IconImage01 size="lg" />}
                     isChecked={selectedTile === 'sms'}
                     onValueChange={() => setSelectedTile('sms')}
-                    showDescription
                     testID="choicebox-tile-sms"
                     title="Mensaje de texto"
                     variant="tile"
@@ -821,10 +815,9 @@ const App = () => {
                 <View style={styles.choiceBoxTileCell}>
                   <ChoiceBox
                     description="A j****@mail.com"
-                    icon="image"
+                    icon={<IconImage01 size="lg" />}
                     isChecked={selectedTile === 'email'}
                     onValueChange={() => setSelectedTile('email')}
-                    showDescription
                     testID="choicebox-tile-email"
                     title="Correo"
                     variant="tile"
@@ -832,7 +825,7 @@ const App = () => {
                 </View>
               </View>
 
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight, marginTop: spacing.md }]}>
                 CHOICEBOX · COMPACT
               </Text>
               <View style={styles.row}>
@@ -842,7 +835,6 @@ const App = () => {
                     isChecked={selectedCompact === installments}
                     key={installments}
                     onValueChange={() => setSelectedCompact(installments)}
-                    showDescription
                     testID={`choicebox-compact-${installments}`}
                     title={`${installments} cuotas`}
                     variant="compact"
@@ -852,15 +844,15 @@ const App = () => {
             </View>
 
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>AVATAR</Text>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight }]}>AVATAR</Text>
               <View style={styles.row}>
                 <Avatar initials="JG" testID="avatar-initials" />
-                <Avatar icon="user" testID="avatar-icon" type="icon" />
+                <Avatar icon={<IconUser01 size="sm" />} testID="avatar-icon" type="icon" />
                 <Avatar imageUrl="https://i.pravatar.cc/160" testID="avatar-image" type="image" />
                 <Avatar imageUrl="https://i.pravatar.cc/160" testID="avatar-logo" type="logo" />
               </View>
 
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight, marginTop: spacing.md }]}>
                 AVATAR · TONE
               </Text>
               <View style={styles.row}>
@@ -869,7 +861,7 @@ const App = () => {
                 ))}
               </View>
 
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight, marginTop: spacing.md }]}>
                 AVATAR · SIZE / RING / INDICATOR
               </Text>
               <View style={styles.row}>
@@ -882,102 +874,92 @@ const App = () => {
                 <Avatar initials="JG" showIndicator status="busy" testID="avatar-indicator-busy" />
               </View>
 
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight, marginTop: spacing.md }]}>
                 AVATARGROUP
               </Text>
               <AvatarGroup avatars={TEAM} overflowLabel="+4" showOverflow testID="avatar-group" />
             </View>
 
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>LISTITEM · LEADING</Text>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight }]}>LISTITEM · LEADING</Text>
               <ListItem label="Sin leading" testID="listitem-none" />
-              <ListItem icon="user" label="Con icono" leadingContent="icon" testID="listitem-icon" />
-              <ListItem avatarInitials="JG" label="Con avatar" leadingContent="avatar" testID="listitem-avatar" />
+              <ListItem leading={{ icon: <IconUser01 size="md" /> }} label="Con icono" testID="listitem-icon" />
+              <ListItem leading={{ avatar: { initials: 'JG' } }} label="Con avatar" testID="listitem-avatar" />
 
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight, marginTop: spacing.md }]}>
                 LISTITEM · SIZE
               </Text>
-              <ListItem avatarInitials="JG" label="Tamaño sm" leadingContent="avatar" size="sm" testID="listitem-size-sm" />
-              <ListItem avatarInitials="JG" label="Tamaño md" leadingContent="avatar" size="md" testID="listitem-size-md" />
+              <ListItem leading={{ avatar: { initials: 'JG' } }} label="Tamaño sm" size="sm" testID="listitem-size-sm" />
+              <ListItem leading={{ avatar: { initials: 'JG' } }} label="Tamaño md" size="md" testID="listitem-size-md" />
 
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight, marginTop: spacing.md }]}>
                 LISTITEM · CONTENIDO
               </Text>
               <ListItem
-                avatarInitials="JG"
+                leading={{ avatar: { initials: 'JG' } }}
                 description="Hoy, 14:32"
                 label="Envío a Juan García"
-                leadingContent="avatar"
-                showDescription
-                showDivider
-                showTrailingText
+                divider
                 testID="listitem-content-1"
                 trailingText="$1.250,00"
               />
               <ListItem
-                avatarInitials="MP"
+                leading={{ avatar: { initials: 'MP' } }}
                 description="Ayer, 09:10"
                 label="Pago de servicios"
-                leadingContent="avatar"
-                showDescription
-                showTrailingText
                 testID="listitem-content-2"
                 trailingText="$430,00"
               />
 
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight, marginTop: spacing.md }]}>
                 LISTITEM · INTERACTIVO / TRAILING / DISABLED
               </Text>
               <ListItem
-                icon="user"
+                leading={{ icon: <IconUser01 size="md" /> }}
                 label="Ver todos los contactos"
-                leadingContent="icon"
                 onPress={handlePress}
-                showTrailing
                 testID="listitem-interactive"
                 trailing={<IconChevronRight color="secondary" size="sm" />}
               />
               <ListItem
-                avatarInitials="RS"
-                isDisabled
+                leading={{ avatar: { initials: 'RS' } }}
+                disabled
                 label="Cuenta suspendida"
-                leadingContent="avatar"
                 testID="listitem-disabled"
               />
             </View>
 
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>TAG · APPEARANCE</Text>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight }]}>TAG · APPEARANCE</Text>
               <View style={styles.row}>
                 <Tag appearance="fill" label="Aprobado" palette="success" testID="tag-fill-success" />
                 <Tag appearance="soft" label="Pendiente" palette="warning" testID="tag-soft-warning" />
                 <Tag appearance="outline" label="Rechazado" palette="danger" testID="tag-outline-danger" />
               </View>
 
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight, marginTop: spacing.md }]}>
                 TAG · SIZE / ICON / REMOVE
               </Text>
               <View style={styles.row}>
                 <Tag label="Tamaño sm" size="sm" testID="tag-size-sm" />
                 <Tag label="Tamaño xs" size="xs" testID="tag-size-xs" />
-                <Tag icon="check-circle" label="Verificado" palette="success" showLeadingIcon testID="tag-icon" />
+                <Tag label="Verificado" leadingIcon={<IconCheckCircle size="sm" />} palette="success" testID="tag-icon" />
                 <Tag
                   appearance="outline"
                   label="Chip removible"
                   onRemove={handlePress}
-                  showRemove
                   testID="tag-remove"
                 />
               </View>
 
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight, marginTop: spacing.md }]}>
                 TAGGROUP
               </Text>
-              <TagGroup overflowLabel="+2" showOverflow tags={CITIES} testID="tag-group" />
+              <TagGroup max={2} tags={CITIES} testID="tag-group" />
             </View>
 
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>SELECT</Text>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight }]}>SELECT</Text>
               <Select
                 helperText="Usamos esto para calcular impuestos"
                 label="País"
@@ -987,7 +969,7 @@ const App = () => {
                 value={country}
               />
 
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont, marginTop: spacing.md }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight, marginTop: spacing.md }]}>
                 SELECT · ERROR / DISABLED
               </Text>
               <Select
@@ -1009,26 +991,26 @@ const App = () => {
             </View>
 
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, { fontFamily: regularFont }]}>
+              <Text style={[styles.sectionTitle, { fontWeight: regularWeight }]}>
                 ICON
               </Text>
-              <Text style={[styles.subtitle, { fontFamily: regularFont }]}>
+              <Text style={[styles.subtitle, { fontWeight: regularWeight }]}>
                 Los 31 glifos de bDS salen ya montados de @dsm/mobile/icons:
-                &lt;IconTrash size="lg" color="danger" /&gt;. Cada uno es un
+                &lt;IconTrash01 size="lg" color="danger" /&gt;. Cada uno es un
                 Icon con sus paths adentro, asi que fija la caja desde
                 size/icon/* y resuelve el color del tema.
               </Text>
 
-              <IconImage size="lg" />
+              <IconImage01 size="lg" />
 
               {/* Los 6 pasos. El label es el valor que resuelve el token, no un
                   width escrito a mano. */}
               <View style={[styles.row, styles.iconRow]}>
                 {ICON_SIZES.map(([size, px]) => (
                   <View key={size} style={styles.iconCell}>
-                    <IconImage size={size} testID={`icon-size-${size}`} />
+                    <IconImage01 size={size} testID={`icon-size-${size}`} />
                     <Text
-                      style={[styles.iconLabel, { fontFamily: regularFont }]}
+                      style={[styles.iconLabel, { fontWeight: regularWeight }]}
                     >
                       {size} · {px}px
                     </Text>
@@ -1046,7 +1028,7 @@ const App = () => {
                   <View key={tint} style={styles.iconCell}>
                     <IconPlus size="md" tintColor={tint} />
                     <Text
-                      style={[styles.iconLabel, { fontFamily: regularFont }]}
+                      style={[styles.iconLabel, { fontWeight: regularWeight }]}
                     >
                       {tint}
                     </Text>
@@ -1065,7 +1047,7 @@ const App = () => {
                       testID={`icon-color-${color}`}
                     />
                     <Text
-                      style={[styles.iconLabel, { fontFamily: regularFont }]}
+                      style={[styles.iconLabel, { fontWeight: regularWeight }]}
                     >
                       {color}
                     </Text>
@@ -1078,17 +1060,17 @@ const App = () => {
                 {(
                   [
                     ['plus', IconPlus],
-                    ['search', IconSearch],
-                    ['trash', IconTrash],
+                    ['search', IconSearchMd],
+                    ['trash', IconTrash01],
                     ['check-circle', IconCheckCircle],
                     ['alert-triangle', IconAlertTriangle],
-                    ['image', IconImage],
+                    ['image', IconImage01],
                   ] as const
                 ).map(([name, IconComponent]) => (
                   <View key={name} style={styles.iconCell}>
                     <IconComponent size="lg" testID={`icon-glyph-${name}`} />
                     <Text
-                      style={[styles.iconLabel, { fontFamily: regularFont }]}
+                      style={[styles.iconLabel, { fontWeight: regularWeight }]}
                     >
                       {name}
                     </Text>
@@ -1102,7 +1084,7 @@ const App = () => {
                   que se etiqueta. */}
               <View style={styles.row}>
                 <IconCheckCircle color="success" testID="icon-decorative" />
-                <Text style={[styles.iconLabel, { fontFamily: regularFont }]}>
+                <Text style={[styles.iconLabel, { fontWeight: regularWeight }]}>
                   Cuenta verificada — icono decorativo, oculto para el lector
                 </Text>
                 <IconCheckCircle

@@ -1,7 +1,7 @@
 import { selectTokens } from '@dsm/shared';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveMulishFontFamily, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useThemeMode } from '../../../theme';
 import type { ISelectProps } from './Select.types';
 
 /** Params of {@link useSelect}: the Select props plus the live interaction state. */
@@ -48,9 +48,9 @@ export const useSelect = ({
 }: IUseSelectParams): IUseSelectResult => {
   const mode = useThemeMode();
   const tokens = selectTokens[mode];
-  const font = resolveMulishFontFamily(tokens.typography.value.fontWeight);
-  const helperFont = resolveMulishFontFamily(tokens.typography.helper.fontWeight);
-  const labelFont = resolveMulishFontFamily(tokens.typography.label.fontWeight);
+  const weight = resolveFontWeight(tokens.typography.value.fontWeight);
+  const helperWeight = resolveFontWeight(tokens.typography.helper.fontWeight);
+  const labelWeight = resolveFontWeight(tokens.typography.label.fontWeight);
   const hasError = Boolean(error);
   const sizeTokens = tokens.sizes[size];
   const isFilled = options.some((option) => option.value === value);
@@ -103,14 +103,14 @@ export const useSelect = ({
     },
     labelStyle: {
       width: '100%',
-      fontFamily: labelFont,
+      fontWeight: labelWeight,
       fontSize: tokens.typography.label.fontSize,
       lineHeight: tokens.typography.label.lineHeight,
       color: disabled ? tokens.colors.label.disabled : tokens.colors.label.default,
     },
     valueStyle: {
       width: '100%',
-      fontFamily: font,
+      fontWeight: weight,
       fontSize: tokens.typography.value.fontSize,
       lineHeight: tokens.typography.value.lineHeight,
       color: valueColor,
@@ -118,7 +118,7 @@ export const useSelect = ({
     iconColor: disabled ? tokens.colors.icon.disabled : tokens.colors.icon.default,
     helperStyle: {
       marginTop: tokens.dimension.footerSlotGap,
-      fontFamily: helperFont,
+      fontWeight: helperWeight,
       fontSize: tokens.typography.helper.fontSize,
       lineHeight: tokens.typography.helper.lineHeight,
       color: disabled ? tokens.colors.helper.disabled : hasError ? tokens.colors.helper.error : tokens.colors.helper.default,
@@ -140,7 +140,7 @@ export const useSelect = ({
     },
     sheetHeaderStyle: {
       padding: tokens.dimension.paddingHorizontal,
-      fontFamily: labelFont,
+      fontWeight: labelWeight,
       fontSize: tokens.typography.label.fontSize,
       lineHeight: tokens.typography.label.lineHeight,
       color: tokens.colors.label.default,
@@ -157,7 +157,7 @@ export const useSelect = ({
     searchInputStyle: {
       flex: 1,
       padding: 0,
-      fontFamily: font,
+      fontWeight: weight,
       fontSize: tokens.typography.value.fontSize,
       lineHeight: tokens.typography.value.lineHeight,
       color: tokens.colors.value.filled,
@@ -165,7 +165,7 @@ export const useSelect = ({
     searchPlaceholderColor: tokens.colors.value.placeholder,
     noOptionsStyle: {
       padding: tokens.dimension.paddingHorizontal,
-      fontFamily: helperFont,
+      fontWeight: helperWeight,
       fontSize: tokens.typography.helper.fontSize,
       lineHeight: tokens.typography.helper.lineHeight,
       color: tokens.colors.helper.default,
