@@ -19,6 +19,7 @@ export * from './PasswordField';
 export * from './PhoneField';
 export * from './ProgressBar';
 export * from './Radio';
+export * from './SearchField';
 export * from './Snackbar';
 export * from './Spinner';
 export * from './Skeleton';

@@ -22,6 +22,7 @@ export * from './atoms/switch.types';
 export * from './atoms/tabItem.types';
 export * from './atoms/tag.types';
 export * from './atoms/textArea.types';
+export * from './atoms/searchField.types';
 export * from './atoms/textField.types';
 export * from './molecules/avatarGroup.types';
 export * from './molecules/buttonGroup.types';

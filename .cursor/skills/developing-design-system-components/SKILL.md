@@ -640,6 +640,23 @@ bDS themes are **three Figma variable collections**, not a single light/dark swi
   (empty/dot/glyphs) vs `wizard` (numbered pending/active). `warning` vs `error` is
   visual only (AlertTriangle vs X). One token file `progressStepper.tokens.ts`. A11y:
   `role="list"` / listitem + `aria-current="step"` on active. Non-interactive.
+- **`SearchField` size default is `md`** (`lg`|`md`|`sm`), not TextField's
+  `small`|`medium`|`large`, and not Figma's variant default `lg`. `placeholder`
+  is required and is the accessible name (`aria-label` / `accessibilityLabel`)
+  because it vanishes once there is text. `isFilled` and `state` are not props.
+  `trailingAccessory` shows only while empty; text replaces it with the clear
+  control ("Borrar búsqueda"). Web clear is `IconButton` veil + `IconX` (32 on
+  lg/md, 24 on sm). Native clear is `IconXCircle` + `hitSlop` to `size/target/min`
+  — one mobile package, iOS glyph, native `clearButtonMode` stays off. Search
+  glyph is **16** (`component/searchfield/icon/size/sm`) at every size; the
+  sibling `icon/size/md` (24) is not what the live `lg` node binds. Web: white
+  + border + `radius/field/md` (12) + TextField focus ring. Native: `color/fill/neutral/subtle`,
+  no border, `component/searchfield/radius` (pill), focus is an accent border on the
+  bar. RN-web's `<input>` outline must be forced off or focus draws a rectangle
+  inside the pill. `trailingAccessory` is a host node — the field ships no
+  trailing glyph (no dots/mic/camera of its own).
+  No `overlay-hover` leaf — web hover is `border-hover` only. Hide WebKit's
+  `type="search"` cancel button in `pseudo.css`.
 
 ## Conventions (quick reference — full list in README)
 
