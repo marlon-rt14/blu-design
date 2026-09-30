@@ -13,7 +13,7 @@ Tres columnas cargan todo el peso:
   por fila: lo decide el eje**, y una fila solo pasa a ✅ cuando alguien la cruza a mano
   contra Figma.
 
-## Las 14 reglas
+## Las 15 reglas
 
 Lo que sigue en el documento las desarrolla. Esta lista es el índice.
 
@@ -44,12 +44,14 @@ Lo que sigue en el documento las desarrolla. Esta lista es el índice.
 10. **Solo las ⚠️ llevan comentario**, en lenguaje llano. Las ❌ van con `—`.
 11. **Una celda puede llevar varios ítems**, y cada ítem resuelto se marca con ✓.
 12. **⚠️ → ✅ cuando todos los ítems están en ✓.** **❌ → ✅ directo al implementarse.**
+13. **Confirmar o corregir un ítem actualiza este archivo en el mismo momento**, sin que
+    nadie lo pida. La medición y la fila se mueven juntas o la tabla miente.
 
 **Al verificar**
 
-13. **Cuando la descripción y el valor se contradicen, manda el valor.** `radius/action`
+14. **Cuando la descripción y el valor se contradicen, manda el valor.** `radius/action`
     decía "píldora" valiendo 12; `font/size/body/md` dice "16px" valiendo 17.
-14. **Compilar no es ejecutar.** `typecheck` y `build-storybook` pueden estar verdes con
+15. **Compilar no es ejecutar.** `typecheck` y `build-storybook` pueden estar verdes con
     el paquete muerto — la prueba es **evaluar** `@dsm/shared`, que resuelve todas las
     rutas de token al importarse.
 
@@ -94,7 +96,7 @@ a ser `PLATAFORMA` aunque la colección diga otra cosa.
 |---|---|---|
 | ❌ | **incompleto.** El eje no está cableado, así que no hay forma de producir el valor correcto desde código | todas las de `TEMA` y `PLATAFORMA` |
 | ⚠️ | **implementado, sin revisar.** Se lee un token y sale un valor, pero **nadie lo ha cruzado a mano con el de Figma**: puede funcionar o no | todas las de `LAYOUT` y `FIJO` |
-| ✅ | revisado a mano contra Figma y coincide | **1 de 12** |
+| ✅ | revisado a mano contra Figma y coincide | **2 de 12** |
 | 🔍 | el eje no está identificado todavía | — |
 
 Por eso `TEMA` y `PLATAFORMA` van en ❌ de entrada: los cruces marca × tema no se
@@ -185,7 +187,7 @@ Ambos son `variant=primary · appearance=fill · size=lg · state=default`.
 | `fills` | `component/button/primary/text-default` | `color/text/action/primary/default` | 3. Semantic | **TEMA (semantic)** | ❌ | — |
 | `fontFamily` | `font/family/text` | **`platform/font/family`** | 4. Layout | **PLATAFORMA** | ❌ | — |
 | `fontStyle` | *(variable no local)* | — | — | 🔍 | ❌ | — |
-| `fontSize` | *(variable no local)* | — | — | 🔍 | ⚠️ | Da 16, igual que Figma. Pero no sabemos qué variable usa Figma, así que no cuenta como confirmado. |
+| `fontSize` | `font/size/label/{sm,md,lg}` | primitivo (sin nombrar) | 4. Layout | FIJO | ✅ | • Los cuatro tamaños cuadran con Figma: 12 · 12 · 14 · 16 **✓**<br>• Las 18 variantes del set usan los mismos valores **✓** |
 
 ### Capas `leadingIcon` / `trailingIcon`
 
