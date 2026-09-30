@@ -91,14 +91,25 @@ export interface IButtonDimensionTokens {
   /** Gap between the label and an icon. `space/inline/sm` (8). */
   gap: number;
   /**
-   * Which step of the Icon scale a button of each size uses.
+   * Which step of the Icon scale the slots get: **always `sm` (16)**.
    *
-   * **Does not scale 1:1 with the control**, and cannot be derived: `xs` and
-   * `sm` both take `size/icon/sm` (16), `md` and `lg` both take `size/icon/md`
-   * (24) — *"porque la escala no tiene un paso de 20"*. Four button sizes map
-   * onto two icon sizes.
+   * One value and not a per-size record, because the glyph does not scale with
+   * the control at all — the icon is 16 in a 24px `xs` button and in a 56px
+   * `lg` one. Measured on the component set (`14:2002`) rather than assumed:
+   * the four size variants, both variants and all five appearances, 18 nodes,
+   * every one binds `size/icon/sm`.
+   *
+   * It stays stated here instead of read because bDS ships no token for "the
+   * Button's icon step" — Figma expresses the choice by *which* `size/icon/*`
+   * it binds, and that is a binding, not a value.
+   *
+   * Was `{ xs: 'sm', sm: 'sm', md: 'md', lg: 'md' }` until 2026-09-30, which
+   * rendered `md` and `lg` 8px too big. The JSDoc justified it with a quote —
+   * *"porque la escala no tiene un paso de 20"* — that appears in no export,
+   * current or pre-sync, and in no Supernova page. `iconButton.tokens.ts`
+   * still carries the same quote and has not been measured.
    */
-  iconSize: Record<TButtonSize, TIconSize>;
+  iconSize: TIconSize;
   /**
    * `radius/action` — **12 at every size**, not a pill.
    *
@@ -269,9 +280,9 @@ const readButtonTokens = (key: TThemeSourceKey): IButtonTokens => {
       },
       minWidth: dimensionAt('size.control.min-width'),
       gap: dimensionAt('space.inline.sm'),
-      // A mapping between two token scales rather than a token of its own, so
-      // it is stated here instead of read: bDS defines it in prose only.
-      iconSize: { xs: 'sm', sm: 'sm', md: 'md', lg: 'md' },
+      // A choice of which token to read rather than a token of its own — see
+      // IButtonDimensionTokens.iconSize. Measured on all 18 nodes of the set.
+      iconSize: 'sm',
       borderRadius: dimensionAt('radius.action'),
       borderWidth: dimensionAt('border.width.default'),
       minTouchTarget: dimensionAt('size.target.min'),

@@ -94,7 +94,7 @@ a ser `PLATAFORMA` aunque la colección diga otra cosa.
 |---|---|---|
 | ❌ | **incompleto.** El eje no está cableado, así que no hay forma de producir el valor correcto desde código | todas las de `TEMA` y `PLATAFORMA` |
 | ⚠️ | **implementado, sin revisar.** Se lee un token y sale un valor, pero **nadie lo ha cruzado a mano con el de Figma**: puede funcionar o no | todas las de `LAYOUT` y `FIJO` |
-| ✅ | revisado a mano contra Figma y coincide | hoy **ninguna** |
+| ✅ | revisado a mano contra Figma y coincide | **1 de 12** |
 | 🔍 | el eje no está identificado todavía | — |
 
 Por eso `TEMA` y `PLATAFORMA` van en ❌ de entrada: los cruces marca × tema no se
@@ -192,7 +192,7 @@ Ambos son `variant=primary · appearance=fill · size=lg · state=default`.
 | Propiedad (Figma) | Variable | Aliasea a | Colección | **Eje** | Estado | Comentario |
 |---|---|---|---|---|---|---|
 | `fills` (del vector) | `component/button/primary/icon-default` | `color/icon/action/primary/default` | 3. Semantic | **TEMA (semantic)** | ❌ | — |
-| `size.x` · `size.y` | `size/icon/sm` | primitivo (sin nombrar) | 4. Layout | FIJO | ⚠️ | El Icon funciona bien: le pides un tamaño y te lo da. El Button le pide el que no es — en `md` y `lg` pide 24 donde Figma pone 16. |
+| `size.x` · `size.y` | `size/icon/sm` | primitivo (sin nombrar) | 4. Layout | FIJO | ✅ | • El Button pedía 24 en `md` y `lg` donde Figma pone 16 **✓**<br>• Las 18 variantes del set usan el mismo tamaño, `size/icon/sm` **✓** |
 
 ### Lo que mueve la plataforma, con valores
 
@@ -207,11 +207,11 @@ platform/type/label/weight  500px      600px        500px      600px
 congeladas en modo ios**. Por eso hoy la web rinde el Button en pastilla y pediría
 SF Pro si no lo estuviéramos esquivando a mano.
 
-### Los cinco frentes abiertos
+### Los cuatro frentes abiertos
 
-Con la leyenda de arriba **ninguna de las 12 filas está en ✅**, así que esto no es "las
-que fallan": son las cinco donde ya sabemos **qué** está mal y **quién** lo cierra. El
-resto está en ⚠️ por no haberse revisado, que es otra cosa.
+Esto no es "las que fallan": son las que ya sabemos **qué** tienen y **quién** lo cierra.
+El resto está en ⚠️ por no haberse revisado, que es otra cosa. Cuando un frente se
+cierra **se borra de aquí** — su historia vive en el commit y en el JSDoc.
 
 1. **`radius/action` → 12 vs 9999. `PLATAFORMA`.** Ya **no** está bloqueado por diseño:
    la carpeta `web` trae `12px`. Lo que falta es nuestro — cablear el eje plataforma en
@@ -234,17 +234,12 @@ resto está en ⚠️ por no haberse revisado, que es otra cosa.
    `docs/set · platform=web` (`1507:65195`). O sea que el 600 sale de otra variable, de
    una librería remota. **Hay que preguntarle a diseño cuál es antes de tocar nada.**
 
-4. **`size/icon/sm` → 16 vs 24. `FIJO`.** Esta **sí es nuestra, y es la más fácil.**
-   `button.tokens.ts` mapea `iconSize: { xs: 'sm', sm: 'sm', md: 'md', lg: 'md' }`, y su
-   JSDoc lo justifica con *"porque la escala no tiene un paso de 20"*. Pero el nodo `lg`
-   con el icono **visible** mide 16×16 y enlaza `size/icon/sm`. Es un valor escrito a
-   mano, no un token leído — por eso ningún typecheck lo iba a cazar. Falta medir `md`,
-   `sm` y `xs` antes de rehacer la tabla completa.
-
-5. **`component/button/primary/icon-default`. `TEMA (semantic)`.** No lo leemos:
+4. **`component/button/primary/icon-default`. `TEMA (semantic)`.** No lo leemos:
    `IButtonSurfaceColorTokens` no tiene campo de color de icono, así que el glifo hereda
-   el de la etiqueta. Coinciden en `fill`, pero son tokens distintos y nadie garantiza
-   que coincidan en `outline`, `ghost` o `on-inverse`. **Lo cerramos nosotros.**
+   el de la etiqueta. **Y por ahora da igual, medido**: los 14 tokens `icon-*` del Button
+   son idénticos a su gemelo `text-*` en las 18 carpetas. Así que no es un bug, es una
+   divergencia de contrato — el día que diseño los separe, nos enteramos rompiéndonos.
+   Cerrarlo es añadir el campo y leerlo; volver a medir los 14 antes.
 
 ### Modos fijados, y en qué nodo
 

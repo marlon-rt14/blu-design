@@ -25,8 +25,8 @@ interface IUseButtonResult {
   outlineStyle: StyleProp<ViewStyle>;
   labelStyle: StyleProp<TextStyle>;
   /**
-   * Which Icon size step to give the slots. Not the control's own size: `xs` and
-   * `sm` both take 16, `md` and `lg` both take 24.
+   * Which Icon size step to give the slots: always `sm` (16). It does not track
+   * the control's size — the glyph is 16 at every one of them.
    */
   iconSize: TIconSize;
   /**
@@ -178,7 +178,7 @@ export const useButton = ({
     containerStyle,
     outlineStyle,
     labelStyle,
-    iconSize: tokens.dimension.iconSize[size],
+    iconSize: tokens.dimension.iconSize,
     iconColor: isDisabled ? surface.labelDisabled : surface.label,
     hitSlop,
     isDisabled,

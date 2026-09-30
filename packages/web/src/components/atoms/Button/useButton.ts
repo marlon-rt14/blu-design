@@ -28,8 +28,8 @@ interface IUseButtonResult {
    */
   buttonStyle: CSSProperties;
   /**
-   * Which Icon size step to give the slots. Not the control's own size: `xs` and
-   * `sm` both take 16, `md` and `lg` both take 24.
+   * Which Icon size step to give the slots: always `sm` (16). It does not track
+   * the control's size — the glyph is 16 at every one of them.
    */
   iconSize: TIconSize;
   /** Normalized disabled flag, safe to hand straight to the DOM element. */
@@ -170,5 +170,5 @@ export const useButton = ({
     cursor: isDisabled ? 'not-allowed' : 'pointer',
   };
 
-  return { buttonStyle, iconSize: tokens.dimension.iconSize[size], isDisabled, state };
+  return { buttonStyle, iconSize: tokens.dimension.iconSize, isDisabled, state };
 };

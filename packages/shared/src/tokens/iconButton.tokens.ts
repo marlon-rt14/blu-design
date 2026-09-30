@@ -56,14 +56,23 @@ export interface IIconButtonDimensionTokens {
    * Step of the glyph — **not** the control's own ramp, and a step name rather
    * than a number, because that is what `Icon` takes.
    *
-   * Measured on all four variants: `xs` and `sm` both bind `size/icon/sm` (16),
-   * `md` binds `size/icon/md` (24) and `lg` binds `size/icon/lg` (32). `xs`
-   * skipping its own `size/icon/xs` (12) is the interesting one, and it is what
-   * the file does — at 12 a glyph inside a control is a smudge.
+   * Measured on all four variants, and re-measured on 2026-09-30 (nodes
+   * `53:6183` / `53:6199` / `53:6215` / `53:6231`): `xs` and `sm` both bind
+   * `size/icon/sm` (16), `md` binds `size/icon/md` (24) and `lg` binds
+   * `size/icon/lg` (32). `xs` skipping its own `size/icon/xs` (12) is the
+   * interesting one, and it is what the file does — at 12 a glyph inside a
+   * control is a smudge.
    *
-   * Note this ramp is **not** the Button's, which tops out at `md` for both
-   * `md` and `lg` *"porque la escala no tiene un paso de 20"*. An icon-only
-   * control can afford the bigger glyph, and at `lg` it takes it.
+   * This ramp really is **not** the Button's, whose glyph is `sm` (16) at every
+   * one of its four sizes. The reason is the anatomy: here the glyph *is* the
+   * content, so it grows with the control, while in the Button it sits next to
+   * a label and stays on the line. `size/icon/sm`'s own description says as
+   * much — *"Icono 16px: icono acompanando texto en linea"*.
+   *
+   * This note used to claim the Button topped out at `md`, quoting bDS with
+   * *"porque la escala no tiene un paso de 20"*. Both halves were wrong: the
+   * Button never leaves `sm`, and that sentence appears in no export, current
+   * or pre-sync, and in no Supernova page.
    */
   iconSize: Record<TIconButtonSize, TIconSize>;
   /**
