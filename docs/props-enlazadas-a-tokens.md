@@ -22,8 +22,8 @@ Lo que sigue en el documento las desarrolla. Esta lista es el índice.
 1. Hay **nativos e híbridos**. Los nativos cambian de anatomía según el SO; los híbridos
    tienen una sola forma y siguen la plataforma solo por tokens. Los dos llevan **además**
    los temas de marca y semantic.
-2. **La lista de los 14 nativos es de diseño, no se elige a dedo.** Y un nativo tiene por
-   fuerza props de eje `PLATAFORMA`, pero tenerlas no lo vuelve nativo.
+2. **La lista de nativos es de diseño, no se elige a dedo** — 15 a 2026-10-01. Y un
+   nativo tiene por fuerza props de eje `PLATAFORMA`, pero tenerlas no lo vuelve nativo.
 3. **Primero se marca, después se arregla.** Nada de código antes de tener la fila medida.
 
 **Cómo se anota una fila**
@@ -68,12 +68,13 @@ Diseño ya partió el catálogo, y **la lista es suya, no nuestra** — está en
 
 [figma.com/design/DOUsaQf0fK7hybeS0n74gb/bDS---Core-components?node-id=1694-37](https://www.figma.com/design/DOUsaQf0fK7hybeS0n74gb/bDS---Core-components?node-id=1692-240824&p=f&m=dev)
 
-- **Nativos — 14.** *Cambian de anatomía.* Se redibujan con los controles que el usuario
+- **Nativos — 15.** *Cambian de anatomía.* Se redibujan con los controles que el usuario
   ya conoce de su teléfono. Llevan el eje `platform` atado a `platform/variant`.
+  - **ACTIONS**: Button — *"cápsula en iOS, botón común de M3"*
   - **FORMS**: TextField · TextArea · PasswordField · CardField · OTPField · PhoneField ·
     Select · Combobox · SearchField · NumericStepper
   - **SELECTION**: SegmentedControl · Slider · Switch · Calendar
-- **Híbridos — 41.** *Una sola forma.* Misma anatomía en las tres plataformas; siguen la
+- **Híbridos — 40.** *Una sola forma.* Misma anatomía en las tres plataformas; siguen la
   plataforma **solo a través de los tokens**: tipografía, alturas mínimas de toque, color
   y radios. Son marca y contenido, no controles del sistema.
 
@@ -86,9 +87,10 @@ siente roto o poco confiable"*. Va híbrido si *"es marca o contenido"* y *"bast
 la tipografía, el tamaño de toque y el color sigan el modo"*.
 
 **Un nativo tiene por fuerza props de eje `PLATAFORMA`. Pero tenerlas no lo vuelve
-nativo** — el Button es híbrido y tiene dos, porque un híbrido sí afina radios y
-tipografía por plataforma. Lo que separa a las dos familias es si cambia **la anatomía**,
-y eso lo dice la lista de Figma.
+nativo**: medido, 23 de los 42 componentes que tenemos divergen por plataforma, y solo
+15 son nativos. Alert, Tooltip, Snackbar o ListItem leen `font/size/body/*`, que se mueve
+con el SO, y siguen siendo híbridos. Lo que separa a las dos familias es si cambia **la
+anatomía**, y eso lo dice la lista de Figma, no una medición nuestra.
 
 ## La trampa: la colección de Figma no es el eje
 
@@ -182,11 +184,16 @@ Al leer el nodo, dos campos valen oro:
 
 ---
 
-## Button — **híbrido**, con dos props de plataforma
+## Button — **nativo**
 
-No está en la lista de nativos: su anatomía es la misma en las tres plataformas. Pero
-sigue la plataforma en dos filas — `rectangleCornerRadii` y `fontFamily` — que es
-exactamente lo que se espera de un híbrido. Todo lo demás es tema, layout o fijo.
+Entró en la lista de Figma el **2026-10-01**, en `ACTIONS`, con la nota *"cápsula en iOS,
+botón común de M3"*. Hasta ese día estaba entre los híbridos y este documento lo
+describía así.
+
+Lo que ya tenemos cubierto es el **eje de tokens**: dos filas siguen la plataforma,
+`rectangleCornerRadii` y `fontFamily`, y la primera está cerrada y medida. Lo que un
+nativo hace **además** es cambiar de anatomía, y eso no son valores distintos sino otro
+árbol de JSX por plataforma. Eso está sin empezar, y no es lo que miden estas tablas.
 
 Medido sobre dos nodos hermanos de la sección `06 · Marca × tema × plataforma`
 (frame `Button · Plataformas`, `1507:65184`):

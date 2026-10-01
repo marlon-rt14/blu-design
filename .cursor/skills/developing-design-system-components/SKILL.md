@@ -36,10 +36,10 @@ Copy this checklist and work through it in order:
        them before writing a spec. **If it has no section, create it**, following the 15
        rules at the top of that file (the method is written out, endpoints included).
        Two things that file settles, so don't re-derive them: **native vs hybrid is
-       design's call** — the 14 natives are listed in the Figma frame `Nativos e híbridos`
+       design's call** — the natives are listed in the Figma frame `Nativos e híbridos`
        (`1694:37`), everything else is hybrid (one anatomy, platform only through tokens);
        and a native necessarily has `PLATAFORMA` rows, but **having them does not make a
-       component native** (Button is hybrid and has two). Both families still carry the
+       component native** — measured, 23 of our 42 diverge and only 15 are native. Both families still carry the
        brand and semantic themes — platform is a fourth axis on top.
        When you confirm or correct a row, update the file in the same commit.
 - [ ] 0. Spec: Figma MCP directly on "BDS3 - Core components" (search_design_system, then

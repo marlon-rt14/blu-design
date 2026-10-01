@@ -231,12 +231,13 @@ since the day it was written.
 
 Two things that file settles and that you should not re-derive:
 
-- **Native vs hybrid is design's call, not ours.** The 14 native components — the ones
-  that redraw per OS — are listed in the Figma frame `Nativos e híbridos` (`1694:37`).
+- **Native vs hybrid is design's call, not ours.** The native components — the ones that
+  redraw per OS, 15 as of 2026-10-01 — are listed in the Figma frame `Nativos e híbridos`
+  (`1694:37`).
   Everything else is hybrid: one anatomy, and platform enters only through tokens
   (typography, touch target, colour, radii). A native component necessarily has
-  `PLATAFORMA` rows; **having them does not make a component native** — Button is hybrid
-  and has two.
+  `PLATAFORMA` rows; **having them does not make a component native** — measured, 23 of
+  our 42 components diverge by platform and only 15 are native.
 - **Both families still carry the brand and semantic themes.** Platform is a fourth axis
   on top, not a replacement.
 
