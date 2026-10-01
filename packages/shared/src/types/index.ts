@@ -1,6 +1,7 @@
 export * from './atoms/alert.types';
 export * from './atoms/badge.types';
 export * from './atoms/callout.types';
+export * from './atoms/emptyState.types';
 export * from './atoms/avatar.types';
 export * from './atoms/avatarIndicator.types';
 export * from './atoms/button.types';
