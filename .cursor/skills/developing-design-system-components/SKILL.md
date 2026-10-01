@@ -517,16 +517,25 @@ bDS themes are **three Figma variable collections**, not a single light/dark swi
   is **LinkButton `on-inverse` `sm`** `"Deshacer"` (21px) — the set
   description still says Button; the nested instance is a link (Figma wins).
   Dismiss is IconButton `on-inverse` `sm` (32 visual, 16 glyph, pill)
-  painted locally from `color.component.iconbutton.on-inverse.*`; Figma
-  property is **`showDismiss`** default false (pairs with `onDismiss` in
-  code, same as Alert's `showAction`/`onAction`). Type is `text/body/md`
-  (live `97:13653`). Max width **448** is Figma copy, not a theme token.
-  Autoclose: `motion/dwell/default` (6s) without action, `motion/dwell/long`
-  (10s) when `showAction`; optional `duration` overrides
-  (`resolveSnackbarDurationMs`). Timer starts on mount and does not restart.
-  Live region is **not a prop**: `role=status`, `aria-live=assertive` only
-  on danger. Don't copy Alert's muted fill, chip, LinkButton `on-muted`, or
-  presence-based `action` object from the Dev frame (ship `show*` + handlers).
+  painted locally from `color.component.iconbutton.on-inverse.*`. Dev firma
+  `1010:76982` (updated): `action?: { label, onPress }` draws the LinkButton
+  (no `showAction`); `onDismiss?: () => void` draws the × (no `showDismiss`,
+  label hardcoded `"Cerrar"`). They share one trailing slot — published
+  instances never show both (`102:12292` action, close hidden; `102:12356`
+  close, action hidden). `action` wins if a host passes both; swipe and the
+  timer still call `onDismiss`. `showIcon` stays — the glyph has no content
+  to infer from. `message` is required. Type is `text/body/md` (live
+  `97:13653`). Max width **448** is Figma copy, not a theme token.
+  Autoclose: `motion/dwell/default` (6s) without `action`, `motion/dwell/long`
+  (10s) with one (decision 3, 29-sep — the firma comment's 4s is stale);
+  optional `duration` overrides (`resolveSnackbarDurationMs`). Timer starts
+  on mount and does not restart. No `onDismiss` → the bar hides itself when
+  the dwell elapses (no ×). With `onDismiss` → ×, swipe and the timer all
+  call it and the host unmounts. Live region is **not a prop**: `role=status`,
+  `aria-live=assertive` only on danger. Stories mount the bar from a button,
+  not on first paint. Don't copy Alert's muted fill, chip, or LinkButton
+  `on-muted`. SnackbarStack is the molecule (`1706:3753`): max 3, collapsed
+  peeks at `component/snackbar/stack/behind-1|2`, expanded pauses dwell.
 - **Coachmark is a system-triggered tourtip, not a Tooltip.** Elevated /
   floating surface (light card with controls) — **not** inverse. Axes:
   **`media`** (none|image) × **`placement`** (13 Floating UI values) ×
@@ -772,6 +781,23 @@ bDS themes are **three Figma variable collections**, not a single light/dark swi
   (empty/dot/glyphs) vs `wizard` (numbered pending/active). `warning` vs `error` is
   visual only (AlertTriangle vs X). One token file `progressStepper.tokens.ts`. A11y:
   `role="list"` / listitem + `aria-current="step"` on active. Non-interactive.
+- **`SearchField` size default is `md`** (`lg`|`md`|`sm`), not TextField's
+  `small`|`medium`|`large`, and not Figma's variant default `lg`. `placeholder`
+  is required and is the accessible name (`aria-label` / `accessibilityLabel`)
+  because it vanishes once there is text. `isFilled` and `state` are not props.
+  `trailingAccessory` shows only while empty; text replaces it with the clear
+  control ("Borrar búsqueda"). Web clear is `IconButton` veil + `IconX` (32 on
+  lg/md, 24 on sm). Native clear is `IconXCircle` + `hitSlop` to `size/target/min`
+  — one mobile package, iOS glyph, native `clearButtonMode` stays off. Search
+  glyph is **16** (`component/searchfield/icon/size/sm`) at every size; the
+  sibling `icon/size/md` (24) is not what the live `lg` node binds. Web: white
+  + border + `radius/field/md` (12) + TextField focus ring. Native: `color/fill/neutral/subtle`,
+  no border, `component/searchfield/radius` (pill), focus is an accent border on the
+  bar. RN-web's `<input>` outline must be forced off or focus draws a rectangle
+  inside the pill. `trailingAccessory` is a host node — the field ships no
+  trailing glyph (no dots/mic/camera of its own).
+  No `overlay-hover` leaf — web hover is `border-hover` only. Hide WebKit's
+  `type="search"` cancel button in `pseudo.css`.
 
 ## Conventions (quick reference — full list in README)
 

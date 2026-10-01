@@ -1,5 +1,5 @@
 import type { TAccordionAppearance, TAccordionSize } from '@dsm/shared';
-import { IconCreditCard } from '@dsm/web/icons';
+import { IconCreditCard01 } from '@dsm/web/icons/finance-ecommerce';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 
@@ -63,7 +63,7 @@ const meta = {
   args: {
     id: 'shipping',
     title: 'Envío',
-    icon: <IconCreditCard />,
+    icon: <IconCreditCard01 />,
     children: 'El envío estándar tarda de 3 a 5 días hábiles.',
     isExpanded: true,
     onToggle: fn(),

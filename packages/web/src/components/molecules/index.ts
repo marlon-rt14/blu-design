@@ -11,6 +11,7 @@ export * from './Popover';
 export * from './ProgressStepper';
 export * from './RadioGroup';
 export * from './Select';
+export * from './SnackbarStack';
 export * from './SwitchItem';
 export * from './Tabs';
 export * from './TagGroup';

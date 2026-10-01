@@ -3,7 +3,7 @@ import type { ReactElement, ReactNode } from 'react';
 import { AccessibilityInfo, Animated, Pressable, Text, View } from 'react-native';
 import type { TextStyle } from 'react-native';
 
-import { IconChevronDown } from '../../../icons';
+import { IconChevronDown } from '../../../icons/arrows';
 import type { TIconProps } from '../Icon';
 import type { IAccordionItemProps } from './AccordionItem.types';
 import { useAccordionItem } from './useAccordionItem';

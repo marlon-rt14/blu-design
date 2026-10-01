@@ -1,5 +1,5 @@
 import type { TAccordionAppearance } from '@dsm/shared';
-import { IconCreditCard } from '@dsm/web/icons';
+import { IconCreditCard01 } from '@dsm/web/icons/finance-ecommerce';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement } from 'react';
 import { useState } from 'react';
@@ -77,7 +77,7 @@ const meta = {
         <PlatformAccordion {...args} defaultExpanded={['shipping']} platform={platform}>
           {SECTIONS.map((section) => (
             <PlatformAccordionItem
-              icon={<IconCreditCard />}
+              icon={<IconCreditCard01 />}
               id={section.id}
               key={section.id}
               platform={platform}
@@ -113,7 +113,7 @@ const ControlledDemo = (props: IPlatformAccordionProps): ReactElement => {
       <PlatformAccordion {...props} expanded={expanded} onExpandedChange={setExpanded}>
         {SECTIONS.map((section) => (
           <PlatformAccordionItem
-            icon={<IconCreditCard />}
+            icon={<IconCreditCard01 />}
             id={section.id}
             key={section.id}
             platform={props.platform}
@@ -141,7 +141,7 @@ export const WithDisabledItem: TStory = {
           {SECTIONS.map((section) => (
             <PlatformAccordionItem
               disabled={section.id === 'payment'}
-              icon={<IconCreditCard />}
+              icon={<IconCreditCard01 />}
               id={section.id}
               key={section.id}
               platform={platform}

@@ -32,6 +32,7 @@ export * from './popover.tokens';
 export * from './progressStepper.tokens';
 export * from './radio.tokens';
 export * from './radioGroup.tokens';
+export * from './searchField.tokens';
 export * from './select.tokens';
 export * from './snackbar.tokens';
 export * from './spinner.tokens';
