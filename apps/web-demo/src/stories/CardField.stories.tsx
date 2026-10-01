@@ -6,7 +6,8 @@ import { useArgs } from 'storybook/preview-api';
 import { fn } from 'storybook/test';
 
 import { PlatformCardField } from './PlatformCardField';
-import type { IPlatformCardFieldProps, TPlatform } from './PlatformCardField';
+import type { IPlatformCardFieldProps } from './PlatformCardField';
+import { implementationFor } from './themeGlobals';
 
 const PARTS: TCardFieldPart[] = ['number', 'expiry', 'cvv'];
 const SIZES: TCardFieldSize[] = ['sm', 'md', 'lg'];
@@ -136,7 +137,7 @@ const meta = {
         <PlatformCardField
           {...args}
           onChangeText={(value) => updateArgs({ value })}
-          platform={globals.platform as TPlatform}
+          platform={implementationFor(globals)}
         />
       </div>
     );
@@ -178,7 +179,7 @@ export const Parts: TStory = {
   },
 
   render: function Render(args, { globals }) {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 320 }}>
         <PlatformCardField
@@ -229,7 +230,7 @@ export const Parts: TStory = {
  */
 export const Sizes: TStory = {
   render: function Render(_args, { globals }) {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         {SIZES.map((size) => (
@@ -260,7 +261,7 @@ export const Sizes: TStory = {
  */
 export const States: TStory = {
   render: function Render(_args, { globals }) {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     const rows: { title: string; props: Partial<IPlatformCardFieldProps> }[] = [
       { title: 'vacio — la etiqueta hace de placeholder', props: { value: '' } },
       { title: 'con valor — la etiqueta flota', props: { value: SAMPLE_NUMBERS.visa ?? '' } },
@@ -305,7 +306,7 @@ export const States: TStory = {
  */
 export const BrandDetection: TStory = {
   render: function Render(_args, { globals }) {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     const samples = [
       ...CARD_BRANDS.map((b) => [CARD_BRAND_NAMES[b], SAMPLE_NUMBERS[b] ?? ''] as const),
       // A brand the set does not have, to show what an unrecognized card does.

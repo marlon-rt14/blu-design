@@ -8,7 +8,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties, ReactNode } from 'react';
 
 import { PlatformProgressStepper } from './PlatformProgressStepper';
-import type { IPlatformProgressStepperProps, TPlatform } from './PlatformProgressStepper';
+import type { IPlatformProgressStepperProps } from './PlatformProgressStepper';
+import { implementationFor } from './themeGlobals';
 
 const PURPOSES: TProgressStepperPurpose[] = ['status', 'wizard'];
 const ORIENTATIONS: TProgressStepperOrientation[] = ['horizontal', 'vertical'];
@@ -90,7 +91,7 @@ const meta = {
   },
   render: (args, { globals }) => (
     <div style={{ padding: 24, maxWidth: 640, width: '100%', boxSizing: 'border-box' }}>
-      <PlatformProgressStepper {...args} platform={globals['platform'] as TPlatform} />
+      <PlatformProgressStepper {...args} platform={implementationFor(globals)} />
     </div>
   ),
 } satisfies Meta<IPlatformProgressStepperProps>;
@@ -104,7 +105,7 @@ export const Playground: TStory = {};
 /** purpose × orientation matrix. */
 export const PurposeOrientation: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={stack}>
         {PURPOSES.map((purpose) =>
@@ -127,7 +128,7 @@ export const PurposeOrientation: TStory = {
 /** One step per status — gallery of indicator + label roles (H + V). */
 export const StatusGallery: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={stack}>
         {STATUSES.map((status) => {
@@ -195,14 +196,14 @@ export const ErrorRail: TStory = {
         <PlatformProgressStepper
           {...args}
           orientation="horizontal"
-          platform={globals['platform'] as TPlatform}
+          platform={implementationFor(globals)}
         />
       </Group>
       <Group title="vertical">
         <PlatformProgressStepper
           {...args}
           orientation="vertical"
-          platform={globals['platform'] as TPlatform}
+          platform={implementationFor(globals)}
         />
       </Group>
     </div>

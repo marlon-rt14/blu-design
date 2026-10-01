@@ -3,7 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { PlatformTagGroup } from './PlatformTagGroup';
 import type { IPlatformTagGroupItem } from './PlatformTagGroup';
-import type { IPlatformTagGroupProps, TPlatform } from './PlatformTagGroup';
+import type { IPlatformTagGroupProps } from './PlatformTagGroup';
+import { implementationFor } from './themeGlobals';
 
 const SIZES: TTagSize[] = ['sm', 'xs'];
 
@@ -50,7 +51,7 @@ const meta = {
     tags: CITIES,
     size: 'sm',
   },
-  render: (args, { globals }) => <PlatformTagGroup {...args} platform={globals['platform'] as TPlatform} />,
+  render: (args, { globals }) => <PlatformTagGroup {...args} platform={implementationFor(globals)} />,
 } satisfies Meta<IPlatformTagGroupProps>;
 
 export default meta;
@@ -61,7 +62,7 @@ export const Playground: TStory = {};
 
 export const Sizes: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         {SIZES.map((size) => (

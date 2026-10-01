@@ -5,6 +5,7 @@ import { Text, View } from 'react-native';
 
 import { PlatformCard } from './PlatformCard';
 import type { IPlatformCardProps, TPlatform } from './PlatformCard';
+import { implementationFor } from './themeGlobals';
 
 const ELEVATIONS: TCardElevation[] = ['flat', 'raised'];
 const PADDINGS: TCardPadding[] = ['none', 'md'];
@@ -111,7 +112,7 @@ const meta = {
   },
   args: { testID: 'card' },
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ width: 280 }}>
         <PlatformCard {...args} platform={platform}>
@@ -139,7 +140,7 @@ export const Playground: TStory = {};
  */
 export const Matrix: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
         {ELEVATIONS.flatMap((elevation) =>
@@ -171,7 +172,7 @@ export const Matrix: TStory = {
  */
 export const Elevation: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', gap: 24 }}>
         {ELEVATIONS.map((elevation) => (

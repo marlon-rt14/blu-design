@@ -3,7 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 
 import { PlatformTabs } from './PlatformTabs';
-import type { IPlatformTab, IPlatformTabsProps, TPlatform } from './PlatformTabs';
+import type { IPlatformTab, IPlatformTabsProps } from './PlatformTabs';
+import { implementationFor } from './themeGlobals';
 
 const SIZES: TTabSize[] = ['md', 'lg'];
 const LAYOUTS: TTabsLayout[] = ['scrollable', 'fitted'];
@@ -74,7 +75,7 @@ const meta = {
       <PlatformTabs
         {...args}
         onChange={setValue}
-        platform={globals.platform as TPlatform}
+        platform={implementationFor(globals)}
         value={value}
       />
     );
@@ -103,7 +104,7 @@ export const Sizes: TStory = {
             {...args}
             key={size}
             onChange={setValue}
-            platform={globals.platform as TPlatform}
+            platform={implementationFor(globals)}
             size={size}
             value={value}
           />
@@ -136,7 +137,7 @@ export const WithIconAndBadge: TStory = {
       <PlatformTabs
         {...args}
         onChange={setValue}
-        platform={globals.platform as TPlatform}
+        platform={implementationFor(globals)}
         value={value}
       />
     );

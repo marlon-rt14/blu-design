@@ -3,7 +3,8 @@ import type { ReactElement } from 'react';
 import { useState } from 'react';
 
 import { PlatformTextArea } from './PlatformTextArea';
-import type { IPlatformTextAreaProps, TPlatform } from './PlatformTextArea';
+import type { IPlatformTextAreaProps } from './PlatformTextArea';
+import { implementationFor } from './themeGlobals';
 
 /**
  * `PlatformTextArea` is controlled, so the story needs to hold its own state
@@ -126,7 +127,7 @@ const meta = {
     helperText: 'Cuéntanos qué salió mal.',
   },
   render: (args, { globals }) => (
-    <ControlledPlatformTextArea {...args} platform={globals['platform'] as TPlatform} />
+    <ControlledPlatformTextArea {...args} platform={implementationFor(globals)} />
   ),
 } satisfies Meta<IPlatformTextAreaProps>;
 

@@ -10,7 +10,10 @@ import './native-fonts.css';
 
 /** Applies the three theme toolbar globals to every story via {@link ThemedStory}. */
 const withTheme: Decorator = (Story, context) => (
-  <ThemedStory theme={themeFromGlobals(context.globals)}>
+  <ThemedStory
+    theme={themeFromGlobals(context.globals)}
+    tokens={context.parameters['platformTokens'] as Record<string, unknown> | undefined}
+  >
     <Story />
   </ThemedStory>
 );
@@ -27,9 +30,20 @@ const preview: Preview = {
   tags: ['autodocs'],
   decorators: [withTheme],
   /**
-   * `platform` renders as a dropdown in the toolbar and decides which
-   * implementation of a component the stories render. See
-   * `src/stories/PlatformButton.tsx` for how a story consumes it.
+   * `platform` renders as a dropdown in the toolbar and decides **two** things
+   * at once: which implementation of a component the stories render, and which
+   * platform's tokens it reads. One dropdown and not two, because the two are
+   * not independent — `@dsm/web` only ever runs in a browser, so its tokens are
+   * always web's; `@dsm/mobile` runs on iOS or on Android. Two selects would
+   * have offered combinations that do not exist, like web with iOS tokens.
+   *
+   * Storybook cannot vary a toolbar's items per story (`items` is a static
+   * array), so all three are always offered. A component whose tokens do not
+   * diverge renders identically under iOS and Android, and `ThemedStory` says so
+   * in the canvas rather than leaving the menu looking broken.
+   *
+   * See `src/stories/PlatformButton.tsx` for how a story consumes it, and
+   * `implementationFor` in `src/stories/themeGlobals.ts` for the mapping.
    *
    * The other three are the theme axes, mirroring Figma's variable collections
    * one for one — `2. Brand`, `3. Semantic` and `4. Layout`. They are separate
@@ -39,13 +53,14 @@ const preview: Preview = {
    */
   globalTypes: {
     platform: {
-      description: 'Which implementation of the component to render',
+      description: 'Which implementation to render, and which platform’s tokens it reads',
       toolbar: {
         title: 'Platform',
         icon: 'switchalt',
         items: [
           { value: 'web', title: 'React', icon: 'browser' },
-          { value: 'native', title: 'React Native', icon: 'mobile' },
+          { value: 'ios', title: 'React Native · iOS', icon: 'mobile' },
+          { value: 'android', title: 'React Native · Android', icon: 'mobile' },
         ],
         dynamicTitle: true,
       },

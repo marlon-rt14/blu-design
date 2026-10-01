@@ -7,6 +7,7 @@ import type { ReactElement, ReactNode } from 'react';
 import { PlatformSnackbar } from './PlatformSnackbar';
 import { PlatformSnackbarStack } from './PlatformSnackbarStack';
 import type { IPlatformSnackbarProps, TPlatform } from './PlatformSnackbar';
+import { implementationFor } from './themeGlobals';
 
 const STATUSES: TSnackbarStatus[] = ['info', 'success', 'warning', 'danger'];
 
@@ -131,7 +132,7 @@ const meta = {
     onDismiss: fn(),
   },
   render: (args, { globals }) => (
-    <Triggered {...args} platform={globals['platform'] as TPlatform} />
+    <Triggered {...args} platform={implementationFor(globals)} />
   ),
 } satisfies Meta<ISnackbarStoryArgs>;
 
@@ -143,7 +144,7 @@ export const Playground: TStory = {};
 
 export const Statuses: TStory = {
   render: (args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Column>
         {STATUSES.map((status) => (
@@ -194,7 +195,11 @@ export const Duration: TStory = {
     },
   },
   render: (args, { globals }) => (
-    <Triggered {...args} label="Mostrar otra vez (2000 ms)" platform={globals['platform'] as TPlatform} />
+    <Triggered
+      {...args}
+      label="Mostrar otra vez (2000 ms)"
+      platform={implementationFor(globals)}
+    />
   ),
 };
 
@@ -276,7 +281,7 @@ export const Pila: TStory = {
     },
   },
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 48, padding: 32 }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 448px)', gap: 48, alignItems: 'start' }}>
@@ -302,5 +307,5 @@ export const PilaExample: TStory = {
       },
     },
   },
-  render: (_args, { globals }) => <SpamPile platform={globals['platform'] as TPlatform} />,
+  render: (_args, { globals }) => <SpamPile platform={implementationFor(globals)} />,
 };

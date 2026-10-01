@@ -1,10 +1,40 @@
 import { BluProvider as MobileBluProvider } from '@dsm/mobile';
-import type { IResolvedTheme } from '@dsm/shared';
+import type { IResolvedTheme, TThemePlatform } from '@dsm/shared';
 import { BluProvider as WebBluProvider } from '@dsm/web';
 import type { PropsWithChildren, ReactElement } from 'react';
 
-/** The three axes, in the order the notice names them. */
+import { divergesByPlatform } from '../src/stories/themeGlobals';
+
+/** The axes the fallback notice names. `platform` is absent because it never falls back. */
 const AXES = ['brand', 'mode', 'layout'] as const;
+
+/**
+ * Says so on the canvas when the platform menu is on a mobile platform but the
+ * component reads the same tokens on both.
+ *
+ * Storybook cannot vary a toolbar's items per story, so iOS and Android are
+ * offered for every component. Most render identically under the two, and a menu
+ * that changes nothing looks broken — this owns up to it instead. It fires off
+ * the component's own token record rather than off a list, so it cannot claim
+ * one thing while the canvas shows another.
+ */
+const NoDivergenceNotice = ({ platform }: { platform: TThemePlatform }): ReactElement => (
+  <div
+    style={{
+      alignSelf: 'stretch',
+      marginBottom: 16,
+      padding: '8px 12px',
+      borderRadius: 8,
+      border: '1px solid rgba(127, 127, 127, 0.35)',
+      fontSize: 12,
+      lineHeight: 1.5,
+      opacity: 0.75,
+    }}
+  >
+    Este componente no diverge por plataforma: iOS y Android leen los mismos valores, así que
+    esto es lo que se ve en los dos. Estás en <code>{platform}</code>.
+  </div>
+);
 
 /**
  * Says so on the canvas when the toolbar asks for a theme the export cannot
@@ -85,12 +115,23 @@ const FallbackNotice = ({ brand, mode, layout, requested }: IResolvedTheme): Rea
  */
 export const ThemedStory = ({
   theme,
+  tokens,
   children,
-}: PropsWithChildren<{ theme: IResolvedTheme }>): ReactElement => (
+}: PropsWithChildren<{
+  theme: IResolvedTheme;
+  /**
+   * The story component's per-theme token record, if its meta declared one
+   * through `parameters.platformTokens`. Only used to decide whether to show
+   * {@link NoDivergenceNotice} — a story that declares nothing gets no notice,
+   * which is the honest answer when nobody has measured the component yet.
+   */
+  tokens?: Record<string, unknown>;
+}>): ReactElement => (
   <WebBluProvider
     brand={theme.brand}
     layout={theme.layout}
     mode={theme.mode}
+    platform={theme.platform}
     style={{
       boxSizing: 'border-box',
       display: 'flex',
@@ -103,7 +144,15 @@ export const ThemedStory = ({
     }}
   >
     {theme.isExact ? null : <FallbackNotice {...theme} />}
-    <MobileBluProvider brand={theme.brand} layout={theme.layout} mode={theme.mode}>
+    {theme.platform !== 'web' && tokens !== undefined && !divergesByPlatform(tokens, theme) ? (
+      <NoDivergenceNotice platform={theme.platform} />
+    ) : null}
+    <MobileBluProvider
+      brand={theme.brand}
+      layout={theme.layout}
+      mode={theme.mode}
+      platform={theme.platform}
+    >
       {children}
     </MobileBluProvider>
   </WebBluProvider>

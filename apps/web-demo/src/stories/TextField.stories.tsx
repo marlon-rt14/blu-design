@@ -5,7 +5,8 @@ import { useState } from 'react';
 
 import { ICON_NAMES } from './iconNames';
 import { PlatformTextField } from './PlatformTextField';
-import type { IPlatformTextFieldProps, TPlatform } from './PlatformTextField';
+import type { IPlatformTextFieldProps } from './PlatformTextField';
+import { implementationFor } from './themeGlobals';
 
 const SIZES: TTextFieldSize[] = ['sm', 'md', 'lg'];
 
@@ -175,7 +176,7 @@ const meta = {
     value: '',
   },
   render: (args, { globals }) => (
-    <ControlledPlatformTextField {...args} platform={globals['platform'] as TPlatform} />
+    <ControlledPlatformTextField {...args} platform={implementationFor(globals)} />
   ),
 } satisfies Meta<IPlatformTextFieldProps>;
 
@@ -210,7 +211,7 @@ export const Sizes: TStory = {
           {...args}
           key={size}
           label={size}
-          platform={globals['platform'] as TPlatform}
+          platform={implementationFor(globals)}
           size={size}
         />
       ))}
@@ -233,7 +234,7 @@ export const FloatingLabel: TStory = {
           key={`${size}-empty`}
           label={size}
           onChangeText={() => undefined}
-          platform={globals['platform'] as TPlatform}
+          platform={implementationFor(globals)}
           size={size}
           value=""
         />
@@ -243,7 +244,7 @@ export const FloatingLabel: TStory = {
           key={`${size}-filled`}
           label={size}
           onChangeText={() => undefined}
-          platform={globals['platform'] as TPlatform}
+          platform={implementationFor(globals)}
           size={size}
           value="Valor ingresado"
         />

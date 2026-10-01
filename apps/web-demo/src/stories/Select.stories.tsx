@@ -6,7 +6,8 @@ import { useArgs } from 'storybook/preview-api';
 
 import { PlatformSelect } from './PlatformSelect';
 import type { IPlatformSelectOption } from './PlatformSelect';
-import type { IPlatformSelectProps, TPlatform } from './PlatformSelect';
+import type { IPlatformSelectProps } from './PlatformSelect';
+import { implementationFor } from './themeGlobals';
 
 const SIZES: TSelectSize[] = ['sm', 'md', 'lg'];
 
@@ -93,7 +94,7 @@ const meta = {
     const [, updateArgs] = useArgs();
     return (
       <div style={{ width: 320 }}>
-        <PlatformSelect {...args} onChange={(value) => updateArgs({ value })} platform={globals['platform'] as TPlatform} />
+        <PlatformSelect {...args} onChange={(value) => updateArgs({ value })} platform={implementationFor(globals)} />
       </div>
     );
   },
@@ -111,7 +112,7 @@ export const Filled: TStory = {
 
 export const Sizes: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 24, width: 320 }}>
         {SIZES.map((size) => (

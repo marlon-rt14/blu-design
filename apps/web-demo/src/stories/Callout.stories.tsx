@@ -4,7 +4,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 
 import { PlatformCallout } from './PlatformCallout';
-import type { IPlatformCalloutProps, TPlatform } from './PlatformCallout';
+import type { IPlatformCalloutProps } from './PlatformCallout';
+import { implementationFor } from './themeGlobals';
 
 const PALETTES: TCalloutPalette[] = ['brand', 'neutral'];
 
@@ -71,7 +72,7 @@ const meta = {
   },
   render: (args, { globals }) => (
     <div style={{ maxWidth: 500, padding: 24 }}>
-      <PlatformCallout {...args} platform={globals.platform as TPlatform} />
+      <PlatformCallout {...args} platform={implementationFor(globals)} />
     </div>
   ),
 } satisfies Meta<IPlatformCalloutProps>;
@@ -86,7 +87,7 @@ export const Playground: TStory = {};
 /** `palette` only changes the fill — brand for a benefit worth not missing, neutral for a busier screen. */
 export const Palettes: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 500, padding: 24 }}>
         {PALETTES.map((palette) => (

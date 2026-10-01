@@ -5,8 +5,8 @@ import type { ReactNode } from 'react';
 import { fn } from 'storybook/test';
 
 import { PlatformLinkButton } from './PlatformLinkButton';
-import type { IPlatformLinkButtonProps, TPlatform } from './PlatformLinkButton';
-import { themeFromGlobals } from './themeGlobals';
+import type { IPlatformLinkButtonProps } from './PlatformLinkButton';
+import { implementationFor, themeFromGlobals } from './themeGlobals';
 
 const APPEARANCES: TLinkButtonAppearance[] = ['default', 'on-inverse', 'on-muted', 'on-scene'];
 const SIZES: TLinkButtonSize[] = ['md', 'sm'];
@@ -158,7 +158,7 @@ const meta = {
     onAction: fn(),
   },
   render: (args, { globals }) => (
-    <PlatformLinkButton {...args} platform={globals.platform as TPlatform} />
+    <PlatformLinkButton {...args} platform={implementationFor(globals)} />
   ),
 } satisfies Meta<IPlatformLinkButtonProps>;
 
@@ -172,7 +172,7 @@ export const Playground: TStory = {};
 /** The four appearances, each on the surface it is named for. */
 export const Appearances: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     const { key: themeKey } = themeFromGlobals(globals);
 
     return (
@@ -210,7 +210,7 @@ export const Sizes: TStory = {
           {...args}
           key={size}
           label={`Ver más (${size})`}
-          platform={globals.platform as TPlatform}
+          platform={implementationFor(globals)}
           size={size}
         />
       ))}
@@ -226,7 +226,7 @@ export const Sizes: TStory = {
  */
 export const Underline: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'flex-start' }}>
         <Group title="platform default (web: on · mobile: off)">
@@ -250,7 +250,7 @@ export const Underline: TStory = {
  */
 export const States: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'flex-start' }}>
         <Group title="default">

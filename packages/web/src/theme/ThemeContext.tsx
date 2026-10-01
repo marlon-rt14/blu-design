@@ -19,6 +19,11 @@ const getSystemReducedMotion = (): boolean =>
 /**
  * Props of {@link ThemeProvider}: the three theme axes, all optional.
  *
+ * `platform` defaults to `'web'` and there is nothing to detect: this package
+ * only ever runs in a browser. It is a prop at all so Storybook can render the
+ * web implementation against another platform's tokens for comparison — no
+ * product screen should pass it.
+ *
  * Leave `mode` unset and it follows the OS setting. Leave the others unset and
  * they stay at their defaults — `blu` and `compact`.
  */
@@ -29,7 +34,7 @@ export interface IThemeProviderProps extends PropsWithChildren, IThemeRequest {}
  * available to every `@dsm/web` component via {@link useThemeMode} and
  * {@link usePrefersReducedMotion}.
  *
- * Takes the three axes bDS has: `brand`, `mode` and `layout`. It resolves them
+ * Takes the four axes bDS has: `brand`, `mode`, `layout` and `platform`. It resolves them
  * to one exported theme through `resolveTheme`, which is where the awkward part
  * lives: **the export has no combinations**, so only one axis can leave its
  * default. Read `useResolvedTheme().isExact` to find out whether the request
@@ -54,6 +59,7 @@ export const ThemeProvider = ({
   brand,
   mode,
   layout,
+  platform = 'web',
   children,
 }: IThemeProviderProps): ReactElement => {
   const [systemMode, setSystemMode] = useState<TThemeMode>(getSystemThemeMode);
@@ -86,7 +92,7 @@ export const ThemeProvider = ({
   const effectiveMode = mode ?? (statedBrand ? DEFAULT_THEME_MODE : systemMode);
 
   return (
-    <ThemeContext.Provider value={resolveTheme({ brand, mode: effectiveMode, layout })}>
+    <ThemeContext.Provider value={resolveTheme({ brand, mode: effectiveMode, layout, platform })}>
       <ReducedMotionContext.Provider value={prefersReducedMotion}>
         {children}
       </ReducedMotionContext.Provider>

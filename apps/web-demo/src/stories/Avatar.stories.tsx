@@ -3,7 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement, ReactNode } from 'react';
 
 import { PlatformAvatar } from './PlatformAvatar';
-import type { IPlatformAvatarProps, TPlatform } from './PlatformAvatar';
+import type { IPlatformAvatarProps } from './PlatformAvatar';
+import { implementationFor } from './themeGlobals';
 
 const SIZES: TAvatarSize[] = ['xs', 'sm', 'md', 'lg'];
 const TONES: TAvatarTone[] = ['brand', 'sky', 'teal', 'green', 'lime', 'amber', 'orange', 'pink', 'violet'];
@@ -73,7 +74,7 @@ const meta = {
     showIndicator: false,
     status: 'online',
   },
-  render: (args, { globals }) => <PlatformAvatar {...args} platform={globals['platform'] as TPlatform} />,
+  render: (args, { globals }) => <PlatformAvatar {...args} platform={implementationFor(globals)} />,
 } satisfies Meta<IPlatformAvatarProps>;
 
 export default meta;
@@ -84,7 +85,7 @@ export const Playground: TStory = {};
 
 export const Types: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Row>
         <PlatformAvatar initials="JG" platform={platform} type="initials" />
@@ -98,7 +99,7 @@ export const Types: TStory = {
 
 export const Tones: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Row>
         {TONES.map((tone) => (
@@ -111,7 +112,7 @@ export const Tones: TStory = {
 
 export const Sizes: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Row>
         {SIZES.map((size) => (
@@ -128,7 +129,7 @@ export const WithRing: TStory = {
 
 export const WithIndicator: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Row>
         <PlatformAvatar initials="JG" platform={platform} showIndicator status="online" />
@@ -142,7 +143,7 @@ export const WithIndicator: TStory = {
 
 export const Fallback: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Row>
         <PlatformAvatar initials="JG" platform={platform} type="image" />

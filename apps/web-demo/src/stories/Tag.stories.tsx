@@ -4,7 +4,8 @@ import { fn } from 'storybook/test';
 import type { ReactElement, ReactNode } from 'react';
 
 import { PlatformTag } from './PlatformTag';
-import type { IPlatformTagProps, TPlatform } from './PlatformTag';
+import type { IPlatformTagProps } from './PlatformTag';
+import { implementationFor } from './themeGlobals';
 
 const APPEARANCES: TTagAppearance[] = ['fill', 'soft', 'outline'];
 const PALETTES: TTagPalette[] = [
@@ -81,7 +82,7 @@ const meta = {
     palette: 'neutral',
     size: 'sm',
   },
-  render: (args, { globals }) => <PlatformTag {...args} platform={globals['platform'] as TPlatform} />,
+  render: (args, { globals }) => <PlatformTag {...args} platform={implementationFor(globals)} />,
 } satisfies Meta<IPlatformTagProps>;
 
 export default meta;
@@ -92,7 +93,7 @@ export const Playground: TStory = {};
 
 export const Appearances: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Column>
         {APPEARANCES.map((appearance) => (
@@ -109,7 +110,7 @@ export const Appearances: TStory = {
 
 export const Sizes: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Row>
         {SIZES.map((size) => (
@@ -130,7 +131,7 @@ export const ComboboxChip: TStory = {
 
 export const StatusPalette: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Row>
         <PlatformTag label="Aprobado" palette="success" platform={platform} />

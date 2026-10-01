@@ -30,9 +30,10 @@ export const BluProvider = ({
   brand,
   mode,
   layout,
+  platform,
   children,
 }: IBluProviderProps): ReactElement => (
-  <ThemeProvider brand={brand} layout={layout} mode={mode}>
+  <ThemeProvider brand={brand} layout={layout} mode={mode} platform={platform}>
     {children}
   </ThemeProvider>
 );

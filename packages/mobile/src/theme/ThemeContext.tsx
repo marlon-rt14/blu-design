@@ -2,12 +2,17 @@ import { DEFAULT_THEME_BRAND, DEFAULT_THEME_MODE, resolveTheme } from '@dsm/shar
 import type { IResolvedTheme, IThemeRequest, TThemeMode, TThemeSourceKey } from '@dsm/shared';
 import { createContext, useContext, useEffect, useState } from 'react';
 import type { PropsWithChildren, ReactElement } from 'react';
-import { Appearance } from 'react-native';
+import { Appearance, Platform } from 'react-native';
 
 const ThemeContext = createContext<IResolvedTheme>(resolveTheme());
 
 /**
  * Props of {@link ThemeProvider}: the three theme axes, all optional.
+ *
+ * `platform` follows `Platform.OS` and should be left unset in a product
+ * screen — the device already knows. It is a prop so Storybook, which renders
+ * this package through react-native-web where `Platform.OS` is `'web'`, can say
+ * which of the two mobile platforms it means.
  *
  * Leave `mode` unset and it follows the OS setting. Leave the others unset and
  * they stay at their defaults — `blu` and `compact`.
@@ -18,7 +23,7 @@ export interface IThemeProviderProps extends PropsWithChildren, IThemeRequest {}
  * Makes the active theme available to every `@dsm/mobile` component via
  * {@link useThemeMode}.
  *
- * Takes the three axes bDS has: `brand`, `mode` and `layout`. It resolves them
+ * Takes the four axes bDS has: `brand`, `mode`, `layout` and `platform`. It resolves them
  * to one exported theme through `resolveTheme`, where the awkward part lives:
  * **the export has no combinations**, so only one axis can leave its default.
  * Read `useResolvedTheme().isExact` to find out whether the request survived.
@@ -43,6 +48,7 @@ export const ThemeProvider = ({
   brand,
   mode,
   layout,
+  platform,
   children,
 }: IThemeProviderProps): ReactElement => {
   const [systemMode, setSystemMode] = useState<TThemeMode>(
@@ -63,8 +69,19 @@ export const ThemeProvider = ({
   const statedBrand = brand !== undefined && brand !== DEFAULT_THEME_BRAND;
   const effectiveMode = mode ?? (statedBrand ? DEFAULT_THEME_MODE : systemMode);
 
+  // The platform is not a preference, it is a fact about the device, so unlike
+  // `mode` there is no "stated beats system" arbitration: `Platform.OS` wins
+  // unless a caller overrides it outright. The `?? 'ios'` never fires on a
+  // device — it exists because this package also renders under react-native-web
+  // in Storybook, where `Platform.OS` is `'web'`, and Storybook always passes
+  // the platform explicitly.
+  const effectivePlatform =
+    platform ?? (Platform.OS === 'android' ? 'android' : Platform.OS === 'ios' ? 'ios' : undefined);
+
   return (
-    <ThemeContext.Provider value={resolveTheme({ brand, mode: effectiveMode, layout })}>
+    <ThemeContext.Provider
+      value={resolveTheme({ brand, mode: effectiveMode, layout, platform: effectivePlatform })}
+    >
       {children}
     </ThemeContext.Provider>
   );

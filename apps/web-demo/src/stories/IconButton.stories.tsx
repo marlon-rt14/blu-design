@@ -8,6 +8,7 @@ import { fn } from 'storybook/test';
 import { ICON_NAMES } from './iconNames';
 import { PlatformIconButton } from './PlatformIconButton';
 import type { IPlatformIconButtonProps, TPlatform } from './PlatformIconButton';
+import { implementationFor } from './themeGlobals';
 
 const APPEARANCES: TIconButtonAppearance[] = [
   'brand',
@@ -215,7 +216,7 @@ const meta = {
     <Row
       appearance={args.appearance ?? 'brand'}
       args={args}
-      platform={globals.platform as TPlatform}
+      platform={implementationFor(globals)}
       title={`${args.appearance ?? 'brand'} — resting and disabled`}
     />
   ),
@@ -245,7 +246,7 @@ export const Appearances: TStory = {
           appearance={appearance}
           args={args}
           key={appearance}
-          platform={globals.platform as TPlatform}
+          platform={implementationFor(globals)}
         />
       ))}
     </div>
@@ -264,7 +265,7 @@ export const Sizes: TStory = {
   render: (args, { globals }) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
       {SIZES.map((size) => (
-        <SizeRow args={args} key={size} platform={globals.platform as TPlatform} size={size} />
+        <SizeRow args={args} key={size} platform={implementationFor(globals)} size={size} />
       ))}
     </div>
   ),

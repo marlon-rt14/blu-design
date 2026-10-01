@@ -1,10 +1,12 @@
 import type { TBadgeStatus, TBadgeType } from '@dsm/shared';
+import { badgeTokens } from '@dsm/shared';
 import { IconUser01 } from '@dsm/web/icons/users';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties, ReactElement } from 'react';
 
 import { PlatformBadge } from './PlatformBadge';
-import type { IPlatformBadgeProps, TPlatform } from './PlatformBadge';
+import type { IPlatformBadgeProps } from './PlatformBadge';
+import { implementationFor } from './themeGlobals';
 
 const TYPES: TBadgeType[] = ['count', 'dot'];
 const STATUSES: TBadgeStatus[] = ['danger', 'warning', 'success', 'info', 'brand', 'neutral'];
@@ -26,6 +28,10 @@ const meta = {
   title: 'Atoms/Badge',
   component: PlatformBadge,
   parameters: {
+    // Lets ThemedStory decide whether to say "this component does not diverge by
+    // platform". Derived from the record itself, so it cannot drift — see
+    // `divergesByPlatform` in `themeGlobals.ts`.
+    platformTokens: badgeTokens,
     layout: 'fullscreen',
     docs: {
       description: {
@@ -89,7 +95,7 @@ const meta = {
   },
   render: (args, { globals }) => (
     <div style={{ padding: 24 }}>
-      <PlatformBadge {...args} platform={globals.platform as TPlatform} />
+      <PlatformBadge {...args} platform={implementationFor(globals)} />
     </div>
   ),
 } satisfies Meta<IPlatformBadgeProps>;
@@ -104,7 +110,7 @@ export const Playground: TStory = {};
 /** The full matrix — six statuses, both types, matching the design file's own layout. */
 export const Statuses: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', gap: 32, padding: 24 }}>
         {TYPES.map((type) => (
@@ -129,7 +135,7 @@ export const Statuses: TStory = {
 /** `count` past `max` always cuts to `"{max}+"` — never a longer number, never hand-written. */
 export const Truncation: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: 24 }}>
         {[1, 9, 10, 99, 250].map((count) => (
@@ -143,7 +149,7 @@ export const Truncation: TStory = {
 /** `count=0` renders nothing — not a `"0"` pill. Compare to `count={1}` beside it. */
 export const ZeroCount: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: 24 }}>
         <PlatformBadge {...args} count={0} platform={platform} />
@@ -164,5 +170,5 @@ export const Dot: TStory = {
 
 /** Badge doesn't position itself — this is the caller's own absolute-corner pattern. */
 export const Anchored: TStory = {
-  render: (args, { globals }) => <AnchoredDemo {...args} platform={globals.platform as TPlatform} />,
+  render: (args, { globals }) => <AnchoredDemo {...args} platform={implementationFor(globals)} />,
 };

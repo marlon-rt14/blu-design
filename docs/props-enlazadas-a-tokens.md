@@ -118,7 +118,7 @@ a ser `PLATAFORMA` aunque la colección diga otra cosa.
 |---|---|---|
 | ❌ | **incompleto.** El eje no está cableado, así que no hay forma de producir el valor correcto desde código | todas las de `TEMA` y `PLATAFORMA` |
 | ⚠️ | **implementado, sin revisar.** Se lee un token y sale un valor, pero **nadie lo ha cruzado a mano con el de Figma**: puede funcionar o no | todas las de `LAYOUT` y `FIJO` |
-| ✅ | revisado a mano contra Figma y coincide | **4 de 12** |
+| ✅ | revisado a mano contra Figma y coincide | **5 de 12** |
 | 🔍 | el eje no está identificado todavía | — |
 
 Por eso `TEMA` y `PLATAFORMA` van en ❌ de entrada: los cruces marca × tema no se
@@ -202,7 +202,7 @@ Ambos son `variant=primary · appearance=fill · size=lg · state=default`.
 | Propiedad (Figma) | Variable | Aliasea a | Colección | **Eje** | Estado | Comentario |
 |---|---|---|---|---|---|---|
 | `fills` | `component/button/primary/bg-default` | `color/fill/action/primary/default` | 3. Semantic | **TEMA (marca+semantic)** | ❌ | — |
-| `rectangleCornerRadii` (4 esquinas) | `radius/action` | **`platform/radius/action`** | 4. Layout | **PLATAFORMA** | ❌ | — |
+| `rectangleCornerRadii` (4 esquinas) | `radius/action` | **`platform/radius/action`** | 4. Layout | **PLATAFORMA** | ✅ | • Eje plataforma cableado; medido en el navegador: web 12 · iOS pastilla · Android 12 **✓** |
 | `paddingLeft` · `paddingRight` | `space/inset/{sm,md,lg,xl}` | primitivo (sin nombrar) | 4. Layout | LAYOUT | ⚠️ | • Los cuatro tamaños cuadran con Figma en `compact`: 8 · 12 · 16 · 24 **✓**<br>• En `regular` y `expanded` crece hasta 32 y 40, y eso no se ha visto |
 | `size.y` | `size/control/height/{xs,sm,md,lg}` | primitivo (sin nombrar) | 4. Layout | LAYOUT | ⚠️ | • Los cuatro tamaños cuadran con Figma: 24 · 32 · 44 · 56 **✓**<br>• Las 18 variantes del set dan lo mismo **✓**<br>• `sm` y `md` crecen en `expanded` (36 y 48) y eso no se ha visto |
 | `itemSpacing` | `space/inline/sm` | primitivo (sin nombrar) | 4. Layout | FIJO | ✅ | • Da 8 en los cuatro tamaños y en las 18 variantes, igual que Figma **✓**<br>• El token es el mismo en las 18 carpetas **✓** |
@@ -213,7 +213,7 @@ Ambos son `variant=primary · appearance=fill · size=lg · state=default`.
 | Propiedad (Figma) | Variable | Aliasea a | Colección | **Eje** | Estado | Comentario |
 |---|---|---|---|---|---|---|
 | `fills` | `component/button/primary/text-default` | `color/text/action/primary/default` | 3. Semantic | **TEMA (semantic)** | ❌ | — |
-| `fontFamily` | `font/family/text` | **`platform/font/family`** | 4. Layout | **PLATAFORMA** | ❌ | — |
+| `fontFamily` | `font/family/text` | **`platform/font/family`** | 4. Layout | **PLATAFORMA** | ⚠️ | • Eje plataforma cableado **✓**<br>• Seguimos leyendo `font/family/mulish` a mano en vez de este token; retirar el rodeo |
 | `fontStyle` | *(variable no local)* | — | — | 🔍 | ❌ | — |
 | `fontSize` | `font/size/label/{sm,md,lg}` | primitivo (sin nombrar) | 4. Layout | FIJO | ✅ | • Los cuatro tamaños cuadran con Figma: 12 · 12 · 14 · 16 **✓**<br>• Las 18 variantes del set usan los mismos valores **✓** |
 
@@ -233,30 +233,35 @@ font/family/text           Mulish     SF Pro       Roboto     SF Pro
 platform/type/label/weight  500px      600px        500px      600px
 ```
 
-`light` es la fuente por defecto de `themeSources`, y **las 15 carpetas viejas siguen
-congeladas en modo ios**. Por eso hoy la web rinde el Button en pastilla y pediría
-SF Pro si no lo estuviéramos esquivando a mano.
+**El eje está cableado desde el 30-sep-2026.** `TThemeSourceKey` pasó a
+`` `${marca-o-modo}@${layout}@${plataforma}` `` — 90 entradas — y los dos `BluProvider`
+aceptan `platform`, que en móvil sale de `Platform.OS` y en web es siempre `web`. Antes
+de eso `light` era la única fuente y las 15 carpetas viejas están **congeladas en modo
+ios**, que es por lo que la web rendía el Button en pastilla.
 
-### Los cuatro frentes abiertos
+Los cuatro ejes componen sin arbitrar nada, medido: las **seis intersecciones dos a dos
+están vacías**, y `layout` y `platform` no mueven un solo token de color.
+
+Cablearlo no arregló solo el Button. De las 140 claves que mueve la plataforma, 5 llegan
+a un componente y tocan 19: los siete campos pasan a `radius/field` = **4 en Android**, y
+la web recupera sus tamaños de texto (14/16) en lugar de los 15/17 de iOS.
+
+### Los tres frentes abiertos
 
 Esto no es "las que fallan": son las que ya sabemos **qué** tienen y **quién** lo cierra.
 El resto está en ⚠️ por no haberse revisado, que es otra cosa. Cuando un frente se
 cierra **se borra de aquí** — su historia vive en el commit y en el JSDoc.
 
-1. **`radius/action` → 12 vs 9999. `PLATAFORMA`.** Ya **no** está bloqueado por diseño:
-   la carpeta `web` trae `12px`. Lo que falta es nuestro — cablear el eje plataforma en
-   `themeSource/themes.ts`. Hoy `TThemeSourceKey` es
-   `` `${marca-o-modo}@${layout}` `` y no tiene ranura para plataforma.
-
-2. **`font/family/text`. `PLATAFORMA`.** Mismo caso: la carpeta `web` trae `Mulish`.
-   Hoy divergimos **a propósito**, leyendo `font/family/mulish` (la familia nombrada,
-   que es `FIJO`) para no pedirle SF Pro al navegador. Cuando el eje esté cableado esta
-   divergencia se puede retirar y volver al token que enlaza Figma.
+1. **`font/family/text`. `PLATAFORMA`.** El eje ya está cableado, así que este token
+   ahora resolvería solo: `Mulish` en web, `SF Pro` en iOS, `Roboto` en Android. Pero
+   seguimos leyendo `font/family/mulish` **a mano**, que fue el rodeo para no pedirle
+   SF Pro al navegador cuando el export estaba congelado en iOS. Retirar el rodeo es lo
+   que queda.
    **Ojo:** esto no cambia la regla de móvil. `@dsm/mobile` no escribe `fontFamily`
    nunca; que `android` traiga `Roboto` no es una invitación a consumirlo — dejarlo sin
    poner es lo que selecciona la fuente del sistema, que en un OEM puede no ser Roboto.
 
-3. **`fontStyle` → 600 vs 500.** Figma rinde la etiqueta en SemiBold; leemos
+2. **`fontStyle` → 600 vs 500.** Figma rinde la etiqueta en SemiBold; leemos
    `font/weight/medium` = 500, que es `FIJO`. La variable que enlaza Figma es **no
    local**, así que no puedo nombrarla desde aquí.
    **`platform/type/label/weight` queda descartado, medido**: da `web=500`, y el bloque
@@ -264,7 +269,7 @@ cierra **se borra de aquí** — su historia vive en el commit y en el JSDoc.
    `docs/set · platform=web` (`1507:65195`). O sea que el 600 sale de otra variable, de
    una librería remota. **Hay que preguntarle a diseño cuál es antes de tocar nada.**
 
-4. **`component/button/primary/icon-default`. `TEMA (semantic)`.** No lo leemos:
+3. **`component/button/primary/icon-default`. `TEMA (semantic)`.** No lo leemos:
    `IButtonSurfaceColorTokens` no tiene campo de color de icono, así que el glifo hereda
    el de la etiqueta. **Y por ahora da igual, medido**: los 14 tokens `icon-*` del Button
    son idénticos a su gemelo `text-*` en las 18 carpetas. Así que no es un bug, es una

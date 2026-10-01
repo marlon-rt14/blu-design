@@ -5,7 +5,8 @@ import { useState } from 'react';
 import { useArgs } from 'storybook/preview-api';
 
 import { PlatformSwitch } from './PlatformSwitch';
-import type { IPlatformSwitchProps, TPlatform } from './PlatformSwitch';
+import type { IPlatformSwitchProps } from './PlatformSwitch';
+import { implementationFor } from './themeGlobals';
 
 const SIZES: TSwitchSize[] = ['sm', 'md'];
 
@@ -85,7 +86,7 @@ const meta = {
     return (
       <PlatformSwitch
         {...args}
-        platform={globals['platform'] as TPlatform}
+        platform={implementationFor(globals)}
         onValueChange={(isChecked) => {
           updateArgs({ isChecked });
         }}
@@ -103,7 +104,7 @@ export const Playground: TStory = {};
 /** Off and on, both sizes. */
 export const Sizes: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Row>
         {SIZES.map((size) => (

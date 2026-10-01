@@ -5,7 +5,8 @@ import type { ReactElement, ReactNode } from 'react';
 import { fn } from 'storybook/test';
 
 import { PlatformTooltip } from './PlatformTooltip';
-import type { IPlatformTooltipProps, TPlatform } from './PlatformTooltip';
+import type { IPlatformTooltipProps } from './PlatformTooltip';
+import { implementationFor } from './themeGlobals';
 
 const TYPES: TTooltipType[] = ['descriptive', 'info'];
 const SIDES: TTooltipPlacement[] = ['top', 'right', 'bottom', 'left'];
@@ -133,7 +134,7 @@ const meta = {
   },
   render: (args, { globals }) => (
     <Stage title="hover or focus the trigger — long press on native">
-      <PlatformTooltip {...args} platform={globals.platform as TPlatform}>
+      <PlatformTooltip {...args} platform={implementationFor(globals)}>
         <Button label="Disparador" />
       </PlatformTooltip>
     </Stage>
@@ -156,7 +157,7 @@ export const Playground: TStory = {};
  */
 export const Types: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
         <Stage title="descriptive — leaves on its own">
@@ -190,7 +191,7 @@ export const Types: TStory = {
  */
 export const Placements: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
         {SIDES.map((side) => (
