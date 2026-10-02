@@ -40,6 +40,14 @@ const NoDivergenceNotice = ({ platform }: { platform: TThemePlatform }): ReactEl
  * Says so on the canvas when the toolbar asks for a theme the export cannot
  * produce — and names the axis that gave way.
  *
+ * **Written to warn, not to explain.** An earlier version of this ran four lines
+ * of prose above every story, and the reader's actual question — *why is this
+ * still here now that the brand cross works?* — was buried in the middle of it.
+ * The answer that matters is the symptom they can see: `primary · fill` is the
+ * requested brand and its three siblings are not, so one row shows two brands.
+ * The reasoning lives here instead, where it is read by whoever needs it rather
+ * than by whoever is looking at a button.
+ *
  * There is exactly one such case: **a brand in a non-default mode.** Brand and
  * mode both come out of `color.json` and no exported folder carries both, so
  * `resolveTheme` keeps the mode. Layout is never dropped, because it composes
@@ -70,20 +78,15 @@ const FallbackNotice = ({ brand, mode, layout, requested }: IResolvedTheme): Rea
       padding: '8px 12px',
     }}
   >
-    <strong>
-      Rendering {brand} · {mode} · {layout}.
-    </strong>{' '}
     {AXES.filter((axis) => ({ brand, mode, layout })[axis] !== requested[axis]).map((axis) => (
-      <span key={axis}>
-        <code>
-          {axis}: {requested[axis]}
-        </code>{' '}
-        fell back to <code>{{ brand, mode, layout }[axis]}</code>.{' '}
-      </span>
+      <strong key={axis}>
+        Pediste <code>{requested[axis]}</code>, se está pintando{' '}
+        <code>{{ brand, mode, layout }[axis]}</code>.{' '}
+      </strong>
     ))}
-    Brand and mode both come out of <code>color.json</code> and no exported folder carries both, so
-    the mode wins — it moves ~1042 colour tokens against the brand&rsquo;s 180, and it is the one
-    carrying contrast. Layout is unaffected: it composes with either.
+    Solo el relleno de <code>primary · fill</code> está cruzado de verdad. Todo lo demás —{' '}
+    <code>soft</code>, <code>outline</code>, <code>ghost</code>, el fondo — sale en{' '}
+    <code>{brand}</code>, así que vas a ver botones de dos marcas en la misma pantalla.
   </div>
 );
 
@@ -100,9 +103,18 @@ const FallbackNotice = ({ brand, mode, layout, requested }: IResolvedTheme): Rea
  * axes to `@dsm/mobile` components. Nesting them is harmless — each provider is
  * only read by its own platform's components.
  *
- * The three axes are passed through rather than the resolved key, so that each
+ * The axes are passed through rather than the resolved key, so that each
  * provider runs the same `resolveTheme` a real app would and there is no second
  * code path to keep honest.
+ *
+ * **`theme.requested`, not the effective axes.** This used to pass `theme.brand`,
+ * which is already the *outcome* of the fallback — so a `discover` + `dark`
+ * request reached the provider as `blu` + `dark` and the provider re-resolved an
+ * answer instead of the question. That was invisible until the brand cross
+ * landed: `crossedBrand` reads `requested.brand` precisely to survive the
+ * fallback, and there was nothing left to survive. A real app passes what the
+ * screen asked for, so this has to as well. The notice below keeps reading the
+ * effective values, which is what it is for.
  *
  * Centers its children itself, in place of Storybook's `layout: 'centered'`
  * parameter — that parameter centers via a flex container with
@@ -128,10 +140,10 @@ export const ThemedStory = ({
   tokens?: Record<string, unknown>;
 }>): ReactElement => (
   <WebBluProvider
-    brand={theme.brand}
-    layout={theme.layout}
-    mode={theme.mode}
-    platform={theme.platform}
+    brand={theme.requested.brand}
+    layout={theme.requested.layout}
+    mode={theme.requested.mode}
+    platform={theme.requested.platform}
     style={{
       boxSizing: 'border-box',
       display: 'flex',
@@ -148,10 +160,10 @@ export const ThemedStory = ({
       <NoDivergenceNotice platform={theme.platform} />
     ) : null}
     <MobileBluProvider
-      brand={theme.brand}
-      layout={theme.layout}
-      mode={theme.mode}
-      platform={theme.platform}
+      brand={theme.requested.brand}
+      layout={theme.requested.layout}
+      mode={theme.requested.mode}
+      platform={theme.requested.platform}
     >
       {children}
     </MobileBluProvider>

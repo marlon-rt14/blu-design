@@ -657,6 +657,26 @@ export const resolveTheme = ({
 };
 
 /**
+ * The brand to use when reading a token that **can** be crossed with the
+ * semantic — the requested one, not the effective one.
+ *
+ * `resolveTheme` drops the brand whenever the mode is not the default, because
+ * `color.json` cannot hold both. So {@link IResolvedTheme.brand} is `blu` for a
+ * `discover` + `dark` request, and reading it is correct for the ~180 brand
+ * tokens that genuinely have no crossed value.
+ *
+ * It is **wrong** for the few that do. Those reach a brand primitive by path and
+ * so survive the fallback — see `buttonBrandColors`. Reading `theme.brand` there
+ * would throw away the brand the caller actually asked for, which is the exact
+ * bug the cross exists to fix, and it would do it silently because `blu` is a
+ * perfectly valid brand.
+ *
+ * Hence a named function rather than `theme.requested.brand` at each call site:
+ * the trap is that both spellings compile and one of them is quietly wrong.
+ */
+export const crossedBrand = (theme: IResolvedTheme): TThemeBrand => theme.requested.brand;
+
+/**
  * Which modes an exported theme exists in for a given brand.
  *
  * Only `blu` has all six: the mode folders are blu snapshots, so every other

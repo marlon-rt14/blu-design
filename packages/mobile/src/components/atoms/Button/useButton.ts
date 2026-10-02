@@ -1,8 +1,8 @@
-import { buttonTokens } from '@dsm/shared';
+import { buttonBrandColors, buttonTokens, crossedBrand } from '@dsm/shared';
 import type { IButtonSurfaceColorTokens, TButtonState, TIconSize, TTokensOf } from '@dsm/shared';
 import type { Insets, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { resolveFontWeight, useThemeMode } from '../../../theme';
+import { resolveFontWeight, useResolvedTheme, useThemeMode } from '../../../theme';
 import type { IButtonProps } from './Button.types';
 
 /** Params of {@link useButton}: the Button props plus the live interaction state. */
@@ -93,8 +93,17 @@ export const useButton = ({
   isFocused,
 }: IUseButtonParams): IUseButtonResult => {
   const mode = useThemeMode();
+  const theme = useResolvedTheme();
   const tokens = buttonTokens[mode];
-  const surface = readSurface(tokens.colors, variant, appearance);
+  const base = readSurface(tokens.colors, variant, appearance);
+  // See the web hook for why this is unconditional: `primary · fill` is the one
+  // pairing whose background carries the brand, and the one the export cannot
+  // ship crossed with the semantic. `buttonBrandColors` reaches the brand
+  // primitive by path, which survives `resolveTheme` dropping the brand.
+  const surface =
+    variant === 'primary' && appearance === 'fill'
+      ? { ...base, ...buttonBrandColors[crossedBrand(theme)][theme.mode] }
+      : base;
 
   const state: TButtonState = isDisabled
     ? 'disabled'

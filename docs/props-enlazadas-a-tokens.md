@@ -120,7 +120,7 @@ a ser `PLATAFORMA` aunque la colección diga otra cosa.
 |---|---|---|
 | ❌ | **incompleto.** El eje no está cableado, así que no hay forma de producir el valor correcto desde código | todas las de `TEMA` y `PLATAFORMA` |
 | ⚠️ | **implementado, sin revisar.** Se lee un token y sale un valor, pero **nadie lo ha cruzado a mano con el de Figma**: puede funcionar o no | todas las de `LAYOUT` y `FIJO` |
-| ✅ | revisado a mano contra Figma y coincide | **5 de 12** |
+| ✅ | revisado a mano contra Figma y coincide | **6 de 12** |
 | 🔍 | el eje no está identificado todavía | — |
 
 Por eso `TEMA` y `PLATAFORMA` van en ❌ de entrada: los cruces marca × tema no se
@@ -208,7 +208,7 @@ Ambos son `variant=primary · appearance=fill · size=lg · state=default`.
 
 | Propiedad (Figma) | Variable | Aliasea a | Colección | **Eje** | Estado | Comentario |
 |---|---|---|---|---|---|---|
-| `fills` | `component/button/primary/bg-default` | `color/fill/action/primary/default` | 3. Semantic | **TEMA (marca+semantic)** | ❌ | — |
+| `fills` | `component/button/primary/bg-default` | `color/fill/action/primary/default` | 3. Semantic | **TEMA (marca+semantic)** | ✅ | • Cruce marca × semantic resuelto por primitivo; 24 de 24 celdas contra los píxeles del frame **✓**<br>• Reproduce los 10 cruces que el export sí trae **✓**<br>• `bg-hover` y `bg-pressed` van en la misma capa **✓** |
 | `rectangleCornerRadii` (4 esquinas) | `radius/action` | **`platform/radius/action`** | 4. Layout | **PLATAFORMA** | ✅ | • Eje plataforma cableado; medido en el navegador: web 12 · iOS pastilla · Android 12 **✓** |
 | `paddingLeft` · `paddingRight` | `space/inset/{sm,md,lg,xl}` | primitivo (sin nombrar) | 4. Layout | LAYOUT | ⚠️ | • Los cuatro tamaños cuadran con Figma en `compact`: 8 · 12 · 16 · 24 **✓**<br>• En `regular` y `expanded` crece hasta 32 y 40, y eso no se ha visto |
 | `size.y` | `size/control/height/{xs,sm,md,lg}` | primitivo (sin nombrar) | 4. Layout | LAYOUT | ⚠️ | • Los cuatro tamaños cuadran con Figma: 24 · 32 · 44 · 56 **✓**<br>• Las 18 variantes del set dan lo mismo **✓**<br>• `sm` y `md` crecen en `expanded` (36 y 48) y eso no se ha visto |
@@ -252,6 +252,41 @@ están vacías**, y `layout` y `platform` no mueven un solo token de color.
 Cablearlo no arregló solo el Button. De las 140 claves que mueve la plataforma, 5 llegan
 a un componente y tocan 19: los siete campos pasan a `radius/field` = **4 en Android**, y
 la web recupera sus tamaños de texto (14/16) en lugar de los 15/17 de iOS.
+
+### El cruce marca × semantic, resuelto por primitivo
+
+Diseño anotó el **origen de cada color** en la sección `07 · Origen de cada color · marca
+× tema` del mismo frame (`1818:42343`), con la cadena entera de cinco eslabones:
+
+```
+component/button/primary/bg-default     Component     ← lo que usa el código
+  → color/fill/action/primary/default   3. Semantic   ← rol semántico
+  → _role/brand/fill                    3. Semantic   ← puente interno
+  → brand/fill/light                     2. Brand     ← el tema elige este paso
+  → color/light/brand/blu/fill          1. Primitives ← la marca elige el valor
+```
+
+Los tres primeros eslabones son el mismo token para los seis semantics. Lo que cambia es
+el **paso**, y eso el JSON no lo dice: lo dice la anotación. Con ella el cruce se resuelve
+sin carpeta nueva y sin clave más ancha, porque el primitivo es **direccionable por ruta**
+— `color.<tono>.brand.<marca>.<paso>` — y es **idéntico en las 18 carpetas** (60 rutas
+comprobadas, cero diferencias).
+
+La tabla de pasos está **generada**, no escrita: `node scripts/brand-crosses/button.mjs`
+la lee del frame y emite `packages/shared/src/tokens/button.brandSteps.ts`. Solo emite
+nombres de paso, nunca valores — el hex cambia con cada sync de Supernova y el paso solo
+cuando diseño reafina el contraste, que son relojes distintos.
+
+De los 13 tokens que la sección lista, **3 usan la familia `fill`** y están resueltos. Los
+otros 10 apuntan a pasos numéricos de la rampa o a `static/*`, y quedan fuera por
+decisión. Y en todo el sistema la marca mueve 193 tokens de color, 140 de ellos también
+movidos por el semantic: los demás componentes siguen como están hasta que diseño los
+anote igual.
+
+No se amplió la clave del tema, y la razón es medida: **90 claves ya cuestan 141 ms y
+41 MB** al importar, y `marca@modo@layout@plataforma` son 270. Pagar el triple del
+arranque de toda la capa de tokens para cruzar 3 tokens de 2199 es el intercambio
+equivocado. La capa de marca son 90 lecturas.
 
 ### Los tres frentes abiertos
 
