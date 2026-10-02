@@ -249,116 +249,102 @@
       }
     },
     "platform": {
-      "type": {
-        "body": {
-          "size": {
+      "font": {
+        "size": {
+          "body": {
             "value": "16px",
             "type": "fontSize",
             "description": "iOS Body · M3 bodyLarge"
-          }
-        },
-        "body-sm": {
-          "size": {
+          },
+          "body-sm": {
             "value": "14px",
             "type": "fontSize",
             "description": "iOS Subhead · M3 bodyMedium"
-          }
-        },
-        "display": {
-          "size": {
+          },
+          "display": {
             "value": "36px",
             "type": "fontSize",
             "description": "iOS Large Title · M3 displaySmall"
-          }
-        },
-        "headline": {
-          "size": {
+          },
+          "headline": {
             "value": "28px",
             "type": "fontSize",
             "description": "iOS Title 1 · M3 headlineMedium"
-          }
-        },
-        "title": {
-          "size": {
+          },
+          "title": {
             "value": "24px",
             "type": "fontSize",
             "description": "iOS Title 2 · M3 headlineSmall"
-          }
-        },
-        "subtitle": {
-          "size": {
+          },
+          "subtitle": {
             "value": "22px",
             "type": "fontSize",
             "description": "iOS Title 3 · M3 titleLarge"
-          }
-        },
-        "body-strong": {
-          "size": {
+          },
+          "body-strong": {
             "value": "16px",
             "type": "fontSize",
             "description": "iOS Headline · M3 titleMedium — mismo tamano que body, cambia el peso"
-          }
-        },
-        "label": {
-          "size": {
+          },
+          "label": {
             "value": "14px",
             "type": "fontSize",
             "description": "iOS Footnote · M3 labelLarge — texto de botones y tabs"
-          }
-        },
-        "caption": {
-          "size": {
+          },
+          "caption": {
             "value": "12px",
             "type": "fontSize",
             "description": "iOS Caption 1 · M3 bodySmall. OJO: NO mapea a labelMedium aunque ambos midan 12/16. caption es texto corrido (leyenda, nota al pie) y va Regular; labelMedium es label de CONTROL y va Medium. Si algo rotula un control, consume el rol label, no caption."
           }
         }
       },
-      "navbar": {
-        "title": {
-          "size": {
-            "value": "22px",
-            "type": "fontSize",
-            "description": "Tamaño del título estándar. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 17, centrado (kit iOS 27). Android: 22, title large de M3, a la izquierda. Web: 18."
+      "component": {
+        "navbar": {
+          "title": {
+            "size": {
+              "value": "22px",
+              "type": "fontSize",
+              "description": "Tamaño del título estándar. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 17, centrado (kit iOS 27). Android: 22, title large de M3, a la izquierda. Web: 18."
+            }
+          },
+          "large-title": {
+            "size": {
+              "value": "28px",
+              "type": "fontSize",
+              "description": "Tamaño del título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 34, large title (kit iOS 27). Android: 28, medium top app bar (M3). Web: 30."
+            }
           }
         },
-        "large-title": {
-          "size": {
-            "value": "28px",
-            "type": "fontSize",
-            "description": "Tamaño del título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 34, large title (kit iOS 27). Android: 28, medium top app bar (M3). Web: 30."
-          }
-        }
-      },
-      "tabbar": {
-        "label": {
-          "size": {
-            "value": "12px",
-            "type": "fontSize",
-            "description": "Tamaño de la etiqueta. iOS: 10 Semibold (kit iOS 27). Android: 12 Medium (Material 3). Web: 12. Barra de pestañas (TabBar, librería Platforms)."
-          }
-        }
-      },
-      "dialog": {
-        "title": {
-          "size": {
-            "value": "24px",
-            "type": "fontSize",
-            "description": "Título. iOS: 17 (Semibold). Android: 24 (headline small). Web: 20. Dialog (librería Platforms)."
+        "tabbar": {
+          "label": {
+            "size": {
+              "value": "12px",
+              "type": "fontSize",
+              "description": "Tamaño de la etiqueta. iOS: 10 Semibold (kit iOS 27). Android: 12 Medium (Material 3). Web: 12. Barra de pestañas (TabBar, librería Platforms)."
+            }
           }
         },
-        "message": {
-          "size": {
-            "value": "14px",
-            "type": "fontSize",
-            "description": "Mensaje. iOS: 17. Android: 14 (supporting text). Web: 16. Dialog (librería Platforms)."
-          }
-        },
-        "action": {
-          "label-size": {
-            "value": "14px",
-            "type": "fontSize",
-            "description": "Etiqueta del botón. iOS: 17 Semibold. Android y web: 14 Medium (label large de Material 3). Dialog (librería Platforms)."
+        "dialog": {
+          "title": {
+            "size": {
+              "value": "24px",
+              "type": "fontSize",
+              "description": "Título. iOS: 17 (Semibold). Android: 24 (headline small). Web: 20. Dialog (librería Platforms)."
+            }
+          },
+          "message": {
+            "size": {
+              "value": "14px",
+              "type": "fontSize",
+              "description": "Mensaje. iOS: 17. Android: 14 (supporting text). Web: 16. Dialog (librería Platforms)."
+            }
+          },
+          "action": {
+            "label-size": {
+              "value": "14px",
+              "type": "fontSize",
+              "description": "Etiqueta del botón. iOS: 17 Semibold. Android y web: 14 Medium (label large de Material 3). Dialog (librería Platforms)."
+            }
           }
         }
       }

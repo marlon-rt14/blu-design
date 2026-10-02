@@ -29,11 +29,13 @@
       }
     },
     "platform": {
-      "segment": {
-        "border-width": {
-          "value": "1px",
-          "type": "borderWidth",
-          "description": "Grosor del borde de cada segmento. Material 3 delinea todos los segmentos; iOS y web no usan borde, se apagan poniendolo en 0 sin tocar el color."
+      "component": {
+        "segmentedcontrol": {
+          "border-width": {
+            "value": "1px",
+            "type": "borderWidth",
+            "description": "Grosor del borde de cada segmento. Material 3 delinea todos los segmentos; iOS y web no usan borde, se apagan poniendolo en 0 sin tocar el color."
+          }
         }
       }
     },

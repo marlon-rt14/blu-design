@@ -957,7 +957,7 @@
           "width": {
             "value": "32px",
             "type": "dimension",
-            "description": "Co-token de sheet. Ancho de la barra de arrastre. Mismo valor en las tres densidades: es un affordance de gesto, no escala con la densidad. El Sheet de Platforms lo usa en Android y web a través de platform/sheet/handle/width."
+            "description": "Co-token de sheet. Ancho de la barra de arrastre. Mismo valor en las tres densidades: es un affordance de gesto, no escala con la densidad. El Sheet de Platforms lo usa en Android y web a través de platform/component/sheet/handle/width."
           },
           "height": {
             "value": "4px",
@@ -1033,378 +1033,412 @@
           "description": "Margen lateral de pantalla que exige el OS."
         }
       },
-      "type": {
-        "label": {
-          "weight": {
+      "font": {
+        "weight": {
+          "label": {
             "value": "500px",
             "type": "dimension",
             "description": "Peso del rol label, NUMERICO. Core enlaza fontWeight (FLOAT), no fontStyle, y ~3000 bindings vivos ya usan ese patron. El numero no tiene el problema de grafias: 500 es 500 en SF Pro, Roboto y Mulish. iOS Semibold es convencion de LABEL DE CONTROL, no el peso del estilo Footnote (Regular). Para escribir fontName en un script usar platform/font/style/*, que es otro mecanismo."
-          }
-        },
-        "body-strong": {
-          "weight": {
+          },
+          "body-strong": {
             "value": "500px",
             "type": "dimension",
             "description": "Peso del rol body-strong, NUMERICO. Mismo tamano que body: la diferencia entre los dos ES el peso. iOS Headline 17 Semibold, Material titleMedium 16 Medium, ambos medidos de sus kits."
-          }
-        },
-        "body": {
-          "weight": {
+          },
+          "body": {
             "value": "400px",
             "type": "dimension",
             "description": "Peso del rol body, NUMERICO. Regular en las tres."
           }
         }
       },
-      "switch": {
-        "track-width": {
-          "value": "56px",
-          "type": "dimension",
-          "description": "Ancho del track del Switch md. iOS 27: 64 (kit de Apple). Android: 52 (Material 3). Web: 56, el diseño original."
+      "component": {
+        "switch": {
+          "track-width": {
+            "value": "56px",
+            "type": "dimension",
+            "description": "Ancho del track del Switch md. iOS 27: 64 (kit de Apple). Android: 52 (Material 3). Web: 56, el diseño original. En código (30-sep): el valor de ios es espejo de UISwitch, el Switch del sistema; el código no lo aplica. Android y web se dibujan con este token. Desde el 30-sep es el ancho mínimo del riel: con la palabra ON/OFF crece."
+          },
+          "track-height": {
+            "value": "32px",
+            "type": "dimension",
+            "description": "Alto del track del Switch md. iOS 27: 28. Android y web: 32. En código (30-sep): el valor de ios es espejo de UISwitch, el Switch del sistema; el código no lo aplica. Android y web se dibujan con este token."
+          },
+          "padding-off": {
+            "value": "4px",
+            "type": "dimension",
+            "description": "Padding del track del Switch md apagado. En Android es 8 porque el knob apagado mide 16 y queda centrado en 32. En código (30-sep): el valor de ios es espejo de UISwitch, el Switch del sistema; el código no lo aplica. Android y web se dibujan con este token."
+          },
+          "padding-on": {
+            "value": "4px",
+            "type": "dimension",
+            "description": "Padding del track del Switch md prendido. En código (30-sep): el valor de ios es espejo de UISwitch, el Switch del sistema; el código no lo aplica. Android y web se dibujan con este token."
+          },
+          "thumb-width-off": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Ancho del knob del Switch md apagado. iOS 27: cápsula de 38. Android: 16 (Material 3 achica el knob apagado). Web: 24. En código (30-sep): el valor de ios es espejo de UISwitch, el Switch del sistema; el código no lo aplica. Android y web se dibujan con este token."
+          },
+          "thumb-width-on": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Ancho del knob del Switch md prendido. En código (30-sep): el valor de ios es espejo de UISwitch, el Switch del sistema; el código no lo aplica. Android y web se dibujan con este token."
+          },
+          "thumb-height-off": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Alto del knob del Switch md apagado. En código (30-sep): el valor de ios es espejo de UISwitch, el Switch del sistema; el código no lo aplica. Android y web se dibujan con este token."
+          },
+          "thumb-height-on": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Alto del knob del Switch md prendido. En código (30-sep): el valor de ios es espejo de UISwitch, el Switch del sistema; el código no lo aplica. Android y web se dibujan con este token."
+          },
+          "border-width-off": {
+            "value": "1px",
+            "type": "dimension",
+            "description": "Borde del track del Switch apagado. iOS: 0, como UISwitch (decisión del 30-sep: en iOS el Switch es el del sistema y queda por debajo de 3:1, excepción aceptada). Android: 2 (outline de Material 3). Web: 1. Sin borde el apagado daba 1,0 a 1,24:1 contra la superficie (WCAG 1.4.11); el color, component/switch/track/border-off, da 4,39 a 9,23. Lo usan md y sm."
+          },
+          "sm": {
+            "padding": {
+              "value": "4px",
+              "type": "dimension",
+              "description": "Padding del track del Switch sm, apagado y prendido. Android y web: 4. iOS: igual que md, porque UISwitch tiene un solo tamaño (30-sep)."
+            },
+            "thumb-width": {
+              "value": "16px",
+              "type": "dimension",
+              "description": "Ancho del knob del Switch sm. Android y web: 16. iOS: igual que md, porque UISwitch tiene un solo tamaño (30-sep)."
+            },
+            "thumb-height": {
+              "value": "16px",
+              "type": "dimension",
+              "description": "Alto del knob y del recorrido del Switch sm. Android y web: 16. iOS: igual que md, porque UISwitch tiene un solo tamaño (30-sep)."
+            },
+            "travel-width": {
+              "value": "16px",
+              "type": "dimension",
+              "description": "Ancho del recorrido del Switch sm (el espacio que deja libre el knob). Riel = padding + recorrido + knob + padding: 40 × 24 en Android y web, 64 × 28 en iOS. iOS: igual que md, porque UISwitch tiene un solo tamaño (30-sep)."
+            }
+          },
+          "travel-width": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Ancho mínimo del recorrido del Switch md (el espacio que deja libre el knob). Riel = padding + recorrido + knob + padding: 64 en iOS, 52 en Android, 56 en web. Es mínimo: con la palabra ON/OFF el recorrido crece y el riel también (30-sep). iOS es espejo de UISwitch."
+          },
+          "border-width-disabled": {
+            "value": "1px",
+            "type": "dimension",
+            "description": "Borde del riel prendido y de la perilla en el Switch deshabilitado. iOS: 0, como UISwitch (se atenúa sin borde). Android: 0, Material 3 no lleva borde en esos casos. Web: border/width/default (1, 2 en alto contraste). El riel apagado deshabilitado usa platform/component/switch/border-width-off (30-sep)."
+          }
         },
-        "track-height": {
-          "value": "32px",
-          "type": "dimension",
-          "description": "Alto del track del Switch md. iOS 27: 28. Android y web: 32."
+        "checkbox": {
+          "box-size": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Caja del Checkbox md. Android: 18 (Material 3). iOS no tiene checkbox nativo: queda el de marca, 24."
+          },
+          "mark-size": {
+            "value": "16px",
+            "type": "dimension",
+            "description": "Glifo de check dentro de la caja del Checkbox md."
+          }
         },
-        "padding-off": {
-          "value": "4px",
-          "type": "dimension",
-          "description": "Padding del track del Switch md apagado. En Android es 8 porque el knob apagado mide 16 y queda centrado en 32."
+        "radio": {
+          "box-size": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Círculo del Radio md. Android: 20 (Material 3). iOS no tiene radio nativo: queda el de marca, 24."
+          },
+          "dot-size": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Punto del Radio md seleccionado."
+          }
         },
-        "padding-on": {
-          "value": "4px",
-          "type": "dimension",
-          "description": "Padding del track del Switch md prendido."
+        "tabs": {
+          "indicator-height": {
+            "value": "2px",
+            "type": "dimension",
+            "description": "Grosor del indicador de la pestaña activa. Android: 3 (Material 3). iOS y web: 2."
+          }
         },
-        "thumb-width-off": {
-          "value": "24px",
-          "type": "dimension",
-          "description": "Ancho del knob del Switch md apagado. iOS 27: cápsula de 38. Android: 16 (Material 3 achica el knob apagado). Web: 24."
+        "segmentedcontrol": {
+          "height": {
+            "value": "40px",
+            "type": "dimension",
+            "description": "Alto del SegmentedControl. iOS: 32, el alto por defecto de UISegmentedControl. Android: 40, segmented button de Material 3 (área tocable 48 con platform/component/segmentedcontrol/touch-padding). Web: 40."
+          }
         },
-        "thumb-width-on": {
-          "value": "24px",
-          "type": "dimension",
-          "description": "Ancho del knob del Switch md prendido."
-        },
-        "thumb-height-off": {
-          "value": "24px",
-          "type": "dimension",
-          "description": "Alto del knob del Switch md apagado."
-        },
-        "thumb-height-on": {
-          "value": "24px",
-          "type": "dimension",
-          "description": "Alto del knob del Switch md prendido."
-        },
-        "border-width-off": {
-          "value": "1px",
-          "type": "dimension",
-          "description": "Borde del track del Switch apagado. iOS y web: 1; Android: 2 (outline de Material 3). Desde la 0.29 existe en las tres: sin él el apagado daba 1,0 a 1,24:1 contra la superficie (WCAG 1.4.11). El color, component/switch/track/border-off, da 4,39 a 9,23."
-        }
-      },
-      "checkbox": {
-        "box-size": {
-          "value": "24px",
-          "type": "dimension",
-          "description": "Caja del Checkbox md. Android: 18 (Material 3). iOS no tiene checkbox nativo: queda el de marca, 24."
-        },
-        "mark-size": {
-          "value": "16px",
-          "type": "dimension",
-          "description": "Glifo de check dentro de la caja del Checkbox md."
-        }
-      },
-      "radio": {
-        "box-size": {
-          "value": "24px",
-          "type": "dimension",
-          "description": "Círculo del Radio md. Android: 20 (Material 3). iOS no tiene radio nativo: queda el de marca, 24."
-        },
-        "dot-size": {
-          "value": "12px",
-          "type": "dimension",
-          "description": "Punto del Radio md seleccionado."
-        }
-      },
-      "tabs": {
-        "indicator-height": {
-          "value": "2px",
-          "type": "dimension",
-          "description": "Grosor del indicador de la pestaña activa. Android: 3 (Material 3). iOS y web: 2."
-        }
-      },
-      "segment": {
-        "height": {
-          "value": "40px",
-          "type": "dimension",
-          "description": "Alto del SegmentedControl. iOS: 32, el alto por defecto de UISegmentedControl. Android: 40, segmented button de Material 3 (área tocable 48 con platform/segment/touch-padding). Web: 40."
-        }
-      },
-      "status-bar": {
-        "height": {
-          "value": "62px",
-          "type": "dimension",
-          "description": "Alto de la barra de estado. iOS: 62 (kit iOS 27, iPhone 17 Pro, con la isla dinámica). Android: 40 (Android UI Kit, con la cámara perforada). Web: 62, Safari en iPhone muestra la barra de estado de iOS. En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma. La barra de navegación empieza debajo (platform/navbar/*)."
-        }
-      },
-      "safe-area": {
-        "top": {
-          "value": "62px",
-          "type": "dimension",
-          "description": "Safe area superior. iOS: 62. Android: 40. Web: 62 (Safari en iPhone). En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma."
-        },
-        "bottom": {
-          "value": "118px",
-          "type": "dimension",
-          "description": "Safe area inferior. iOS: 34 (home indicator). Android: 24 (navegación por gestos; con 3 botones son 48). Web: 118, la barra de Safari de iOS 27 (84) más el home indicator (34). En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma."
-        }
-      },
-      "system-nav": {
-        "handle-width": {
-          "value": "134px",
-          "type": "dimension",
-          "description": "Ancho del home indicator de iOS y de Safari en iPhone (134) y de la barra de gestos de Android (108). En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma."
-        },
-        "handle-height": {
-          "value": "5px",
-          "type": "dimension",
-          "description": "Alto del home indicator de iOS (5) y de la barra de gestos de Android (4). En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma."
-        }
-      },
-      "browser": {
-        "toolbar-height": {
-          "value": "84px",
-          "type": "dimension",
-          "description": "Alto de la barra de Safari de iOS 27 (botón atrás, cápsula de dirección y más), sobre el home indicator. Solo existe en web. En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma."
-        },
-        "control-size": {
-          "value": "48px",
-          "type": "dimension",
-          "description": "Alto de la cápsula de dirección y de los botones de la barra de Safari de iOS 27 (48, kit iOS 27 · Toolbar - Bottom). Solo existe en web."
-        }
-      },
-      "navbar": {
-        "row-height": {
-          "value": "64px",
-          "type": "dimension",
-          "description": "Alto de la fila de controles. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 44, las cápsulas de vidrio del kit iOS 27. Android: 64, top app bar de Material 3. Web: 64, header de la app. La TabBar tiene sus propias medidas (platform/tabbar/*)."
-        },
-        "padding-x": {
-          "value": "24px",
-          "type": "dimension",
-          "description": "Margen lateral de la fila de controles. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 16 (kit iOS 27). Android: 4, el área tocable de 48 ya trae su aire (M3). Web: 24."
-        },
-        "padding-bottom": {
-          "value": "0px",
-          "type": "dimension",
-          "description": "Aire debajo de la barra estándar. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 10 (kit iOS 27, 44 + 10 = 54). Android y web: 0."
-        },
-        "gap": {
-          "value": "8px",
-          "type": "dimension",
-          "description": "Separación entre la fila de controles y el título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 10 (kit iOS 27). Android: 0, el título medio de M3 empieza justo debajo de la fila de 64. Web: 8."
-        },
-        "large": {
+        "navbar": {
+          "row-height": {
+            "value": "64px",
+            "type": "dimension",
+            "description": "Alto de la fila de controles. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 44, las cápsulas de vidrio del kit iOS 27. Android: 64, top app bar de Material 3. Web: 64, header de la app. La TabBar tiene sus propias medidas (platform/component/tabbar/*)."
+          },
           "padding-x": {
             "value": "24px",
             "type": "dimension",
-            "description": "Margen lateral del título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 16. Android: 16 (M3 medium). Web: 24."
+            "description": "Margen lateral de la fila de controles. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 16 (kit iOS 27). Android: 4, el área tocable de 48 ya trae su aire (M3). Web: 24."
           },
           "padding-bottom": {
-            "value": "16px",
-            "type": "dimension",
-            "description": "Aire debajo del título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 10 (44 + 10 + 41 + 10 = 105). Android: 12 (64 + 36 + 12 = 112, M3 medium). Web: 16."
-          }
-        },
-        "control": {
-          "padding": {
             "value": "0px",
             "type": "dimension",
-            "description": "Relleno interno de la cápsula de vidrio que agrupa las acciones. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 4 (36 + 4 + 4 = 44, kit iOS 27). Android y web no tienen cápsula: 0."
+            "description": "Aire debajo de la barra estándar. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 10 (kit iOS 27, 44 + 10 = 54). Android y web: 0."
           },
           "gap": {
             "value": "8px",
             "type": "dimension",
-            "description": "Separación entre acciones. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 0, dentro de la cápsula los botones de 36 van juntos. Android: 0, áreas tocables de 48 contiguas (M3). Web: 8."
+            "description": "Separación entre la fila de controles y el título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 10 (kit iOS 27). Android: 0, el título medio de M3 empieza justo debajo de la fila de 64. Web: 8."
           },
-          "size": {
-            "value": "40px",
-            "type": "dimension",
-            "description": "Área tocable de cada acción. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 36 dentro de la cápsula de 44 (kit iOS 27). Android: 48 (M3). Web: 40."
-          }
-        }
-      },
-      "tabbar": {
-        "height": {
-          "value": "64px",
-          "type": "dimension",
-          "description": "Alto de la barra. iOS: 62, la cápsula Liquid Glass del kit iOS 27 (54 + 4 + 4). Android: 64, navigation bar de Material 3 Expressive. Web: 64, barra inferior. Barra de pestañas (TabBar, librería Platforms)."
-        },
-        "padding": {
-          "value": "0px",
-          "type": "dimension",
-          "description": "Relleno de la cápsula alrededor de las pestañas. iOS: 4 (kit iOS 27). Android y web no tienen cápsula: 0. Barra de pestañas (TabBar, librería Platforms)."
-        },
-        "margin-x": {
-          "value": "0px",
-          "type": "dimension",
-          "description": "Margen lateral. iOS: 20, la cápsula flota (kit iOS 27: 25 menos los 4 del vidrio, redondeado a la escala). Android y web: 0, la barra ocupa todo el ancho. Barra de pestañas (TabBar, librería Platforms)."
-        },
-        "margin-top": {
-          "value": "0px",
-          "type": "dimension",
-          "description": "Aire sobre la cápsula. iOS: 12 (kit iOS 27: 16 menos los 4 del vidrio). Android y web: 0. Barra de pestañas (TabBar, librería Platforms)."
-        },
-        "margin-bottom": {
-          "value": "0px",
-          "type": "dimension",
-          "description": "Aire debajo de la cápsula, sobre el home indicator. iOS: 20 (kit iOS 27). Android y web: 0, debajo va la navegación del sistema. Barra de pestañas (TabBar, librería Platforms)."
-        },
-        "gap": {
-          "value": "16px",
-          "type": "dimension",
-          "description": "iOS: separación entre la cápsula y el botón aparte: 8, lo que se ve en el kit iOS 27 (16 entre los botones menos los 4 del vidrio de cada lado). Android y web: aire entre el botón flotante y la barra (16, Material 3). Barra de pestañas (TabBar, librería Platforms)."
-        },
-        "item": {
-          "padding-x": {
-            "value": "0px",
-            "type": "dimension",
-            "description": "Relleno lateral de cada pestaña. iOS: 8 (kit iOS 27). Android y web: 0, las pestañas reparten el ancho. Barra de pestañas (TabBar, librería Platforms)."
+          "large": {
+            "padding-x": {
+              "value": "24px",
+              "type": "dimension",
+              "description": "Margen lateral del título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 16. Android: 16 (M3 medium). Web: 24."
+            },
+            "padding-bottom": {
+              "value": "16px",
+              "type": "dimension",
+              "description": "Aire debajo del título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 10 (44 + 10 + 41 + 10 = 105). Android: 12 (64 + 36 + 12 = 112, M3 medium). Web: 16."
+            }
           },
-          "gap": {
-            "value": "4px",
-            "type": "dimension",
-            "description": "Separación entre icono y etiqueta. iOS: 2 (kit iOS 27: 1 más el aire del símbolo). Android y web: 4 (Material 3). Barra de pestañas (TabBar, librería Platforms)."
+          "control": {
+            "padding": {
+              "value": "0px",
+              "type": "dimension",
+              "description": "Relleno interno de la cápsula de vidrio que agrupa las acciones. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 4 (36 + 4 + 4 = 44, kit iOS 27). Android y web no tienen cápsula: 0."
+            },
+            "gap": {
+              "value": "8px",
+              "type": "dimension",
+              "description": "Separación entre acciones. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 0, dentro de la cápsula los botones de 36 van juntos. Android: 0, áreas tocables de 48 contiguas (M3). Web: 8."
+            },
+            "size": {
+              "value": "40px",
+              "type": "dimension",
+              "description": "Área tocable de cada acción. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 36 dentro de la cápsula de 44 (kit iOS 27). Android: 48 (M3). Web: 40."
+            }
           }
         },
-        "indicator": {
-          "width": {
-            "value": "56px",
-            "type": "dimension",
-            "description": "Ancho del contenedor del icono. iOS: 28 (kit iOS 27). Android: 56, el indicador de la pestaña activa de Material 3. Web: 56. Barra de pestañas (TabBar, librería Platforms)."
-          },
+        "tabbar": {
           "height": {
-            "value": "32px",
+            "value": "64px",
             "type": "dimension",
-            "description": "Alto del contenedor del icono. iOS: 28. Android: 32, indicador de Material 3. Web: 32. Barra de pestañas (TabBar, librería Platforms)."
-          }
-        },
-        "accessory": {
-          "size": {
-            "value": "56px",
-            "type": "dimension",
-            "description": "Botón aparte con el logo. iOS: 62, círculo de vidrio junto a la cápsula (rol separado del kit iOS 27). Android: 56, FAB de Material 3 sobre la barra. Web: 56. Barra de pestañas (TabBar, librería Platforms)."
+            "description": "Alto de la barra. iOS: 62, la cápsula Liquid Glass del kit iOS 27 (54 + 4 + 4). Android: 64, navigation bar de Material 3 Expressive. Web: 64, barra inferior. Barra de pestañas (TabBar, librería Platforms)."
           },
-          "margin-x": {
-            "value": "16px",
+          "padding": {
+            "value": "0px",
             "type": "dimension",
-            "description": "Margen derecho del botón flotante. iOS: 0, va en la misma fila que la cápsula. Android y web: 16 (Material 3). Barra de pestañas (TabBar, librería Platforms)."
-          }
-        },
-        "minimized": {
-          "size": {
-            "value": "48px",
-            "type": "dimension",
-            "description": "iOS minimizada: diámetro de la pestaña activa y del botón aparte (kit iOS 27: 40 más el vidrio). Android y web no la usan: la barra se esconde. Barra de pestañas (TabBar, librería Platforms)."
+            "description": "Relleno de la cápsula alrededor de las pestañas. iOS: 4 (kit iOS 27). Android y web no tienen cápsula: 0. Barra de pestañas (TabBar, librería Platforms)."
           },
           "margin-x": {
             "value": "0px",
             "type": "dimension",
-            "description": "iOS minimizada: margen lateral (kit iOS 27). Barra de pestañas (TabBar, librería Platforms)."
+            "description": "Margen lateral. iOS: 20, la cápsula flota (kit iOS 27: 25 menos los 4 del vidrio, redondeado a la escala). Android y web: 0, la barra ocupa todo el ancho. Barra de pestañas (TabBar, librería Platforms)."
+          },
+          "margin-top": {
+            "value": "0px",
+            "type": "dimension",
+            "description": "Aire sobre la cápsula. iOS: 12 (kit iOS 27: 16 menos los 4 del vidrio). Android y web: 0. Barra de pestañas (TabBar, librería Platforms)."
           },
           "margin-bottom": {
             "value": "0px",
             "type": "dimension",
-            "description": "iOS minimizada: aire debajo (kit iOS 27). Barra de pestañas (TabBar, librería Platforms)."
-          }
-        }
-      },
-      "slider": {
-        "height": {
-          "value": "40px",
-          "type": "dimension",
-          "description": "Alto del control (área tocable). iOS: 44. Android: 44, alto de la manija de Material 3. Web: 40. Slider (librería Core)."
-        },
-        "track-height": {
-          "value": "4px",
-          "type": "dimension",
-          "description": "Alto de la pista. iOS: 6 (kit iOS 27). Android: 16, pista de Material 3 Expressive (xsmall). Web: 4. Slider (librería Core)."
-        },
-        "thumb-width": {
-          "value": "20px",
-          "type": "dimension",
-          "description": "Ancho de la perilla. iOS: 38, cápsula del kit iOS 27. Android: 4, la manija vertical de Material 3. Web: 20, círculo. Slider (librería Core)."
-        },
-        "thumb-height": {
-          "value": "20px",
-          "type": "dimension",
-          "description": "Alto de la perilla. iOS: 24. Android: 44. Web: 20. Slider (librería Core)."
-        },
-        "thumb-width-pressed": {
-          "value": "24px",
-          "type": "dimension",
-          "description": "Ancho de la perilla presionada. iOS: 57, crece y pasa a Liquid Glass (kit iOS 27). Android: 2, la manija se afina (Material 3). Web: 24. Slider (librería Core)."
-        },
-        "thumb-height-pressed": {
-          "value": "24px",
-          "type": "dimension",
-          "description": "Alto de la perilla presionada. iOS: 38. Android: 44. Web: 24. Slider (librería Core)."
-        },
-        "thumb-gap": {
-          "value": "0px",
-          "type": "dimension",
-          "description": "Aire entre la manija y la pista a cada lado. Android: 6 (Material 3). iOS y web: 0, la perilla va encima de la pista. Slider (librería Core)."
-        },
-        "stop-size": {
-          "value": "4px",
-          "type": "dimension",
-          "description": "Diámetro de las marcas (stops). 4 en las tres plataformas. Slider (librería Core)."
-        },
-        "gap": {
-          "value": "12px",
-          "type": "dimension",
-          "description": "Separación entre los iconos de mínimo y máximo y la pista. iOS: 12 (kit iOS 27). Android: 8. Web: 12. Slider (librería Core)."
-        }
-      },
-      "sheet": {
-        "floating": {
-          "inset": {
-            "value": "0px",
-            "type": "dimension",
-            "description": "Separación de la hoja a los bordes cuando flota (detent medium). iOS: 6 (kit iOS 27). Android y web: 0. Sheet (librería Platforms)."
-          }
-        },
-        "handle": {
-          "padding-top": {
+            "description": "Aire debajo de la cápsula, sobre el home indicator. iOS: 20 (kit iOS 27). Android y web: 0, debajo va la navegación del sistema. Barra de pestañas (TabBar, librería Platforms)."
+          },
+          "gap": {
             "value": "16px",
             "type": "dimension",
-            "description": "Aire sobre el asa. iOS: 6 (kit iOS 27). Android y web: 16 (Material 3: encabezado de 36 con el asa al centro). Sheet (librería Platforms)."
+            "description": "iOS: separación entre la cápsula y el botón aparte: 8, lo que se ve en el kit iOS 27 (16 entre los botones menos los 4 del vidrio de cada lado). Android y web: aire entre el botón flotante y la barra (16, Material 3). Barra de pestañas (TabBar, librería Platforms)."
+          },
+          "item": {
+            "padding-x": {
+              "value": "0px",
+              "type": "dimension",
+              "description": "Relleno lateral de cada pestaña. iOS: 8 (kit iOS 27). Android y web: 0, las pestañas reparten el ancho. Barra de pestañas (TabBar, librería Platforms)."
+            },
+            "gap": {
+              "value": "4px",
+              "type": "dimension",
+              "description": "Separación entre icono y etiqueta. iOS: 2 (kit iOS 27: 1 más el aire del símbolo). Android y web: 4 (Material 3). Barra de pestañas (TabBar, librería Platforms)."
+            }
+          },
+          "indicator": {
+            "width": {
+              "value": "56px",
+              "type": "dimension",
+              "description": "Ancho del contenedor del icono. iOS: 28 (kit iOS 27). Android: 56, el indicador de la pestaña activa de Material 3. Web: 56. Barra de pestañas (TabBar, librería Platforms)."
+            },
+            "height": {
+              "value": "32px",
+              "type": "dimension",
+              "description": "Alto del contenedor del icono. iOS: 28. Android: 32, indicador de Material 3. Web: 32. Barra de pestañas (TabBar, librería Platforms)."
+            }
+          },
+          "accessory": {
+            "size": {
+              "value": "56px",
+              "type": "dimension",
+              "description": "Botón aparte con el logo. iOS: 62, círculo de vidrio junto a la cápsula (rol separado del kit iOS 27). Android: 56, FAB de Material 3 sobre la barra. Web: 56. Barra de pestañas (TabBar, librería Platforms)."
+            },
+            "margin-x": {
+              "value": "16px",
+              "type": "dimension",
+              "description": "Margen derecho del botón flotante. iOS: 0, va en la misma fila que la cápsula. Android y web: 16 (Material 3). Barra de pestañas (TabBar, librería Platforms)."
+            }
+          },
+          "minimized": {
+            "size": {
+              "value": "48px",
+              "type": "dimension",
+              "description": "iOS minimizada: diámetro de la pestaña activa y del botón aparte (kit iOS 27: 40 más el vidrio). Android y web no la usan: la barra se esconde. Barra de pestañas (TabBar, librería Platforms)."
+            },
+            "margin-x": {
+              "value": "0px",
+              "type": "dimension",
+              "description": "iOS minimizada: margen lateral (kit iOS 27). Barra de pestañas (TabBar, librería Platforms)."
+            },
+            "margin-bottom": {
+              "value": "0px",
+              "type": "dimension",
+              "description": "iOS minimizada: aire debajo (kit iOS 27). Barra de pestañas (TabBar, librería Platforms)."
+            }
           }
         },
-        "stack": {
-          "offset": {
-            "value": "0px",
+        "slider": {
+          "height": {
+            "value": "40px",
             "type": "dimension",
-            "description": "Cuánto baja la hoja de adelante sobre la de atrás cuando se apilan (detent stacked). iOS: 10 (kit iOS 27, Large Stacked). Android y web: 0, no apilan: la segunda hoja reemplaza a la primera. Sheet (librería Platforms)."
+            "description": "Alto del control (área tocable). iOS: 44. Android: 44, alto de la manija de Material 3. Web: 40. Slider (librería Core)."
           },
-          "inset": {
+          "track-height": {
+            "value": "4px",
+            "type": "dimension",
+            "description": "Alto de la pista. iOS: 6 (kit iOS 27). Android: 16, pista de Material 3 Expressive (xsmall). Web: 4. Slider (librería Core)."
+          },
+          "thumb-width": {
+            "value": "20px",
+            "type": "dimension",
+            "description": "Ancho de la perilla. iOS: 38, cápsula del kit iOS 27. Android: 4, la manija vertical de Material 3. Web: 20, círculo. Slider (librería Core)."
+          },
+          "thumb-height": {
+            "value": "20px",
+            "type": "dimension",
+            "description": "Alto de la perilla. iOS: 24. Android: 44. Web: 20. Slider (librería Core)."
+          },
+          "thumb-width-pressed": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Ancho de la perilla presionada. iOS: 57, crece y pasa a Liquid Glass (kit iOS 27). Android: 2, la manija se afina (Material 3). Web: 24. Slider (librería Core)."
+          },
+          "thumb-height-pressed": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Alto de la perilla presionada. iOS: 38. Android: 44. Web: 24. Slider (librería Core)."
+          },
+          "thumb-gap": {
             "value": "0px",
             "type": "dimension",
-            "description": "Cuánto se angosta la hoja de atrás a cada lado cuando se apilan. iOS: 16 (kit iOS 27). Android y web: 0. Sheet (librería Platforms)."
+            "description": "Aire entre la manija y la pista a cada lado. Android: 6 (Material 3). iOS y web: 0, la perilla va encima de la pista. Slider (librería Core)."
+          },
+          "stop-size": {
+            "value": "4px",
+            "type": "dimension",
+            "description": "Diámetro de las marcas (stops). 4 en las tres plataformas. Slider (librería Core)."
+          },
+          "gap": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Separación entre los iconos de mínimo y máximo y la pista. iOS: 12 (kit iOS 27). Android: 8. Web: 12. Slider (librería Core)."
+          }
+        },
+        "sheet": {
+          "floating": {
+            "inset": {
+              "value": "0px",
+              "type": "dimension",
+              "description": "Separación de la hoja a los bordes cuando flota (detent medium). iOS: 6 (kit iOS 27). Android y web: 0. Sheet (librería Platforms)."
+            }
+          },
+          "handle": {
+            "padding-top": {
+              "value": "16px",
+              "type": "dimension",
+              "description": "Aire sobre el asa. iOS: 6 (kit iOS 27). Android y web: 16 (Material 3: encabezado de 36 con el asa al centro). Sheet (librería Platforms)."
+            }
+          },
+          "stack": {
+            "offset": {
+              "value": "0px",
+              "type": "dimension",
+              "description": "Cuánto baja la hoja de adelante sobre la de atrás cuando se apilan (detent stacked). iOS: 10 (kit iOS 27, Large Stacked). Android y web: 0, no apilan: la segunda hoja reemplaza a la primera. Sheet (librería Platforms)."
+            },
+            "inset": {
+              "value": "0px",
+              "type": "dimension",
+              "description": "Cuánto se angosta la hoja de atrás a cada lado cuando se apilan. iOS: 16 (kit iOS 27). Android y web: 0. Sheet (librería Platforms)."
+            }
+          }
+        },
+        "dialog": {
+          "padding": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Padding de la tarjeta. iOS: 14. Android y web: 24. Dialog (librería Platforms)."
+          },
+          "content-inset": {
+            "value": "0px",
+            "type": "dimension",
+            "description": "Aire extra alrededor del título y el mensaje. iOS: 8 (el texto va más adentro que los botones). Android y web: 0. Dialog (librería Platforms)."
           }
         }
       },
-      "dialog": {
-        "padding": {
-          "value": "24px",
-          "type": "dimension",
-          "description": "Padding de la tarjeta. iOS: 14. Android y web: 24. Dialog (librería Platforms)."
+      "system": {
+        "status-bar": {
+          "height": {
+            "value": "62px",
+            "type": "dimension",
+            "description": "Alto de la barra de estado. iOS: 62 (kit iOS 27, iPhone 17 Pro, con la isla dinámica). Android: 40 (Android UI Kit, con la cámara perforada). Web: 62, Safari en iPhone muestra la barra de estado de iOS. En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma. La barra de navegación empieza debajo (platform/component/navbar/*)."
+          }
         },
-        "content-inset": {
-          "value": "0px",
-          "type": "dimension",
-          "description": "Aire extra alrededor del título y el mensaje. iOS: 8 (el texto va más adentro que los botones). Android y web: 0. Dialog (librería Platforms)."
+        "system-nav": {
+          "handle-width": {
+            "value": "134px",
+            "type": "dimension",
+            "description": "Ancho del home indicator de iOS y de Safari en iPhone (134) y de la barra de gestos de Android (108). En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma."
+          },
+          "handle-height": {
+            "value": "5px",
+            "type": "dimension",
+            "description": "Alto del home indicator de iOS (5) y de la barra de gestos de Android (4). En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma."
+          }
+        },
+        "browser": {
+          "toolbar-height": {
+            "value": "84px",
+            "type": "dimension",
+            "description": "Alto de la barra de Safari de iOS 27 (botón atrás, cápsula de dirección y más), sobre el home indicator. Solo existe en web. En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma."
+          },
+          "control-size": {
+            "value": "48px",
+            "type": "dimension",
+            "description": "Alto de la cápsula de dirección y de los botones de la barra de Safari de iOS 27 (48, kit iOS 27 · Toolbar - Bottom). Solo existe en web."
+          }
+        }
+      },
+      "space": {
+        "safe-area": {
+          "top": {
+            "value": "62px",
+            "type": "dimension",
+            "description": "Safe area superior. iOS: 62. Android: 40. Web: 62 (Safari en iPhone). En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma."
+          },
+          "bottom": {
+            "value": "118px",
+            "type": "dimension",
+            "description": "Safe area inferior. iOS: 34 (home indicator). Android: 24 (navegación por gestos; con 3 botones son 48). Web: 118, la barra de Safari de iOS 27 (84) más el home indicator (34). En código no se usa este número: iOS, Android y el navegador dan los insets reales (useSafeAreaInsets, WindowInsets, env(safe-area-inset-*)). Es la medida de maqueta de Figma."
+          }
         }
       }
     },
@@ -1546,11 +1580,13 @@
       },
       "300": {
         "value": "300px",
-        "type": "dimension"
+        "type": "dimension",
+        "description": "Ancho del Dialog en iOS (300, kit iOS 27). Primitivo: lo consume platform/component/dialog/width en el modo ios. No usar directo."
       },
       "312": {
         "value": "312px",
-        "type": "dimension"
+        "type": "dimension",
+        "description": "Ancho del Dialog en Android (312, Material 3). Primitivo: lo consume platform/component/dialog/width en el modo android. No usar directo."
       }
     },
     "border": {

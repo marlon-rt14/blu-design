@@ -31,44 +31,46 @@
           }
         }
       },
-      "navbar": {
-        "title": {
-          "style": {
-            "value": "400",
-            "type": "fontWeight",
-            "description": "Peso del título estándar. Barra de navegación superior (NavigationBar, librería Platforms). iOS: Semibold. Android: Regular (M3). Web: SemiBold. Aliasea platform/font/style/*: no escribas el peso a mano."
+      "component": {
+        "navbar": {
+          "title": {
+            "style": {
+              "value": "400",
+              "type": "fontWeight",
+              "description": "Peso del título estándar. Barra de navegación superior (NavigationBar, librería Platforms). iOS: Semibold. Android: Regular (M3). Web: SemiBold. Aliasea platform/font/style/*: no escribas el peso a mano."
+            }
+          },
+          "large-title": {
+            "style": {
+              "value": "400",
+              "type": "fontWeight",
+              "description": "Peso del título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: Bold. Android: Regular (M3). Web: Bold."
+            }
           }
         },
-        "large-title": {
-          "style": {
-            "value": "400",
-            "type": "fontWeight",
-            "description": "Peso del título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: Bold. Android: Regular (M3). Web: Bold."
-          }
-        }
-      },
-      "tabbar": {
-        "label": {
-          "style": {
-            "value": "500",
-            "type": "fontWeight",
-            "description": "Peso de la etiqueta. iOS: Semibold. Android: Medium. Web: SemiBold. Aliasea platform/font/style/*. Barra de pestañas (TabBar, librería Platforms)."
-          }
-        }
-      },
-      "dialog": {
-        "title": {
-          "style": {
-            "value": "400",
-            "type": "fontWeight",
-            "description": "Peso del título. iOS: Semibold. Android: Regular (headline de Material 3). Web: SemiBold. Dialog (librería Platforms)."
+        "tabbar": {
+          "label": {
+            "style": {
+              "value": "500",
+              "type": "fontWeight",
+              "description": "Peso de la etiqueta. iOS: Semibold. Android: Medium. Web: SemiBold. Aliasea platform/font/style/*. Barra de pestañas (TabBar, librería Platforms)."
+            }
           }
         },
-        "action": {
-          "label-style": {
-            "value": "500",
-            "type": "fontWeight",
-            "description": "Peso de la etiqueta del botón. iOS: Semibold. Android y web: Medium. Dialog (librería Platforms)."
+        "dialog": {
+          "title": {
+            "style": {
+              "value": "400",
+              "type": "fontWeight",
+              "description": "Peso del título. iOS: Semibold. Android: Regular (headline de Material 3). Web: SemiBold. Dialog (librería Platforms)."
+            }
+          },
+          "action": {
+            "label-style": {
+              "value": "500",
+              "type": "fontWeight",
+              "description": "Peso de la etiqueta del botón. iOS: Semibold. Android y web: Medium. Dialog (librería Platforms)."
+            }
           }
         }
       }
