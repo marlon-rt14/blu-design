@@ -46,134 +46,122 @@
       }
     },
     "platform": {
-      "type": {
-        "title": {
-          "line-height-pct": {
+      "font": {
+        "line-height-pct": {
+          "title": {
             "value": "133px",
             "type": "lineHeight",
             "description": "Interlineado de title en PORCENTAJE, para desarrollo. NO se bindea en Figma: al bindear una variable numerica a lineHeight, Figma la interpreta en PIXELES y no en porcentaje (medido el 22-sep: un titulo con el token en 127 salio de 127 px de alto). En Figma el porcentaje va fijo en el text style; en codigo se usa este token, que es lo correcto en CSS y en React Native."
           },
-          "line-height": {
-            "value": "32px",
-            "type": "lineHeight",
-            "description": "iOS Title 2 · M3 headlineSmall"
-          }
-        },
-        "body": {
-          "line-height-pct": {
+          "body": {
             "value": "150px",
             "type": "lineHeight",
             "description": "Interlineado de body en PORCENTAJE, para desarrollo. NO se bindea en Figma: al bindear una variable numerica a lineHeight, Figma la interpreta en PIXELES y no en porcentaje (medido el 22-sep: un titulo con el token en 127 salio de 127 px de alto). En Figma el porcentaje va fijo en el text style; en codigo se usa este token, que es lo correcto en CSS y en React Native."
           },
-          "line-height": {
-            "value": "24px",
-            "type": "lineHeight",
-            "description": "iOS Body · M3 bodyLarge"
-          }
-        },
-        "body-strong": {
-          "line-height-pct": {
+          "body-strong": {
             "value": "150px",
             "type": "lineHeight",
             "description": "Interlineado de body-strong en PORCENTAJE, para desarrollo. NO se bindea en Figma: al bindear una variable numerica a lineHeight, Figma la interpreta en PIXELES y no en porcentaje (medido el 22-sep: un titulo con el token en 127 salio de 127 px de alto). En Figma el porcentaje va fijo en el text style; en codigo se usa este token, que es lo correcto en CSS y en React Native."
           },
-          "line-height": {
-            "value": "24px",
-            "type": "lineHeight",
-            "description": "iOS Headline · M3 titleMedium — mismo tamano que body, cambia el peso"
-          }
-        },
-        "label": {
-          "line-height-pct": {
+          "label": {
             "value": "143px",
             "type": "lineHeight",
             "description": "Interlineado de label en PORCENTAJE, para desarrollo. NO se bindea en Figma: al bindear una variable numerica a lineHeight, Figma la interpreta en PIXELES y no en porcentaje (medido el 22-sep: un titulo con el token en 127 salio de 127 px de alto). En Figma el porcentaje va fijo en el text style; en codigo se usa este token, que es lo correcto en CSS y en React Native."
           },
-          "line-height": {
-            "value": "20px",
-            "type": "lineHeight",
-            "description": "iOS Footnote · M3 labelLarge — texto de botones y tabs"
-          }
-        },
-        "caption": {
-          "line-height-pct": {
+          "caption": {
             "value": "133px",
             "type": "lineHeight",
             "description": "Interlineado de caption en PORCENTAJE, para desarrollo. NO se bindea en Figma: al bindear una variable numerica a lineHeight, Figma la interpreta en PIXELES y no en porcentaje (medido el 22-sep: un titulo con el token en 127 salio de 127 px de alto). En Figma el porcentaje va fijo en el text style; en codigo se usa este token, que es lo correcto en CSS y en React Native."
+          }
+        },
+        "line-height": {
+          "display": {
+            "value": "44px",
+            "type": "lineHeight",
+            "description": "iOS Large Title · M3 displaySmall"
           },
-          "line-height": {
+          "headline": {
+            "value": "36px",
+            "type": "lineHeight",
+            "description": "iOS Title 1 · M3 headlineMedium"
+          },
+          "title": {
+            "value": "32px",
+            "type": "lineHeight",
+            "description": "iOS Title 2 · M3 headlineSmall"
+          },
+          "subtitle": {
+            "value": "28px",
+            "type": "lineHeight",
+            "description": "iOS Title 3 · M3 titleLarge"
+          },
+          "body-strong": {
+            "value": "24px",
+            "type": "lineHeight",
+            "description": "iOS Headline · M3 titleMedium — mismo tamano que body, cambia el peso"
+          },
+          "body": {
+            "value": "24px",
+            "type": "lineHeight",
+            "description": "iOS Body · M3 bodyLarge"
+          },
+          "body-sm": {
+            "value": "20px",
+            "type": "lineHeight",
+            "description": "iOS Subhead · M3 bodyMedium"
+          },
+          "label": {
+            "value": "20px",
+            "type": "lineHeight",
+            "description": "iOS Footnote · M3 labelLarge — texto de botones y tabs"
+          },
+          "caption": {
             "value": "16px",
             "type": "lineHeight",
             "description": "iOS Caption 1 · M3 bodySmall. OJO: NO mapea a labelMedium aunque ambos midan 12/16. caption es texto corrido (leyenda, nota al pie) y va Regular; labelMedium es label de CONTROL y va Medium. Si algo rotula un control, consume el rol label, no caption."
           }
-        },
-        "display": {
-          "line-height": {
-            "value": "44px",
-            "type": "lineHeight",
-            "description": "iOS Large Title · M3 displaySmall"
-          }
-        },
-        "headline": {
-          "line-height": {
-            "value": "36px",
-            "type": "lineHeight",
-            "description": "iOS Title 1 · M3 headlineMedium"
-          }
-        },
-        "subtitle": {
-          "line-height": {
-            "value": "28px",
-            "type": "lineHeight",
-            "description": "iOS Title 3 · M3 titleLarge"
-          }
-        },
-        "body-sm": {
-          "line-height": {
-            "value": "20px",
-            "type": "lineHeight",
-            "description": "iOS Subhead · M3 bodyMedium"
-          }
         }
       },
-      "navbar": {
-        "title": {
-          "line-height": {
-            "value": "28px",
-            "type": "lineHeight",
-            "description": "Interlineado del título estándar. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 22. Android: 28. Web: 28."
+      "component": {
+        "navbar": {
+          "title": {
+            "line-height": {
+              "value": "28px",
+              "type": "lineHeight",
+              "description": "Interlineado del título estándar. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 22. Android: 28. Web: 28."
+            }
+          },
+          "large-title": {
+            "line-height": {
+              "value": "36px",
+              "type": "lineHeight",
+              "description": "Interlineado del título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 41. Android: 36. Web: 38."
+            }
           }
         },
-        "large-title": {
-          "line-height": {
-            "value": "36px",
-            "type": "lineHeight",
-            "description": "Interlineado del título grande. Barra de navegación superior (NavigationBar, librería Platforms). iOS: 41. Android: 36. Web: 38."
-          }
-        }
-      },
-      "tabbar": {
-        "label": {
-          "line-height": {
-            "value": "16px",
-            "type": "lineHeight",
-            "description": "Interlineado de la etiqueta. iOS: 12. Android: 16. Web: 16. Barra de pestañas (TabBar, librería Platforms)."
-          }
-        }
-      },
-      "dialog": {
-        "title": {
-          "line-height": {
-            "value": "32px",
-            "type": "lineHeight",
-            "description": "Interlineado del título. iOS: 22. Android: 32. Web: 28. Dialog (librería Platforms)."
+        "tabbar": {
+          "label": {
+            "line-height": {
+              "value": "16px",
+              "type": "lineHeight",
+              "description": "Interlineado de la etiqueta. iOS: 12. Android: 16. Web: 16. Barra de pestañas (TabBar, librería Platforms)."
+            }
           }
         },
-        "message": {
-          "line-height": {
-            "value": "20px",
-            "type": "lineHeight",
-            "description": "Interlineado del mensaje. iOS: 22. Android: 20. Web: 24. Dialog (librería Platforms)."
+        "dialog": {
+          "title": {
+            "line-height": {
+              "value": "32px",
+              "type": "lineHeight",
+              "description": "Interlineado del título. iOS: 22. Android: 32. Web: 28. Dialog (librería Platforms)."
+            }
+          },
+          "message": {
+            "line-height": {
+              "value": "20px",
+              "type": "lineHeight",
+              "description": "Interlineado del mensaje. iOS: 22. Android: 20. Web: 24. Dialog (librería Platforms)."
+            }
           }
         }
       }

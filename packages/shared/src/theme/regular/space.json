@@ -2,24 +2,45 @@
   "_comment": "This file was generated automatically by Supernova.io and should not be changed manually. To modify the format or content of this file, please contact your design system team.",
   "space": {
     "platform": {
-      "segment": {
-        "track-padding": {
-          "value": "2px",
-          "type": "space",
-          "description": "Padding del track del control segmentado. Medido del kit iOS 27: 2. Material 3 no tiene track, va en 0. El valor web es el que ya tenia Core, asi que web no cambia."
+      "component": {
+        "segmentedcontrol": {
+          "track-padding": {
+            "value": "2px",
+            "type": "space",
+            "description": "Padding del track del control segmentado. Medido del kit iOS 27: 2. Material 3 no tiene track, va en 0. El valor web es el que ya tenia Core, asi que web no cambia."
+          },
+          "gap": {
+            "value": "4px",
+            "type": "space",
+            "description": "Separacion entre segmentos. Medido del kit iOS 27: 4 (las pildoras NO van pegadas). Material 3 usa -1 para que los bordes contiguos se solapen. Web 0, como Core hoy."
+          },
+          "touch-padding": {
+            "value": "0px",
+            "type": "space",
+            "description": "Padding vertical DEL SEGMENTO (no del track) que agranda el area tactil sin agrandar lo visible. Material 3: 4 arriba y 4 abajo convierten un container de 40 en un target de 48. iOS no lo usa: su area tactil es el segmento visible."
+          }
         },
-        "gap": {
-          "value": "4px",
-          "type": "space",
-          "description": "Separacion entre segmentos. Medido del kit iOS 27: 4 (las pildoras NO van pegadas). Material 3 usa -1 para que los bordes contiguos se solapen. Web 0, como Core hoy."
-        },
-        "touch-padding": {
-          "value": "0px",
-          "type": "space",
-          "description": "Padding vertical DEL SEGMENTO (no del track) que agranda el area tactil sin agrandar lo visible. Material 3: 4 arriba y 4 abajo convierten un container de 40 en un target de 48. iOS no lo usa: su area tactil es el segmento visible."
+        "dialog": {
+          "content-gap": {
+            "value": "10px",
+            "type": "space",
+            "description": "Separación entre título y mensaje. iOS: 10. Android y web: 16. Dialog (librería Platforms)."
+          },
+          "section-gap": {
+            "value": "24px",
+            "type": "space",
+            "description": "Separación entre el texto y los botones: 24 en las tres. Dialog (librería Platforms)."
+          },
+          "action": {
+            "gap": {
+              "value": "8px",
+              "type": "space",
+              "description": "Separación entre botones: 8 en las tres. Dialog (librería Platforms)."
+            }
+          }
         }
       },
-      "spacing": {
+      "space": {
         "section-gap": {
           "value": "20px",
           "type": "space",
@@ -29,25 +50,6 @@
           "value": "12px",
           "type": "space",
           "description": "Separación entre elementos de una misma sección: 12 en iOS, 16 en Android y web. Es el aire de adentro de un bloque, no el de entre bloques."
-        }
-      },
-      "dialog": {
-        "content-gap": {
-          "value": "10px",
-          "type": "space",
-          "description": "Separación entre título y mensaje. iOS: 10. Android y web: 16. Dialog (librería Platforms)."
-        },
-        "section-gap": {
-          "value": "24px",
-          "type": "space",
-          "description": "Separación entre el texto y los botones: 24 en las tres. Dialog (librería Platforms)."
-        },
-        "action": {
-          "gap": {
-            "value": "8px",
-            "type": "space",
-            "description": "Separación entre botones: 8 en las tres. Dialog (librería Platforms)."
-          }
         }
       }
     },
@@ -211,7 +213,7 @@
       "margin": {
         "value": "24px",
         "type": "space",
-        "description": "Margen lateral de pantalla: 16 · 24 · 32. Es el margen de grid/layout y el padding horizontal del contenedor raíz de una pantalla. Única fuente del margen de pantalla (reemplaza a platform/spacing/screen-margin, borrado el 26-sep)."
+        "description": "Margen lateral de pantalla: 16 · 24 · 32. Es el margen de grid/layout y el padding horizontal del contenedor raíz de una pantalla. Única fuente del margen de pantalla (reemplaza a platform/space/screen-margin, borrado el 26-sep)."
       }
     }
   }

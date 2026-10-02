@@ -51,11 +51,13 @@
         "type": "string",
         "description": "Se enlaza a la propiedad variant \"platform\" de los componentes duales. Valores: ios · android · web, en minúscula como el resto del vocabulario. El valor debe coincidir caracter por caracter con la opción del variant (\"iOS\" no es \"ios\"): si no coincide, la instancia se queda en su variant anterior sin dar error. La plataforma se cambia con el modo de esta colección, nunca eligiendo la propiedad a mano. Controles de Core (Switch, Checkbox, Radio, Tabs, Calendar) toman sus medidas de platform/<componente>/* desde la 0.28."
       },
-      "calendar": {
-        "placement": {
-          "value": "sides",
-          "type": "string",
-          "description": "Valor del eje placement de .Calendar. iOS y Android: end (mes a la izquierda, flechas a la derecha, como sus calendarios nativos). Web: sides."
+      "component": {
+        "calendar": {
+          "placement": {
+            "value": "sides",
+            "type": "string",
+            "description": "Valor del eje placement de .Calendar. iOS y Android: end (mes a la izquierda, flechas a la derecha, como sus calendarios nativos). Web: sides."
+          }
         }
       }
     }
