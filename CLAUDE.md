@@ -27,6 +27,42 @@ plumbing) are in `README.md` — read it, but see "Theming & tokens" below first
 theming section describes an earlier two-mode (`base`/`dark`) version of the pipeline that the code has
 since outgrown.
 
+## Writing a screen
+
+This is the contract for app code. `AGENTS.md` is the same contract, shorter.
+
+- Import components from `@dsm/web`. Wrap the tree in `BluProvider`. Do not build the screen out of raw `div`s plus a stylesheet or Tailwind utilities.
+- Contract types live on `@dsm/shared`, not on `@dsm/web`. `IProgressStepDef` is one of them. `ProgressStepper` is the component; `Step` is internal and not part of a screen.
+
+```tsx
+import type { IProgressStepDef } from '@dsm/shared';
+import { BluProvider, ProgressStepper } from '@dsm/web';
+
+const steps: IProgressStepDef[] = [
+  { label: 'Plan', status: 'done' },
+  { label: 'Calendar', status: 'active' },
+  { label: 'Contacts', status: 'pending' },
+];
+
+<BluProvider>
+  <ProgressStepper steps={steps} purpose="wizard" />
+</BluProvider>
+```
+
+- Icons are not on the root barrel. One file per section, no aggregate:
+
+```tsx
+import { IconChevronLeft, IconChevronRight } from '@dsm/web/icons/arrows';
+import { IconButton } from '@dsm/web';
+
+<IconButton icon={IconChevronLeft} label="Previous page" onPress={goPrev} />
+```
+
+  `IconButton` takes `onPress` and a required `label` (that string is the accessible name). `Button` takes `onClick` and `label`.
+- There is no Dialog, Modal, Confirm, EmptyState, or Pagination component. A confirmation is `Card` + `Alert` + `ButtonGroup`. An empty state is `Card` + `Alert` (or `Image`) + `Button`. A pager is `IconButton` plus the chevrons above.
+- `variant` is meaning (`primary` | `danger`). `appearance` is weight (`fill` > `soft` > `outline` > `ghost`). The safe action is `appearance="fill"` and comes first. A destructive action is `variant="danger"` and `appearance="outline"`, never `fill`.
+- Do not set color, font size, line height, margin, padding, or overlay backgrounds in `style`. The components already resolve tokens. A raw `rgba(...)`, hex, `padding: '24px'`, or `lineHeight: '20px'` is a failure.
+
 ## Commands
 
 ```bash
