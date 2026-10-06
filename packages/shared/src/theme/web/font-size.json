@@ -341,7 +341,7 @@
           },
           "action": {
             "label-size": {
-              "value": "14px",
+              "value": "17px",
               "type": "fontSize",
               "description": "Etiqueta del botón. iOS: 17 Semibold. Android y web: 14 Medium (label large de Material 3). Dialog (librería Platforms)."
             }

@@ -296,6 +296,20 @@
               "type": "size",
               "description": "Alto visible del botón. iOS: cápsula de 48. Android y web: 40 (el área tocable llega a 48). Dialog (librería Platforms)."
             }
+          },
+          "list": {
+            "item-height": {
+              "value": "48px",
+              "type": "size",
+              "description": "Alto de cada fila de type=actions. iOS: 48 (cápsulas, referencia). Android: 56 (lista de Material 3, una línea). Web: 48 (misma anatomía que Android, densidad de escritorio)."
+            }
+          }
+        },
+        "pagination": {
+          "height": {
+            "value": "48px",
+            "type": "size",
+            "description": "Alto del Pagination. iOS: cápsula de vidrio de 48. Android: 48 (botones tonales de Material 3). Web: 40."
           }
         }
       }
@@ -333,6 +347,17 @@
           "value": "1080px",
           "type": "size",
           "description": "Alto que acompaña a viewport/width/max (440×956 · 834×1194 · 1920×1080). Solo para pantallas de alto fijo: las pantallas con scroll quedan en Hug."
+        }
+      }
+    },
+    "component": {
+      "pagination": {
+        "item": {
+          "size": {
+            "value": "36px",
+            "type": "size",
+            "description": "Co-token de pagination. Lado de cada número de página en web."
+          }
         }
       }
     }
