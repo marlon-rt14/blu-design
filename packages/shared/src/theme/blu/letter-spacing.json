@@ -3,52 +3,52 @@
   "letter-spacing": {
     "font": {
       "letter-spacing": {
-        "tighter": {
-          "value": "-2px",
-          "type": "letterSpacing",
-          "description": "Interletrado de -2. Unidad relativa al cuerpo, no pixeles. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
-        },
-        "tight": {
-          "value": "-1px",
-          "type": "letterSpacing",
-          "description": "Interletrado de -1. Unidad relativa al cuerpo, no pixeles. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
-        },
-        "normal": {
+        "0": {
           "value": "0px",
           "type": "letterSpacing",
           "description": "Interletrado de 0. Unidad relativa al cuerpo, no pixeles. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
         },
-        "wide": {
+        "2": {
           "value": "2px",
           "type": "letterSpacing",
           "description": "Interletrado de 2. Unidad relativa al cuerpo, no pixeles. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
         },
-        "wider": {
+        "8": {
           "value": "8px",
           "type": "letterSpacing",
           "description": "Interletrado de 8. Unidad relativa al cuerpo, no pixeles. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
         },
-        "tighter_1": {
+        "neg-2": {
+          "value": "-2px",
+          "type": "letterSpacing",
+          "description": "Interletrado de -2. Unidad relativa al cuerpo, no pixeles. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "neg-1": {
+          "value": "-1px",
+          "type": "letterSpacing",
+          "description": "Interletrado de -1. Unidad relativa al cuerpo, no pixeles. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        },
+        "tighter": {
           "value": "-2px",
           "type": "letterSpacing",
           "description": "Tracking −2 %. Solo para amount hero y display grandes: a partir de cierto tamaño las letras se ven separadas y hay que cerrarlas."
         },
-        "tight_1": {
+        "tight": {
           "value": "-1px",
           "type": "letterSpacing",
           "description": "Tracking −1 %. Para display, heading y amount lg. Es la corrección óptica estándar de los tamaños grandes."
         },
-        "normal_1": {
+        "normal": {
           "value": "0px",
           "type": "letterSpacing",
           "description": "Tracking 0. El valor de todo el texto de lectura. Si un estilo no tiene razón explícita para separarse de acá, usa esto."
         },
-        "wide_1": {
+        "wide": {
           "value": "2px",
           "type": "letterSpacing",
           "description": "Tracking +2 %. Para texto chico que necesita respirar, por debajo del tamaño de lectura."
         },
-        "wider_1": {
+        "wider": {
           "value": "8px",
           "type": "letterSpacing",
           "description": "Tracking +8 %. Exclusivo de text/overline: mayúsculas a 11 px, que sin tracking se leen como un bloque."

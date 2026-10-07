@@ -89,15 +89,15 @@
         }
       },
       "control": {
-        "xs": {
-          "value": "2px",
-          "type": "borderRadius",
-          "description": "El paso más chico de la escala de radios. Para marcas de gráfico muy angostas —segmentos de Status strip, celdas de heatmap, nodos de Sankey— donde 4 ya convierte la pieza en una píldora."
-        },
         "sm": {
           "value": "4px",
           "type": "borderRadius",
           "description": "Radio de control pequeño: filas de Menu, velo de Tabs, capsLock de PasswordField y anillos de anclas sin curva (LinkButton, ChoiceItem, SwitchItem). 4 px, igual en todas las plataformas. El Checkbox NO lo usa: tiene component/checkbox/radius/* porque sigue a la plataforma."
+        },
+        "xs": {
+          "value": "2px",
+          "type": "borderRadius",
+          "description": "El paso más chico de la escala de radios. Para marcas de gráfico muy angostas —segmentos de Status strip, celdas de heatmap, nodos de Sankey— donde 4 ya convierte la pieza en una píldora."
         }
       },
       "surface": {
@@ -148,15 +148,6 @@
           "description": "Radio de acciones circulares: IconButton (y con él NumericStepper y el botón de limpiar del SearchField). Pastilla en las tres plataformas: iOS y Material 3 dibujan el botón de icono circular. Separado de radius/pill para poder cambiar la forma del IconButton sin mover Tag, Avatar ni Badge."
         },
         "description": "Radio del botón con texto. Aliasea platform/radius/action: web 12 · iOS cápsula · Android 12. No cambia por densidad. NO usar en campos: para eso radius/field/*. El IconButton usa radius/action/icon."
-      }
-    },
-    "chart": {
-      "bar": {
-        "radius": {
-          "value": "4px",
-          "type": "borderRadius",
-          "description": "Radio de la punta de una barra. 4 en las tres densidades: con 15 o 20 columnas la barra queda fina y un radio mayor se come el valor."
-        }
       }
     },
     "platform": {
@@ -268,6 +259,22 @@
             "type": "borderRadius",
             "description": "Radio de la tarjeta. iOS: 34 (Liquid Glass). Android: 28 (Material 3). Web: radius/surface/lg. Dialog (librería Platforms)."
           }
+        },
+        "datepicker": {
+          "radius": {
+            "value": "12px",
+            "type": "borderRadius",
+            "description": "Radio de la tarjeta del selector. iOS: 12, el popover del UIDatePicker compact (el kit iOS 27 dibuja 13). Android: 28 (Material 3, Modal date picker). Web: radius/surface/lg. DatePicker (librería Platforms)."
+          }
+        }
+      }
+    },
+    "chart": {
+      "bar": {
+        "radius": {
+          "value": "4px",
+          "type": "borderRadius",
+          "description": "Radio de la punta de una barra. 4 en las tres densidades: con 15 o 20 columnas la barra queda fina y un radio mayor se come el valor."
         }
       }
     },

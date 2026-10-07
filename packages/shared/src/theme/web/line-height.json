@@ -3,42 +3,42 @@
   "line-height": {
     "font": {
       "line-height": {
-        "tight": {
+        "120": {
           "value": "120px",
           "type": "lineHeight",
           "description": "Interlineado del 120%. Va en PORCENTAJE, adimensional, para sobrevivir al 200% de font scale del sistema. OJO: bindear esto a un nodo de texto en Figma lo aplica como PIXELES; por eso los estilos de texto lo llevan como literal y esta variable es la fuente de verdad para el exporter. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
         },
-        "snug": {
+        "135": {
           "value": "135px",
           "type": "lineHeight",
           "description": "Interlineado del 135%. Va en PORCENTAJE, adimensional, para sobrevivir al 200% de font scale del sistema. OJO: bindear esto a un nodo de texto en Figma lo aplica como PIXELES; por eso los estilos de texto lo llevan como literal y esta variable es la fuente de verdad para el exporter. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
         },
-        "normal": {
+        "150": {
           "value": "150px",
           "type": "lineHeight",
           "description": "Interlineado del 150%. Va en PORCENTAJE, adimensional, para sobrevivir al 200% de font scale del sistema. OJO: bindear esto a un nodo de texto en Figma lo aplica como PIXELES; por eso los estilos de texto lo llevan como literal y esta variable es la fuente de verdad para el exporter. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
         },
-        "relaxed": {
+        "170": {
           "value": "170px",
           "type": "lineHeight",
           "description": "Interlineado del 170%. Va en PORCENTAJE, adimensional, para sobrevivir al 200% de font scale del sistema. OJO: bindear esto a un nodo de texto en Figma lo aplica como PIXELES; por eso los estilos de texto lo llevan como literal y esta variable es la fuente de verdad para el exporter. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
         },
-        "tight_1": {
+        "tight": {
           "value": "120px",
           "type": "lineHeight",
           "description": "Interlineado 120 %. Para display y amount grandes, donde el tamaño ya separa las líneas y un interlineado mayor rompe el bloque."
         },
-        "snug_1": {
+        "snug": {
           "value": "135px",
           "type": "lineHeight",
           "description": "Interlineado 135 %. Para títulos medianos y para las filas de monto, donde hay una o dos líneas."
         },
-        "normal_1": {
+        "normal": {
           "value": "150px",
           "type": "lineHeight",
           "description": "Interlineado 150 %. El de lectura: body y label. Es el valor por defecto de un párrafo."
         },
-        "relaxed_1": {
+        "relaxed": {
           "value": "170px",
           "type": "lineHeight",
           "description": "Interlineado 170 %. Para bloques largos de texto legal o de ayuda, donde se lee corrido y conviene más aire."
