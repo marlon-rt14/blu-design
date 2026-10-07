@@ -259,18 +259,18 @@
     },
     "platform": {
       "size": {
-        "field": {
-          "height": {
-            "value": "56px",
-            "type": "size",
-            "description": "Alto de fila de un campo por plataforma. iOS 52 (fila de lista de Apple, iOS 26+), Android 56 (Material 3 outlined), Web 56."
-          }
-        },
         "target": {
           "min": {
             "value": "40px",
             "type": "size",
             "description": "Area tactil minima. iOS 44pt · Android 48dp · web 40px. Nunca bajar de aqui aunque el glifo sea mas chico."
+          }
+        },
+        "field": {
+          "height": {
+            "value": "56px",
+            "type": "size",
+            "description": "Alto de fila de un campo por plataforma. iOS 52 (fila de lista de Apple, iOS 26+), Android 56 (Material 3 outlined), Web 56."
           }
         }
       },
@@ -292,9 +292,37 @@
           },
           "action": {
             "height": {
-              "value": "40px",
+              "value": "48px",
               "type": "size",
               "description": "Alto visible del botón. iOS: cápsula de 48. Android y web: 40 (el área tocable llega a 48). Dialog (librería Platforms)."
+            }
+          },
+          "list": {
+            "item-height": {
+              "value": "48px",
+              "type": "size",
+              "description": "Alto de cada fila de type=actions. iOS: 48 (cápsulas, referencia). Android: 56 (lista de Material 3, una línea). Web: 48 (misma anatomía que Android, densidad de escritorio)."
+            }
+          }
+        },
+        "pagination": {
+          "height": {
+            "value": "40px",
+            "type": "size",
+            "description": "Alto del Pagination. iOS: cápsula de vidrio de 48. Android: 48 (botones tonales de Material 3). Web: 40."
+          }
+        },
+        "datepicker": {
+          "day": {
+            "size": {
+              "value": "48px",
+              "type": "size",
+              "description": "Celda de un día de la grilla. iOS: 38 (kit iOS 27, Date and time - Pickers, _Day). Android y web: 48, el área tocable del día en el Modal date picker de Material 3. DatePicker (librería Platforms)."
+            },
+            "selection-size": {
+              "value": "40px",
+              "type": "size",
+              "description": "Círculo del día elegido y de hoy. iOS: 38, ocupa toda la celda (kit iOS 27). Android y web: 40 dentro de la celda de 48 (Material 3). DatePicker (librería Platforms)."
             }
           }
         }
@@ -333,6 +361,17 @@
           "value": "956px",
           "type": "size",
           "description": "Alto que acompaña a viewport/width/max (440×956 · 834×1194 · 1920×1080). Solo para pantallas de alto fijo: las pantallas con scroll quedan en Hug."
+        }
+      }
+    },
+    "component": {
+      "pagination": {
+        "item": {
+          "size": {
+            "value": "32px",
+            "type": "size",
+            "description": "Co-token de pagination. Lado de cada número de página en web."
+          }
         }
       }
     }

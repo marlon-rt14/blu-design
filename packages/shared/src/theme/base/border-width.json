@@ -28,6 +28,30 @@
         "description": "Trazo de medio pixel. El grosor minimo visible en pantallas de alta densidad.\n\nUSO: separadores y bordes que deben leerse como una linea de pelo, no como un borde con peso.\n\nSI: usar en divisores de listas, celdas de tabla y separadores en movil, donde 0,5 es la convencion nativa de iOS.\nNO: usar en bordes de control (campos, botones, checkbox): esos necesitan border-width/sm o mas para leerse como interactivos. En pantallas de 1x se redondea a 1 px o desaparece, asi que nunca dependas de el para comunicar estado o foco.\n\nVALOR: 0.5"
       }
     },
+    "border": {
+      "width": {
+        "default": {
+          "value": "1px",
+          "type": "borderWidth",
+          "description": "Grosor de borde de control. En alto contraste pasa de 1px a 2px: cuando no podes depender de sombras ni de diferencias sutiles de fondo, el BORDE es el mecanismo principal para separar superficies. Sin esto, el tema HC queda como 'el tema normal con colores mas fuertes'. Valor definido en los 4 modos."
+        },
+        "focus": {
+          "value": "2px",
+          "type": "borderWidth",
+          "description": "Grosor del anillo de foco. 2px normal, 3px en alto contraste. Es un requisito de WCAG 2.4.13 (Focus Appearance): el indicador de foco tiene que ser perceptible, no insinuado. Va junto a color/border/focus, que es solido a proposito para poder garantizar 3:1. Valor definido en los 4 modos."
+        },
+        "divider": {
+          "value": "1px",
+          "type": "borderWidth",
+          "description": "Grosor de divisor decorativo. Engorda en alto contraste por la misma razon que el borde de control: en HC la separacion no puede depender del tinte. Valor definido en los 4 modos."
+        },
+        "control-strong": {
+          "value": "2px",
+          "type": "borderWidth",
+          "description": "Grosor de borde de control que necesita mas presencia que el filete de 1px: la caja de Checkbox y Radio. 2px normal, 3px en alto contraste, misma escalada que border/width/default. No usar border/width/indicator para esto: ese token nombra la barra que marca lo elegido (Tab activo, fila seleccionada), no el borde de un control."
+        }
+      }
+    },
     "platform": {
       "component": {
         "segmentedcontrol": {
@@ -64,30 +88,6 @@
           "value": "1px",
           "type": "borderWidth",
           "description": "Grosor de la línea de grilla. Sube a 2 en alto contraste."
-        }
-      }
-    },
-    "border": {
-      "width": {
-        "default": {
-          "value": "1px",
-          "type": "borderWidth",
-          "description": "Grosor de borde de control. En alto contraste pasa de 1px a 2px: cuando no podes depender de sombras ni de diferencias sutiles de fondo, el BORDE es el mecanismo principal para separar superficies. Sin esto, el tema HC queda como 'el tema normal con colores mas fuertes'. Valor definido en los 4 modos."
-        },
-        "focus": {
-          "value": "2px",
-          "type": "borderWidth",
-          "description": "Grosor del anillo de foco. 2px normal, 3px en alto contraste. Es un requisito de WCAG 2.4.13 (Focus Appearance): el indicador de foco tiene que ser perceptible, no insinuado. Va junto a color/border/focus, que es solido a proposito para poder garantizar 3:1. Valor definido en los 4 modos."
-        },
-        "divider": {
-          "value": "1px",
-          "type": "borderWidth",
-          "description": "Grosor de divisor decorativo. Engorda en alto contraste por la misma razon que el borde de control: en HC la separacion no puede depender del tinte. Valor definido en los 4 modos."
-        },
-        "control-strong": {
-          "value": "2px",
-          "type": "borderWidth",
-          "description": "Grosor de borde de control que necesita mas presencia que el filete de 1px: la caja de Checkbox y Radio. 2px normal, 3px en alto contraste, misma escalada que border/width/default. No usar border/width/indicator para esto: ese token nombra la barra que marca lo elegido (Tab activo, fila seleccionada), no el borde de un control."
         }
       }
     }

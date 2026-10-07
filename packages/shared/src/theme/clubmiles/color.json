@@ -5050,12 +5050,12 @@
               "default": {
                 "value": "#00000000",
                 "type": "color",
-                "description": "Borde del boton soft. EXISTE SOLO EN ALTO CONTRASTE: en light y en dark vale color/static/transparent a proposito. En los modos normales el relleno tonal ya separa al boton de la pagina, de la superficie y de la tarjeta, y un contorno seria ruido; en alto contraste el limite del control no puede ser lo mas debil de la pantalla, y ahi el borde es lo que hace pasar WCAG 1.4.11. No confundir con color/border/action/*/default, que es el borde de outline y esta en los cuatro modos."
+                "description": "Borde del boton soft. EXISTE SOLO EN ALTO CONTRASTE: en light y en dark vale color/static/base/transparent a proposito. En los modos normales el relleno tonal ya separa al boton de la pagina, de la superficie y de la tarjeta, y un contorno seria ruido; en alto contraste el limite del control no puede ser lo mas debil de la pantalla, y ahi el borde es lo que hace pasar WCAG 1.4.11. No confundir con color/border/action/*/default, que es el borde de outline y esta en los cuatro modos."
               },
               "pressed": {
                 "value": "#00000000",
                 "type": "color",
-                "description": "Borde del boton soft. EXISTE SOLO EN ALTO CONTRASTE: en light y en dark vale color/static/transparent a proposito. En los modos normales el relleno tonal ya separa al boton de la pagina, de la superficie y de la tarjeta, y un contorno seria ruido; en alto contraste el limite del control no puede ser lo mas debil de la pantalla, y ahi el borde es lo que hace pasar WCAG 1.4.11. No confundir con color/border/action/*/default, que es el borde de outline y esta en los cuatro modos."
+                "description": "Borde del boton soft. EXISTE SOLO EN ALTO CONTRASTE: en light y en dark vale color/static/base/transparent a proposito. En los modos normales el relleno tonal ya separa al boton de la pagina, de la superficie y de la tarjeta, y un contorno seria ruido; en alto contraste el limite del control no puede ser lo mas debil de la pantalla, y ahi el borde es lo que hace pasar WCAG 1.4.11. No confundir con color/border/action/*/default, que es el borde de outline y esta en los cuatro modos."
               }
             }
           },
@@ -5074,12 +5074,12 @@
               "default": {
                 "value": "#00000000",
                 "type": "color",
-                "description": "Borde del boton soft. EXISTE SOLO EN ALTO CONTRASTE: en light y en dark vale color/static/transparent a proposito. En los modos normales el relleno tonal ya separa al boton de la pagina, de la superficie y de la tarjeta, y un contorno seria ruido; en alto contraste el limite del control no puede ser lo mas debil de la pantalla, y ahi el borde es lo que hace pasar WCAG 1.4.11. No confundir con color/border/action/*/default, que es el borde de outline y esta en los cuatro modos."
+                "description": "Borde del boton soft. EXISTE SOLO EN ALTO CONTRASTE: en light y en dark vale color/static/base/transparent a proposito. En los modos normales el relleno tonal ya separa al boton de la pagina, de la superficie y de la tarjeta, y un contorno seria ruido; en alto contraste el limite del control no puede ser lo mas debil de la pantalla, y ahi el borde es lo que hace pasar WCAG 1.4.11. No confundir con color/border/action/*/default, que es el borde de outline y esta en los cuatro modos."
               },
               "pressed": {
                 "value": "#00000000",
                 "type": "color",
-                "description": "Borde del boton soft. EXISTE SOLO EN ALTO CONTRASTE: en light y en dark vale color/static/transparent a proposito. En los modos normales el relleno tonal ya separa al boton de la pagina, de la superficie y de la tarjeta, y un contorno seria ruido; en alto contraste el limite del control no puede ser lo mas debil de la pantalla, y ahi el borde es lo que hace pasar WCAG 1.4.11. No confundir con color/border/action/*/default, que es el borde de outline y esta en los cuatro modos."
+                "description": "Borde del boton soft. EXISTE SOLO EN ALTO CONTRASTE: en light y en dark vale color/static/base/transparent a proposito. En los modos normales el relleno tonal ya separa al boton de la pagina, de la superficie y de la tarjeta, y un contorno seria ruido; en alto contraste el limite del control no puede ser lo mas debil de la pantalla, y ahi el borde es lo que hace pasar WCAG 1.4.11. No confundir con color/border/action/*/default, que es el borde de outline y esta en los cuatro modos."
               }
             }
           },
@@ -5087,7 +5087,7 @@
             "default": {
               "value": "#00000000",
               "type": "color",
-              "description": "Borde del boton soft. EXISTE SOLO EN ALTO CONTRASTE: en light y en dark vale color/static/transparent a proposito. En los modos normales el relleno tonal ya separa al boton de la pagina, de la superficie y de la tarjeta, y un contorno seria ruido; en alto contraste el limite del control no puede ser lo mas debil de la pantalla, y ahi el borde es lo que hace pasar WCAG 1.4.11. No confundir con color/border/action/*/default, que es el borde de outline y esta en los cuatro modos."
+              "description": "Borde del boton soft. EXISTE SOLO EN ALTO CONTRASTE: en light y en dark vale color/static/base/transparent a proposito. En los modos normales el relleno tonal ya separa al boton de la pagina, de la superficie y de la tarjeta, y un contorno seria ruido; en alto contraste el limite del control no puede ser lo mas debil de la pantalla, y ahi el borde es lo que hace pasar WCAG 1.4.11. No confundir con color/border/action/*/default, que es el borde de outline y esta en los cuatro modos."
             }
           }
         },
@@ -5157,6 +5157,11 @@
             "value": "#001e6052",
             "type": "color",
             "description": "Velo del elemento ACTIVADO: el destino actual de navegacion, la pestana abierta, la seccion en la que estas parado. Se diferencia de seleccionado en que es unico y persistente, no una eleccion entre varias. JERARQUIA DE VELOS SOBRE SUPERFICIE NEUTRA: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Activado es el mas fuerte a proposito: marca UN solo lugar persistente en pantalla (el destino actual), mientras que seleccionado puede aplicarse a muchos elementos a la vez y por eso tiene que quedarse mas callado. El estado NUNCA se comunica solo con este velo: siempre lleva ademas un indicador no cromatico (borde portante, marca de verificacion, barra lateral). Es WCAG 1.4.1 y ademas es lo unico que lo distingue de un control deshabilitado a simple vista."
+          },
+          "rest": {
+            "value": "#00000000",
+            "type": "color",
+            "description": "Capa de estado EN REPOSO: transparente en los 6 modos. La lleva la capa overlay de un componente en las variantes sin hover, pressed ni selected, para que la capa exista siempre (modelo de state layer) y el estado solo cambie su variable. No se usa para otra cosa. Creada el 6-oct-2026."
           }
         },
         "on-fill": {
@@ -6591,7 +6596,7 @@
             "description": "Co-token de button. Capa de indirección: aliasea color/border/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           }
         },
-        "primary-quiet": {
+        "primary-outline": {
           "text-default": {
             "value": "#0e61b0",
             "type": "color",
@@ -6636,9 +6641,14 @@
             "value": "#001e600a",
             "type": "color",
             "description": "Co-token de button. Capa de indirección: aliasea color/overlay/state/hover sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "bg-default": {
+            "value": "#00000000",
+            "type": "color",
+            "description": "Fondo del Button primary outline en reposo: transparente. Alias de color/static/base/transparent."
           }
         },
-        "danger-quiet": {
+        "danger-outline": {
           "border-default": {
             "value": "#d74b5c",
             "type": "color",
@@ -6683,6 +6693,11 @@
             "value": "#5f6677",
             "type": "color",
             "description": "Co-token de button. Capa de indirección: aliasea color/icon/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "bg-default": {
+            "value": "#00000000",
+            "type": "color",
+            "description": "Fondo del Button danger outline en reposo: transparente. Alias de color/static/base/transparent."
           }
         },
         "danger-soft": {
@@ -6762,6 +6777,11 @@
             "value": "#ffffff3d",
             "type": "color",
             "description": "Co-token de button. Capa de indirección: aliasea color/overlay/on-inverse/pressed sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          },
+          "bg-default": {
+            "value": "#00000000",
+            "type": "color",
+            "description": "Fondo del Button onInverse en reposo: transparente. Alias de color/static/base/transparent."
           }
         },
         "focus": {
@@ -6774,6 +6794,80 @@
             "value": "#ffffff",
             "type": "color",
             "description": "Co-token de button. Capa de indirección: aliasea color/border/focus/on-inverse sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
+          }
+        },
+        "primary-ghost": {
+          "text-default": {
+            "value": "#0e61b0",
+            "type": "color",
+            "description": "Button primary ghost (sin borde): mismo valor que component/button/primary-outline/text-default."
+          },
+          "icon-default": {
+            "value": "#0e61b0",
+            "type": "color",
+            "description": "Button primary ghost (sin borde): mismo valor que component/button/primary-outline/icon-default."
+          },
+          "text-disabled": {
+            "value": "#5f6677",
+            "type": "color",
+            "description": "Button primary ghost (sin borde): mismo valor que component/button/primary-outline/text-disabled."
+          },
+          "icon-disabled": {
+            "value": "#5f6677",
+            "type": "color",
+            "description": "Button primary ghost (sin borde): mismo valor que component/button/primary-outline/icon-disabled."
+          },
+          "bg-pressed": {
+            "value": "#e0eeff",
+            "type": "color",
+            "description": "Button primary ghost (sin borde): mismo valor que component/button/primary-outline/bg-pressed."
+          },
+          "bg-hover": {
+            "value": "#001e600a",
+            "type": "color",
+            "description": "Button primary ghost (sin borde): mismo valor que component/button/primary-outline/bg-hover."
+          },
+          "bg-default": {
+            "value": "#00000000",
+            "type": "color",
+            "description": "Button primary ghost (sin borde): mismo valor que component/button/primary-outline/bg-default."
+          }
+        },
+        "danger-ghost": {
+          "text-disabled": {
+            "value": "#5f6677",
+            "type": "color",
+            "description": "Button danger ghost (sin borde): mismo valor que component/button/danger-outline/text-disabled."
+          },
+          "text-default": {
+            "value": "#b22c42",
+            "type": "color",
+            "description": "Button danger ghost (sin borde): mismo valor que component/button/danger-outline/text-default."
+          },
+          "icon-default": {
+            "value": "#b22c42",
+            "type": "color",
+            "description": "Button danger ghost (sin borde): mismo valor que component/button/danger-outline/icon-default."
+          },
+          "bg-pressed": {
+            "value": "#ffe0df",
+            "type": "color",
+            "description": "Button danger ghost (sin borde): mismo valor que component/button/danger-outline/bg-pressed."
+          },
+          "bg-hover": {
+            "value": "#b22c4214",
+            "type": "color",
+            "description": "Button danger ghost (sin borde): mismo valor que component/button/danger-outline/bg-hover."
+          },
+          "icon-disabled": {
+            "value": "#5f6677",
+            "type": "color",
+            "description": "Button danger ghost (sin borde): mismo valor que component/button/danger-outline/icon-disabled."
+          },
+          "bg-default": {
+            "value": "#00000000",
+            "type": "color",
+            "description": "Button danger ghost (sin borde): mismo valor que component/button/danger-outline/bg-default."
           }
         }
       },
@@ -9148,7 +9242,7 @@
             "type": "color",
             "description": "Co-token de choicebox. Capa de indirección: aliasea color/fill/disabled sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
-          "border-unselected": {
+          "border-default": {
             "value": "#6e7587",
             "type": "color",
             "description": "Co-token de choicebox. Capa de indirección: aliasea color/border/control/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
@@ -10112,7 +10206,7 @@
         }
       },
       "tippointer": {
-        "punta": {
+        "pointer": {
           "bg-inverse": {
             "value": "#232b3d",
             "type": "color",
@@ -10394,17 +10488,17 @@
       },
       "progressstepper": {
         "label": {
-          "text-upcoming": {
+          "text-pending": {
             "value": "#5f6677",
             "type": "color",
             "description": "Co-token de progressstepper. Capa de indirección: aliasea color/text/tertiary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
-          "text-current": {
+          "text-active": {
             "value": "#232b3d",
             "type": "color",
             "description": "Co-token de progressstepper. Capa de indirección: aliasea color/text/primary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
-          "text-complete": {
+          "text-done": {
             "value": "#434959",
             "type": "color",
             "description": "Co-token de progressstepper. Capa de indirección: aliasea color/text/secondary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
@@ -10421,7 +10515,7 @@
           }
         },
         "secondary": {
-          "text-upcoming": {
+          "text-pending": {
             "value": "#5f6677",
             "type": "color",
             "description": "Co-token de progressstepper. Capa de indirección: aliasea color/text/tertiary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
@@ -10448,17 +10542,17 @@
             "type": "color",
             "description": "Co-token de progressstepper. Capa de indirección: aliasea color/border/divider/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
-          "line-complete": {
+          "line-done": {
             "value": "#008557",
             "type": "color",
             "description": "Co-token de progressstepper. Capa de indirección: aliasea color/fill/success/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
-          "indicator-current": {
+          "indicator-active": {
             "value": "#0e61b0",
             "type": "color",
             "description": "Co-token de progressstepper. Capa de indirección: aliasea color/fill/action/primary/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
-          "indicator-complete": {
+          "indicator-done": {
             "value": "#008557",
             "type": "color",
             "description": "Co-token de progressstepper. Capa de indirección: aliasea color/fill/success/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
@@ -10473,7 +10567,7 @@
             "type": "color",
             "description": "Co-token de progressstepper. Capa de indirección: aliasea color/fill/warning/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
-          "indicator-border-upcoming": {
+          "indicator-border-pending": {
             "value": "#6e7587",
             "type": "color",
             "description": "Co-token de progressstepper. Capa de indirección: aliasea color/border/control/default sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
@@ -10485,12 +10579,12 @@
             "type": "color",
             "description": "Co-token de progressstepper. Capa de indirección: aliasea color/icon/on-brand sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
-          "number-upcoming": {
+          "number-pending": {
             "value": "#5f6677",
             "type": "color",
             "description": "Co-token de progressstepper. Capa de indirección: aliasea color/text/tertiary sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
           },
-          "number-current": {
+          "number-active": {
             "value": "#ffffff",
             "type": "color",
             "description": "Co-token de progressstepper. Capa de indirección: aliasea color/text/on-brand sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
@@ -11439,13 +11533,69 @@
           "text-danger": {
             "value": "#b22c42",
             "type": "color",
-            "description": "Co-token de dialog. Etiqueta de la acción destructiva: rojo en las tres plataformas."
+            "description": "Co-token de dialog. Etiqueta de la acción destructiva (actions y confirm): rojo en las tres plataformas. Claros: color/text/action/danger/quiet/default. Oscuros: color/text/danger, porque el rojo quiet sobre la tarjeta elevada daba 4,23:1 en dark (medido el 5-oct); queda 6,18 · 8,20 · 9,04 (dark · mc-dark · hc-dark)."
+          },
+          "icon-neutral": {
+            "value": "#5f6677",
+            "type": "color",
+            "description": "Co-token de dialog. Ícono al inicio de cada fila de type=actions en Android y web. La fila destructiva usa component/dialog/icon/danger."
           }
         },
         "scrim": {
           "value": "#0000007a",
           "type": "color",
           "description": "Co-token de dialog. Velo detrás del diálogo. Mismo valor que component/sheet/scrim."
+        },
+        "icon": {
+          "danger": {
+            "value": "#b22c42",
+            "type": "color",
+            "description": "Co-token de dialog. Ícono héroe del confirm destructivo en Android y web (Material 3). iOS no lleva ícono en las alertas."
+          }
+        },
+        "divider": {
+          "value": "#ced4e3",
+          "type": "color",
+          "description": "Co-token de dialog. Filetes que encierran la lista de type=actions en Android y web (Material 3)."
+        }
+      },
+      "pagination": {
+        "label": {
+          "value": "#232b3d",
+          "type": "color",
+          "description": "Co-token de pagination. Contador «2 de 12» en iOS y Android."
+        },
+        "item": {
+          "text-default": {
+            "value": "#232b3d",
+            "type": "color",
+            "description": "Co-token de pagination. Número de página en web."
+          },
+          "text-selected": {
+            "value": "#ffffff",
+            "type": "color",
+            "description": "Co-token de pagination. Número de la página actual en web."
+          },
+          "bg-selected": {
+            "value": "#0e61b0",
+            "type": "color",
+            "description": "Co-token de pagination. Fondo de la página actual en web."
+          },
+          "bg-hover": {
+            "value": "#001e600a",
+            "type": "color",
+            "description": "Co-token de pagination. Hover de un número de página en web."
+          },
+          "bg-pressed": {
+            "value": "#001e601a",
+            "type": "color",
+            "description": "Co-token de pagination. Pressed de un número de página en web."
+          },
+          "border-focus": {
+            "value": "#2760aa",
+            "type": "color",
+            "description": "Co-token de pagination. Anillo de foco de un número de página en web."
+          }
         }
       }
     },
