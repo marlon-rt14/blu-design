@@ -14,7 +14,7 @@ There is no Dialog, Modal, Confirm, EmptyState, or Pagination. Compose what is p
 
 - Confirmation: `Card` + `Alert status="danger"` + `ButtonGroup`.
 - Empty state: `Card` + `Alert` (or `Image`) + `Button`. Do not ship a raw HTML page with a local stylesheet.
-- Pager: `IconButton` with `IconChevronLeft` / `IconChevronRight` from `@dsm/web/icons/arrows`.
+- Pager: `IconButton appearance="ghost"` with `IconChevronLeft` / `IconChevronRight` from `@dsm/web/icons/arrows`. `IconButton` has no `outline`. Its appearances are `brand`, `neutral`, `ghost`, `veil`, `on-scene`, `on-media`, `on-inverse`.
 
 `ProgressStepper` is the wizard rail. Pass `steps: IProgressStepDef[]`. Do not render `Step` yourself.
 
@@ -24,9 +24,17 @@ There is no Dialog, Modal, Confirm, EmptyState, or Pagination. Compose what is p
 
 The safe action is `appearance="fill"` and comes first. The destructive action is `variant="danger"` and `appearance="outline"`. Never `appearance="fill"` on a danger button.
 
-`Button` uses `onClick` and `label`. `IconButton` uses `onPress` and a required `label`, which is its only accessible name. Say the action (`"Previous page"`), not the glyph.
+`Button` uses `onClick`, `label`, and `isDisabled` (not the DOM `disabled` attribute, and there is no loading prop). `IconButton` uses `onPress` and a required `label`, which is its only accessible name. Say the action (`"Previous page"`), not the glyph.
+
+`Card` `padding` is `'none' | 'md'`. There is no `'sm'`.
+
+Icon `size` is `'2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'`. A number does not compile. Icons have no `accessibilityLabel`; the name belongs on `IconButton`'s `label`.
+
+`TextField` reports an error with `error="message"` (the string is the state; there is no `isInvalid`). The change handler is `onChangeText`, not `onChange`.
 
 ## Style
+
+This system has no Tailwind and no utility stylesheet. Do not add `className` utilities, a local CSS file, or an overlay color.
 
 Do not set color, font size, line height, margin, padding, or an overlay background in `style`. Components resolve tokens themselves. A raw `rgba(...)`, hex, `padding: '24px'`, or `lineHeight: '20px'` bypasses the system.
 

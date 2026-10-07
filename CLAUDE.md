@@ -31,7 +31,7 @@ since outgrown.
 
 This is the contract for app code. `AGENTS.md` is the same contract, shorter.
 
-- Import components from `@dsm/web`. Wrap the tree in `BluProvider`. Do not build the screen out of raw `div`s plus a stylesheet or Tailwind utilities.
+- Import components from `@dsm/web`. Wrap the tree in `BluProvider`. There is no Tailwind. Do not build the screen out of raw `div`s, a local stylesheet, or utility classes.
 - Contract types live on `@dsm/shared`, not on `@dsm/web`. `IProgressStepDef` is one of them. `ProgressStepper` is the component; `Step` is internal and not part of a screen.
 
 ```tsx
@@ -58,7 +58,7 @@ import { IconButton } from '@dsm/web';
 <IconButton icon={IconChevronLeft} label="Previous page" onPress={goPrev} />
 ```
 
-  `IconButton` takes `onPress` and a required `label` (that string is the accessible name). `Button` takes `onClick` and `label`.
+  `IconButton` takes `onPress`, a required `label` (that string is the accessible name), and `appearance` of `brand | neutral | ghost | veil | on-scene | on-media | on-inverse`. There is no `outline`. A pager uses `appearance="ghost"`. `Button` takes `onClick`, `label`, and `isDisabled`. Icon `size` is `'2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'`, never a number, and an icon has no `accessibilityLabel`. `Card` `padding` is `'none' | 'md'` only. `TextField` uses `error="message"` and `onChangeText`.
 - There is no Dialog, Modal, Confirm, EmptyState, or Pagination component. A confirmation is `Card` + `Alert` + `ButtonGroup`. An empty state is `Card` + `Alert` (or `Image`) + `Button`. A pager is `IconButton` plus the chevrons above.
 - `variant` is meaning (`primary` | `danger`). `appearance` is weight (`fill` > `soft` > `outline` > `ghost`). The safe action is `appearance="fill"` and comes first. A destructive action is `variant="danger"` and `appearance="outline"`, never `fill`.
 - Do not set color, font size, line height, margin, padding, or overlay backgrounds in `style`. The components already resolve tokens. A raw `rgba(...)`, hex, `padding: '24px'`, or `lineHeight: '20px'` is a failure.
@@ -181,7 +181,9 @@ handlers, check the component's *own* Figma variant axes rather than copying a s
 `@dsm/web` and `@dsm/mobile`; (5) barrels (`atoms/index.ts` etc.) in both packages; (6) Storybook — a
 `Platform<Name>.tsx` wrapper in `apps/web-demo/src/stories/` mapping the neutral story prop to each
 platform's event handler (e.g. `onAction` → `onClick`/`onPress`) plus `<Name>.stories.tsx` covering
-every Figma state; (7) `pnpm typecheck && pnpm lint && pnpm build-storybook`.
+every Figma state; (7) `pnpm typecheck && pnpm lint && pnpm build-storybook`; (8) if a screen would
+copy the new API, update `AGENTS.md`, `.claude/skills/use-blu-web/SKILL.md`, and "Writing a screen"
+above in the same change. Internals stay in the skill's gotchas and the rest of this file.
 
 For any real component build (new component, new variant/size/state, new token wiring), read
 `.cursor/skills/developing-design-system-components/SKILL.md` first — it is the canonical, much more

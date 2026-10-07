@@ -68,6 +68,12 @@ Copy this checklist and work through it in order:
        (not a single `theme` global). Surface colours in stories: `themeFromGlobals(globals).key`
        → `themeSources[key]` — see `Button.stories.tsx` / `themeGlobals.ts`.
 - [ ] 7. Verify: pnpm typecheck && pnpm lint && pnpm build-storybook
+- [ ] 8. Consumer contract, only if a screen would copy this. Update the three docs in the same
+       change: `AGENTS.md`, `.claude/skills/use-blu-web/SKILL.md`, and `CLAUDE.md` → "Writing a
+       screen". Same rule in all three — different agents read different files. Trigger: a new
+       public component, a prop a caller passes, a composition that replaces "there is no X", or
+       an import path. Skip it for tokens, folder shape, timer math, and story renames — those
+       stay in "Known gotchas" and the rest of `CLAUDE.md`.
 ```
 
 `TextField` and `TextArea` (`packages/{web,mobile}/src/components/atoms/{TextField,TextArea}/`) are
@@ -95,7 +101,9 @@ hardcoded values, no invented placeholder icons, both platforms, stories per sta
 `pnpm typecheck && pnpm lint && pnpm build-storybook` gate — is this skill's job, not the prompt's.
 If Figma and Supernova disagree, Figma wins (see "Design reference" below) — surface the
 discrepancy before writing code instead of silently picking one. Add any new non-obvious gotcha to
-"Known gotchas" below once the component ships.
+"Known gotchas" below once the component ships. If a screen would copy the new API, step 8 of the
+checklist updates `AGENTS.md`, `.claude/skills/use-blu-web/SKILL.md`, and `CLAUDE.md` ("Writing a
+screen") in the same change.
 
 ## Design reference — Figma MCP first, Supernova for properties
 
