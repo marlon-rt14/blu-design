@@ -3,52 +3,52 @@
   "dimension": {
     "font": {
       "weight": {
-        "regular": {
+        "400": {
           "value": "400px",
           "type": "dimension",
           "description": "Peso tipografico 400. Mulish tiene los cinco pesos; IBM Plex Mono solo regular y medium. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
         },
-        "medium": {
+        "500": {
           "value": "500px",
           "type": "dimension",
           "description": "Peso tipografico 500. Mulish tiene los cinco pesos; IBM Plex Mono solo regular y medium. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
         },
-        "semibold": {
+        "600": {
           "value": "600px",
           "type": "dimension",
           "description": "Peso tipografico 600. Mulish tiene los cinco pesos; IBM Plex Mono solo regular y medium. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
         },
-        "bold": {
+        "700": {
           "value": "700px",
           "type": "dimension",
           "description": "Peso tipografico 700. Mulish tiene los cinco pesos; IBM Plex Mono solo regular y medium. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
         },
-        "extrabold": {
+        "800": {
           "value": "800px",
           "type": "dimension",
           "description": "Peso tipografico 800. Mulish tiene los cinco pesos; IBM Plex Mono solo regular y medium. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
         },
-        "regular_1": {
+        "regular": {
           "value": "400px",
           "type": "dimension",
           "description": "Peso 400. El cuerpo de texto, las etiquetas default y los caption default. Es el peso de lectura del sistema. Desde el 25-sep-2026 solo lo consume text/code/md (IBM Plex Mono): los text/* regulares toman el peso de platform/font/style/regular, por plataforma."
         },
-        "medium_1": {
+        "medium": {
           "value": "500px",
           "type": "dimension",
           "description": "Peso 500. Hoy no lo usa ningún estilo de texto publicado; queda disponible para la escala. Antes de usarlo, revisar si el caso no pide semibold o extrabold. Correccion 25-sep-2026: si tiene consumidores, text/code/sm y text/code/xs (IBM Plex Mono)."
         },
-        "semibold_1": {
+        "semibold": {
           "value": "600px",
           "type": "dimension",
           "description": "Peso 600. Lo usan los estilos text/link/*: sin subrayado, Medium contra Regular no se distingue al tamaño de lectura, y semibold sí. Desde el 25-sep-2026 ningun text style lo consume: el peso de los text/* sale de platform/font/style/* (por nombre y por plataforma). Se mantiene porque desarrollo puede estar consumiendolo; no se borra sin confirmarlo con desarrollo."
         },
-        "bold_1": {
+        "bold": {
           "value": "700px",
           "type": "dimension",
           "description": "Peso 700. Sostiene solo a text/unit/{md,sm}. Es el peso con menos uso del sistema: antes de sumarle un estilo, evaluar si corresponde extrabold. Desde el 25-sep-2026 ningun text style lo consume: el peso de los text/* sale de platform/font/style/* (por nombre y por plataforma). Se mantiene porque desarrollo puede estar consumiendolo; no se borra sin confirmarlo con desarrollo."
         },
-        "extrabold_1": {
+        "extrabold": {
           "value": "800px",
           "type": "dimension",
           "description": "Peso 800 — el más alto del sistema. Reservado para display/* y heading/lg; no usar por debajo de 20 px. Desde el 25-sep-2026 ningun text style lo consume: el peso de los text/* sale de platform/font/style/* (por nombre y por plataforma). Se mantiene porque desarrollo puede estar consumiendolo; no se borra sin confirmarlo con desarrollo."
@@ -245,72 +245,72 @@
       }
     },
     "z": {
-      "dropdown": {
-        "value": "1100px",
-        "type": "dimension",
-        "description": "Nivel de apilado 1100. La escala deja 100 de hueco entre niveles para poder meter capas intermedias sin renumerar todo. Orden: sticky 1000 < dropdown 1100 < popover 1200 < overlay 1300 < modal 1400 < toast 1500 < tooltip 1600. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
-      },
-      "sticky": {
+      "1000": {
         "value": "1000px",
         "type": "dimension",
         "description": "Nivel de apilado 1000. La escala deja 100 de hueco entre niveles para poder meter capas intermedias sin renumerar todo. Orden: sticky 1000 < dropdown 1100 < popover 1200 < overlay 1300 < modal 1400 < toast 1500 < tooltip 1600. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
       },
-      "overlay": {
-        "value": "1300px",
+      "1100": {
+        "value": "1100px",
         "type": "dimension",
-        "description": "Nivel de apilado 1300. La escala deja 100 de hueco entre niveles para poder meter capas intermedias sin renumerar todo. Orden: sticky 1000 < dropdown 1100 < popover 1200 < overlay 1300 < modal 1400 < toast 1500 < tooltip 1600. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+        "description": "Nivel de apilado 1100. La escala deja 100 de hueco entre niveles para poder meter capas intermedias sin renumerar todo. Orden: sticky 1000 < dropdown 1100 < popover 1200 < overlay 1300 < modal 1400 < toast 1500 < tooltip 1600. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
       },
-      "modal": {
-        "value": "1400px",
-        "type": "dimension",
-        "description": "Nivel de apilado 1400. La escala deja 100 de hueco entre niveles para poder meter capas intermedias sin renumerar todo. Orden: sticky 1000 < dropdown 1100 < popover 1200 < overlay 1300 < modal 1400 < toast 1500 < tooltip 1600. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
-      },
-      "toast": {
-        "value": "1500px",
-        "type": "dimension",
-        "description": "Nivel de apilado 1500. La escala deja 100 de hueco entre niveles para poder meter capas intermedias sin renumerar todo. Orden: sticky 1000 < dropdown 1100 < popover 1200 < overlay 1300 < modal 1400 < toast 1500 < tooltip 1600. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
-      },
-      "tooltip": {
-        "value": "1600px",
-        "type": "dimension",
-        "description": "Nivel de apilado 1600. La escala deja 100 de hueco entre niveles para poder meter capas intermedias sin renumerar todo. Orden: sticky 1000 < dropdown 1100 < popover 1200 < overlay 1300 < modal 1400 < toast 1500 < tooltip 1600. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
-      },
-      "popover": {
+      "1200": {
         "value": "1200px",
         "type": "dimension",
         "description": "Nivel de apilado 1200. La escala deja 100 de hueco entre niveles para poder meter capas intermedias sin renumerar todo. Orden: sticky 1000 < dropdown 1100 < popover 1200 < overlay 1300 < modal 1400 < toast 1500 < tooltip 1600. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
       },
-      "dropdown_1": {
+      "1300": {
+        "value": "1300px",
+        "type": "dimension",
+        "description": "Nivel de apilado 1300. La escala deja 100 de hueco entre niveles para poder meter capas intermedias sin renumerar todo. Orden: sticky 1000 < dropdown 1100 < popover 1200 < overlay 1300 < modal 1400 < toast 1500 < tooltip 1600. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "1400": {
+        "value": "1400px",
+        "type": "dimension",
+        "description": "Nivel de apilado 1400. La escala deja 100 de hueco entre niveles para poder meter capas intermedias sin renumerar todo. Orden: sticky 1000 < dropdown 1100 < popover 1200 < overlay 1300 < modal 1400 < toast 1500 < tooltip 1600. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "1500": {
+        "value": "1500px",
+        "type": "dimension",
+        "description": "Nivel de apilado 1500. La escala deja 100 de hueco entre niveles para poder meter capas intermedias sin renumerar todo. Orden: sticky 1000 < dropdown 1100 < popover 1200 < overlay 1300 < modal 1400 < toast 1500 < tooltip 1600. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "1600": {
+        "value": "1600px",
+        "type": "dimension",
+        "description": "Nivel de apilado 1600. La escala deja 100 de hueco entre niveles para poder meter capas intermedias sin renumerar todo. Orden: sticky 1000 < dropdown 1100 < popover 1200 < overlay 1300 < modal 1400 < toast 1500 < tooltip 1600. Es un PRIMITIVO: valor crudo, sin rol ni significado. Un componente nunca lo consume directo — consume tokens de 3. Semantic o de componente, que resuelven hasta aca."
+      },
+      "dropdown": {
         "value": "1100px",
         "type": "dimension",
         "description": "Select, menu, autocomplete. Mismo valor en los tres modos a proposito: no depende de la densidad. El ORDEN es lo que importa, no el numero. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
       },
-      "sticky_1": {
+      "sticky": {
         "value": "1000px",
         "type": "dimension",
         "description": "Cabeceras y barras fijas. Es la capa más baja del stack: todo lo anclado (dropdown, popover) y todo lo modal pasa por encima. Mismo valor en los tres modos a propósito: no depende de la densidad."
       },
-      "overlay_1": {
+      "overlay": {
         "value": "1300px",
         "type": "dimension",
         "description": "Scrim de modal y de hoja. Mismo valor en los tres modos a proposito: no depende de la densidad. El ORDEN es lo que importa, no el numero. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
       },
-      "modal_1": {
+      "modal": {
         "value": "1400px",
         "type": "dimension",
         "description": "Dialogo y bottom sheet. Mismo valor en los tres modos a proposito: no depende de la densidad. El ORDEN es lo que importa, no el numero. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
       },
-      "toast_1": {
+      "toast": {
         "value": "1500px",
         "type": "dimension",
         "description": "Notificaciones efimeras: SIEMPRE sobre el modal. Mismo valor en los tres modos a proposito: no depende de la densidad. El ORDEN es lo que importa, no el numero. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
       },
-      "tooltip_1": {
+      "tooltip": {
         "value": "1600px",
         "type": "dimension",
         "description": "Lo mas alto del sistema. Mismo valor en los tres modos a proposito: no depende de la densidad. El ORDEN es lo que importa, no el numero. Nunca usar el primitivo crudo en un componente: eso es lo que permite anadir densidad despues sin tocar los 19 componentes."
       },
-      "popover_1": {
+      "popover": {
         "value": "1200px",
         "type": "dimension",
         "description": "Menu de Select y Combobox, Coachmark y cualquier superficie anclada a un control. Por encima de z/sticky y z/dropdown: un menú abierto desde una cabecera fija se dibuja delante de ella. Mismo valor en los tres modos a propósito."
@@ -394,70 +394,6 @@
           "value": "10000px",
           "type": "dimension",
           "description": "Para un mensaje efimero CON accion: el usuario tiene que leer, decidir y llegar al control. 10 s. WCAG 2.2.1 — si el tiempo no alcanza para usar la accion, el patron correcto es Alert, no alargar este token. Mismo valor en los tres modos a proposito: la permanencia no depende de la densidad. NO es duracion de animacion: la entrada y la salida del elemento son motion/duration/short + motion/easing/enter|exit. Reduce Motion apaga el movimiento, nunca este contador: el tiempo de lectura no es movimiento."
-        }
-      }
-    },
-    "elevation": {
-      "raised": {
-        "shadow": {
-          "near-blur": {
-            "value": "3px",
-            "type": "dimension",
-            "description": "Desenfoque de la sombra cercana de raised. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
-          },
-          "near-y": {
-            "value": "1px",
-            "type": "dimension",
-            "description": "Desplazamiento vertical de la sombra cercana de raised. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
-          },
-          "far-blur": {
-            "value": "8px",
-            "type": "dimension",
-            "description": "Desenfoque de la sombra lejana de raised. Cero en dark: la capa esta apagada. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
-          },
-          "far-y": {
-            "value": "4px",
-            "type": "dimension",
-            "description": "Desplazamiento vertical de la sombra lejana de raised. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
-          }
-        }
-      },
-      "overlay": {
-        "shadow": {
-          "near-blur": {
-            "value": "12px",
-            "type": "dimension",
-            "description": "Desenfoque de la sombra cercana de overlay. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
-          },
-          "near-y": {
-            "value": "4px",
-            "type": "dimension",
-            "description": "Desplazamiento vertical de la sombra cercana de overlay. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
-          },
-          "far-blur": {
-            "value": "24px",
-            "type": "dimension",
-            "description": "Desenfoque de la sombra lejana de overlay. Cero en dark: la capa esta apagada. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
-          },
-          "far-y": {
-            "value": "8px",
-            "type": "dimension",
-            "description": "Desplazamiento vertical de la sombra lejana de overlay. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
-          }
-        }
-      }
-    },
-    "focus": {
-      "ring": {
-        "offset": {
-          "value": "1px",
-          "type": "dimension",
-          "description": "Separacion entre el borde del control y el anillo de foco. 1 desde el 14-ago (antes 2): con 2 el anillo quedaba demasiado despegado y la franja intermedia, que se pinta con canvas/surface/primary, se notaba como un halo cuando el control no estaba sobre una superficie blanca. VALOR DERIVADO AGUAS ABAJO: focus/ring/spread = offset + border/width/focus. Si se cambia este numero hay que recalcular el spread a mano, porque Figma no hace aritmetica entre variables."
-        },
-        "spread": {
-          "value": "3px",
-          "type": "dimension",
-          "description": "Spread de la capa azul del anillo de foco. NO es un valor libre: es focus/ring/offset + border/width/focus. El grosor visible del azul es spread menos offset, o sea exactamente border/width/focus (2 en light y dark, 3 en los modos hc). Si cambia cualquiera de los dos de los que depende, hay que recalcular este a mano."
         }
       }
     },
@@ -912,7 +848,7 @@
           "description": "Co-token de calendar. Capa de indirección: aliasea radius/pill sin re-tematizar. Cambiar el rol cambia el componente sin tocar un solo nodo. component/* es una convención de nombre, no un lugar: este token vive en la colección que posee su eje."
         }
       },
-      "tip": {
+      "tippointer": {
         "pointer": {
           "offset": {
             "value": "8px",
@@ -1442,22 +1378,6 @@
         }
       }
     },
-    "chart": {
-      "marker": {
-        "size": {
-          "sm": {
-            "value": "8px",
-            "type": "dimension",
-            "description": "Punto de scatter y marcador de leyenda en su tamaño chico."
-          },
-          "md": {
-            "value": "10px",
-            "type": "dimension",
-            "description": "Marcador de serie sobre la línea, y punto de scatter destacado."
-          }
-        }
-      }
-    },
     "viewport": {
       "0": {
         "value": "0px",
@@ -1589,12 +1509,92 @@
         "description": "Ancho del Dialog en Android (312, Material 3). Primitivo: lo consume platform/component/dialog/width en el modo android. No usar directo."
       }
     },
+    "elevation": {
+      "raised": {
+        "shadow": {
+          "near-blur": {
+            "value": "3px",
+            "type": "dimension",
+            "description": "Desenfoque de la sombra cercana de raised. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
+          },
+          "near-y": {
+            "value": "1px",
+            "type": "dimension",
+            "description": "Desplazamiento vertical de la sombra cercana de raised. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
+          },
+          "far-blur": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Desenfoque de la sombra lejana de raised. Cero en dark: la capa esta apagada. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
+          },
+          "far-y": {
+            "value": "4px",
+            "type": "dimension",
+            "description": "Desplazamiento vertical de la sombra lejana de raised. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
+          }
+        }
+      },
+      "overlay": {
+        "shadow": {
+          "near-blur": {
+            "value": "12px",
+            "type": "dimension",
+            "description": "Desenfoque de la sombra cercana de overlay. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
+          },
+          "near-y": {
+            "value": "4px",
+            "type": "dimension",
+            "description": "Desplazamiento vertical de la sombra cercana de overlay. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
+          },
+          "far-blur": {
+            "value": "24px",
+            "type": "dimension",
+            "description": "Desenfoque de la sombra lejana de overlay. Cero en dark: la capa esta apagada. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
+          },
+          "far-y": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Desplazamiento vertical de la sombra lejana de overlay. El tema NO se elige con un estilo distinto: se elige con el MODO de '3. Semantic'. Por eso este valor vive como variable y el effect style es uno solo. Antes habia un estilo por modo y nadie podia cambiar de light a dark sin reasignar estilos a mano."
+          }
+        }
+      }
+    },
+    "focus": {
+      "ring": {
+        "offset": {
+          "value": "1px",
+          "type": "dimension",
+          "description": "Separacion entre el borde del control y el anillo de foco. 1 desde el 14-ago (antes 2): con 2 el anillo quedaba demasiado despegado y la franja intermedia, que se pinta con canvas/surface/primary, se notaba como un halo cuando el control no estaba sobre una superficie blanca. VALOR DERIVADO AGUAS ABAJO: focus/ring/spread = offset + border/width/focus. Si se cambia este numero hay que recalcular el spread a mano, porque Figma no hace aritmetica entre variables."
+        },
+        "spread": {
+          "value": "3px",
+          "type": "dimension",
+          "description": "Spread de la capa azul del anillo de foco. NO es un valor libre: es focus/ring/offset + border/width/focus. El grosor visible del azul es spread menos offset, o sea exactamente border/width/focus (2 en light y dark, 3 en los modos hc). Si cambia cualquiera de los dos de los que depende, hay que recalcular este a mano."
+        }
+      }
+    },
     "border": {
       "width": {
         "indicator": {
           "value": "2px",
           "type": "dimension",
           "description": "Grosor de la barra que marca lo elegido: el indicador activo de Tab y el indicador de seleccion de las filas. 2px normal, 3px en alto contraste, igual que el resto de la familia border/width. No usar border/width/focus para esto: foco y seleccion son dos señales distintas y tienen que poder cambiar de grosor por separado. Valor definido en los 4 modos."
+        }
+      }
+    },
+    "chart": {
+      "marker": {
+        "size": {
+          "sm": {
+            "value": "8px",
+            "type": "dimension",
+            "description": "Punto de scatter y marcador de leyenda en su tamaño chico."
+          },
+          "md": {
+            "value": "10px",
+            "type": "dimension",
+            "description": "Marcador de serie sobre la línea, y punto de scatter destacado."
+          }
         }
       }
     },
