@@ -37,6 +37,13 @@
               "type": "space",
               "description": "Separación entre botones: 8 en las tres. Dialog (librería Platforms)."
             }
+          },
+          "modal": {
+            "margin": {
+              "value": "16px",
+              "type": "space",
+              "description": "Margen lateral del modal respecto de la pantalla. iOS: 16. Android y web: 24."
+            }
           }
         }
       },
@@ -214,6 +221,15 @@
         "value": "24px",
         "type": "space",
         "description": "Margen lateral de pantalla: 16 · 24 · 32. Es el margen de grid/layout y el padding horizontal del contenedor raíz de una pantalla. Única fuente del margen de pantalla (reemplaza a platform/space/screen-margin, borrado el 26-sep)."
+      }
+    },
+    "component": {
+      "pagination": {
+        "gap": {
+          "value": "8px",
+          "type": "space",
+          "description": "Co-token de pagination. Separación entre flechas, contador y números (space/inline/sm)."
+        }
       }
     }
   }

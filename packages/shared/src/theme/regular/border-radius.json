@@ -270,6 +270,15 @@
           }
         }
       }
+    },
+    "component": {
+      "pagination": {
+        "radius": {
+          "value": "9999px",
+          "type": "borderRadius",
+          "description": "Co-token de pagination. Cápsula del contenedor y de los números."
+        }
+      }
     }
   }
 }

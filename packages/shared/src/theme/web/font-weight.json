@@ -67,7 +67,7 @@
           },
           "action": {
             "label-style": {
-              "value": "500",
+              "value": "600",
               "type": "fontWeight",
               "description": "Peso de la etiqueta del botón. iOS: Semibold. Android y web: Medium. Dialog (librería Platforms)."
             }

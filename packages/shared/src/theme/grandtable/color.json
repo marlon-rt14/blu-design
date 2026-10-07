@@ -5157,6 +5157,11 @@
             "value": "#001e6052",
             "type": "color",
             "description": "Velo del elemento ACTIVADO: el destino actual de navegacion, la pestana abierta, la seccion en la que estas parado. Se diferencia de seleccionado en que es unico y persistente, no una eleccion entre varias. JERARQUIA DE VELOS SOBRE SUPERFICIE NEUTRA: hover 8 < pressed 12 < selected 16 < selected-hover 24 < activated 32. Activado es el mas fuerte a proposito: marca UN solo lugar persistente en pantalla (el destino actual), mientras que seleccionado puede aplicarse a muchos elementos a la vez y por eso tiene que quedarse mas callado. El estado NUNCA se comunica solo con este velo: siempre lleva ademas un indicador no cromatico (borde portante, marca de verificacion, barra lateral). Es WCAG 1.4.1 y ademas es lo unico que lo distingue de un control deshabilitado a simple vista."
+          },
+          "rest": {
+            "value": "#00000000",
+            "type": "color",
+            "description": "Capa de estado EN REPOSO: transparente en los 6 modos. La lleva la capa overlay de un componente en las variantes sin hover, pressed ni selected, para que la capa exista siempre (modelo de state layer) y el estado solo cambie su variable. No se usa para otra cosa. Creada el 6-oct-2026."
           }
         },
         "on-fill": {
@@ -11439,13 +11444,69 @@
           "text-danger": {
             "value": "#b22c42",
             "type": "color",
-            "description": "Co-token de dialog. Etiqueta de la acción destructiva: rojo en las tres plataformas."
+            "description": "Co-token de dialog. Etiqueta de la acción destructiva (actions y confirm): rojo en las tres plataformas. Claros: color/text/action/danger/quiet/default. Oscuros: color/text/danger, porque el rojo quiet sobre la tarjeta elevada daba 4,23:1 en dark (medido el 5-oct); queda 6,18 · 8,20 · 9,04 (dark · mc-dark · hc-dark)."
+          },
+          "icon-neutral": {
+            "value": "#5f6677",
+            "type": "color",
+            "description": "Co-token de dialog. Ícono al inicio de cada fila de type=actions en Android y web. La fila destructiva usa component/dialog/icon/danger."
           }
         },
         "scrim": {
           "value": "#0000007a",
           "type": "color",
           "description": "Co-token de dialog. Velo detrás del diálogo. Mismo valor que component/sheet/scrim."
+        },
+        "icon": {
+          "danger": {
+            "value": "#b22c42",
+            "type": "color",
+            "description": "Co-token de dialog. Ícono héroe del confirm destructivo en Android y web (Material 3). iOS no lleva ícono en las alertas."
+          }
+        },
+        "divider": {
+          "value": "#ced4e3",
+          "type": "color",
+          "description": "Co-token de dialog. Filetes que encierran la lista de type=actions en Android y web (Material 3)."
+        }
+      },
+      "pagination": {
+        "label": {
+          "value": "#232b3d",
+          "type": "color",
+          "description": "Co-token de pagination. Contador «2 de 12» en iOS y Android."
+        },
+        "item": {
+          "text-default": {
+            "value": "#232b3d",
+            "type": "color",
+            "description": "Co-token de pagination. Número de página en web."
+          },
+          "text-selected": {
+            "value": "#ffffff",
+            "type": "color",
+            "description": "Co-token de pagination. Número de la página actual en web."
+          },
+          "bg-selected": {
+            "value": "#7f6337",
+            "type": "color",
+            "description": "Co-token de pagination. Fondo de la página actual en web."
+          },
+          "bg-hover": {
+            "value": "#001e600a",
+            "type": "color",
+            "description": "Co-token de pagination. Hover de un número de página en web."
+          },
+          "bg-pressed": {
+            "value": "#001e601a",
+            "type": "color",
+            "description": "Co-token de pagination. Pressed de un número de página en web."
+          },
+          "border-focus": {
+            "value": "#2760aa",
+            "type": "color",
+            "description": "Co-token de pagination. Anillo de foco de un número de página en web."
+          }
         }
       }
     },
