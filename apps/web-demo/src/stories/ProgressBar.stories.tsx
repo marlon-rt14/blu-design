@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 
 import { PlatformProgressBar } from './PlatformProgressBar';
-import type { IPlatformProgressBarProps, TPlatform } from './PlatformProgressBar';
+import type { IPlatformProgressBarProps } from './PlatformProgressBar';
+import { implementationFor } from './themeGlobals';
 
 const SIZES: TProgressBarSize[] = ['sm', 'md', 'lg'];
 const STATUSES: TProgressStatus[] = ['brand', 'accent', 'success', 'warning', 'danger'];
@@ -102,7 +103,7 @@ const meta = {
   render: function Render(args, { globals }) {
     return (
       <div style={{ width: 320 }}>
-        <PlatformProgressBar {...args} platform={globals.platform as TPlatform} />
+        <PlatformProgressBar {...args} platform={implementationFor(globals)} />
       </div>
     );
   },
@@ -122,7 +123,7 @@ export const Playground: TStory = {};
  */
 export const Statuses: TStory = {
   render: function Render(_args, { globals }) {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     const casos: { status: TProgressStatus; label: string; value: number }[] = [
       { status: 'brand', label: 'Subiendo el documento', value: 60 },
       { status: 'accent', label: 'Perfil completo', value: 40 },
@@ -151,7 +152,7 @@ export const Statuses: TStory = {
 /** 4 · 8 · 12. The header does not change with the size — only the track does. */
 export const Sizes: TStory = {
   render: function Render(_args, { globals }) {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         {SIZES.map((size) => (
@@ -179,7 +180,7 @@ export const Sizes: TStory = {
  */
 export const Edges: TStory = {
   render: function Render(_args, { globals }) {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     const casos: { title: string; value: number; label?: string; showValue?: boolean }[] = [
       { title: 'value 0 — vacío', value: 0 },
       { title: 'value 1 — un punto, no nada', value: 1 },
@@ -215,7 +216,7 @@ export const Edges: TStory = {
  */
 export const Animated: TStory = {
   render: function Render(_args, { globals }) {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     const [value, setValue] = useState(0);
     useEffect(() => {
       const id = setInterval(() => setValue((v) => (v >= 100 ? 0 : v + 20)), 1200);
@@ -247,7 +248,7 @@ export const Animated: TStory = {
  */
 export const Header: TStory = {
   render: function Render(_args, { globals }) {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     const casos: { title: string; props: Partial<IPlatformProgressBarProps> }[] = [
       { title: 'todo — etiqueta y porcentaje', props: {} },
       { title: 'showValue=false — solo la etiqueta', props: { showValue: false } },

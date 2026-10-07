@@ -1,8 +1,8 @@
-import { buttonTokens } from '@dsm/shared';
+import { buttonBrandColors, buttonTokens, crossedBrand } from '@dsm/shared';
 import type { IButtonSurfaceColorTokens, TButtonState, TIconSize, TTokensOf } from '@dsm/shared';
 import type { CSSProperties } from 'react';
 
-import { useFontFamily, usePrefersReducedMotion, useThemeMode } from '../../../theme';
+import { useFontFamily, usePrefersReducedMotion, useResolvedTheme, useThemeMode } from '../../../theme';
 import type { IButtonProps } from './Button.types';
 
 /** Params of {@link useButton}: the Button props plus the live interaction state. */
@@ -28,8 +28,8 @@ interface IUseButtonResult {
    */
   buttonStyle: CSSProperties;
   /**
-   * Which Icon size step to give the slots. Not the control's own size: `xs` and
-   * `sm` both take 16, `md` and `lg` both take 24.
+   * Which Icon size step to give the slots: always `sm` (16). It does not track
+   * the control's size — the glyph is 16 at every one of them.
    */
   iconSize: TIconSize;
   /** Normalized disabled flag, safe to hand straight to the DOM element. */
@@ -84,10 +84,22 @@ export const useButton = ({
   isFocusVisible,
 }: IUseButtonParams): IUseButtonResult => {
   const mode = useThemeMode();
+  const theme = useResolvedTheme();
   const tokens = buttonTokens[mode];
   const fontFamily = useFontFamily(tokens.typography.fontWeight);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const surface = readSurface(tokens.colors, variant, appearance);
+  const base = readSurface(tokens.colors, variant, appearance);
+  // `primary · fill` is the one pairing whose background carries the brand, and
+  // the one the export cannot give us crossed with the semantic: ask for
+  // `discover` in `dark` and `resolveTheme` keeps the mode and drops the brand.
+  // `buttonBrandColors` reaches the brand primitive by path instead, which
+  // survives that fallback. Applied unconditionally and not only on fallback,
+  // because it is a strict superset — verified, it reproduces the component
+  // token's own value in all 10 combinations the export does ship.
+  const surface =
+    variant === 'primary' && appearance === 'fill'
+      ? { ...base, ...buttonBrandColors[crossedBrand(theme)][theme.mode] }
+      : base;
 
   // Precedence follows the bDS state axis: a disabled button never shows hover,
   // and a press wins over the hover it necessarily happens inside.
@@ -170,5 +182,5 @@ export const useButton = ({
     cursor: isDisabled ? 'not-allowed' : 'pointer',
   };
 
-  return { buttonStyle, iconSize: tokens.dimension.iconSize[size], isDisabled, state };
+  return { buttonStyle, iconSize: tokens.dimension.iconSize, isDisabled, state };
 };

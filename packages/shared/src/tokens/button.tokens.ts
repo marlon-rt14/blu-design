@@ -1,6 +1,13 @@
+import {
+  DEFAULT_THEME_SOURCE_KEY,
+  fromThemeSources,
+  THEME_BRANDS,
+  THEME_MODES,
+  themeSources,
+} from '../themeSource/themes';
+import type { TThemeBrand, TThemeMode, TThemeSourceKey } from '../themeSource/themes';
 import { readThemeDimension, readThemeToken } from '../themeSource/tokenPath';
-import { fromThemeSources, themeSources } from '../themeSource/themes';
-import type { TThemeSourceKey } from '../themeSource/themes';
+import { buttonBrandSteps } from './button.brandSteps';
 import type { TButtonAppearance, TButtonSize, TButtonVariant } from '../types/atoms/button.types';
 import type { TIconSize } from '../types/atoms/icon.types';
 
@@ -91,14 +98,25 @@ export interface IButtonDimensionTokens {
   /** Gap between the label and an icon. `space/inline/sm` (8). */
   gap: number;
   /**
-   * Which step of the Icon scale a button of each size uses.
+   * Which step of the Icon scale the slots get: **always `sm` (16)**.
    *
-   * **Does not scale 1:1 with the control**, and cannot be derived: `xs` and
-   * `sm` both take `size/icon/sm` (16), `md` and `lg` both take `size/icon/md`
-   * (24) — *"porque la escala no tiene un paso de 20"*. Four button sizes map
-   * onto two icon sizes.
+   * One value and not a per-size record, because the glyph does not scale with
+   * the control at all — the icon is 16 in a 24px `xs` button and in a 56px
+   * `lg` one. Measured on the component set (`14:2002`) rather than assumed:
+   * the four size variants, both variants and all five appearances, 18 nodes,
+   * every one binds `size/icon/sm`.
+   *
+   * It stays stated here instead of read because bDS ships no token for "the
+   * Button's icon step" — Figma expresses the choice by *which* `size/icon/*`
+   * it binds, and that is a binding, not a value.
+   *
+   * Was `{ xs: 'sm', sm: 'sm', md: 'md', lg: 'md' }` until 2026-09-30, which
+   * rendered `md` and `lg` 8px too big. The JSDoc justified it with a quote —
+   * *"porque la escala no tiene un paso de 20"* — that appears in no export,
+   * current or pre-sync, and in no Supernova page. `iconButton.tokens.ts`
+   * still carries the same quote and has not been measured.
    */
-  iconSize: Record<TButtonSize, TIconSize>;
+  iconSize: TIconSize;
   /**
    * `radius/action` — **12 at every size**, not a pill.
    *
@@ -269,9 +287,9 @@ const readButtonTokens = (key: TThemeSourceKey): IButtonTokens => {
       },
       minWidth: dimensionAt('size.control.min-width'),
       gap: dimensionAt('space.inline.sm'),
-      // A mapping between two token scales rather than a token of its own, so
-      // it is stated here instead of read: bDS defines it in prose only.
-      iconSize: { xs: 'sm', sm: 'sm', md: 'md', lg: 'md' },
+      // A choice of which token to read rather than a token of its own — see
+      // IButtonDimensionTokens.iconSize. Measured on all 18 nodes of the set.
+      iconSize: 'sm',
       borderRadius: dimensionAt('radius.action'),
       borderWidth: dimensionAt('border.width.default'),
       minTouchTarget: dimensionAt('size.target.min'),
@@ -308,3 +326,93 @@ const readButtonTokens = (key: TThemeSourceKey): IButtonTokens => {
  * {@link IButtonDimensionTokens.paddingHorizontal}.
  */
 export const buttonTokens = fromThemeSources(readButtonTokens);
+
+
+/**
+ * The three Button colours that carry the brand, crossed with the semantic.
+ *
+ * ### The problem this solves
+ *
+ * `brand` and `mode` both own `color.json` and the export ships one folder per
+ * axis value, never the cross product, so `resolveTheme` has to drop one and it
+ * drops the brand (see {@link TThemeSourceKey}). For most tokens that is a gap
+ * nobody notices. For the Button's fill it is the brand itself: ask for
+ * `discover` in `dark` and you got blu's blue.
+ *
+ * ### Why it can be solved here and not in the theme key
+ *
+ * These three reach a **brand primitive** that is addressable by path —
+ * `color.<tone>.brand.<brand>.<step>` — and those primitives are identical in
+ * all 18 exported folders (60 paths checked, zero differences). So the cross
+ * needs no new folder.
+ *
+ * It could have been a wider theme key, and that was measured and rejected: 90
+ * keys already cost **141 ms and 41 MB** to resolve at import, and
+ * `brand@mode@layout@platform` is 270 of them. Paying 3x the startup of the
+ * whole token layer to cross 3 tokens of 2199 is the wrong trade. This record is
+ * 5 brands x 6 modes x 3 values — 90 reads.
+ *
+ * ### What it does not cover
+ *
+ * Only `variant: 'primary'` + `appearance: 'fill'`. Section `07` of the Figma
+ * frame lists 13 brand-moved Button tokens; the other 10 point at numeric ramp
+ * steps or at `static/*` and are out of scope by decision. And system-wide the
+ * brand moves 193 colour tokens, 140 of which the semantic also moves — the
+ * other components stay as they are until design annotates them the same way.
+ *
+ * Which step each semantic takes is **generated**, not written here — see
+ * {@link buttonBrandSteps}.
+ */
+export interface IButtonBrandColors {
+  /** `component/button/primary/bg-default` for this brand and semantic. */
+  background: string;
+  backgroundHover: string;
+  backgroundPressed: string;
+}
+
+/** Field of {@link IButtonBrandColors} to the section-`07` row that feeds it. */
+const BRAND_FIELD_TOKEN = {
+  background: 'primary/bg-default',
+  backgroundHover: 'primary/bg-hover',
+  backgroundPressed: 'primary/bg-pressed',
+} as const satisfies Record<keyof IButtonBrandColors, keyof typeof buttonBrandSteps>;
+
+/**
+ * Resolves one brand's three fills for one semantic.
+ *
+ * The step carries its own tone (`light/fill-hc`), so the primitive path is the
+ * brand spliced into the middle of it.
+ */
+const readBrandColors = (brand: TThemeBrand, mode: TThemeMode): IButtonBrandColors => {
+  const at = (field: keyof IButtonBrandColors): string => {
+    const [tone, step] = buttonBrandSteps[BRAND_FIELD_TOKEN[field]][mode].split('/');
+    return readThemeToken(
+      themeSources[DEFAULT_THEME_SOURCE_KEY].color,
+      `color.color.${tone}.brand.${brand}.${step}`,
+    );
+  };
+  return {
+    background: at('background'),
+    backgroundHover: at('backgroundHover'),
+    backgroundPressed: at('backgroundPressed'),
+  };
+};
+
+/**
+ * See {@link IButtonBrandColors}.
+ *
+ * Read from {@link DEFAULT_THEME_SOURCE_KEY} on purpose, not from the live key:
+ * the brand primitives are folder-invariant, so reading them per theme would be
+ * 90x the work for 90x the same answer.
+ */
+export const buttonBrandColors: Record<TThemeBrand, Record<TThemeMode, IButtonBrandColors>> =
+  THEME_BRANDS.reduce(
+    (byBrand, brand) => ({
+      ...byBrand,
+      [brand]: THEME_MODES.reduce(
+        (byMode, mode) => ({ ...byMode, [mode]: readBrandColors(brand, mode) }),
+        {} as Record<TThemeMode, IButtonBrandColors>,
+      ),
+    }),
+    {} as Record<TThemeBrand, Record<TThemeMode, IButtonBrandColors>>,
+  );

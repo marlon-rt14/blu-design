@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { useArgs } from 'storybook/preview-api';
 
 import { PlatformChoiceBox } from './PlatformChoiceBox';
-import type { IPlatformChoiceBoxProps, TPlatform } from './PlatformChoiceBox';
+import type { IPlatformChoiceBoxProps } from './PlatformChoiceBox';
+import { implementationFor } from './themeGlobals';
 
 const Row = ({ children }: { children: ReactNode }): ReactElement => (
   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>{children}</div>
@@ -85,7 +86,7 @@ const meta = {
     return (
       <PlatformChoiceBox
         {...args}
-        platform={globals['platform'] as TPlatform}
+        platform={implementationFor(globals)}
         onValueChange={(isChecked) => updateArgs({ isChecked })}
       />
     );
@@ -109,7 +110,7 @@ export const WithoutDescription: TStory = {
 export const Tile: TStory = {
   args: { variant: 'tile' },
   render: (args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 200px)', gap: 16 }}>
         <IsolatedPlatformChoiceBox {...args} platform={platform} title="Mensaje de texto" description="Al ****6760" />
@@ -124,7 +125,7 @@ export const Tile: TStory = {
 export const Compact: TStory = {
   args: { variant: 'compact' },
   render: (args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Row>
         <IsolatedPlatformChoiceBox {...args} platform={platform} title="3 cuotas" description="Sin interes" />
@@ -137,7 +138,7 @@ export const Compact: TStory = {
 
 export const Disabled: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Row>
         <PlatformChoiceBox isDisabled isChecked platform={platform} title="Seleccionada" />
@@ -149,7 +150,7 @@ export const Disabled: TStory = {
 
 export const States: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Row>
         <IsolatedPlatformChoiceBox

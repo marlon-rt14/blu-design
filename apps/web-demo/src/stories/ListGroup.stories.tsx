@@ -2,9 +2,9 @@ import { readThemeToken, themeSources } from '@dsm/shared';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 
-import { themeFromGlobals } from './themeGlobals';
+import { implementationFor, themeFromGlobals } from './themeGlobals';
 import { PlatformListGroup } from './PlatformListGroup';
-import type { IPlatformListGroupProps, TPlatform } from './PlatformListGroup';
+import type { IPlatformListGroupProps } from './PlatformListGroup';
 
 /** The group is a card, so it needs a page behind it — never the surface it is drawn on. */
 const Page = ({ themeKey, children }: { themeKey: string; children: ReactNode }): ReactNode => (
@@ -84,7 +84,7 @@ const meta = {
   render: function Render(args, { globals }) {
     return (
       <Page themeKey={themeFromGlobals(globals).key}>
-        <PlatformListGroup {...args} platform={globals.platform as TPlatform} />
+        <PlatformListGroup {...args} platform={implementationFor(globals)} />
       </Page>
     );
   },
@@ -107,7 +107,7 @@ export const Playground: TStory = {
  */
 export const Variants: TStory = {
   render: function Render(_args, { globals }) {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     const themeKey = themeFromGlobals(globals).key;
     return (
       <Page themeKey={themeKey}>

@@ -224,48 +224,50 @@
           "description": "Radio del Chip. iOS: cápsula (iOS no tiene chip; se sigue la convención de cápsula de sus controles). Android: 8 (Material 3: assist, filter, input y suggestion chips en corner small). Web: pastilla, la forma de marca. Lo consume component/chip/radius."
         }
       },
-      "segment": {
-        "inner-radius": {
-          "value": "9999px",
-          "type": "borderRadius",
-          "description": "Radio de las esquinas INTERIORES de un segmento (las que dan a un segmento vecino). En iOS y web cada segmento es una pildora completa; en Material 3 van conectados y solo las puntas del grupo son redondas. Las esquinas exteriores usan platform/radius/full."
-        }
-      },
-      "tabbar": {
-        "accessory": {
-          "radius": {
+      "component": {
+        "segmentedcontrol": {
+          "inner-radius": {
             "value": "9999px",
             "type": "borderRadius",
-            "description": "Radio del botón aparte. iOS: círculo. Android: 16, FAB de Material 3. Web: círculo. Barra de pestañas (TabBar, librería Platforms)."
+            "description": "Radio de las esquinas INTERIORES de un segmento (las que dan a un segmento vecino). En iOS y web cada segmento es una pildora completa; en Material 3 van conectados y solo las puntas del grupo son redondas. Las esquinas exteriores usan platform/radius/full."
           }
-        }
-      },
-      "slider": {
-        "track-inner-radius": {
-          "value": "9999px",
-          "type": "borderRadius",
-          "description": "Radio de las puntas de la pista junto a la manija. iOS y web: pastilla. Android: 2, las puntas internas de Material 3 (las externas van en pastilla). Slider (librería Core)."
-        }
-      },
-      "sheet": {
-        "radius": {
-          "value": "24px",
-          "type": "borderRadius",
-          "description": "Radio de las esquinas superiores de la hoja. iOS: 38, concéntrico con la pantalla (kit iOS 27). Android: 28 (Material 3, bottom sheet). Web: component/sheet/radius. Sheet (librería Platforms)."
         },
-        "floating": {
-          "radius-bottom": {
-            "value": "0px",
-            "type": "borderRadius",
-            "description": "Radio de las esquinas inferiores cuando la hoja flota (detent medium). iOS: 58, sigue la curva de la pantalla (kit iOS 27, Liquid Glass). Android y web: 0, la hoja nace del borde. Sheet (librería Platforms)."
+        "tabbar": {
+          "accessory": {
+            "radius": {
+              "value": "9999px",
+              "type": "borderRadius",
+              "description": "Radio del botón aparte. iOS: círculo. Android: 16, FAB de Material 3. Web: círculo. Barra de pestañas (TabBar, librería Platforms)."
+            }
           }
-        }
-      },
-      "dialog": {
-        "radius": {
-          "value": "24px",
-          "type": "borderRadius",
-          "description": "Radio de la tarjeta. iOS: 34 (Liquid Glass). Android: 28 (Material 3). Web: radius/surface/lg. Dialog (librería Platforms)."
+        },
+        "slider": {
+          "track-inner-radius": {
+            "value": "9999px",
+            "type": "borderRadius",
+            "description": "Radio de las puntas de la pista junto a la manija. iOS y web: pastilla. Android: 2, las puntas internas de Material 3 (las externas van en pastilla). Slider (librería Core)."
+          }
+        },
+        "sheet": {
+          "radius": {
+            "value": "24px",
+            "type": "borderRadius",
+            "description": "Radio de las esquinas superiores de la hoja. iOS: 38, concéntrico con la pantalla (kit iOS 27). Android: 28 (Material 3, bottom sheet). Web: component/sheet/radius. Sheet (librería Platforms)."
+          },
+          "floating": {
+            "radius-bottom": {
+              "value": "0px",
+              "type": "borderRadius",
+              "description": "Radio de las esquinas inferiores cuando la hoja flota (detent medium). iOS: 58, sigue la curva de la pantalla (kit iOS 27, Liquid Glass). Android y web: 0, la hoja nace del borde. Sheet (librería Platforms)."
+            }
+          }
+        },
+        "dialog": {
+          "radius": {
+            "value": "24px",
+            "type": "borderRadius",
+            "description": "Radio de la tarjeta. iOS: 34 (Liquid Glass). Android: 28 (Material 3). Web: radius/surface/lg. Dialog (librería Platforms)."
+          }
         }
       }
     }

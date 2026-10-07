@@ -211,6 +211,47 @@ Steps:
    `themeFromGlobals(globals).key` — not `globals.theme`. Cover every Figma state and independent
    prop combo. See "Storybook" above.
 
+## The props-to-tokens table is a gate, not a reference
+
+**Before building a new component or touching an existing one, open
+`docs/props-enlazadas-a-tokens.md` and read that component's section.** It records, per
+Figma node property, which variable it binds, which axis actually moves it, and how far
+our code is from producing the right value. It exists because none of that is guessable:
+`radius/action` lives in the `4. Layout` collection and moves with **platform**, and the
+Button's icon step was a hand-written value that had been wrong in two of four sizes
+since the day it was written.
+
+- **The component has a section** → read its rows first. A ⚠️ or ❌ there is work already
+  scoped; do not rediscover it, and do not build on top of it without saying so.
+- **It does not have a section** → **create it**, following the 15 rules at the top of
+  that file. Measuring one component takes minutes and the method is written out step by
+  step, endpoints included.
+- **You confirm or correct a row** → update the file in the same commit. Rule 13. A table
+  that claims green while the code is wrong is worse than no table.
+
+Two things that file settles and that you should not re-derive:
+
+- **Native vs hybrid is design's call, not ours.** The native components — the ones that
+  redraw per OS, 15 as of 2026-10-01 — are listed in the Figma frame `Nativos e híbridos`
+  (`1694:37`).
+  Everything else is hybrid: one anatomy, and platform enters only through tokens
+  (typography, touch target, colour, radii). A native component necessarily has
+  `PLATAFORMA` rows; **having them does not make a component native** — measured, 23 of
+  our 42 components diverge by platform and only 15 are native.
+- **Both families still carry the brand and semantic themes.** Platform is a fourth axis
+  on top, not a replacement.
+
+**If you do not know where a token lives, ask until someone gives you the path.** Not a
+guess, and not a row left half-filled: insist on the exact token path or address from the
+dev who knows, and implement with that. A leaf read from the wrong place looks right
+until it is rendered — `radius/action` returned a real number for weeks while being the
+iOS one.
+
+**Anything unclear about the design or about Figma goes to Jetto.** Do not close the gap
+by inventing a row or by quoting a description you cannot find — the Button's icon
+mapping was justified for a month with a sentence that exists in no export and in no
+Supernova page.
+
 ## Conventions
 
 - Commit messages, code comments and JSDoc are written in English.

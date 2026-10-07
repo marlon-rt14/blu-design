@@ -5,7 +5,8 @@ import { useState } from 'react';
 import { fn } from 'storybook/test';
 
 import { PlatformChoiceItem } from './PlatformChoiceItem';
-import type { IPlatformChoiceItemProps, TPlatform } from './PlatformChoiceItem';
+import type { IPlatformChoiceItemProps } from './PlatformChoiceItem';
+import { implementationFor } from './themeGlobals';
 
 const SIZES: TChoiceItemSize[] = ['sm', 'md'];
 
@@ -80,7 +81,7 @@ const meta = {
   },
   render: (args, { globals }) => (
     <Column>
-      <PlatformChoiceItem {...args} platform={globals.platform as TPlatform} />
+      <PlatformChoiceItem {...args} platform={implementationFor(globals)} />
     </Column>
   ),
 } satisfies Meta<IPlatformChoiceItemProps>;
@@ -97,7 +98,7 @@ export const Playground: TStory = {};
  */
 export const States: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Column>
         <PlatformChoiceItem {...args} label="default" platform={platform} testID="ci-default" />
@@ -119,7 +120,7 @@ export const Sizes: TStory = {
             {...args}
             isChecked
             label={`Opción · ${size}`}
-            platform={globals.platform as TPlatform}
+            platform={implementationFor(globals)}
             showDescription
             showTrailingText
             size={size}
@@ -145,7 +146,7 @@ export const AsAList: TStory = {
             label={option}
             name="metodo"
             onAction={() => setChosen(option)}
-            platform={globals.platform as TPlatform}
+            platform={implementationFor(globals)}
             showDivider={index < options.length - 1}
             showTrailingText
             trailingText={`$ ${(index + 1) * 1200}`}

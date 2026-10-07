@@ -5,7 +5,8 @@ import type { ReactElement, ReactNode } from 'react';
 import { useState } from 'react';
 
 import { PlatformOTPField } from './PlatformOTPField';
-import type { IPlatformOTPFieldProps, TPlatform } from './PlatformOTPField';
+import type { IPlatformOTPFieldProps } from './PlatformOTPField';
+import { implementationFor } from './themeGlobals';
 
 const LENGTHS: TOTPFieldLength[] = [4, 6];
 
@@ -133,7 +134,7 @@ const meta = {
     helperText: 'Reenviar código en 00:30',
     testID: 'otp',
   },
-  render: (args, { globals }) => <Controlled {...args} platform={globals.platform as TPlatform} />,
+  render: (args, { globals }) => <Controlled {...args} platform={implementationFor(globals)} />,
 } satisfies Meta<IPlatformOTPFieldProps>;
 
 export default meta;
@@ -149,7 +150,7 @@ export const Lengths: TStory = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
       {LENGTHS.map((length) => (
         <Group key={length} title={`length=${length}`}>
-          <Controlled {...args} length={length} platform={globals.platform as TPlatform} />
+          <Controlled {...args} length={length} platform={implementationFor(globals)} />
         </Group>
       ))}
     </div>
@@ -165,7 +166,7 @@ export const Lengths: TStory = {
  */
 export const States: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
         <Group title="default — empty">

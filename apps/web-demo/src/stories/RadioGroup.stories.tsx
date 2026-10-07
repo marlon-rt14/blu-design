@@ -3,7 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 
 import { PlatformRadioGroup } from './PlatformRadioGroup';
-import type { IPlatformRadioGroupProps, TPlatform } from './PlatformRadioGroup';
+import type { IPlatformRadioGroupProps } from './PlatformRadioGroup';
+import { implementationFor } from './themeGlobals';
 
 const SIZES: TRadioGroupSize[] = ['sm', 'md'];
 const METODOS = ['Débito', 'Crédito', 'Transferencia'];
@@ -68,7 +69,7 @@ const meta = {
         {...args}
         onSelect={setSelected}
         options={METODOS}
-        platform={globals.platform as TPlatform}
+        platform={implementationFor(globals)}
         selected={selected}
       />
     );
@@ -99,7 +100,7 @@ export const Sizes: TStory = {
             legend={`Título del grupo · ${size}`}
             onSelect={setSelected}
             options={METODOS}
-            platform={globals.platform as TPlatform}
+            platform={implementationFor(globals)}
             selected={selected}
             size={size}
           />

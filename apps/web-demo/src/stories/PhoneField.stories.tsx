@@ -7,7 +7,8 @@ import { useArgs } from 'storybook/preview-api';
 import { fn } from 'storybook/test';
 
 import { PlatformPhoneField } from './PlatformPhoneField';
-import type { IPlatformPhoneFieldProps, TPlatform } from './PlatformPhoneField';
+import type { IPlatformPhoneFieldProps } from './PlatformPhoneField';
+import { implementationFor } from './themeGlobals';
 
 const SIZES: TPhoneFieldSize[] = ['sm', 'md', 'lg'];
 
@@ -141,7 +142,7 @@ const meta = {
           {...args}
           onChangeText={(value) => updateArgs({ value })}
           onCountryChange={(country) => updateArgs({ country })}
-          platform={globals.platform as TPlatform}
+          platform={implementationFor(globals)}
         />
       </div>
     );
@@ -181,7 +182,7 @@ export const Playground: TStory = {
  */
 export const Sizes: TStory = {
   render: function Render(_args, { globals }) {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         {SIZES.map((size) => (
@@ -211,7 +212,7 @@ export const Sizes: TStory = {
  */
 export const States: TStory = {
   render: function Render(_args, { globals }) {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     const rows: { title: string; props: Partial<IPlatformPhoneFieldProps> }[] = [
       { title: 'vacio — la etiqueta hace de placeholder', props: { value: '' } },
       { title: 'con valor — la etiqueta flota', props: { value: '99 123 4567' } },
@@ -255,7 +256,7 @@ export const States: TStory = {
  */
 export const LeadingContent: TStory = {
   render: function Render(_args, { globals }) {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     const [phone, setPhone] = useState('99 123 4567');
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>

@@ -3,7 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement, ReactNode } from 'react';
 
 import { PlatformAlert } from './PlatformAlert';
-import type { IPlatformAlertProps, TPlatform } from './PlatformAlert';
+import type { IPlatformAlertProps } from './PlatformAlert';
+import { implementationFor } from './themeGlobals';
 
 const STATUSES: TAlertStatus[] = ['danger', 'warning', 'success', 'info', 'neutral'];
 const PLACEMENTS: TAlertPlacement[] = ['page', 'section', 'inline'];
@@ -98,7 +99,7 @@ const meta = {
   },
   render: (args, { globals }) => (
     <div style={{ maxWidth: 500 }}>
-      <PlatformAlert {...args} platform={globals['platform'] as TPlatform} />
+      <PlatformAlert {...args} platform={implementationFor(globals)} />
     </div>
   ),
 } satisfies Meta<IPlatformAlertProps>;
@@ -111,7 +112,7 @@ export const Playground: TStory = {};
 
 export const Statuses: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Column>
         {STATUSES.map((status) => (
@@ -124,7 +125,7 @@ export const Statuses: TStory = {
 
 export const Placements: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Column>
         {PLACEMENTS.map((placement) => (

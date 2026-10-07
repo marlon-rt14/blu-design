@@ -3,7 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { PlatformAvatarGroup } from './PlatformAvatarGroup';
 import type { IPlatformAvatarGroupItem } from './PlatformAvatarGroup';
-import type { IPlatformAvatarGroupProps, TPlatform } from './PlatformAvatarGroup';
+import type { IPlatformAvatarGroupProps } from './PlatformAvatarGroup';
+import { implementationFor } from './themeGlobals';
 
 const SIZES: TAvatarSize[] = ['xs', 'sm', 'md', 'lg'];
 
@@ -47,7 +48,7 @@ const meta = {
     showOverflow: false,
     overflowLabel: '+3',
   },
-  render: (args, { globals }) => <PlatformAvatarGroup {...args} platform={globals['platform'] as TPlatform} />,
+  render: (args, { globals }) => <PlatformAvatarGroup {...args} platform={implementationFor(globals)} />,
 } satisfies Meta<IPlatformAvatarGroupProps>;
 
 export default meta;
@@ -58,7 +59,7 @@ export const Playground: TStory = {};
 
 export const Sizes: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         {SIZES.map((size) => (

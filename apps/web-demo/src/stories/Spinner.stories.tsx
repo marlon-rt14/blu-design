@@ -4,8 +4,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties, ReactNode } from 'react';
 
 import { PlatformSpinner } from './PlatformSpinner';
-import type { IPlatformSpinnerProps, TPlatform } from './PlatformSpinner';
-import { themeFromGlobals } from './themeGlobals';
+import type { IPlatformSpinnerProps } from './PlatformSpinner';
+import { implementationFor, themeFromGlobals } from './themeGlobals';
 
 const APPEARANCES: TSpinnerAppearance[] = ['brand', 'primary', 'on-brand'];
 const SIZES: TSpinnerSize[] = ['sm', 'md', 'lg'];
@@ -94,7 +94,7 @@ const meta = {
   },
   render: (args, { globals }) => (
     <div style={{ padding: 24 }}>
-      <PlatformSpinner {...args} platform={globals['platform'] as TPlatform} />
+      <PlatformSpinner {...args} platform={implementationFor(globals)} />
     </div>
   ),
 } satisfies Meta<IPlatformSpinnerProps>;
@@ -108,7 +108,7 @@ export const Playground: TStory = {};
 /** All nine Figma variants: appearance × size. */
 export const Matrix: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     const { key: themeKey } = themeFromGlobals(globals);
     const stack: CSSProperties = { display: 'flex', flexDirection: 'column', gap: 24, padding: 24 };
 
@@ -141,7 +141,7 @@ export const Matrix: TStory = {
 
 export const Sizes: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ padding: 24 }}>
         <Row>

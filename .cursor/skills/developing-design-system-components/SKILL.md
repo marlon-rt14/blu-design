@@ -31,6 +31,17 @@ Copy this checklist and work through it in order:
        auth failures — **stop**. Do not implement from memory, cached screenshots,
        or Supernova alone. Tell the user which MCP failed and how to reconnect
        (Figma plugin auth / Supernova MCP). Only continue once both pass again.
+- [ ] -0.5. Props-to-tokens gate: open `docs/props-enlazadas-a-tokens.md` and read this
+       component's section. If it has one, its ⚠️/❌ rows are work already scoped — read
+       them before writing a spec. **If it has no section, create it**, following the 15
+       rules at the top of that file (the method is written out, endpoints included).
+       Two things that file settles, so don't re-derive them: **native vs hybrid is
+       design's call** — the natives are listed in the Figma frame `Nativos e híbridos`
+       (`1694:37`), everything else is hybrid (one anatomy, platform only through tokens);
+       and a native necessarily has `PLATAFORMA` rows, but **having them does not make a
+       component native** — measured, 23 of our 42 diverge and only 15 are native. Both families still carry the
+       brand and semantic themes — platform is a fourth axis on top.
+       When you confirm or correct a row, update the file in the same commit.
 - [ ] 0. Spec: Figma MCP directly on "BDS3 - Core components" (search_design_system, then
        get_design_context / get_metadata / get_screenshot) — the primary design reference.
        **Always locate and read the sibling `«Component» · Dev` / `«Component» · contrato de
@@ -104,6 +115,22 @@ discrepancy before writing code instead of silently picking one. Add any new non
 "Known gotchas" below once the component ships. If a screen would copy the new API, step 8 of the
 checklist updates `AGENTS.md`, `.claude/skills/use-blu-web/SKILL.md`, and `CLAUDE.md` ("Writing a
 screen") in the same change.
+
+## Ask for the token path
+
+**If you do not know where a token lives, ask until someone gives you the path.** Not a
+guess, and not a row left half-filled in the props-to-tokens table: insist on the exact
+token path or address from the dev who knows, and implement with that. A leaf read from
+the wrong place looks right until it is rendered — `radius/action` returned a real number
+for weeks while being the iOS one, and the web Button was a pill because of it.
+
+## Ask Jetto
+
+**Anything unclear about the design or about Figma goes to Jetto.** Do not close the gap by
+inventing a row in the props-to-tokens table, and do not quote a description you cannot
+find: the Button's icon mapping was justified for a month with *"porque la escala no tiene
+un paso de 20"*, a sentence that exists in no export — current or pre-sync — and in no
+Supernova page. It was wrong in two of the four sizes.
 
 ## Design reference — Figma MCP first, Supernova for properties
 

@@ -1,13 +1,14 @@
 import { readThemeToken, themeSources } from '@dsm/shared';
 import type { TButtonAppearance, TButtonSize, TButtonVariant, TThemeSourceKey } from '@dsm/shared';
+import { buttonTokens } from '@dsm/shared';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 import { fn } from 'storybook/test';
 
 import { ICON_NAMES } from './iconNames';
 import { PlatformButton } from './PlatformButton';
-import type { IPlatformButtonProps, TPlatform } from './PlatformButton';
-import { themeFromGlobals } from './themeGlobals';
+import type { IPlatformButtonProps } from './PlatformButton';
+import { implementationFor, themeFromGlobals } from './themeGlobals';
 
 const VARIANTS: TButtonVariant[] = ['primary', 'danger'];
 /** `on-inverse` is excluded: it only exists for `primary`, and needs an inverted surface. */
@@ -77,6 +78,10 @@ const meta = {
   title: 'Atoms/Button',
   component: PlatformButton,
   parameters: {
+    // Lets ThemedStory decide whether to say "this component does not diverge by
+    // platform". Derived from the record itself, so it cannot drift — see
+    // `divergesByPlatform` in `themeGlobals.ts`.
+    platformTokens: buttonTokens,
     // 'fullscreen', not 'centered' — lets ThemedStory's own centering (see
     // .storybook/preview.tsx) paint its background full-bleed.
     layout: 'fullscreen',
@@ -167,7 +172,7 @@ const meta = {
     onAction: fn(),
   },
   render: (args, { globals }) => (
-    <PlatformButton {...args} platform={globals.platform as TPlatform} />
+    <PlatformButton {...args} platform={implementationFor(globals)} />
   ),
 } satisfies Meta<IPlatformButtonProps>;
 
@@ -181,7 +186,7 @@ export const Playground: TStory = {};
 /** The weight ladder, for both variants, plus `on-inverse` on the surface it needs. */
 export const Appearances: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     const { key: themeKey } = themeFromGlobals(globals);
 
     return (
@@ -223,7 +228,7 @@ export const Sizes: TStory = {
           {...args}
           key={size}
           label={size}
-          platform={globals.platform as TPlatform}
+          platform={implementationFor(globals)}
           size={size}
         />
       ))}
@@ -245,7 +250,7 @@ export const Disabled: TStory = {
           appearance={appearance}
           key={appearance}
           label={appearance}
-          platform={globals.platform as TPlatform}
+          platform={implementationFor(globals)}
         />
       ))}
     </Row>
@@ -266,7 +271,7 @@ export const Disabled: TStory = {
  */
 export const Icons: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'flex-start' }}>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>

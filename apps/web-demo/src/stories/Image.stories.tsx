@@ -3,7 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement, ReactNode } from 'react';
 
 import { PlatformImage } from './PlatformImage';
-import type { IPlatformImageProps, TPlatform } from './PlatformImage';
+import type { IPlatformImageProps } from './PlatformImage';
+import { implementationFor } from './themeGlobals';
 
 const RATIOS: TImageRatio[] = ['1:1', '4:3', '3:2', '16:9'];
 const RADII: TImageRadius[] = ['md', 'sm', 'none'];
@@ -108,7 +109,7 @@ const meta = {
   },
   render: (args, { globals }) => (
     <Frame>
-      <PlatformImage {...args} platform={globals['platform'] as TPlatform} />
+      <PlatformImage {...args} platform={implementationFor(globals)} />
     </Frame>
   ),
 } satisfies Meta<IPlatformImageProps>;
@@ -121,7 +122,7 @@ export const Playground: TStory = {};
 
 export const Ratios: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Column>
         {RATIOS.map((ratio) => (
@@ -143,7 +144,7 @@ export const Ratios: TStory = {
 
 export const Radius: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Column>
         {RADII.map((radius) => (
@@ -165,7 +166,7 @@ export const Radius: TStory = {
 
 export const Statuses: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Grid>
         {STATUSES.map((status) => (
@@ -197,7 +198,7 @@ export const FailedToLoad: TStory = {
 
 export const Fit: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Column>
         {FITS.map((fit) => (

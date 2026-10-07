@@ -4,9 +4,9 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
 
-import { themeFromGlobals } from './themeGlobals';
+import { implementationFor, themeFromGlobals } from './themeGlobals';
 import { PlatformCheckboxGroup } from './PlatformCheckboxGroup';
-import type { IPlatformCheckboxGroupProps, TPlatform } from './PlatformCheckboxGroup';
+import type { IPlatformCheckboxGroupProps } from './PlatformCheckboxGroup';
 
 const SIZES: TCheckboxGroupSize[] = ['sm', 'md'];
 const CANALES = ['Email', 'Push', 'SMS'] as const;
@@ -98,7 +98,7 @@ const meta = {
           checked={checked}
           onToggle={(option) => setChecked((current) => toggleIn(current, option))}
           options={CANALES}
-          platform={globals.platform as TPlatform}
+          platform={implementationFor(globals)}
         />
       </Surface>
     );
@@ -131,7 +131,7 @@ export const Sizes: TStory = {
               legend={`Título del grupo · ${size}`}
               onToggle={(option) => setChecked((current) => toggleIn(current, option))}
               options={CANALES}
-              platform={globals.platform as TPlatform}
+              platform={implementationFor(globals)}
               size={size}
             />
           ))}

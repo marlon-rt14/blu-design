@@ -6,8 +6,8 @@ import type { ReactNode } from 'react';
 import { ICON_NAMES, iconSection, toFigmaName } from './iconNames';
 import { ICON_SECTIONS } from './iconRegistry';
 import { PlatformIcon } from './PlatformIcon';
-import type { IPlatformIconProps, TPlatform } from './PlatformIcon';
-import { themeFromGlobals } from './themeGlobals';
+import type { IPlatformIconProps } from './PlatformIcon';
+import { implementationFor, themeFromGlobals } from './themeGlobals';
 
 const SIZES: [TIconSize, number][] = [
   ['2xs', 8],
@@ -145,7 +145,7 @@ const meta = {
     name: 'IconTrash01',
   },
   render: (args, { globals }) => (
-    <PlatformIcon {...args} platform={globals.platform as TPlatform} />
+    <PlatformIcon {...args} platform={implementationFor(globals)} />
   ),
 } satisfies Meta<IPlatformIconProps>;
 
@@ -185,7 +185,7 @@ export const Gallery: TStory = {
                 <PlatformIcon
                   {...args}
                   name={name}
-                  platform={globals.platform as TPlatform}
+                  platform={implementationFor(globals)}
                   size="lg"
                 />
                 {/* The bDS name on hover: it is derivable from the export name, so it
@@ -216,7 +216,7 @@ export const Sizes: TStory = {
         <Cell key={size}>
           <PlatformIcon
             {...args}
-            platform={globals.platform as TPlatform}
+            platform={implementationFor(globals)}
             size={size}
           />
           <Caption>
@@ -245,7 +245,7 @@ export const Colors: TStory = {
             {...args}
             color={role}
             name="IconAlertTriangle"
-            platform={globals.platform as TPlatform}
+            platform={implementationFor(globals)}
             size="lg"
           />
           <Caption>
@@ -284,7 +284,7 @@ export const OnSurfaces: TStory = {
                 {...args}
                 color={role}
                 name="IconInfoCircle"
-                platform={globals.platform as TPlatform}
+                platform={implementationFor(globals)}
                 size="lg"
               />
             </div>
@@ -311,7 +311,7 @@ export const OnSurfaces: TStory = {
  */
 export const Inheritance: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {['#174183', '#b22c42', '#008557'].map((color) => (
@@ -341,7 +341,7 @@ export const Inheritance: TStory = {
  */
 export const Accessibility: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'flex-start' }}>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 14 }}>

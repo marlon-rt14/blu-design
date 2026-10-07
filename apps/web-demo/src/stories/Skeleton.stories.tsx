@@ -3,7 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties, ReactNode } from 'react';
 
 import { PlatformSkeleton } from './PlatformSkeleton';
-import type { IPlatformSkeletonProps, TPlatform } from './PlatformSkeleton';
+import type { IPlatformSkeletonProps } from './PlatformSkeleton';
+import { implementationFor } from './themeGlobals';
 
 const SHAPES: TSkeletonShape[] = ['text', 'block', 'circle'];
 const SIZES: TSkeletonSize[] = ['sm', 'md', 'lg'];
@@ -80,7 +81,7 @@ const meta = {
     label: 'Cargando',
   },
   render: (args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     const props =
       args.shape === 'block'
         ? { ...args, width: args.width ?? BLOCK_WIDTH, height: args.height ?? BLOCK_HEIGHT }
@@ -102,7 +103,7 @@ export const Playground: TStory = {};
 /** All nine Figma variants: shape × size. */
 export const Matrix: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     const stack: CSSProperties = { display: 'flex', flexDirection: 'column', gap: 32, padding: 24 };
 
     return (
@@ -135,7 +136,7 @@ export const TextLines: TStory = {
 
 export const ListRow: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div
         style={{

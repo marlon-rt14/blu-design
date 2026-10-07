@@ -5,7 +5,8 @@ import { useState } from 'react';
 import { useArgs } from 'storybook/preview-api';
 
 import { PlatformCheckbox } from './PlatformCheckbox';
-import type { IPlatformCheckboxProps, TPlatform } from './PlatformCheckbox';
+import type { IPlatformCheckboxProps } from './PlatformCheckbox';
+import { implementationFor } from './themeGlobals';
 
 const SIZES: TCheckboxSize[] = ['sm', 'md'];
 
@@ -107,7 +108,7 @@ const meta = {
     return (
       <PlatformCheckbox
         {...args}
-        platform={globals['platform'] as TPlatform}
+        platform={implementationFor(globals)}
         onValueChange={(isChecked) => {
           updateArgs({ isChecked, isIndeterminate: false });
         }}
@@ -124,7 +125,7 @@ export const Playground: TStory = {};
 
 export const Sizes: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Row>
         {SIZES.map((size) => (
@@ -159,7 +160,7 @@ export const Indeterminate: TStory = {
 
 export const Disabled: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Row>
         <PlatformCheckbox isDisabled label="Unchecked" platform={platform} />
@@ -176,7 +177,7 @@ export const WithoutLabel: TStory = {
 
 export const States: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Column>
         {SIZES.map((size) => (

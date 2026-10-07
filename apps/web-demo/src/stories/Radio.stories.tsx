@@ -4,7 +4,8 @@ import type { ReactNode } from 'react';
 import { fn } from 'storybook/test';
 
 import { PlatformRadio } from './PlatformRadio';
-import type { IPlatformRadioProps, TPlatform } from './PlatformRadio';
+import type { IPlatformRadioProps } from './PlatformRadio';
+import { implementationFor } from './themeGlobals';
 
 const SIZES: TRadioSize[] = ['sm', 'md'];
 
@@ -70,7 +71,7 @@ const meta = {
   },
   args: { label: 'Etiqueta de la opción', onAction: fn() },
   render: (args, { globals }) => (
-    <PlatformRadio {...args} platform={globals.platform as TPlatform} />
+    <PlatformRadio {...args} platform={implementationFor(globals)} />
   ),
 } satisfies Meta<IPlatformRadioProps>;
 
@@ -91,8 +92,8 @@ export const Sizes: TStory = {
       {SIZES.map((size) => (
         <Group key={size} title={`${size} · box ${size === 'sm' ? 16 : 24} · dot ${size === 'sm' ? 8 : 12}`}>
           <div style={{ display: 'flex', gap: 24 }}>
-            <PlatformRadio {...args} platform={globals.platform as TPlatform} size={size} />
-            <PlatformRadio {...args} isChecked platform={globals.platform as TPlatform} size={size} />
+            <PlatformRadio {...args} platform={implementationFor(globals)} size={size} />
+            <PlatformRadio {...args} isChecked platform={implementationFor(globals)} size={size} />
           </div>
         </Group>
       ))}
@@ -108,7 +109,7 @@ export const Sizes: TStory = {
  */
 export const States: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start' }}>
         <Group title="unselected">

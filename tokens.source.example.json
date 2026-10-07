@@ -1,0 +1,1318 @@
+{
+  "_comment": [
+    "PROPUESTA de formato. DTCG / Style Dictionary v4.",
+    "No describe lo que recibimos hoy: describe a qué nos gustaría que se ajustaran Figma",
+    "y Supernova. Solo el Button, pero la forma es la de los 55 componentes.",
+    "",
+    "── DOS ARCHIVOS, DOS NECESIDADES ─────────────────────────────────────────────",
+    "Este es la FUENTE: lo que se mantiene. Un color se escribe una vez.",
+    "tokens.resolved.example.json es la VISTA: cada combinación escrita, para leer sin",
+    "cruzar nada en la cabeza. Sale de aquí con `node scripts/tokens-example/resolve.mjs`,",
+    "generada, para que no haya dos verdades.",
+    "",
+    "── LOS CUATRO EJES, QUE NO SON IGUALES ───────────────────────────────────────",
+    "  brand     blu · titanium · discover · clubmiles · grandtable",
+    "            mueve color de marca. Nada de geometría.",
+    "  semantic  light · dark · mc-light · mc-dark · hc-light · hc-dark",
+    "            mueve color. El eje más ancho. mc = contraste medio, hc = alto.",
+    "  layout    compact · regular · expanded",
+    "            mueve geometría por tamaño de pantalla. Cero color.",
+    "  platform  web · ios · android",
+    "            mueve radios, familia y alturas de toque. Cero color.",
+    "",
+    "Los cuatro componen en cualquier orden: sus conjuntos de claves son disjuntos. La",
+    "única excepción es marca × tema sobre el color, y eso lo resuelve `color.role.brand`.",
+    "",
+    "── CÓMO SE LEE ───────────────────────────────────────────────────────────────",
+    "1. `$value` entre llaves es un alias. Se sigue hasta un literal.",
+    "2. `bds.axis` dice qué ejes mueven ese token. Si está vacío, no se mueve.",
+    "   Esto es lo único que no se puede deducir de la ruta — y hace falta: `radius/action`",
+    "   vive en la colección `4. Layout` de Figma y lo mueve la PLATAFORMA.",
+    "3. `bds.modes` solo aparece donde el token se bifurca de verdad. En toda la cadena del",
+    "   fondo del Button hay un único sitio así.",
+    "",
+    "── LA CUENTA QUE JUSTIFICA LA FORMA ──────────────────────────────────────────",
+    "El Button tiene 62 claves de color. Medidas del export de hoy:",
+    "  13 las mueve la marca Y el tema   → puentes en color.role.brand.*",
+    "  49 las mueve solo el tema         → 23 roles, porque se repiten mucho",
+    "   0 son fijas",
+    "O sea: 62 alias de componente apoyados en 34 valores de verdad. Donde el fondo",
+    "necesitaría 90 hexes (5 marcas × 6 temas × 3 estados) aquí hay 18 nombres de peldaño.",
+    "",
+    "── QUÉ SE OMITIÓ, Y A PROPÓSITO ──────────────────────────────────────────────",
+    "Este archivo elige ser legible antes que exhaustivo. Está la forma completa; están",
+    "abreviados los repetidos, y cada omisión lo dice en su sitio con un `$comment`.",
+    "El archivo real no tendría esas abreviaturas."
+  ],
+  "color": {
+    "$type": "color",
+    "brand": {
+      "$comment": [
+        "El único sitio del archivo con hexes de marca. Un componente nunca escribe un color.",
+        "Los peldaños `-hc` no son 'solo alto contraste': el tema decide cuál toma, y tanto",
+        "`mc-*` como `hc-*` caen en el `-hc`. Se lee de la tabla, no se deduce del nombre.",
+        "Aquí van blu y discover. Las otras tres tienen la misma forma, seis peldaños por tono."
+      ],
+      "blu": {
+        "light": {
+          "fill": { "$value": "#364481" },
+          "fill-hover": { "$value": "#293361" },
+          "fill-pressed": { "$value": "#1c2342" },
+          "fill-hc": { "$value": "#293361" },
+          "fill-hover-hc": { "$value": "#1c2342" },
+          "fill-pressed-hc": { "$value": "#101425" },
+          "50": { "$value": "#eff3fd" },
+          "100": { "$value": "#dfe7fa" },
+          "200": { "$value": "#c2d2f5" },
+          "300": { "$value": "#9cb8eb" },
+          "600": { "$value": "#2760aa" },
+          "700": { "$value": "#174183" },
+          "800": { "$value": "#0f2f6f" },
+          "900": { "$value": "#001e60" },
+          "950": { "$value": "#011242" }
+        },
+        "dark": {
+          "fill": { "$value": "#9abaf2" },
+          "fill-hover": { "$value": "#bdd1fa" },
+          "fill-pressed": { "$value": "#d3ddf3" },
+          "fill-hc": { "$value": "#bdd1fa" },
+          "fill-hover-hc": { "$value": "#d3ddf3" },
+          "fill-pressed-hc": { "$value": "#e3e7f2" },
+          "25": { "$value": "#eef0f6" },
+          "50": { "$value": "#e3e7f2" },
+          "100": { "$value": "#d3ddf3" },
+          "200": { "$value": "#bdd1fa" },
+          "300": { "$value": "#9abaf2" },
+          "900": { "$value": "#001e60" },
+          "950": { "$value": "#131534" }
+        }
+      },
+      "discover": {
+        "light": {
+          "fill": { "$value": "#ad3400" },
+          "fill-hover": { "$value": "#7d2300" },
+          "fill-pressed": { "$value": "#4b1000" },
+          "fill-hc": { "$value": "#7d2300" },
+          "fill-hover-hc": { "$value": "#4b1000" },
+          "fill-pressed-hc": { "$value": "#200000" },
+          "50": { "$value": "#fff4f1" },
+          "100": { "$value": "#ffe7df" },
+          "200": { "$value": "#ffd3c5" },
+          "300": { "$value": "#ffbba6" },
+          "600": { "$value": "#fb5205" },
+          "700": { "$value": "#d74400" },
+          "800": { "$value": "#ad3400" },
+          "900": { "$value": "#7d2300" },
+          "950": { "$value": "#4b1000" }
+        },
+        "dark": {
+          "fill": { "$value": "#f6cabd" },
+          "fill-hover": { "$value": "#f5ddd6" },
+          "fill-pressed": { "$value": "#f5eae6" },
+          "fill-hc": { "$value": "#f5ddd6" },
+          "fill-hover-hc": { "$value": "#f5eae6" },
+          "fill-pressed-hc": { "$value": "#f4efed" },
+          "25": { "$value": "#f4efed" },
+          "50": { "$value": "#f5eae6" },
+          "100": { "$value": "#f5ddd6" },
+          "200": { "$value": "#f6cabd" },
+          "300": { "$value": "#f7b39e" },
+          "900": { "$value": "#7d2400" },
+          "950": { "$value": "#4d1300" }
+        }
+      }
+    },
+    "static": {
+      "$comment": "Alfas y blanco puro. No los mueve ningún eje: el lado oscuro de los soft sale de aquí, no de la marca.",
+      "alpha": {
+        "white": {
+          "12": { "$value": "#ffffff1f" },
+          "16": { "$value": "#ffffff29" },
+          "24": { "$value": "#ffffff3d" },
+          "32": { "$value": "#ffffff52" }
+        }
+      },
+      "base": {
+        "white": { "$value": "#ffffff" }
+      }
+    },
+    "role": {
+      "$comment": [
+        "LOS PUENTES. El único eslabón de toda la cadena que se bifurca: aquí el tema elige",
+        "el peldaño y la marca rellena el hueco `<brand>` de la plantilla. Todo lo que está",
+        "encima es alias fijo, y por eso la tabla de modos vive aquí y no repetida en cada",
+        "token de componente.",
+        "",
+        "Están los tres del relleno. Los otros ocho — soft, quiet, sus textos e iconos — son",
+        "la misma forma apuntando a peldaños numéricos de la rampa (`light.700`) o a alfas",
+        "(`{color.static.alpha.white.12}`). Un valor de modo entre llaves es una referencia",
+        "completa y no un peldaño: el lado oscuro de los soft no sale de la marca."
+      ],
+      "brand": {
+        "fill": {
+          "$value": "{color.brand.blu.light.fill}",
+          "$description": "Relleno en reposo.",
+          "$extensions": {
+            "bds.axis": ["brand", "semantic"],
+            "bds.modes": {
+              "$template": "{color.brand.<brand>.<step>}",
+              "semantic": {
+                "light": "light.fill",
+                "dark": "dark.fill",
+                "mc-light": "light.fill-hc",
+                "mc-dark": "dark.fill",
+                "hc-light": "light.fill-hc",
+                "hc-dark": "dark.fill-hc"
+              }
+            }
+          }
+        },
+        "fill-hover": {
+          "$value": "{color.brand.blu.light.fill-hover}",
+          "$description": "Relleno al pasar por encima.",
+          "$extensions": {
+            "bds.axis": ["brand", "semantic"],
+            "bds.modes": {
+              "$template": "{color.brand.<brand>.<step>}",
+              "semantic": {
+                "light": "light.fill-hover",
+                "dark": "dark.fill-hover",
+                "mc-light": "light.fill-hover-hc",
+                "mc-dark": "dark.fill-hover",
+                "hc-light": "light.fill-hover-hc",
+                "hc-dark": "dark.fill-hover-hc"
+              }
+            }
+          }
+        },
+        "fill-pressed": {
+          "$value": "{color.brand.blu.light.fill-pressed}",
+          "$description": "Relleno al pulsar.",
+          "$extensions": {
+            "bds.axis": ["brand", "semantic"],
+            "bds.modes": {
+              "$template": "{color.brand.<brand>.<step>}",
+              "semantic": {
+                "light": "light.fill-pressed",
+                "dark": "dark.fill-pressed",
+                "mc-light": "light.fill-pressed-hc",
+                "mc-dark": "dark.fill-pressed",
+                "hc-light": "light.fill-pressed-hc",
+                "hc-dark": "dark.fill-pressed-hc"
+              }
+            }
+          }
+        },
+        "soft-surface": {
+          "$value": "{color.brand.blu.light.100}",
+          "$description": "Superficie suave. Peldaño numérico en claro, alfa blanco en oscuro.",
+          "$extensions": {
+            "bds.axis": ["brand", "semantic"],
+            "bds.modes": {
+              "$template": "{color.brand.<brand>.<step>}",
+              "semantic": {
+                "light": "light.100",
+                "dark": "{color.static.alpha.white.12}",
+                "mc-light": "light.100",
+                "mc-dark": "{color.static.alpha.white.12}",
+                "hc-light": "light.50",
+                "hc-dark": "{color.static.alpha.white.16}"
+              }
+            }
+          }
+        },
+        "soft-surface-hover": {
+          "$value": "{color.brand.blu.light.200}",
+          "$extensions": {
+            "bds.axis": ["brand", "semantic"],
+            "bds.modes": {
+              "$template": "{color.brand.<brand>.<step>}",
+              "semantic": {
+                "light": "light.200",
+                "dark": "{color.static.alpha.white.16}",
+                "mc-light": "light.200",
+                "mc-dark": "{color.static.alpha.white.16}",
+                "hc-light": "light.100",
+                "hc-dark": "{color.static.alpha.white.24}"
+              }
+            }
+          }
+        },
+        "soft-surface-pressed": {
+          "$value": "{color.brand.blu.light.300}",
+          "$extensions": {
+            "bds.axis": ["brand", "semantic"],
+            "bds.modes": {
+              "$template": "{color.brand.<brand>.<step>}",
+              "semantic": {
+                "light": "light.300",
+                "dark": "{color.static.alpha.white.24}",
+                "mc-light": "light.300",
+                "mc-dark": "{color.static.alpha.white.24}",
+                "hc-light": "light.200",
+                "hc-dark": "{color.static.alpha.white.32}"
+              }
+            }
+          }
+        },
+        "on-soft": {
+          "$value": "{color.brand.blu.light.800}",
+          "$description": "Texto e icono sobre superficie suave.",
+          "$extensions": {
+            "bds.axis": ["brand", "semantic"],
+            "bds.modes": {
+              "$template": "{color.brand.<brand>.<step>}",
+              "semantic": {
+                "light": "light.800",
+                "dark": "dark.25",
+                "mc-light": "light.900",
+                "mc-dark": "dark.100",
+                "hc-light": "light.950",
+                "hc-dark": "{color.static.base.white}"
+              },
+              "brandOverrides": {
+                "discover": {
+                  "light": "light.900",
+                  "dark": "dark.25",
+                  "mc-light": "light.950",
+                  "mc-dark": "dark.100",
+                  "hc-light": "light.950",
+                  "hc-dark": "{color.static.base.white}"
+                },
+                "clubmiles": {
+                  "light": "light.900",
+                  "dark": "dark.25",
+                  "mc-light": "light.950",
+                  "mc-dark": "dark.100",
+                  "hc-light": "light.950",
+                  "hc-dark": "{color.static.base.white}"
+                }
+              }
+            },
+            "bds.notes": "discover y clubmiles corrieron sus peldaños claros uno más oscuro el 01-oct, por contraste."
+          }
+        },
+        "on-quiet": {
+          "$value": "{color.brand.blu.light.700}",
+          "$description": "Texto e icono sin superficie.",
+          "$extensions": {
+            "bds.axis": ["brand", "semantic"],
+            "bds.modes": {
+              "$template": "{color.brand.<brand>.<step>}",
+              "semantic": {
+                "light": "light.700",
+                "dark": "dark.200",
+                "mc-light": "light.800",
+                "mc-dark": "dark.200",
+                "hc-light": "light.800",
+                "hc-dark": "dark.100"
+              },
+              "brandOverrides": {
+                "discover": {
+                  "light": "light.800",
+                  "dark": "dark.200",
+                  "mc-light": "light.900",
+                  "mc-dark": "dark.200",
+                  "hc-light": "light.900",
+                  "hc-dark": "dark.100"
+                },
+                "clubmiles": {
+                  "light": "light.800",
+                  "dark": "dark.200",
+                  "mc-light": "light.900",
+                  "mc-dark": "dark.200",
+                  "hc-light": "light.900",
+                  "hc-dark": "dark.100"
+                }
+              }
+            },
+            "bds.notes": "discover y clubmiles corrieron sus peldaños claros uno más oscuro el 01-oct, por contraste."
+          }
+        },
+        "outline": {
+          "$value": "{color.brand.blu.light.600}",
+          "$description": "Borde del outline.",
+          "$extensions": {
+            "bds.axis": ["brand", "semantic"],
+            "bds.modes": {
+              "$template": "{color.brand.<brand>.<step>}",
+              "semantic": {
+                "light": "light.600",
+                "dark": "dark.300",
+                "mc-light": "light.700",
+                "mc-dark": "dark.300",
+                "hc-light": "light.700",
+                "hc-dark": "dark.100"
+              },
+              "brandOverrides": {
+                "discover": {
+                  "light": "light.700",
+                  "dark": "dark.300",
+                  "mc-light": "light.800",
+                  "mc-dark": "dark.300",
+                  "hc-light": "light.800",
+                  "hc-dark": "dark.100"
+                },
+                "clubmiles": {
+                  "light": "light.700",
+                  "dark": "dark.300",
+                  "mc-light": "light.800",
+                  "mc-dark": "dark.300",
+                  "hc-light": "light.800",
+                  "hc-dark": "dark.100"
+                }
+              }
+            },
+            "bds.notes": "discover y clubmiles corrieron sus peldaños claros uno más oscuro el 01-oct, por contraste."
+          }
+        },
+        "outline-pressed": {
+          "$value": "{color.brand.blu.light.700}",
+          "$extensions": {
+            "bds.axis": ["brand", "semantic"],
+            "bds.modes": {
+              "$template": "{color.brand.<brand>.<step>}",
+              "semantic": {
+                "light": "light.700",
+                "dark": "dark.200",
+                "mc-light": "light.800",
+                "mc-dark": "dark.200",
+                "hc-light": "light.800",
+                "hc-dark": "dark.50"
+              },
+              "brandOverrides": {
+                "discover": {
+                  "light": "light.800",
+                  "dark": "dark.200",
+                  "mc-light": "light.900",
+                  "mc-dark": "dark.200",
+                  "hc-light": "light.900",
+                  "hc-dark": "dark.50"
+                },
+                "clubmiles": {
+                  "light": "light.800",
+                  "dark": "dark.200",
+                  "mc-light": "light.900",
+                  "mc-dark": "dark.200",
+                  "hc-light": "light.900",
+                  "hc-dark": "dark.50"
+                }
+              }
+            },
+            "bds.notes": "discover y clubmiles corrieron sus peldaños claros uno más oscuro el 01-oct, por contraste."
+          }
+        },
+        "quiet-surface-pressed": {
+          "$value": "{color.brand.blu.light.100}",
+          "$description": "El lavado del quiet al pulsar.",
+          "$extensions": {
+            "bds.axis": ["brand", "semantic"],
+            "bds.modes": {
+              "$template": "{color.brand.<brand>.<step>}",
+              "semantic": {
+                "light": "light.100",
+                "dark": "dark.900",
+                "mc-light": "light.200",
+                "mc-dark": "dark.900",
+                "hc-light": "light.200",
+                "hc-dark": "dark.950"
+              }
+            }
+          }
+        }
+      }
+    },
+    "on-fill": {
+      "$value": "#ffffff",
+      "$extensions": {
+        "bds.axis": ["semantic"],
+        "bds.modes": {
+          "semantic": {
+            "light": "#ffffff",
+            "dark": "#040c28",
+            "mc-light": "#ffffff",
+            "mc-dark": "#040c28",
+            "hc-light": "#ffffff",
+            "hc-dark": "#040c28"
+          }
+        }
+      }
+    },
+    "disabled": {
+      "$comment": "Un control apagado es gris en las cinco marcas. Tres roles para 22 de las 62 claves.",
+      "surface": {
+        "$value": "#e5e8f1",
+        "$extensions": {
+          "bds.axis": ["semantic"],
+          "bds.modes": {
+            "semantic": {
+              "light": "#e5e8f1",
+              "dark": "#232c41",
+              "mc-light": "#e5e8f1",
+              "mc-dark": "#232c41",
+              "hc-light": "#e5e8f1",
+              "hc-dark": "#040c28"
+            }
+          }
+        }
+      },
+      "on-surface": {
+        "$value": "#5f6677",
+        "$extensions": {
+          "bds.axis": ["semantic"],
+          "bds.modes": {
+            "semantic": {
+              "light": "#5f6677",
+              "dark": "#9aa2b7",
+              "mc-light": "#434959",
+              "mc-dark": "#9aa2b7",
+              "hc-light": "#323949",
+              "hc-dark": "#9aa2b7"
+            }
+          }
+        }
+      },
+      "outline": {
+        "$value": "#98a0b5",
+        "$extensions": {
+          "bds.axis": ["semantic"],
+          "bds.modes": {
+            "semantic": {
+              "light": "#98a0b5",
+              "dark": "#7d8497",
+              "mc-light": "#7c8396",
+              "mc-dark": "#7d8497",
+              "hc-light": "#5f6677",
+              "hc-dark": "#9aa2b7"
+            }
+          }
+        }
+      }
+    },
+    "danger": {
+      "on-quiet": {
+        "$value": "#b22c42",
+        "$extensions": {
+          "bds.axis": ["semantic"],
+          "bds.modes": {
+            "semantic": {
+              "light": "#b22c42",
+              "dark": "#ff9c9f",
+              "mc-light": "#88122c",
+              "mc-dark": "#ff9c9f",
+              "hc-light": "#88122c",
+              "hc-dark": "#ffc0c0"
+            }
+          }
+        }
+      },
+      "on-soft": {
+        "$value": "#6c0b22",
+        "$extensions": {
+          "bds.axis": ["semantic"],
+          "bds.modes": {
+            "semantic": {
+              "light": "#6c0b22",
+              "dark": "#f7eded",
+              "mc-light": "#520c1a",
+              "mc-dark": "#fed2d1",
+              "hc-light": "#370a12",
+              "hc-dark": "#ffffff"
+            }
+          }
+        }
+      },
+      "fill": {
+        "$value": "#88122c",
+        "$extensions": {
+          "bds.axis": ["semantic"],
+          "bds.modes": {
+            "semantic": {
+              "light": "#88122c",
+              "dark": "#ff9c9f",
+              "mc-light": "#6c0b22",
+              "mc-dark": "#ff9c9f",
+              "hc-light": "#6c0b22",
+              "hc-dark": "#ffc0c0"
+            }
+          }
+        }
+      },
+      "fill-pressed": {
+        "$value": "#520c1a",
+        "$extensions": {
+          "bds.axis": ["semantic"],
+          "bds.modes": {
+            "semantic": {
+              "light": "#520c1a",
+              "dark": "#fed2d1",
+              "mc-light": "#370a12",
+              "mc-dark": "#fed2d1",
+              "hc-light": "#370a12",
+              "hc-dark": "#f7e2e2"
+            }
+          }
+        }
+      },
+      "fill-hover": {
+        "$value": "#6c0b22",
+        "$extensions": {
+          "bds.axis": ["semantic"],
+          "bds.modes": {
+            "semantic": {
+              "light": "#6c0b22",
+              "dark": "#ffc0c0",
+              "mc-light": "#520c1a",
+              "mc-dark": "#ffc0c0",
+              "hc-light": "#520c1a",
+              "hc-dark": "#fed2d1"
+            }
+          }
+        }
+      },
+      "outline": {
+        "$value": "#d74b5c",
+        "$extensions": {
+          "bds.axis": ["semantic"],
+          "bds.modes": {
+            "semantic": {
+              "light": "#d74b5c",
+              "dark": "#f4747d",
+              "mc-light": "#b22c42",
+              "mc-dark": "#f4747d",
+              "hc-light": "#88122c",
+              "hc-dark": "#ffc0c0"
+            }
+          }
+        }
+      },
+      "outline-pressed": {
+        "$value": "#b22c42",
+        "$extensions": {
+          "bds.axis": ["semantic"],
+          "bds.modes": {
+            "semantic": {
+              "light": "#b22c42",
+              "dark": "#ff9c9f",
+              "mc-light": "#88122c",
+              "mc-dark": "#ff9c9f",
+              "hc-light": "#6c0b22",
+              "hc-dark": "#fed2d1"
+            }
+          }
+        }
+      },
+      "quiet-surface-pressed": {
+        "$value": "#ffe0df",
+        "$extensions": {
+          "bds.axis": ["semantic"],
+          "bds.modes": {
+            "semantic": {
+              "light": "#ffe0df",
+              "dark": "#862434",
+              "mc-light": "#ffc3c3",
+              "mc-dark": "#862434",
+              "hc-light": "#ffc3c3",
+              "hc-dark": "#311417"
+            }
+          }
+        }
+      },
+      "soft-surface": {
+        "$value": "#ffe0df",
+        "$extensions": {
+          "bds.axis": ["semantic"],
+          "bds.modes": {
+            "semantic": {
+              "light": "#ffe0df",
+              "dark": "#ffffff1f",
+              "mc-light": "#ffc3c3",
+              "mc-dark": "#ffffff1f",
+              "hc-light": "#ffc3c3",
+              "hc-dark": "#ffffff29"
+            }
+          }
+        }
+      },
+      "soft-surface-pressed": {
+        "$value": "#fc9c9f",
+        "$extensions": {
+          "bds.axis": ["semantic"],
+          "bds.modes": {
+            "semantic": {
+              "light": "#fc9c9f",
+              "dark": "#ffffff3d",
+              "mc-light": "#ef757e",
+              "mc-dark": "#ffffff3d",
+              "hc-light": "#ef757e",
+              "hc-dark": "#ffffff52"
+            }
+          }
+        }
+      },
+      "soft-surface-hover": {
+        "$value": "#ffc3c3",
+        "$extensions": {
+          "bds.axis": ["semantic"],
+          "bds.modes": {
+            "semantic": {
+              "light": "#ffc3c3",
+              "dark": "#ffffff29",
+              "mc-light": "#fc9c9f",
+              "mc-dark": "#ffffff29",
+              "hc-light": "#fc9c9f",
+              "hc-dark": "#ffffff3d"
+            }
+          }
+        }
+      },
+      "$comment": "El rojo no sale de la marca: es el mismo en las cinco. Por eso danger no tiene puentes."
+    },
+    "on-inverse": {
+      "$value": "#fafbfe",
+      "$extensions": {
+        "bds.axis": ["semantic"],
+        "bds.modes": {
+          "semantic": {
+            "light": "#fafbfe",
+            "dark": "#040c28",
+            "mc-light": "#fafbfe",
+            "mc-dark": "#040c28",
+            "hc-light": "#fafbfe",
+            "hc-dark": "#040c28"
+          }
+        }
+      }
+    },
+    "on-inverse-disabled": {
+      "$value": "#98a0b5",
+      "$extensions": {
+        "bds.axis": ["semantic"],
+        "bds.modes": {
+          "semantic": {
+            "light": "#98a0b5",
+            "dark": "#616778",
+            "mc-light": "#b3bacf",
+            "mc-dark": "#616778",
+            "hc-light": "#ced4e3",
+            "hc-dark": "#333b4d"
+          }
+        }
+      }
+    },
+    "overlay": {
+      "quiet-hover": {
+        "$value": "#001e600a",
+        "$extensions": {
+          "bds.axis": ["semantic"],
+          "bds.modes": {
+            "semantic": {
+              "light": "#001e600a",
+              "dark": "#ffffff0f",
+              "mc-light": "#001e6014",
+              "mc-dark": "#ffffff14",
+              "hc-light": "#001e6014",
+              "hc-dark": "#ffffff1f"
+            }
+          }
+        }
+      },
+      "danger-hover": {
+        "$value": "#b22c4214",
+        "$extensions": {
+          "bds.axis": ["semantic"],
+          "bds.modes": {
+            "semantic": {
+              "light": "#b22c4214",
+              "dark": "#d94d5e29",
+              "mc-light": "#b22c421f",
+              "mc-dark": "#d94d5e29",
+              "hc-light": "#b22c421f",
+              "hc-dark": "#d94d5e3d"
+            }
+          }
+        }
+      },
+      "on-inverse-hover": {
+        "$value": "#ffffff1f",
+        "$extensions": {
+          "bds.axis": ["semantic"],
+          "bds.modes": {
+            "semantic": {
+              "light": "#ffffff1f",
+              "dark": "#001e601f",
+              "mc-light": "#ffffff29",
+              "mc-dark": "#001e601f",
+              "hc-light": "#ffffff29",
+              "hc-dark": "#001e6029"
+            }
+          }
+        }
+      },
+      "on-inverse-pressed": {
+        "$value": "#ffffff3d",
+        "$extensions": {
+          "bds.axis": ["semantic"],
+          "bds.modes": {
+            "semantic": {
+              "light": "#ffffff3d",
+              "dark": "#001e603d",
+              "mc-light": "#ffffff3d",
+              "mc-dark": "#001e603d",
+              "hc-light": "#ffffff3d",
+              "hc-dark": "#001e6052"
+            }
+          }
+        }
+      },
+      "$comment": "Lavados translúcidos. Lo que usan outline, ghost y on-inverse en lugar de un relleno."
+    },
+    "focus": {
+      "ring": {
+        "$value": "#2760aa",
+        "$extensions": {
+          "bds.axis": ["semantic"],
+          "bds.modes": {
+            "semantic": {
+              "light": "#2760aa",
+              "dark": "#9abaf2",
+              "mc-light": "#174183",
+              "mc-dark": "#9abaf2",
+              "hc-light": "#174183",
+              "hc-dark": "#d3ddf3"
+            }
+          }
+        }
+      },
+      "ring-on-inverse": {
+        "$value": "#ffffff",
+        "$extensions": {
+          "bds.axis": ["semantic"],
+          "bds.modes": {
+            "semantic": {
+              "light": "#ffffff",
+              "dark": "#232b3d",
+              "mc-light": "#ffffff",
+              "mc-dark": "#232b3d",
+              "hc-light": "#ffffff",
+              "hc-dark": "#232b3d"
+            }
+          }
+        }
+      }
+    }
+  },
+  "size": {
+    "$type": "dimension",
+    "control": {
+      "height": {
+        "$comment": "xs y lg no crecen con la densidad, a propósito. Solo los dos del medio.",
+        "xs": {
+          "$value": "24px",
+          "$extensions": {
+            "bds.axis": []
+          }
+        },
+        "sm": {
+          "$value": "32px",
+          "$extensions": {
+            "bds.axis": ["layout"],
+            "bds.modes": {
+              "layout": {
+                "compact": "32px",
+                "regular": "32px",
+                "expanded": "36px"
+              }
+            }
+          }
+        },
+        "md": {
+          "$value": "44px",
+          "$extensions": {
+            "bds.axis": ["layout"],
+            "bds.modes": {
+              "layout": {
+                "compact": "44px",
+                "regular": "44px",
+                "expanded": "48px"
+              }
+            }
+          }
+        },
+        "lg": {
+          "$value": "56px",
+          "$extensions": {
+            "bds.axis": []
+          }
+        }
+      },
+      "min-width": {
+        "$value": "64px",
+        "$description": "Para que un botón que dice 'Ok' no colapse a un cuadrado.",
+        "$extensions": {
+          "bds.axis": []
+        }
+      }
+    },
+    "icon": {
+      "sm": {
+        "$value": "16px",
+        "$description": [
+          "16 en los cuatro tamaños de Button: acompaña al texto y se queda en la línea.",
+          "El IconButton sí crece (16/16/24/32), porque ahí el glifo ES el contenido."
+        ],
+        "$extensions": {
+          "bds.axis": []
+        }
+      }
+    }
+  },
+  "space": {
+    "$type": "dimension",
+    "inline": {
+      "sm": {
+        "$value": "8px",
+        "$extensions": {
+          "bds.axis": []
+        }
+      }
+    },
+    "inset": {
+      "$comment": "Aire lateral. El Button mapea xs→sm, sm→md, md→lg, lg→xl.",
+      "sm": {
+        "$value": "8px",
+        "$extensions": {
+          "bds.axis": ["layout"],
+          "bds.modes": {
+            "layout": {
+              "compact": "8px",
+              "regular": "8px",
+              "expanded": "12px"
+            }
+          }
+        }
+      },
+      "md": {
+        "$value": "12px",
+        "$extensions": {
+          "bds.axis": ["layout"],
+          "bds.modes": {
+            "layout": {
+              "compact": "12px",
+              "regular": "16px",
+              "expanded": "16px"
+            }
+          }
+        }
+      },
+      "lg": {
+        "$value": "16px",
+        "$extensions": {
+          "bds.axis": ["layout"],
+          "bds.modes": {
+            "layout": {
+              "compact": "16px",
+              "regular": "24px",
+              "expanded": "24px"
+            }
+          }
+        }
+      },
+      "xl": {
+        "$value": "24px",
+        "$extensions": {
+          "bds.axis": ["layout"],
+          "bds.modes": {
+            "layout": {
+              "compact": "24px",
+              "regular": "32px",
+              "expanded": "40px"
+            }
+          }
+        }
+      }
+    }
+  },
+  "border": {
+    "$type": "dimension",
+    "radius": {
+      "action": {
+        "$value": "{border.radius.platform.action}",
+        "$description": "Radio del botón con texto. Alias de la capa de plataforma."
+      },
+      "platform": {
+        "action": {
+          "$value": "12px",
+          "$description": "9999 es cápsula. El único token del Button que mueve la plataforma.",
+          "$extensions": {
+            "bds.axis": ["platform"],
+            "bds.modes": {
+              "platform": {
+                "web": "12px",
+                "ios": "9999px",
+                "android": "12px"
+              }
+            }
+          }
+        }
+      }
+    },
+    "width": {
+      "default": {
+        "$value": "1px",
+        "$description": "Engorda a 2 en alto contraste. El único token de geometría que mueve el tema.",
+        "$extensions": {
+          "bds.axis": ["semantic"],
+          "bds.modes": {
+            "semantic": {
+              "light": "1px",
+              "dark": "1px",
+              "mc-light": "1px",
+              "mc-dark": "1px",
+              "hc-light": "2px",
+              "hc-dark": "2px"
+            }
+          }
+        }
+      }
+    }
+  },
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "text": { "$value": "{font.family.platform.text}" },
+      "platform": {
+        "text": {
+          "$value": "Mulish",
+          "$description": [
+            "En nativo esto NO se escribe en el estilo: se deja sin poner y el sistema elige",
+            "la suya. Está declarado para saber qué va a salir, no para consumirlo."
+          ],
+          "$extensions": {
+            "bds.axis": ["platform"],
+            "bds.modes": {
+              "platform": {
+                "web": "Mulish",
+                "ios": "SF Pro",
+                "android": "Roboto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "size": {
+      "$type": "dimension",
+      "label": {
+        "$comment": "El Button mapea xs→sm, sm→sm, md→md, lg→lg. Cuatro tamaños sobre tres pasos.",
+        "sm": {
+          "$value": "12px",
+          "$extensions": {
+            "bds.axis": []
+          }
+        },
+        "md": {
+          "$value": "14px",
+          "$extensions": {
+            "bds.axis": []
+          }
+        },
+        "lg": {
+          "$value": "16px",
+          "$extensions": {
+            "bds.axis": []
+          }
+        }
+      }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "label": {
+        "$value": 500,
+        "$description": "ABIERTO: Figma rinde 600 también en web. Pendiente con diseño.",
+        "$extensions": {
+          "bds.axis": ["platform"],
+          "bds.modes": {
+            "platform": {
+              "web": 500,
+              "ios": 600,
+              "android": 500
+            }
+          }
+        }
+      }
+    }
+  },
+  "component": {
+    "button": {
+      "$comment": [
+        "Lo que consume el código. TODO son alias: un componente no decide nada, nombra.",
+        "",
+        "── ANATOMÍA, de fuera adentro ───────────────────────────────────────────────",
+        "  root      la caja — fondo, borde, radio, alto, padding",
+        "    icon    glifo opcional antes de la etiqueta, 16px en los cuatro tamaños",
+        "    label   el texto, lo único obligatorio",
+        "    icon    glifo opcional después",
+        "",
+        "── EJES DEL COMPONENTE, que los elige quien lo usa (no el tema) ─────────────",
+        "  variant     primary · danger",
+        "  appearance  fill · soft · outline · ghost · on-inverse",
+        "  size        xs · sm · md · lg",
+        "  state       default · hover · pressed · focus · disabled",
+        "",
+        "── QUÉ ESTADOS EXISTEN POR PLATAFORMA ───────────────────────────────────────",
+        "  web            default · hover · pressed · focus · disabled",
+        "  ios · android  default · pressed · disabled",
+        "  hover y focus no faltan en táctil porque su valor cambie: la interacción no",
+        "  existe. No hay puntero que pase por encima ni foco de teclado que recorrer.",
+        "  `disabled` está en las tres: es una prop, no una interacción.",
+        "",
+        "── CUATRO COSAS QUE SORPRENDEN Y SON A PROPÓSITO ────────────────────────────",
+        "  · `outline` y `ghost` comparten tokens. Cinco apariencias sobre cuatro grupos:",
+        "    leen los mismos colores y difieren solo en si pintan el borde.",
+        "  · `focus` no es un estado de color. No existe ningún bg-focus: la superficie se",
+        "    queda en default y el aviso es el anillo.",
+        "  · `danger` no tiene `on-inverse`: una acción destructiva no va en una superficie",
+        "    efímera.",
+        "  · `fill` y `soft` solo pintan borde al apagarse. De 0 a 1px.",
+        "",
+        "— soft, outline, ghost, on-inverse y las de danger — son la misma forma apuntando",
+        "",
+        "── CÓMO SE AGRUPA DENTRO DE UNA APARIENCIA ─────────────────────────────────",
+        "  component.button.<variant>.<appearance>.<asunto>.<estado>",
+        "",
+        "Cuatro asuntos: background · border · typography · icon. Y dentro, estados en orden",
+        "de interacción: default · hover · pressed · disabled.",
+        "",
+        "Dentro de una apariencia TODO es color, porque es lo único que la apariencia mueve.",
+        "La caja y el texto están en `geometry`, una sola vez para las nueve combinaciones.",
+        "",
+        "Agrupar así hace visible en qué se diferencian sin tener que explicarlo: `outline` no",
+        "tiene `background.default` porque es transparente en reposo, `ghost` es `outline` sin",
+        "`border.default` ni `border.pressed` porque no lo pinta, y `fill` es la única con",
+        "`background.default`."
+      ],
+      "family": {
+        "$value": "native",
+        "$description": [
+          "`native` = cambia de anatomía según el sistema: cápsula en iOS, botón de M3 en",
+          "Android. `hybrid` = una sola forma en las tres. Lo decide diseño, no se deduce de",
+          "los tokens: hay 23 componentes que divergen por plataforma y solo 15 son nativos."
+        ]
+      },
+      "primary": {
+        "fill": {
+          "$comment": "Relleno opaco.",
+          "background": {
+            "default": { "$value": "{color.role.brand.fill}", "$type": "color" },
+            "hover": { "$value": "{color.role.brand.fill-hover}", "$type": "color" },
+            "pressed": { "$value": "{color.role.brand.fill-pressed}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.surface}", "$type": "color" }
+          },
+          "border": {
+            "disabled": { "$value": "{color.disabled.outline}", "$type": "color" }
+          },
+          "typography": {
+            "default": { "$value": "{color.on-fill}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.on-surface}", "$type": "color" }
+          },
+          "icon": {
+            "default": { "$value": "{color.on-fill}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.on-surface}", "$type": "color" }
+          }
+        },
+        "soft": {
+          "$comment": "Superficie suave, translúcida en oscuro.",
+          "background": {
+            "default": { "$value": "{color.role.brand.soft-surface}", "$type": "color" },
+            "hover": { "$value": "{color.role.brand.soft-surface-hover}", "$type": "color" },
+            "pressed": { "$value": "{color.role.brand.soft-surface-pressed}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.surface}", "$type": "color" }
+          },
+          "border": {
+            "disabled": { "$value": "{color.disabled.outline}", "$type": "color" }
+          },
+          "typography": {
+            "default": { "$value": "{color.role.brand.on-soft}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.on-surface}", "$type": "color" }
+          },
+          "icon": {
+            "default": { "$value": "{color.role.brand.on-soft}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.on-surface}", "$type": "color" }
+          }
+        },
+        "outline": {
+          "$comment": "Sin relleno en reposo, con borde.",
+          "background": {
+            "hover": { "$value": "{color.overlay.quiet-hover}", "$type": "color" },
+            "pressed": { "$value": "{color.role.brand.quiet-surface-pressed}", "$type": "color" }
+          },
+          "border": {
+            "default": { "$value": "{color.role.brand.outline}", "$type": "color" },
+            "pressed": { "$value": "{color.role.brand.outline-pressed}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.outline}", "$type": "color" }
+          },
+          "typography": {
+            "default": { "$value": "{color.role.brand.on-quiet}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.on-surface}", "$type": "color" }
+          },
+          "icon": {
+            "default": { "$value": "{color.role.brand.on-quiet}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.on-surface}", "$type": "color" }
+          }
+        },
+        "ghost": {
+          "$comment": "Los MISMOS colores que outline: solo le faltan las claves de borde, porque no lo pinta.",
+          "background": {
+            "hover": { "$value": "{color.overlay.quiet-hover}", "$type": "color" },
+            "pressed": { "$value": "{color.role.brand.quiet-surface-pressed}", "$type": "color" }
+          },
+          "border": {
+            "disabled": { "$value": "{color.disabled.outline}", "$type": "color" }
+          },
+          "typography": {
+            "default": { "$value": "{color.role.brand.on-quiet}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.on-surface}", "$type": "color" }
+          },
+          "icon": {
+            "default": { "$value": "{color.role.brand.on-quiet}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.on-surface}", "$type": "color" }
+          }
+        },
+        "on-inverse": {
+          "$comment": "Sobre una superficie invertida y efímera. Sin bg-default: transparente en reposo.",
+          "background": {
+            "hover": { "$value": "{color.overlay.on-inverse-hover}", "$type": "color" },
+            "pressed": { "$value": "{color.overlay.on-inverse-pressed}", "$type": "color" }
+          },
+          "typography": {
+            "default": { "$value": "{color.on-inverse}", "$type": "color" },
+            "disabled": { "$value": "{color.on-inverse-disabled}", "$type": "color" }
+          },
+          "icon": {
+            "default": { "$value": "{color.on-inverse}", "$type": "color" },
+            "disabled": { "$value": "{color.on-inverse-disabled}", "$type": "color" }
+          }
+        }
+      },
+      "danger": {
+        "fill": {
+          "$comment": "Relleno opaco.",
+          "background": {
+            "default": { "$value": "{color.danger.fill}", "$type": "color" },
+            "hover": { "$value": "{color.danger.fill-hover}", "$type": "color" },
+            "pressed": { "$value": "{color.danger.fill-pressed}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.surface}", "$type": "color" }
+          },
+          "border": {
+            "disabled": { "$value": "{color.disabled.outline}", "$type": "color" }
+          },
+          "typography": {
+            "default": { "$value": "{color.on-fill}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.on-surface}", "$type": "color" }
+          },
+          "icon": {
+            "default": { "$value": "{color.on-fill}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.on-surface}", "$type": "color" }
+          }
+        },
+        "soft": {
+          "$comment": "Superficie suave, translúcida en oscuro.",
+          "background": {
+            "default": { "$value": "{color.danger.soft-surface}", "$type": "color" },
+            "hover": { "$value": "{color.danger.soft-surface-hover}", "$type": "color" },
+            "pressed": { "$value": "{color.danger.soft-surface-pressed}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.surface}", "$type": "color" }
+          },
+          "border": {
+            "disabled": { "$value": "{color.disabled.outline}", "$type": "color" }
+          },
+          "typography": {
+            "default": { "$value": "{color.danger.on-soft}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.on-surface}", "$type": "color" }
+          },
+          "icon": {
+            "default": { "$value": "{color.danger.on-soft}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.on-surface}", "$type": "color" }
+          }
+        },
+        "outline": {
+          "$comment": "Sin relleno en reposo, con borde.",
+          "background": {
+            "hover": { "$value": "{color.overlay.danger-hover}", "$type": "color" },
+            "pressed": { "$value": "{color.danger.quiet-surface-pressed}", "$type": "color" }
+          },
+          "border": {
+            "default": { "$value": "{color.danger.outline}", "$type": "color" },
+            "pressed": { "$value": "{color.danger.outline-pressed}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.outline}", "$type": "color" }
+          },
+          "typography": {
+            "default": { "$value": "{color.danger.on-quiet}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.on-surface}", "$type": "color" }
+          },
+          "icon": {
+            "default": { "$value": "{color.danger.on-quiet}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.on-surface}", "$type": "color" }
+          }
+        },
+        "ghost": {
+          "$comment": "Los MISMOS colores que outline: solo le faltan las claves de borde, porque no lo pinta.",
+          "background": {
+            "hover": { "$value": "{color.overlay.danger-hover}", "$type": "color" },
+            "pressed": { "$value": "{color.danger.quiet-surface-pressed}", "$type": "color" }
+          },
+          "border": {
+            "disabled": { "$value": "{color.disabled.outline}", "$type": "color" }
+          },
+          "typography": {
+            "default": { "$value": "{color.danger.on-quiet}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.on-surface}", "$type": "color" }
+          },
+          "icon": {
+            "default": { "$value": "{color.danger.on-quiet}", "$type": "color" },
+            "disabled": { "$value": "{color.disabled.on-surface}", "$type": "color" }
+          }
+        },
+        "$comment": "Sin `on-inverse`: una acción destructiva no va en una superficie efímera."
+      },
+      "focus": {
+        "$comment": "El anillo. `focus` no cambia la superficie: no existe ningún bg-focus.",
+        "border": { "$value": "{color.focus.ring}", "$type": "color" },
+        "border-on-inverse": { "$value": "{color.focus.ring-on-inverse}", "$type": "color" }
+      },
+      "geometry": {
+        "$comment": "La caja y el texto. Igual en las cinco apariencias y en los dos variants: entre ellas solo cambia el color.",
+        "radius": { "$value": "{border.radius.action}", "$type": "dimension" },
+        "border-width": { "$value": "{border.width.default}", "$type": "dimension" },
+        "min-width": { "$value": "{size.control.min-width}", "$type": "dimension" },
+        "gap": { "$value": "{space.inline.sm}", "$type": "dimension" },
+        "icon-size": { "$value": "{size.icon.sm}", "$type": "dimension" },
+        "font-family": { "$value": "{font.family.text}", "$type": "fontFamily" },
+        "font-weight": { "$value": "{font.weight.label}", "$type": "fontWeight" },
+        "height": {
+          "$type": "dimension",
+          "xs": { "$value": "{size.control.height.xs}" },
+          "sm": { "$value": "{size.control.height.sm}" },
+          "md": { "$value": "{size.control.height.md}" },
+          "lg": { "$value": "{size.control.height.lg}" }
+        },
+        "padding-x": {
+          "$type": "dimension",
+          "xs": { "$value": "{space.inset.sm}" },
+          "sm": { "$value": "{space.inset.md}" },
+          "md": { "$value": "{space.inset.lg}" },
+          "lg": { "$value": "{space.inset.xl}" }
+        },
+        "font-size": {
+          "$type": "dimension",
+          "xs": { "$value": "{font.size.label.sm}" },
+          "sm": { "$value": "{font.size.label.sm}" },
+          "md": { "$value": "{font.size.label.md}" },
+          "lg": { "$value": "{font.size.label.lg}" }
+        }
+      }
+    }
+
+  }
+}

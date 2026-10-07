@@ -4,7 +4,8 @@ import type { CSSProperties, ReactNode } from 'react';
 
 import { PlatformButton } from './PlatformButton';
 import { PlatformButtonGroup } from './PlatformButtonGroup';
-import type { IPlatformButtonGroupProps, TPlatform } from './PlatformButtonGroup';
+import type { IPlatformButtonGroupProps } from './PlatformButtonGroup';
+import { implementationFor } from './themeGlobals';
 
 const ORIENTATIONS: TButtonGroupOrientation[] = ['horizontal', 'vertical'];
 const DISTRIBUTIONS: TButtonGroupDistribution[] = ['hug', 'fill'];
@@ -65,7 +66,7 @@ const meta = {
     distribution: 'hug',
   },
   render: (args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ padding: 24 }}>
         <PlatformButtonGroup {...args} platform={platform}>
@@ -86,7 +87,7 @@ export const Playground: TStory = {};
 /** All four Figma variants: orientation × distribution. */
 export const Variants: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={stackStyle}>
         {ORIENTATIONS.map((orientation) =>
@@ -116,7 +117,7 @@ export const Variants: TStory = {
 export const HorizontalPrimaryEnd: TStory = {
   name: 'Horizontal · primary end',
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ padding: 24 }}>
         <PlatformButtonGroup platform={platform}>
@@ -132,7 +133,7 @@ export const HorizontalPrimaryEnd: TStory = {
 export const VerticalPrimaryStart: TStory = {
   name: 'Vertical · primary start',
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ padding: 24, maxWidth: 280 }}>
         <PlatformButtonGroup orientation="vertical" platform={platform}>
@@ -153,7 +154,7 @@ export const VerticalPrimaryStart: TStory = {
 export const FillEqual: TStory = {
   name: 'Fill · equal widths',
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ padding: 24, maxWidth: 375 }}>
         <PlatformButtonGroup distribution="fill" platform={platform}>
@@ -169,7 +170,7 @@ export const FillEqual: TStory = {
 export const WithGhost: TStory = {
   name: 'Three actions · ghost',
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ padding: 24 }}>
         <PlatformButtonGroup platform={platform}>
@@ -185,7 +186,7 @@ export const WithGhost: TStory = {
 /** Destructive primary — danger fill replaces primary fill. */
 export const Danger: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ padding: 24 }}>
         <PlatformButtonGroup platform={platform}>

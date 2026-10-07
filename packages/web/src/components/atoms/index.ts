@@ -10,6 +10,7 @@ export * from './Checkbox';
 export * from './Chip';
 export * from './ChoiceBox';
 export * from './Divider';
+export * from './EmptyState';
 export * from './Icon';
 export * from './Image';
 export * from './IconButton';

@@ -258,40 +258,44 @@
       }
     },
     "platform": {
-      "field": {
-        "height": {
-          "value": "52px",
-          "type": "size",
-          "description": "Alto de fila de un campo por plataforma. iOS 52 (fila de lista de Apple, iOS 26+), Android 56 (Material 3 outlined), Web 56."
-        }
-      },
-      "target": {
-        "min": {
-          "value": "44px",
-          "type": "size",
-          "description": "Area tactil minima. iOS 44pt · Android 48dp · web 40px. Nunca bajar de aqui aunque el glifo sea mas chico."
-        }
-      },
-      "sheet": {
-        "handle": {
-          "width": {
-            "value": "60px",
+      "size": {
+        "field": {
+          "height": {
+            "value": "52px",
             "type": "size",
-            "description": "Ancho del asa. iOS: 60 (grabber del kit iOS 27). Android y web: component/sheet/handle/width (32, Material 3). Sheet (librería Platforms)."
+            "description": "Alto de fila de un campo por plataforma. iOS 52 (fila de lista de Apple, iOS 26+), Android 56 (Material 3 outlined), Web 56."
+          }
+        },
+        "target": {
+          "min": {
+            "value": "44px",
+            "type": "size",
+            "description": "Area tactil minima. iOS 44pt · Android 48dp · web 40px. Nunca bajar de aqui aunque el glifo sea mas chico."
           }
         }
       },
-      "dialog": {
-        "width": {
-          "value": "300px",
-          "type": "size",
-          "description": "Ancho de la tarjeta. iOS: 300 (kit iOS 27, Alerts y Action Sheets). Android y web: 312 (Material 3, basic dialog). Dialog (librería Platforms)."
+      "component": {
+        "sheet": {
+          "handle": {
+            "width": {
+              "value": "60px",
+              "type": "size",
+              "description": "Ancho del asa. iOS: 60 (grabber del kit iOS 27). Android y web: component/sheet/handle/width (32, Material 3). Sheet (librería Platforms)."
+            }
+          }
         },
-        "action": {
-          "height": {
-            "value": "48px",
+        "dialog": {
+          "width": {
+            "value": "300px",
             "type": "size",
-            "description": "Alto visible del botón. iOS: cápsula de 48. Android y web: 40 (el área tocable llega a 48). Dialog (librería Platforms)."
+            "description": "Ancho de la tarjeta. iOS: 300 (kit iOS 27, Alerts y Action Sheets). Android y web: 312 (Material 3, basic dialog). Dialog (librería Platforms)."
+          },
+          "action": {
+            "height": {
+              "value": "48px",
+              "type": "size",
+              "description": "Alto visible del botón. iOS: cápsula de 48. Android y web: 40 (el área tocable llega a 48). Dialog (librería Platforms)."
+            }
           }
         }
       }

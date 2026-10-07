@@ -59,11 +59,12 @@ export const BluProvider = ({
   brand,
   mode,
   layout,
+  platform,
   className,
   style,
   children,
 }: IBluProviderProps): ReactElement => (
-  <ThemeProvider brand={brand} layout={layout} mode={mode}>
+  <ThemeProvider brand={brand} layout={layout} mode={mode} platform={platform}>
     <ThemedSurface className={className} style={style}>
       {children}
     </ThemedSurface>

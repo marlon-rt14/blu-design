@@ -5,7 +5,8 @@ import { useState } from 'react';
 import { useArgs } from 'storybook/preview-api';
 
 import { PlatformSwitchItem } from './PlatformSwitchItem';
-import type { IPlatformSwitchItemProps, TPlatform } from './PlatformSwitchItem';
+import type { IPlatformSwitchItemProps } from './PlatformSwitchItem';
+import { implementationFor } from './themeGlobals';
 
 const SIZES: TSwitchItemSize[] = ['sm', 'md'];
 
@@ -95,7 +96,7 @@ const meta = {
       <div style={{ width: 360 }}>
         <PlatformSwitchItem
           {...args}
-          platform={globals['platform'] as TPlatform}
+          platform={implementationFor(globals)}
           onValueChange={(isChecked) => {
             updateArgs({ isChecked });
           }}
@@ -114,7 +115,7 @@ export const Playground: TStory = {};
 /** A short iOS-style settings list — this is how Switch is meant to ship. */
 export const InAList: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <List>
         <IsolatedPlatformSwitchItem isChecked label="Wi-Fi" platform={platform} />
@@ -143,7 +144,7 @@ export const WithDescription: TStory = {
 
 export const Sizes: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <List>
         {SIZES.map((size) => (

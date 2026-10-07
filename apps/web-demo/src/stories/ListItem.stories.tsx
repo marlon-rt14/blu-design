@@ -4,7 +4,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement, ReactNode } from 'react';
 
 import { PlatformListItem } from './PlatformListItem';
-import type { IPlatformListItemProps, TPlatform } from './PlatformListItem';
+import type { IPlatformListItemProps } from './PlatformListItem';
+import { implementationFor } from './themeGlobals';
 
 /** The three shapes of `leading`, as the bridge's two controls express them. */
 const LEADINGS = [
@@ -82,7 +83,7 @@ const meta = {
   },
   render: (args, { globals }) => (
     <Column>
-      <PlatformListItem {...args} platform={globals['platform'] as TPlatform} />
+      <PlatformListItem {...args} platform={implementationFor(globals)} />
     </Column>
   ),
 } satisfies Meta<IPlatformListItemProps>;
@@ -95,7 +96,7 @@ export const Playground: TStory = {};
 
 export const LeadingContent: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Column>
         {LEADINGS.map((leading) => (
@@ -114,7 +115,7 @@ export const LeadingContent: TStory = {
 
 export const Sizes: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Column>
         {SIZES.map((size) => (
@@ -135,7 +136,7 @@ export const WithDescriptionAndTrailingText: TStory = {
 
 export const WithTrailingIcon: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Column>
         <PlatformListItem
@@ -152,7 +153,7 @@ export const WithTrailingIcon: TStory = {
 
 export const WithDivider: TStory = {
   render: (_args, { globals }) => {
-    const platform = globals['platform'] as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <Column>
         <PlatformListItem avatarInitials="JG" divider label="Envío a Juan García" platform={platform} />
@@ -166,7 +167,7 @@ export const Interactive: TStory = {
   args: { avatarInitials: 'JG' },
   render: (args, { globals }) => (
     <Column>
-      <PlatformListItem {...args} onAction={() => undefined} platform={globals['platform'] as TPlatform} />
+      <PlatformListItem {...args} onAction={() => undefined} platform={implementationFor(globals)} />
     </Column>
   ),
 };
@@ -175,7 +176,7 @@ export const Disabled: TStory = {
   args: { avatarInitials: 'JG', disabled: true },
   render: (args, { globals }) => (
     <Column>
-      <PlatformListItem {...args} onAction={() => undefined} platform={globals['platform'] as TPlatform} />
+      <PlatformListItem {...args} onAction={() => undefined} platform={implementationFor(globals)} />
     </Column>
   ),
 };

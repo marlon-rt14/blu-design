@@ -6,7 +6,8 @@ import type { ReactElement, ReactNode } from 'react';
 import { fn } from 'storybook/test';
 
 import { PlatformCoachmark } from './PlatformCoachmark';
-import type { IPlatformCoachmarkProps, TPlatform } from './PlatformCoachmark';
+import type { IPlatformCoachmarkProps } from './PlatformCoachmark';
+import { implementationFor } from './themeGlobals';
 
 const MEDIA: TCoachmarkMedia[] = ['none', 'image'];
 const SEQUENCES: TCoachmarkSequence[] = ['single', 'multi'];
@@ -164,7 +165,7 @@ const meta = {
   },
   render: (args, { globals }) => (
     <Stage title="host-controlled — click the anchor to reopen">
-      <OpenCoachmark {...args} platform={globals.platform as TPlatform} />
+      <OpenCoachmark {...args} platform={implementationFor(globals)} />
     </Stage>
   ),
 } satisfies Meta<IPlatformCoachmarkProps>;
@@ -179,7 +180,7 @@ export const Playground: TStory = {};
 /** `media=none` vs `media=image` — dismiss appearance flips veil → on-media. */
 export const Media: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
         <Stage title="media=none — veil dismiss on title row">
@@ -196,7 +197,7 @@ export const Media: TStory = {
 /** `single` vs `multi` — back + step index only on multi. */
 export const Sequence: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
         <Stage title="single — outside press closes">
@@ -216,7 +217,7 @@ export const Sequence: TStory = {
  */
 export const Placements: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     const [active, setActive] = useState<TCoachmarkPlacement>('top');
     const sides: TCoachmarkPlacement[] = [...SIDES, 'none'];
 
@@ -249,7 +250,7 @@ export const Placements: TStory = {
 /** Independent `show*` toggles — not inferred from content. */
 export const ShowFlags: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
         <Stage title="showDismiss=false">

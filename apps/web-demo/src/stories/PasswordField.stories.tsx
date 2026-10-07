@@ -6,6 +6,7 @@ import { fn } from 'storybook/test';
 
 import { PlatformPasswordField } from './PlatformPasswordField';
 import type { IPlatformPasswordFieldProps, TPlatform } from './PlatformPasswordField';
+import { implementationFor } from './themeGlobals';
 
 const SIZES: TPasswordFieldSize[] = ['sm', 'md', 'lg'];
 
@@ -209,7 +210,7 @@ const meta = {
     onChangeText: fn(),
   },
   render: (args, { globals }) => (
-    <Controlled {...args} platform={globals.platform as TPlatform} />
+    <Controlled {...args} platform={implementationFor(globals)} />
   ),
 } satisfies Meta<IPlatformPasswordFieldProps>;
 
@@ -226,7 +227,7 @@ export const Sizes: TStory = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       {SIZES.map((size) => (
         <Group key={size} title={size}>
-          <Controlled {...args} platform={globals.platform as TPlatform} size={size} />
+          <Controlled {...args} platform={implementationFor(globals)} size={size} />
         </Group>
       ))}
     </div>
@@ -239,7 +240,7 @@ export const Sizes: TStory = {
  */
 export const Reveal: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <Group title='visible={false} (the default) — the action reads "Mostrar"'>
@@ -259,7 +260,7 @@ export const Reveal: TStory = {
 /** The states that are props. `hover`, `focus` and `pressed` come from interaction. */
 export const States: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <Group title="default (empty)">
@@ -292,7 +293,7 @@ export const States: TStory = {
  */
 export const ControlledVisibility: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return <ControlledComparison args={args} platform={platform} />;
   },
 };
@@ -317,7 +318,7 @@ export const StrengthAndRequirements: TStory = {
   },
 
   render: function Render(args, { globals }) {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     const [value, setValue] = useState('Contra');
     const strength: TPasswordStrength =
       value.length >= 12 && /[A-Z]/.test(value) && /[0-9]/.test(value)
@@ -358,7 +359,7 @@ export const StrengthAndRequirements: TStory = {
  */
 export const StrengthLevels: TStory = {
   render: function Render(args, { globals }) {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     const niveles: TPasswordStrength[] = ['weak', 'acceptable', 'good', 'strong'];
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 24, width: 380 }}>

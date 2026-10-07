@@ -3,7 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 
 import { PlatformDivider } from './PlatformDivider';
-import type { IPlatformDividerProps, TPlatform } from './PlatformDivider';
+import type { IPlatformDividerProps } from './PlatformDivider';
+import { implementationFor } from './themeGlobals';
 
 const ORIENTATIONS: TDividerOrientation[] = ['horizontal', 'vertical'];
 const APPEARANCES: TDividerAppearance[] = ['subtle', 'default', 'strong'];
@@ -90,7 +91,7 @@ const meta = {
   args: { testID: 'divider' },
   render: (args, { globals }) => (
     <div style={{ alignItems: 'center', display: 'flex', height: 120, width: 320 }}>
-      <PlatformDivider {...args} platform={globals.platform as TPlatform} />
+      <PlatformDivider {...args} platform={implementationFor(globals)} />
     </div>
   ),
 } satisfies Meta<IPlatformDividerProps>;
@@ -113,7 +114,7 @@ export const Playground: TStory = {};
  */
 export const Matrix: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
         {ORIENTATIONS.map((orientation) => (
@@ -158,7 +159,7 @@ export const Matrix: TStory = {
 export const VerticalInARow: TStory = {
   args: { orientation: 'vertical' },
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ alignItems: 'center', display: 'flex', fontSize: 14, gap: 16 }}>
         <span>Débito</span>
@@ -182,7 +183,7 @@ export const VerticalInARow: TStory = {
  */
 export const NotABorder: TStory = {
   render: (args, { globals }) => {
-    const platform = globals.platform as TPlatform;
+    const platform = implementationFor(globals);
     return (
       <div style={{ display: 'flex', gap: 40 }}>
         <Cell title="divider · decorative (~1.5)">
