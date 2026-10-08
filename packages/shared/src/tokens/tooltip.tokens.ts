@@ -161,7 +161,7 @@ const readTooltipTokens = (key: TThemeSourceKey): ITooltipTokens => {
       surface: colorAt('component.tooltip.surface.bg'),
       title: colorAt('component.tooltip.content.title'),
       body: colorAt('component.tooltip.content.body'),
-      pointer: colorAt('component.tippointer.punta.bg-inverse'),
+      pointer: colorAt('component.tippointer.pointer.bg-inverse'),
       shadowNear: colorAt('elevation.overlay.shadow.near'),
       shadowFar: colorAt('elevation.overlay.shadow.far'),
     },

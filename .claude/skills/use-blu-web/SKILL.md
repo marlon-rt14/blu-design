@@ -9,7 +9,7 @@ Import components from `@dsm/web` and wrap the screen in `BluProvider`. Import c
 
 Icons are not on the root barrel. Import them from the section module: `import { IconChevronLeft } from '@dsm/web/icons/arrows'`.
 
-There is no Dialog, Modal, Confirm, EmptyState, or Pagination component. A confirmation or an empty state is a `Card` plus an `Alert` plus a `Button` or `ButtonGroup`. A pager is `IconButton` (`onPress`, required `label`) plus a chevron from `@dsm/web/icons/arrows`. `ProgressStepper` takes `steps: IProgressStepDef[]` from `@dsm/shared`; do not render `Step`.
+There is no Dialog, Modal, Confirm, EmptyState, or Pagination component. A confirmation or an empty state is a `Card` plus an `Alert` plus a `Button` or `ButtonGroup`. A pager is `IconButton appearance="ghost"` (`onPress`, required `label`) plus a chevron from `@dsm/web/icons/arrows`. `IconButton` appearances are `brand | neutral | ghost | veil | on-scene | on-media | on-inverse`. `outline` does not compile. `ProgressStepper` takes `steps: IProgressStepDef[]` from `@dsm/shared`; do not render `Step`.
 
 ```tsx
 import { Alert, BluProvider, Button, ButtonGroup, Card } from '@dsm/web';
@@ -38,6 +38,8 @@ export function TaskScreen() {
 Rules:
 
 - `variant` is meaning (`primary` or `danger`). `appearance` is weight (`fill` > `soft` > `outline` > `ghost`). Lower the hierarchy with `appearance`, not by swapping `variant`.
-- The safe action is `appearance="fill"` and comes first. The destructive action is `variant="danger"` and `appearance="outline"`. Never `appearance="fill"` on a danger button.
+- The safe action is `appearance="fill"` and comes first. The destructive action is `variant="danger"` and `appearance="outline"`. Never `appearance="fill"` on a danger button. That `outline` is a `Button` appearance. `IconButton` does not have it.
+- `Card` `padding` is `'none' | 'md'`. Icon `size` is `'2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'`, not a number. Block a button with `isDisabled`. Put a field in error with `error="message"` and read its value from `onChangeText`.
+- There is no Tailwind. No utility `className`, no local CSS file.
 - Status glyphs inside an alert come from `<Alert showIcon status="...">`. Any other glyph is an import from `@dsm/web/icons/<section>`, never from `@dsm/web`.
 - Do not set color, font size, line height, margin, padding, blur, or overlay backgrounds in `style`. `Card`, `Alert`, `Button`, and `ButtonGroup` already resolve tokens. A raw `rgba(...)`, hex, `padding`, or `lineHeight` is a failure.

@@ -89,7 +89,7 @@ const readPopoverTokens = (key: TThemeSourceKey): IPopoverTokens => {
       overlayShadowNearBlur: dimensionAt('elevation.overlay.shadow.near-blur'),
       overlayShadowFarY: dimensionAt('elevation.overlay.shadow.far-y'),
       overlayShadowFarBlur: dimensionAt('elevation.overlay.shadow.far-blur'),
-      zIndex: dimensionAt('z.popover_1'),
+      zIndex: dimensionAt('z.popover'),
     },
     header: {
       fontFamily: baseFontFamily,

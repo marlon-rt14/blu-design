@@ -182,7 +182,7 @@ const readSelectTokens = (key: TThemeSourceKey): ISelectTokens => {
       menuShadowNearBlur: dimensionAt('elevation.overlay.shadow.near-blur'),
       menuShadowFarY: dimensionAt('elevation.overlay.shadow.far-y'),
       menuShadowFarBlur: dimensionAt('elevation.overlay.shadow.far-blur'),
-      menuZIndex: dimensionAt('z.dropdown_1'),
+      menuZIndex: dimensionAt('z.dropdown'),
       menuOffset: dimensionAt('space.stack.xs'),
       searchPaddingVertical: dimensionAt('space.inset.sm'),
     },
