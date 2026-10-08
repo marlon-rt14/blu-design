@@ -210,20 +210,26 @@ export interface IButtonTokens {
 /**
  * Which token group in `color.component.button.*` backs a given pairing.
  *
- * `outline` and `ghost` share the `-quiet` group and differ only in which keys
- * they read: ghost is exactly outline minus its three `border-*` keys.
+ * `outline` and `ghost` are separate groups since the 7-oct rename
+ * (`*-quiet` → `*-outline` / `*-ghost`). Ghost has no `border-*` keys.
  */
 const groupFor = (variant: TButtonVariant, appearance: TButtonAppearance): string => {
-  if (appearance === 'on-inverse') {
-    return 'primary-on-inverse';
+  switch (appearance) {
+    case 'on-inverse':
+      return 'primary-on-inverse';
+    case 'fill':
+      return variant;
+    case 'soft':
+      return `${variant}-soft`;
+    case 'outline':
+      return `${variant}-outline`;
+    case 'ghost':
+      return `${variant}-ghost`;
+    default: {
+      const _exhaustive: never = appearance;
+      return _exhaustive;
+    }
   }
-  if (appearance === 'fill') {
-    return variant;
-  }
-  if (appearance === 'soft') {
-    return `${variant}-soft`;
-  }
-  return `${variant}-quiet`;
 };
 
 const readSurface = (

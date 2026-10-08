@@ -129,7 +129,7 @@ const readSnackbarTokens = (key: TThemeSourceKey): ISnackbarTokens => {
       overlayShadowFarY: dimensionAt('elevation.overlay.shadow.far-y'),
       overlayShadowFarBlur: dimensionAt('elevation.overlay.shadow.far-blur'),
       maxWidth: SNACKBAR_MAX_WIDTH_PX,
-      zIndex: dimensionAt('z.toast_1'),
+      zIndex: dimensionAt('z.toast'),
       swipeCapture: dimensionAt('space.inline.sm'),
       stackPeek: dimensionAt('space.stack.sm'),
       stackInset: dimensionAt('space.inline.sm'),

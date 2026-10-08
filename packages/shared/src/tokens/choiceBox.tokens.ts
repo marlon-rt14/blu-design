@@ -86,7 +86,7 @@ const readChoiceBoxTokens = (key: TThemeSourceKey): IChoiceBoxTokens => {
         background: colorAt('surface.bg-unselected'),
         backgroundSelected: colorAt('surface.bg-selected'),
         backgroundDisabled: colorAt('surface.bg-disabled'),
-        borderDefault: colorAt('surface.border-unselected'),
+        borderDefault: colorAt('surface.border-default'),
         borderSelected: colorAt('surface.border-selected'),
         borderDisabled: colorAt('surface.border-disabled'),
         borderFocus: colorAt('surface.border-focus'),

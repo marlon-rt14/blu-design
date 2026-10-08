@@ -70,7 +70,7 @@ export interface ICoachmarkDimensionTokens {
   overlayShadowFarBlur: number;
   /**
    * Stacking — layout alias `z/popover` (1200). The set description says
-   * "z/overlay (1200)" but the leaf that names Coachmark is `z.popover_1`.
+   * "z/overlay (1200)" but the leaf that names Coachmark is `z.popover`.
    */
   zIndex: number;
   /**
@@ -126,8 +126,8 @@ const readCoachmarkTokens = (key: TThemeSourceKey): ICoachmarkTokens => {
       body: colorAt('component.coachmark.content.body'),
       media: colorAt('component.coachmark.media.bg'),
       step: colorAt('component.coachmark.footer.step'),
-      pointer: colorAt('component.tippointer.punta.bg-floating'),
-      pointerBorder: colorAt('component.tippointer.punta.border-floating'),
+      pointer: colorAt('component.tippointer.pointer.bg-floating'),
+      pointerBorder: colorAt('component.tippointer.pointer.border-floating'),
       overlayShadowNear: colorAt('elevation.overlay.shadow.near'),
       overlayShadowFar: colorAt('elevation.overlay.shadow.far'),
     },
@@ -151,7 +151,7 @@ const readCoachmarkTokens = (key: TThemeSourceKey): ICoachmarkTokens => {
       overlayShadowNearBlur: dimensionAt('elevation.overlay.shadow.near-blur'),
       overlayShadowFarY: dimensionAt('elevation.overlay.shadow.far-y'),
       overlayShadowFarBlur: dimensionAt('elevation.overlay.shadow.far-blur'),
-      zIndex: dimensionAt('z.popover_1'),
+      zIndex: dimensionAt('z.popover'),
       enterDurationMs: dimensionAt('motion.duration.fast'),
     },
     // Live type: `text/body/md/strong` + `text/body/sm/default`.
@@ -179,7 +179,7 @@ const readCoachmarkTokens = (key: TThemeSourceKey): ICoachmarkTokens => {
 /**
  * Coachmark tokens per theme.
  *
- * Source: `color.component.coachmark.*`, `color.component.tippointer.punta.*`
+ * Source: `color.component.coachmark.*`, `color.component.tippointer.pointer.*`
  * (floating tone), `elevation.overlay`, and `dimension.*`. Nested Button /
  * IconButton / Image read their own tokens.
  */
