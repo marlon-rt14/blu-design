@@ -19,10 +19,10 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 ## API
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
-|---|---|---|---|---|
-| `checked` | `boolean` | sí | — |  |
-| `onChange` | `(v: boolean) => void` | sí | — |  |
-| `disabled` | `boolean` | no | false |  |
+| --- | --- | --- | --- | --- |
+| `checked` | ``boolean`` | sí | — |  |
+| `onChange` | ``(v: boolean) => void`` | sí | — |  |
+| `disabled` | ``boolean`` | no | false |  |
 
 ## Uso (con librería)
 

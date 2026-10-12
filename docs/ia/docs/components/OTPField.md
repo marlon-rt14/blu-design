@@ -19,10 +19,10 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 ## API
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
-|---|---|---|---|---|
-| `length` | `number` | no | 6 |  |
-| `value` | `string` | sí | — |  |
-| `onChangeText` | `(v: string) => void` | sí | — |  |
+| --- | --- | --- | --- | --- |
+| `length` | ``number`` | no | 6 |  |
+| `value` | ``string`` | sí | — |  |
+| `onChangeText` | ``(v: string) => void`` | sí | — |  |
 
 ## Uso (con librería)
 

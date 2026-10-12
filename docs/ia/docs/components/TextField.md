@@ -19,13 +19,13 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 ## API
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
-|---|---|---|---|---|
-| `label` | `string` | sí | — |  |
-| `value` | `string` | sí | — |  |
-| `onChangeText` | `(v: string) => void` | sí | — |  |
-| `error` | `string` | no | — | sin isInvalid |
-| `disabled` | `boolean` | no | false |  |
-| `readOnly` | `boolean` | no | false |  |
+| --- | --- | --- | --- | --- |
+| `label` | ``string`` | sí | — |  |
+| `value` | ``string`` | sí | — |  |
+| `onChangeText` | ``(v: string) => void`` | sí | — |  |
+| `error` | ``string`` | no | — | sin isInvalid |
+| `disabled` | ``boolean`` | no | false |  |
+| `readOnly` | ``boolean`` | no | false |  |
 
 ## Uso (con librería)
 

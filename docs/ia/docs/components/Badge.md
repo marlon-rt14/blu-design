@@ -19,9 +19,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 ## API
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
-|---|---|---|---|---|
-| `count` | `number` | no | — |  |
-| `status` | `string` | no | 'neutral' |  |
+| --- | --- | --- | --- | --- |
+| `count` | ``number`` | no | — |  |
+| `status` | ``string`` | no | 'neutral' |  |
 
 ## Uso (con librería)
 

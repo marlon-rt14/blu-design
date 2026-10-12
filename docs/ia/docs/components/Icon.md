@@ -19,9 +19,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 ## API
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
-|---|---|---|---|---|
-| `size` | `'2xs'|'xs'|'sm'|'md'|'lg'|'xl'` | sí | — | nunca number |
-| `children` | `ReactNode` | sí | — | paths |
+| --- | --- | --- | --- | --- |
+| `size` | ``'2xs'\|'xs'\|'sm'\|'md'\|'lg'\|'xl'`` | sí | — | nunca number |
+| `children` | ``ReactNode`` | sí | — | paths |
 
 ## Uso (con librería)
 

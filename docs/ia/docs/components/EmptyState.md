@@ -19,10 +19,10 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 ## API
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
-|---|---|---|---|---|
-| `title` | `string` | sí | — |  |
-| `body` | `string` | no | — |  |
-| `action` | `ReactNode` | no | — | Button |
+| --- | --- | --- | --- | --- |
+| `title` | ``string`` | sí | — |  |
+| `body` | ``string`` | no | — |  |
+| `action` | ``ReactNode`` | no | — | Button |
 
 ## Uso (con librería)
 

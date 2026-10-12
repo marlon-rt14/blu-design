@@ -19,8 +19,8 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 ## API
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
-|---|---|---|---|---|
-| `appearance` | `string` | no | — | brand | default | on-brand |
+| --- | --- | --- | --- | --- |
+| `appearance` | ``string`` | no | — | brand |
 
 ## Uso (con librería)
 

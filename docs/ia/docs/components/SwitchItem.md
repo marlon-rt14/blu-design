@@ -19,10 +19,10 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 ## API
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
-|---|---|---|---|---|
-| `title` | `string` | sí | — |  |
-| `checked` | `boolean` | sí | — |  |
-| `onChange` | `fn` | sí | — |  |
+| --- | --- | --- | --- | --- |
+| `title` | ``string`` | sí | — |  |
+| `checked` | ``boolean`` | sí | — |  |
+| `onChange` | ``fn`` | sí | — |  |
 
 ## Uso (con librería)
 

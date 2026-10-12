@@ -19,10 +19,10 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 ## API
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
-|---|---|---|---|---|
-| `src` | `string` | sí | — |  |
-| `alt` | `string` | sí | — |  |
-| `aspectRatio` | `string` | no | — |  |
+| --- | --- | --- | --- | --- |
+| `src` | ``string`` | sí | — |  |
+| `alt` | ``string`` | sí | — |  |
+| `aspectRatio` | ``string`` | no | — |  |
 
 ## Uso (con librería)
 

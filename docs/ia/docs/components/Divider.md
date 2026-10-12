@@ -19,9 +19,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 ## API
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
-|---|---|---|---|---|
-| `strength` | `'subtle'|'default'|'strong'` | no | 'default' |  |
-| `orientation` | `'horizontal'|'vertical'` | no | 'horizontal' |  |
+| --- | --- | --- | --- | --- |
+| `strength` | ``'subtle'\|'default'\|'strong'`` | no | 'default' |  |
+| `orientation` | ``'horizontal'\|'vertical'`` | no | 'horizontal' |  |
 
 ## Uso (con librería)
 

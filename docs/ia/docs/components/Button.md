@@ -19,12 +19,12 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 ## API
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
-|---|---|---|---|---|
-| `label` | `string` | sí | — |  |
-| `variant` | `'primary'|'danger'` | no | 'primary' |  |
-| `appearance` | `'fill'|'soft'|'outline'|'ghost'|'on-inverse'` | no | 'fill' | on-inverse solo con primary |
-| `size` | `'xs'|'sm'|'md'|'lg'` | no | 'md' |  |
-| `isDisabled` | `boolean` | no | false |  |
+| --- | --- | --- | --- | --- |
+| `label` | ``string`` | sí | — |  |
+| `variant` | ``'primary'\|'danger'`` | no | 'primary' |  |
+| `appearance` | ``'fill'\|'soft'\|'outline'\|'ghost'\|'on-inverse'`` | no | 'fill' | on-inverse solo con primary |
+| `size` | ``'xs'\|'sm'\|'md'\|'lg'`` | no | 'md' |  |
+| `isDisabled` | ``boolean`` | no | false |  |
 
 ## Uso (con librería)
 

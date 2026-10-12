@@ -19,12 +19,12 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 ## API
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
-|---|---|---|---|---|
-| `status` | `'info'|'success'|'warning'|'danger'|'neutral'` | sí | — |  |
-| `title` | `string` | no | — |  |
-| `body` | `string` | sí | — |  |
-| `placement` | `'section'|'page'` | no | — |  |
-| `showIcon` | `boolean` | no | false |  |
+| --- | --- | --- | --- | --- |
+| `status` | ``'info'\|'success'\|'warning'\|'danger'\|'neutral'`` | sí | — |  |
+| `title` | ``string`` | no | — |  |
+| `body` | ``string`` | sí | — |  |
+| `placement` | ``'section'\|'page'`` | no | — |  |
+| `showIcon` | ``boolean`` | no | false |  |
 
 ## Uso (con librería)
 

@@ -19,10 +19,10 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 ## API
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
-|---|---|---|---|---|
-| `label` | `string` | sí | — |  |
-| `onPress` | `() => void` | no | — |  |
-| `href` | `string` | no | — |  |
+| --- | --- | --- | --- | --- |
+| `label` | ``string`` | sí | — |  |
+| `onPress` | ``() => void`` | no | — |  |
+| `href` | ``string`` | no | — |  |
 
 ## Uso (con librería)
 
