@@ -20,9 +20,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `items` | ``ITabDef[]`` | sí | — |  |
-| `value` | ``string`` | sí | — |  |
-| `onChange` | ``fn`` | sí | — |  |
+| `items` | `ITabDef[]` | sí | — |  |
+| `value` | `string` | sí | — |  |
+| `onChange` | `fn` | sí | — |  |
 
 ## Uso (con librería)
 

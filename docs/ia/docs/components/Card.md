@@ -20,9 +20,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `children` | ``ReactNode`` | sí | — |  |
-| `padding` | ``'none'\|'md'`` | no | 'md' |  |
-| `elevation` | ``string`` | no | — | raised, etc. |
+| `children` | `ReactNode` | sí | — |  |
+| `padding` | `'none'\|'md'` | no | 'md' |  |
+| `elevation` | `string` | no | — | raised, etc. |
 
 ## Uso (con librería)
 

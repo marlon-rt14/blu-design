@@ -20,8 +20,8 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `value` | ``object`` | sí | — |  |
-| `onChange` | ``fn`` | sí | — |  |
+| `value` | `object` | sí | — |  |
+| `onChange` | `fn` | sí | — |  |
 
 ## Uso (con librería)
 

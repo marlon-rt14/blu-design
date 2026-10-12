@@ -1,10 +1,10 @@
 # kit.md — fichas del design system para adjuntar
 
-Si tu IA no abre enlaces o falla al leer las fichas sueltas, **adjunta este archivo** junto al prompt. Con el kit no necesita abrir nada más.
+Si tu IA no abre enlaces o falla al leer las fichas sueltas, **adjunta este archivo** junto al prompt.
 
 Base: https://bds-nu.vercel.app/ia/
 
-En las tablas de props, los unions usan `\|` para no romper el Markdown (GFM).
+En las tablas de props, los unions escapan el pipe: `\|` (GFM).
 
 ---
 
@@ -30,14 +30,14 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `children` | ``ReactNode`` | sí | — | AccordionItem elements |
-| `appearance` | ``'default' \| 'on-scene' \| 'on-inverse'`` | no | 'default' |  |
-| `size` | ``'sm' \| 'lg'`` | no | 'sm' | sm=48, lg=56 |
-| `allowMultiple` | ``boolean`` | no | true | false cierra las demás al abrir una |
-| `expanded` | ``string[]`` | no | — | Controlado: ids abiertos |
-| `defaultExpanded` | ``string[]`` | no | [] | Inicial no controlado |
-| `onExpandedChange` | ``(ids: string[]) => void`` | no | — |  |
-| `testID` | ``string`` | no | — |  |
+| `children` | `ReactNode` | sí | — | AccordionItem elements |
+| `appearance` | `'default' \| 'on-scene' \| 'on-inverse'` | no | 'default' |  |
+| `size` | `'sm' \| 'lg'` | no | 'sm' | sm=48, lg=56 |
+| `allowMultiple` | `boolean` | no | true | false cierra las demás al abrir una |
+| `expanded` | `string[]` | no | — | Controlado: ids abiertos |
+| `defaultExpanded` | `string[]` | no | [] | Inicial no controlado |
+| `onExpandedChange` | `(ids: string[]) => void` | no | — |  |
+| `testID` | `string` | no | — |  |
 
 ## Uso (con librería)
 
@@ -255,12 +255,12 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `id` | ``string`` | sí | — |  |
-| `title` | ``string`` | sí | — |  |
-| `children` | ``ReactNode`` | sí | — | Panel |
-| `icon` | ``ReactNode`` | no | — | Glifo leading |
-| `disabled` | ``boolean`` | no | false |  |
-| `testID` | ``string`` | no | — |  |
+| `id` | `string` | sí | — |  |
+| `title` | `string` | sí | — |  |
+| `children` | `ReactNode` | sí | — | Panel |
+| `icon` | `ReactNode` | no | — | Glifo leading |
+| `disabled` | `boolean` | no | false |  |
+| `testID` | `string` | no | — |  |
 
 ## Uso (con librería)
 
@@ -315,11 +315,11 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `status` | ``'info'\|'success'\|'warning'\|'danger'\|'neutral'`` | sí | — |  |
-| `title` | ``string`` | no | — |  |
-| `body` | ``string`` | sí | — |  |
-| `placement` | ``'section'\|'page'`` | no | — |  |
-| `showIcon` | ``boolean`` | no | false |  |
+| `status` | `'info'\|'success'\|'warning'\|'danger'\|'neutral'` | sí | — |  |
+| `title` | `string` | no | — |  |
+| `body` | `string` | sí | — |  |
+| `placement` | `'section'\|'page'` | no | — |  |
+| `showIcon` | `boolean` | no | false |  |
 
 ## Uso (con librería)
 
@@ -384,9 +384,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `size` | ``'xs'\|'sm'\|'md'\|'lg'`` | no | 'md' |  |
-| `name` | ``string`` | no | — | Iniciales |
-| `src` | ``string`` | no | — | Foto |
+| `size` | `'xs'\|'sm'\|'md'\|'lg'` | no | 'md' |  |
+| `name` | `string` | no | — | Iniciales |
+| `src` | `string` | no | — | Foto |
 
 ## Uso (con librería)
 
@@ -447,7 +447,7 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `children` | ``ReactNode`` | sí | — | Avatars |
+| `children` | `ReactNode` | sí | — | Avatars |
 
 ## Uso (con librería)
 
@@ -515,7 +515,7 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `status` | ``string`` | sí | — |  |
+| `status` | `string` | sí | — |  |
 
 ## Uso (con librería)
 
@@ -572,8 +572,8 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `count` | ``number`` | no | — |  |
-| `status` | ``string`` | no | 'neutral' |  |
+| `count` | `number` | no | — |  |
+| `status` | `string` | no | 'neutral' |  |
 
 ## Uso (con librería)
 
@@ -632,11 +632,11 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `label` | ``string`` | sí | — |  |
-| `variant` | ``'primary'\|'danger'`` | no | 'primary' |  |
-| `appearance` | ``'fill'\|'soft'\|'outline'\|'ghost'\|'on-inverse'`` | no | 'fill' | on-inverse solo con primary |
-| `size` | ``'xs'\|'sm'\|'md'\|'lg'`` | no | 'md' |  |
-| `isDisabled` | ``boolean`` | no | false |  |
+| `label` | `string` | sí | — |  |
+| `variant` | `'primary'\|'danger'` | no | 'primary' |  |
+| `appearance` | `'fill'\|'soft'\|'outline'\|'ghost'\|'on-inverse'` | no | 'fill' | on-inverse solo con primary |
+| `size` | `'xs'\|'sm'\|'md'\|'lg'` | no | 'md' |  |
+| `isDisabled` | `boolean` | no | false |  |
 
 ## Uso (con librería)
 
@@ -732,9 +732,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `children` | ``ReactNode`` | sí | — | Buttons |
-| `distribution` | ``'hug'\|'fill'`` | no | — |  |
-| `orientation` | ``'horizontal'\|'vertical'`` | no | 'horizontal' |  |
+| `children` | `ReactNode` | sí | — | Buttons |
+| `distribution` | `'hug'\|'fill'` | no | — |  |
+| `orientation` | `'horizontal'\|'vertical'` | no | 'horizontal' |  |
 
 ## Uso (con librería)
 
@@ -791,9 +791,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `title` | ``string`` | no | — |  |
-| `body` | ``string`` | sí | — |  |
-| `tone` | ``string`` | no | — |  |
+| `title` | `string` | no | — |  |
+| `body` | `string` | sí | — |  |
+| `tone` | `string` | no | — |  |
 
 ## Uso (con librería)
 
@@ -853,9 +853,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `children` | ``ReactNode`` | sí | — |  |
-| `padding` | ``'none'\|'md'`` | no | 'md' |  |
-| `elevation` | ``string`` | no | — | raised, etc. |
+| `children` | `ReactNode` | sí | — |  |
+| `padding` | `'none'\|'md'` | no | 'md' |  |
+| `elevation` | `string` | no | — | raised, etc. |
 
 ## Uso (con librería)
 
@@ -911,8 +911,8 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `value` | ``object`` | sí | — |  |
-| `onChange` | ``fn`` | sí | — |  |
+| `value` | `object` | sí | — |  |
+| `onChange` | `fn` | sí | — |  |
 
 ## Uso (con librería)
 
@@ -971,9 +971,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `checked` | ``boolean`` | sí | — |  |
-| `label` | ``string`` | sí | — |  |
-| `disabled` | ``boolean`` | no | false |  |
+| `checked` | `boolean` | sí | — |  |
+| `label` | `string` | sí | — |  |
+| `disabled` | `boolean` | no | false |  |
 
 ## Uso (con librería)
 
@@ -1031,8 +1031,8 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `label` | ``string`` | sí | — |  |
-| `children` | ``ReactNode`` | sí | — |  |
+| `label` | `string` | sí | — |  |
+| `children` | `ReactNode` | sí | — |  |
 
 ## Uso (con librería)
 
@@ -1092,8 +1092,8 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `label` | ``string`` | sí | — |  |
-| `selected` | ``boolean`` | no | false |  |
+| `label` | `string` | sí | — |  |
+| `selected` | `boolean` | no | false |  |
 
 ## Uso (con librería)
 
@@ -1150,9 +1150,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `selected` | ``boolean`` | sí | — |  |
-| `title` | ``string`` | sí | — |  |
-| `description` | ``string`` | no | — |  |
+| `selected` | `boolean` | sí | — |  |
+| `title` | `string` | sí | — |  |
+| `description` | `string` | no | — |  |
 
 ## Uso (con librería)
 
@@ -1212,9 +1212,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `title` | ``string`` | sí | — |  |
-| `description` | ``string`` | no | — |  |
-| `selected` | ``boolean`` | sí | — |  |
+| `title` | `string` | sí | — |  |
+| `description` | `string` | no | — |  |
+| `selected` | `boolean` | sí | — |  |
 
 ## Uso (con librería)
 
@@ -1274,8 +1274,8 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `title` | ``string`` | sí | — |  |
-| `body` | ``string`` | sí | — |  |
+| `title` | `string` | sí | — |  |
+| `body` | `string` | sí | — |  |
 
 ## Uso (con librería)
 
@@ -1335,8 +1335,8 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `strength` | ``'subtle'\|'default'\|'strong'`` | no | 'default' |  |
-| `orientation` | ``'horizontal'\|'vertical'`` | no | 'horizontal' |  |
+| `strength` | `'subtle'\|'default'\|'strong'` | no | 'default' |  |
+| `orientation` | `'horizontal'\|'vertical'` | no | 'horizontal' |  |
 
 ## Uso (con librería)
 
@@ -1390,9 +1390,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `title` | ``string`` | sí | — |  |
-| `body` | ``string`` | no | — |  |
-| `action` | ``ReactNode`` | no | — | Button |
+| `title` | `string` | sí | — |  |
+| `body` | `string` | no | — |  |
+| `action` | `ReactNode` | no | — | Button |
 
 ## Uso (con librería)
 
@@ -1457,8 +1457,8 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `size` | ``'2xs'\|'xs'\|'sm'\|'md'\|'lg'\|'xl'`` | sí | — | nunca number |
-| `children` | ``ReactNode`` | sí | — | paths |
+| `size` | `'2xs'\|'xs'\|'sm'\|'md'\|'lg'\|'xl'` | sí | — | nunca number |
+| `children` | `ReactNode` | sí | — | paths |
 
 ## Uso (con librería)
 
@@ -1517,10 +1517,10 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `icon` | ``ReactNode`` | sí | — |  |
-| `label` | ``string`` | sí | — | accessible name |
-| `appearance` | ``'brand'\|'neutral'\|'ghost'\|'veil'\|'on-scene'\|'on-media'\|'on-inverse'`` | no | — |  |
-| `onPress` | ``() => void`` | sí | — |  |
+| `icon` | `ReactNode` | sí | — |  |
+| `label` | `string` | sí | — | accessible name |
+| `appearance` | `'brand'\|'neutral'\|'ghost'\|'veil'\|'on-scene'\|'on-media'\|'on-inverse'` | no | — |  |
+| `onPress` | `() => void` | sí | — |  |
 
 ## Uso (con librería)
 
@@ -1579,9 +1579,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `src` | ``string`` | sí | — |  |
-| `alt` | ``string`` | sí | — |  |
-| `aspectRatio` | ``string`` | no | — |  |
+| `src` | `string` | sí | — |  |
+| `alt` | `string` | sí | — |  |
+| `aspectRatio` | `string` | no | — |  |
 
 ## Uso (con librería)
 
@@ -1635,9 +1635,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `label` | ``string`` | sí | — |  |
-| `onPress` | ``() => void`` | no | — |  |
-| `href` | ``string`` | no | — |  |
+| `label` | `string` | sí | — |  |
+| `onPress` | `() => void` | no | — |  |
+| `href` | `string` | no | — |  |
 
 ## Uso (con librería)
 
@@ -1694,7 +1694,7 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `children` | ``ReactNode`` | sí | — |  |
+| `children` | `ReactNode` | sí | — |  |
 
 ## Uso (con librería)
 
@@ -1750,9 +1750,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `title` | ``string`` | sí | — |  |
-| `description` | ``string`` | no | — |  |
-| `divider` | ``boolean`` | no | false | último de grupo |
+| `title` | `string` | sí | — |  |
+| `description` | `string` | no | — |  |
+| `divider` | `boolean` | no | false | último de grupo |
 
 ## Uso (con librería)
 
@@ -1810,7 +1810,7 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `children` | ``ReactNode`` | sí | — |  |
+| `children` | `ReactNode` | sí | — |  |
 
 ## Uso (con librería)
 
@@ -1871,9 +1871,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `length` | ``number`` | no | 6 |  |
-| `value` | ``string`` | sí | — |  |
-| `onChangeText` | ``(v: string) => void`` | sí | — |  |
+| `length` | `number` | no | 6 |  |
+| `value` | `string` | sí | — |  |
+| `onChangeText` | `(v: string) => void` | sí | — |  |
 
 ## Uso (con librería)
 
@@ -1935,10 +1935,10 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `label` | ``string`` | sí | — |  |
-| `value` | ``string`` | sí | — |  |
-| `onChangeText` | ``(v: string) => void`` | sí | — |  |
-| `error` | ``string`` | no | — | mensaje = estado |
+| `label` | `string` | sí | — |  |
+| `value` | `string` | sí | — |  |
+| `onChangeText` | `(v: string) => void` | sí | — |  |
+| `error` | `string` | no | — | mensaje = estado |
 
 ## Uso (con librería)
 
@@ -1997,9 +1997,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `label` | ``string`` | sí | — |  |
-| `value` | ``string`` | sí | — |  |
-| `onChangeText` | ``(v: string) => void`` | sí | — |  |
+| `label` | `string` | sí | — |  |
+| `value` | `string` | sí | — |  |
+| `onChangeText` | `(v: string) => void` | sí | — |  |
 
 ## Uso (con librería)
 
@@ -2057,7 +2057,7 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `children` | ``ReactNode`` | sí | — |  |
+| `children` | `ReactNode` | sí | — |  |
 
 ## Uso (con librería)
 
@@ -2113,8 +2113,8 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `value` | ``number`` | sí | — | 0–1 o 0–100 según API |
-| `showHeader` | ``boolean`` | no | — |  |
+| `value` | `number` | sí | — | 0–1 o 0–100 según API |
+| `showHeader` | `boolean` | no | — |  |
 
 ## Uso (con librería)
 
@@ -2174,9 +2174,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `steps` | ``IProgressStepDef[]`` | sí | — | desde @dsm/shared |
-| `purpose` | ``string`` | sí | — | ej. 'wizard' |
-| `orientation` | ``'horizontal'\|'vertical'`` | no | — |  |
+| `steps` | `IProgressStepDef[]` | sí | — | desde @dsm/shared |
+| `purpose` | `string` | sí | — | ej. 'wizard' |
+| `orientation` | `'horizontal'\|'vertical'` | no | — |  |
 
 ## Uso (con librería)
 
@@ -2248,9 +2248,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `checked` | ``boolean`` | sí | — |  |
-| `label` | ``string`` | sí | — |  |
-| `value` | ``string`` | sí | — |  |
+| `checked` | `boolean` | sí | — |  |
+| `label` | `string` | sí | — |  |
+| `value` | `string` | sí | — |  |
 
 ## Uso (con librería)
 
@@ -2308,8 +2308,8 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `label` | ``string`` | sí | — |  |
-| `children` | ``ReactNode`` | sí | — |  |
+| `label` | `string` | sí | — |  |
+| `children` | `ReactNode` | sí | — |  |
 
 ## Uso (con librería)
 
@@ -2370,9 +2370,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `value` | ``string`` | sí | — |  |
-| `onChangeText` | ``(v: string) => void`` | sí | — |  |
-| `placeholder` | ``string`` | no | — |  |
+| `value` | `string` | sí | — |  |
+| `onChangeText` | `(v: string) => void` | sí | — |  |
+| `placeholder` | `string` | no | — |  |
 
 ## Uso (con librería)
 
@@ -2435,10 +2435,10 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `label` | ``string`` | sí | — |  |
-| `value` | ``string`` | no | — |  |
-| `options` | ``{value,label}[]`` | sí | — |  |
-| `onChange` | ``fn`` | sí | — |  |
+| `label` | `string` | sí | — |  |
+| `value` | `string` | no | — |  |
+| `options` | `{value,label}[]` | sí | — |  |
+| `onChange` | `fn` | sí | — |  |
 
 ## Uso (con librería)
 
@@ -2505,7 +2505,7 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `variant` | ``string`` | no | — |  |
+| `variant` | `string` | no | — |  |
 
 ## Uso (con librería)
 
@@ -2559,11 +2559,11 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `message` | ``string`` | sí | — |  |
-| `status` | ``'info'\|'success'\|'warning'\|'danger'`` | no | 'info' |  |
-| `action` | ``{label,onPress}`` | no | — | XOR con onDismiss |
-| `onDismiss` | ``() => void`` | no | — |  |
-| `duration` | ``number`` | no | 6000 | 10000 |
+| `message` | `string` | sí | — |  |
+| `status` | `'info'\|'success'\|'warning'\|'danger'` | no | 'info' |  |
+| `action` | `{label,onPress}` | no | — | XOR con onDismiss |
+| `onDismiss` | `() => void` | no | — |  |
+| `duration` | `number` | no | 6000 | 10000 |
 
 ## Uso (con librería)
 
@@ -2628,8 +2628,8 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `items` | ``ISnackbarStackItem[]`` | sí | — |  |
-| `onDismiss` | ``(id) => void`` | sí | — |  |
+| `items` | `ISnackbarStackItem[]` | sí | — |  |
+| `onDismiss` | `(id) => void` | sí | — |  |
 
 ## Uso (con librería)
 
@@ -2689,7 +2689,7 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `appearance` | ``string`` | no | — | brand |
+| `appearance` | `string` | no | — | brand |
 
 ## Uso (con librería)
 
@@ -2745,7 +2745,7 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `status` | ``string`` | sí | — |  |
+| `status` | `string` | sí | — |  |
 
 ## Uso (con librería)
 
@@ -2795,7 +2795,7 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `status` | ``string`` | sí | — |  |
+| `status` | `string` | sí | — |  |
 
 ## Uso (con librería)
 
@@ -2844,9 +2844,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `checked` | ``boolean`` | sí | — |  |
-| `onChange` | ``(v: boolean) => void`` | sí | — |  |
-| `disabled` | ``boolean`` | no | false |  |
+| `checked` | `boolean` | sí | — |  |
+| `onChange` | `(v: boolean) => void` | sí | — |  |
+| `disabled` | `boolean` | no | false |  |
 
 ## Uso (con librería)
 
@@ -2904,9 +2904,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `title` | ``string`` | sí | — |  |
-| `checked` | ``boolean`` | sí | — |  |
-| `onChange` | ``fn`` | sí | — |  |
+| `title` | `string` | sí | — |  |
+| `checked` | `boolean` | sí | — |  |
+| `onChange` | `fn` | sí | — |  |
 
 ## Uso (con librería)
 
@@ -2966,9 +2966,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `items` | ``ITabDef[]`` | sí | — |  |
-| `value` | ``string`` | sí | — |  |
-| `onChange` | ``fn`` | sí | — |  |
+| `items` | `ITabDef[]` | sí | — |  |
+| `value` | `string` | sí | — |  |
+| `onChange` | `fn` | sí | — |  |
 
 ## Uso (con librería)
 
@@ -3039,7 +3039,7 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `label` | ``string`` | sí | — |  |
+| `label` | `string` | sí | — |  |
 
 ## Uso (con librería)
 
@@ -3092,7 +3092,7 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `children` | ``ReactNode`` | sí | — |  |
+| `children` | `ReactNode` | sí | — |  |
 
 ## Uso (con librería)
 
@@ -3148,10 +3148,10 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `label` | ``string`` | sí | — |  |
-| `value` | ``string`` | sí | — |  |
-| `onChangeText` | ``(v: string) => void`` | sí | — |  |
-| `error` | ``string`` | no | — |  |
+| `label` | `string` | sí | — |  |
+| `value` | `string` | sí | — |  |
+| `onChangeText` | `(v: string) => void` | sí | — |  |
+| `error` | `string` | no | — |  |
 
 ## Uso (con librería)
 
@@ -3210,12 +3210,12 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `label` | ``string`` | sí | — |  |
-| `value` | ``string`` | sí | — |  |
-| `onChangeText` | ``(v: string) => void`` | sí | — |  |
-| `error` | ``string`` | no | — | sin isInvalid |
-| `disabled` | ``boolean`` | no | false |  |
-| `readOnly` | ``boolean`` | no | false |  |
+| `label` | `string` | sí | — |  |
+| `value` | `string` | sí | — |  |
+| `onChangeText` | `(v: string) => void` | sí | — |  |
+| `error` | `string` | no | — | sin isInvalid |
+| `disabled` | `boolean` | no | false |  |
+| `readOnly` | `boolean` | no | false |  |
 
 ## Uso (con librería)
 
@@ -3274,9 +3274,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `body` | ``string`` | sí | — |  |
-| `title` | ``string`` | no | — |  |
-| `placement` | ``string`` | no | — |  |
+| `body` | `string` | sí | — |  |
+| `title` | `string` | no | — |  |
+| `placement` | `string` | no | — |  |
 
 ## Uso (con librería)
 

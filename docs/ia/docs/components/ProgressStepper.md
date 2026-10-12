@@ -20,9 +20,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `steps` | ``IProgressStepDef[]`` | sí | — | desde @dsm/shared |
-| `purpose` | ``string`` | sí | — | ej. 'wizard' |
-| `orientation` | ``'horizontal'\|'vertical'`` | no | — |  |
+| `steps` | `IProgressStepDef[]` | sí | — | desde @dsm/shared |
+| `purpose` | `string` | sí | — | ej. 'wizard' |
+| `orientation` | `'horizontal'\|'vertical'` | no | — |  |
 
 ## Uso (con librería)
 

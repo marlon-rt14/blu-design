@@ -20,10 +20,10 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `label` | ``string`` | sí | — |  |
-| `value` | ``string`` | no | — |  |
-| `options` | ``{value,label}[]`` | sí | — |  |
-| `onChange` | ``fn`` | sí | — |  |
+| `label` | `string` | sí | — |  |
+| `value` | `string` | no | — |  |
+| `options` | `{value,label}[]` | sí | — |  |
+| `onChange` | `fn` | sí | — |  |
 
 ## Uso (con librería)
 

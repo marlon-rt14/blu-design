@@ -20,8 +20,8 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `value` | ``number`` | sí | — | 0–1 o 0–100 según API |
-| `showHeader` | ``boolean`` | no | — |  |
+| `value` | `number` | sí | — | 0–1 o 0–100 según API |
+| `showHeader` | `boolean` | no | — |  |
 
 ## Uso (con librería)
 

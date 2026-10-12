@@ -20,9 +20,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `children` | ``ReactNode`` | sí | — | Buttons |
-| `distribution` | ``'hug'\|'fill'`` | no | — |  |
-| `orientation` | ``'horizontal'\|'vertical'`` | no | 'horizontal' |  |
+| `children` | `ReactNode` | sí | — | Buttons |
+| `distribution` | `'hug'\|'fill'` | no | — |  |
+| `orientation` | `'horizontal'\|'vertical'` | no | 'horizontal' |  |
 
 ## Uso (con librería)
 

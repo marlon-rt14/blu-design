@@ -20,8 +20,8 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `items` | ``ISnackbarStackItem[]`` | sí | — |  |
-| `onDismiss` | ``(id) => void`` | sí | — |  |
+| `items` | `ISnackbarStackItem[]` | sí | — |  |
+| `onDismiss` | `(id) => void` | sí | — |  |
 
 ## Uso (con librería)
 

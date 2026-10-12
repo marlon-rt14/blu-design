@@ -20,11 +20,11 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `message` | ``string`` | sí | — |  |
-| `status` | ``'info'\|'success'\|'warning'\|'danger'`` | no | 'info' |  |
-| `action` | ``{label,onPress}`` | no | — | XOR con onDismiss |
-| `onDismiss` | ``() => void`` | no | — |  |
-| `duration` | ``number`` | no | 6000 | 10000 |
+| `message` | `string` | sí | — |  |
+| `status` | `'info'\|'success'\|'warning'\|'danger'` | no | 'info' |  |
+| `action` | `{label,onPress}` | no | — | XOR con onDismiss |
+| `onDismiss` | `() => void` | no | — |  |
+| `duration` | `number` | no | 6000 | 10000 |
 
 ## Uso (con librería)
 

@@ -20,12 +20,12 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `id` | ``string`` | sí | — |  |
-| `title` | ``string`` | sí | — |  |
-| `children` | ``ReactNode`` | sí | — | Panel |
-| `icon` | ``ReactNode`` | no | — | Glifo leading |
-| `disabled` | ``boolean`` | no | false |  |
-| `testID` | ``string`` | no | — |  |
+| `id` | `string` | sí | — |  |
+| `title` | `string` | sí | — |  |
+| `children` | `ReactNode` | sí | — | Panel |
+| `icon` | `ReactNode` | no | — | Glifo leading |
+| `disabled` | `boolean` | no | false |  |
+| `testID` | `string` | no | — |  |
 
 ## Uso (con librería)
 

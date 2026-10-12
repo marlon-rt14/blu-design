@@ -20,10 +20,10 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `icon` | ``ReactNode`` | sí | — |  |
-| `label` | ``string`` | sí | — | accessible name |
-| `appearance` | ``'brand'\|'neutral'\|'ghost'\|'veil'\|'on-scene'\|'on-media'\|'on-inverse'`` | no | — |  |
-| `onPress` | ``() => void`` | sí | — |  |
+| `icon` | `ReactNode` | sí | — |  |
+| `label` | `string` | sí | — | accessible name |
+| `appearance` | `'brand'\|'neutral'\|'ghost'\|'veil'\|'on-scene'\|'on-media'\|'on-inverse'` | no | — |  |
+| `onPress` | `() => void` | sí | — |  |
 
 ## Uso (con librería)
 

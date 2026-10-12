@@ -20,9 +20,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `selected` | ``boolean`` | sí | — |  |
-| `title` | ``string`` | sí | — |  |
-| `description` | ``string`` | no | — |  |
+| `selected` | `boolean` | sí | — |  |
+| `title` | `string` | sí | — |  |
+| `description` | `string` | no | — |  |
 
 ## Uso (con librería)
 

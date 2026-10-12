@@ -20,14 +20,14 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `children` | ``ReactNode`` | sí | — | AccordionItem elements |
-| `appearance` | ``'default' \| 'on-scene' \| 'on-inverse'`` | no | 'default' |  |
-| `size` | ``'sm' \| 'lg'`` | no | 'sm' | sm=48, lg=56 |
-| `allowMultiple` | ``boolean`` | no | true | false cierra las demás al abrir una |
-| `expanded` | ``string[]`` | no | — | Controlado: ids abiertos |
-| `defaultExpanded` | ``string[]`` | no | [] | Inicial no controlado |
-| `onExpandedChange` | ``(ids: string[]) => void`` | no | — |  |
-| `testID` | ``string`` | no | — |  |
+| `children` | `ReactNode` | sí | — | AccordionItem elements |
+| `appearance` | `'default' \| 'on-scene' \| 'on-inverse'` | no | 'default' |  |
+| `size` | `'sm' \| 'lg'` | no | 'sm' | sm=48, lg=56 |
+| `allowMultiple` | `boolean` | no | true | false cierra las demás al abrir una |
+| `expanded` | `string[]` | no | — | Controlado: ids abiertos |
+| `defaultExpanded` | `string[]` | no | [] | Inicial no controlado |
+| `onExpandedChange` | `(ids: string[]) => void` | no | — |  |
+| `testID` | `string` | no | — |  |
 
 ## Uso (con librería)
 

@@ -20,9 +20,9 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `label` | ``string`` | sí | — |  |
-| `value` | ``string`` | sí | — |  |
-| `onChangeText` | ``(v: string) => void`` | sí | — |  |
+| `label` | `string` | sí | — |  |
+| `value` | `string` | sí | — |  |
+| `onChangeText` | `(v: string) => void` | sí | — |  |
 
 ## Uso (con librería)
 

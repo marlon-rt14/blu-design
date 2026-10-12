@@ -20,8 +20,8 @@ Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que c
 
 | Prop | Tipo | Requerida | Por defecto | Nota |
 | --- | --- | --- | --- | --- |
-| `title` | ``string`` | sí | — |  |
-| `body` | ``string`` | sí | — |  |
+| `title` | `string` | sí | — |  |
+| `body` | `string` | sí | — |  |
 
 ## Uso (con librería)
 
