@@ -1,0 +1,50 @@
+# TagGroup
+
+Grupo de Tags.
+
+Ciclo de vida: **beta** (monorepo `@dsm/web` / `@dsm/mobile`).
+
+## Cuándo usarlo
+
+Varias etiquetas en fila.
+
+## Cuándo no
+
+Un Tag: Tag.
+
+## Alternativas
+
+Ver `llms.txt` y las fichas hermanas. Preferí el componente más pequeño que cierre la tarea.
+
+## API
+
+| Prop | Tipo | Requerida | Por defecto | Nota |
+|---|---|---|---|---|
+| `children` | `ReactNode` | sí | — |  |
+
+## Uso (con librería)
+
+Prueba `@dsm/ui`. Si no resuelve, `@dsm/web`. Envuelve en `BluProvider`.
+
+```tsx
+import { Tag, TagGroup } from '@dsm/ui';
+
+<TagGroup>
+  <Tag label="Dólares" />
+  <Tag label="Activa" />
+</TagGroup>
+```
+
+## Sin librería
+
+Si no puedes instalar `@dsm/ui` ni `@dsm/web`, copia este JSX. No lo bajes a HTML. No inventes colores fuera de los comentados.
+
+```tsx
+export function TagGroupStandalone({ children }: { children: React.ReactNode }) {
+  return <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>{children}</div>;
+}
+```
+
+---
+
+Fuente de verdad del contrato: `packages/shared/src/types/`. Tokens: `packages/shared/src/tokens/tagGroup.tokens.ts` (si existe). Edita esta ficha en el mismo cambio que la API o los tokens que muestra.

@@ -85,6 +85,10 @@ Copy this checklist and work through it in order:
        public component, a prop a caller passes, a composition that replaces "there is no X", or
        an import path. Skip it for tokens, folder shape, timer math, and story renames — those
        stay in "Known gotchas" and the rest of `CLAUDE.md`.
+- [ ] 9. Agent catalog (`docs/ia/`): if the public API or the tokens a ficha shows changed, update
+       `docs/ia/docs/components/<Name>.md` in the same change (usage JSX + Sin librería JSX),
+       refresh the one-liner in `docs/ia/llms.txt`, and rebuild `docs/ia/kit.md` (concatenate the
+       fichas). New public component → new ficha before merge. Storybook serves the folder at `/ia/`.
 ```
 
 `TextField` and `TextArea` (`packages/{web,mobile}/src/components/atoms/{TextField,TextArea}/`) are

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>bDS para IA</title>
+  <style>
+    :root { color-scheme: light; font-family: Mulish, system-ui, sans-serif; }
+    body { margin: 0; padding: 24px; max-width: 720px; line-height: 1.5; color: #232b3d; }
+    a { color: #174183; }
+    pre { background: #f1f3f8; padding: 16px; overflow: auto; border-radius: 12px; font-size: 13px; }
+    button { font: inherit; padding: 8px 16px; border-radius: 999px; border: 1px solid #2760aa; background: #364481; color: #fff; cursor: pointer; }
+    .muted { color: #5f6677; }
+  </style>
+</head>
+<body>
+  <p class="muted"><a href="../">‹ Storybook</a></p>
+  <h1>bDS para IA</h1>
+  <p>Para armar una pantalla con el design system: copia el prompt, cambia lo que está entre <code>[corchetes]</code> y <strong>pégalo</strong> en el chat. No mandes solo el enlace.</p>
+
+  <h2>1. El prompt</h2>
+  <p><button type="button" id="copy">Copiar prompt</button></p>
+  <pre id="prompt"></pre>
+
+  <h2>2. Si tu IA no abre enlaces</h2>
+  <p>Descarga <a href="./kit.md">kit.md</a> y adjúntalo junto al prompt.</p>
+
+  <h2>Archivos</h2>
+  <ul>
+    <li><a href="./PROMPT.md">PROMPT.md</a></li>
+    <li><a href="./kit.md">kit.md</a></li>
+    <li><a href="./llms.txt">llms.txt</a></li>
+    <li><a href="./docs/components/Accordion.md">docs/components/*.md</a> — una ficha por componente</li>
+  </ul>
+
+  <script type="module">
+    const res = await fetch('./PROMPT.md');
+    const text = await res.text();
+    document.getElementById('prompt').textContent = text;
+    document.getElementById('copy').onclick = async () => {
+      await navigator.clipboard.writeText(text);
+      document.getElementById('copy').textContent = 'Copiado';
+    };
+  </script>
+</body>
+</html>

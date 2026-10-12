@@ -10,6 +10,17 @@ Components live in `packages/` and are consumed by the demo apps in `apps/`.
 - **`@dsm/web`** — the React implementation, styled with plain CSS.
 - **`@dsm/mobile`** — the React Native implementation, styled with `StyleSheet`.
 
+## Catálogo para agentes (`/ia/`)
+
+Texto plano para armar pantallas desde un chat (prompt, `llms.txt`, ficha por
+componente con JSX de uso y JSX sin librería, `kit.md`):
+
+- En local: [http://localhost:6006/ia/index.html](/ia/index.html)
+- En el build estático: `…/ia/index.html`
+
+Si cambia la API o los tokens que una ficha muestra, edita
+`docs/ia/docs/components/<Name>.md` en el mismo cambio.
+
 ## Switching platform
 
 Every story renders **both** implementations. Use the **Platform** dropdown in the

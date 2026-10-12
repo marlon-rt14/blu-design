@@ -16,6 +16,9 @@ const config: StorybookConfig = {
   stories: ['../src/stories/**/*.mdx', '../src/stories/**/*.stories.@(ts|tsx)'],
   addons: [getAbsolutePath('@storybook/addon-docs')],
   framework: getAbsolutePath('@storybook/react-vite'),
+  // Plain-text agent catalog (PROMPT, llms.txt, component fichas, kit.md).
+  // Served at http://localhost:6006/ia/ and under the static Storybook build.
+  staticDirs: [{ from: '../../../docs/ia', to: '/ia' }],
   features: {
     // Left on (this is the default), and stated explicitly so the behaviour is
     // discoverable: this is what puts a `+` badge next to a component in the

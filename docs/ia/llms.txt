@@ -1,0 +1,60 @@
+# blu Design System · catálogo para agentes
+
+> Componentes de `@dsm/ui` (si existe) o `@dsm/web` / `@dsm/mobile` + contrato en `@dsm/shared`.
+> Storybook sirve este árbol en `/ia/`. Prompt: [PROMPT.md](PROMPT.md). Kit: [kit.md](kit.md).
+
+Reglas: no hardcodees colores ni medidas fuera de las fichas; prueba `@dsm/ui` y si no resuelve `@dsm/web`; si no hay librería, copia el JSX **Sin librería** de la ficha (no HTML). Textos en español con tuteo. Montos en US$.
+
+## Componentes
+
+- [Accordion](docs/components/Accordion.md): Grupo vertical de 2 o más AccordionItem separados por divider. Cada item se expande y colapsa de forma independiente.
+- [AccordionItem](docs/components/AccordionItem.md): Sección que se expande o colapsa. Usar siempre dentro de un Accordion con 2 o más items.
+- [Alert](docs/components/Alert.md): Aviso no modal en el flujo del documento. Empuja contenido; no se va solo.
+- [Avatar](docs/components/Avatar.md): Identidad de una persona: foto, iniciales o icono.
+- [AvatarGroup](docs/components/AvatarGroup.md): Varias personas en una sola línea con overlap.
+- [AvatarIndicator](docs/components/AvatarIndicator.md): Punto de estado en la esquina del Avatar.
+- [Badge](docs/components/Badge.md): Contador o punto de aviso.
+- [Button](docs/components/Button.md): La acción. Confirmar, cancelar, continuar, borrar.
+- [ButtonGroup](docs/components/ButtonGroup.md): Contenedor de 2 o 3 acciones: dirección, gap y reparto de ancho.
+- [Callout](docs/components/Callout.md): Mensaje proactivo opcional: tip o oportunidad, sin severidad.
+- [Card](docs/components/Card.md): Superficie que sostiene contenido: fondo, radio, elevación.
+- [CardField](docs/components/CardField.md): Campo de tarjeta: número, vencimiento y CVV.
+- [Checkbox](docs/components/Checkbox.md): Casilla de selección múltiple.
+- [CheckboxGroup](docs/components/CheckboxGroup.md): Fieldset de checkboxes: pregunta, filas, ayuda o error.
+- [Chip](docs/components/Chip.md): Filtro que se prende y se apaga.
+- [ChoiceBox](docs/components/ChoiceBox.md): Selector de caja: la opción entera es el control.
+- [ChoiceItem](docs/components/ChoiceItem.md): Opción como fila entera tocable, con descripción o monto.
+- [Coachmark](docs/components/Coachmark.md): Guía contextual anclada (tourtip).
+- [Divider](docs/components/Divider.md): Línea que separa dos bloques sin encerrarlos.
+- [EmptyState](docs/components/EmptyState.md): Pantalla o bloque sin contenido: por qué y el siguiente paso.
+- [Icon](docs/components/Icon.md): Contenedor de todo glifo: tamaño y color del sistema.
+- [IconButton](docs/components/IconButton.md): Acción sin etiqueta visible, solo icono. label es el nombre accesible.
+- [Image](docs/components/Image.md): Imagen con proporción reservada para que no salte el layout.
+- [LinkButton](docs/components/LinkButton.md): Enlace que actúa (onPress) o navega (href).
+- [ListGroup](docs/components/ListGroup.md): Tarjeta que agrupa filas ListItem.
+- [ListItem](docs/components/ListItem.md): Fila de lista: la pieza más repetida.
+- [Menu](docs/components/Menu.md): Menú flotante de acciones u opciones.
+- [OTPField](docs/components/OTPField.md): Campo de código de un solo uso, celdas separadas.
+- [PasswordField](docs/components/PasswordField.md): Campo de clave con mostrar/ocultar.
+- [PhoneField](docs/components/PhoneField.md): Campo de teléfono con selector de país.
+- [Popover](docs/components/Popover.md): Superficie anclada sin punta (el Popover no tiene tip).
+- [ProgressBar](docs/components/ProgressBar.md): Barra de progreso lineal.
+- [ProgressStepper](docs/components/ProgressStepper.md): Riel de pasos de un wizard.
+- [Radio](docs/components/Radio.md): Opción exclusiva de un grupo.
+- [RadioGroup](docs/components/RadioGroup.md): Grupo de radios con label y error.
+- [SearchField](docs/components/SearchField.md): Campo de búsqueda.
+- [Select](docs/components/Select.md): Lista cerrada de una opción (trigger + menú).
+- [Skeleton](docs/components/Skeleton.md): Placeholder de carga con shimmer.
+- [Snackbar](docs/components/Snackbar.md): Toast efímero sobre la UI. Se va solo.
+- [SnackbarStack](docs/components/SnackbarStack.md): Pila de hasta 3 Snackbar: colapsada o expandida.
+- [Spinner](docs/components/Spinner.md): Indicador de carga indeterminado.
+- [Step](docs/components/Step.md): Nodo interno de ProgressStepper. No es API de pantalla.
+- [StepConnector](docs/components/StepConnector.md): Conector interno del ProgressStepper.
+- [Switch](docs/components/Switch.md): Interruptor on/off.
+- [SwitchItem](docs/components/SwitchItem.md): Fila con label + Switch.
+- [Tabs](docs/components/Tabs.md): Secciones que se ven de a una, elegidas tocando.
+- [Tag](docs/components/Tag.md): Etiqueta no tocable.
+- [TagGroup](docs/components/TagGroup.md): Grupo de Tags.
+- [TextArea](docs/components/TextArea.md): Texto multilínea con label flotante.
+- [TextField](docs/components/TextField.md): Campo de texto de una línea. error="mensaje" es el estado inválido.
+- [Tooltip](docs/components/Tooltip.md): Ayuda breve al hover/foco, con tip.
